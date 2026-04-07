@@ -16,8 +16,60 @@ function shuffle(arr) {
 }
 
 function shuffleOptions(q) {
+  if (!q.options || q.options.length === 0) return q
   const opts = shuffle(q.options)
   return { ...q, options: opts }
+}
+
+// ── 开放性题目组件（阅读理解，自报对错）──────────────────────────
+function OpenEndedCard({ question, onCorrect, onWrong }) {
+  const [revealed, setRevealed] = useState(false)
+  return (
+    <div className="flex flex-col gap-3">
+      <div className="bg-white rounded-2xl p-4 border border-gray-100">
+        <div className="flex gap-2 mb-2">
+          <span className="bg-emerald-100 text-emerald-700 text-xs px-2 py-0.5 rounded-full">{question.ability_tag}</span>
+        </div>
+        <p className="text-base font-medium text-gray-800 leading-relaxed whitespace-pre-wrap">{question.question}</p>
+      </div>
+
+      {!revealed ? (
+        <button
+          onClick={() => setRevealed(true)}
+          className="w-full bg-emerald-500 text-white font-semibold py-4 rounded-2xl text-base"
+        >
+          查看参考答案
+        </button>
+      ) : (
+        <>
+          <div className="bg-emerald-50 border border-emerald-200 rounded-2xl p-4">
+            <p className="text-xs font-semibold text-emerald-700 mb-1">✓ 参考答案</p>
+            <p className="text-sm text-emerald-900 leading-relaxed">{question.answer}</p>
+          </div>
+          {question.analysis && (
+            <div className="bg-amber-50 border border-amber-200 rounded-2xl p-4">
+              <p className="text-xs font-semibold text-amber-700 mb-1">💡 解题思路</p>
+              <p className="text-sm text-amber-900 leading-relaxed">{question.analysis}</p>
+            </div>
+          )}
+          <div className="flex gap-3">
+            <button
+              onClick={onWrong}
+              className="flex-1 bg-red-50 border-2 border-red-300 text-red-600 font-semibold py-3 rounded-xl"
+            >
+              ✗ 答错了
+            </button>
+            <button
+              onClick={onCorrect}
+              className="flex-1 bg-green-500 text-white font-semibold py-3 rounded-xl"
+            >
+              ✓ 答对了
+            </button>
+          </div>
+        </>
+      )}
+    </div>
+  )
 }
 
 // ── 阅读答题模式（与其他星球一致）────────────────────────────────
@@ -37,30 +89,32 @@ function ReadingQuiz({ user, onFinish, onBack }) {
 
   const current = questions[qIndex]
 
-  function handleSelect(option) {
-    if (selected !== null) return
-    setSelected(option)
+  function recordAnswer(correct, selectedAnswer) {
     const timeSec = (Date.now() - qStartTime.current) / 1000
-    const correct = option === current.answer
     const quality = toQuality(correct, timeSec)
-
     const srsStates = storage.getSrsState(user.id)
     const newState = updateSRS(srsStates[current.id], quality)
     storage.updateCardSrs(user.id, current.id, newState)
     storage.addXP(user.id, correct ? 5 : 1)
-
     const record = {
       card_id: current.id,
       correct,
       time_spent: Math.round(timeSec * 10) / 10,
-      selected_answer: option,
+      selected_answer: selectedAnswer,
       ability_tag: current.ability_tag,
       knowledge_tag: '阅读理解',
       timestamp: new Date().toISOString(),
     }
     storage.addRecord(user.id, record)
     setRecords(prev => [...prev, record])
+    return record
+  }
 
+  function handleSelect(option) {
+    if (selected !== null) return
+    setSelected(option)
+    const correct = option === current.answer
+    const record = recordAnswer(correct, option)
     if (correct) {
       setTimeout(() => advance(record), 900)
     } else {
@@ -107,53 +161,64 @@ function ReadingQuiz({ user, onFinish, onBack }) {
 
       {/* Content */}
       <div className="flex-1 px-4 py-4 overflow-y-auto">
-        {/* 题目 */}
-        <div className="bg-white rounded-2xl p-4 border border-gray-100 mb-3">
-          <div className="flex gap-2 mb-2">
-            <span className="bg-emerald-100 text-emerald-700 text-xs px-2 py-0.5 rounded-full">{current.ability_tag}</span>
-            <span className="bg-gray-100 text-gray-400 text-xs px-2 py-0.5 rounded-full">{'⭐'.repeat(current.difficulty || 2)}</span>
-          </div>
-          <p className="text-base font-medium text-gray-800 leading-relaxed">{current.question}</p>
-        </div>
+        {current.type === 'open_ended' ? (
+          <OpenEndedCard
+            key={current.id}
+            question={current}
+            onCorrect={() => advance(recordAnswer(true, '自评正确'))}
+            onWrong={() => advance(recordAnswer(false, '自评错误'))}
+          />
+        ) : (
+          <>
+            {/* 题目 */}
+            <div className="bg-white rounded-2xl p-4 border border-gray-100 mb-3">
+              <div className="flex gap-2 mb-2">
+                <span className="bg-emerald-100 text-emerald-700 text-xs px-2 py-0.5 rounded-full">{current.ability_tag}</span>
+                <span className="bg-gray-100 text-gray-400 text-xs px-2 py-0.5 rounded-full">{'⭐'.repeat(current.difficulty || 2)}</span>
+              </div>
+              <p className="text-base font-medium text-gray-800 leading-relaxed">{current.question}</p>
+            </div>
 
-        {/* 选项 */}
-        <div className="flex flex-col gap-2.5">
-          {current.options.map(option => {
-            let style = 'bg-white border-2 border-gray-200 text-gray-700'
-            if (selected !== null) {
-              if (option === current.answer) style = 'bg-green-50 border-2 border-green-400 text-green-700'
-              else if (option === selected) style = 'bg-red-50 border-2 border-red-400 text-red-700'
-              else style = 'bg-white border-2 border-gray-100 text-gray-400'
-            }
-            return (
-              <button
-                key={option}
-                onClick={() => handleSelect(option)}
-                disabled={selected !== null}
-                className={`${style} rounded-2xl px-4 py-3.5 text-left text-sm leading-snug transition-all shadow-sm`}
-              >
-                {option}
-              </button>
-            )
-          })}
-        </div>
+            {/* 选项 */}
+            <div className="flex flex-col gap-2.5">
+              {current.options.map(option => {
+                let style = 'bg-white border-2 border-gray-200 text-gray-700'
+                if (selected !== null) {
+                  if (option === current.answer) style = 'bg-green-50 border-2 border-green-400 text-green-700'
+                  else if (option === selected) style = 'bg-red-50 border-2 border-red-400 text-red-700'
+                  else style = 'bg-white border-2 border-gray-100 text-gray-400'
+                }
+                return (
+                  <button
+                    key={option}
+                    onClick={() => handleSelect(option)}
+                    disabled={selected !== null}
+                    className={`${style} rounded-2xl px-4 py-3.5 text-left text-sm leading-snug transition-all shadow-sm`}
+                  >
+                    {option}
+                  </button>
+                )
+              })}
+            </div>
 
-        {/* 解析 */}
-        {showAnalysis && (
-          <div className="mt-3 bg-amber-50 border border-amber-200 rounded-2xl p-4">
-            <p className="text-sm font-semibold text-amber-700 mb-1">💡 答题思路</p>
-            <p className="text-sm text-amber-900 leading-relaxed">{current.analysis}</p>
-            <button onClick={() => advance(null)} className="mt-3 w-full bg-amber-500 text-white font-semibold py-3 rounded-xl">
-              继续 →
-            </button>
-          </div>
-        )}
+            {/* 解析 */}
+            {showAnalysis && (
+              <div className="mt-3 bg-amber-50 border border-amber-200 rounded-2xl p-4">
+                <p className="text-sm font-semibold text-amber-700 mb-1">💡 答题思路</p>
+                <p className="text-sm text-amber-900 leading-relaxed">{current.analysis}</p>
+                <button onClick={() => advance(null)} className="mt-3 w-full bg-amber-500 text-white font-semibold py-3 rounded-xl">
+                  继续 →
+                </button>
+              </div>
+            )}
 
-        {/* 正确提示 */}
-        {selected !== null && selected === current.answer && !showAnalysis && (
-          <div className="mt-3 bg-green-50 border border-green-200 rounded-2xl p-3 text-center">
-            <span className="text-green-600 font-semibold text-sm">✓ 正确！+5 XP</span>
-          </div>
+            {/* 正确提示 */}
+            {selected !== null && selected === current.answer && !showAnalysis && (
+              <div className="mt-3 bg-green-50 border border-green-200 rounded-2xl p-3 text-center">
+                <span className="text-green-600 font-semibold text-sm">✓ 正确！+5 XP</span>
+              </div>
+            )}
+          </>
         )}
       </div>
     </div>

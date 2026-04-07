@@ -20,7 +20,6 @@ import { storage, calcLevel, calcLevelProgress } from '../utils/storage';
 import { fetchMV1State, upsertMV1State } from '../utils/mv1_cloud';
 import ShopPanel from '../components/ShopPanel';
 import DailyTasksPanel from '../components/DailyTasksPanel';
-import { calcLevel } from '../utils/gamification';
 
 /**
  * 宠物互动页面 v4 - 修复版

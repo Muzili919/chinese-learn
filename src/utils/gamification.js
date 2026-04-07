@@ -742,7 +742,6 @@ function getPetPool(state) { return state.petPool; }
 export {
   initGamificationState,
   gainExpForLearning,
-  manualLevelUp, // 🔧 新增导出
   feedPet,
   tapPet,
   resetPetMood,
