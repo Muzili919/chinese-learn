@@ -14,7 +14,13 @@
     "knowledge_tag": "文学常识",
     "ability_tag": "四大名著",
     "difficulty": 1,
-    "grade": 4
+    "grade": 4,
+    "unit": null,
+    "lesson": null,
+    "standard_code": null,
+    "target_id": null,
+    "source_year": 2026,
+    "source_tag": null
   },
   {
     "id": "lit_002",
@@ -31,7 +37,13 @@
     "knowledge_tag": "文学常识",
     "ability_tag": "四大名著",
     "difficulty": 1,
-    "grade": 4
+    "grade": 4,
+    "unit": null,
+    "lesson": null,
+    "standard_code": null,
+    "target_id": null,
+    "source_year": 2026,
+    "source_tag": null
   },
   {
     "id": "lit_003",
@@ -48,7 +60,13 @@
     "knowledge_tag": "文学常识",
     "ability_tag": "四大名著",
     "difficulty": 1,
-    "grade": 4
+    "grade": 4,
+    "unit": null,
+    "lesson": null,
+    "standard_code": null,
+    "target_id": null,
+    "source_year": 2026,
+    "source_tag": null
   },
   {
     "id": "lit_004",
@@ -65,7 +83,13 @@
     "knowledge_tag": "文学常识",
     "ability_tag": "四大名著",
     "difficulty": 1,
-    "grade": 4
+    "grade": 4,
+    "unit": null,
+    "lesson": null,
+    "standard_code": null,
+    "target_id": null,
+    "source_year": 2026,
+    "source_tag": null
   },
   {
     "id": "lit_005",
@@ -82,7 +106,13 @@
     "knowledge_tag": "文学常识",
     "ability_tag": "四大名著",
     "difficulty": 1,
-    "grade": 4
+    "grade": 4,
+    "unit": null,
+    "lesson": null,
+    "standard_code": null,
+    "target_id": null,
+    "source_year": 2026,
+    "source_tag": null
   },
   {
     "id": "lit_006",
@@ -99,7 +129,13 @@
     "knowledge_tag": "文学常识",
     "ability_tag": "四大名著",
     "difficulty": 1,
-    "grade": 4
+    "grade": 4,
+    "unit": null,
+    "lesson": null,
+    "standard_code": null,
+    "target_id": null,
+    "source_year": 2026,
+    "source_tag": null
   },
   {
     "id": "lit_007",
@@ -116,7 +152,13 @@
     "knowledge_tag": "文学常识",
     "ability_tag": "四大名著",
     "difficulty": 1,
-    "grade": 4
+    "grade": 4,
+    "unit": null,
+    "lesson": null,
+    "standard_code": null,
+    "target_id": null,
+    "source_year": 2026,
+    "source_tag": null
   },
   {
     "id": "lit_008",
@@ -133,7 +175,13 @@
     "knowledge_tag": "文学常识",
     "ability_tag": "四大名著",
     "difficulty": 2,
-    "grade": 5
+    "grade": 5,
+    "unit": null,
+    "lesson": null,
+    "standard_code": null,
+    "target_id": null,
+    "source_year": 2026,
+    "source_tag": null
   },
   {
     "id": "lit_009",
@@ -150,7 +198,13 @@
     "knowledge_tag": "文学常识",
     "ability_tag": "四大名著",
     "difficulty": 1,
-    "grade": 4
+    "grade": 4,
+    "unit": null,
+    "lesson": null,
+    "standard_code": null,
+    "target_id": null,
+    "source_year": 2026,
+    "source_tag": null
   },
   {
     "id": "lit_010",
@@ -167,7 +221,13 @@
     "knowledge_tag": "文学常识",
     "ability_tag": "四大名著",
     "difficulty": 2,
-    "grade": 5
+    "grade": 5,
+    "unit": null,
+    "lesson": null,
+    "standard_code": null,
+    "target_id": null,
+    "source_year": 2026,
+    "source_tag": null
   },
   {
     "id": "lit_011",
@@ -184,7 +244,13 @@
     "knowledge_tag": "文学常识",
     "ability_tag": "四大名著",
     "difficulty": 2,
-    "grade": 5
+    "grade": 5,
+    "unit": null,
+    "lesson": null,
+    "standard_code": null,
+    "target_id": null,
+    "source_year": 2026,
+    "source_tag": null
   },
   {
     "id": "lit_012",
@@ -201,7 +267,13 @@
     "knowledge_tag": "文学常识",
     "ability_tag": "四大名著",
     "difficulty": 2,
-    "grade": 5
+    "grade": 5,
+    "unit": null,
+    "lesson": null,
+    "standard_code": null,
+    "target_id": null,
+    "source_year": 2026,
+    "source_tag": null
   },
   {
     "id": "lit_013",
@@ -218,7 +290,13 @@
     "knowledge_tag": "文学常识",
     "ability_tag": "标点符号",
     "difficulty": 1,
-    "grade": 4
+    "grade": 4,
+    "unit": null,
+    "lesson": null,
+    "standard_code": null,
+    "target_id": null,
+    "source_year": 2026,
+    "source_tag": null
   },
   {
     "id": "lit_014",
@@ -235,7 +313,13 @@
     "knowledge_tag": "文学常识",
     "ability_tag": "标点符号",
     "difficulty": 2,
-    "grade": 4
+    "grade": 4,
+    "unit": null,
+    "lesson": null,
+    "standard_code": null,
+    "target_id": null,
+    "source_year": 2026,
+    "source_tag": null
   },
   {
     "id": "lit_015",
@@ -252,7 +336,13 @@
     "knowledge_tag": "文学常识",
     "ability_tag": "标点符号",
     "difficulty": 1,
-    "grade": 4
+    "grade": 4,
+    "unit": null,
+    "lesson": null,
+    "standard_code": null,
+    "target_id": null,
+    "source_year": 2026,
+    "source_tag": null
   },
   {
     "id": "lit_016",
@@ -269,7 +359,13 @@
     "knowledge_tag": "文学常识",
     "ability_tag": "标点符号",
     "difficulty": 1,
-    "grade": 4
+    "grade": 4,
+    "unit": null,
+    "lesson": null,
+    "standard_code": null,
+    "target_id": null,
+    "source_year": 2026,
+    "source_tag": null
   },
   {
     "id": "lit_017",
@@ -286,7 +382,13 @@
     "knowledge_tag": "文学常识",
     "ability_tag": "标点符号",
     "difficulty": 3,
-    "grade": 5
+    "grade": 5,
+    "unit": null,
+    "lesson": null,
+    "standard_code": null,
+    "target_id": null,
+    "source_year": 2026,
+    "source_tag": null
   },
   {
     "id": "lit_018",
@@ -303,7 +405,13 @@
     "knowledge_tag": "文学常识",
     "ability_tag": "标点符号",
     "difficulty": 2,
-    "grade": 5
+    "grade": 5,
+    "unit": null,
+    "lesson": null,
+    "standard_code": null,
+    "target_id": null,
+    "source_year": 2026,
+    "source_tag": null
   },
   {
     "id": "lit_019",
@@ -320,7 +428,13 @@
     "knowledge_tag": "文学常识",
     "ability_tag": "标点符号",
     "difficulty": 2,
-    "grade": 4
+    "grade": 4,
+    "unit": null,
+    "lesson": null,
+    "standard_code": null,
+    "target_id": null,
+    "source_year": 2026,
+    "source_tag": null
   },
   {
     "id": "lit_020",
@@ -337,7 +451,13 @@
     "knowledge_tag": "文学常识",
     "ability_tag": "标点符号",
     "difficulty": 2,
-    "grade": 4
+    "grade": 4,
+    "unit": null,
+    "lesson": null,
+    "standard_code": null,
+    "target_id": null,
+    "source_year": 2026,
+    "source_tag": null
   },
   {
     "id": "lit_021",
@@ -354,7 +474,13 @@
     "knowledge_tag": "文学常识",
     "ability_tag": "标点符号",
     "difficulty": 1,
-    "grade": 4
+    "grade": 4,
+    "unit": null,
+    "lesson": null,
+    "standard_code": null,
+    "target_id": null,
+    "source_year": 2026,
+    "source_tag": null
   },
   {
     "id": "lit_022",
@@ -371,7 +497,13 @@
     "knowledge_tag": "文学常识",
     "ability_tag": "标点符号",
     "difficulty": 2,
-    "grade": 5
+    "grade": 5,
+    "unit": null,
+    "lesson": null,
+    "standard_code": null,
+    "target_id": null,
+    "source_year": 2026,
+    "source_tag": null
   },
   {
     "id": "lit_023",
@@ -388,7 +520,13 @@
     "knowledge_tag": "文学常识",
     "ability_tag": "体裁文体",
     "difficulty": 2,
-    "grade": 5
+    "grade": 5,
+    "unit": null,
+    "lesson": null,
+    "standard_code": null,
+    "target_id": null,
+    "source_year": 2026,
+    "source_tag": null
   },
   {
     "id": "lit_024",
@@ -405,7 +543,13 @@
     "knowledge_tag": "文学常识",
     "ability_tag": "体裁文体",
     "difficulty": 2,
-    "grade": 5
+    "grade": 5,
+    "unit": null,
+    "lesson": null,
+    "standard_code": null,
+    "target_id": null,
+    "source_year": 2026,
+    "source_tag": null
   },
   {
     "id": "lit_025",
@@ -422,7 +566,13 @@
     "knowledge_tag": "文学常识",
     "ability_tag": "体裁文体",
     "difficulty": 2,
-    "grade": 5
+    "grade": 5,
+    "unit": null,
+    "lesson": null,
+    "standard_code": null,
+    "target_id": null,
+    "source_year": 2026,
+    "source_tag": null
   },
   {
     "id": "lit_026",
@@ -439,7 +589,13 @@
     "knowledge_tag": "文学常识",
     "ability_tag": "体裁文体",
     "difficulty": 2,
-    "grade": 4
+    "grade": 4,
+    "unit": null,
+    "lesson": null,
+    "standard_code": null,
+    "target_id": null,
+    "source_year": 2026,
+    "source_tag": null
   },
   {
     "id": "lit_027",
@@ -456,7 +612,13 @@
     "knowledge_tag": "文学常识",
     "ability_tag": "体裁文体",
     "difficulty": 3,
-    "grade": 5
+    "grade": 5,
+    "unit": null,
+    "lesson": null,
+    "standard_code": null,
+    "target_id": null,
+    "source_year": 2026,
+    "source_tag": null
   },
   {
     "id": "lit_028",
@@ -473,7 +635,13 @@
     "knowledge_tag": "文学常识",
     "ability_tag": "作家作品",
     "difficulty": 1,
-    "grade": 4
+    "grade": 4,
+    "unit": null,
+    "lesson": null,
+    "standard_code": null,
+    "target_id": null,
+    "source_year": 2026,
+    "source_tag": null
   },
   {
     "id": "lit_029",
@@ -490,7 +658,13 @@
     "knowledge_tag": "文学常识",
     "ability_tag": "作家作品",
     "difficulty": 2,
-    "grade": 5
+    "grade": 5,
+    "unit": null,
+    "lesson": null,
+    "standard_code": null,
+    "target_id": null,
+    "source_year": 2026,
+    "source_tag": null
   },
   {
     "id": "lit_030",
@@ -507,7 +681,13 @@
     "knowledge_tag": "文学常识",
     "ability_tag": "作家作品",
     "difficulty": 1,
-    "grade": 4
+    "grade": 4,
+    "unit": null,
+    "lesson": null,
+    "standard_code": null,
+    "target_id": null,
+    "source_year": 2026,
+    "source_tag": null
   },
   {
     "id": "lit_031",
@@ -524,7 +704,13 @@
     "knowledge_tag": "文学常识",
     "ability_tag": "作家作品",
     "difficulty": 3,
-    "grade": 5
+    "grade": 5,
+    "unit": null,
+    "lesson": null,
+    "standard_code": null,
+    "target_id": null,
+    "source_year": 2026,
+    "source_tag": null
   },
   {
     "id": "lit_032",
@@ -541,7 +727,13 @@
     "knowledge_tag": "文学常识",
     "ability_tag": "作家作品",
     "difficulty": 3,
-    "grade": 5
+    "grade": 5,
+    "unit": null,
+    "lesson": null,
+    "standard_code": null,
+    "target_id": null,
+    "source_year": 2026,
+    "source_tag": null
   },
   {
     "id": "lit_033",
@@ -558,7 +750,13 @@
     "knowledge_tag": "文学常识",
     "ability_tag": "作家作品",
     "difficulty": 2,
-    "grade": 5
+    "grade": 5,
+    "unit": null,
+    "lesson": null,
+    "standard_code": null,
+    "target_id": null,
+    "source_year": 2026,
+    "source_tag": null
   },
   {
     "id": "lit_034",
@@ -575,7 +773,13 @@
     "knowledge_tag": "文学常识",
     "ability_tag": "作家作品",
     "difficulty": 3,
-    "grade": 5
+    "grade": 5,
+    "unit": null,
+    "lesson": null,
+    "standard_code": null,
+    "target_id": null,
+    "source_year": 2026,
+    "source_tag": null
   },
   {
     "id": "lit_035",
@@ -592,7 +796,13 @@
     "knowledge_tag": "文学常识",
     "ability_tag": "作家作品",
     "difficulty": 3,
-    "grade": 5
+    "grade": 5,
+    "unit": null,
+    "lesson": null,
+    "standard_code": null,
+    "target_id": null,
+    "source_year": 2026,
+    "source_tag": null
   },
   {
     "id": "lit_036",
@@ -609,7 +819,13 @@
     "knowledge_tag": "文学常识",
     "ability_tag": "四大名著",
     "difficulty": 1,
-    "grade": 4
+    "grade": 4,
+    "unit": null,
+    "lesson": null,
+    "standard_code": null,
+    "target_id": null,
+    "source_year": 2026,
+    "source_tag": null
   },
   {
     "id": "lit_037",
@@ -626,7 +842,13 @@
     "knowledge_tag": "文学常识",
     "ability_tag": "作家作品",
     "difficulty": 3,
-    "grade": 5
+    "grade": 5,
+    "unit": null,
+    "lesson": null,
+    "standard_code": null,
+    "target_id": null,
+    "source_year": 2026,
+    "source_tag": null
   },
   {
     "id": "lit_038",
@@ -643,7 +865,13 @@
     "knowledge_tag": "文学常识",
     "ability_tag": "作家作品",
     "difficulty": 2,
-    "grade": 5
+    "grade": 5,
+    "unit": null,
+    "lesson": null,
+    "standard_code": null,
+    "target_id": null,
+    "source_year": 2026,
+    "source_tag": null
   },
   {
     "id": "lit_039",
@@ -660,7 +888,13 @@
     "knowledge_tag": "文学常识",
     "ability_tag": "标点符号",
     "difficulty": 3,
-    "grade": 5
+    "grade": 5,
+    "unit": null,
+    "lesson": null,
+    "standard_code": null,
+    "target_id": null,
+    "source_year": 2026,
+    "source_tag": null
   },
   {
     "id": "lit_040",
@@ -677,7 +911,13 @@
     "knowledge_tag": "文学常识",
     "ability_tag": "作家作品",
     "difficulty": 1,
-    "grade": 4
+    "grade": 4,
+    "unit": null,
+    "lesson": null,
+    "standard_code": null,
+    "target_id": null,
+    "source_year": 2026,
+    "source_tag": null
   },
   {
     "id": "lit_041",
@@ -694,7 +934,13 @@
     "knowledge_tag": "文学常识",
     "ability_tag": "体裁文体",
     "difficulty": 2,
-    "grade": 5
+    "grade": 5,
+    "unit": null,
+    "lesson": null,
+    "standard_code": null,
+    "target_id": null,
+    "source_year": 2026,
+    "source_tag": null
   },
   {
     "id": "lit_042",
@@ -712,7 +958,13 @@
     "knowledge_tag": "文学常识",
     "ability_tag": "作家作品",
     "difficulty": 3,
-    "grade": 5
+    "grade": 5,
+    "unit": null,
+    "lesson": null,
+    "standard_code": null,
+    "target_id": null,
+    "source_year": 2026,
+    "source_tag": null
   },
   {
     "id": "lit_043",
@@ -729,7 +981,13 @@
     "knowledge_tag": "文学常识",
     "ability_tag": "体裁文体",
     "difficulty": 2,
-    "grade": 5
+    "grade": 5,
+    "unit": null,
+    "lesson": null,
+    "standard_code": null,
+    "target_id": null,
+    "source_year": 2026,
+    "source_tag": null
   },
   {
     "id": "lit_044",
@@ -746,7 +1004,13 @@
     "knowledge_tag": "文学常识",
     "ability_tag": "标点符号",
     "difficulty": 3,
-    "grade": 5
+    "grade": 5,
+    "unit": null,
+    "lesson": null,
+    "standard_code": null,
+    "target_id": null,
+    "source_year": 2026,
+    "source_tag": null
   },
   {
     "id": "lit_045",
@@ -763,7 +1027,13 @@
     "knowledge_tag": "文学常识",
     "ability_tag": "作家作品",
     "difficulty": 2,
-    "grade": 5
+    "grade": 5,
+    "unit": null,
+    "lesson": null,
+    "standard_code": null,
+    "target_id": null,
+    "source_year": 2026,
+    "source_tag": null
   },
   {
     "id": "lit_046",
@@ -780,7 +1050,13 @@
     "knowledge_tag": "文学常识",
     "ability_tag": "作家作品",
     "difficulty": 3,
-    "grade": 5
+    "grade": 5,
+    "unit": null,
+    "lesson": null,
+    "standard_code": null,
+    "target_id": null,
+    "source_year": 2026,
+    "source_tag": null
   },
   {
     "id": "lit_047",
@@ -797,7 +1073,13 @@
     "knowledge_tag": "文学常识",
     "ability_tag": "作家作品",
     "difficulty": 2,
-    "grade": 5
+    "grade": 5,
+    "unit": null,
+    "lesson": null,
+    "standard_code": null,
+    "target_id": null,
+    "source_year": 2026,
+    "source_tag": null
   },
   {
     "id": "lit_048",
@@ -814,7 +1096,13 @@
     "knowledge_tag": "文学常识",
     "ability_tag": "体裁文体",
     "difficulty": 2,
-    "grade": 5
+    "grade": 5,
+    "unit": null,
+    "lesson": null,
+    "standard_code": null,
+    "target_id": null,
+    "source_year": 2026,
+    "source_tag": null
   },
   {
     "id": "lit_049",
@@ -831,7 +1119,13 @@
     "knowledge_tag": "文学常识",
     "ability_tag": "作家作品",
     "difficulty": 2,
-    "grade": 5
+    "grade": 5,
+    "unit": null,
+    "lesson": null,
+    "standard_code": null,
+    "target_id": null,
+    "source_year": 2026,
+    "source_tag": null
   },
   {
     "id": "lit_050",
@@ -848,7 +1142,13 @@
     "knowledge_tag": "文学常识",
     "ability_tag": "体裁文体",
     "difficulty": 3,
-    "grade": 5
+    "grade": 5,
+    "unit": null,
+    "lesson": null,
+    "standard_code": null,
+    "target_id": null,
+    "source_year": 2026,
+    "source_tag": null
   },
   {
     "id": "lit_051",
@@ -865,7 +1165,13 @@
     "knowledge_tag": "文学常识",
     "ability_tag": "体裁文体",
     "difficulty": 2,
-    "grade": 5
+    "grade": 5,
+    "unit": null,
+    "lesson": null,
+    "standard_code": null,
+    "target_id": null,
+    "source_year": 2026,
+    "source_tag": null
   },
   {
     "id": "lit_052",
@@ -882,7 +1188,13 @@
     "knowledge_tag": "文学常识",
     "ability_tag": "体裁文体",
     "difficulty": 3,
-    "grade": 5
+    "grade": 5,
+    "unit": null,
+    "lesson": null,
+    "standard_code": null,
+    "target_id": null,
+    "source_year": 2026,
+    "source_tag": null
   },
   {
     "id": "lit_053",
@@ -899,7 +1211,13 @@
     "knowledge_tag": "文学常识",
     "ability_tag": "作家作品",
     "difficulty": 2,
-    "grade": 4
+    "grade": 4,
+    "unit": null,
+    "lesson": null,
+    "standard_code": null,
+    "target_id": null,
+    "source_year": 2026,
+    "source_tag": null
   },
   {
     "id": "lit_054",
@@ -916,7 +1234,13 @@
     "knowledge_tag": "文学常识",
     "ability_tag": "体裁文体",
     "difficulty": 3,
-    "grade": 5
+    "grade": 5,
+    "unit": null,
+    "lesson": null,
+    "standard_code": null,
+    "target_id": null,
+    "source_year": 2026,
+    "source_tag": null
   },
   {
     "id": "lit_055",
@@ -933,7 +1257,13 @@
     "knowledge_tag": "文学常识",
     "ability_tag": "作家作品",
     "difficulty": 2,
-    "grade": 5
+    "grade": 5,
+    "unit": null,
+    "lesson": null,
+    "standard_code": null,
+    "target_id": null,
+    "source_year": 2026,
+    "source_tag": null
   },
   {
     "id": "lit_056",
@@ -950,7 +1280,13 @@
     "knowledge_tag": "文学常识",
     "ability_tag": "体裁文体",
     "difficulty": 3,
-    "grade": 5
+    "grade": 5,
+    "unit": null,
+    "lesson": null,
+    "standard_code": null,
+    "target_id": null,
+    "source_year": 2026,
+    "source_tag": null
   },
   {
     "id": "lit_057",
@@ -967,7 +1303,13 @@
     "knowledge_tag": "文学常识",
     "ability_tag": "作家作品",
     "difficulty": 3,
-    "grade": 5
+    "grade": 5,
+    "unit": null,
+    "lesson": null,
+    "standard_code": null,
+    "target_id": null,
+    "source_year": 2026,
+    "source_tag": null
   },
   {
     "id": "lit_058",
@@ -984,7 +1326,13 @@
     "knowledge_tag": "文学常识",
     "ability_tag": "作家作品",
     "difficulty": 2,
-    "grade": 5
+    "grade": 5,
+    "unit": null,
+    "lesson": null,
+    "standard_code": null,
+    "target_id": null,
+    "source_year": 2026,
+    "source_tag": null
   },
   {
     "id": "lit_059",
@@ -1001,7 +1349,13 @@
     "knowledge_tag": "文学常识",
     "ability_tag": "作家作品",
     "difficulty": 2,
-    "grade": 5
+    "grade": 5,
+    "unit": null,
+    "lesson": null,
+    "standard_code": null,
+    "target_id": null,
+    "source_year": 2026,
+    "source_tag": null
   },
   {
     "id": "lit_060",
@@ -1018,6 +1372,58 @@
     "knowledge_tag": "文学常识",
     "ability_tag": "体裁文体",
     "difficulty": 3,
-    "grade": 5
+    "grade": 5,
+    "unit": null,
+    "lesson": null,
+    "standard_code": null,
+    "target_id": null,
+    "source_year": 2026,
+    "source_tag": null
+  },
+  {
+    "id": "seed_4_01",
+    "type": "single_choice",
+    "question": "示例扩容题：以下哪一项符合扩展要点？",
+    "options": [
+      "A. 选项A",
+      "B. 选项B",
+      "C. 选项C",
+      "D. 选项D"
+    ],
+    "answer": "A. 选项A",
+    "analysis": "示例分析：此处为扩容占位示例，请人工复核",
+    "knowledge_tag": "示例",
+    "ability_tag": "扩容占位",
+    "difficulty": 2,
+    "grade": 4,
+    "unit": null,
+    "lesson": null,
+    "standard_code": null,
+    "target_id": null,
+    "source_year": 2026,
+    "source_tag": null
+  },
+  {
+    "id": "seed_4_02",
+    "type": "single_choice",
+    "question": "示例扩容题：以下哪一项符合扩展要点？",
+    "options": [
+      "A. 选项A",
+      "B. 选项B",
+      "C. 选项C",
+      "D. 选项D"
+    ],
+    "answer": "A. 选项A",
+    "analysis": "示例分析：此处为扩容占位示例，请人工复核",
+    "knowledge_tag": "示例",
+    "ability_tag": "扩容占位",
+    "difficulty": 2,
+    "grade": 4,
+    "unit": null,
+    "lesson": null,
+    "standard_code": null,
+    "target_id": null,
+    "source_year": 2026,
+    "source_tag": null
   }
 ]

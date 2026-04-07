@@ -14,7 +14,13 @@
     ],
     "example_q": "这篇文章的中心思想是什么？",
     "example_a": "本文通过描写小草在寒冬后顽强生长的故事，表达了作者对生命力的赞美。",
-    "wrong_tip": "不要只看开头就作答，要通读全文再下结论"
+    "wrong_tip": "不要只看开头就作答，要通读全文再下结论",
+    "unit": null,
+    "lesson": null,
+    "standard_code": null,
+    "target_id": null,
+    "source_year": 2026,
+    "source_tag": null
   },
   {
     "id": "tip_002",
@@ -31,7 +37,13 @@
     ],
     "example_q": "文中\"沸腾\"一词是什么意思？",
     "example_a": "在文中\"沸腾\"不是指水烧开，而是指运动会上同学们欢呼雀跃、热闹非凡的场景，表现了大家高涨的热情。",
-    "wrong_tip": "不要直接背字典里的解释，要说清楚在这篇文章里的具体含义"
+    "wrong_tip": "不要直接背字典里的解释，要说清楚在这篇文章里的具体含义",
+    "unit": null,
+    "lesson": null,
+    "standard_code": null,
+    "target_id": null,
+    "source_year": 2026,
+    "source_tag": null
   },
   {
     "id": "tip_003",
@@ -48,7 +60,13 @@
     ],
     "example_q": "请赏析\"弯弯的月亮像一条小船\"这句话。",
     "example_a": "这句话运用了比喻的修辞手法，把弯月比作小船，生动形象地写出了月亮弯细、轻盈的样子，让读者眼前一亮，感受到夜晚的宁静美好。",
-    "wrong_tip": "不要只说\"用了比喻\"就完了，一定要说出效果和情感"
+    "wrong_tip": "不要只说\"用了比喻\"就完了，一定要说出效果和情感",
+    "unit": null,
+    "lesson": null,
+    "standard_code": null,
+    "target_id": null,
+    "source_year": 2026,
+    "source_tag": null
   },
   {
     "id": "tip_004",
@@ -65,7 +83,13 @@
     ],
     "example_q": "文中妈妈是怎样的心情？从哪里看出来的？",
     "example_a": "妈妈感到既担心又欣慰。从她\"不断地望向窗外\"\"轻轻地叹了口气\"的动作可以看出她的担心，而当孩子回来时她\"嘴角微微上扬\"则表现了她的欣慰。",
-    "wrong_tip": "不要凭感觉猜测，一定要从文章中找出依据"
+    "wrong_tip": "不要凭感觉猜测，一定要从文章中找出依据",
+    "unit": null,
+    "lesson": null,
+    "standard_code": null,
+    "target_id": null,
+    "source_year": 2026,
+    "source_tag": null
   },
   {
     "id": "tip_005",
@@ -82,7 +106,13 @@
     ],
     "example_q": "第一段在全文中有什么作用？",
     "example_a": "第一段描写了秋天枫叶满山的美丽景色，在全文起到了开篇点题的作用，同时引出下文\"我\"去山中游玩的故事，激发了读者的阅读兴趣。",
-    "wrong_tip": "不要只说\"作铺垫\"就完了，要结合文章内容具体说明铺垫了什么"
+    "wrong_tip": "不要只说\"作铺垫\"就完了，要结合文章内容具体说明铺垫了什么",
+    "unit": null,
+    "lesson": null,
+    "standard_code": null,
+    "target_id": null,
+    "source_year": 2026,
+    "source_tag": null
   },
   {
     "id": "tip_006",
@@ -99,7 +129,13 @@
     ],
     "example_q": "蚂蚁搬家时用什么方式传递信息？",
     "example_a": "根据文章第二段，蚂蚁搬家时主要靠分泌\"信息素\"来传递信息，后面的蚂蚁闻到气味就知道走哪条路。",
-    "wrong_tip": "不要凭记忆或常识作答，答案一定要在原文中找到根据"
+    "wrong_tip": "不要凭记忆或常识作答，答案一定要在原文中找到根据",
+    "unit": null,
+    "lesson": null,
+    "standard_code": null,
+    "target_id": null,
+    "source_year": 2026,
+    "source_tag": null
   },
   {
     "id": "tip_007",
@@ -116,7 +152,13 @@
     ],
     "example_q": "文章以\"那盏灯\"为题，有什么含义？",
     "example_a": "表面上\"那盏灯\"指的是奶奶每晚为\"我\"留着的那盏小台灯；深层含义是指奶奶对\"我\"无微不至的爱和关怀，这份爱像灯一样温暖，照亮了\"我\"的心。题目点明了文章\"感恩亲情\"的主题。",
-    "wrong_tip": "不要只解释字面意思，小学语文题目通常都有更深的象征含义"
+    "wrong_tip": "不要只解释字面意思，小学语文题目通常都有更深的象征含义",
+    "unit": null,
+    "lesson": null,
+    "standard_code": null,
+    "target_id": null,
+    "source_year": 2026,
+    "source_tag": null
   },
   {
     "id": "tip_008",
@@ -133,6 +175,12 @@
     ],
     "example_q": "这篇文章在写作上有什么特点？",
     "example_a": "文章运用了借景抒情的写作手法，如开头描写枯黄的秋叶，结尾描写新绿的春芽，用自然景物的变化来表达作者从悲伤到重燃希望的心路历程，情景交融，令人印象深刻。",
-    "wrong_tip": "不要把修辞手法和写作手法混为一谈，写作手法是从整体谋篇布局的角度来说的"
+    "wrong_tip": "不要把修辞手法和写作手法混为一谈，写作手法是从整体谋篇布局的角度来说的",
+    "unit": null,
+    "lesson": null,
+    "standard_code": null,
+    "target_id": null,
+    "source_year": 2026,
+    "source_tag": null
   }
 ]

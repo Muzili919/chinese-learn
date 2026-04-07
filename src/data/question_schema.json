@@ -1,0 +1,24 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Question",
+  "type": "object",
+  "properties": {
+    "id": { "type": "string" },
+    "type": { "type": "string" },
+    "question": { "type": "string" },
+    "options": { "type": "array", "items": { "type": "string" } },
+    "answer": { "type": "string" },
+    "analysis": { "type": "string" },
+    "knowledge_tag": { "type": "string" },
+    "ability_tag": { "type": "string" },
+    "difficulty": { "type": "number" },
+    "grade": { "type": "number" },
+    "unit": { "type": ["string", "null"] },
+    "lesson": { "type": ["string", "null"] },
+    "standard_code": { "type": ["string", "null"] },
+    "target_id": { "type": ["string", "null"] },
+    "source_year": { "type": ["number", "null"] },
+    "source_tag": { "type": ["string", "null"] }
+  },
+  "required": ["id", "type", "question", "options", "answer", "analysis", "grade", "difficulty"]
+}

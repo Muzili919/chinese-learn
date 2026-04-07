@@ -1,0 +1,10 @@
+{
+  "orgId": "team_mumus-projects-db9952e7",
+  "projectId": "prj_CqMEvCsWUgfuqibmzFcDCjXCSfb5",
+  "settings": {
+    "framework": "vite",
+    "buildCommand": "npm run build",
+    "outputDirectory": "dist",
+    "nodeVersion": "20.x"
+  }
+}

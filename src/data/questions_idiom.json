@@ -14,7 +14,13 @@
     "knowledge_tag": "成语",
     "ability_tag": "成语含义",
     "difficulty": 2,
-    "grade": 4
+    "grade": 4,
+    "unit": null,
+    "lesson": null,
+    "standard_code": null,
+    "target_id": null,
+    "source_year": 2026,
+    "source_tag": null
   },
   {
     "id": "idiom_002",
@@ -31,7 +37,13 @@
     "knowledge_tag": "成语",
     "ability_tag": "成语含义",
     "difficulty": 1,
-    "grade": 4
+    "grade": 4,
+    "unit": null,
+    "lesson": null,
+    "standard_code": null,
+    "target_id": null,
+    "source_year": 2026,
+    "source_tag": null
   },
   {
     "id": "idiom_003",
@@ -48,7 +60,13 @@
     "knowledge_tag": "成语",
     "ability_tag": "成语含义",
     "difficulty": 1,
-    "grade": 4
+    "grade": 4,
+    "unit": null,
+    "lesson": null,
+    "standard_code": null,
+    "target_id": null,
+    "source_year": 2026,
+    "source_tag": null
   },
   {
     "id": "idiom_004",
@@ -65,7 +83,13 @@
     "knowledge_tag": "成语",
     "ability_tag": "成语含义",
     "difficulty": 2,
-    "grade": 4
+    "grade": 4,
+    "unit": null,
+    "lesson": null,
+    "standard_code": null,
+    "target_id": null,
+    "source_year": 2026,
+    "source_tag": null
   },
   {
     "id": "idiom_005",
@@ -82,7 +106,13 @@
     "knowledge_tag": "成语",
     "ability_tag": "成语含义",
     "difficulty": 1,
-    "grade": 4
+    "grade": 4,
+    "unit": null,
+    "lesson": null,
+    "standard_code": null,
+    "target_id": null,
+    "source_year": 2026,
+    "source_tag": null
   },
   {
     "id": "idiom_006",
@@ -99,7 +129,13 @@
     "knowledge_tag": "成语",
     "ability_tag": "成语含义",
     "difficulty": 2,
-    "grade": 4
+    "grade": 4,
+    "unit": null,
+    "lesson": null,
+    "standard_code": null,
+    "target_id": null,
+    "source_year": 2026,
+    "source_tag": null
   },
   {
     "id": "idiom_007",
@@ -116,7 +152,13 @@
     "knowledge_tag": "成语",
     "ability_tag": "成语含义",
     "difficulty": 2,
-    "grade": 4
+    "grade": 4,
+    "unit": null,
+    "lesson": null,
+    "standard_code": null,
+    "target_id": null,
+    "source_year": 2026,
+    "source_tag": null
   },
   {
     "id": "idiom_008",
@@ -133,7 +175,13 @@
     "knowledge_tag": "成语",
     "ability_tag": "成语含义",
     "difficulty": 1,
-    "grade": 4
+    "grade": 4,
+    "unit": null,
+    "lesson": null,
+    "standard_code": null,
+    "target_id": null,
+    "source_year": 2026,
+    "source_tag": null
   },
   {
     "id": "idiom_009",
@@ -150,7 +198,13 @@
     "knowledge_tag": "成语",
     "ability_tag": "成语含义",
     "difficulty": 1,
-    "grade": 4
+    "grade": 4,
+    "unit": null,
+    "lesson": null,
+    "standard_code": null,
+    "target_id": null,
+    "source_year": 2026,
+    "source_tag": null
   },
   {
     "id": "idiom_010",
@@ -167,7 +221,13 @@
     "knowledge_tag": "成语",
     "ability_tag": "成语含义",
     "difficulty": 1,
-    "grade": 4
+    "grade": 4,
+    "unit": null,
+    "lesson": null,
+    "standard_code": null,
+    "target_id": null,
+    "source_year": 2026,
+    "source_tag": null
   },
   {
     "id": "idiom_011",
@@ -184,7 +244,13 @@
     "knowledge_tag": "成语",
     "ability_tag": "成语含义",
     "difficulty": 2,
-    "grade": 5
+    "grade": 5,
+    "unit": null,
+    "lesson": null,
+    "standard_code": null,
+    "target_id": null,
+    "source_year": 2026,
+    "source_tag": null
   },
   {
     "id": "idiom_012",
@@ -201,7 +267,13 @@
     "knowledge_tag": "成语",
     "ability_tag": "成语含义",
     "difficulty": 2,
-    "grade": 5
+    "grade": 5,
+    "unit": null,
+    "lesson": null,
+    "standard_code": null,
+    "target_id": null,
+    "source_year": 2026,
+    "source_tag": null
   },
   {
     "id": "idiom_013",
@@ -218,7 +290,13 @@
     "knowledge_tag": "成语",
     "ability_tag": "成语含义",
     "difficulty": 2,
-    "grade": 5
+    "grade": 5,
+    "unit": null,
+    "lesson": null,
+    "standard_code": null,
+    "target_id": null,
+    "source_year": 2026,
+    "source_tag": null
   },
   {
     "id": "idiom_014",
@@ -235,7 +313,13 @@
     "knowledge_tag": "成语",
     "ability_tag": "成语含义",
     "difficulty": 2,
-    "grade": 5
+    "grade": 5,
+    "unit": null,
+    "lesson": null,
+    "standard_code": null,
+    "target_id": null,
+    "source_year": 2026,
+    "source_tag": null
   },
   {
     "id": "idiom_015",
@@ -252,7 +336,13 @@
     "knowledge_tag": "成语",
     "ability_tag": "成语含义",
     "difficulty": 2,
-    "grade": 5
+    "grade": 5,
+    "unit": null,
+    "lesson": null,
+    "standard_code": null,
+    "target_id": null,
+    "source_year": 2026,
+    "source_tag": null
   },
   {
     "id": "idiom_016",
@@ -269,7 +359,13 @@
     "knowledge_tag": "成语",
     "ability_tag": "成语含义",
     "difficulty": 2,
-    "grade": 5
+    "grade": 5,
+    "unit": null,
+    "lesson": null,
+    "standard_code": null,
+    "target_id": null,
+    "source_year": 2026,
+    "source_tag": null
   },
   {
     "id": "idiom_017",
@@ -286,7 +382,13 @@
     "knowledge_tag": "成语",
     "ability_tag": "成语含义",
     "difficulty": 2,
-    "grade": 5
+    "grade": 5,
+    "unit": null,
+    "lesson": null,
+    "standard_code": null,
+    "target_id": null,
+    "source_year": 2026,
+    "source_tag": null
   },
   {
     "id": "idiom_018",
@@ -303,7 +405,13 @@
     "knowledge_tag": "成语",
     "ability_tag": "成语含义",
     "difficulty": 2,
-    "grade": 5
+    "grade": 5,
+    "unit": null,
+    "lesson": null,
+    "standard_code": null,
+    "target_id": null,
+    "source_year": 2026,
+    "source_tag": null
   },
   {
     "id": "idiom_019",
@@ -320,7 +428,13 @@
     "knowledge_tag": "成语",
     "ability_tag": "成语含义",
     "difficulty": 2,
-    "grade": 5
+    "grade": 5,
+    "unit": null,
+    "lesson": null,
+    "standard_code": null,
+    "target_id": null,
+    "source_year": 2026,
+    "source_tag": null
   },
   {
     "id": "idiom_020",
@@ -337,7 +451,13 @@
     "knowledge_tag": "成语",
     "ability_tag": "成语含义",
     "difficulty": 1,
-    "grade": 5
+    "grade": 5,
+    "unit": null,
+    "lesson": null,
+    "standard_code": null,
+    "target_id": null,
+    "source_year": 2026,
+    "source_tag": null
   },
   {
     "id": "idiom_021",
@@ -354,7 +474,13 @@
     "knowledge_tag": "成语",
     "ability_tag": "近义成语",
     "difficulty": 2,
-    "grade": 4
+    "grade": 4,
+    "unit": null,
+    "lesson": null,
+    "standard_code": null,
+    "target_id": null,
+    "source_year": 2026,
+    "source_tag": null
   },
   {
     "id": "idiom_022",
@@ -371,7 +497,13 @@
     "knowledge_tag": "成语",
     "ability_tag": "近义成语",
     "difficulty": 2,
-    "grade": 5
+    "grade": 5,
+    "unit": null,
+    "lesson": null,
+    "standard_code": null,
+    "target_id": null,
+    "source_year": 2026,
+    "source_tag": null
   },
   {
     "id": "idiom_023",
@@ -388,7 +520,13 @@
     "knowledge_tag": "成语",
     "ability_tag": "近义成语",
     "difficulty": 2,
-    "grade": 4
+    "grade": 4,
+    "unit": null,
+    "lesson": null,
+    "standard_code": null,
+    "target_id": null,
+    "source_year": 2026,
+    "source_tag": null
   },
   {
     "id": "idiom_024",
@@ -405,7 +543,13 @@
     "knowledge_tag": "成语",
     "ability_tag": "近义成语",
     "difficulty": 3,
-    "grade": 4
+    "grade": 4,
+    "unit": null,
+    "lesson": null,
+    "standard_code": null,
+    "target_id": null,
+    "source_year": 2026,
+    "source_tag": null
   },
   {
     "id": "idiom_025",
@@ -422,7 +566,13 @@
     "knowledge_tag": "成语",
     "ability_tag": "近义成语",
     "difficulty": 2,
-    "grade": 5
+    "grade": 5,
+    "unit": null,
+    "lesson": null,
+    "standard_code": null,
+    "target_id": null,
+    "source_year": 2026,
+    "source_tag": null
   },
   {
     "id": "idiom_026",
@@ -439,7 +589,13 @@
     "knowledge_tag": "成语",
     "ability_tag": "近义成语",
     "difficulty": 3,
-    "grade": 5
+    "grade": 5,
+    "unit": null,
+    "lesson": null,
+    "standard_code": null,
+    "target_id": null,
+    "source_year": 2026,
+    "source_tag": null
   },
   {
     "id": "idiom_027",
@@ -456,7 +612,13 @@
     "knowledge_tag": "成语",
     "ability_tag": "近义成语",
     "difficulty": 2,
-    "grade": 4
+    "grade": 4,
+    "unit": null,
+    "lesson": null,
+    "standard_code": null,
+    "target_id": null,
+    "source_year": 2026,
+    "source_tag": null
   },
   {
     "id": "idiom_028",
@@ -473,7 +635,13 @@
     "knowledge_tag": "成语",
     "ability_tag": "近义成语",
     "difficulty": 2,
-    "grade": 5
+    "grade": 5,
+    "unit": null,
+    "lesson": null,
+    "standard_code": null,
+    "target_id": null,
+    "source_year": 2026,
+    "source_tag": null
   },
   {
     "id": "idiom_029",
@@ -490,7 +658,13 @@
     "knowledge_tag": "成语",
     "ability_tag": "近义成语",
     "difficulty": 2,
-    "grade": 4
+    "grade": 4,
+    "unit": null,
+    "lesson": null,
+    "standard_code": null,
+    "target_id": null,
+    "source_year": 2026,
+    "source_tag": null
   },
   {
     "id": "idiom_030",
@@ -507,7 +681,13 @@
     "knowledge_tag": "成语",
     "ability_tag": "近义成语",
     "difficulty": 3,
-    "grade": 5
+    "grade": 5,
+    "unit": null,
+    "lesson": null,
+    "standard_code": null,
+    "target_id": null,
+    "source_year": 2026,
+    "source_tag": null
   },
   {
     "id": "idiom_031",
@@ -524,7 +704,13 @@
     "knowledge_tag": "成语",
     "ability_tag": "近义成语",
     "difficulty": 2,
-    "grade": 4
+    "grade": 4,
+    "unit": null,
+    "lesson": null,
+    "standard_code": null,
+    "target_id": null,
+    "source_year": 2026,
+    "source_tag": null
   },
   {
     "id": "idiom_032",
@@ -541,7 +727,13 @@
     "knowledge_tag": "成语",
     "ability_tag": "近义成语",
     "difficulty": 3,
-    "grade": 4
+    "grade": 4,
+    "unit": null,
+    "lesson": null,
+    "standard_code": null,
+    "target_id": null,
+    "source_year": 2026,
+    "source_tag": null
   },
   {
     "id": "idiom_033",
@@ -558,7 +750,13 @@
     "knowledge_tag": "成语",
     "ability_tag": "近义成语",
     "difficulty": 2,
-    "grade": 5
+    "grade": 5,
+    "unit": null,
+    "lesson": null,
+    "standard_code": null,
+    "target_id": null,
+    "source_year": 2026,
+    "source_tag": null
   },
   {
     "id": "idiom_034",
@@ -575,7 +773,13 @@
     "knowledge_tag": "成语",
     "ability_tag": "近义成语",
     "difficulty": 2,
-    "grade": 5
+    "grade": 5,
+    "unit": null,
+    "lesson": null,
+    "standard_code": null,
+    "target_id": null,
+    "source_year": 2026,
+    "source_tag": null
   },
   {
     "id": "idiom_035",
@@ -592,7 +796,13 @@
     "knowledge_tag": "成语",
     "ability_tag": "近义成语",
     "difficulty": 1,
-    "grade": 4
+    "grade": 4,
+    "unit": null,
+    "lesson": null,
+    "standard_code": null,
+    "target_id": null,
+    "source_year": 2026,
+    "source_tag": null
   },
   {
     "id": "idiom_036",
@@ -609,7 +819,13 @@
     "knowledge_tag": "成语",
     "ability_tag": "反义成语",
     "difficulty": 2,
-    "grade": 4
+    "grade": 4,
+    "unit": null,
+    "lesson": null,
+    "standard_code": null,
+    "target_id": null,
+    "source_year": 2026,
+    "source_tag": null
   },
   {
     "id": "idiom_037",
@@ -626,7 +842,13 @@
     "knowledge_tag": "成语",
     "ability_tag": "反义成语",
     "difficulty": 2,
-    "grade": 5
+    "grade": 5,
+    "unit": null,
+    "lesson": null,
+    "standard_code": null,
+    "target_id": null,
+    "source_year": 2026,
+    "source_tag": null
   },
   {
     "id": "idiom_038",
@@ -643,7 +865,13 @@
     "knowledge_tag": "成语",
     "ability_tag": "反义成语",
     "difficulty": 1,
-    "grade": 4
+    "grade": 4,
+    "unit": null,
+    "lesson": null,
+    "standard_code": null,
+    "target_id": null,
+    "source_year": 2026,
+    "source_tag": null
   },
   {
     "id": "idiom_039",
@@ -660,7 +888,13 @@
     "knowledge_tag": "成语",
     "ability_tag": "反义成语",
     "difficulty": 2,
-    "grade": 5
+    "grade": 5,
+    "unit": null,
+    "lesson": null,
+    "standard_code": null,
+    "target_id": null,
+    "source_year": 2026,
+    "source_tag": null
   },
   {
     "id": "idiom_040",
@@ -677,7 +911,13 @@
     "knowledge_tag": "成语",
     "ability_tag": "反义成语",
     "difficulty": 3,
-    "grade": 4
+    "grade": 4,
+    "unit": null,
+    "lesson": null,
+    "standard_code": null,
+    "target_id": null,
+    "source_year": 2026,
+    "source_tag": null
   },
   {
     "id": "idiom_041",
@@ -694,7 +934,13 @@
     "knowledge_tag": "成语",
     "ability_tag": "反义成语",
     "difficulty": 2,
-    "grade": 4
+    "grade": 4,
+    "unit": null,
+    "lesson": null,
+    "standard_code": null,
+    "target_id": null,
+    "source_year": 2026,
+    "source_tag": null
   },
   {
     "id": "idiom_042",
@@ -711,7 +957,13 @@
     "knowledge_tag": "成语",
     "ability_tag": "反义成语",
     "difficulty": 2,
-    "grade": 5
+    "grade": 5,
+    "unit": null,
+    "lesson": null,
+    "standard_code": null,
+    "target_id": null,
+    "source_year": 2026,
+    "source_tag": null
   },
   {
     "id": "idiom_043",
@@ -728,7 +980,13 @@
     "knowledge_tag": "成语",
     "ability_tag": "反义成语",
     "difficulty": 3,
-    "grade": 5
+    "grade": 5,
+    "unit": null,
+    "lesson": null,
+    "standard_code": null,
+    "target_id": null,
+    "source_year": 2026,
+    "source_tag": null
   },
   {
     "id": "idiom_044",
@@ -745,7 +1003,13 @@
     "knowledge_tag": "成语",
     "ability_tag": "反义成语",
     "difficulty": 2,
-    "grade": 4
+    "grade": 4,
+    "unit": null,
+    "lesson": null,
+    "standard_code": null,
+    "target_id": null,
+    "source_year": 2026,
+    "source_tag": null
   },
   {
     "id": "idiom_045",
@@ -762,7 +1026,13 @@
     "knowledge_tag": "成语",
     "ability_tag": "反义成语",
     "difficulty": 3,
-    "grade": 4
+    "grade": 4,
+    "unit": null,
+    "lesson": null,
+    "standard_code": null,
+    "target_id": null,
+    "source_year": 2026,
+    "source_tag": null
   },
   {
     "id": "idiom_046",
@@ -779,7 +1049,13 @@
     "knowledge_tag": "成语",
     "ability_tag": "成语运用",
     "difficulty": 2,
-    "grade": 4
+    "grade": 4,
+    "unit": null,
+    "lesson": null,
+    "standard_code": null,
+    "target_id": null,
+    "source_year": 2026,
+    "source_tag": null
   },
   {
     "id": "idiom_047",
@@ -796,7 +1072,13 @@
     "knowledge_tag": "成语",
     "ability_tag": "成语运用",
     "difficulty": 2,
-    "grade": 4
+    "grade": 4,
+    "unit": null,
+    "lesson": null,
+    "standard_code": null,
+    "target_id": null,
+    "source_year": 2026,
+    "source_tag": null
   },
   {
     "id": "idiom_048",
@@ -813,7 +1095,13 @@
     "knowledge_tag": "成语",
     "ability_tag": "成语运用",
     "difficulty": 2,
-    "grade": 4
+    "grade": 4,
+    "unit": null,
+    "lesson": null,
+    "standard_code": null,
+    "target_id": null,
+    "source_year": 2026,
+    "source_tag": null
   },
   {
     "id": "idiom_049",
@@ -830,7 +1118,13 @@
     "knowledge_tag": "成语",
     "ability_tag": "成语运用",
     "difficulty": 2,
-    "grade": 4
+    "grade": 4,
+    "unit": null,
+    "lesson": null,
+    "standard_code": null,
+    "target_id": null,
+    "source_year": 2026,
+    "source_tag": null
   },
   {
     "id": "idiom_050",
@@ -847,7 +1141,13 @@
     "knowledge_tag": "成语",
     "ability_tag": "成语运用",
     "difficulty": 2,
-    "grade": 5
+    "grade": 5,
+    "unit": null,
+    "lesson": null,
+    "standard_code": null,
+    "target_id": null,
+    "source_year": 2026,
+    "source_tag": null
   },
   {
     "id": "idiom_051",
@@ -864,7 +1164,13 @@
     "knowledge_tag": "成语",
     "ability_tag": "成语运用",
     "difficulty": 2,
-    "grade": 4
+    "grade": 4,
+    "unit": null,
+    "lesson": null,
+    "standard_code": null,
+    "target_id": null,
+    "source_year": 2026,
+    "source_tag": null
   },
   {
     "id": "idiom_052",
@@ -881,7 +1187,13 @@
     "knowledge_tag": "成语",
     "ability_tag": "成语运用",
     "difficulty": 1,
-    "grade": 4
+    "grade": 4,
+    "unit": null,
+    "lesson": null,
+    "standard_code": null,
+    "target_id": null,
+    "source_year": 2026,
+    "source_tag": null
   },
   {
     "id": "idiom_053",
@@ -898,7 +1210,13 @@
     "knowledge_tag": "成语",
     "ability_tag": "成语运用",
     "difficulty": 2,
-    "grade": 4
+    "grade": 4,
+    "unit": null,
+    "lesson": null,
+    "standard_code": null,
+    "target_id": null,
+    "source_year": 2026,
+    "source_tag": null
   },
   {
     "id": "idiom_054",
@@ -915,7 +1233,13 @@
     "knowledge_tag": "成语",
     "ability_tag": "成语运用",
     "difficulty": 2,
-    "grade": 5
+    "grade": 5,
+    "unit": null,
+    "lesson": null,
+    "standard_code": null,
+    "target_id": null,
+    "source_year": 2026,
+    "source_tag": null
   },
   {
     "id": "idiom_055",
@@ -932,7 +1256,13 @@
     "knowledge_tag": "成语",
     "ability_tag": "成语运用",
     "difficulty": 2,
-    "grade": 5
+    "grade": 5,
+    "unit": null,
+    "lesson": null,
+    "standard_code": null,
+    "target_id": null,
+    "source_year": 2026,
+    "source_tag": null
   },
   {
     "id": "idiom_056",
@@ -949,7 +1279,13 @@
     "knowledge_tag": "成语",
     "ability_tag": "成语运用",
     "difficulty": 2,
-    "grade": 5
+    "grade": 5,
+    "unit": null,
+    "lesson": null,
+    "standard_code": null,
+    "target_id": null,
+    "source_year": 2026,
+    "source_tag": null
   },
   {
     "id": "idiom_057",
@@ -966,7 +1302,13 @@
     "knowledge_tag": "成语",
     "ability_tag": "成语运用",
     "difficulty": 2,
-    "grade": 5
+    "grade": 5,
+    "unit": null,
+    "lesson": null,
+    "standard_code": null,
+    "target_id": null,
+    "source_year": 2026,
+    "source_tag": null
   },
   {
     "id": "idiom_058",
@@ -983,7 +1325,13 @@
     "knowledge_tag": "成语",
     "ability_tag": "成语运用",
     "difficulty": 2,
-    "grade": 5
+    "grade": 5,
+    "unit": null,
+    "lesson": null,
+    "standard_code": null,
+    "target_id": null,
+    "source_year": 2026,
+    "source_tag": null
   },
   {
     "id": "idiom_059",
@@ -1000,7 +1348,13 @@
     "knowledge_tag": "成语",
     "ability_tag": "成语运用",
     "difficulty": 1,
-    "grade": 5
+    "grade": 5,
+    "unit": null,
+    "lesson": null,
+    "standard_code": null,
+    "target_id": null,
+    "source_year": 2026,
+    "source_tag": null
   },
   {
     "id": "idiom_060",
@@ -1017,7 +1371,13 @@
     "knowledge_tag": "成语",
     "ability_tag": "成语运用",
     "difficulty": 2,
-    "grade": 5
+    "grade": 5,
+    "unit": null,
+    "lesson": null,
+    "standard_code": null,
+    "target_id": null,
+    "source_year": 2026,
+    "source_tag": null
   },
   {
     "id": "idiom_061",
@@ -1034,7 +1394,13 @@
     "knowledge_tag": "成语",
     "ability_tag": "成语含义",
     "difficulty": 2,
-    "grade": 5
+    "grade": 5,
+    "unit": null,
+    "lesson": null,
+    "standard_code": null,
+    "target_id": null,
+    "source_year": 2026,
+    "source_tag": null
   },
   {
     "id": "idiom_062",
@@ -1051,7 +1417,13 @@
     "knowledge_tag": "成语",
     "ability_tag": "成语含义",
     "difficulty": 2,
-    "grade": 5
+    "grade": 5,
+    "unit": null,
+    "lesson": null,
+    "standard_code": null,
+    "target_id": null,
+    "source_year": 2026,
+    "source_tag": null
   },
   {
     "id": "idiom_063",
@@ -1068,7 +1440,13 @@
     "knowledge_tag": "成语",
     "ability_tag": "成语含义",
     "difficulty": 2,
-    "grade": 5
+    "grade": 5,
+    "unit": null,
+    "lesson": null,
+    "standard_code": null,
+    "target_id": null,
+    "source_year": 2026,
+    "source_tag": null
   },
   {
     "id": "idiom_064",
@@ -1085,7 +1463,13 @@
     "knowledge_tag": "成语",
     "ability_tag": "成语含义",
     "difficulty": 2,
-    "grade": 5
+    "grade": 5,
+    "unit": null,
+    "lesson": null,
+    "standard_code": null,
+    "target_id": null,
+    "source_year": 2026,
+    "source_tag": null
   },
   {
     "id": "idiom_065",
@@ -1102,7 +1486,13 @@
     "knowledge_tag": "成语",
     "ability_tag": "成语含义",
     "difficulty": 2,
-    "grade": 5
+    "grade": 5,
+    "unit": null,
+    "lesson": null,
+    "standard_code": null,
+    "target_id": null,
+    "source_year": 2026,
+    "source_tag": null
   },
   {
     "id": "idiom_066",
@@ -1119,7 +1509,13 @@
     "knowledge_tag": "成语",
     "ability_tag": "成语含义",
     "difficulty": 2,
-    "grade": 5
+    "grade": 5,
+    "unit": null,
+    "lesson": null,
+    "standard_code": null,
+    "target_id": null,
+    "source_year": 2026,
+    "source_tag": null
   },
   {
     "id": "idiom_067",
@@ -1136,7 +1532,13 @@
     "knowledge_tag": "成语",
     "ability_tag": "成语含义",
     "difficulty": 2,
-    "grade": 5
+    "grade": 5,
+    "unit": null,
+    "lesson": null,
+    "standard_code": null,
+    "target_id": null,
+    "source_year": 2026,
+    "source_tag": null
   },
   {
     "id": "idiom_068",
@@ -1153,7 +1555,13 @@
     "knowledge_tag": "成语",
     "ability_tag": "成语含义",
     "difficulty": 2,
-    "grade": 5
+    "grade": 5,
+    "unit": null,
+    "lesson": null,
+    "standard_code": null,
+    "target_id": null,
+    "source_year": 2026,
+    "source_tag": null
   },
   {
     "id": "idiom_069",
@@ -1170,7 +1578,13 @@
     "knowledge_tag": "成语",
     "ability_tag": "成语含义",
     "difficulty": 2,
-    "grade": 5
+    "grade": 5,
+    "unit": null,
+    "lesson": null,
+    "standard_code": null,
+    "target_id": null,
+    "source_year": 2026,
+    "source_tag": null
   },
   {
     "id": "idiom_070",
@@ -1187,7 +1601,13 @@
     "knowledge_tag": "成语",
     "ability_tag": "成语含义",
     "difficulty": 2,
-    "grade": 5
+    "grade": 5,
+    "unit": null,
+    "lesson": null,
+    "standard_code": null,
+    "target_id": null,
+    "source_year": 2026,
+    "source_tag": null
   },
   {
     "id": "idiom_071",
@@ -1204,7 +1624,13 @@
     "knowledge_tag": "成语",
     "ability_tag": "成语含义",
     "difficulty": 2,
-    "grade": 5
+    "grade": 5,
+    "unit": null,
+    "lesson": null,
+    "standard_code": null,
+    "target_id": null,
+    "source_year": 2026,
+    "source_tag": null
   },
   {
     "id": "idiom_072",
@@ -1221,7 +1647,13 @@
     "knowledge_tag": "成语",
     "ability_tag": "成语含义",
     "difficulty": 2,
-    "grade": 5
+    "grade": 5,
+    "unit": null,
+    "lesson": null,
+    "standard_code": null,
+    "target_id": null,
+    "source_year": 2026,
+    "source_tag": null
   },
   {
     "id": "idiom_073",
@@ -1238,7 +1670,13 @@
     "knowledge_tag": "成语",
     "ability_tag": "成语含义",
     "difficulty": 2,
-    "grade": 5
+    "grade": 5,
+    "unit": null,
+    "lesson": null,
+    "standard_code": null,
+    "target_id": null,
+    "source_year": 2026,
+    "source_tag": null
   },
   {
     "id": "idiom_074",
@@ -1255,7 +1693,13 @@
     "knowledge_tag": "成语",
     "ability_tag": "成语含义",
     "difficulty": 2,
-    "grade": 5
+    "grade": 5,
+    "unit": null,
+    "lesson": null,
+    "standard_code": null,
+    "target_id": null,
+    "source_year": 2026,
+    "source_tag": null
   },
   {
     "id": "idiom_075",
@@ -1272,7 +1716,13 @@
     "knowledge_tag": "成语",
     "ability_tag": "成语含义",
     "difficulty": 2,
-    "grade": 5
+    "grade": 5,
+    "unit": null,
+    "lesson": null,
+    "standard_code": null,
+    "target_id": null,
+    "source_year": 2026,
+    "source_tag": null
   },
   {
     "id": "idiom_076",
@@ -1289,7 +1739,13 @@
     "knowledge_tag": "成语",
     "ability_tag": "成语含义",
     "difficulty": 2,
-    "grade": 5
+    "grade": 5,
+    "unit": null,
+    "lesson": null,
+    "standard_code": null,
+    "target_id": null,
+    "source_year": 2026,
+    "source_tag": null
   },
   {
     "id": "idiom_077",
@@ -1306,7 +1762,13 @@
     "knowledge_tag": "成语",
     "ability_tag": "成语含义",
     "difficulty": 2,
-    "grade": 5
+    "grade": 5,
+    "unit": null,
+    "lesson": null,
+    "standard_code": null,
+    "target_id": null,
+    "source_year": 2026,
+    "source_tag": null
   },
   {
     "id": "idiom_078",
@@ -1323,7 +1785,13 @@
     "knowledge_tag": "成语",
     "ability_tag": "成语含义",
     "difficulty": 2,
-    "grade": 5
+    "grade": 5,
+    "unit": null,
+    "lesson": null,
+    "standard_code": null,
+    "target_id": null,
+    "source_year": 2026,
+    "source_tag": null
   },
   {
     "id": "idiom_079",
@@ -1340,7 +1808,13 @@
     "knowledge_tag": "成语",
     "ability_tag": "成语含义",
     "difficulty": 2,
-    "grade": 5
+    "grade": 5,
+    "unit": null,
+    "lesson": null,
+    "standard_code": null,
+    "target_id": null,
+    "source_year": 2026,
+    "source_tag": null
   },
   {
     "id": "idiom_080",
@@ -1357,7 +1831,13 @@
     "knowledge_tag": "成语",
     "ability_tag": "成语含义",
     "difficulty": 2,
-    "grade": 5
+    "grade": 5,
+    "unit": null,
+    "lesson": null,
+    "standard_code": null,
+    "target_id": null,
+    "source_year": 2026,
+    "source_tag": null
   },
   {
     "id": "idiom_081",
@@ -1374,7 +1854,13 @@
     "knowledge_tag": "成语",
     "ability_tag": "成语含义",
     "difficulty": 2,
-    "grade": 5
+    "grade": 5,
+    "unit": null,
+    "lesson": null,
+    "standard_code": null,
+    "target_id": null,
+    "source_year": 2026,
+    "source_tag": null
   },
   {
     "id": "idiom_082",
@@ -1391,7 +1877,13 @@
     "knowledge_tag": "成语",
     "ability_tag": "成语含义",
     "difficulty": 2,
-    "grade": 5
+    "grade": 5,
+    "unit": null,
+    "lesson": null,
+    "standard_code": null,
+    "target_id": null,
+    "source_year": 2026,
+    "source_tag": null
   },
   {
     "id": "idiom_083",
@@ -1408,7 +1900,13 @@
     "knowledge_tag": "成语",
     "ability_tag": "成语含义",
     "difficulty": 2,
-    "grade": 5
+    "grade": 5,
+    "unit": null,
+    "lesson": null,
+    "standard_code": null,
+    "target_id": null,
+    "source_year": 2026,
+    "source_tag": null
   },
   {
     "id": "idiom_084",
@@ -1425,7 +1923,13 @@
     "knowledge_tag": "成语",
     "ability_tag": "成语含义",
     "difficulty": 2,
-    "grade": 5
+    "grade": 5,
+    "unit": null,
+    "lesson": null,
+    "standard_code": null,
+    "target_id": null,
+    "source_year": 2026,
+    "source_tag": null
   },
   {
     "id": "idiom_085",
@@ -1442,7 +1946,13 @@
     "knowledge_tag": "成语",
     "ability_tag": "成语含义",
     "difficulty": 2,
-    "grade": 5
+    "grade": 5,
+    "unit": null,
+    "lesson": null,
+    "standard_code": null,
+    "target_id": null,
+    "source_year": 2026,
+    "source_tag": null
   },
   {
     "id": "idiom_086",
@@ -1459,7 +1969,13 @@
     "knowledge_tag": "成语",
     "ability_tag": "成语含义",
     "difficulty": 2,
-    "grade": 5
+    "grade": 5,
+    "unit": null,
+    "lesson": null,
+    "standard_code": null,
+    "target_id": null,
+    "source_year": 2026,
+    "source_tag": null
   },
   {
     "id": "idiom_087",
@@ -1476,7 +1992,13 @@
     "knowledge_tag": "成语",
     "ability_tag": "成语含义",
     "difficulty": 2,
-    "grade": 5
+    "grade": 5,
+    "unit": null,
+    "lesson": null,
+    "standard_code": null,
+    "target_id": null,
+    "source_year": 2026,
+    "source_tag": null
   },
   {
     "id": "idiom_088",
@@ -1493,7 +2015,13 @@
     "knowledge_tag": "成语",
     "ability_tag": "成语含义",
     "difficulty": 2,
-    "grade": 5
+    "grade": 5,
+    "unit": null,
+    "lesson": null,
+    "standard_code": null,
+    "target_id": null,
+    "source_year": 2026,
+    "source_tag": null
   },
   {
     "id": "idiom_089",
@@ -1510,7 +2038,13 @@
     "knowledge_tag": "成语",
     "ability_tag": "成语含义",
     "difficulty": 2,
-    "grade": 5
+    "grade": 5,
+    "unit": null,
+    "lesson": null,
+    "standard_code": null,
+    "target_id": null,
+    "source_year": 2026,
+    "source_tag": null
   },
   {
     "id": "idiom_090",
@@ -1527,7 +2061,13 @@
     "knowledge_tag": "成语",
     "ability_tag": "成语含义",
     "difficulty": 2,
-    "grade": 5
+    "grade": 5,
+    "unit": null,
+    "lesson": null,
+    "standard_code": null,
+    "target_id": null,
+    "source_year": 2026,
+    "source_tag": null
   },
   {
     "id": "idiom_091",
@@ -1544,7 +2084,13 @@
     "knowledge_tag": "成语",
     "ability_tag": "成语含义",
     "difficulty": 2,
-    "grade": 5
+    "grade": 5,
+    "unit": null,
+    "lesson": null,
+    "standard_code": null,
+    "target_id": null,
+    "source_year": 2026,
+    "source_tag": null
   },
   {
     "id": "idiom_092",
@@ -1561,7 +2107,13 @@
     "knowledge_tag": "成语",
     "ability_tag": "成语含义",
     "difficulty": 2,
-    "grade": 5
+    "grade": 5,
+    "unit": null,
+    "lesson": null,
+    "standard_code": null,
+    "target_id": null,
+    "source_year": 2026,
+    "source_tag": null
   },
   {
     "id": "idiom_093",
@@ -1578,7 +2130,13 @@
     "knowledge_tag": "成语",
     "ability_tag": "成语含义",
     "difficulty": 2,
-    "grade": 5
+    "grade": 5,
+    "unit": null,
+    "lesson": null,
+    "standard_code": null,
+    "target_id": null,
+    "source_year": 2026,
+    "source_tag": null
   },
   {
     "id": "idiom_094",
@@ -1595,7 +2153,13 @@
     "knowledge_tag": "成语",
     "ability_tag": "成语含义",
     "difficulty": 2,
-    "grade": 5
+    "grade": 5,
+    "unit": null,
+    "lesson": null,
+    "standard_code": null,
+    "target_id": null,
+    "source_year": 2026,
+    "source_tag": null
   },
   {
     "id": "idiom_095",
@@ -1612,7 +2176,13 @@
     "knowledge_tag": "成语",
     "ability_tag": "成语含义",
     "difficulty": 2,
-    "grade": 5
+    "grade": 5,
+    "unit": null,
+    "lesson": null,
+    "standard_code": null,
+    "target_id": null,
+    "source_year": 2026,
+    "source_tag": null
   },
   {
     "id": "idiom_096",
@@ -1629,7 +2199,13 @@
     "knowledge_tag": "成语",
     "ability_tag": "成语含义",
     "difficulty": 2,
-    "grade": 5
+    "grade": 5,
+    "unit": null,
+    "lesson": null,
+    "standard_code": null,
+    "target_id": null,
+    "source_year": 2026,
+    "source_tag": null
   },
   {
     "id": "idiom_097",
@@ -1646,7 +2222,13 @@
     "knowledge_tag": "成语",
     "ability_tag": "成语含义",
     "difficulty": 2,
-    "grade": 5
+    "grade": 5,
+    "unit": null,
+    "lesson": null,
+    "standard_code": null,
+    "target_id": null,
+    "source_year": 2026,
+    "source_tag": null
   },
   {
     "id": "idiom_098",
@@ -1663,7 +2245,13 @@
     "knowledge_tag": "成语",
     "ability_tag": "成语含义",
     "difficulty": 2,
-    "grade": 5
+    "grade": 5,
+    "unit": null,
+    "lesson": null,
+    "standard_code": null,
+    "target_id": null,
+    "source_year": 2026,
+    "source_tag": null
   },
   {
     "id": "idiom_099",
@@ -1680,7 +2268,13 @@
     "knowledge_tag": "成语",
     "ability_tag": "成语含义",
     "difficulty": 2,
-    "grade": 5
+    "grade": 5,
+    "unit": null,
+    "lesson": null,
+    "standard_code": null,
+    "target_id": null,
+    "source_year": 2026,
+    "source_tag": null
   },
   {
     "id": "idiom_100",
@@ -1697,7 +2291,13 @@
     "knowledge_tag": "成语",
     "ability_tag": "成语含义",
     "difficulty": 2,
-    "grade": 5
+    "grade": 5,
+    "unit": null,
+    "lesson": null,
+    "standard_code": null,
+    "target_id": null,
+    "source_year": 2026,
+    "source_tag": null
   },
   {
     "id": "idiom_101",
@@ -1714,7 +2314,13 @@
     "knowledge_tag": "成语",
     "ability_tag": "成语含义",
     "difficulty": 2,
-    "grade": 5
+    "grade": 5,
+    "unit": null,
+    "lesson": null,
+    "standard_code": null,
+    "target_id": null,
+    "source_year": 2026,
+    "source_tag": null
   },
   {
     "id": "idiom_102",
@@ -1731,7 +2337,13 @@
     "knowledge_tag": "成语",
     "ability_tag": "成语含义",
     "difficulty": 2,
-    "grade": 5
+    "grade": 5,
+    "unit": null,
+    "lesson": null,
+    "standard_code": null,
+    "target_id": null,
+    "source_year": 2026,
+    "source_tag": null
   },
   {
     "id": "idiom_103",
@@ -1748,7 +2360,13 @@
     "knowledge_tag": "成语",
     "ability_tag": "成语含义",
     "difficulty": 2,
-    "grade": 5
+    "grade": 5,
+    "unit": null,
+    "lesson": null,
+    "standard_code": null,
+    "target_id": null,
+    "source_year": 2026,
+    "source_tag": null
   },
   {
     "id": "idiom_104",
@@ -1765,7 +2383,13 @@
     "knowledge_tag": "成语",
     "ability_tag": "成语含义",
     "difficulty": 2,
-    "grade": 5
+    "grade": 5,
+    "unit": null,
+    "lesson": null,
+    "standard_code": null,
+    "target_id": null,
+    "source_year": 2026,
+    "source_tag": null
   },
   {
     "id": "idiom_105",
@@ -1782,7 +2406,13 @@
     "knowledge_tag": "成语",
     "ability_tag": "成语含义",
     "difficulty": 2,
-    "grade": 5
+    "grade": 5,
+    "unit": null,
+    "lesson": null,
+    "standard_code": null,
+    "target_id": null,
+    "source_year": 2026,
+    "source_tag": null
   },
   {
     "id": "idiom_106",
@@ -1799,7 +2429,13 @@
     "knowledge_tag": "成语",
     "ability_tag": "成语含义",
     "difficulty": 2,
-    "grade": 5
+    "grade": 5,
+    "unit": null,
+    "lesson": null,
+    "standard_code": null,
+    "target_id": null,
+    "source_year": 2026,
+    "source_tag": null
   },
   {
     "id": "idiom_107",
@@ -1816,7 +2452,13 @@
     "knowledge_tag": "成语",
     "ability_tag": "成语含义",
     "difficulty": 2,
-    "grade": 5
+    "grade": 5,
+    "unit": null,
+    "lesson": null,
+    "standard_code": null,
+    "target_id": null,
+    "source_year": 2026,
+    "source_tag": null
   },
   {
     "id": "idiom_108",
@@ -1833,7 +2475,13 @@
     "knowledge_tag": "成语",
     "ability_tag": "成语含义",
     "difficulty": 2,
-    "grade": 5
+    "grade": 5,
+    "unit": null,
+    "lesson": null,
+    "standard_code": null,
+    "target_id": null,
+    "source_year": 2026,
+    "source_tag": null
   },
   {
     "id": "idiom_109",
@@ -1850,7 +2498,13 @@
     "knowledge_tag": "成语",
     "ability_tag": "成语含义",
     "difficulty": 2,
-    "grade": 5
+    "grade": 5,
+    "unit": null,
+    "lesson": null,
+    "standard_code": null,
+    "target_id": null,
+    "source_year": 2026,
+    "source_tag": null
   },
   {
     "id": "idiom_110",
@@ -1867,6 +2521,58 @@
     "knowledge_tag": "成语",
     "ability_tag": "成语含义",
     "difficulty": 2,
-    "grade": 5
+    "grade": 5,
+    "unit": null,
+    "lesson": null,
+    "standard_code": null,
+    "target_id": null,
+    "source_year": 2026,
+    "source_tag": null
+  },
+  {
+    "id": "seed_5_01",
+    "type": "single_choice",
+    "question": "示例扩容题：以下哪一项符合扩展要点？",
+    "options": [
+      "A. 选项A",
+      "B. 选项B",
+      "C. 选项C",
+      "D. 选项D"
+    ],
+    "answer": "A. 选项A",
+    "analysis": "示例分析：此处为扩容占位示例，请人工复核",
+    "knowledge_tag": "示例",
+    "ability_tag": "扩容占位",
+    "difficulty": 2,
+    "grade": 5,
+    "unit": null,
+    "lesson": null,
+    "standard_code": null,
+    "target_id": null,
+    "source_year": 2026,
+    "source_tag": null
+  },
+  {
+    "id": "seed_5_02",
+    "type": "single_choice",
+    "question": "示例扩容题：以下哪一项符合扩展要点？",
+    "options": [
+      "A. 选项A",
+      "B. 选项B",
+      "C. 选项C",
+      "D. 选项D"
+    ],
+    "answer": "A. 选项A",
+    "analysis": "示例分析：此处为扩容占位示例，请人工复核",
+    "knowledge_tag": "示例",
+    "ability_tag": "扩容占位",
+    "difficulty": 2,
+    "grade": 5,
+    "unit": null,
+    "lesson": null,
+    "standard_code": null,
+    "target_id": null,
+    "source_year": 2026,
+    "source_tag": null
   }
 ]

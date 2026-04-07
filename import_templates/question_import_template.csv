@@ -1,0 +1,2 @@
+id,type,question,options,answer,analysis,knowledge_tag,ability_tag,difficulty,grade,unit,lesson,standard_code,target_id,source_year,source_tag
+seed_demo_3,single_choice,示例题：扩容字段测试,[A. 选项A; B. 选项B; C. 选项C; D. 选项D],A. 选项A,示例分析,示例,扩容测试,2,3,,, ,
