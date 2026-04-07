@@ -48,6 +48,46 @@ export async function evaluateSentence(word, sentence) {
 }
 
 /**
+ * 生成错题变种题（举一反三）
+ * @param {object} question - 原题（含 question, answer, analysis, ability_tag, knowledge_tag）
+ * @returns {{ question: string, options: string[], answer: string, analysis: string }}
+ */
+export async function generateVariant(question) {
+  const system = `你是一位经验丰富的语文出题老师。学生刚才做错了一道题，请为这道题生成一道"变种练习题"。
+要求：
+1. 考查完全相同的知识点（${question.ability_tag}）
+2. 必须更换句子、语境或选项，让学生无法靠记忆直接作答
+3. 难度与原题相当，保留4个选项ABCD
+4. 返回合法JSON，字段固定为：question（题目）、options（数组，格式["A. 内容","B. 内容","C. 内容","D. 内容"]）、answer（正确选项全文，如"A. 内容"）、analysis（50字以内解析）`
+
+  const user = `原题信息：
+题目：${question.question}
+正确答案：${question.answer}
+知识点：${question.ability_tag}
+解析：${question.analysis || ''}
+
+请生成一道变种题，考查同样知识点但换不同语境，让学生真正理解而非死记答案。`
+
+  const raw = await callDeepSeek(system, user)
+  // 确保 options 是数组
+  if (!Array.isArray(raw.options)) {
+    raw.options = Object.entries(raw.options).map(([k, v]) => `${k}. ${v}`)
+  }
+  return {
+    id: `variant_${question.id}`,
+    type: 'single_choice',
+    question: raw.question,
+    options: raw.options,
+    answer: raw.answer,
+    analysis: raw.analysis,
+    knowledge_tag: question.knowledge_tag,
+    ability_tag: question.ability_tag,
+    difficulty: question.difficulty,
+    isVariant: true,
+  }
+}
+
+/**
  * 评估作文
  * @param {string} prompt - 作文题目
  * @param {string} essay - 学生写的作文

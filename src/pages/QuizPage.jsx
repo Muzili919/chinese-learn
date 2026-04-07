@@ -3,6 +3,7 @@ import { storage, updateStreak } from '../utils/storage'
 import { updateSRS, toQuality } from '../utils/srs'
 import { scheduleSession } from '../utils/scheduler'
 import { syncAfterSession } from '../utils/sync'
+import { generateVariant } from '../utils/ai'
 import vocabQ from '../data/questions_vocab.json'
 import poetryQ from '../data/questions_poetry.json'
 import idiomQ from '../data/questions_idiom.json'
@@ -55,12 +56,20 @@ export default function QuizPage({ user, options = {}, onFinish, onBack }) {
     return scheduleSession(pool, srsStates.current, SESSION_SIZE, focusTag).map(shuffleOptions)
   }, [focusTag, knowledgeTag, wrongCardIds])
 
+  const isWrongReview = !!(wrongCardIds?.length)
+
   const [index, setIndex] = useState(0)
   const [selected, setSelected] = useState(null)
   const [fillInput, setFillInput] = useState('')
   const [showAnalysis, setShowAnalysis] = useState(false)
   const [sessionRecords, setSessionRecords] = useState([])
   const [xpGained, setXpGained] = useState(0)
+
+  // 变种题状态（仅错题模式）
+  const [variantLoading, setVariantLoading] = useState(false)
+  const [variantQ, setVariantQ] = useState(null)       // 生成的变种题对象
+  const [variantSel, setVariantSel] = useState(null)   // 变种题已选答案
+  const [variantError, setVariantError] = useState('')  // 生成失败提示
 
   const current = questions[index]
 
@@ -114,10 +123,41 @@ export default function QuizPage({ user, options = {}, onFinish, onBack }) {
     recordAnswer(fillInput, correct)
   }
 
+  async function handleGenerateVariant() {
+    setVariantLoading(true)
+    setVariantError('')
+    try {
+      const v = await generateVariant(current)
+      setVariantQ(v)
+    } catch {
+      setVariantError('AI出题失败，请点击继续')
+    }
+    setVariantLoading(false)
+  }
+
+  function handleVariantSelect(option) {
+    if (variantSel !== null) return
+    setVariantSel(option)
+    const correct = option === variantQ.answer
+    storage.addXP(user.id, correct ? 5 : 1)
+    storage.addRecord(user.id, {
+      card_id: variantQ.id,
+      correct,
+      time_spent: 0,
+      selected_answer: option,
+      ability_tag: variantQ.ability_tag,
+      knowledge_tag: variantQ.knowledge_tag,
+      timestamp: new Date().toISOString(),
+    })
+  }
+
   function advance(lastRecord) {
     setShowAnalysis(false)
     setSelected(null)
     setFillInput('')
+    setVariantQ(null)
+    setVariantSel(null)
+    setVariantError('')
 
     if (index + 1 >= questions.length) {
       const totalSec = Math.round((Date.now() - startTime.current) / 1000)
@@ -259,15 +299,90 @@ export default function QuizPage({ user, options = {}, onFinish, onBack }) {
 
         {/* 选择题解析面板 */}
         {!isFillBlank && showAnalysis && (
-          <div className="mt-4 bg-amber-50 border border-amber-200 rounded-2xl p-4">
-            <p className="text-sm font-semibold text-amber-700 mb-1">💡 解析</p>
-            <p className="text-sm text-amber-900 leading-relaxed">{current.analysis}</p>
-            <button
-              onClick={() => advance(null)}
-              className="mt-3 w-full bg-amber-500 hover:bg-amber-600 text-white font-semibold py-3 rounded-xl transition-colors"
-            >
-              继续 →
-            </button>
+          <div className="mt-4 space-y-3">
+            <div className="bg-amber-50 border border-amber-200 rounded-2xl p-4">
+              <p className="text-sm font-semibold text-amber-700 mb-1">💡 解析</p>
+              <p className="text-sm text-amber-900 leading-relaxed">{current.analysis}</p>
+            </div>
+
+            {/* 错题模式：变种题区域 */}
+            {isWrongReview && !variantQ && (
+              <div className="flex gap-2">
+                <button
+                  onClick={handleGenerateVariant}
+                  disabled={variantLoading}
+                  className="flex-1 bg-violet-500 disabled:bg-gray-200 disabled:text-gray-400 text-white font-semibold py-3 rounded-xl text-sm"
+                >
+                  {variantLoading ? '🤖 AI出变种题中…' : '🔀 举一反三（换语境再练）'}
+                </button>
+                <button
+                  onClick={() => advance(null)}
+                  className="px-4 bg-gray-100 text-gray-500 font-medium py-3 rounded-xl text-sm"
+                >
+                  跳过
+                </button>
+              </div>
+            )}
+            {variantError && (
+              <p className="text-xs text-red-400 text-center">{variantError}</p>
+            )}
+
+            {/* 变种题 */}
+            {variantQ && (
+              <div className="bg-violet-50 border-2 border-violet-200 rounded-2xl p-4">
+                <div className="flex items-center gap-2 mb-3">
+                  <span className="text-violet-600 text-sm font-bold">🔀 变种练习</span>
+                  <span className="bg-violet-100 text-violet-600 text-xs px-2 py-0.5 rounded-full">
+                    {variantQ.ability_tag} · AI出题
+                  </span>
+                </div>
+                <p className="text-base text-gray-800 font-medium mb-3 leading-relaxed">{variantQ.question}</p>
+                <div className="flex flex-col gap-2">
+                  {variantQ.options.map(opt => {
+                    let style = 'bg-white border-2 border-gray-200 text-gray-700'
+                    if (variantSel !== null) {
+                      if (opt === variantQ.answer) style = 'bg-green-50 border-2 border-green-400 text-green-700'
+                      else if (opt === variantSel) style = 'bg-red-50 border-2 border-red-400 text-red-700'
+                      else style = 'bg-white border-2 border-gray-100 text-gray-400'
+                    }
+                    return (
+                      <button
+                        key={opt}
+                        onClick={() => handleVariantSelect(opt)}
+                        disabled={variantSel !== null}
+                        className={`${style} rounded-xl px-4 py-3 text-left text-sm leading-snug transition-all`}
+                      >
+                        {opt}
+                      </button>
+                    )
+                  })}
+                </div>
+                {variantSel !== null && (
+                  <div className={`mt-3 rounded-xl p-3 text-xs ${variantSel === variantQ.answer ? 'bg-green-50 text-green-700' : 'bg-red-50 text-red-700'}`}>
+                    {variantSel === variantQ.answer ? '✓ 变种题答对了！说明真的理解了 🎉' : `✗ 正确答案：${variantQ.answer}`}
+                    {variantQ.analysis && <p className="text-gray-500 mt-1">{variantQ.analysis}</p>}
+                  </div>
+                )}
+                {variantSel !== null && (
+                  <button
+                    onClick={() => advance(null)}
+                    className="mt-3 w-full bg-violet-500 text-white font-semibold py-3 rounded-xl text-sm"
+                  >
+                    继续 →
+                  </button>
+                )}
+              </div>
+            )}
+
+            {/* 无变种题时的继续按钮 */}
+            {(!isWrongReview || variantError) && !variantQ && (
+              <button
+                onClick={() => advance(null)}
+                className="w-full bg-amber-500 hover:bg-amber-600 text-white font-semibold py-3 rounded-xl transition-colors"
+              >
+                继续 →
+              </button>
+            )}
           </div>
         )}
 
