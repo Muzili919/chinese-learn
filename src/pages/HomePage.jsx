@@ -140,12 +140,12 @@ export default function HomePage({ user, onStartQuiz, onReport, onLogout, onOpen
         <div className="mt-4">
           <div className="flex items-center justify-between text-xs text-gray-400 mb-1">
             <span>⭐ Lv.{level}</span>
-            <span>{levelProgress}/200 XP</span>
+            <span>{levelProgress.currentExp}/{levelProgress.requiredExp} XP</span>
           </div>
           <div className="w-full bg-gray-100 rounded-full h-2">
             <div
               className="bg-gradient-to-r from-indigo-400 to-purple-500 h-2 rounded-full transition-all"
-              style={{ width: `${(levelProgress / 200) * 100}%` }}
+              style={{ width: `${Math.min(100, (levelProgress.currentExp / levelProgress.requiredExp) * 100)}%` }}
             />
           </div>
         </div>
