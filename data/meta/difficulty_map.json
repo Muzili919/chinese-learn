@@ -1,0 +1,33 @@
+{
+  "version": "1.0",
+  "lastUpdated": "2025-04-07",
+  "description": "题目难度分布映射",
+  "grade": "5",
+  "difficultyLevels": {
+    "简单": {
+      "description": "基础识记类题目",
+      "targetRatio": "30%",
+      "features": ["直接识记", "教材原文", "无推理"]
+    },
+    "中等": {
+      "description": "理解应用类题目",
+      "targetRatio": "50%",
+      "features": ["需理解", "简单变换", "语境推断"]
+    },
+    "困难": {
+      "description": "综合运用类题目",
+      "targetRatio": "20%",
+      "features": ["多知识点", "深层理解", "迁移运用"]
+    }
+  },
+  "distribution": {
+    "vocab": { "simple": 30, "medium": 50, "hard": 20 },
+    "idiom": { "simple": 25, "medium": 55, "hard": 20 },
+    "poetry": { "simple": 35, "medium": 45, "hard": 20 },
+    "sentence": { "simple": 20, "medium": 50, "hard": 30 },
+    "literature": { "simple": 30, "medium": 50, "hard": 20 },
+    "reading": { "simple": 20, "medium": 50, "hard": 30 },
+    "writing": { "simple": 20, "medium": 50, "hard": 30 },
+    "sentence_making": { "simple": 40, "medium": 40, "hard": 20 }
+  }
+}

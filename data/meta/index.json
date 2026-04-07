@@ -1,0 +1,48 @@
+{
+  "version": "1.0",
+  "lastUpdated": "2025-04-07",
+  "description": "题库总索引 - 所有题库文件位置",
+  "totalQuestions": 0,
+  "modules": {
+    "vocab": {
+      "path": "basic/vocab",
+      "subModules": ["pinyin", "character", "polyphone", "meaning"],
+      "total": 0
+    },
+    "idiom": {
+      "path": "basic/idiom",
+      "subModules": ["meaning", "典故", "usage"],
+      "total": 0
+    },
+    "poetry": {
+      "path": "basic/poetry",
+      "subModules": ["recite", "author", "sentiment"],
+      "total": 0
+    },
+    "sentence": {
+      "path": "basic/sentence",
+      "subModules": ["rhetoric", "error", "transform"],
+      "total": 0
+    },
+    "literature": {
+      "path": "basic/literature",
+      "subModules": ["novel", "classic", "symbol"],
+      "total": 0
+    },
+    "reading": {
+      "path": "reading",
+      "subModules": ["level1", "level2", "level3"],
+      "total": 0
+    },
+    "writing": {
+      "path": "writing",
+      "subModules": ["narrative", "event", "scenery", "imagination"],
+      "total": 0
+    },
+    "sentence_making": {
+      "path": "sentence_making",
+      "subModules": ["vocab"],
+      "total": 0
+    }
+  }
+}

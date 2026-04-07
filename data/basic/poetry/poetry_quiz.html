@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>诗词星球 - 语文学习</title>
+    <style>
+        body {
+            font-family: 'Microsoft YaHei', Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f9f9f9;
+            color: #333;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #eee;
+        }
+        .header h1 {
+            color: #e74c3c;
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background-color: #ecf0f1;
+            border-radius: 4px;
+            margin: 20px 0;
+            overflow: hidden;
+        }
+        .progress-fill {
+            height: 100%;
+            background-color: #3498db;
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+        .question-card {
+            margin-bottom: 30px;
+            padding: 25px;
+            border-radius: 12px;
+            background: #fafafa;
+            border-left: 4px solid #3498db;
+        }
+        .question-number {
+            font-weight: bold;
+            color: #3498db;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+        .question-text {
+            font-size: 1.2em;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            white-space: pre-wrap;
+        }
+        .options {
+            display: grid;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+        .option {
+            padding: 15px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 1.1em;
+        }
+        .option:hover {
+            border-color: #3498db;
+            background-color: #f8f9fa;
+        }
+        .option.selected {
+            border-color: #3498db;
+            background-color: #e3f2fd;
+            font-weight: bold;
+        }
+        .option.correct {
+            border-color: #27ae60;
+            background-color: #d4edda;
+        }
+        .option.incorrect {
+            border-color: #e74c3c;
+            background-color: #f8d7da;
+        }
+        .answer-buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        .btn {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 6px;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+            font-weight: bold;
+        }
+        .btn-primary {
+            background-color: #3498db;
+            color: white;
+        }
+        .btn-primary:hover {
+            background-color: #2980b9;
+        }
+        .btn-secondary {
+            background-color: #95a5a6;
+            color: white;
+        }
+        .btn-secondary:hover {
+            background-color: #7f8c8d;
+        }
+        .explanation {
+            margin-top: 20px;
+            padding: 20px;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            border-left: 4px solid #f39c12;
+            display: none;
+        }
+        .explanation h3 {
+            color: #f39c12;
+            margin-top: 0;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+        }
+        .explanation-section {
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+        .explanation-section h4 {
+            color: #2c3e50;
+            margin-bottom: 8px;
+            font-size: 1.1em;
+        }
+        .result-summary {
+            text-align: center;
+            padding: 30px;
+            font-size: 1.3em;
+            font-weight: bold;
+            color: #27ae60;
+        }
+        .back-button {
+            text-align: center;
+            margin-top: 30px;
+        }
+        .back-button .btn {
+            background-color: #27ae60;
+            color: white;
+        }
+        .back-button .btn:hover {
+            background-color: #229954;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📜 诗词星球</h1>
+            <p>古诗词背诵、理解、赏析训练</p>
+        </div>
+        
+        <div class="progress-bar">
+            <div class="progress-fill" id="progressFill"></div>
+        </div>
+        
+        <div id="quizContainer">
+            <!-- Questions will be loaded here -->
+        </div>
+        
+        <div id="resultContainer" style="display: none;">
+            <div class="result-summary" id="resultSummary"></div>
+            <div class="back-button">
+                <button class="btn" onclick="goBackToHome()">返回主页</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Load questions from JSON
+        let questions = [];
+        let currentQuestionIndex = 0;
+        let userAnswers = [];
+        let score = 0;
+
+        async function loadQuestions() {
+            try {
+                const response = await fetch('poetry_planet_final.json');
+                questions = await response.json();
+                if (questions.length === 0) {
+                    document.getElementById('quizContainer').innerHTML = '<p>暂无题目，请稍后再试。</p>';
+                    return;
+                }
+                // Randomly select 10 questions
+                const shuffled = [...questions].sort(() => 0.5 - Math.random());
+                questions = shuffled.slice(0, Math.min(10, shuffled.length));
+                showQuestion();
+            } catch (error) {
+                console.error('Error loading questions:', error);
+                document.getElementById('quizContainer').innerHTML = '<p>加载题目失败，请检查网络连接。</p>';
+            }
+        }
+
+        function showQuestion() {
+            if (currentQuestionIndex >= questions.length) {
+                showResults();
+                return;
+            }
+
+            const question = questions[currentQuestionIndex];
+            let optionsHtml = '';
+            
+            if (Object.keys(question.options).length > 0) {
+                // Multiple choice question
+                const optionKeys = Object.keys(question.options);
+                optionKeys.forEach((key, index) => {
+                    const optionNumber = String.fromCodePoint(0x2460 + index); // ①, ②, ③, ④
+                    optionsHtml += `
+                        <div class="option" data-option="${key}" onclick="selectOption(this, '${key}')">
+                            ${optionNumber} ${question.options[key]}
+                        </div>
+                    `;
+                });
+            } else {
+                // Fill-in-the-blank question
+                optionsHtml = `
+                    <input type="text" id="userAnswer" placeholder="请输入答案" style="width: 100%; padding: 15px; font-size: 1.1em; border: 2px solid #ddd; border-radius: 8px; margin-bottom: 20px;">
+                `;
+            }
+
+            document.getElementById('quizContainer').innerHTML = `
+                <div class="question-card">
+                    <div class="question-number">第 ${currentQuestionIndex + 1} 题 / ${questions.length}</div>
+                    <div class="question-text">${question.question}</div>
+                    <div class="options" id="optionsContainer">
+                        ${optionsHtml}
+                    </div>
+                    <div class="answer-buttons">
+                        <button class="btn btn-primary" onclick="submitAnswer()" id="submitBtn">提交答案</button>
+                        ${currentQuestionIndex > 0 ? '<button class="btn btn-secondary" onclick="prevQuestion()">上一题</button>' : ''}
+                    </div>
+                    <div class="explanation" id="explanation">
+                        <h3>📝 解析</h3>
+                        <div class="explanation-section">
+                            <h4>考点说明</h4>
+                            <p>${question.explanation.考点 || '暂无考点说明'}</p>
+                        </div>
+                        <div class="explanation-section">
+                            <h4>解题思路</h4>
+                            <p>${question.explanation.解题思路 || '暂无解题思路'}</p>
+                        </div>
+                        <div class="explanation-section">
+                            <h4>逐项分析</h4>
+                            <p>${formatOptionAnalysis(question.explanation.选项分析) || '暂无逐项分析'}</p>
+                        </div>
+                        <div class="explanation-section">
+                            <h4>总结技巧</h4>
+                            <p>${question.explanation.总结 || '暂无总结技巧'}</p>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            // Update progress bar
+            const progress = ((currentQuestionIndex) / questions.length) * 100;
+            document.getElementById('progressFill').style.width = progress + '%';
+        }
+
+        function formatOptionAnalysis(analysis) {
+            if (!analysis) return '';
+            let html = '';
+            for (const [key, value] of Object.entries(analysis)) {
+                const optionNumber = key === 'A' ? '①' : key === 'B' ? '②' : key === 'C' ? '③' : key === 'D' ? '④' : key;
+                html += `<p><strong>${optionNumber}</strong> ${value}</p>`;
+            }
+            return html;
+        }
+
+        function selectOption(element, option) {
+            // Remove selected class from all options
+            document.querySelectorAll('.option').forEach(opt => {
+                opt.classList.remove('selected');
+            });
+            // Add selected class to clicked option
+            element.classList.add('selected');
+            // Store user answer
+            userAnswers[currentQuestionIndex] = option;
+        }
+
+        function submitAnswer() {
+            const question = questions[currentQuestionIndex];
+            let userAnswer = userAnswers[currentQuestionIndex];
+            
+            if (!userAnswer && !question.options) {
+                // Fill-in-the-blank question
+                userAnswer = document.getElementById('userAnswer').value.trim();
+                userAnswers[currentQuestionIndex] = userAnswer;
+            }
+
+            if (!userAnswer) {
+                alert('请先选择或输入答案！');
+                return;
+            }
+
+            // Show correct/incorrect feedback
+            const options = document.querySelectorAll('.option');
+            if (options.length > 0) {
+                options.forEach(opt => {
+                    const optionKey = opt.dataset.option;
+                    if (optionKey === question.answer) {
+                        opt.classList.add('correct');
+                    } else if (optionKey === userAnswer) {
+                        opt.classList.add('incorrect');
+                    }
+                });
+            }
+
+            // Show explanation
+            document.getElementById('explanation').style.display = 'block';
+            
+            // Check if answer is correct
+            if (userAnswer === question.answer || 
+                (!question.options && checkFillInAnswer(userAnswer, question.answer))) {
+                score++;
+            }
+
+            // Enable next button
+            document.getElementById('submitBtn').textContent = '下一题';
+            document.getElementById('submitBtn').onclick = nextQuestion;
+        }
+
+        function checkFillInAnswer(userAnswer, correctAnswer) {
+            // Simple check for fill-in-the-blank answers
+            return userAnswer.toLowerCase().replace(/\s+/g, '') === 
+                   correctAnswer.toLowerCase().replace(/\s+/g, '');
+        }
+
+        function nextQuestion() {
+            currentQuestionIndex++;
+            if (currentQuestionIndex < questions.length) {
+                showQuestion();
+            } else {
+                showResults();
+            }
+        }
+
+        function prevQuestion() {
+            if (currentQuestionIndex > 0) {
+                currentQuestionIndex--;
+                showQuestion();
+            }
+        }
+
+        function showResults() {
+            const percentage = Math.round((score / questions.length) * 100);
+            let resultText = `🎉 答题完成！<br><br>正确率：${percentage}% (${score}/${questions.length})`;
+            
+            if (percentage >= 90) {
+                resultText += '<br><br>🌟 太棒了！你对诗词掌握得非常好！';
+            } else if (percentage >= 70) {
+                resultText += '<br><br>👍 不错！继续努力，你会更优秀！';
+            } else if (percentage >= 50) {
+                resultText += '<br><br>📚 还有提升空间，多复习诗词吧！';
+            } else {
+                resultText += '<br><br>💪 加油！诗词需要多背多练！';
+            }
+
+            document.getElementById('resultSummary').innerHTML = resultText;
+            document.getElementById('quizContainer').style.display = 'none';
+            document.getElementById('resultContainer').style.display = 'block';
+            
+            // Update final progress
+            document.getElementById('progressFill').style.width = '100%';
+        }
+
+        function goBackToHome() {
+            window.location.href = '../../../index.html';
+        }
+
+        // Initialize quiz
+        loadQuestions();
+    </script>
+</body>
+</html>

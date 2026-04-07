@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>字词星球 - 语文学习</title>
+    <style>
+        body {
+            font-family: 'Microsoft YaHei', Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .header h1 {
+            color: #3498db;
+            font-size: 2em;
+        }
+        .progress {
+            background: #ecf0f1;
+            height: 10px;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+        .progress-bar {
+            background: #3498db;
+            height: 100%;
+            border-radius: 5px;
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+        .question-card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+            display: none;
+        }
+        .question-card.active {
+            display: block;
+        }
+        .question-text {
+            font-size: 1.2em;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+        .options {
+            margin-bottom: 20px;
+        }
+        .option {
+            padding: 15px;
+            margin: 10px 0;
+            background: #f8f9fa;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .option:hover {
+            background: #e9ecef;
+        }
+        .option.selected {
+            border-color: #3498db;
+            background: #d1ecff;
+        }
+        .option.correct {
+            border-color: #28a745;
+            background: #d4edda;
+        }
+        .option.incorrect {
+            border-color: #dc3545;
+            background: #f8d7da;
+        }
+        .option-label {
+            font-weight: bold;
+            margin-right: 10px;
+            color: #3498db;
+        }
+        .explanation {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 20px;
+            display: none;
+        }
+        .explanation.show {
+            display: block;
+        }
+        .explanation h3 {
+            color: #856404;
+            margin-top: 0;
+        }
+        .explanation-section {
+            margin-bottom: 15px;
+        }
+        .explanation-section h4 {
+            color: #856404;
+            margin-bottom: 5px;
+        }
+        .controls {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .btn {
+            padding: 12px 30px;
+            font-size: 1.1em;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .btn-primary {
+            background: #3498db;
+            color: white;
+        }
+        .btn-primary:hover {
+            background: #2980b9;
+        }
+        .btn-success {
+            background: #28a745;
+            color: white;
+        }
+        .btn-success:hover {
+            background: #218838;
+        }
+        .btn-secondary {
+            background: #6c757d;
+            color: white;
+        }
+        .btn-secondary:hover {
+            background: #545b62;
+        }
+        .fill-in-blank input {
+            padding: 10px;
+            font-size: 1.1em;
+            border: 2px solid #ced4da;
+            border-radius: 5px;
+            width: 200px;
+            margin: 10px;
+        }
+        .connection-question {
+            display: flex;
+            justify-content: space-between;
+            margin: 20px 0;
+        }
+        .connection-column {
+            width: 45%;
+        }
+        .connection-item {
+            padding: 10px;
+            margin: 5px 0;
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .connection-item.selected {
+            background: #d1ecff;
+            border-color: #3498db;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>📚 字词星球</h1>
+        <div class="progress">
+            <div class="progress-bar" id="progressBar"></div>
+        </div>
+    </div>
+
+    <div id="quizContainer">
+        <!-- Questions will be loaded here -->
+    </div>
+
+    <div class="controls">
+        <button class="btn btn-primary" id="nextBtn" style="display: none;">下一题</button>
+        <button class="btn btn-secondary" id="restartBtn" style="display: none;">重新开始</button>
+    </div>
+
+    <script>
+        // Load questions from JSON
+        fetch('vocab_planet_final.json')
+            .then(response => response.json())
+            .then(questions => {
+                // Select 10 random questions
+                const selectedQuestions = [];
+                const usedIndices = new Set();
+                while (selectedQuestions.length < 10 && selectedQuestions.length < questions.length) {
+                    const randomIndex = Math.floor(Math.random() * questions.length);
+                    if (!usedIndices.has(randomIndex)) {
+                        usedIndices.add(randomIndex);
+                        selectedQuestions.push(questions[randomIndex]);
+                    }
+                }
+
+                let currentQuestionIndex = 0;
+                let score = 0;
+
+                function updateProgress() {
+                    const progress = ((currentQuestionIndex) / selectedQuestions.length) * 100;
+                    document.getElementById('progressBar').style.width = progress + '%';
+                }
+
+                function renderQuestion() {
+                    const question = selectedQuestions[currentQuestionIndex];
+                    const container = document.getElementById('quizContainer');
+                    
+                    let questionHtml = `
+                        <div class="question-card active" id="question${currentQuestionIndex}">
+                            <div class="question-text">${question.question}</div>
+                    `;
+
+                    if (question.options && Object.keys(question.options).length > 0) {
+                        // Multiple choice question
+                        questionHtml += '<div class="options">';
+                        const optionKeys = Object.keys(question.options);
+                        optionKeys.forEach((key, index) => {
+                            const optionLabels = ['①', '②', '③', '④'];
+                            questionHtml += `
+                                <div class="option" data-option="${key}" onclick="selectOption(this, '${key}')">
+                                    <span class="option-label">${optionLabels[index]}</span>
+                                    ${question.options[key]}
+                                </div>
+                            `;
+                        });
+                        questionHtml += '</div>';
+                    } else if (question.question.includes('填空') || question.question.includes('________')) {
+                        // Fill in the blank
+                        const blankCount = (question.question.match(/__________/g) || []).length;
+                        questionHtml += '<div class="fill-in-blank">';
+                        for (let i = 0; i < Math.max(blankCount, 1); i++) {
+                            questionHtml += `<input type="text" id="blank${i}" placeholder="请输入答案">`;
+                        }
+                        questionHtml += '</div>';
+                        questionHtml += `<button class="btn btn-primary" onclick="checkFillInBlank()">提交答案</button>`;
+                    } else if (question.question.includes('连线')) {
+                        // Connection question - simplified for now
+                        questionHtml += '<div class="options">';
+                        questionHtml += '<p>连线题功能正在开发中，请查看完整答案和解析。</p>';
+                        questionHtml += '</div>';
+                        questionHtml += `<button class="btn btn-primary" onclick="showExplanation(${currentQuestionIndex})">查看答案和解析</button>`;
+                    } else {
+                        // Other question types
+                        questionHtml += '<div class="fill-in-blank">';
+                        questionHtml += '<input type="text" id="answerInput" placeholder="请输入答案">';
+                        questionHtml += '</div>';
+                        questionHtml += `<button class="btn btn-primary" onclick="checkAnswer()">提交答案</button>`;
+                    }
+
+                    questionHtml += `
+                        <div class="explanation" id="explanation${currentQuestionIndex}">
+                            <h3>📝 解析</h3>
+                            <div class="explanation-section">
+                                <h4>🎯 考点说明</h4>
+                                <p>${question.explanation.考点 || ''}</p>
+                            </div>
+                            <div class="explanation-section">
+                                <h4>💡 解题思路</h4>
+                                <p>${question.explanation.解题思路 || ''}</p>
+                            </div>
+                            <div class="explanation-section">
+                                <h4>🔍 逐项分析</h4>
+                                <p>${JSON.stringify(question.explanation.选项分析 || {}).replace(/[{}"]/g, '').replace(/,/g, '<br>')}</p>
+                            </div>
+                            <div class="explanation-section">
+                                <h4>✨ 总结技巧</h4>
+                                <p>${question.explanation.总结 || ''}</p>
+                            </div>
+                        </div>
+                    `;
+
+                    questionHtml += '</div>';
+                    container.innerHTML = questionHtml;
+                    updateProgress();
+                }
+
+                window.selectOption = function(optionElement, selectedOption) {
+                    const question = selectedQuestions[currentQuestionIndex];
+                    const options = document.querySelectorAll('.option');
+                    options.forEach(opt => opt.classList.remove('selected'));
+                    optionElement.classList.add('selected');
+
+                    // Check answer
+                    if (selectedOption === question.answer) {
+                        optionElement.classList.add('correct');
+                        score++;
+                    } else {
+                        optionElement.classList.add('incorrect');
+                        // Highlight correct answer
+                        options.forEach(opt => {
+                            if (opt.dataset.option === question.answer) {
+                                opt.classList.add('correct');
+                            }
+                        });
+                    }
+
+                    // Show explanation
+                    document.getElementById(`explanation${currentQuestionIndex}`).classList.add('show');
+                    
+                    // Show next button
+                    document.getElementById('nextBtn').style.display = 'inline-block';
+                };
+
+                window.checkFillInBlank = function() {
+                    // For fill in blank, just show explanation
+                    document.getElementById(`explanation${currentQuestionIndex}`).classList.add('show');
+                    document.getElementById('nextBtn').style.display = 'inline-block';
+                };
+
+                window.checkAnswer = function() {
+                    // For other question types, just show explanation
+                    document.getElementById(`explanation${currentQuestionIndex}`).classList.add('show');
+                    document.getElementById('nextBtn').style.display = 'inline-block';
+                };
+
+                window.showExplanation = function(index) {
+                    document.getElementById(`explanation${index}`).classList.add('show');
+                    document.getElementById('nextBtn').style.display = 'inline-block';
+                };
+
+                document.getElementById('nextBtn').addEventListener('click', () => {
+                    currentQuestionIndex++;
+                    if (currentQuestionIndex < selectedQuestions.length) {
+                        renderQuestion();
+                        document.getElementById('nextBtn').style.display = 'none';
+                    } else {
+                        // Quiz finished
+                        document.getElementById('quizContainer').innerHTML = `
+                            <div class="question-card active">
+                                <h2>🎉 测验完成！</h2>
+                                <p>你的得分：${score} / ${selectedQuestions.length}</p>
+                                <p>正确率：${Math.round((score / selectedQuestions.length) * 100)}%</p>
+                            </div>
+                        `;
+                        document.getElementById('nextBtn').style.display = 'none';
+                        document.getElementById('restartBtn').style.display = 'inline-block';
+                    }
+                });
+
+                document.getElementById('restartBtn').addEventListener('click', () => {
+                    location.reload();
+                });
+
+                // Start the quiz
+                renderQuestion();
+            })
+            .catch(error => {
+                console.error('Error loading questions:', error);
+                document.getElementById('quizContainer').innerHTML = '<p>加载题目时出错，请检查网络连接或文件路径。</p>';
+            });
+    </script>
+</body>
+</html>

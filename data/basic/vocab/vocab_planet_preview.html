@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>字词星球 - 小学五年级语文题库</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 10px;
+        }
+        
+        .header {
+            text-align: center;
+            color: white;
+            padding: 20px 0;
+        }
+        
+        .header h1 {
+            font-size: 24px;
+            margin-bottom: 5px;
+        }
+        
+        .header .subtitle {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+        
+        .progress-bar {
+            background: rgba(255,255,255,0.3);
+            height: 4px;
+            border-radius: 2px;
+            margin: 10px auto;
+            max-width: 200px;
+        }
+        
+        .progress-fill {
+            background: #4CAF50;
+            height: 100%;
+            border-radius: 2px;
+            width: 1%;
+        }
+        
+        .card {
+            background: white;
+            border-radius: 16px;
+            margin: 15px 0;
+            padding: 20px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+        }
+        
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #f0f0f0;
+        }
+        
+        .card-title {
+            font-size: 16px;
+            font-weight: bold;
+            color: #333;
+        }
+        
+        .card-badge {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+        }
+        
+        .question {
+            font-size: 16px;
+            line-height: 1.6;
+            color: #333;
+            margin-bottom: 15px;
+        }
+        
+        .question .highlight {
+            color: #e74c3c;
+            font-weight: bold;
+        }
+        
+        .options {
+            margin: 15px 0;
+        }
+        
+        .option {
+            display: flex;
+            align-items: flex-start;
+            padding: 12px 15px;
+            margin: 8px 0;
+            background: #f8f9fa;
+            border-radius: 10px;
+            border: 2px solid transparent;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .option:hover {
+            background: #e3f2fd;
+            border-color: #2196F3;
+        }
+        
+        .option-number {
+            width: 28px;
+            height: 28px;
+            background: #e0e0e0;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: #666;
+            margin-right: 12px;
+            flex-shrink: 0;
+        }
+        
+        .option.correct {
+            background: #e8f5e9;
+            border-color: #4CAF50;
+        }
+        
+        .option.correct .option-number {
+            background: #4CAF50;
+            color: white;
+        }
+        
+        .option-text {
+            flex: 1;
+            font-size: 15px;
+            line-height: 1.5;
+        }
+        
+        .answer-section {
+            margin-top: 15px;
+            padding: 15px;
+            background: #f5f5f5;
+            border-radius: 10px;
+        }
+        
+        .answer-badge {
+            display: inline-block;
+            background: #4CAF50;
+            color: white;
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .analysis {
+            margin-top: 15px;
+        }
+        
+        .analysis-item {
+            margin: 10px 0;
+            padding: 12px;
+            background: #fff;
+            border-radius: 8px;
+            border-left: 4px solid;
+        }
+        
+        .analysis-item.考点 { border-color: #e74c3c; }
+        .analysis-item.思路 { border-color: #3498db; }
+        .analysis-item.解析 { border-color: #9b59b6; }
+        .analysis-item.技巧 { border-color: #f39c12; }
+        
+        .analysis-title {
+            font-weight: bold;
+            font-size: 14px;
+            margin-bottom: 5px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .analysis-title::before {
+            content: '';
+            display: inline-block;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            margin-right: 8px;
+        }
+        
+        .analysis-item.考点 .analysis-title::before { background: #e74c3c; }
+        .analysis-item.思路 .analysis-title::before { background: #3498db; }
+        .analysis-item.解析 .analysis-title::before { background: #9b59b6; }
+        .analysis-item.技巧 .analysis-title::before { background: #f39c12; }
+        
+        .analysis-content {
+            font-size: 14px;
+            line-height: 1.6;
+            color: #555;
+        }
+        
+        .nav-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+            padding: 0 10px;
+        }
+        
+        .nav-btn {
+            background: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 25px;
+            font-size: 16px;
+            color: #667eea;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .nav-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        .page-indicator {
+            text-align: center;
+            color: white;
+            margin-top: 15px;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🔷 字词星球</h1>
+        <div class="subtitle">小学五年级语文 · 字词专项训练</div>
+        <div class="progress-bar">
+            <div class="progress-fill" id="progress"></div>
+        </div>
+    </div>
+
+    <!-- 第1题 -->
+    <div class="card" data-index="1">
+        <div class="card-header">
+            <span class="card-title">第 001 题</span>
+            <span class="card-badge">字音辨析 · 单选题</span>
+        </div>
+        
+        <div class="question">
+            下列词语中，加点字的读音<span class="highlight">全部正确</span>的一组是（ ）。<br>
+            <small style="color:#888">（加点字：榨、眸、喙、匣）</small>
+        </div>
+        
+        <div class="options">
+            <div class="option">
+                <span class="option-number">①</span>
+                <span class="option-text">榨油（zà） 眸子（mó） 喙长（huì） 匣子（jiá）</span>
+            </div>
+            <div class="option correct">
+                <span class="option-number">②</span>
+                <span class="option-text">榨油（zhà） 眸子（móu） 喙长（huì） 匣子（xiá）</span>
+            </div>
+            <div class="option">
+                <span class="option-number">③</span>
+                <span class="option-text">榨油（zhà） 眸子（móu） 喙长（yuán） 匣子（xiá）</span>
+            </div>
+            <div class="option">
+                <span class="option-number">④</span>
+                <span class="option-text">榨油（zà） 眸子（mó） 喙长（yuán） 匣子（jiá）</span>
+            </div>
+        </div>
+        
+        <div class="answer-section">
+            <span class="answer-badge">✅ 正确答案：②</span>
+        </div>
+        
+        <div class="analysis">
+            <div class="analysis-item 考点">
+                <div class="analysis-title">📚 考点说明</div>
+                <div class="analysis-content">本题考查形声字和易错字的字音辨析，重点考查声母、韵母和声调的准确记忆。小学五年级要求掌握常用汉字的标准读音，特别是生活中容易读错的字。</div>
+            </div>
+            <div class="analysis-item 思路">
+                <div class="analysis-title">💡 解题思路</div>
+                <div class="analysis-content">首先，逐个判断每个加点字的正确读音。其次，将选项中的读音与正确读音进行比对。注意区分平舌音与翘舌音、前鼻音与后鼻音、以及形声字的声旁是否准确表音。最后，选择四个字全部读对的一组。</div>
+            </div>
+            <div class="analysis-item 解析">
+                <div class="analysis-title">🔍 逐项分析</div>
+                <div class="analysis-content">
+                    <b>①</b> 榨油（zà）错误，应为翘舌音zhà；眸子（mó）错误，应为móu；匣子（jiá）错误，应为xiá。三处错误。<br><br>
+                    <b>②</b> 全部正确 ✓<br><br>
+                    <b>③</b> 喙长（yuán）错误，应为huì。一处错误。<br><br>
+                    <b>④</b> 全部错误。
+                </div>
+            </div>
+            <div class="analysis-item 技巧">
+                <div class="analysis-title">⭐ 总结技巧</div>
+                <div class="analysis-content">形声字最容易错——声旁已经不能准确表音，如'眸'的声旁是'牟(móu)'。记忆方法：把易错字整理成小本子，每个字组一个常见词反复朗读。考试时如果不确定，用排除法先找明显错误。</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 第2题 -->
+    <div class="card" data-index="2">
+        <div class="card-header">
+            <span class="card-title">第 002 题</span>
+            <span class="card-badge">字形辨析 · 单选题</span>
+        </div>
+        
+        <div class="question">
+            下列词语中，<span class="highlight">没有错别字</span>的一组是（ ）。
+        </div>
+        
+        <div class="options">
+            <div class="option">
+                <span class="option-number">①</span>
+                <span class="option-text">崩塌 防碍 山洪爆发 津津有味</span>
+            </div>
+            <div class="option">
+                <span class="option-number">②</span>
+                <span class="option-text">迟廷 爱慕 诗情画意 金壁辉煌</span>
+            </div>
+            <div class="option correct">
+                <span class="option-number">③</span>
+                <span class="option-text">协调 平衡 理所当然 负荆请罪</span>
+            </div>
+            <div class="option">
+                <span class="option-number">④</span>
+                <span class="option-text">汛期 隐敝 完壁归赵 振天动地</span>
+            </div>
+        </div>
+        
+        <div class="answer-section">
+            <span class="answer-badge">✅ 正确答案：③</span>
+        </div>
+        
+        <div class="analysis">
+            <div class="analysis-item 考点">
+                <div class="analysis-title">📚 考点说明</div>
+                <div class="analysis-content">本题考查同音字、形近字的辨析能力，是小学五年级字形考查的核心内容。要求学生能准确区分常见易错字的正确写法。</div>
+            </div>
+            <div class="analysis-item 思路">
+                <div class="analysis-title">💡 解题思路</div>
+                <div class="analysis-content">先通读每个选项，凭语感找出可疑的字。然后逐一核对每个词语的标准写法，重点关注那些读音相同但字形不同的字（如'防'与'妨'）、以及字形相近的字（如'廷'与'延'）。</div>
+            </div>
+            <div class="analysis-item 解析">
+                <div class="analysis-title">🔍 逐项分析</div>
+                <div class="analysis-content">
+                    <b>①</b> '防碍'应为'妨碍'；'山洪爆发'应为'山洪暴发'。两处错误。<br><br>
+                    <b>②</b> '迟廷'应为'迟延'；'金壁辉煌'应为'金碧辉煌'。两处错误。<br><br>
+                    <b>③</b> 全部正确 ✓<br><br>
+                    <b>④</b> '隐敝'应为'隐蔽'；'完壁归赵'应为'完璧归赵'；'振天动地'应为'震天动地'。三处错误。
+                </div>
+            </div>
+            <div class="analysis-item 技巧">
+                <div class="analysis-title">⭐ 总结技巧</div>
+                <div class="analysis-content">避免错别字的核心方法是'据义定形'——根据字的意思来推断字形。例如：'妨碍'的'妨'是'妨害'的意思，所以是女字旁；'金碧辉煌'的'碧'是青绿色的玉石，所以下面有个'石'。</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 第3题 -->
+    <div class="card" data-index="3">
+        <div class="card-header">
+            <span class="card-title">第 003 题</span>
+            <span class="card-badge">词语理解 · 单选题</span>
+        </div>
+        
+        <div class="question">
+            下列句子中，加点词语解释<span class="highlight">有误</span>的一项是（ ）。<br>
+            <small style="color:#888">（加点词：负荆请罪、理直气壮、完璧归赵、同心协力）</small>
+        </div>
+        
+        <div class="options">
+            <div class="option">
+                <span class="option-number">①</span>
+                <span class="option-text">负荆请罪：背着荆条去请罪，表示诚恳道歉</span>
+            </div>
+            <div class="option">
+                <span class="option-number">②</span>
+                <span class="option-text">理直气壮：理由充分，说话有气势</span>
+            </div>
+            <div class="option">
+                <span class="option-number">③</span>
+                <span class="option-text">完璧归赵：把玉璧完好地还给赵国，比喻原物完整归还</span>
+            </div>
+            <div class="option correct">
+                <span class="option-number">④</span>
+                <span class="option-text">同心协力：形容大家各自努力，互不干扰</span>
+            </div>
+        </div>
+        
+        <div class="answer-section">
+            <span class="answer-badge">✅ 正确答案：④</span>
+        </div>
+        
+        <div class="analysis">
+            <div class="analysis-item 考点">
+                <div class="analysis-title">📚 考点说明</div>
+                <div class="analysis-content">本题考查成语含义的理解能力，特别是成语中关键字的意思。要求学生不仅能记住成语的意思，还要理解每个字在成语中的具体含义。</div>
+            </div>
+            <div class="analysis-item 思路">
+                <div class="analysis-title">💡 解题思路</div>
+                <div class="analysis-content">先回忆每个成语的意思，然后逐字对照。特别注意那些容易误解的字，如'协'是'协作'而非'各自'。找出解释与成语本义不符的一项。</div>
+            </div>
+            <div class="analysis-item 解析">
+                <div class="analysis-title">🔍 逐项分析</div>
+                <div class="analysis-content">
+                    <b>①</b> 正确。负：背着；荆：荆条。典故出自廉颇向蔺相如请罪。<br><br>
+                    <b>②</b> 正确。理直：理由正当；气壮：气势旺盛。<br><br>
+                    <b>③</b> 正确。完：完整；璧：玉璧。典故出自蔺相如。<br><br>
+                    <b>④</b> <span style="color:#e74c3c">错误 ✗</span>。同心协力：大家<span style="color:#e74c3c;font-weight:bold">心往一处想，劲往一处使</span>，共同努力。不是'各自努力，互不干扰'。
+                </div>
+            </div>
+            <div class="analysis-item 技巧">
+                <div class="analysis-title">⭐ 总结技巧</div>
+                <div class="analysis-content">记成语要'抓关键字'：如'同心协力'的'协'是'协作、合力'的意思。可以联想'协作'一词。同时记住典故有助于理解，如'负荆请罪''完璧归赵'都出自《史记·廉颇蔺相如列传》。</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="nav-buttons">
+        <button class="nav-btn" onclick="prevCard()">← 上一题</button>
+        <button class="nav-btn" onclick="nextCard()">下一题 →</button>
+    </div>
+    
+    <div class="page-indicator">
+        第 <span id="current">1</span> / 89 题
+    </div>
+
+    <script>
+        let currentIndex = 1;
+        const totalCards = 3; // 实际为89题，这里只显示3题作为预览
+        
+        function updateProgress() {
+            const progress = (currentIndex / totalCards) * 100;
+            document.getElementById('progress').style.width = progress + '%';
+            document.getElementById('current').textContent = currentIndex;
+        }
+        
+        function showCard(index) {
+            document.querySelectorAll('.card').forEach((card, i) => {
+                card.style.display = (i + 1 === index) ? 'block' : 'none';
+            });
+            updateProgress();
+        }
+        
+        function nextCard() {
+            if (currentIndex < totalCards) {
+                currentIndex++;
+                showCard(currentIndex);
+            }
+        }
+        
+        function prevCard() {
+            if (currentIndex > 1) {
+                currentIndex--;
+                showCard(currentIndex);
+            }
+        }
+        
+        // 初始化显示第一题
+        showCard(1);
+    </script>
+</body>
+</html>
