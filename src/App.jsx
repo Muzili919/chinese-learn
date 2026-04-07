@@ -9,13 +9,14 @@ import ReadingPage from './pages/ReadingPage'
 import SentencePracticePage from './pages/SentencePracticePage'
 import EssayPage from './pages/EssayPage'
 import WrongAnswersPage from './pages/WrongAnswersPage'
+import MV1Demo from './pages/MV1Demo'
 import GlobalPetDock from './components/GlobalPetDock'
 import { initGamificationState } from './utils/gamification'
 import { fetchMV1State, upsertMV1State } from './utils/mv1_cloud'
 
 export default function App() {
-  const [page, setPage] = useState('onboarding')
-  const [user, setUser] = useState(null)
+  const [user, setUser] = useState(() => storage.getUser())
+  const [page, setPage] = useState(() => storage.getUser() ? 'home' : 'onboarding')
   const [sessionResult, setSessionResult] = useState(null)
   const [quizOptions, setQuizOptions] = useState(null)
   const [gameState, setGameState] = useState(() => initGamificationState())

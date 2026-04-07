@@ -35,69 +35,59 @@ export default function MultiMeaningCard({
     setSelectedAnswer(optionId);
     setIsSubmitting(true);
     
-    // 延迟提交，让用户看到选择
+    // 延迟提交，让用户看到选择效果
     setTimeout(() => {
       onAnswer(optionId);
-      setSelectedAnswer(null);
       setIsSubmitting(false);
     }, 300);
   };
 
+  const renderQuestionText = () => {
+    let text = question;
+    
+    // 替换填空部分
+    parsedBlanks.forEach(blank => {
+      text = text.replace(blank.placeholder, 
+        `<span class="inline-block min-w-8 h-6 bg-yellow-100 border-b-2 border-dashed border-gray-400 align-middle mx-1"></span>`
+      );
+    });
+    
+    return <div dangerouslySetInnerHTML={{ __html: text }} />;
+  };
+
   return (
-    <div className="bg-white rounded-2xl shadow-lg p-6 mb-6 border-l-4 border-indigo-500">
-      {/* 题目编号 */}
-      <div className="flex items-center justify-between mb-4">
-        <span className="text-sm font-medium text-indigo-600 bg-indigo-50 px-3 py-1 rounded-full">
-          第 {currentQuestion} 题 / 共 {totalQuestions} 题
-        </span>
+    <div className="space-y-6">
+      {/* 题目进度 */}
+      <div className="text-sm text-gray-500 text-center">
+        第 {currentQuestion} 题 / 共 {totalQuestions} 题
       </div>
 
       {/* 题目内容 */}
-      <div className="mb-6">
-        <h3 className="text-lg font-bold text-gray-800 mb-3">多义字选择</h3>
-        <p className="text-gray-700 leading-relaxed whitespace-pre-wrap">{question}</p>
+      <div className="bg-white p-6 rounded-xl shadow-md">
+        <div className="text-lg font-medium leading-relaxed mb-4">
+          {renderQuestionText()}
+        </div>
+        
+        {/* 选项按钮 */}
+        <div className="multi-meaning-options">
+          {parsedOptions.map((option) => (
+            <button
+              key={option.id}
+              className={`multi-meaning-option font-medium transition-all duration-200 ${
+                selectedAnswer === option.id
+                  ? 'bg-blue-500 text-white shadow-md transform scale-105'
+                  : isSubmitting
+                  ? 'bg-gray-200 text-gray-500 cursor-not-allowed'
+                  : 'bg-gray-100 text-gray-700 hover:bg-gray-200 active:scale-95'
+              }`}
+              onClick={() => !isSubmitting && handleSelect(option.id)}
+              disabled={isSubmitting}
+            >
+              {option.id}{option.text}
+            </button>
+          ))}
+        </div>
       </div>
-
-      {/* 选项按钮 - 横向排列 */}
-      {parsedOptions.length > 0 && (
-        <div className="mb-6">
-          <h4 className="font-semibold text-gray-800 mb-3">请选择正确的解释：</h4>
-          <div className="flex flex-wrap gap-2">
-            {parsedOptions.map((option) => (
-              <button
-                key={option.id}
-                onClick={() => !isSubmitting && handleSelect(option.id)}
-                disabled={isSubmitting}
-                className={`px-4 py-2 rounded-lg font-medium transition-all ${
-                  selectedAnswer === option.id
-                    ? 'bg-indigo-600 text-white transform scale-105'
-                    : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-                } ${isSubmitting ? 'cursor-not-allowed opacity-50' : ''}`}
-              >
-                <span className="font-bold">{option.id}</span>
-                <span className="ml-1">{option.text}</span>
-              </button>
-            ))}
-          </div>
-        </div>
-      )}
-
-      {/* 填空提示 */}
-      {parsedBlanks.length > 0 && (
-        <div className="bg-yellow-50 rounded-lg p-4">
-          <h4 className="font-semibold text-yellow-800 mb-2">答题提示：</h4>
-          <p className="text-yellow-700 text-sm">
-            点击上面的选项按钮，将序号填入括号中
-          </p>
-          <div className="mt-2 flex flex-wrap gap-2">
-            {parsedBlanks.map((blank, index) => (
-              <span key={index} className="inline-block bg-white px-3 py-1 rounded border border-yellow-300 text-yellow-800">
-                ({index + 1}) {blank.placeholder}
-              </span>
-            ))}
-          </div>
-        </div>
-      )}
     </div>
   );
 }
