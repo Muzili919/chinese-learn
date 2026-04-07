@@ -1,0 +1,96 @@
+/* 移动端优化样式 - 针对中文学习应用 */
+@media (max-width: 480px) {
+  /* 填空题优化 */
+  .answer-input-container {
+    padding: 16px;
+  }
+  
+  .answer-input-textarea {
+    min-height: 120px !important;
+    font-size: 16px !important; /* 防止iOS自动缩放 */
+    padding: 12px !important;
+    border-radius: 8px !important;
+  }
+  
+  .answer-submit-button {
+    padding: 14px 24px !important;
+    font-size: 16px !important;
+    min-height: 48px !important;
+    margin-top: 12px !important;
+  }
+  
+  /* 多义字选择题优化 */
+  .multi-meaning-options {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 10px !important;
+    justify-content: center !important;
+  }
+  
+  .multi-meaning-option {
+    min-width: 50px !important;
+    min-height: 48px !important;
+    padding: 10px 16px !important;
+    font-size: 16px !important;
+    border-radius: 8px !important;
+  }
+  
+  /* 连线题优化 */
+  .matching-container {
+    flex-direction: column !important;
+    gap: 24px !important;
+    padding: 16px !important;
+  }
+  
+  .matching-column {
+    width: 100% !important;
+  }
+  
+  .matching-item {
+    min-height: 48px !important;
+    padding: 12px 16px !important;
+    font-size: 16px !important;
+    border-radius: 8px !important;
+  }
+  
+  /* 通用移动端优化 */
+  .quiz-card {
+    margin: 8px !important;
+    padding: 16px !important;
+  }
+  
+  .essay-textarea {
+    font-size: 16px !important;
+    min-height: 200px !important;
+  }
+  
+  .button-primary {
+    min-height: 48px !important;
+    font-size: 16px !important;
+    padding: 12px 20px !important;
+  }
+  
+  /* 防止双击缩放 */
+  input, textarea, select {
+    font-size: 16px !important;
+    touch-action: manipulation;
+  }
+  
+  /* 改善触摸反馈 */
+  button:active, .clickable:active {
+    transform: scale(0.98);
+    transition: transform 0.1s ease;
+  }
+}
+
+/* 平板优化 (481px - 768px) */
+@media (min-width: 481px) and (max-width: 768px) {
+  .matching-container {
+    padding: 20px !important;
+  }
+  
+  .quiz-card {
+    margin: 12px !important;
+    padding: 20px !important;
+  }
+}

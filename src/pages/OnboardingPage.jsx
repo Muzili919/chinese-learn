@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { storage } from '../utils/storage'
 import { isSyncEnabled, findUserByName, pullFromCloud, syncUserToCloud } from '../utils/sync'
 
 export default function OnboardingPage({ onDone }) {
@@ -12,17 +13,25 @@ export default function OnboardingPage({ onDone }) {
     e.preventDefault()
     if (name.trim().length < 1) return
 
-    // If sync enabled, try to find existing user
+    // 1. 先查本设备本地目录（最常见：同设备切换账号）
+    const localUser = storage.getUsersDir().find(u => u.name === name.trim())
+    if (localUser) {
+      storage.setUser(localUser)
+      onDone(localUser)
+      return
+    }
+
+    // 2. 本地没有时，查云端（换设备登录）
     if (isSyncEnabled()) {
       setRestoring(true)
       const found = await findUserByName(name.trim())
       setRestoring(false)
       if (found) {
         setRestoreResult('found')
-        // Pull their data from cloud
         await pullFromCloud(found.id)
-        // Restore user with their saved pin (we don't store pin in cloud, use default)
-        onDone({ id: found.id, name: found.name, pin: '1234', createdAt: found.created_at })
+        const restoredUser = { id: found.id, name: found.name, pin: '1234', createdAt: found.created_at }
+        storage.saveToUsersDir(restoredUser)
+        onDone(restoredUser)
         return
       }
       setRestoreResult('notfound')

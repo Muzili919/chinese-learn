@@ -1,0 +1,68 @@
+/* 填空题移动端优化 */
+.fill-blank-container {
+  width: 100%;
+  max-width: 100%;
+}
+
+.fill-blank-input {
+  width: 100%;
+  min-height: 100px;
+  padding: 16px;
+  font-size: 16px;
+  border: 2px solid #e5e7eb;
+  border-radius: 16px;
+  resize: vertical;
+  box-sizing: border-box;
+}
+
+.fill-blank-input:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.fill-blank-button {
+  width: 100%;
+  min-height: 48px;
+  font-size: 16px;
+  padding: 12px;
+  border-radius: 12px;
+  margin-top: 12px;
+}
+
+.fill-blank-feedback {
+  margin-top: 16px;
+  padding: 16px;
+  border-radius: 16px;
+  font-size: 14px;
+}
+
+/* 小屏幕优化 */
+@media (max-width: 480px) {
+  .fill-blank-input {
+    min-height: 120px;
+    font-size: 16px;
+  }
+  
+  .fill-blank-button {
+    min-height: 52px;
+    font-size: 16px;
+  }
+  
+  .fill-blank-feedback {
+    font-size: 14px;
+  }
+}
+
+/* 防止iOS缩放 */
+.fill-blank-input {
+  -webkit-text-size-adjust: 100%;
+  -moz-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+/* 安全区域适配 */
+.fill-blank-safe-bottom {
+  padding-bottom: env(safe-area-inset-bottom);
+}

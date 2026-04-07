@@ -93,8 +93,22 @@ export const storage = {
     localStorage.setItem(P + key, JSON.stringify(state))
   },
 
-  // 退出账号
+  // 本地用户目录：保存曾在此设备登录过的所有用户（用于同设备重新登录时恢复 userId）
+  getUsersDir: () =>
+    JSON.parse(localStorage.getItem(P + 'users_dir') || '[]'),
+  saveToUsersDir: (user) => {
+    const dir = JSON.parse(localStorage.getItem(P + 'users_dir') || '[]');
+    const entry = { id: user.id, name: user.name, pin: user.pin, createdAt: user.createdAt };
+    const idx = dir.findIndex(u => u.id === user.id);
+    if (idx >= 0) dir[idx] = entry;
+    else dir.push(entry);
+    localStorage.setItem(P + 'users_dir', JSON.stringify(dir));
+  },
+
+  // 退出账号（保留用户目录，以便再次登录时恢复 userId）
   logout: () => {
+    const user = storage.getUser();
+    if (user) storage.saveToUsersDir(user);
     localStorage.removeItem(P + 'user');
   },
 

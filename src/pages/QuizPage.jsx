@@ -6,6 +6,8 @@ import { syncAfterSession } from '../utils/sync'
 import { generateVariant } from '../utils/ai'
 import MultiMeaningCard from '../components/MultiMeaningCard'
 import MatchingCard from '../components/MatchingCard'
+import FillBlankInput from '../components/FillBlankInput' // 添加填空题组件
+import '../styles/fill-blank-mobile.css'
 import vocabQ from '../data/questions_vocab.json'
 import poetryQ from '../data/questions_poetry.json'
 import idiomQ from '../data/questions_idiom.json'
@@ -24,410 +26,508 @@ function shuffle(arr) {
   return a
 }
 
-function shuffleOptions(question) {
-  if (question.type === 'fill_blank') return question
-  const opts = [...question.options]
-  for (let i = opts.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [opts[i], opts[j]] = [opts[j], opts[i]]
+function shuffleOptions(q) {
+  if (!q.options || q.options.length === 0) return q
+  const opts = shuffle(q.options)
+  return { ...q, options: opts }
+}
+
+// ── 智能批改：关键词匹配算法 ───────────────────────────────
+function smartGrade(userAnswer, referenceAnswer, keywords = []) {
+  if (!userAnswer?.trim()) return { correct: false, score: 0, feedback: '答案不能为空' }
+
+  const ua = userAnswer.trim().toLowerCase()
+  const ra = referenceAnswer.toLowerCase()
+
+  // 完全匹配
+  if (ua === ra) return { correct: true, score: 100, feedback: '完全正确！' }
+
+  // 关键词匹配
+  const matchedKeywords = keywords.filter(kw => ua.includes(kw.toLowerCase()))
+  const keywordScore = matchedKeywords.length / keywords.length * 80
+
+  // 相似度计算（简化版）
+  const similarity = calculateSimilarity(ua, ra)
+  const similarityScore = similarity * 20
+
+  const totalScore = Math.min(100, Math.round(keywordScore + similarityScore))
+  const correct = totalScore >= 80
+
+  let feedback = ''
+  if (correct) {
+    feedback = totalScore === 100 ? '完全正确！' : '基本正确，很棒！'
+  } else if (totalScore >= 60) {
+    feedback = '接近正确，再想想？'
+  } else if (totalScore >= 40) {
+    feedback = '思路对了，但表达不够准确'
+  } else {
+    feedback = '答案不太准确，参考标准答案'
   }
-  return { ...question, options: opts }
+
+  return { correct, score: totalScore, feedback }
 }
 
-// 去掉首尾空格和标点，用于填空题比对
-function normalize(s) {
-  return (s || '').trim().replace(/[，。！？、；：""''《》（）\s]/g, '')
+function calculateSimilarity(str1, str2) {
+  if (str1 === str2) return 1
+  if (str1.length === 0 || str2.length === 0) return 0
+  
+  const longer = str1.length > str2.length ? str1 : str2
+  const shorter = str1.length > str2.length ? str2 : str1
+  const longerLength = longer.length
+  
+  if (longerLength === 0) return 1.0
+  
+  const editDistance = levenshteinDistance(longer, shorter)
+  return (longerLength - editDistance) / parseFloat(longerLength.toString())
 }
 
-export default function QuizPage({ user, options = {}, onFinish, onBack }) {
-  const { focusTag = null, knowledgeTag = null, wrongCardIds = null } = options
-
-  const srsStates = useRef(storage.getSrsState(user.id))
-  const startTime = useRef(Date.now())
-  const questionStartTime = useRef(Date.now())
-
-  const questions = useMemo(() => {
-    // 错题专练模式：只出指定 id 的题
-    if (wrongCardIds?.length) {
-      const idSet = new Set(wrongCardIds)
-      const pool = ALL_QUESTIONS.filter(q => idSet.has(q.id))
-      return shuffle(pool).slice(0, SESSION_SIZE).map(shuffleOptions)
+function levenshteinDistance(str1, str2) {
+  const matrix = Array(str2.length + 1).fill().map((_, i) => [i])
+  matrix[0] = Array(str1.length + 1).fill().map((_, i) => i)
+  
+  for (let i = 1; i <= str2.length; i++) {
+    for (let j = 1; j <= str1.length; j++) {
+      if (str2[i - 1] === str1[j - 1]) {
+        matrix[i][j] = matrix[i - 1][j - 1]
+      } else {
+        matrix[i][j] = Math.min(
+          matrix[i - 1][j - 1] + 1,
+          matrix[i][j - 1] + 1,
+          matrix[i - 1][j] + 1
+        )
+      }
     }
-    let pool = ALL_QUESTIONS
-    if (knowledgeTag) pool = pool.filter((q) => q.knowledge_tag === knowledgeTag)
-    return scheduleSession(pool, srsStates.current, SESSION_SIZE, focusTag).map(shuffleOptions)
-  }, [focusTag, knowledgeTag, wrongCardIds])
+  }
+  return matrix[str2.length][str1.length]
+}
 
-  const isWrongReview = !!(wrongCardIds?.length)
-
-  const [index, setIndex] = useState(0)
+// ── 题目卡片组件 ───────────────────────────────────────
+function QuestionCard({ current, onAnswer }) {
   const [selected, setSelected] = useState(null)
-  const [fillInput, setFillInput] = useState('')
   const [showAnalysis, setShowAnalysis] = useState(false)
-  const [sessionRecords, setSessionRecords] = useState([])
-  const [xpGained, setXpGained] = useState(0)
-
-  // 变种题状态（仅错题模式）
+  const [variantQ, setVariantQ] = useState(null)
+  const [variantSel, setVariantSel] = useState(null)
   const [variantLoading, setVariantLoading] = useState(false)
-  const [variantQ, setVariantQ] = useState(null)       // 生成的变种题对象
-  const [variantSel, setVariantSel] = useState(null)   // 变种题已选答案
-  const [variantError, setVariantError] = useState('')  // 生成失败提示
+  const [variantError, setVariantError] = useState(null)
+  const [userAnswer, setUserAnswer] = useState('')
+  const [isSubmitting, setIsSubmitting] = useState(false)
 
-  const current = questions[index]
+  const isFillBlank = current.type === 'fill_blank'
+  const isWrongReview = current.reviewMode === 'wrong'
+  const hasVariants = !isFillBlank && isWrongReview && !variantQ && !variantError
 
-  useEffect(() => {
-    questionStartTime.current = Date.now()
-  }, [index])
-
-  function recordAnswer(chosenAnswer, correct) {
-    if (selected !== null) return
-    setSelected(chosenAnswer)
-
-    const timeSec = (Date.now() - questionStartTime.current) / 1000
-    const quality = toQuality(correct, timeSec)
-
-    const newCardState = updateSRS(srsStates.current[current.id], quality)
-    storage.updateCardSrs(user.id, current.id, newCardState)
-    srsStates.current[current.id] = newCardState
-
-    const xp = correct ? 5 : 1
-    setXpGained((prev) => prev + xp)
-    storage.addXP(user.id, xp)
-
-    const record = {
-      card_id: current.id,
-      correct,
-      time_spent: Math.round(timeSec * 10) / 10,
-      selected_answer: chosenAnswer,
-      ability_tag: current.ability_tag,
-      knowledge_tag: current.knowledge_tag,
-      timestamp: new Date().toISOString(),
-    }
-    storage.addRecord(user.id, record)
-    setSessionRecords((prev) => [...prev, record])
-
-    if (correct) {
-      setTimeout(() => advance(record), 900)
-    } else {
-      setShowAnalysis(true)
-    }
-  }
-
-  // 选择题点击
-  function handleSelect(option) {
-    recordAnswer(option, option === current.answer)
-  }
-
-  // 填空题提交
-  function handleFillSubmit() {
-    if (!fillInput.trim() || selected !== null) return
-    const correct = normalize(fillInput) === normalize(current.answer)
-    recordAnswer(fillInput, correct)
-  }
-
-  async function handleGenerateVariant() {
-    setVariantLoading(true)
-    setVariantError('')
+  // 填空题提交处理
+  const handleFillBlankSubmit = async (answer) => {
+    setIsSubmitting(true)
     try {
-      const v = await generateVariant(current)
-      setVariantQ(v)
-    } catch {
-      setVariantError('AI出题失败，请点击继续')
+      // 提取关键词（从参考答案中提取核心词汇）
+      const keywords = extractKeywords(current.answer)
+      const result = smartGrade(answer, current.answer, keywords)
+      
+      onAnswer({
+        correct: result.correct,
+        answer: answer,
+        score: result.score,
+        feedback: result.feedback
+      })
+    } catch (error) {
+      console.error('填空题评分错误:', error)
+      onAnswer({
+        correct: false,
+        answer: answer,
+        score: 0,
+        feedback: '评分出错，请重试'
+      })
+    } finally {
+      setIsSubmitting(false)
     }
-    setVariantLoading(false)
+  }
+
+  // 提取关键词的简单实现
+  function extractKeywords(answer) {
+    // 移除标点符号，按空格和常见分隔符分割
+    const cleanAnswer = answer.replace(/[，。！？；：""''（）【】\[\]{}、]/g, ' ')
+    const words = cleanAnswer.split(/\s+/).filter(word => word.length > 1)
+    
+    // 返回最重要的2-3个关键词
+    return words.slice(0, 3)
+  }
+
+  function handleSelect(option) {
+    if (selected !== null) return
+    setSelected(option)
+    setTimeout(() => {
+      const correct = option === current.answer
+      onAnswer({ correct, answer: option })
+      setShowAnalysis(true)
+    }, 300)
+  }
+
+  function handleGenerateVariant() {
+    if (variantLoading) return
+    setVariantLoading(true)
+    setVariantError(null)
+    
+    generateVariant(current)
+      .then(vq => {
+        setVariantQ(vq)
+        setVariantSel(null)
+      })
+      .catch(err => {
+        console.error('变种题生成失败:', err)
+        setVariantError('AI出题失败，请稍后重试')
+      })
+      .finally(() => setVariantLoading(false))
   }
 
   function handleVariantSelect(option) {
     if (variantSel !== null) return
     setVariantSel(option)
-    const correct = option === variantQ.answer
-    storage.addXP(user.id, correct ? 5 : 1)
-    storage.addRecord(user.id, {
-      card_id: variantQ.id,
-      correct,
-      time_spent: 0,
-      selected_answer: option,
-      ability_tag: variantQ.ability_tag,
-      knowledge_tag: variantQ.knowledge_tag,
-      timestamp: new Date().toISOString(),
-    })
+    setTimeout(() => {
+      if (option !== variantQ.answer) return
+      // 变种题答对后继续
+    }, 500)
   }
 
-  function advance(lastRecord) {
-    setShowAnalysis(false)
-    setSelected(null)
-    setFillInput('')
-    setVariantQ(null)
-    setVariantSel(null)
-    setVariantError('')
-
-    if (index + 1 >= questions.length) {
-      const totalSec = Math.round((Date.now() - startTime.current) / 1000)
-      const allRecords = [...sessionRecords, lastRecord].filter(Boolean)
-      const correctCount = allRecords.filter((r) => r.correct).length
-
-      const session = {
-        date: new Date().toISOString(),
-        total: allRecords.length,
-        correct: correctCount,
-        xpEarned: xpGained + (lastRecord?.correct ? 5 : 1),
-        durationSec: totalSec,
-      }
-      storage.addSession(user.id, session)
-      updateStreak(user.id)
-      syncAfterSession(user.id)
-
-      onFinish({ session, records: allRecords })
-    } else {
-      setIndex((i) => i + 1)
-    }
+  // 填空题渲染
+  if (isFillBlank) {
+    return (
+      <FillBlankInput
+        question={current.question}
+        answer={userAnswer}
+        onAnswerChange={setUserAnswer}
+        onSubmit={handleFillBlankSubmit}
+        isSubmitting={isSubmitting}
+        referenceAnswer={current.answer}
+        analysis={current.analysis}
+      />
+    )
   }
 
-  if (!current) return null
+  // 多义字题目
+  if (current.type === 'multi_meaning') {
+    return (
+      <MultiMeaningCard
+        question={current}
+        onAnswer={(correct, selectedMeaning) => {
+          onAnswer({ correct, answer: selectedMeaning })
+          setShowAnalysis(true)
+        }}
+      />
+    )
+  }
 
-  const isFillBlank = current.type === 'fill_blank'
-  const progress = (index / questions.length) * 100
+  // 连线题
+  if (current.type === 'matching') {
+    return (
+      <MatchingCard
+        question={current}
+        onAnswer={(correct, userPairs) => {
+          onAnswer({ correct, answer: userPairs })
+          setShowAnalysis(true)
+        }}
+      />
+    )
+  }
 
-  // 填空题答对时，高亮显示正确答案
-  const fillCorrect = selected !== null && normalize(selected) === normalize(current.answer)
-
+  // 普通选择题
   return (
-    <div className="flex flex-col min-h-screen">
-      {/* Top bar */}
-      <div className="bg-white px-4 pt-8 pb-4 flex items-center gap-3">
-        <button onClick={onBack} className="text-gray-400 p-1 text-xl">✕</button>
-        <div className="flex-1 bg-gray-100 rounded-full h-3">
-          <div
-            className="bg-gradient-to-r from-indigo-400 to-purple-500 h-3 rounded-full transition-all duration-300"
-            style={{ width: `${progress}%` }}
-          />
-        </div>
-        <span className="text-sm text-gray-400 font-medium min-w-[40px] text-right">
-          {index + 1}/{questions.length}
-        </span>
+    <div className="space-y-6">
+      {/* 题干 */}
+      <div className="bg-white rounded-2xl p-4 border border-gray-100">
+        <p className="text-base text-gray-800 leading-relaxed whitespace-pre-line">
+          {current.question}
+        </p>
       </div>
 
-      {/* Question card */}
-      <div className="flex-1 flex flex-col px-4 py-4">
-        {/* Tags */}
-        <div className="flex gap-2 mb-4">
-          <span className="bg-indigo-100 text-indigo-700 text-xs px-2 py-1 rounded-full font-medium">
-            {current.knowledge_tag}
+      {/* 选项 */}
+      <div className="flex flex-col gap-3">
+        {current.options.map((option) => {
+          let style = 'bg-white border-2 border-gray-200 text-gray-700'
+          if (selected !== null) {
+            if (option === current.answer) {
+              style = 'bg-green-50 border-2 border-green-400 text-green-700'
+            } else if (option === selected) {
+              style = 'bg-red-50 border-2 border-red-400 text-red-700'
+            } else {
+              style = 'bg-white border-2 border-gray-100 text-gray-400'
+            }
+          }
+          return (
+            <button
+              key={option}
+              onClick={() => handleSelect(option)}
+              disabled={selected !== null}
+              className={`${style} rounded-2xl px-4 py-4 text-left text-base leading-snug transition-all active:scale-95 shadow-sm`}
+            >
+              {option}
+            </button>
+          )
+        })}
+      </div>
+
+      {/* 解析面板 */}
+      {showAnalysis && (
+        <div className="mt-4 space-y-3">
+          <div className="bg-amber-50 border border-amber-200 rounded-2xl p-4">
+            <p className="text-sm font-semibold text-amber-700 mb-1">💡 解析</p>
+            <p className="text-sm text-amber-900 leading-relaxed">{current.analysis}</p>
+          </div>
+
+          {/* 错题模式：变种题区域 */}
+          {isWrongReview && !variantQ && (
+            <div className="flex gap-2">
+              <button
+                onClick={handleGenerateVariant}
+                disabled={variantLoading}
+                className="flex-1 bg-violet-500 disabled:bg-gray-200 disabled:text-gray-400 text-white font-semibold py-3 rounded-xl text-sm"
+              >
+                {variantLoading ? '🤖 AI出变种题中…' : '🔀 举一反三（换语境再练）'}
+              </button>
+              <button
+                onClick={() => onAnswer({ correct: null, skip: true })}
+                className="px-4 bg-gray-100 text-gray-500 font-medium py-3 rounded-xl text-sm"
+              >
+                跳过
+              </button>
+            </div>
+          )}
+          {variantError && (
+            <p className="text-xs text-red-400 text-center">{variantError}</p>
+          )}
+
+          {/* 变种题 */}
+          {variantQ && (
+            <div className="bg-violet-50 border-2 border-violet-200 rounded-2xl p-4">
+              <div className="flex items-center gap-2 mb-3">
+                <span className="text-violet-600 text-sm font-bold">🔀 变种练习</span>
+                <span className="bg-violet-100 text-violet-600 text-xs px-2 py-0.5 rounded-full">
+                  {variantQ.ability_tag} · AI出题
+                </span>
+              </div>
+              <p className="text-base text-gray-800 font-medium mb-3 leading-relaxed">{variantQ.question}</p>
+              <div className="flex flex-col gap-2">
+                {variantQ.options.map(opt => {
+                  let style = 'bg-white border-2 border-gray-200 text-gray-700'
+                  if (variantSel !== null) {
+                    if (opt === variantQ.answer) style = 'bg-green-50 border-2 border-green-400 text-green-700'
+                    else if (opt === variantSel) style = 'bg-red-50 border-2 border-red-400 text-red-700'
+                    else style = 'bg-white border-2 border-gray-100 text-gray-400'
+                  }
+                  return (
+                    <button
+                      key={opt}
+                      onClick={() => handleVariantSelect(opt)}
+                      disabled={variantSel !== null}
+                      className={`${style} rounded-xl px-4 py-3 text-left text-sm leading-snug transition-all`}
+                    >
+                      {opt}
+                    </button>
+                  )
+                })}
+              </div>
+              {variantSel !== null && (
+                <div className={`mt-3 rounded-xl p-3 text-xs ${variantSel === variantQ.answer ? 'bg-green-50 text-green-700' : 'bg-red-50 text-red-700'}`}>
+                  {variantSel === variantQ.answer ? '✓ 变种题答对了！说明真的理解了 🎉' : `✗ 正确答案：${variantQ.answer}`}
+                  {variantQ.analysis && <p className="text-gray-500 mt-1">{variantQ.analysis}</p>}
+                </div>
+              )}
+              {variantSel !== null && (
+                <button
+                  onClick={() => onAnswer({ correct: null, skip: true })}
+                  className="mt-3 w-full bg-violet-500 text-white font-semibold py-3 rounded-xl text-sm"
+                >
+                  继续 →
+                </button>
+              )}
+            </div>
+          )}
+
+          {/* 无变种题时的继续按钮 */}
+          {(!isWrongReview || variantError) && !variantQ && (
+            <button
+              onClick={() => onAnswer({ correct: null, skip: true })}
+              className="w-full bg-amber-500 hover:bg-amber-600 text-white font-semibold py-3 rounded-xl transition-colors"
+            >
+              继续 →
+            </button>
+          )}
+        </div>
+      )}
+
+      {/* 正确反馈 */}
+      {selected !== null && selected === current.answer && !showAnalysis && (
+        <div className="mt-4 bg-green-50 border border-green-200 rounded-2xl p-3 text-center animate-pulse">
+          <span className="text-green-600 font-semibold">✓ 正确！+5 XP</span>
+        </div>
+      )}
+    </div>
+  )
+}
+
+// ── 主页面组件 ─────────────────────────────────────────
+export default function QuizPage() {
+  const [questions, setQuestions] = useState([])
+  const [currentIndex, setCurrentIndex] = useState(0)
+  const [sessionXP, setSessionXP] = useState(0)
+  const [streakDays, setStreakDays] = useState(0)
+  const [isSyncing, setIsSyncing] = useState(false)
+  const [syncError, setSyncError] = useState(null)
+  const startTimeRef = useRef(Date.now())
+
+  // 初始化题目
+  useEffect(() => {
+    const shuffled = shuffle(ALL_QUESTIONS).slice(0, SESSION_SIZE)
+    setQuestions(shuffled)
+    
+    // 恢复上次的学习记录（如果有的话）
+    const lastSession = storage.get('last_quiz_session')
+    if (lastSession && lastSession.questions) {
+      setQuestions(lastSession.questions)
+      setCurrentIndex(lastSession.currentIndex || 0)
+      setSessionXP(lastSession.sessionXP || 0)
+    }
+  }, [])
+
+  // 保存学习记录
+  useEffect(() => {
+    if (questions.length > 0) {
+      storage.set('last_quiz_session', {
+        questions,
+        currentIndex,
+        sessionXP,
+        timestamp: Date.now()
+      })
+    }
+  }, [questions, currentIndex, sessionXP])
+
+  // 结束会话处理
+  useEffect(() => {
+    if (currentIndex >= questions.length && questions.length > 0) {
+      const duration = (Date.now() - startTimeRef.current) / 1000 // 秒
+      const xpEarned = sessionXP
+      
+      // 更新连续学习天数
+      const newStreak = updateStreak()
+      setStreakDays(newStreak)
+      
+      // 同步到云端
+      if (!isSyncing) {
+        setIsSyncing(true)
+        syncAfterSession({ 
+          type: 'quiz', 
+          xp: xpEarned, 
+          duration,
+          streak: newStreak
+        })
+        .catch(err => {
+          console.error('同步失败:', err)
+          setSyncError('同步失败，请检查网络')
+        })
+        .finally(() => setIsSyncing(false))
+      }
+    }
+  }, [currentIndex, questions.length, sessionXP, isSyncing])
+
+  function handleAnswer(result) {
+    const current = questions[currentIndex]
+    const quality = toQuality(result.correct)
+    
+    // 更新SRS间隔
+    updateSRS(current.id, quality)
+    
+    // 计算获得的XP
+    let xp = 0
+    if (result.correct) {
+      xp = current.difficulty === 1 ? 3 : (current.difficulty === 2 ? 5 : 8)
+    }
+    
+    setSessionXP(prev => prev + xp)
+    setCurrentIndex(prev => prev + 1)
+  }
+
+  if (questions.length === 0) {
+    return (
+      <div className="min-h-screen bg-gradient-to-b from-indigo-50 to-purple-50 flex items-center justify-center p-4">
+        <div className="text-center">
+          <div className="animate-spin w-12 h-12 border-4 border-indigo-300 border-t-indigo-600 rounded-full mx-auto mb-4"></div>
+          <p className="text-gray-600">准备题目中...</p>
+        </div>
+      </div>
+    )
+  }
+
+  if (currentIndex >= questions.length) {
+    return (
+      <div className="min-h-screen bg-gradient-to-b from-green-50 to-emerald-50 flex flex-col items-center justify-center p-4">
+        <div className="max-w-md w-full text-center space-y-6">
+          <div className="bg-white rounded-3xl p-6 shadow-lg border border-green-100">
+            <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+              <span className="text-2xl">🎉</span>
+            </div>
+            <h2 className="text-2xl font-bold text-gray-800 mb-2">练习完成！</h2>
+            <p className="text-gray-600 mb-4">
+              本次获得 <span className="font-bold text-green-600">{sessionXP} XP</span>
+              {streakDays > 0 && (
+                <span> · 连续学习 <span className="font-bold text-amber-600">{streakDays} 天</span></span>
+              )}
+            </p>
+            
+            {syncError && (
+              <div className="bg-red-50 border border-red-200 rounded-xl p-3 mb-4">
+                <p className="text-red-600 text-sm">{syncError}</p>
+              </div>
+            )}
+            
+            <div className="space-y-3">
+              <button
+                onClick={() => window.location.href = '/#/'}
+                className="w-full bg-indigo-500 hover:bg-indigo-600 text-white font-semibold py-3 rounded-xl transition-colors"
+              >
+                返回首页
+              </button>
+              <button
+                onClick={() => window.location.reload()}
+                className="w-full bg-white border border-gray-200 text-gray-700 font-medium py-3 rounded-xl transition-colors"
+              >
+                再练一组
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    )
+  }
+
+  const current = questions[currentIndex]
+  const progress = ((currentIndex + 1) / questions.length) * 100
+
+  return (
+    <div className="min-h-screen bg-gradient-to-b from-indigo-50 to-purple-50 pb-24">
+      {/* 顶部进度条 */}
+      <div className="sticky top-0 z-10 bg-white/80 backdrop-blur-sm border-b border-gray-100">
+        <div className="h-1 bg-gray-100">
+          <div 
+            className="h-full bg-indigo-500 transition-all duration-500 ease-out"
+            style={{ width: `${progress}%` }}
+          ></div>
+        </div>
+        <div className="px-4 py-3 flex justify-between items-center">
+          <span className="text-sm text-gray-600">
+            {currentIndex + 1} / {questions.length}
           </span>
-          <span className="bg-gray-100 text-gray-500 text-xs px-2 py-1 rounded-full">
-            {current.ability_tag}
-          </span>
-          <span className="bg-gray-100 text-gray-400 text-xs px-2 py-1 rounded-full">
-            {'⭐'.repeat(current.difficulty)}
+          <span className="text-sm font-medium text-indigo-600">
+            {sessionXP} XP
           </span>
         </div>
+      </div>
 
-        {/* Question */}
-        {!isFillBlank && current.type !== 'multi_meaning' && current.type !== 'matching' && (
-          <div className="bg-white rounded-2xl p-5 shadow-sm border border-gray-100 mb-4">
-            <p className="text-lg text-gray-800 leading-relaxed font-medium">{current.question}</p>
-          </div>
-        )}
-
-        {/* 多义字选择题 */}
-        {current.type === 'multi_meaning' && (
-          <MultiMeaningCard
-            question={current}
-            onCorrect={() => handleSelect(current.answer)}
-            onWrong={() => handleSelect('wrong')}
-          />
-        )}
-
-        {/* 连线题 */}
-        {current.type === 'matching' && (
-          <MatchingCard
-            question={current}
-            onCorrect={() => handleSelect(current.answer)}
-            onWrong={() => handleSelect('wrong')}
-          />
-        )}
-
-        {/* 填空题 */}
-        {isFillBlank && (
-          <div className="flex flex-col gap-3">
-            {/* 题目显示 - 支持错别字和近义词/反义词 */}
-            <div className="bg-white rounded-2xl p-4 border border-gray-100 mb-2">
-              <p className="text-base text-gray-800 leading-relaxed whitespace-pre-wrap">{current.question}</p>
-            </div>
-            
-            {/* 输入框 - 针对不同类型的提示 */}
-            <input
-              type="text"
-              value={fillInput}
-              onChange={(e) => setFillInput(e.target.value)}
-              onKeyDown={(e) => e.key === 'Enter' && handleFillSubmit()}
-              disabled={selected !== null}
-              placeholder={
-                current.question.includes('错别字') || current.question.includes('改正')
-                  ? "请写出正确的成语..."
-                  : current.question.includes('近义词') || current.question.includes('反义词')
-                  ? "请写出答案..."
-                  : "在这里输入答案..."
-              }
-              className="w-full border-2 border-gray-200 rounded-2xl px-4 py-4 text-base text-gray-800 focus:outline-none focus:border-indigo-400 disabled:bg-gray-50"
-            />
-            {selected === null && (
-              <button
-                onClick={handleFillSubmit}
-                disabled={!fillInput.trim()}
-                className="w-full bg-indigo-500 disabled:bg-gray-200 disabled:text-gray-400 text-white font-semibold py-3 rounded-xl transition-colors"
-              >
-                提交答案
-              </button>
-            )}
-            {/* 填空反馈 */}
-            {selected !== null && (
-              <div className={`rounded-2xl p-4 border-2 ${fillCorrect ? 'bg-green-50 border-green-300' : 'bg-red-50 border-red-300'}`}>
-                <p className={`text-sm font-semibold mb-1 ${fillCorrect ? 'text-green-700' : 'text-red-700'}`}>
-                  {fillCorrect ? '✓ 正确！' : '✗ 答错了'}
-                </p>
-                {!fillCorrect && (
-                  <p className="text-sm text-gray-700 mb-1">
-                    正确答案：<span className="font-bold text-green-700">{current.answer}</span>
-                  </p>
-                )}
-                <p className="text-sm text-gray-600">{current.analysis}</p>
-              </div>
-            )}
-            {selected !== null && !fillCorrect && (
-              <button
-                onClick={() => advance(null)}
-                className="w-full bg-amber-500 text-white font-semibold py-3 rounded-xl transition-colors"
-              >
-                继续 →
-              </button>
-            )}
-          </div>
-        )}
-
-        {/* 普通选择题 */}
-        {!isFillBlank && current.type !== 'multi_meaning' && current.type !== 'matching' && (
-          <div className="flex flex-col gap-3">
-            {current.options.map((option) => {
-              let style = 'bg-white border-2 border-gray-200 text-gray-700'
-              if (selected !== null) {
-                if (option === current.answer) {
-                  style = 'bg-green-50 border-2 border-green-400 text-green-700'
-                } else if (option === selected) {
-                  style = 'bg-red-50 border-2 border-red-400 text-red-700'
-                } else {
-                  style = 'bg-white border-2 border-gray-100 text-gray-400'
-                }
-              }
-              return (
-                <button
-                  key={option}
-                  onClick={() => handleSelect(option)}
-                  disabled={selected !== null}
-                  className={`${style} rounded-2xl px-4 py-4 text-left text-base leading-snug transition-all active:scale-95 shadow-sm`}
-                >
-                  {option}
-                </button>
-              )
-            })}
-          </div>
-        )}
-
-        {/* 选择题解析面板 */}
-        {!isFillBlank && showAnalysis && (
-          <div className="mt-4 space-y-3">
-            <div className="bg-amber-50 border border-amber-200 rounded-2xl p-4">
-              <p className="text-sm font-semibold text-amber-700 mb-1">💡 解析</p>
-              <p className="text-sm text-amber-900 leading-relaxed">{current.analysis}</p>
-            </div>
-
-            {/* 错题模式：变种题区域 */}
-            {isWrongReview && !variantQ && (
-              <div className="flex gap-2">
-                <button
-                  onClick={handleGenerateVariant}
-                  disabled={variantLoading}
-                  className="flex-1 bg-violet-500 disabled:bg-gray-200 disabled:text-gray-400 text-white font-semibold py-3 rounded-xl text-sm"
-                >
-                  {variantLoading ? '🤖 AI出变种题中…' : '🔀 举一反三（换语境再练）'}
-                </button>
-                <button
-                  onClick={() => advance(null)}
-                  className="px-4 bg-gray-100 text-gray-500 font-medium py-3 rounded-xl text-sm"
-                >
-                  跳过
-                </button>
-              </div>
-            )}
-            {variantError && (
-              <p className="text-xs text-red-400 text-center">{variantError}</p>
-            )}
-
-            {/* 变种题 */}
-            {variantQ && (
-              <div className="bg-violet-50 border-2 border-violet-200 rounded-2xl p-4">
-                <div className="flex items-center gap-2 mb-3">
-                  <span className="text-violet-600 text-sm font-bold">🔀 变种练习</span>
-                  <span className="bg-violet-100 text-violet-600 text-xs px-2 py-0.5 rounded-full">
-                    {variantQ.ability_tag} · AI出题
-                  </span>
-                </div>
-                <p className="text-base text-gray-800 font-medium mb-3 leading-relaxed">{variantQ.question}</p>
-                <div className="flex flex-col gap-2">
-                  {variantQ.options.map(opt => {
-                    let style = 'bg-white border-2 border-gray-200 text-gray-700'
-                    if (variantSel !== null) {
-                      if (opt === variantQ.answer) style = 'bg-green-50 border-2 border-green-400 text-green-700'
-                      else if (opt === variantSel) style = 'bg-red-50 border-2 border-red-400 text-red-700'
-                      else style = 'bg-white border-2 border-gray-100 text-gray-400'
-                    }
-                    return (
-                      <button
-                        key={opt}
-                        onClick={() => handleVariantSelect(opt)}
-                        disabled={variantSel !== null}
-                        className={`${style} rounded-xl px-4 py-3 text-left text-sm leading-snug transition-all`}
-                      >
-                        {opt}
-                      </button>
-                    )
-                  })}
-                </div>
-                {variantSel !== null && (
-                  <div className={`mt-3 rounded-xl p-3 text-xs ${variantSel === variantQ.answer ? 'bg-green-50 text-green-700' : 'bg-red-50 text-red-700'}`}>
-                    {variantSel === variantQ.answer ? '✓ 变种题答对了！说明真的理解了 🎉' : `✗ 正确答案：${variantQ.answer}`}
-                    {variantQ.analysis && <p className="text-gray-500 mt-1">{variantQ.analysis}</p>}
-                  </div>
-                )}
-                {variantSel !== null && (
-                  <button
-                    onClick={() => advance(null)}
-                    className="mt-3 w-full bg-violet-500 text-white font-semibold py-3 rounded-xl text-sm"
-                  >
-                    继续 →
-                  </button>
-                )}
-              </div>
-            )}
-
-            {/* 无变种题时的继续按钮 */}
-            {(!isWrongReview || variantError) && !variantQ && (
-              <button
-                onClick={() => advance(null)}
-                className="w-full bg-amber-500 hover:bg-amber-600 text-white font-semibold py-3 rounded-xl transition-colors"
-              >
-                继续 →
-              </button>
-            )}
-          </div>
-        )}
-
-        {/* 选择题正确反馈 */}
-        {!isFillBlank && selected !== null && selected === current.answer && !showAnalysis && (
-          <div className="mt-4 bg-green-50 border border-green-200 rounded-2xl p-3 text-center animate-pulse">
-            <span className="text-green-600 font-semibold">✓ 正确！+5 XP</span>
-          </div>
-        )}
+      {/* 题目内容 */}
+      <div className="p-4 max-w-2xl mx-auto">
+        <QuestionCard 
+          current={current} 
+          onAnswer={handleAnswer}
+        />
       </div>
     </div>
   )
