@@ -22,17 +22,20 @@ import ShopPanel from '../components/ShopPanel';
 import DailyTasksPanel from '../components/DailyTasksPanel';
 
 /**
- * 宠物互动页面 v3 - P0 + P1 完整版
+ * 宠物互动页面 v4 - 修复版
  *
  * Tab 布局:
  *   🎮 互动 - 大号宠物展示 + 状态条 + 气泡对话 + 抚摸/喂养/洗澡/休息
- *   📖 学习模拟 - 答题获得经验
- *   📋 任务 - 每日任务系统
- *   🎮 小游戏 - 翻牌配对 / 接食物
+ *   📋 任务 - 每日任务系统（简化版）
  *   🏪 商店 - 道具店 / 装扮店 / 背包 / 我的搭配
+ * 
+ * 修复内容:
+ *   - 删除"学习"栏目（无用，答题在主页进行）
+ *   - 简化每日任务设计
+ *   - 分离宠物等级和用户等级
  */
-export default function MV1Demo({ onBack }) {
-  const [state, setState] = useState(() => initGamificationState());
+export default function MV1Demo({ onBack, initialState, onStateChange }) {
+  const [state, setState] = useState(() => initialState || initGamificationState());
   const [activeTab, setActiveTab] = useState('interact');
   const [gameResult, setGameResult] = useState(null);
   
@@ -76,12 +79,17 @@ export default function MV1Demo({ onBack }) {
     }
   }, []);
 
-  // 持久化：每次状态变化保存
+  // 持久化：每次状态变化保存到云端和父组件
   useEffect(() => {
     const user = storage.getUser();
     if (user && user.id) upsertMV1State(user.id, state);
     else storage.setMV1State(null, state);
-  }, [state]);
+    
+    // 同步到父组件，确保全局状态一致
+    if (onStateChange) {
+      onStateChange(state);
+    }
+  }, [state, onStateChange]);
 
   // ---- 时间流逝（每30秒模拟5分钟游戏时间）----
   useEffect(() => {
@@ -101,21 +109,33 @@ export default function MV1Demo({ onBack }) {
 
   const handlePetExpGain = (delta) => {
     setState((s) => {
-      // 🔧 修复：使用 gainExpForLearning 统一处理，确保每日任务同步更新
-      let ns = gainExpForLearning(s, 0.8); // 默认80%准确率获得经验
-      // 如果传入了额外经验，也加上
-      if (delta) {
-        ns.exp = (ns.exp || 0) + delta;
-        // 检查是否需要升级
-        while (ns.exp >= ns.level * 100) {
-          ns.exp -= ns.level * 100;
-          ns.level += 1;
-          // 同步宠物等级
-          if (ns.currentPet) {
-            ns.currentPet = { ...ns.currentPet, level: ns.level, stage: getPetStage(ns.level), lastAction: 'levelUp' };
-          }
+      // 🔧 修复：宠物等级独立，不与用户等级相通
+      let ns = { ...s };
+      
+      // 只增加宠物经验，不影响用户等级
+      if (delta && ns.currentPet) {
+        const petExp = (ns.currentPet.exp || 0) + delta;
+        let petLevel = ns.currentPet.level || 1;
+        let remainingExp = petExp;
+        
+        // 检查宠物是否需要升级
+        while (remainingExp >= petLevel * 100) {
+          remainingExp -= petLevel * 100;
+          petLevel += 1;
         }
+        
+        ns.currentPet = { 
+          ...ns.currentPet, 
+          exp: remainingExp, 
+          level: petLevel, 
+          stage: getPetStage(petLevel), 
+          lastAction: petLevel > (ns.currentPet.level || 1) ? 'levelUp' : 'expGain'
+        };
       }
+      
+      // 更新任务进度（学习相关任务）
+      ns = updateTaskProgress(ns, 'learn', 1);
+      
       return ns;
     });
   };
@@ -306,7 +326,6 @@ export default function MV1Demo({ onBack }) {
       <div style={{ display: 'flex', padding: '0 16px', marginTop: 10, gap: 6 }}>
         {[
           { key: 'interact', label: '🎮 互动' },
-          { key: 'learn', label: '📖 学习' },
           { key: 'tasks', label: '📋 任务' },
           { key: 'shop', label: '🏪 商店' },
         ].map(tab => (
@@ -406,72 +425,6 @@ export default function MV1Demo({ onBack }) {
               ))}
             </div>
           </>
-        )}
-
-        {/* ========== 📖 学习 Tab ========== */}
-        {activeTab === 'learn' && (
-          <div>
-            <h3 style={{ fontSize: 15, fontWeight: 600, color: '#374151', marginBottom: 12 }}>
-              📝 答题训练（获得经验 + 喂养宠物）
-            </h3>
-
-            {/* 等级信息 */}
-            <div style={{
-              background: 'white', borderRadius: 16, padding: 16, marginBottom: 16,
-              boxShadow: '0 2px 12px rgba(0,0,0,0.05)',
-            }}>
-              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 8 }}>
-                <span style={{ fontSize: 14, fontWeight: 700, color: '#6366f1' }}>⭐ 宠物等级 {currentPet?.level || 1}</span>
-                <span style={{ fontSize: 12, color: '#9ca3af' }}>
-                  经验 {currentPet?.exp || 0}/{(currentPet?.level || 1) * 100}
-                </span>
-              </div>
-              <div style={{ width: '100%', background: '#e5e7eb', borderRadius: 8, height: 10, overflow: 'hidden' }}>
-                <div style={{
-                  width: `${Math.min(((currentPet?.exp || 0) / ((currentPet?.level || 1) * 100)) * 100, 100)}%`,
-                  height: '100%',
-                  background: 'linear-gradient(90deg, #6366f1, #a78bfa)',
-                  borderRadius: 8, transition: 'width 0.5s ease',
-                }} />
-              </div>
-            </div>
-
-            {/* 快捷入口卡片 */}
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10, marginBottom: 12 }}>
-              <a href="#/quiz" onClick={(e) => { e.preventDefault(); if (onBack) onBack(); setTimeout(() => window.location.hash = '#/quiz', 100); }}
-                style={{
-                  display: 'block', background: 'white', borderRadius: 14, padding: 16,
-                  textAlign: 'center', boxShadow: '0 2px 10px rgba(0,0,0,0.05)',
-                  cursor: 'pointer', textDecoration: 'none',
-                  transition: 'transform 0.2s',
-                }}
-                onMouseEnter={e => e.currentTarget.style.transform = 'translateY(-2px)'}
-                onMouseLeave={e => e.currentTarget.style.transform = ''}>
-                <div style={{ fontSize: 32, marginBottom: 6 }}>📝</div>
-                <div style={{ fontSize: 13, fontWeight: 600, color: '#374151', marginBottom: 2 }}>去答题</div>
-                <div style={{ fontSize: 10, color: '#9ca3af' }}>字词/诗词/成语等</div>
-              </a>
-
-              <a href="#/essay" onClick={(e) => { e.preventDefault(); if (onBack) onBack(); setTimeout(() => window.location.hash = '#/essay', 100); }}
-                style={{
-                  display: 'block', background: 'white', borderRadius: 14, padding: 16,
-                  textAlign: 'center', boxShadow: '0 2px 10px rgba(0,0,0,0.05)',
-                  cursor: 'pointer', textDecoration: 'none',
-                  transition: 'transform 0.2s',
-                }}
-                onMouseEnter={e => e.currentTarget.style.transform = 'translateY(-2px)'}
-                onMouseLeave={e => e.currentTarget.style.transform = ''}>
-                <div style={{ fontSize: 32, marginBottom: 6 }}>✍️</div>
-                <div style={{ fontSize: 13, fontWeight: 600, color: '#374151', marginBottom: 2 }}>写作文</div>
-                <div style={{ fontSize: 10, color: '#9ca3af' }}>AI评分 + 大量经验</div>
-              </a>
-            </div>
-
-            <p style={{ fontSize: 11, color: '#9ca3af', marginTop: 8, textAlign: 'center', lineHeight: 1.6 }}>
-              💡 答题或写作文都能获得经验值，宠物会跟着一起升级哦！<br/>
-              作文最高可获得 <span style={{ fontWeight: 700, color: '#ec4899' }}>600 经验</span>（基础300 + 评分奖励）
-            </p>
-          </div>
         )}
 
         {/* ========== 📋 任务 Tab ========== */}

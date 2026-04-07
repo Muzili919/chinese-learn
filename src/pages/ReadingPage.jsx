@@ -1,9 +1,10 @@
-import { useState, useMemo, useRef } from 'react'
+import { useState, useMemo, useRef, useEffect } from 'react'
 import { storage, updateStreak } from '../utils/storage'
 import { updateSRS, toQuality } from '../utils/srs'
 import { syncAfterSession } from '../utils/sync'
 import tips from '../data/reading_tips.json'
 import passages from '../data/reading_passages.json'
+import readingQuestions from '../data/questions_reading.json'
 
 function shuffle(arr) {
   const a = [...arr]
@@ -19,14 +20,155 @@ function shuffleOptions(q) {
   return { ...q, options: opts }
 }
 
-// ── Tip Card (口诀学习) ──────────────────────────────────────
-function TipCard({ tip, onNext }) {
-  const [step, setStep] = useState(0) // 0=公式, 1=步骤, 2=示例
+// ── 阅读答题模式（与其他星球一致）────────────────────────────────
+function ReadingQuiz({ user, onFinish, onBack }) {
+  // 从题库中随机选择15道题
+  const questions = useMemo(() => {
+    const shuffled = shuffle(readingQuestions)
+    return shuffled.slice(0, 15).map(shuffleOptions)
+  }, [])
+
+  const [qIndex, setQIndex] = useState(0)
+  const [selected, setSelected] = useState(null)
+  const [showAnalysis, setShowAnalysis] = useState(false)
+  const [records, setRecords] = useState([])
+  const startTime = useRef(Date.now())
+  const qStartTime = useRef(Date.now())
+
+  const current = questions[qIndex]
+
+  function handleSelect(option) {
+    if (selected !== null) return
+    setSelected(option)
+    const timeSec = (Date.now() - qStartTime.current) / 1000
+    const correct = option === current.answer
+    const quality = toQuality(correct, timeSec)
+
+    const srsStates = storage.getSrsState(user.id)
+    const newState = updateSRS(srsStates[current.id], quality)
+    storage.updateCardSrs(user.id, current.id, newState)
+    storage.addXP(user.id, correct ? 5 : 1)
+
+    const record = {
+      card_id: current.id,
+      correct,
+      time_spent: Math.round(timeSec * 10) / 10,
+      selected_answer: option,
+      ability_tag: current.ability_tag,
+      knowledge_tag: '阅读理解',
+      timestamp: new Date().toISOString(),
+    }
+    storage.addRecord(user.id, record)
+    setRecords(prev => [...prev, record])
+
+    if (correct) {
+      setTimeout(() => advance(record), 900)
+    } else {
+      setShowAnalysis(true)
+    }
+  }
+
+  function advance(lastRecord) {
+    setShowAnalysis(false)
+    setSelected(null)
+    qStartTime.current = Date.now()
+
+    if (qIndex + 1 >= questions.length) {
+      const allRecords = [...records, lastRecord].filter(Boolean)
+      const session = {
+        date: new Date().toISOString(),
+        total: allRecords.length,
+        correct: allRecords.filter(r => r.correct).length,
+        xpEarned: allRecords.reduce((s, r) => s + (r.correct ? 5 : 1), 0),
+        durationSec: Math.round((Date.now() - startTime.current) / 1000),
+      }
+      storage.addSession(user.id, session)
+      updateStreak(user.id)
+      syncAfterSession(user.id)
+      onFinish({ session, records: allRecords })
+    } else {
+      setQIndex(i => i + 1)
+    }
+  }
+
+  return (
+    <div className="flex flex-col min-h-screen bg-gradient-to-b from-emerald-50 to-teal-50">
+      {/* Header */}
+      <div className="bg-white px-4 pt-8 pb-3 flex items-center gap-3 shadow-sm">
+        <button onClick={onBack} className="text-gray-400 text-xl">✕</button>
+        <div className="flex-1 bg-gray-100 rounded-full h-2.5">
+          <div
+            className="bg-gradient-to-r from-emerald-400 to-teal-500 h-2.5 rounded-full transition-all"
+            style={{ width: `${((qIndex + 1) / questions.length) * 100}%` }}
+          />
+        </div>
+        <span className="text-sm text-gray-400">{qIndex + 1}/{questions.length}</span>
+      </div>
+
+      {/* Content */}
+      <div className="flex-1 px-4 py-4 overflow-y-auto">
+        {/* 题目 */}
+        <div className="bg-white rounded-2xl p-4 border border-gray-100 mb-3">
+          <div className="flex gap-2 mb-2">
+            <span className="bg-emerald-100 text-emerald-700 text-xs px-2 py-0.5 rounded-full">{current.ability_tag}</span>
+            <span className="bg-gray-100 text-gray-400 text-xs px-2 py-0.5 rounded-full">{'⭐'.repeat(current.difficulty || 2)}</span>
+          </div>
+          <p className="text-base font-medium text-gray-800 leading-relaxed">{current.question}</p>
+        </div>
+
+        {/* 选项 */}
+        <div className="flex flex-col gap-2.5">
+          {current.options.map(option => {
+            let style = 'bg-white border-2 border-gray-200 text-gray-700'
+            if (selected !== null) {
+              if (option === current.answer) style = 'bg-green-50 border-2 border-green-400 text-green-700'
+              else if (option === selected) style = 'bg-red-50 border-2 border-red-400 text-red-700'
+              else style = 'bg-white border-2 border-gray-100 text-gray-400'
+            }
+            return (
+              <button
+                key={option}
+                onClick={() => handleSelect(option)}
+                disabled={selected !== null}
+                className={`${style} rounded-2xl px-4 py-3.5 text-left text-sm leading-snug transition-all shadow-sm`}
+              >
+                {option}
+              </button>
+            )
+          })}
+        </div>
+
+        {/* 解析 */}
+        {showAnalysis && (
+          <div className="mt-3 bg-amber-50 border border-amber-200 rounded-2xl p-4">
+            <p className="text-sm font-semibold text-amber-700 mb-1">💡 答题思路</p>
+            <p className="text-sm text-amber-900 leading-relaxed">{current.analysis}</p>
+            <button onClick={() => advance(null)} className="mt-3 w-full bg-amber-500 text-white font-semibold py-3 rounded-xl">
+              继续 →
+            </button>
+          </div>
+        )}
+
+        {/* 正确提示 */}
+        {selected !== null && selected === current.answer && !showAnalysis && (
+          <div className="mt-3 bg-green-50 border border-green-200 rounded-2xl p-3 text-center">
+            <span className="text-green-600 font-semibold text-sm">✓ 正确！+5 XP</span>
+          </div>
+        )}
+      </div>
+    </div>
+  )
+}
+
+// ── 口诀学习卡片 ──────────────────────────────────────────────
+function TipCard({ tip, onNext, onBack }) {
+  const [step, setStep] = useState(0)
 
   return (
     <div className="flex flex-col min-h-screen bg-gradient-to-b from-emerald-50 to-teal-50">
       <div className="bg-white px-5 pt-10 pb-4 shadow-sm">
         <div className="flex items-center gap-2 mb-1">
+          <button onClick={onBack} className="text-gray-400 text-xl mr-2">←</button>
           <span className="text-2xl">{tip.emoji}</span>
           <h1 className="text-lg font-bold text-gray-800">{tip.title}</h1>
         </div>
@@ -102,182 +244,27 @@ function TipCard({ tip, onNext }) {
   )
 }
 
-// ── Passage Quiz ─────────────────────────────────────────────
-function PassageQuiz({ user, passage, onFinish, onBack }) {
-  const questions = useMemo(() => passage.questions.map(shuffleOptions), [passage])
-  const [qIndex, setQIndex] = useState(0)
-  const [selected, setSelected] = useState(null)
-  const [showAnalysis, setShowAnalysis] = useState(false)
-  const [records, setRecords] = useState([])
-  const [showPassage, setShowPassage] = useState(true)
-  const startTime = useRef(Date.now())
-  const qStartTime = useRef(Date.now())
-
-  const current = questions[qIndex]
-
-  function handleSelect(option) {
-    if (selected !== null) return
-    setSelected(option)
-    const timeSec = (Date.now() - qStartTime.current) / 1000
-    const correct = option === current.answer
-    const quality = toQuality(correct, timeSec)
-
-    const srsStates = storage.getSrsState(user.id)
-    const newState = updateSRS(srsStates[current.id], quality)
-    storage.updateCardSrs(user.id, current.id, newState)
-    storage.addXP(user.id, correct ? 5 : 1)
-
-    const record = {
-      card_id: current.id,
-      correct,
-      time_spent: Math.round(timeSec * 10) / 10,
-      selected_answer: option,
-      ability_tag: current.ability_tag,
-      knowledge_tag: '阅读理解',
-      timestamp: new Date().toISOString(),
-    }
-    storage.addRecord(user.id, record)
-    setRecords(prev => [...prev, record])
-
-    if (correct) {
-      setTimeout(() => advance(record), 900)
-    } else {
-      setShowAnalysis(true)
-    }
-  }
-
-  function advance(lastRecord) {
-    setShowAnalysis(false)
-    setSelected(null)
-    qStartTime.current = Date.now()
-
-    if (qIndex + 1 >= questions.length) {
-      const allRecords = [...records, lastRecord].filter(Boolean)
-      const session = {
-        date: new Date().toISOString(),
-        total: allRecords.length,
-        correct: allRecords.filter(r => r.correct).length,
-        xpEarned: allRecords.reduce((s, r) => s + (r.correct ? 5 : 1), 0),
-        durationSec: Math.round((Date.now() - startTime.current) / 1000),
-      }
-      storage.addSession(user.id, session)
-      updateStreak(user.id)
-      syncAfterSession(user.id)
-      onFinish({ session, records: allRecords })
-    } else {
-      setQIndex(i => i + 1)
-      setShowPassage(true)
-    }
-  }
-
-  return (
-    <div className="flex flex-col min-h-screen">
-      <div className="bg-white px-4 pt-8 pb-3 flex items-center gap-3 shadow-sm">
-        <button onClick={onBack} className="text-gray-400 text-xl">✕</button>
-        <div className="flex-1 bg-gray-100 rounded-full h-2.5">
-          <div
-            className="bg-gradient-to-r from-emerald-400 to-teal-500 h-2.5 rounded-full transition-all"
-            style={{ width: `${(qIndex / questions.length) * 100}%` }}
-          />
-        </div>
-        <span className="text-sm text-gray-400">{qIndex + 1}/{questions.length}</span>
-      </div>
-
-      <div className="flex-1 px-4 py-4 overflow-y-auto">
-        {/* 短文区域 */}
-        <div className="bg-white rounded-2xl border border-emerald-100 mb-4 overflow-hidden">
-          <button
-            onClick={() => setShowPassage(p => !p)}
-            className="w-full flex items-center justify-between px-4 py-3 bg-emerald-50"
-          >
-            <span className="text-sm font-semibold text-emerald-700">📄 {passage.title}</span>
-            <span className="text-xs text-emerald-500">{showPassage ? '收起 ▲' : '展开 ▼'}</span>
-          </button>
-          {showPassage && (
-            <div className="px-4 py-3">
-              <p className="text-sm text-gray-700 leading-loose">{passage.text}</p>
-            </div>
-          )}
-        </div>
-
-        {/* 题目 */}
-        <div className="bg-white rounded-2xl p-4 border border-gray-100 mb-3">
-          <div className="flex gap-2 mb-2">
-            <span className="bg-emerald-100 text-emerald-700 text-xs px-2 py-0.5 rounded-full">{current.ability_tag}</span>
-            <span className="bg-gray-100 text-gray-400 text-xs px-2 py-0.5 rounded-full">{'⭐'.repeat(current.difficulty || 2)}</span>
-          </div>
-          <p className="text-base font-medium text-gray-800 leading-relaxed">{current.question}</p>
-        </div>
-
-        {/* 选项 */}
-        <div className="flex flex-col gap-2.5">
-          {current.options.map(option => {
-            let style = 'bg-white border-2 border-gray-200 text-gray-700'
-            if (selected !== null) {
-              if (option === current.answer) style = 'bg-green-50 border-2 border-green-400 text-green-700'
-              else if (option === selected) style = 'bg-red-50 border-2 border-red-400 text-red-700'
-              else style = 'bg-white border-2 border-gray-100 text-gray-400'
-            }
-            return (
-              <button
-                key={option}
-                onClick={() => handleSelect(option)}
-                disabled={selected !== null}
-                className={`${style} rounded-2xl px-4 py-3.5 text-left text-sm leading-snug transition-all shadow-sm`}
-              >
-                {option}
-              </button>
-            )
-          })}
-        </div>
-
-        {showAnalysis && (
-          <div className="mt-3 bg-amber-50 border border-amber-200 rounded-2xl p-4">
-            <p className="text-sm font-semibold text-amber-700 mb-1">💡 答题思路</p>
-            <p className="text-sm text-amber-900 leading-relaxed">{current.analysis}</p>
-            <button onClick={() => advance(null)} className="mt-3 w-full bg-amber-500 text-white font-semibold py-3 rounded-xl">
-              继续 →
-            </button>
-          </div>
-        )}
-
-        {selected !== null && selected === current.answer && !showAnalysis && (
-          <div className="mt-3 bg-green-50 border border-green-200 rounded-2xl p-3 text-center">
-            <span className="text-green-600 font-semibold text-sm">✓ 正确！+5 XP</span>
-          </div>
-        )}
-      </div>
-    </div>
-  )
-}
-
 // ── 主组件 ───────────────────────────────────────────────────
 export default function ReadingPage({ user, onFinish, onBack }) {
   const [mode, setMode] = useState('menu') // menu | tip | quiz
   const [selectedTip, setSelectedTip] = useState(null)
-  const [selectedPassage, setSelectedPassage] = useState(null)
-
-  const randomPassage = useMemo(() => shuffle(passages)[0], [])
 
   if (mode === 'tip' && selectedTip) {
     return (
       <TipCard
         tip={selectedTip}
-        onNext={() => {
-          setSelectedPassage(randomPassage)
-          setMode('quiz')
-        }}
+        onNext={() => setMode('quiz')}
+        onBack={() => setMode('menu')}
       />
     )
   }
 
-  if (mode === 'quiz' && selectedPassage) {
+  if (mode === 'quiz') {
     return (
-      <PassageQuiz
+      <ReadingQuiz
         user={user}
-        passage={selectedPassage}
         onFinish={onFinish}
-        onBack={onBack}
+        onBack={() => setMode('menu')}
       />
     )
   }
@@ -309,22 +296,38 @@ export default function ReadingPage({ user, onFinish, onBack }) {
           ))}
         </div>
 
-        {/* 直接练习 */}
+        {/* 开始练习 */}
         <h2 className="text-sm font-semibold text-gray-500 mb-3">阅读练习</h2>
+        <button
+          onClick={() => setMode('quiz')}
+          className="w-full bg-gradient-to-r from-emerald-500 to-teal-500 text-white rounded-2xl p-4 text-left shadow-lg active:scale-95 transition-transform"
+        >
+          <div className="flex items-center gap-3">
+            <span className="text-3xl">📚</span>
+            <div>
+              <div className="text-base font-semibold">开始阅读练习</div>
+              <div className="text-xs text-emerald-100 mt-0.5">15道题 · 随机抽取</div>
+            </div>
+            <span className="ml-auto text-white/70 text-xl">→</span>
+          </div>
+        </button>
+
+        {/* 阅读文章库 */}
+        <h2 className="text-sm font-semibold text-gray-500 mb-3 mt-6">阅读文章库</h2>
         <div className="flex flex-col gap-3">
           {passages.slice(0, 5).map(p => (
-            <button
+            <div
               key={p.id}
-              onClick={() => { setSelectedPassage(p); setMode('quiz') }}
-              className="bg-white border border-gray-100 rounded-2xl px-4 py-3.5 text-left shadow-sm flex items-center gap-3 active:scale-95 transition-transform"
+              className="bg-white border border-gray-100 rounded-2xl px-4 py-3.5 text-left shadow-sm"
             >
-              <span className="text-2xl">📄</span>
-              <div>
-                <div className="text-sm font-semibold text-gray-800">{p.title}</div>
-                <div className="text-xs text-gray-400 mt-0.5">{p.questions.length}道题 · {p.grade}年级</div>
+              <div className="flex items-center gap-3">
+                <span className="text-2xl">📄</span>
+                <div>
+                  <div className="text-sm font-semibold text-gray-800">{p.title}</div>
+                  <div className="text-xs text-gray-400 mt-0.5">{p.questions.length}道题 · {p.grade}年级</div>
+                </div>
               </div>
-              <span className="ml-auto text-gray-300">→</span>
-            </button>
+            </div>
           ))}
         </div>
       </div>

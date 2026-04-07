@@ -67,7 +67,7 @@ export default function App() {
   const pages = {
     onboarding: <OnboardingPage onDone={handleOnboarding} />,
     home: <HomePage user={user} onStartQuiz={startQuiz} onReport={() => setPage('report')} onLogout={handleLogout} onOpenMV1={() => setPage('mv1_demo')} />,
-    mv1_demo: <MV1Demo onBack={goHome} />,
+    mv1_demo: <MV1Demo onBack={goHome} initialState={gameState} onStateChange={setGameState} />,
     quiz: <QuizPage user={user} options={quizOptions} onFinish={finishQuiz} onBack={goHome} />,
     reading: <ReadingPage user={user} onFinish={finishQuiz} onBack={goHome} />,
     sentence_practice: <SentencePracticePage user={user} onBack={goHome} />,

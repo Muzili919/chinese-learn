@@ -169,16 +169,17 @@ export function getDialogue(type) {
 }
 
 // ============================================================
-//  P1-4: 每日任务系统
+//  P1-4: 每日任务系统（简化版）
 // ============================================================
+// 修复：任务设计更合理，避免重复劳动和难度过高
 export const DAILY_TASK_TEMPLATES = [
   {
     id: 'daily_learn',
     type: 'learn',
     icon: '📖',
     title: '每日学习',
-    desc: '完成15道答题',
-    target: 15,
+    desc: '完成10道答题',
+    target: 10,
     reward: { exp: 30, item: 'snack', itemCount: 1 },
     statReward: { intimacy: 5 },
   },
@@ -187,8 +188,8 @@ export const DAILY_TASK_TEMPLATES = [
     type: 'care',
     icon: '🍖',
     title: '每日喂养',
-    desc: '喂宠物吃3次东西',
-    target: 3,
+    desc: '喂宠物1次',
+    target: 1,
     reward: { exp: 20 },
     statReward: { intimacy: 3 },
   },
@@ -197,9 +198,9 @@ export const DAILY_TASK_TEMPLATES = [
     type: 'interact',
     icon: '👋',
     title: '每日互动',
-    desc: '抚摸或和宠物玩5次',
-    target: 5,
-    reward: { exp: 10, intimacy: 5 },
+    desc: '抚摸宠物3次',
+    target: 3,
+    reward: { exp: 15, intimacy: 5 },
     statReward: {},
   },
   {
@@ -207,8 +208,8 @@ export const DAILY_TASK_TEMPLATES = [
     type: 'challenge',
     icon: '🎯',
     title: '连续挑战',
-    desc: '连续答对10道题',
-    target: 10,
+    desc: '连续答对5道题',
+    target: 5,
     reward: { exp: 50, item: 'rare_snack', itemCount: 1 },
     statReward: { intimacy: 10 },
   },
