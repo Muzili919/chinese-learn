@@ -4,6 +4,8 @@ import { updateSRS, toQuality } from '../utils/srs'
 import { scheduleSession } from '../utils/scheduler'
 import { syncAfterSession } from '../utils/sync'
 import { generateVariant } from '../utils/ai'
+import MultiMeaningCard from '../components/MultiMeaningCard'
+import MatchingCard from '../components/MatchingCard'
 import vocabQ from '../data/questions_vocab.json'
 import poetryQ from '../data/questions_poetry.json'
 import idiomQ from '../data/questions_idiom.json'
@@ -221,20 +223,52 @@ export default function QuizPage({ user, options = {}, onFinish, onBack }) {
         </div>
 
         {/* Question */}
-        <div className="bg-white rounded-2xl p-5 shadow-sm border border-gray-100 mb-4">
-          <p className="text-lg text-gray-800 leading-relaxed font-medium">{current.question}</p>
-        </div>
+        {!isFillBlank && current.type !== 'multi_meaning' && current.type !== 'matching' && (
+          <div className="bg-white rounded-2xl p-5 shadow-sm border border-gray-100 mb-4">
+            <p className="text-lg text-gray-800 leading-relaxed font-medium">{current.question}</p>
+          </div>
+        )}
+
+        {/* 多义字选择题 */}
+        {current.type === 'multi_meaning' && (
+          <MultiMeaningCard
+            question={current}
+            onCorrect={() => handleSelect(current.answer)}
+            onWrong={() => handleSelect('wrong')}
+          />
+        )}
+
+        {/* 连线题 */}
+        {current.type === 'matching' && (
+          <MatchingCard
+            question={current}
+            onCorrect={() => handleSelect(current.answer)}
+            onWrong={() => handleSelect('wrong')}
+          />
+        )}
 
         {/* 填空题 */}
-        {isFillBlank ? (
+        {isFillBlank && (
           <div className="flex flex-col gap-3">
+            {/* 题目显示 - 支持错别字和近义词/反义词 */}
+            <div className="bg-white rounded-2xl p-4 border border-gray-100 mb-2">
+              <p className="text-base text-gray-800 leading-relaxed whitespace-pre-wrap">{current.question}</p>
+            </div>
+            
+            {/* 输入框 - 针对不同类型的提示 */}
             <input
               type="text"
               value={fillInput}
               onChange={(e) => setFillInput(e.target.value)}
               onKeyDown={(e) => e.key === 'Enter' && handleFillSubmit()}
               disabled={selected !== null}
-              placeholder="在这里输入答案…"
+              placeholder={
+                current.question.includes('错别字') || current.question.includes('改正')
+                  ? "请写出正确的成语..."
+                  : current.question.includes('近义词') || current.question.includes('反义词')
+                  ? "请写出答案..."
+                  : "在这里输入答案..."
+              }
               className="w-full border-2 border-gray-200 rounded-2xl px-4 py-4 text-base text-gray-800 focus:outline-none focus:border-indigo-400 disabled:bg-gray-50"
             />
             {selected === null && (
@@ -269,8 +303,10 @@ export default function QuizPage({ user, options = {}, onFinish, onBack }) {
               </button>
             )}
           </div>
-        ) : (
-          /* 选择题 */
+        )}
+
+        {/* 普通选择题 */}
+        {!isFillBlank && current.type !== 'multi_meaning' && current.type !== 'matching' && (
           <div className="flex flex-col gap-3">
             {current.options.map((option) => {
               let style = 'bg-white border-2 border-gray-200 text-gray-700'

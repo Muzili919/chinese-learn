@@ -1,0 +1,66 @@
+[
+  {
+    "id": "writing-object-001",
+    "title": "我的小猫",
+    "prompt": "请描写你家的小猫，包括它的外貌、性格和你们之间的有趣故事。",
+    "example": "我家有一只橘色的小猫，叫咪咪。它有着圆圆的眼睛和毛茸茸的尾巴...",
+    "difficulty": "easy",
+    "category": "动物"
+  },
+  {
+    "id": "writing-object-002",
+    "title": "校园里的大树",
+    "prompt": "描写校园里的一棵大树，包括它的样子、四季变化和它给你带来的感受。",
+    "example": "我们学校操场边有一棵高大的梧桐树，春天开满淡紫色的小花...",
+    "difficulty": "medium",
+    "category": "植物"
+  },
+  {
+    "id": "writing-object-003",
+    "title": "我的书包",
+    "prompt": "描写你的书包，包括它的颜色、形状、里面装的东西，以及它陪伴你学习的故事。",
+    "example": "我的书包是蓝色的，上面印着一只可爱的小熊...",
+    "difficulty": "easy",
+    "category": "物品"
+  },
+  {
+    "id": "writing-object-004",
+    "title": "我的文具盒",
+    "prompt": "描写你的文具盒，包括它的外观、里面有什么文具，以及它对你的意义。",
+    "example": "我有一个漂亮的文具盒，是妈妈送给我的生日礼物...",
+    "difficulty": "easy",
+    "category": "物品"
+  },
+  {
+    "id": "writing-object-005",
+    "title": "我家的小狗",
+    "prompt": "描写你家的小狗，包括它的样子、性格特点，以及你们之间的故事。",
+    "example": "我家有一只金毛犬，它的毛发金黄柔软，眼睛像黑葡萄一样...",
+    "difficulty": "medium",
+    "category": "动物"
+  },
+  {
+    "id": "writing-object-006",
+    "title": "一盆仙人掌",
+    "prompt": "描写一盆仙人掌，包括它的外形、特点，以及你从它身上学到的道理。",
+    "example": "窗台上放着一盆仙人掌，它浑身长满了刺，看起来有点凶...",
+    "difficulty": "medium",
+    "category": "植物"
+  },
+  {
+    "id": "writing-object-007",
+    "title": "我的自行车",
+    "prompt": "描写你的自行车，包括它的颜色、样子，以及你骑车的经历。",
+    "example": "我有一辆红色的自行车，车把上还有一个小铃铛...",
+    "difficulty": "easy",
+    "category": "物品"
+  },
+  {
+    "id": "writing-object-008",
+    "title": "一只小鸟",
+    "prompt": "描写一只小鸟，可以是你在公园或窗外看到的，包括它的样子和动作。",
+    "example": "清晨，我在窗台上看到一只小鸟，它的羽毛是蓝色的...",
+    "difficulty": "medium",
+    "category": "动物"
+  }
+]

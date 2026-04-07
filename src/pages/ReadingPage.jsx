@@ -2,8 +2,8 @@ import { useState, useMemo, useRef, useEffect } from 'react'
 import { storage, updateStreak } from '../utils/storage'
 import { updateSRS, toQuality } from '../utils/srs'
 import { syncAfterSession } from '../utils/sync'
+import AnswerInput from '../components/AnswerInput'
 import tips from '../data/reading_tips.json'
-import passages from '../data/reading_passages.json'
 import readingQuestions from '../data/questions_reading.json'
 
 function shuffle(arr) {
@@ -21,63 +21,34 @@ function shuffleOptions(q) {
   return { ...q, options: opts }
 }
 
-// ── 开放性题目组件（阅读理解，自报对错）──────────────────────────
+// ── 开放性题目组件（阅读理解，智能批改）──────────────────────────
 function OpenEndedCard({ question, onCorrect, onWrong }) {
-  const [revealed, setRevealed] = useState(false)
-  return (
-    <div className="flex flex-col gap-3">
-      <div className="bg-white rounded-2xl p-4 border border-gray-100">
-        <div className="flex gap-2 mb-2">
-          <span className="bg-emerald-100 text-emerald-700 text-xs px-2 py-0.5 rounded-full">{question.ability_tag}</span>
-        </div>
-        <p className="text-base font-medium text-gray-800 leading-relaxed whitespace-pre-wrap">{question.question}</p>
-      </div>
+  const [submitted, setSubmitted] = useState(false)
 
-      {!revealed ? (
-        <button
-          onClick={() => setRevealed(true)}
-          className="w-full bg-emerald-500 text-white font-semibold py-4 rounded-2xl text-base"
-        >
-          查看参考答案
-        </button>
-      ) : (
-        <>
-          <div className="bg-emerald-50 border border-emerald-200 rounded-2xl p-4">
-            <p className="text-xs font-semibold text-emerald-700 mb-1">✓ 参考答案</p>
-            <p className="text-sm text-emerald-900 leading-relaxed">{question.answer}</p>
-          </div>
-          {question.analysis && (
-            <div className="bg-amber-50 border border-amber-200 rounded-2xl p-4">
-              <p className="text-xs font-semibold text-amber-700 mb-1">💡 解题思路</p>
-              <p className="text-sm text-amber-900 leading-relaxed">{question.analysis}</p>
-            </div>
-          )}
-          <div className="flex gap-3">
-            <button
-              onClick={onWrong}
-              className="flex-1 bg-red-50 border-2 border-red-300 text-red-600 font-semibold py-3 rounded-xl"
-            >
-              ✗ 答错了
-            </button>
-            <button
-              onClick={onCorrect}
-              className="flex-1 bg-green-500 text-white font-semibold py-3 rounded-xl"
-            >
-              ✓ 答对了
-            </button>
-          </div>
-        </>
-      )}
-    </div>
+  function handleSubmit(correct, answer) {
+    setSubmitted(true)
+    if (correct) {
+      onCorrect(answer)
+    } else {
+      onWrong(answer)
+    }
+  }
+
+  return (
+    <AnswerInput
+      question={question.question}
+      correctAnswer={question.answer}
+      abilityTag={question.ability_tag}
+      onSubmit={handleSubmit}
+    />
   )
 }
 
 // ── 阅读答题模式（与其他星球一致）────────────────────────────────
 function ReadingQuiz({ user, onFinish, onBack }) {
-  // 从题库中随机选择15道题
+  // 直接使用全部题目，删除文章选择流程
   const questions = useMemo(() => {
-    const shuffled = shuffle(readingQuestions)
-    return shuffled.slice(0, 15).map(shuffleOptions)
+    return readingQuestions.map(shuffleOptions)
   }, [])
 
   const [qIndex, setQIndex] = useState(0)
@@ -377,24 +348,6 @@ export default function ReadingPage({ user, onFinish, onBack }) {
           </div>
         </button>
 
-        {/* 阅读文章库 */}
-        <h2 className="text-sm font-semibold text-gray-500 mb-3 mt-6">阅读文章库</h2>
-        <div className="flex flex-col gap-3">
-          {passages.slice(0, 5).map(p => (
-            <div
-              key={p.id}
-              className="bg-white border border-gray-100 rounded-2xl px-4 py-3.5 text-left shadow-sm"
-            >
-              <div className="flex items-center gap-3">
-                <span className="text-2xl">📄</span>
-                <div>
-                  <div className="text-sm font-semibold text-gray-800">{p.title}</div>
-                  <div className="text-xs text-gray-400 mt-0.5">{p.questions.length}道题 · {p.grade}年级</div>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
       </div>
     </div>
   )

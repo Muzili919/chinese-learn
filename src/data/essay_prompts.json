@@ -358,5 +358,95 @@
     "target_id": null,
     "source_year": 2026,
     "source_tag": null
+  },
+  {
+    "id": "ep_021",
+    "category": "写物",
+    "title": "我的小台灯",
+    "tips": [
+      "描写台灯的外形、颜色、材质",
+      "写它陪伴你学习的故事",
+      "表达你对它的感情"
+    ],
+    "minWords": 300,
+    "requirements": "写一篇300字以上的文章，描写你心爱的小台灯，要有具体的描写和故事。",
+    "unit": null,
+    "lesson": null,
+    "standard_code": null,
+    "target_id": null,
+    "source_year": 2026,
+    "source_tag": null
+  },
+  {
+    "id": "ep_022",
+    "category": "写物",
+    "title": "我的书包",
+    "tips": [
+      "描写书包的外观、内部结构",
+      "写书包里装的重要物品及其故事",
+      "表达书包对你学习生活的意义"
+    ],
+    "minWords": 300,
+    "requirements": "写一篇300字以上的文章，描写你的书包，包括它的样子和它陪伴你的故事。",
+    "unit": null,
+    "lesson": null,
+    "standard_code": null,
+    "target_id": null,
+    "source_year": 2026,
+    "source_tag": null
+  },
+  {
+    "id": "ep_023",
+    "category": "写物",
+    "title": "我家的宠物",
+    "tips": [
+      "详细描写宠物的外貌特征",
+      "写你们之间的有趣互动",
+      "表达你对宠物的喜爱之情"
+    ],
+    "minWords": 300,
+    "requirements": "写一篇300字以上的文章，描写你家的宠物（猫、狗、鱼、鸟等），要有生动的细节。",
+    "unit": null,
+    "lesson": null,
+    "standard_code": null,
+    "target_id": null,
+    "source_year": 2026,
+    "source_tag": null
+  },
+  {
+    "id": "ep_024",
+    "category": "写物",
+    "title": "我的文具盒",
+    "tips": [
+      "描写文具盒的外观和内部",
+      "写里面每件文具的特点和用途",
+      "分享文具盒陪伴你学习的故事"
+    ],
+    "minWords": 300,
+    "requirements": "写一篇300字以上的文章，描写你的文具盒，包括它的样子和里面的文具。",
+    "unit": null,
+    "lesson": null,
+    "standard_code": null,
+    "target_id": null,
+    "source_year": 2026,
+    "source_tag": null
+  },
+  {
+    "id": "ep_025",
+    "category": "写物",
+    "title": "我最喜欢的玩具",
+    "tips": [
+      "描写玩具的样子、材质、功能",
+      "写你和玩具一起玩的快乐时光",
+      "表达这个玩具对你的特殊意义"
+    ],
+    "minWords": 300,
+    "requirements": "写一篇300字以上的文章，描写你最喜欢的玩具，要有具体的描写和情感表达。",
+    "unit": null,
+    "lesson": null,
+    "standard_code": null,
+    "target_id": null,
+    "source_year": 2026,
+    "source_tag": null
   }
 ]

@@ -4,11 +4,12 @@ import { storage } from '../utils/storage'
 import { syncAfterSession } from '../utils/sync'
 import prompts from '../data/essay_prompts.json'
 
-const CATEGORIES = ['全部', '写人', '写事', '写景', '想象']
+const CATEGORIES = ['全部', '写人', '写事', '写景', '写物', '想象']
 const CATEGORY_COLORS = {
   写人: 'from-pink-400 to-rose-500',
   写事: 'from-blue-400 to-indigo-500',
   写景: 'from-green-400 to-teal-500',
+  写物: 'from-yellow-400 to-orange-500',
   想象: 'from-purple-400 to-violet-500',
 }
 
@@ -30,362 +31,259 @@ function ScoreBar({ label, score, max, color }) {
 }
 
 function ScoreBadge({ score }) {
-  const color = score >= 85 ? 'text-green-600' : score >= 70 ? 'text-amber-600' : 'text-red-500'
-  return <span className={`text-2xl font-bold ${color}`}>{score}</span>
+  const color = score >= 9 ? 'bg-green-500' : score >= 7 ? 'bg-blue-500' : 'bg-orange-500'
+  return (
+    <div className={`px-3 py-1 rounded-full text-white font-bold text-sm ${color}`}>
+      {score.toFixed(1)}分
+    </div>
+  )
 }
 
-export default function EssayPage({ user, onBack }) {
-  const [tab, setTab] = useState('write')   // write | history
-  const [catFilter, setCatFilter] = useState('全部')
-  const [selectedPrompt, setSelectedPrompt] = useState(null)
-  const [step, setStep] = useState('pick')  // pick | write | result
-  const [essay, setEssay] = useState('')
-  const [loading, setLoading] = useState(false)
-  const [result, setResult] = useState(null)
-  const [error, setError] = useState('')
+export default function EssayPage({ user, onBack, onFinish }) {
+  const [activeCategory, setActiveCategory] = useState('全部')
+  const [currentPrompt, setCurrentPrompt] = useState(null)
+  const [userEssay, setUserEssay] = useState('')
+  const [isEvaluating, setIsEvaluating] = useState(false)
+  const [evaluation, setEvaluation] = useState(null)
 
-  // 历史
-  const [historyDetail, setHistoryDetail] = useState(null)  // 查看某篇历史详情
-  const essays = storage.getEssays(user.id)
+  const filteredPrompts = activeCategory === '全部' 
+    ? prompts 
+    : prompts.filter(p => p.category === activeCategory)
 
-  const filtered = catFilter === '全部' ? prompts : prompts.filter(p => p.category === catFilter)
-  const wordCount = essay.trim().length
+  const startNewEssay = () => {
+    if (filteredPrompts.length === 0) return
+    const randomIndex = Math.floor(Math.random() * filteredPrompts.length)
+    setCurrentPrompt(filteredPrompts[randomIndex])
+    setUserEssay('')
+    setEvaluation(null)
+  }
 
-  async function handleSubmit() {
-    if (wordCount < 100) {
-      setError(`还需要再多写一些，当前${wordCount}字，至少写100字哦`)
-      return
-    }
-    setError('')
-    setLoading(true)
+  const handleSubmit = async () => {
+    if (!userEssay.trim()) return
+    
+    setIsEvaluating(true)
     try {
-      const res = await evaluateEssay(selectedPrompt.title, essay)
-      // ⚠️ 必须先存储再触发 re-render，否则历史列表读不到最新数据
-      storage.addEssay(user.id, {
-        prompt: selectedPrompt.title,
-        category: selectedPrompt.category,
-        content: essay,
-        score: res.total,
-        feedback: res,
-      })
-      storage.addRecord(user.id, {
-        card_id: `essay_${Date.now()}`,
-        correct: res.total >= 60,
-        time_spent: 0,
-        selected_answer: essay.slice(0, 50),
-        ability_tag: '作文写作',
-        knowledge_tag: '作文',
-        timestamp: new Date().toISOString(),
-      })
-      storage.addXP(user.id, 300 + Math.round(res.total * 3))
-      // 作文经验 = 基础300 + 评分比例奖励（满分100额外+300，即最高600exp）
-      // 触发 re-render
-      setResult(res)
-      setStep('result')
-      // 后台同步到云端
-      syncAfterSession(user.id)
-    } catch {
-      setError('AI批改出错了，请检查网络后重试')
+      const result = await evaluateEssay(userEssay, currentPrompt)
+      setEvaluation(result)
+      
+      // Update user stats
+      const userData = storage.getUser()
+      if (userData) {
+        userData.essaysSubmitted = (userData.essaysSubmitted || 0) + 1
+        userData.totalScore = (userData.totalScore || 0) + result.overall
+        userData.averageScore = userData.totalScore / userData.essaysSubmitted
+        storage.setUser(userData)
+        
+        // Sync to cloud
+        await syncAfterSession('essay', result.overall)
+      }
+    } catch (error) {
+      console.error('评分失败:', error)
+    } finally {
+      setIsEvaluating(false)
     }
-    setLoading(false)
-  }
-
-  function handleRevise() {
-    setResult(null)
-    setStep('write')
-    setError('')
-  }
-
-  function handleNew() {
-    setSelectedPrompt(null)
-    setEssay('')
-    setResult(null)
-    setStep('pick')
-    setError('')
-  }
-
-  // -------- 历史详情 --------
-  if (historyDetail) {
-    const fb = historyDetail.feedback
-    return (
-      <div className="flex flex-col min-h-screen bg-gradient-to-b from-pink-50 to-rose-50">
-        <div className="bg-white px-4 pt-10 pb-4 flex items-center gap-3 shadow-sm">
-          <button onClick={() => setHistoryDetail(null)} className="text-gray-400 text-xl p-1">✕</button>
-          <div>
-            <h1 className="text-base font-bold text-gray-800">{historyDetail.prompt}</h1>
-            <p className="text-xs text-gray-400">{historyDetail.createdAt?.split('T')[0]}</p>
-          </div>
-        </div>
-        <div className="flex-1 px-4 py-4 space-y-4">
-          {/* 评分 */}
-          <div className="bg-white rounded-2xl p-4 text-center border border-rose-100 shadow-sm">
-            <div className="text-5xl font-bold text-rose-500 mb-1">{historyDetail.score}</div>
-            <div className="text-xs text-gray-400">总分（满分100）</div>
-            {fb && (
-              <div className="mt-3 space-y-2">
-                <ScoreBar label="📐 结构" score={fb.structure} max={30} color="from-blue-400 to-indigo-500" />
-                <ScoreBar label="💡 内容" score={fb.content} max={40} color="from-green-400 to-teal-500" />
-                <ScoreBar label="✨ 语言" score={fb.language} max={30} color="from-purple-400 to-violet-500" />
-              </div>
-            )}
-          </div>
-
-          {/* 作文内容 */}
-          <div className="bg-white rounded-2xl p-4 border border-gray-100 shadow-sm">
-            <p className="text-xs text-gray-400 mb-2">作文内容（{historyDetail.content?.length}字）</p>
-            <p className="text-sm text-gray-700 leading-relaxed whitespace-pre-wrap">{historyDetail.content}</p>
-          </div>
-
-          {/* 老师评语 */}
-          {fb && (
-            <div className="bg-white rounded-2xl p-4 border border-gray-100 shadow-sm space-y-3">
-              <h3 className="text-sm font-semibold text-gray-600">老师评语</h3>
-              <p className="text-sm text-gray-700">{fb.summary}</p>
-              <div className="space-y-2 pt-2 border-t border-gray-100">
-                <p className="text-xs text-blue-500 font-medium">📐 结构：{fb.structureFeedback}</p>
-                <p className="text-xs text-green-500 font-medium">💡 内容：{fb.contentFeedback}</p>
-                <p className="text-xs text-purple-500 font-medium">✨ 语言：{fb.languageFeedback}</p>
-              </div>
-            </div>
-          )}
-
-          {/* 具体修改建议 */}
-          {fb?.improvements?.length > 0 && (
-            <div className="bg-amber-50 rounded-2xl p-4 border border-amber-200 shadow-sm">
-              <h3 className="text-sm font-semibold text-amber-700 mb-3">✏️ 具体修改建议</h3>
-              <div className="space-y-3">
-                {fb.improvements.map((item, i) => (
-                  <div key={i} className="bg-white rounded-xl p-3 border border-amber-100">
-                    <p className="text-xs text-red-500 mb-1">原文：「{item.original}」</p>
-                    <p className="text-xs text-green-600 mb-1">改为：「{item.revised}」</p>
-                    <p className="text-xs text-gray-400">原因：{item.reason}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
-
-          {fb?.suggestion && (
-            <div className="bg-rose-50 rounded-xl p-3 border border-rose-200">
-              <p className="text-xs font-medium text-rose-600 mb-1">🎯 最重要的改进</p>
-              <p className="text-sm text-rose-800">{fb.suggestion}</p>
-            </div>
-          )}
-        </div>
-      </div>
-    )
   }
 
   return (
-    <div className="flex flex-col min-h-screen bg-gradient-to-b from-pink-50 to-rose-50">
-      {/* Header */}
-      <div className="bg-white px-4 pt-10 pb-0 shadow-sm">
-        <div className="flex items-center gap-3 pb-3">
-          <button onClick={onBack} className="text-gray-400 text-xl p-1">✕</button>
-          <div>
-            <h1 className="text-xl font-bold text-gray-800">📝 作文星球</h1>
-            <p className="text-xs text-gray-400">选题目 → 写作文 → AI三维评分</p>
-          </div>
+    <div className="min-h-screen bg-gradient-to-b from-indigo-50 to-purple-50 p-4">
+      <div className="max-w-md mx-auto">
+        {/* Header */}
+        <div className="flex items-center justify-between mb-6">
+          <button 
+            onClick={onBack}
+            className="flex items-center text-indigo-600 hover:text-indigo-800 font-medium"
+          >
+            <svg className="w-5 h-5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+            </svg>
+            返回
+          </button>
+          <h1 className="text-xl font-bold text-gray-800">作文星球</h1>
+          <div className="w-5"></div>
         </div>
-        {/* Tab */}
-        <div className="flex border-b border-gray-100">
-          {['write', 'history'].map(t => (
-            <button
-              key={t}
-              onClick={() => { setTab(t); if (t === 'write') handleNew() }}
-              className={`flex-1 py-2.5 text-sm font-medium transition-colors ${
-                tab === t ? 'text-rose-600 border-b-2 border-rose-500' : 'text-gray-400'
-              }`}
-            >
-              {t === 'write' ? '写作文' : `历史记录 (${essays.length})`}
-            </button>
-          ))}
-        </div>
-      </div>
 
-      <div className="flex-1 px-4 py-4">
-
-        {/* 历史记录 tab */}
-        {tab === 'history' && (
-          <div className="space-y-3">
-            {essays.length === 0 ? (
-              <div className="text-center text-gray-400 mt-20">还没有提交过作文</div>
-            ) : (
-              essays.map(e => (
+        {!currentPrompt ? (
+          /* Topic Selection */
+          <div className="bg-white rounded-2xl shadow-lg p-6">
+            <h2 className="text-lg font-bold text-gray-800 mb-4">选择作文类型</h2>
+            
+            {/* Category Tabs */}
+            <div className="flex flex-wrap gap-2 mb-6">
+              {CATEGORIES.map(category => (
                 <button
-                  key={e.id}
-                  onClick={() => setHistoryDetail(e)}
-                  className="w-full bg-white rounded-2xl p-4 text-left shadow-sm border border-pink-100 active:scale-95 transition-transform"
+                  key={category}
+                  onClick={() => setActiveCategory(category)}
+                  className={`px-3 py-2 rounded-full text-sm font-medium transition-all ${
+                    activeCategory === category
+                      ? 'bg-indigo-600 text-white shadow-md'
+                      : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                  }`}
                 >
-                  <div className="flex justify-between items-start mb-2">
-                    <div>
-                      <span className={`text-xs px-2 py-0.5 rounded-full text-white bg-gradient-to-r ${CATEGORY_COLORS[e.category] || 'from-gray-400 to-gray-500'} mr-2`}>
-                        {e.category}
-                      </span>
-                    </div>
-                    <ScoreBadge score={e.score} />
-                  </div>
-                  <p className="text-base font-semibold text-gray-800 mb-1">{e.prompt}</p>
-                  <p className="text-xs text-gray-400 line-clamp-2">{e.content}</p>
-                  <p className="text-xs text-gray-300 mt-2">{e.createdAt?.split('T')[0]} · {e.content?.length}字 → 查看详情</p>
+                  {category}
                 </button>
-              ))
+              ))}
+            </div>
+
+            {/* Prompt List */}
+            <div className="space-y-3 max-h-96 overflow-y-auto">
+              {filteredPrompts.map(prompt => (
+                <div 
+                  key={prompt.id}
+                  className="p-4 bg-gray-50 rounded-xl border border-gray-200 hover:border-indigo-300 hover:bg-indigo-50 transition-colors cursor-pointer"
+                  onClick={() => setCurrentPrompt(prompt)}
+                >
+                  <div className="flex items-start justify-between mb-2">
+                    <h3 className="font-semibold text-gray-800">{prompt.title}</h3>
+                    <span className="text-xs bg-indigo-100 text-indigo-800 px-2 py-1 rounded-full">
+                      {prompt.minWords}字
+                    </span>
+                  </div>
+                  <p className="text-sm text-gray-600">{prompt.requirements}</p>
+                </div>
+              ))}
+            </div>
+
+            {filteredPrompts.length === 0 && (
+              <div className="text-center py-8 text-gray-500">
+                该分类暂无题目
+              </div>
             )}
+
+            <button
+              onClick={startNewEssay}
+              className="w-full mt-6 py-3 bg-indigo-600 text-white rounded-xl font-semibold hover:bg-indigo-700 transition-colors"
+            >
+              随机选题
+            </button>
+          </div>
+        ) : evaluation ? (
+          /* Evaluation Result */
+          <div className="bg-white rounded-2xl shadow-lg p-6">
+            <div className="text-center mb-6">
+              <h2 className="text-xl font-bold text-gray-800 mb-2">作文评分完成！</h2>
+              <ScoreBadge score={evaluation.overall} />
+            </div>
+
+            <div className="space-y-4 mb-6">
+              <ScoreBar 
+                label="内容完整度" 
+                score={evaluation.content} 
+                max={10} 
+                color={CATEGORY_COLORS[currentPrompt.category] || 'from-gray-400 to-gray-500'}
+              />
+              <ScoreBar 
+                label="语言表达" 
+                score={evaluation.language} 
+                max={10} 
+                color={CATEGORY_COLORS[currentPrompt.category] || 'from-gray-400 to-gray-500'}
+              />
+              <ScoreBar 
+                label="结构逻辑" 
+                score={evaluation.structure} 
+                max={10} 
+                color={CATEGORY_COLORS[currentPrompt.category] || 'from-gray-400 to-gray-500'}
+              />
+            </div>
+
+            <div className="bg-blue-50 rounded-xl p-4 mb-6">
+              <h3 className="font-semibold text-blue-800 mb-2">AI点评：</h3>
+              <p className="text-blue-700 text-sm leading-relaxed">{evaluation.feedback}</p>
+            </div>
+
+            <div className="flex space-x-3">
+              <button
+                onClick={() => {
+                  setCurrentPrompt(null)
+                  setEvaluation(null)
+                }}
+                className="flex-1 py-3 bg-gray-200 text-gray-800 rounded-xl font-semibold hover:bg-gray-300 transition-colors"
+              >
+                重新选题
+              </button>
+              <button
+                onClick={() => onFinish({ type: 'essay', score: evaluation.overall })}
+                className="flex-1 py-3 bg-indigo-600 text-white rounded-xl font-semibold hover:bg-indigo-700 transition-colors"
+              >
+                返回首页
+              </button>
+            </div>
+          </div>
+        ) : (
+          /* Writing Interface */
+          <div className="bg-white rounded-2xl shadow-lg p-6">
+            <div className="mb-4">
+              <div className="flex items-center justify-between mb-2">
+                <h2 className="text-lg font-bold text-gray-800">{currentPrompt.title}</h2>
+                <span className="text-sm bg-indigo-100 text-indigo-800 px-2 py-1 rounded-full">
+                  {currentPrompt.minWords}字
+                </span>
+              </div>
+              <p className="text-gray-600 text-sm">{currentPrompt.requirements}</p>
+            </div>
+
+            {currentPrompt.tips && (
+              <div className="bg-yellow-50 border-l-4 border-yellow-400 p-3 mb-4 rounded">
+                <h3 className="font-semibold text-yellow-800 mb-1">写作小贴士：</h3>
+                <ul className="text-yellow-700 text-xs space-y-1">
+                  {currentPrompt.tips.map((tip, index) => (
+                    <li key={index}>• {tip}</li>
+                  ))}
+                </ul>
+              </div>
+            )}
+
+            <textarea
+              value={userEssay}
+              onChange={(e) => setUserEssay(e.target.value)}
+              placeholder="开始你的创作吧..."
+              className="w-full h-64 p-4 border border-gray-200 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-transparent resize-none mb-4"
+              style={{ fontSize: '16px', lineHeight: '1.6' }}
+            />
+
+            <div className="flex justify-between items-center mb-4">
+              <span className="text-sm text-gray-500">
+                {userEssay.length} 字
+                {userEssay.length < currentPrompt.minWords && (
+                  <span className="text-red-500 ml-2">
+                    (还需 {currentPrompt.minWords - userEssay.length} 字)
+                  </span>
+                )}
+              </span>
+              <span className="text-sm text-gray-500">
+                AI智能评分
+              </span>
+            </div>
+
+            <div className="flex space-x-3">
+              <button
+                onClick={() => setCurrentPrompt(null)}
+                className="flex-1 py-3 bg-gray-200 text-gray-800 rounded-xl font-semibold hover:bg-gray-300 transition-colors"
+              >
+                换个题目
+              </button>
+              <button
+                onClick={handleSubmit}
+                disabled={isEvaluating || userEssay.length < currentPrompt.minWords}
+                className={`flex-1 py-3 rounded-xl font-semibold text-white transition-all ${
+                  isEvaluating || userEssay.length < currentPrompt.minWords
+                    ? 'bg-gray-400 cursor-not-allowed'
+                    : 'bg-indigo-600 hover:bg-indigo-700'
+                }`}
+              >
+                {isEvaluating ? '评分中...' : '提交评分'}
+              </button>
+            </div>
           </div>
         )}
 
-        {/* 写作 tab */}
-        {tab === 'write' && (
-          <>
-            {/* 选题 */}
-            {step === 'pick' && (
-              <>
-                <div className="flex gap-2 mb-4 overflow-x-auto pb-1">
-                  {CATEGORIES.map(cat => (
-                    <button
-                      key={cat}
-                      onClick={() => setCatFilter(cat)}
-                      className={`px-3 py-1.5 rounded-full text-sm font-medium whitespace-nowrap ${
-                        catFilter === cat ? 'bg-rose-500 text-white' : 'bg-white text-gray-500 border border-gray-200'
-                      }`}
-                    >
-                      {cat}
-                    </button>
-                  ))}
-                </div>
-                <div className="flex flex-col gap-3">
-                  {filtered.map(p => (
-                    <button
-                      key={p.id}
-                      onClick={() => { setSelectedPrompt(p); setStep('write') }}
-                      className="bg-white rounded-2xl p-4 text-left shadow-sm border border-pink-100 active:scale-95 transition-transform"
-                    >
-                      <span className={`text-xs px-2 py-0.5 rounded-full text-white bg-gradient-to-r ${CATEGORY_COLORS[p.category]}`}>
-                        {p.category}
-                      </span>
-                      <div className="text-base font-bold text-gray-800 mt-2">{p.title}</div>
-                      <div className="text-xs text-gray-400 mt-1">{p.requirements.slice(0, 35)}…</div>
-                    </button>
-                  ))}
-                </div>
-              </>
-            )}
-
-            {/* 写作 */}
-            {step === 'write' && selectedPrompt && (
-              <div className="flex flex-col gap-4">
-                <div className="bg-white rounded-2xl p-4 border border-pink-100">
-                  <span className={`text-xs px-2 py-0.5 rounded-full text-white bg-gradient-to-r ${CATEGORY_COLORS[selectedPrompt.category]}`}>
-                    {selectedPrompt.category}
-                  </span>
-                  <h2 className="text-xl font-bold text-gray-800 mt-2 mb-2">{selectedPrompt.title}</h2>
-                  <p className="text-sm text-gray-500 mb-3">{selectedPrompt.requirements}</p>
-                  <div className="bg-amber-50 rounded-xl p-3">
-                    <p className="text-xs font-medium text-amber-600 mb-1">💡 写作提示</p>
-                    <ul className="space-y-1">
-                      {selectedPrompt.tips.map((tip, i) => (
-                        <li key={i} className="text-xs text-amber-700">• {tip}</li>
-                      ))}
-                    </ul>
-                  </div>
-                </div>
-
-                <div>
-                  <div className="flex justify-between items-center mb-2">
-                    <label className="text-sm font-medium text-gray-600">开始写作：</label>
-                    <span className={`text-xs font-medium ${wordCount >= selectedPrompt.minWords ? 'text-green-600' : 'text-gray-400'}`}>
-                      {wordCount} / {selectedPrompt.minWords}字
-                    </span>
-                  </div>
-                  <textarea
-                    value={essay}
-                    onChange={e => setEssay(e.target.value)}
-                    placeholder={`以「${selectedPrompt.title}」为题…`}
-                    rows={14}
-                    className="w-full border-2 border-gray-200 rounded-2xl px-4 py-3 text-base text-gray-800 focus:outline-none focus:border-rose-400 resize-none leading-relaxed"
-                  />
-                  <div className="w-full bg-gray-100 rounded-full h-1.5 mt-2">
-                    <div
-                      className="h-1.5 rounded-full bg-gradient-to-r from-rose-400 to-pink-500 transition-all"
-                      style={{ width: `${Math.min(100, (wordCount / selectedPrompt.minWords) * 100)}%` }}
-                    />
-                  </div>
-                </div>
-
-                {error && <p className="text-red-500 text-sm text-center">{error}</p>}
-
-                <button
-                  onClick={handleSubmit}
-                  disabled={loading || wordCount < 50}
-                  className="w-full bg-rose-500 disabled:bg-gray-200 disabled:text-gray-400 text-white font-bold py-4 rounded-2xl"
-                >
-                  {loading ? '🤖 AI评分中，请稍候…' : '提交给AI批改 →'}
-                </button>
-                <button onClick={handleNew} className="text-center text-sm text-gray-400">换一个题目</button>
-              </div>
-            )}
-
-            {/* 结果 */}
-            {step === 'result' && result && (
-              <div className="flex flex-col gap-4">
-                <div className="bg-white rounded-2xl p-5 text-center border-2 border-rose-200">
-                  <div className="text-xs text-gray-400 mb-1">{selectedPrompt.title}</div>
-                  <div className="text-6xl font-bold text-rose-500 mb-1">{result.total}</div>
-                  <div className="text-sm text-gray-400">满分 100 分</div>
-                  <div className="mt-3 text-sm text-gray-600 leading-relaxed">{result.summary}</div>
-                </div>
-
-                <div className="bg-white rounded-2xl p-4 border border-gray-100">
-                  <h3 className="text-sm font-semibold text-gray-600 mb-4">三维评分</h3>
-                  <div className="space-y-4">
-                    <ScoreBar label="📐 结构" score={result.structure} max={30} color="from-blue-400 to-indigo-500" />
-                    <ScoreBar label="💡 内容" score={result.content} max={40} color="from-green-400 to-teal-500" />
-                    <ScoreBar label="✨ 语言" score={result.language} max={30} color="from-purple-400 to-violet-500" />
-                  </div>
-                </div>
-
-                <div className="bg-white rounded-2xl p-4 border border-gray-100 space-y-3">
-                  <p className="text-xs text-blue-500 font-medium">📐 结构：{result.structureFeedback}</p>
-                  <div className="border-t border-gray-100 pt-2">
-                    <p className="text-xs text-green-500 font-medium">💡 内容：{result.contentFeedback}</p>
-                  </div>
-                  <div className="border-t border-gray-100 pt-2">
-                    <p className="text-xs text-purple-500 font-medium">✨ 语言：{result.languageFeedback}</p>
-                  </div>
-                </div>
-
-                {/* 具体修改建议 */}
-                {result.improvements?.length > 0 && (
-                  <div className="bg-amber-50 rounded-2xl p-4 border border-amber-200">
-                    <h3 className="text-sm font-semibold text-amber-700 mb-3">✏️ 具体修改建议（对照修改）</h3>
-                    <div className="space-y-3">
-                      {result.improvements.map((item, i) => (
-                        <div key={i} className="bg-white rounded-xl p-3 border border-amber-100">
-                          <p className="text-xs text-red-500 mb-1">❌ 原文：「{item.original}」</p>
-                          <p className="text-xs text-green-600 mb-1">✅ 改为：「{item.revised}」</p>
-                          <p className="text-xs text-gray-400">💬 {item.reason}</p>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                )}
-
-                <div className="bg-rose-50 rounded-xl p-4 border border-rose-200">
-                  <p className="text-xs font-medium text-rose-600 mb-1">🎯 最重要的改进建议</p>
-                  <p className="text-sm text-rose-800">{result.suggestion}</p>
-                </div>
-
-                <div className="flex gap-3">
-                  <button onClick={handleRevise} className="flex-1 border-2 border-rose-400 text-rose-600 font-semibold py-3 rounded-xl">
-                    修改重写
-                  </button>
-                  <button onClick={handleNew} className="flex-1 bg-rose-500 text-white font-semibold py-3 rounded-xl">
-                    写新作文
-                  </button>
-                </div>
-              </div>
-            )}
-          </>
+        {/* Progress Info */}
+        {storage.getUser() && (
+          <div className="mt-6 bg-white rounded-2xl shadow-lg p-4 text-center">
+            <div className="text-sm text-gray-600">
+              已完成 {storage.getUser().essaysSubmitted || 0} 篇作文 • 
+              平均分 {(storage.getUser().averageScore || 0).toFixed(1)}
+            </div>
+          </div>
         )}
       </div>
     </div>
