@@ -1,0 +1,827 @@
+import React, { useState, useEffect, useCallback, useRef } from 'react'
+import { getDialogueType, getDialogue, STAT_CONFIG } from '../utils/gamification'
+
+// ============================================================
+//  精灵图资源 - 等级外观（来自切割的精灵图）
+// ============================================================
+const LEVEL_SPRITES = {
+  1: '/pets/pet-level-1-10.png',     // 幼年期 (Lv 1-10)
+  11: '/pets/pet-level-11-20.png',    // 成长期 (Lv 11-20) 带火焰
+  21: '/pets/pet-level-21-30.png',    // 成熟体 (Lv 21+) 彩色翅膀
+}
+
+// ============================================================
+//  情绪状态精灵图（9种表情）
+// ============================================================
+const EMOTION_SPRITES = {
+  normal:   '/pets/emotion-normal.png',
+  happy:    '/pets/emotion-happy.png',
+  bliss:    '/pets/emotion-bliss.png',
+  laugh:    '/pets/emotion-laugh.png',
+  excited:  '/pets/emotion-excited.png',
+  cheer:    '/pets/emotion-cheer.png',
+  sad1:     '/pets/emotion-sad1.png',
+  sad2:     '/pets/emotion-sad2.png',
+  sad3:     '/pets/emotion-sad3.png',
+}
+
+/** 根据等级获取对应的外观图片URL */
+function getLevelSprite(level) {
+  if (level >= 21) return LEVEL_SPRITES[21]
+  if (level >= 11) return LEVEL_SPRITES[11]
+  return LEVEL_SPRITES[1]
+}
+
+/** 根据当前pose和状态计算情绪key */
+function resolveEmotion(pose, stats) {
+  if (pose === 'happy' || pose === 'upgrade' || pose === 'petting') return 'excited'
+  if (pose === 'laugh') return 'laugh'
+  // 反应动画的情绪映射
+  if (pose === 'eating') return 'happy'     // 吃东西 → 开心
+  if (pose === 'bathing') return 'bliss'     // 洗澡 → 极度开心
+  if (pose === 'sleeping') return 'normal'   // 睡觉 → 平静（闭眼效果用CSS做）
+
+  const intimacy = stats?.intimacy ?? 50
+  const energy = stats?.energy ?? 80
+  const hunger = stats?.hunger ?? 70
+
+  if (intimacy > 70 && energy > 50 && hunger > 40) {
+    return intimacy > 90 ? 'bliss' : 'cheer'
+  }
+  if (hunger < 20 || energy < 15 || intimacy < 20) return 'sad3'
+  if (hunger < 35 || energy < 25 || intimacy < 35) return 'sad2'
+  if (hunger < 50 || energy < 40) return 'sad1'
+
+  return 'normal'
+}
+
+// ---- 内联 SVG 资源 ----
+const heartSvg = "data:image/svg+xml;utf8," + encodeURIComponent(
+  "<svg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 24 24'><path fill='#ff4757' d='M12 21s-7.5-4.35-9.5-9.5C-0.5 6.75 5 2 12 7c7-5 12-1.25 9.5 4.5C19.5 16.65 12 21 12 21z'/></svg>"
+)
+const zzzSvg = "data:image/svg+xml;utf8," + encodeURIComponent(
+  "<svg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24'><text x='4' y='18' font-size='16' fill='#93c5fd'>Z</text></svg>"
+)
+
+// ---- 图片组（已替换为精灵图系统） ----
+
+// ---- 音效合成器（无需外部音频文件）----
+function playSound(type) {
+  try {
+    const ctx = new (window.AudioContext || window.webkitAudioContext)()
+    const osc = ctx.createOscillator()
+    const gain = ctx.createGain()
+    osc.connect(gain)
+    gain.connect(ctx.destination)
+    
+    switch (type) {
+      case 'tap':
+        osc.frequency.setValueAtTime(600, ctx.currentTime)
+        osc.frequency.exponentialRampToValueAtTime(800, ctx.currentTime + 0.1)
+        gain.gain.setValueAtTime(0.1, ctx.currentTime)
+        gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.15)
+        osc.start(ctx.currentTime)
+        osc.stop(ctx.currentTime + 0.15)
+        break
+      case 'feed':
+        osc.frequency.setValueAtTime(400, ctx.currentTime)
+        osc.frequency.exponentialRampToValueAtTime(600, ctx.currentTime + 0.08)
+        osc.frequency.exponentialRampToValueAtTime(800, ctx.currentTime + 0.16)
+        gain.gain.setValueAtTime(0.08, ctx.currentTime)
+        gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.2)
+        osc.start(ctx.currentTime)
+        osc.stop(ctx.currentTime + 0.2)
+        break
+      case 'levelup':
+        osc.type = 'sine'
+        osc.frequency.setValueAtTime(523, ctx.currentTime)
+        osc.frequency.setValueAtTime(659, ctx.currentTime + 0.15)
+        osc.frequency.setValueAtTime(784, ctx.currentTime + 0.3)
+        gain.gain.setValueAtTime(0.12, ctx.currentTime)
+        gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.5)
+        osc.start(ctx.currentTime)
+        osc.stop(ctx.currentTime + 0.5)
+        break
+      default:
+        break
+    }
+  } catch (e) {
+    // 静默失败 - 浏览器可能不支持
+  }
+}
+
+/**
+ * Pet 组件 v3 - 完整版
+ *
+ * mode="full"  : 完整面板（状态条+气泡+配饰）
+ * mode="dock"  : 纯展示（透明底+3D悬浮）
+ *
+ * 新增特性:
+ *   - 四维状态条（饱食度/清洁度/活力值/亲密度）
+ *   - 气泡对话（状态驱动随机文案 + 可选音效）
+ *   - 待机动画（呼吸/眨眼/打瞌睡/ZZZ飘出）
+ *   - 配饰渲染（头部/颈部/背部三个槽位）
+ *   - 三姿态触发（normal/happy/upgrade）
+ */
+export default function Pet({
+  type = 'dragon',
+  experience = 0,
+  level = 1,
+  onGainExp,
+  mode = 'dock',
+  pose = 'normal',
+  onPoseChange,
+  size = 160,
+  stats = null,           // { hunger, cleanliness, energy, intimacy }
+  equippedAccessories = {}, // { head: 'acc_xxx', neck: 'acc_yyy', back: 'acc_zzz' }
+  soundEnabled = true,
+  showStatsCompact = false, // dock模式下是否显示迷你状态条
+  // ---- 新增：互动系统 props ----
+  onInteract = null,       // (actionType: 'feed'|'clean'|'rest'|'pet') => void
+  inventory = null,        // { foods: {basic, advanced}, cleanItems, energyItems, giftItems }
+  reactionPose = null,     // 外部控制的反应姿态（覆盖 internalPose）
+}) {
+  const [internalPose, setInternalPose] = useState('normal')
+  const [mood, setMood] = useState(50)
+  const [hearts, setHearts] = useState([])
+  const [isHovered, setIsHovered] = useState(false)
+  
+  // P0-2: 对话气泡状态
+  const [dialogue, setDialogue] = useState('')
+  const [showBubble, setShowBubble] = useState(false)
+  const [lastAction, setLastAction] = useState(null)
+  
+  // P0-3: 待机动画状态
+  const [isBreathing, setIsBreathing] = useState(true)
+  const [isBlinking, setIsBlinking] = useState(false)
+  const [showZZZ, setShowZZZ] = useState(false)
+
+  // ---- 反应动画状态（互动反馈）----
+  const [reaction, setReaction] = useState(null) // 'eating' | 'bathing' | 'sleeping' | 'petting' | null
+  
+  const bubbleTimeoutRef = useRef(null)
+  const blinkIntervalRef = useRef(null)
+  const dialogueTimerRef = useRef(null)
+
+  // ⚠️ 必须先声明 currentStats，后面 resolveEmotion 要用到它（避免 TDZ）
+  const currentStats = stats || { hunger: 70, cleanliness: 70, energy: 80, intimacy: 50 }
+
+  const activePose = reactionPose || reaction || (pose !== 'normal' ? pose : internalPose)
+
+  // 根据等级获取外观 + 根据pose/stats获取情绪
+  const levelSprite = getLevelSprite(level)
+  const emotionKey = resolveEmotion(activePose, currentStats)
+  // 当显式触发happy/upgrade时，优先用情绪图；否则用等级外观
+  const imgSrc = (activePose !== 'normal' && EMOTION_SPRITES[emotionKey])
+    ? EMOTION_SPRITES[emotionKey]
+    : levelSprite
+
+  // ---- 待机动画系统 ----
+  useEffect(() => {
+    // 眨眼：每 4-8 秒随机眨一次
+    const scheduleBlink = () => {
+      const delay = 4000 + Math.random() * 4000
+      blinkIntervalRef.current = setTimeout(() => {
+        setIsBlinking(true)
+        setTimeout(() => setIsBlinking(false), 180)
+        scheduleBlink()
+      }, delay)
+    }
+    scheduleBlink()
+
+    // ZZZ 效果：活力低于30时显示
+    const zzzInterval = setInterval(() => {
+      if (currentStats.energy < 30 && Math.random() > 0.5) {
+        setShowZZZ(true)
+        setTimeout(() => setShowZZZ(false), 1500)
+      }
+    }, 3000)
+
+    return () => {
+      clearTimeout(blinkIntervalRef.current)
+      clearInterval(zzzInterval)
+    }
+  }, [currentStats.energy])
+
+  // ---- 随机对话系统 ----
+  useEffect(() => {
+    let cancelled = false
+
+    const showDialogue = () => {
+      if (cancelled) return
+      const type = getDialogueType(currentStats, lastAction)
+      const text = getDialogue(type)
+
+      setDialogue(text)
+      setShowBubble(true)
+
+      if (bubbleTimeoutRef.current) clearTimeout(bubbleTimeoutRef.current)
+      bubbleTimeoutRef.current = setTimeout(() => {
+        setShowBubble(false)
+      }, 3000)
+    }
+
+    // 首次进入显示一条
+    showDialogue()
+
+    // 用单层 setInterval + 随机延迟，避免递归爆炸
+    const scheduleNext = () => {
+      if (cancelled) return
+      const delay = 8000 + Math.random() * 7000
+      dialogueTimerRef.current = setTimeout(() => {
+        if (!cancelled) {
+          showDialogue()
+          scheduleNext() // 显示完一条后，再调度下一条
+        }
+      }, delay)
+    }
+
+    // 5秒后开始循环
+    const initTimer = setTimeout(scheduleNext, 5000)
+
+    return () => {
+      cancelled = true
+      clearTimeout(initTimer)
+      clearTimeout(bubbleTimeoutRef.current)
+      clearTimeout(dialogueTimerRef.current)
+    }
+  }, []) // eslint-disable-line react-hooks/exhaustive-deps
+
+  // 手动触发对话（操作时调用）
+  const triggerDialogue = useCallback((actionType) => {
+    setLastAction(actionType)
+    const text = getDialogue(actionType || getDialogueType(currentStats, actionType))
+    setDialogue(text)
+    setShowBubble(true)
+    if (bubbleTimeoutRef.current) clearTimeout(bubbleTimeoutRef.current)
+    bubbleTimeoutRef.current = setTimeout(() => setShowBubble(false), 3000)
+  }, [currentStats])
+
+  // ---- 姿态切换 ----
+  const triggerHappy = useCallback(() => {
+    setInternalPose('happy')
+    setMood(m => Math.min(m + 10, 100))
+    if (soundEnabled) playSound('tap')
+    if (onPoseChange) onPoseChange('happy')
+    triggerDialogue('tapped')
+    setTimeout(() => {
+      setInternalPose('normal')
+      if (onPoseChange) onPoseChange('normal')
+    }, 1500)
+  }, [onPoseChange, soundEnabled, triggerDialogue])
+
+  const triggerUpgrade = useCallback(() => {
+    setInternalPose('upgrade')
+    if (soundEnabled) playSound('levelup')
+    if (onPoseChange) onPoseChange('upgrade')
+    triggerDialogue('levelUp')
+    setTimeout(() => {
+      setInternalPose('normal')
+      if (onPoseChange) onPoseChange('normal')
+    }, 2000)
+  }, [onPoseChange, soundEnabled, triggerDialogue])
+
+  // ============================================================
+  //  互动动作系统（消耗道具 + 情绪反馈动画）
+  // ============================================================
+  const doInteract = useCallback((actionType) => {
+    // 调用父组件的互动处理（消耗道具）
+    if (onInteract) onInteract(actionType)
+
+    // 触发对应反应动画
+    setReaction(actionType)
+
+    // 触发对话气泡
+    const dialogueMap = {
+      feed: 'fed',
+      clean: 'cleaned',
+      rest: 'rested',
+      pet: 'tapped',
+    }
+    triggerDialogue(dialogueMap[actionType] || actionType)
+    if (soundEnabled) playSound(actionType === 'feed' ? 'feed' : 'tap')
+
+    // 反应动画持续时间后恢复
+    const duration = { feed: 2000, clean: 2000, rest: 2500, pet: 1500 }
+    setTimeout(() => {
+      setReaction(null)
+    }, duration[actionType] || 1500)
+  }, [onInteract, triggerDialogue, soundEnabled])
+
+  /** 检查是否有足够道具执行某个互动 */
+  const canInteract = useCallback((actionType) => {
+    if (!inventory) return false
+    switch (actionType) {
+      case 'feed': return (inventory.foods?.basic || 0) > 0 || (inventory.foods?.advanced || 0) > 0
+      case 'clean': return (inventory.cleanItems || 0) > 0
+      case 'rest': return (inventory.energyItems || 0) > 0
+      case 'pet': return true // 抚摸不消耗道具
+      default: return false
+    }
+  }, [inventory])
+
+  // 点击 → 心形粒子 + 开心姿态
+  const handleClick = (e) => {
+    const rect = e.currentTarget.getBoundingClientRect()
+    const x = e.clientX - rect.left - 16
+    const y = e.clientY - rect.top - 16
+    const id = Date.now()
+    setHearts(h => [...h, { id, x, y }])
+    setTimeout(() => setHearts(h => h.filter(hh => hh.id !== id)), 1000)
+    triggerHappy()
+  }
+
+  // 喂养
+  const onFeed = () => {
+    onGainExp?.(50)
+    if (soundEnabled) playSound('feed')
+    triggerDialogue('fed')
+    triggerHappy()
+  }
+
+  // 宠物图片样式（根据反应状态动态调整）
+  const petStyle = {
+    width: size,
+    height: size,
+    objectFit: 'contain',
+    transition: 'transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1)',
+    transform: isHovered
+      ? 'translateY(-8px) scale(1.08) rotateY(10deg)'
+      : reaction === 'sleeping'
+        ? 'scale(0.95) translateY(2px)'  // 睡觉稍微缩下沉
+        : reaction === 'eating'
+          ? 'scale(1.05)'               // 吃东西轻微放大晃动
+          : reaction === 'bathing'
+            ? 'scale(1.03) rotate(-3deg)' // 洗澡开心摇摆
+            : reaction === 'petting'
+              ? 'scale(1.08) translateY(-4px)' // 抚摸弹跳
+              : `translateY(0) scale(1) rotateY(0deg)`,
+    filter: 'drop-shadow(0 4px 12px rgba(99,102,241,0.18)) drop-shadow(0 2px 4px rgba(0,0,0,0.06))',
+    cursor: 'pointer',
+    animation: (!reaction && isBreathing) ? 'petBreath 3s ease-in-out infinite'
+      : reaction === 'eating' ? 'eatingWiggle 0.4s ease-in-out infinite alternate'
+      : reaction === 'sleeping' ? 'sleepingBobble 2s ease-in-out infinite'
+      : reaction === 'bathing' ? 'bathingShake 0.5s ease-in-out infinite alternate'
+      : reaction === 'petting' ? 'pettingBounce 0.3s ease-in-out infinite alternate'
+      : 'none',
+  }
+
+  const moodEmoji = activePose === 'happy' ? '😊' : activePose === 'upgrade' ? '🔥' : '🙂'
+  const stageLabel = level <= 10 ? '幼年' : level <= 20 ? '成长期' : '成熟体'
+
+  // ---- 渲染配饰层 ----
+  const renderAccessories = () => {
+    if (!equippedAccessories || Object.keys(equippedAccessories).length === 0) return null
+    
+    return (
+      <div style={{ position: 'absolute', top: 0, left: 0, width: size, height: size, pointerEvents: 'none' }}>
+        {/* 头部配饰 */}
+        {equippedAccessories.head && (
+          <div style={{
+            position: 'absolute', top: '-2%', left: '50%', transform: 'translateX(-50%)',
+            fontSize: size * 0.28, filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.2))',
+          }}>
+            {getAccessoryEmoji(equippedAccessories.head)}
+          </div>
+        )}
+        {/* 颈部配饰 */}
+        {equippedAccessories.neck && (
+          <div style={{
+            position: 'absolute', top: '38%', left: '50%', transform: 'translateX(-50%)',
+            fontSize: size * 0.22, filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.2))',
+          }}>
+            {getAccessoryEmoji(equippedAccessories.neck)}
+          </div>
+        )}
+        {/* 背部配饰 */}
+        {equippedAccessories.back && (
+          <div style={{
+            position: 'absolute', top: '15%', left: '-5%',
+            fontSize: size * 0.3, filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.2))',
+          }}>
+            {getAccessoryEmoji(equippedAccessories.back)}
+          </div>
+        )}
+      </div>
+    )
+  }
+
+  // ---- 渲染对话气泡 ----
+  const renderBubble = () => {
+    if (!showBubble || !dialogue) return null
+    
+    return (
+      <div style={{
+        position: 'absolute',
+        top: -48,
+        left: '50%',
+        transform: 'translateX(-50%)',
+        background: 'white',
+        borderRadius: 14,
+        padding: '8px 14px',
+        fontSize: 12,
+        fontWeight: 500,
+        color: '#374151',
+        boxShadow: '0 4px 14px rgba(0,0,0,0.1)',
+        whiteSpace: 'nowrap',
+        zIndex: 10,
+        animation: 'bubblePop 0.3s ease-out',
+        maxWidth: size * 1.2,
+      }}>
+        {dialogue}
+        {/* 小三角 */}
+        <div style={{
+          position: 'absolute', bottom: -6, left: '50%',
+          transform: 'translateX(-50%) rotate(45deg)',
+          width: 10, height: 10, background: 'white',
+          boxShadow: '2px 2px 3px rgba(0,0,0,0.05)',
+        }} />
+      </div>
+    )
+  }
+
+  // ---- 渲染 ZZZ 效果 ----
+  const renderZZZ = () => {
+    if (!showZZZ) return null
+    return (
+      <div style={{
+        position: 'absolute', top: '-5%', right: '-5%',
+        fontSize: size * 0.18, opacity: 0.8,
+        animation: 'zzzFloat 1.5s ease-out forwards',
+        pointerEvents: 'none',
+      }}>💤</div>
+    )
+  }
+
+  // ---- 渲染眨眼效果 ----
+  const renderBlinkOverlay = () => {
+    if (!isBlinking) return null
+    return (
+      <div style={{
+        position: 'absolute', top: 0, left: 0, width: size, height: size,
+        borderRadius: '50%', background: 'rgba(0,0,0,0.05)',
+        pointerEvents: 'none',
+      }} />
+    )
+  }
+
+  // ============================================================
+  //  DOCK 模式（纯展示，可选迷你状态条）
+  // ============================================================
+  if (mode === 'dock') {
+    return (
+      <div
+        style={{ display: 'inline-block', position: 'relative' }}
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
+      >
+        {renderBubble()}
+        <div onClick={handleClick} style={{ display: 'inline-block', position: 'relative' }}>
+          <img src={imgSrc} alt="pet" style={petStyle} draggable={false} />
+          {renderAccessories()}
+          {renderZZZ()}
+          {renderBlinkOverlay()}
+          
+          {/* 迷你状态指示器（dock模式可选） */}
+          {showStatsCompact && (
+            <div style={{
+              position: 'absolute', bottom: -6, left: '50%', transform: 'translateX(-50%)',
+              display: 'flex', gap: 3, background: 'rgba(255,255,255,0.85)',
+              borderRadius: 10, padding: '2px 6px', boxShadow: '0 2px 8px rgba(0,0,0,0.08)',
+              backdropFilter: 'blur(8px)',
+            }}>
+              {currentStats.hunger < 25 && <span title="饿了" style={{ fontSize: 10 }}>🍖</span>}
+              {currentStats.cleanliness < 25 && <span title="脏了" style={{ fontSize: 10 }}>✨</span>}
+              {currentStats.energy < 25 && <span title="累了" style={{ fontSize: 10 }}>⚡</span>}
+            </div>
+          )}
+        </div>
+        
+        {/* 心形粒子 */}
+        {hearts.map(h => (
+          <img key={h.id} src={heartSvg} alt="" style={{
+            position: 'absolute', left: h.x, top: h.y,
+            width: 28, height: 28, pointerEvents: 'none',
+            transform: 'translate(-50%, -50%)',
+            animation: 'heartFloat 1s ease-out forwards',
+          }} />
+        ))}
+
+        <style>{`
+          @keyframes heartFloat {
+            0% { opacity: 1; transform: translate(-50%, -50%) translateY(0) scale(1); }
+            100% { opacity: 0; transform: translate(-50%, -80%) translateY(-30px) scale(1.3); }
+          }
+          @keyframes petBreath {
+            0%, 100% { transform: translateY(0) scale(1); }
+            50% { transform: translateY(-3px) scale(1.02); }
+          }
+          @keyframes bubblePop {
+            0% { opacity: 0; transform: translateX(-50%) translateY(8px) scale(0.8); }
+            100% { opacity: 1; transform: translateX(-50%) translateY(0) scale(1); }
+          }
+          @keyframes zzzFloat {
+            0% { opacity: 0.8; transform: translateY(0) translateX(0); }
+            100% { opacity: 0; transform: translateY(-20px) translateX(10px); }
+          }
+        `}</style>
+      </div>
+    )
+  }
+
+  // ============================================================
+  //  FULL 模式（完整面板）
+  // ============================================================
+  const renderStatBar = (statKey) => {
+    const config = STAT_CONFIG[statKey]
+    if (!config) return null
+    const value = currentStats[statKey] ?? 50
+    const isLow = value < 25
+    const isIntimacy = statKey === 'intimacy'
+
+    return (
+      <div key={statKey} style={{ marginBottom: 6 }}>
+        <div className="flex items-center justify-between" style={{ marginBottom: 2 }}>
+          <span style={{ fontSize: 11, color: '#6b7280' }}>
+            {config.icon} {config.label}
+          </span>
+          <span style={{ fontSize: 10, color: isLow ? '#ef4444' : '#9ca3af', fontWeight: 600 }}>
+            {Math.round(value)}%
+          </span>
+        </div>
+        <div style={{
+          width: '100%', background: '#f3f4f6', borderRadius: 4,
+          height: 6, overflow: 'hidden',
+        }}>
+          <div style={{
+            width: `${isIntimacy ? value : value}%`,
+            height: '100%',
+            background: isLow ? config.lowColor : `linear-gradient(90deg, ${config.color}, ${config.color}dd)`,
+            borderRadius: 4,
+            transition: 'width 0.5s ease',
+          }} />
+        </div>
+      </div>
+    )
+  }
+
+  return (
+    <div style={{
+      width: 230,
+      textAlign: 'center',
+      position: 'relative',
+      background: 'linear-gradient(135deg, rgba(255,255,255,0.92), rgba(248,250,252,0.96))',
+      borderRadius: 20,
+      padding: 14,
+      boxShadow: '0 8px 32px rgba(99,102,241,0.1)',
+      backdropFilter: 'blur(12px)',
+    }}>
+      {/* 宠物图片区（含配饰+气泡） */}
+      <div
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
+        onClick={handleClick}
+        style={{ display: 'inline-block', position: 'relative', marginBottom: 10 }}
+      >
+        {renderBubble()}
+        
+        {/* 等级标签 */}
+        <div style={{
+          position: 'absolute', top: -4, right: -4,
+          background: 'linear-gradient(135deg, #6366f1, #8b5cf6)',
+          color: 'white', fontSize: 11, fontWeight: 700,
+          padding: '2px 8px', borderRadius: 10,
+          boxShadow: '0 2px 8px rgba(99,102,241,0.35)', zIndex: 5,
+        }}>
+          Lv.{level}
+        </div>
+
+        {/* 阶段标签 */}
+        <div style={{
+          position: 'absolute', bottom: 0, left: '50%',
+          transform: 'translateX(-50%)',
+          background: 'rgba(255,255,255,0.85)', color: '#4b5563',
+          fontSize: 10, padding: '1px 8px', borderRadius: 8, zIndex: 5,
+          backdropFilter: 'blur(6px)',
+          boxShadow: '0 1px 4px rgba(0,0,0,0.06)',
+        }}>
+          {stageLabel}
+        </div>
+
+        <img src={imgSrc} alt="pet" style={petStyle} draggable={false} />
+        {renderAccessories()}
+        {renderZZZ()}
+        {renderBlinkOverlay()}
+
+        {/* 心形粒子 */}
+        {hearts.map(h => (
+          <img key={h.id} src={heartSvg} alt="" style={{
+            position: 'absolute', left: h.x, top: h.y,
+            width: 28, height: 28, pointerEvents: 'none',
+            transform: 'translate(-50%, -50%)',
+            animation: 'heartFloat 1s ease-out forwards',
+          }} />
+        ))}
+      </div>
+
+      {/* ====== 四维状态条 ====== */}
+      <div style={{ marginBottom: 10 }}>
+        <div style={{
+          fontSize: 11, fontWeight: 600, color: '#374151', marginBottom: 6,
+          textAlign: 'left',
+        }}>
+          📊 状态
+        </div>
+        {['hunger', 'cleanliness', 'energy', 'intimacy'].map(renderStatBar)}
+      </div>
+
+      {/* 心情快速指示 */}
+      <div style={{
+        display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 6,
+        marginBottom: 10,
+      }}>
+        <span style={{ fontSize: 12, color: '#6b7280' }}>心情</span>
+        <span style={{ fontSize: 18 }}>{moodEmoji}</span>
+      </div>
+
+      {/* ====== 互动按钮区（消耗道具）====== */}
+      {mode === 'full' && onInteract && (
+        <>
+          <div style={{
+            display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 8, marginBottom: 10,
+          }}>
+            {[
+              {
+                key: 'feed', icon: '🍖', label: '喂养',
+                desc: '+饱食度',
+                color: '#10b981', bg: 'linear-gradient(135deg,#34d399,#10b981)',
+                hasItem: canInteract('feed'),
+                itemCount: (inventory?.foods?.basic || 0) + (inventory?.foods?.advanced || 0),
+              },
+              {
+                key: 'clean', icon: '🛁', label: '洗澡',
+                desc: '+清洁度',
+                color: '#3b82f6', bg: 'linear-gradient(135deg,#60a5fa,#3b82f6)',
+                hasItem: canInteract('clean'),
+                itemCount: inventory?.cleanItems || 0,
+              },
+              {
+                key: 'rest', icon: '💤', label: '休息',
+                desc: '+活力',
+                color: '#8b5cf6', bg: 'linear-gradient(135deg,#a78bfa,#8b5cf6)',
+                hasItem: canInteract('rest'),
+                itemCount: inventory?.energyItems || 0,
+              },
+              {
+                key: 'pet', icon: '👋', label: '抚摸',
+                desc: '+亲密度',
+                color: '#ec4899', bg: 'linear-gradient(135deg,#f472b6,#ec4899)',
+                hasItem: true, // 抚摸不限
+                itemCount: null,
+              },
+            ].map(btn => (
+              <button
+                key={btn.key}
+                onClick={() => btn.hasItem && doInteract(btn.key)}
+                disabled={!btn.hasItem}
+                style={{
+                  padding: '10px 0',
+                  background: btn.hasItem ? btn.bg : '#e5e7eb',
+                  color: btn.hasItem ? 'white' : '#9ca3af',
+                  border: 'none', borderRadius: 12,
+                  fontSize: 12, fontWeight: 600,
+                  cursor: btn.hasItem ? 'pointer' : 'not-allowed',
+                  boxShadow: btn.hasItem ? `0 3px 10px ${btn.color}40` : 'none',
+                  transition: 'transform 0.15s, opacity 0.2s',
+                  opacity: btn.hasItem ? 1 : 0.55,
+                  position: 'relative',
+                  overflow: 'hidden',
+                }}
+                onMouseDown={(e) => { if (btn.hasItem) e.currentTarget.style.transform = 'scale(0.95)' }}
+                onMouseUp={(e) => { e.currentTarget.style.transform = 'scale(1)' }}
+              >
+                <div style={{ fontSize: 18 }}>{btn.icon}</div>
+                <div>{btn.label}</div>
+                <div style={{ fontSize: 9, opacity: 0.8 }}>
+                  {btn.desc}
+                  {btn.itemCount !== null && ` ×${btn.itemCount}`}
+                </div>
+                {!btn.hasItem && (
+                  <div style={{
+                    position: 'absolute', top: 4, right: 6,
+                    fontSize: 10, opacity: 0.6,
+                  }}>🔒</div>
+                )}
+              </button>
+            ))}
+          </div>
+
+          {/* 反应动画状态提示 */}
+          {reaction && (
+            <div style={{
+              textAlign: 'center', fontSize: 11, fontWeight: 600,
+              padding: '4px 0', marginBottom: 6,
+              color: reaction === 'eating' ? '#059669'
+                : reaction === 'bathing' ? '#2563eb'
+                : reaction === 'sleeping' ? '#7c3aed'
+                : '#db2777',
+              animation: 'reactionPulse 0.8s ease-in-out infinite alternate',
+            }}>
+              {{ eating: '😋 美味美味...', bathing: '✨ 好舒服~', sleeping: '💤 Zzz...', petting: '😆 嘿嘿~' }[reaction] || ''}
+            </div>
+          )}
+
+          {/* 背包道具展示 */}
+          {inventory && (
+            <div style={{
+              background: '#f9fafb', borderRadius: 12, padding: '10px',
+              border: '1px solid #f3f4f6', marginBottom: 8,
+            }}>
+              <div style={{ fontSize: 11, fontWeight: 600, color: '#374151', marginBottom: 6 }}>
+                🎒 我的背包
+              </div>
+              <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
+                {[
+                  { icon: '🐟', label: '鱼干', count: inventory.foods?.basic || 0, key: 'food_basic' },
+                  { icon: '🐠', label: '烤鱼', count: inventory.foods?.advanced || 0, key: 'food_adv' },
+                  { icon: '🧴', label: '沐浴露', count: inventory.cleanItems || 0, key: 'clean' },
+                  { icon: '🥤', label: '能量饮料', count: inventory.energyItems || 0, key: 'energy' },
+                  { icon: '🧸', label: '玩具', count: inventory.giftItems || 0, key: 'gift' },
+                  { icon: '🃏', label: '抽卡券', count: inventory.cards || 0, key: 'card' },
+                ].map(item => (
+                  <div
+                    key={item.key}
+                    style={{
+                      display: 'flex', alignItems: 'center', gap: 4,
+                      background: item.count > 0 ? 'white' : '#f3f4f6',
+                      borderRadius: 8, padding: '4px 8px',
+                      fontSize: 10, color: item.count > 0 ? '#374151' : '#d1d5db',
+                      boxShadow: item.count > 0 ? '0 1px 3px rgba(0,0,0,0.06)' : 'none',
+                    }}
+                    title={`${item.label}: ${item.count}`}
+                  >
+                    <span>{item.icon}</span>
+                    <span style={{ fontWeight: 700 }}>{item.count}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+        </>
+      )}
+
+      <style>{`
+        @keyframes heartFloat {
+          0% { opacity: 1; transform: translate(-50%,-50%) translateY(0) scale(1); }
+          100% { opacity: 0; transform: translate(-50%,-80%) translateY(-30px) scale(1.3); }
+        }
+        @keyframes petBreath {
+          0%, 100% { transform: translateY(0) scale(1); }
+          50% { transform: translateY(-3px) scale(1.02); }
+        }
+        @keyframes bubblePop {
+          0% { opacity: 0; transform: translateX(-50%) translateY(8px) scale(0.8); }
+          100% { opacity: 1; transform: translateX(-50%) translateY(0) scale(1); }
+        }
+        @keyframes zzzFloat {
+          0% { opacity: 0.8; transform: translateY(0) translateX(0); }
+          100% { opacity: 0; transform: translateY(-20px) translateX(10px); }
+        }
+        @keyframes reactionPulse {
+          0% { opacity: 0.6; transform: scale(0.97); }
+          100% { opacity: 1; transform: scale(1); }
+        }
+        @keyframes eatingWiggle {
+          0% { transform: scale(1.05) rotate(-2deg); }
+          100% { transform: scale(1.05) rotate(2deg); }
+        }
+        @keyframes sleepingBobble {
+          0%, 100% { transform: scale(0.95) translateY(2px); }
+          50% { transform: scale(0.95) translateY(4px); }
+        }
+        @keyframes bathingShake {
+          0% { transform: scale(1.03) rotate(-5deg); }
+          100% { transform: scale(1.03) rotate(5deg); }
+        }
+        @keyframes pettingBounce {
+          0% { transform: scale(1.08) translateY(-4px); }
+          100% { transform: scale(1.1) translateY(-8px); }
+        }
+      `}</style>
+    </div>
+  )
+}
+
+// 辅助函数：获取配饰 emoji
+function getAccessoryEmoji(accessoryId) {
+  const map = {
+    acc_crown: '👑', acc_glasses: '🤓', acc_cat_ears: '🐱', acc_antler: '🦌', acc_star_hat: '⭐', acc_santa: '🎅',
+    acc_scarf: '🧣', acc_bowtie: '🎀', acc_necklace: '💎', acc_bell: '🔔',
+    acc_wings: '🧚', acc_cape: '🦸', acc_backpack: '🎒', acc_halo: '😇',
+  }
+  return map[accessoryId] || '✨'
+}
+
+export function usePetTriggers() {
+  return { triggerHappy: () => {}, triggerUpgrade: () => {} }
+}

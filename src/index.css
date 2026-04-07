@@ -1,0 +1,17 @@
+@import "tailwindcss";
+
+@layer base {
+  * {
+    -webkit-tap-highlight-color: transparent;
+    box-sizing: border-box;
+  }
+  body {
+    margin: 0;
+    font-family: 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+    background: #f0f4ff;
+    min-height: 100vh;
+  }
+  #root {
+    min-height: 100vh;
+  }
+}
