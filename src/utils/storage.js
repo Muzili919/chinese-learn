@@ -1,8 +1,19 @@
 const P = 'cl_';
 
 export const storage = {
-  // User
-  getUser: () => JSON.parse(localStorage.getItem(P + 'user') || 'null'),
+  // User - 包含等级和经验信息
+  getUser: () => {
+    const user = JSON.parse(localStorage.getItem(P + 'user') || 'null');
+    if (user && !user.level) {
+      // 初始化用户等级和经验
+      user.level = 1;
+      user.experience = 0;
+      user.totalExperience = 0;
+      user.nextLevelExp = 100; // 1级升级需要100xp
+      storage.setUser(user);
+    }
+    return user;
+  },
   setUser: (user) => localStorage.setItem(P + 'user', JSON.stringify(user)),
 
   // SRS state: { [cardId]: { interval, easeFactor, reviewCount, nextReview } }
@@ -140,14 +151,47 @@ export const exportAll = (userId) => {
   };
 };
 
-export function calcLevel(xp) {
-  // Level up every 200 XP, capped at 50
-  const level = Math.floor(xp / 200) + 1;
+// 计算升级所需经验（按1.2倍递增）
+export function getRequiredExpForLevel(level) {
+  if (level <= 1) return 100;
+  let exp = 100;
+  for (let i = 2; i <= level; i++) {
+    exp = Math.round(exp * 1.2);
+  }
+  return exp;
+}
+
+// 根据总经验计算当前等级
+export function calcLevel(totalExperience) {
+  let level = 1;
+  let accumulatedExp = 0;
+  let currentLevelExp = 100;
+  
+  while (accumulatedExp + currentLevelExp <= totalExperience) {
+    accumulatedExp += currentLevelExp;
+    level++;
+    currentLevelExp = Math.round(currentLevelExp * 1.2);
+    if (level >= 50) break; // 等级上限50
+  }
+  
   return Math.min(level, 50);
 }
 
-export function calcLevelProgress(xp) {
-  return xp % 200;
+// 计算当前等级的经验进度
+export function calcLevelProgress(totalExperience) {
+  let accumulatedExp = 0;
+  let currentLevelExp = 100;
+  let level = 1;
+  
+  while (accumulatedExp + currentLevelExp <= totalExperience) {
+    accumulatedExp += currentLevelExp;
+    level++;
+    currentLevelExp = Math.round(currentLevelExp * 1.2);
+    if (level >= 50) break;
+  }
+  
+  const currentExp = totalExperience - accumulatedExp;
+  return { currentExp, requiredExp: currentLevelExp, level };
 }
 
 export function updateStreak(userId) {

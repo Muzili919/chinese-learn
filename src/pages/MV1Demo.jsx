@@ -16,10 +16,11 @@ import {
   SHOP_ITEMS,
   DAILY_TASK_TEMPLATES,
 } from '../utils/gamification';
-import { storage } from '../utils/storage';
+import { storage, calcLevel, calcLevelProgress } from '../utils/storage';
 import { fetchMV1State, upsertMV1State } from '../utils/mv1_cloud';
 import ShopPanel from '../components/ShopPanel';
 import DailyTasksPanel from '../components/DailyTasksPanel';
+import { calcLevel } from '../utils/gamification';
 
 /**
  * 宠物互动页面 v4 - 修复版
@@ -33,6 +34,7 @@ import DailyTasksPanel from '../components/DailyTasksPanel';
  *   - 删除"学习"栏目（无用，答题在主页进行）
  *   - 简化每日任务设计
  *   - 分离宠物等级和用户等级
+ *   - 用户经验系统和升级功能
  */
 export default function MV1Demo({ onBack, initialState, onStateChange }) {
   const [state, setState] = useState(() => initialState || initGamificationState());
@@ -105,6 +107,18 @@ export default function MV1Demo({ onBack, initialState, onStateChange }) {
 
   const doLearn = (accuracy) => {
     setState((s) => gainExpForLearning(s, accuracy));
+    
+    // 🔧 新增：将学习经验同步到用户账号
+    const user = storage.getUser();
+    if (user) {
+      // 计算获得的经验值
+      const expGain = accuracy >= 0.8 ? 20 : 10;
+      const newTotalExp = (user.totalExperience || 0) + expGain;
+      storage.setUser({
+        ...user,
+        totalExperience: newTotalExp,
+      });
+    }
   };
 
   const handlePetExpGain = (delta) => {
@@ -303,9 +317,85 @@ export default function MV1Demo({ onBack, initialState, onStateChange }) {
           </h1>
           <p style={{ margin: 0, fontSize: 11, color: '#9ca3af' }}>
             {poolInfo?.name} · {petStage} · Lv.{currentPet?.level || 1}
-            {' · ⭐'}{state.exp}
           </p>
         </div>
+
+        {/* 用户经验和升级按钮 */}
+        {(() => {
+          const user = storage.getUser();
+          if (!user) return null;
+          const { level: userLevel, totalExperience = 0, nextLevelExp = 100 } = user;
+          const currentExp = calcLevelProgress(totalExperience);
+          const canLevelUp = totalExperience >= nextLevelExp;
+          
+          return (
+            <div style={{ 
+              display: 'flex', 
+              alignItems: 'center', 
+              gap: 8,
+              marginLeft: 'auto',
+              padding: '4px 10px',
+              background: 'linear-gradient(135deg, #f3e8ff, #e0e7ff)',
+              borderRadius: 8,
+              fontSize: 11,
+            }}>
+              <span style={{ fontWeight: 600, color: '#7c3aed' }}>
+                ⭐ Lv.{userLevel}
+              </span>
+              <div style={{ 
+                width: 60, 
+                height: 6, 
+                background: '#e5e7eb', 
+                borderRadius: 3,
+                overflow: 'hidden',
+              }}>
+                <div style={{
+                  width: `${Math.min(100, (currentExp.currentExp / currentExp.requiredExp) * 100)}%`,
+                  height: '100%',
+                  background: canLevelUp ? '#8b5cf6' : '#a78bfa',
+                  borderRadius: 3,
+                  transition: 'width 0.3s ease',
+                }} />
+              </div>
+              <span style={{ color: '#6b7280', fontSize: 10 }}>
+                {currentExp.currentExp}/{nextLevelExp}
+              </span>
+              {canLevelUp && (
+                <button
+                  onClick={() => {
+                    const u = storage.getUser();
+                    if (u && u.level && u.nextLevelExp) {
+                      // 检查是否可以升级
+                      if (u.totalExperience >= u.nextLevelExp) {
+                        const newLevel = u.level + 1;
+                        const newNextExp = Math.round(u.nextLevelExp * 1.2);
+                        storage.setUser({
+                          ...u,
+                          level: newLevel,
+                          nextLevelExp: newNextExp,
+                        });
+                        // 刷新页面
+                        window.location.reload();
+                      }
+                    }
+                  }}
+                  style={{
+                    padding: '2px 8px',
+                    border: 'none',
+                    borderRadius: 4,
+                    background: '#8b5cf6',
+                    color: 'white',
+                    fontSize: 10,
+                    fontWeight: 600,
+                    cursor: 'pointer',
+                  }}
+                >
+                  升级
+                </button>
+              )}
+            </div>
+          );
+        })()}
 
         {/* 游戏结果浮动通知 */}
         {gameResult && (
@@ -390,7 +480,7 @@ export default function MV1Demo({ onBack, initialState, onStateChange }) {
                     color: '#78350f', fontWeight: 700, fontSize: 11.5,
                     cursor: 'pointer', boxShadow: '0 2px 8px rgba(245,158,11,0.3)',
                   }}
-                >🃏 抽一次 (2000⭐)</button>
+                >🃏 抽一次 (500⭐)</button>
               </div>
               <p style={{ margin: 0, fontSize: 11, color: '#9ca3af' }}>
                 已拥有：{state.ownedPets?.map(pid => {

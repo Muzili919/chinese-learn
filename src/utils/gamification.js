@@ -403,7 +403,7 @@ export const SHOP_ITEMS = [
     rarity: 'SR', desc: '+40亲密度', effect: { intimacy: 40 }, image: null },
 
   // ---- 功能类 ----
-  { id: 'card_draw', name: '抽卡券', icon: '🃏', price: 200, kind: 'card', amount: 1,
+  { id: 'card_draw', name: '抽卡券', icon: '🃏', price: 500, kind: 'card', amount: 1,
     rarity: 'R', desc: '抽一次宠物卡', effect: {}, image: null },
 ];
 
@@ -463,7 +463,7 @@ function defaultStats() {
 function initGamificationState() {
   return {
     level: 1,
-    exp: 0,
+    exp: 100, // 🔧 修复：初始经验改为100xp
     totalStars: 1,        // 主人星级（=宠物等级）
     coins: 0,           // P1新增：金币（已弃用，保留兼容）
     petPool: PET_POOL,
@@ -513,8 +513,23 @@ function initGamificationState() {
 }
 
 // ============================================================
-//  经验与等级
+//  经验与等级 - 🔧 修复版本
 // ============================================================
+// 计算升级所需经验
+function getExpNeededForLevel(level) {
+  if (level <= 1) return 100;
+  let exp = 100;
+  for (let i = 2; i <= level; i++) {
+    exp = Math.round(exp * 1.2);
+  }
+  return exp;
+}
+
+// 获取当前等级的升级经验阈值
+function getCurrentLevelThreshold(currentLevel) {
+  return getExpNeededForLevel(currentLevel);
+}
+
 function calcLearnExp(accuracy) {
   const a = clamp(accuracy, 0, 1);
   let bonus = 0;
@@ -530,12 +545,11 @@ function gainExpForLearning(state, accuracy, multiplier = 1) {
   const gain = calcLearnExp(accuracy) * multiplier;
   let newExp = state.exp + gain;
   let newLevel = state.level;
-  while (newExp >= newLevel * 100) {
-    newExp -= newLevel * 100;
-    newLevel += 1;
-  }
   
-  const s = { ...state, level: newLevel, exp: newExp };
+  // 🔧 修复：使用新的经验计算方式，但不自动升级
+  // 用户需要手动点击升级按钮
+  
+  const s = { ...state, exp: newExp };
   s.totalLearnQuestions = (s.totalLearnQuestions || 0) + 1;
   if (accuracy >= 0.8) s.totalCorrectAnswers = (s.totalCorrectAnswers || 0) + 1;
   
@@ -563,6 +577,33 @@ function gainExpForLearning(state, accuracy, multiplier = 1) {
   }
   
   return s;
+}
+
+// 🔧 新增：手动升级函数
+export function manualLevelUp(state) {
+  const currentThreshold = getCurrentLevelThreshold(state.level);
+  if (state.exp < currentThreshold) {
+    return state; // 经验不足，无法升级
+  }
+  
+  const newLevel = state.level + 1;
+  const newExp = state.exp - currentThreshold;
+  
+  // 升级后宠物等级也同步
+  const updatedPet = {
+    ...state.currentPet,
+    level: newLevel,
+    stage: stageFromLevel(newLevel),
+    lastAction: 'levelUp'
+  };
+  
+  return {
+    ...state,
+    level: newLevel,
+    exp: newExp,
+    totalStars: newLevel,
+    currentPet: updatedPet
+  };
 }
 
 // ============================================================
@@ -661,11 +702,11 @@ export function tickPetStats(state, minutes = 1) {
 }
 
 // ============================================================
-//  抽卡（保持原有逻辑）
+//  抽卡（保持原有逻辑）- 🔧 修复：改为500经验值
 // ============================================================
 function drawCard(state) {
-  // 扣除2000exp
-  if ((state.exp || 0) < 2000) return state; // 经验不足，不执行
+  // 🔧 修复：抽卡消耗500经验（不是2000）
+  if ((state.exp || 0) < 500) return state; // 经验不足，不执行
 
   const lvl = state.level || 1;
   let w;
@@ -683,7 +724,7 @@ function drawCard(state) {
   
   return {
     ...state,
-    exp: state.exp - 2000,  // 抽卡消耗2000经验
+    exp: state.exp - 500,  // 🔧 修复：抽卡消耗500经验
     ownedPets: owned,
     currentPet: { poolId: chosen, level: 1, exp: 0, mood: 'neutral', tapCount: 0, stats: defaultStats(), equippedAccessories: {} }
   };
@@ -701,6 +742,7 @@ function getPetPool(state) { return state.petPool; }
 export {
   initGamificationState,
   gainExpForLearning,
+  manualLevelUp, // 🔧 新增导出
   feedPet,
   tapPet,
   resetPetMood,
@@ -722,6 +764,7 @@ export {
 export default {
   initGamificationState,
   gainExpForLearning,
+  manualLevelUp,
   feedPet,
   tapPet,
   resetPetMood,
@@ -730,4 +773,3 @@ export default {
   getPetPool,
   getPetStage,
 };
-
