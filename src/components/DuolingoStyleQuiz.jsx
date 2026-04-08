@@ -358,6 +358,127 @@ function FillQuestion({ question, onDone }) {
   )
 }
 
+// ─── 多义字题（从题目文本里解析①②③④选项）────────────────
+
+function MultiMeaningQuestion({ question, onDone }) {
+  const [selected, setSelected] = useState(null)
+  const options = [...question.question.matchAll(/([①②③④⑤⑥⑦⑧⑨])\s*([^①②③④⑤⑥⑦⑧⑨\n]+)/g)]
+    .map(m => ({ symbol: m[1], text: m[2].trim() }))
+  const stem = question.question.split('\n')
+    .filter(l => !/^[①②③④⑤⑥]/.test(l.trim())).join('\n').trim()
+
+  function handleSelect(symbol) {
+    if (selected) return
+    setSelected(symbol)
+    const correct = question.answer.includes(symbol)
+    onDone(symbol, correct)
+  }
+
+  return (
+    <div className="flex flex-col gap-3">
+      <div className="bg-white rounded-3xl px-5 py-5 shadow-sm border border-gray-100">
+        <p className="text-base text-gray-800 leading-relaxed whitespace-pre-wrap font-medium">{stem}</p>
+      </div>
+      {options.map(opt => {
+        let cls = 'bg-white border-2 border-gray-200 text-gray-800'
+        if (selected) {
+          if (question.answer.includes(opt.symbol)) cls = 'bg-green-100 border-2 border-green-500 text-green-800'
+          else if (opt.symbol === selected) cls = 'bg-red-100 border-2 border-red-400 text-red-700'
+          else cls = 'bg-white border-2 border-gray-100 text-gray-300'
+        }
+        return (
+          <button key={opt.symbol} onClick={() => handleSelect(opt.symbol)} disabled={!!selected}
+            className={`${cls} rounded-2xl px-5 py-4 text-left text-base font-medium transition-all active:scale-[0.98] shadow-sm`}>
+            <span className="font-bold mr-2">{opt.symbol}</span>{opt.text}
+          </button>
+        )
+      })}
+    </div>
+  )
+}
+
+// ─── 连线题（左右各一列，点左再点右配对）──────────────────
+
+function MatchingQuestion({ question, onDone }) {
+  const pairs = question.pairs || []
+  const [shuffledRight] = useState(() =>
+    [...pairs.map((p, i) => ({ text: p.right, idx: i }))].sort(() => Math.random() - 0.5)
+  )
+  const [leftSel, setLeftSel] = useState(null)
+  const [matched, setMatched] = useState({})  // {leftIdx: rightShuffledIdx}
+  const [errors, setErrors] = useState({})
+  const [submitted, setSubmitted] = useState(false)
+  const allMatched = Object.keys(matched).length === pairs.length
+
+  function handleLeft(i) {
+    if (submitted || matched[i] !== undefined) return
+    setLeftSel(prev => prev === i ? null : i)
+  }
+
+  function handleRight(item, ri) {
+    if (submitted || leftSel === null) return
+    if (Object.values(matched).includes(ri)) return
+    const correct = item.idx === leftSel
+    setMatched(p => ({ ...p, [leftSel]: ri }))
+    if (!correct) setErrors(p => ({ ...p, [leftSel]: true }))
+    setLeftSel(null)
+  }
+
+  function handleSubmit() {
+    const correct = pairs.every((_, i) => !errors[i])
+    setSubmitted(true)
+    onDone(correct ? question.answer : '答错', correct)
+  }
+
+  return (
+    <div className="flex flex-col gap-4">
+      <div className="bg-white rounded-3xl px-5 py-4 shadow-sm border border-gray-100">
+        <p className="text-base text-gray-800 font-medium">{question.question}</p>
+      </div>
+      <div className="flex gap-2">
+        <div className="flex-1 flex flex-col gap-2">
+          {pairs.map((p, i) => {
+            const isMatched = matched[i] !== undefined
+            return (
+              <button key={i} onClick={() => handleLeft(i)} disabled={isMatched || submitted}
+                className={`py-3 px-3 rounded-2xl border-2 text-sm font-semibold text-center transition-all ${
+                  errors[i] ? 'bg-red-100 border-red-400 text-red-700' :
+                  isMatched ? 'bg-green-100 border-green-400 text-green-700' :
+                  leftSel === i ? 'bg-indigo-100 border-indigo-500 text-indigo-700' :
+                  'bg-white border-gray-200 text-gray-800'
+                }`}>{p.left}</button>
+            )
+          })}
+        </div>
+        <div className="flex flex-col gap-2 justify-around py-1">
+          {pairs.map((_, i) => <span key={i} className="text-gray-300 text-base">→</span>)}
+        </div>
+        <div className="flex-1 flex flex-col gap-2">
+          {shuffledRight.map((item, ri) => {
+            const matchedLeftIdx = parseInt(Object.entries(matched).find(([, r]) => r === ri)?.[0] ?? '-1')
+            const isMatched = matchedLeftIdx >= 0
+            const isError = isMatched && errors[matchedLeftIdx]
+            return (
+              <button key={ri} onClick={() => handleRight(item, ri)}
+                disabled={isMatched || submitted || leftSel === null}
+                className={`py-3 px-3 rounded-2xl border-2 text-sm font-semibold text-center transition-all ${
+                  isError ? 'bg-red-100 border-red-400 text-red-700' :
+                  isMatched ? 'bg-green-100 border-green-400 text-green-700' :
+                  leftSel !== null ? 'bg-yellow-50 border-yellow-300 text-gray-800 active:scale-95' :
+                  'bg-white border-gray-200 text-gray-400'
+                }`}>{item.text}</button>
+            )
+          })}
+        </div>
+      </div>
+      {leftSel !== null && <p className="text-xs text-indigo-500 text-center">请点击右侧对应项完成配对</p>}
+      {!submitted && allMatched && (
+        <button onClick={handleSubmit} className="w-full bg-indigo-500 text-white font-bold py-4 rounded-2xl text-base">提交</button>
+      )}
+    </div>
+  )
+}
+
 // ─── 主组件 ──────────────────────────────────────────────
 
 export default function DuolingoStyleQuiz({ question, onAnswerSubmit, showVariantButton }) {
@@ -404,6 +525,7 @@ export default function DuolingoStyleQuiz({ question, onAnswerSubmit, showVarian
 
   // 判断/错别字/排序题内部已有提交逻辑，答完后只需底部继续条
   const hasInternalSubmit = fillType === 'judgment' || fillType === 'typo' || fillType === 'order'
+    || question.type === 'matching' || question.type === 'multi_meaning'
 
   return (
     <div className="flex flex-col gap-4 pb-44">
@@ -422,11 +544,13 @@ export default function DuolingoStyleQuiz({ question, onAnswerSubmit, showVarian
       )}
 
       {/* 答题区 */}
-      {question.type === 'single_choice' && <ChoiceQuestion question={question} onDone={handleDone} />}
-      {isFill && fillType === 'judgment' && <JudgmentQuestion question={question} onDone={handleDone} />}
-      {isFill && fillType === 'typo'     && <TypoQuestion     question={question} onDone={handleDone} />}
-      {isFill && fillType === 'order'    && <OrderQuestion    question={question} onDone={handleDone} />}
-      {isFill && fillType === 'plain'    && <FillQuestion     question={question} onDone={handleDone} />}
+      {question.type === 'single_choice'  && <ChoiceQuestion        question={question} onDone={handleDone} />}
+      {question.type === 'multi_meaning'  && <MultiMeaningQuestion   question={question} onDone={handleDone} />}
+      {question.type === 'matching'       && <MatchingQuestion       question={question} onDone={handleDone} />}
+      {isFill && fillType === 'judgment'  && <JudgmentQuestion       question={question} onDone={handleDone} />}
+      {isFill && fillType === 'typo'      && <TypoQuestion           question={question} onDone={handleDone} />}
+      {isFill && fillType === 'order'     && <OrderQuestion          question={question} onDone={handleDone} />}
+      {isFill && fillType === 'plain'     && <FillQuestion           question={question} onDone={handleDone} />}
 
       {/* 变种题区域（错题模式+答错后） */}
       {answered && showVariantButton && variantPhase === 'answering' && variantQ && (
