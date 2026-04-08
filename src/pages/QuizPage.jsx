@@ -35,7 +35,130 @@ function shuffleOptions(question) {
 }
 
 function normalize(s) {
-  return (s || '').trim().replace(/[，。！？、；：""''《》（）\s]/g, '')
+  return (s || '').trim()
+    .replace(/（[0-9]）/g, ' ')   // 去掉 （1）（2） 编号
+    .replace(/[，。！？、；：""''《》（）\s]/g, '')
+}
+
+// 检测是否为 √/× 判断题
+function isJudgmentQ(q) {
+  return q.type === 'fill_blank' &&
+    /打.*[√×]|[√×].*打/.test(q.question) &&
+    /（[1-9]）[√×]/.test(q.answer)
+}
+
+// 解析判断题各小题的正确答案：['√','×','√','×']
+function parseJudgmentAnswers(answer) {
+  return [...answer.matchAll(/（[1-9]）([√×])/g)].map(m => m[1])
+}
+
+// 从题目中提取各小句（去掉末尾的（　））
+function parseJudgmentStatements(questionText) {
+  return questionText.split('\n')
+    .map(l => l.trim())
+    .filter(l => /^（[1-9]）/.test(l))
+    .map(l => l.replace(/（　）\s*$/, '').replace(/^（[1-9]）/, '').trim())
+}
+
+// ── 判断题组件（每句话点 √ / × 作答）─────────────────────
+function JudgmentQuestion({ question, onAnswer, onAdvance, selected }) {
+  const correctAnswers = parseJudgmentAnswers(question.answer)
+  const statements = parseJudgmentStatements(question.question)
+  const [picks, setPicks] = useState({}) // { 0: '√', 1: '×', ... }
+  const [submitted, setSubmitted] = useState(false)
+
+  // 已从上层 recordAnswer 处理过，selected !== null 时同步 submitted
+  const isDone = selected !== null || submitted
+
+  const allPicked = statements.length > 0 &&
+    statements.every((_, i) => picks[i] !== undefined)
+
+  function handlePick(idx, val) {
+    if (isDone) return
+    setPicks(prev => ({ ...prev, [idx]: val }))
+  }
+
+  function handleSubmit() {
+    if (!allPicked || isDone) return
+    const correct = correctAnswers.every((ans, i) => picks[i] === ans)
+    setSubmitted(true)
+    onAnswer(correct)
+  }
+
+  // 指令行（第一段，去掉各小题后的剩余内容）
+  const instruction = question.question.split(/\n\n/)[0] || ''
+
+  return (
+    <div className="flex flex-col gap-3">
+      {/* 指令 */}
+      <div className="bg-white rounded-2xl p-4 border border-gray-100">
+        <p className="text-sm text-gray-600 leading-relaxed whitespace-pre-wrap">{instruction}</p>
+      </div>
+
+      {/* 各小题 */}
+      {statements.map((stmt, i) => {
+        const userPick = picks[i]
+        const correct = correctAnswers[i]
+        const isRight = userPick === correct
+        return (
+          <div key={i} className={`rounded-2xl p-4 border-2 ${
+            !isDone ? 'bg-white border-gray-200' :
+            isRight ? 'bg-green-50 border-green-300' : 'bg-red-50 border-red-300'
+          }`}>
+            <p className="text-sm text-gray-800 leading-relaxed mb-3">
+              <span className="font-semibold text-indigo-600">（{i + 1}）</span>{stmt}
+            </p>
+            <div className="flex gap-2">
+              {['√', '×'].map(val => {
+                let style = 'border-gray-200 text-gray-500 bg-white'
+                if (!isDone && userPick === val) style = 'border-indigo-400 text-indigo-700 bg-indigo-50'
+                if (isDone && val === correct) style = 'border-green-400 text-green-700 bg-green-50'
+                if (isDone && userPick === val && val !== correct) style = 'border-red-400 text-red-700 bg-red-50'
+                return (
+                  <button
+                    key={val}
+                    onClick={() => handlePick(i, val)}
+                    disabled={isDone}
+                    className={`flex-1 py-2 rounded-xl border-2 font-bold text-lg transition-all ${style}`}
+                  >
+                    {val}
+                  </button>
+                )
+              })}
+            </div>
+            {isDone && !isRight && (
+              <p className="text-xs text-green-600 mt-2">正确：{correct}</p>
+            )}
+          </div>
+        )
+      })}
+
+      {!isDone && (
+        <button
+          onClick={handleSubmit}
+          disabled={!allPicked}
+          className="w-full bg-indigo-500 disabled:bg-gray-200 disabled:text-gray-400 text-white font-semibold py-3 rounded-xl transition-colors"
+        >
+          提交答案
+        </button>
+      )}
+
+      {isDone && (
+        <>
+          <div className="bg-amber-50 border border-amber-200 rounded-2xl p-4">
+            <p className="text-xs font-semibold text-amber-700 mb-1">💡 解析</p>
+            <p className="text-xs text-amber-900 leading-relaxed">{question.analysis}</p>
+          </div>
+          <button
+            onClick={onAdvance}
+            className="w-full bg-amber-500 text-white font-semibold py-3 rounded-xl transition-colors"
+          >
+            继续 →
+          </button>
+        </>
+      )}
+    </div>
+  )
 }
 
 export default function QuizPage({ user, options = {}, onFinish, onBack }) {
@@ -233,8 +356,18 @@ export default function QuizPage({ user, options = {}, onFinish, onBack }) {
           />
         )}
 
-        {/* 填空题 */}
-        {isFillBlank && (
+        {/* 填空题：判断题（√/×）特殊 UI */}
+        {isFillBlank && isJudgmentQ(current) && (
+          <JudgmentQuestion
+            question={current}
+            onAnswer={(correct) => recordAnswer(correct ? current.answer : '答错', correct)}
+            onAdvance={() => advance(null)}
+            selected={selected}
+          />
+        )}
+
+        {/* 填空题：普通填空 */}
+        {isFillBlank && !isJudgmentQ(current) && (
           <div className="flex flex-col gap-3">
             <div className="bg-white rounded-2xl p-4 border border-gray-100 mb-2">
               <p className="text-base text-gray-800 leading-relaxed whitespace-pre-wrap">{current.question}</p>

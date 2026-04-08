@@ -247,9 +247,10 @@ export default function ReadingPage({ user, onFinish, onBack }) {
         )}
 
         {/* 随机小贴士 */}
-        {phase === 'answering' && index % 3 === 0 && (
+        {phase === 'answering' && index % 3 === 0 && randomTip && (
           <div className="mt-6 p-4 bg-yellow-50 rounded-xl border border-yellow-200">
-            <p className="text-yellow-800 text-xs">💡 {randomTip}</p>
+            <p className="text-yellow-800 text-xs font-semibold mb-1">💡 {randomTip.title}</p>
+            {randomTip.formula && <p className="text-yellow-700 text-xs">{randomTip.formula}</p>}
           </div>
         )}
       </div>
