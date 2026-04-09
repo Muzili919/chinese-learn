@@ -573,18 +573,47 @@ export default function Pet({
       background: 'linear-gradient(135deg, rgba(255,255,255,0.92), rgba(248,250,252,0.96))',
       borderRadius: 20,
       padding: 14,
+      paddingTop: 52,        /* 为气泡腾出顶部空间 */
       boxShadow: '0 8px 32px rgba(99,102,241,0.1)',
       backdropFilter: 'blur(12px)',
+      overflow: 'visible',   /* 确保气泡不被裁剪 */
     }}>
-      {/* 宠物图片区（含配饰+气泡） */}
+      {/* 对话气泡（放在卡片顶层，不受 inline-block 限制） */}
+      {showBubble && dialogue && (
+        <div style={{
+          position: 'absolute',
+          top: 8,
+          left: '50%',
+          transform: 'translateX(-50%)',
+          background: 'white',
+          borderRadius: 14,
+          padding: '7px 14px',
+          fontSize: 12,
+          fontWeight: 500,
+          color: '#374151',
+          boxShadow: '0 4px 14px rgba(0,0,0,0.12)',
+          whiteSpace: 'nowrap',
+          zIndex: 20,
+          animation: 'bubblePop 0.3s ease-out',
+          maxWidth: 210,
+        }}>
+          {dialogue}
+          <div style={{
+            position: 'absolute', bottom: -6, left: '50%',
+            transform: 'translateX(-50%) rotate(45deg)',
+            width: 10, height: 10, background: 'white',
+            boxShadow: '2px 2px 3px rgba(0,0,0,0.05)',
+          }} />
+        </div>
+      )}
+
+      {/* 宠物图片区（含配饰） */}
       <div
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
         onClick={handleClick}
         style={{ display: 'inline-block', position: 'relative', marginBottom: 10 }}
       >
-        {renderBubble()}
-        
         {/* 等级标签 */}
         <div style={{
           position: 'absolute', top: -4, right: -4,

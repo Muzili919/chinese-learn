@@ -23,12 +23,13 @@ const RARITY_COLORS = {
   SSR: { bg: '#ede9fe', border: '#a78bfa', text: '#7c3aed' },
 }
 
-export default function ShopPanel({ state, onBuy, onUseItem }) {
+export default function ShopPanel({ state, onBuy, onUseItem, spendableXP }) {
   const [activeTab, setActiveTab] = useState('items') // items | accessories | equipped
   const [selectedItemId, setSelectedItemId] = useState(null)
   const [showBuyConfirm, setShowBuyConfirm] = useState(null)
-  
-  const coins = state?.exp || 0
+
+  // 使用 spendableXP（当前等级内可消费经验）如果传入，否则回退到 state.exp
+  const coins = spendableXP !== undefined ? spendableXP : (state?.exp || 0)
   const inventory = state?.inventory || {}
   const ownedAccessories = inventory?.accessories || []
   const equipped = state?.currentPet?.equippedAccessories || {}
@@ -42,7 +43,7 @@ export default function ShopPanel({ state, onBuy, onUseItem }) {
         marginBottom: 12,
         display: 'flex', alignItems: 'center', justifyContent: 'space-between',
       }}>
-        <span style={{ fontSize: 13, fontWeight: 600, color: '#5b21b6' }}>⭐ 学习经验</span>
+        <span style={{ fontSize: 13, fontWeight: 600, color: '#5b21b6' }}>⭐ 可用经验</span>
         <span style={{ fontSize: 20, fontWeight: 800, color: '#7c3aed' }}>{coins}</span>
       </div>
 

@@ -168,15 +168,17 @@ function isMultiSubQ(q) {
 
 // ─── 底部反馈面板 ─────────────────────────────────────────
 
-function FeedbackPanel({ correct, analysis, answer, onContinue, variantBtn }) {
+function FeedbackPanel({ correct, analysis, answer, onContinue, variantState }) {
+  // variantState = { phase, question, selected, onSelect, onGenerate, showButton }
+  const vs = variantState || {}
+
   return (
-    <div className={`fixed bottom-0 left-0 right-0 z-30 rounded-t-3xl shadow-2xl max-h-[72vh] flex flex-col ${
+    <div className={`fixed bottom-0 left-0 right-0 z-30 rounded-t-3xl shadow-2xl max-h-[80vh] flex flex-col ${
       correct ? 'bg-green-50 border-t-4 border-green-400' : 'bg-red-50 border-t-4 border-red-400'
     }`}>
-      {/* 可滚动内容区 */}
       <div className="flex-1 overflow-y-auto px-5 pt-5 pb-2">
         <div className="max-w-md mx-auto">
-          <p className={`text-xl font-bold mb-2 ${correct ? 'text-green-600' : 'text-red-500'}`}>
+          <p className={`text-xl font-bold mb-3 ${correct ? 'text-green-600' : 'text-red-500'}`}>
             {correct ? '✓ 正确！' : '✗ 答错了'}
           </p>
           {!correct && answer && (
@@ -186,19 +188,62 @@ function FeedbackPanel({ correct, analysis, answer, onContinue, variantBtn }) {
             </div>
           )}
           {analysis && (
-            <div className="bg-white/60 rounded-2xl px-4 py-3 border border-gray-100">
+            <div className="mb-3 bg-white/60 rounded-2xl px-4 py-3 border border-gray-100">
               <p className="text-xs text-gray-400 mb-1 font-medium">解析</p>
               <p className="text-xs text-gray-600 leading-relaxed whitespace-pre-wrap">{analysis}</p>
             </div>
           )}
+
+          {/* 举一反三区域 - 在面板内部 */}
+          {vs.showButton && !correct && vs.phase === 'idle' && (
+            <button onClick={vs.onGenerate}
+              className="w-full mb-3 py-3 rounded-2xl font-bold text-violet-600 bg-white border-2 border-violet-300 text-sm active:scale-95">
+              🔀 举一反三（AI出题）
+            </button>
+          )}
+          {vs.showButton && vs.phase === 'loading' && (
+            <div className="w-full mb-3 py-3 rounded-2xl bg-violet-50 border-2 border-violet-100 text-center text-sm text-violet-400">
+              AI 正在出题...
+            </div>
+          )}
+          {vs.showButton && (vs.phase === 'answering' || vs.phase === 'done') && vs.question && (
+            <div className="mb-3 bg-violet-50 border-2 border-violet-200 rounded-2xl p-4">
+              <div className="flex items-center gap-2 mb-3">
+                <span className="text-violet-600 text-sm font-bold">🔀 举一反三</span>
+                <span className="bg-violet-100 text-violet-600 text-xs px-2 py-0.5 rounded-full">AI 出题</span>
+              </div>
+              <p className="text-base text-gray-800 font-medium mb-3 leading-relaxed">{vs.question.question}</p>
+              <div className="flex flex-col gap-2">
+                {vs.question.options?.map(opt => {
+                  let cls = 'bg-white border-2 border-gray-200 text-gray-700'
+                  if (vs.selected) {
+                    if (opt === vs.question.answer) cls = 'bg-green-100 border-green-400 text-green-800'
+                    else if (opt === vs.selected) cls = 'bg-red-100 border-red-400 text-red-700'
+                    else cls = 'bg-white border-gray-100 text-gray-300'
+                  }
+                  return (
+                    <button key={opt}
+                      onClick={() => !vs.selected && vs.onSelect(opt)}
+                      disabled={!!vs.selected}
+                      className={`${cls} rounded-xl px-4 py-3 text-left text-sm font-medium transition-all`}>
+                      {opt}
+                    </button>
+                  )
+                })}
+              </div>
+              {vs.selected && (
+                <p className={`text-xs mt-2 font-semibold ${vs.selected === vs.question.answer ? 'text-green-600' : 'text-red-500'}`}>
+                  {vs.selected === vs.question.answer ? '✓ 答对了！🎉' : `✗ 正确答案：${vs.question.answer}`}
+                </p>
+              )}
+            </div>
+          )}
         </div>
       </div>
-      {/* 固定按钮区 */}
       <div className="px-5 pt-3 pb-8">
-        <div className="max-w-md mx-auto flex gap-3">
-          {variantBtn}
+        <div className="max-w-md mx-auto">
           <button onClick={onContinue}
-            className={`flex-1 py-3 rounded-2xl font-bold text-white text-base active:scale-95 transition-all ${
+            className={`w-full py-3 rounded-2xl font-bold text-white text-base active:scale-95 transition-all ${
               correct ? 'bg-green-500' : 'bg-red-500'
             }`}>
             继续
@@ -1090,40 +1135,6 @@ export default function DuolingoStyleQuiz({ question, onAnswerSubmit, showVarian
       {isFill && fillType === 'multi_sub'  && <PlainMultiSubQuestion  question={question} onDone={handleDone} />}
       {isFill && fillType === 'plain'      && <FillQuestion           question={question} onDone={handleDone} />}
 
-      {/* 变种题区域（错题模式+答错后） */}
-      {answered && showVariantButton && (variantPhase === 'answering' || variantPhase === 'done') && variantQ && (
-        <div className="bg-violet-50 border-2 border-violet-200 rounded-3xl p-5">
-          <div className="flex items-center gap-2 mb-3">
-            <span className="text-violet-600 text-sm font-bold">🔀 举一反三</span>
-            <span className="bg-violet-100 text-violet-600 text-xs px-2 py-0.5 rounded-full">AI 出题</span>
-          </div>
-          <p className="text-base text-gray-800 font-medium mb-3 leading-relaxed">{variantQ.question}</p>
-          <div className="flex flex-col gap-2">
-            {variantQ.options.map(opt => {
-              let cls = 'bg-white border-2 border-gray-200 text-gray-700'
-              if (variantSel) {
-                if (opt === variantQ.answer) cls = 'bg-green-100 border-green-400 text-green-800'
-                else if (opt === variantSel) cls = 'bg-red-100 border-red-400 text-red-700'
-                else cls = 'bg-white border-gray-100 text-gray-300'
-              }
-              return (
-                <button key={opt}
-                  onClick={() => { if (!variantSel) { setVariantSel(opt); setVariantPhase('done') } }}
-                  disabled={!!variantSel}
-                  className={`${cls} rounded-2xl px-4 py-3 text-left text-sm font-medium transition-all`}>
-                  {opt}
-                </button>
-              )
-            })}
-          </div>
-          {variantSel && (
-            <p className={`text-xs mt-3 font-semibold ${variantSel === variantQ.answer ? 'text-green-600' : 'text-red-500'}`}>
-              {variantSel === variantQ.answer ? '✓ 变种题答对了！🎉' : `✗ 正确答案：${variantQ.answer}`}
-            </p>
-          )}
-        </div>
-      )}
-
       {/* 底部反馈面板：选择题 & 普通填空 */}
       {answered && !hasInternalSubmit && (
         <FeedbackPanel
@@ -1131,16 +1142,14 @@ export default function DuolingoStyleQuiz({ question, onAnswerSubmit, showVarian
           analysis={question.analysis}
           answer={phase === 'wrong' ? question.answer : null}
           onContinue={handleContinue}
-          variantBtn={
-            showVariantButton && phase === 'wrong' && variantPhase === 'idle' ? (
-              <button onClick={handleVariant}
-                className="flex-1 py-3 rounded-2xl font-bold text-violet-600 bg-white border-2 border-violet-300 text-sm active:scale-95">
-                🔀 举一反三
-              </button>
-            ) : showVariantButton && variantPhase === 'loading' ? (
-              <button disabled className="flex-1 py-3 rounded-2xl text-gray-400 bg-gray-100 text-sm">生成中…</button>
-            ) : null
-          }
+          variantState={{
+            showButton: showVariantButton,
+            phase: variantPhase,
+            question: variantQ,
+            selected: variantSel,
+            onSelect: (opt) => { setVariantSel(opt); setVariantPhase('done') },
+            onGenerate: handleVariant,
+          }}
         />
       )}
 

@@ -240,6 +240,17 @@ export function updateTaskProgress(tasks, taskId, amount = 1) {
   });
 }
 
+// 按任务类型批量更新进度（传入完整 state，按 type 字段匹配）
+export function updateTaskByType(state, type, amount = 1) {
+  if (!state.dailyTasks) return state;
+  const newTasks = state.dailyTasks.map(t => {
+    if (t.type !== type || t.completed || t.claimed) return t;
+    const newProgress = Math.min((t.progress || 0) + amount, t.target);
+    return { ...t, progress: newProgress, completed: newProgress >= t.target };
+  });
+  return { ...state, dailyTasks: newTasks };
+}
+
 // 领取任务奖励
 export function claimTaskReward(state, taskId) {
   const task = state.dailyTasks?.find(t => t.id === taskId);
@@ -460,7 +471,7 @@ function defaultStats() {
   };
 }
 
-function initGamificationState() {
+export function initGamificationState() {
   return {
     level: 1,
     exp: 100, // 🔧 修复：初始经验改为100xp

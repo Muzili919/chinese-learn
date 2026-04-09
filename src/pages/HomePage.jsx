@@ -2,7 +2,6 @@ import { useMemo, useState } from 'react'
 import { storage, calcLevel, calcLevelProgress, exportAll } from '../utils/storage'
 import { diagnose, getWeakPoints } from '../utils/diagnosis'
 
-// 能力标签 → 对应星球的 startQuiz 参数
 const ABILITY_TO_QUIZ = {
   '字音辨析': { knowledgeTag: '字词' },
   '字形辨析': { knowledgeTag: '字词' },
@@ -43,39 +42,32 @@ const PLANETS = [
   { id: '古诗词', label: '诗词星球', emoji: '🎋', color: 'from-green-400 to-teal-600',   desc: '古诗·填空·赏析' },
   { id: '成语',   label: '成语星球', emoji: '🏮', color: 'from-orange-400 to-red-500',   desc: '含义·用法·辨析' },
   { id: '句子',   label: '句子星球', emoji: '✏️', color: 'from-violet-400 to-purple-600', desc: '修辞·句式·病句·关联词' },
-  { id: 'reading',label: '阅读星球', emoji: '📖', color: 'from-emerald-400 to-teal-600', desc: '口诀+短文阅读理解', reading: true },
+  { id: 'reading',label: '阅读星球', emoji: '📖', color: 'from-emerald-400 to-teal-600', desc: 'AI评分·短文阅读理解', reading: true },
   { id: '文学常识',label: '文学星球', emoji: '🎭', color: 'from-rose-400 to-pink-600',   desc: '四大名著·标点·文体' },
-  { id: 'sentence_practice', label: '造句星球', emoji: '✍️', color: 'from-amber-400 to-orange-500', desc: 'AI即时批改·学会用词' },
   { id: 'essay', label: '作文星球', emoji: '📝', color: 'from-pink-500 to-rose-600', desc: 'AI三维评分·提升写作' },
-  { id: 'wrong_answers', label: '错题星球', emoji: '💥', color: 'from-red-500 to-orange-600', desc: '错误→复盘→攻克·闭环学习' },
 ]
 
 const QUIZ_PLANET_IDS = ['字词', '古诗词', '成语', '句子', '文学常识']
 
-export default function HomePage({ user, onStartQuiz, onReport, onLogout, onOpenMV1 }) {
+// 科目配置
+const SUBJECTS = [
+  { id: 'chinese', label: '语文', emoji: '📖', available: true },
+  { id: 'english', label: '英语', emoji: '🌎', available: false },
+  { id: 'math',    label: '数学', emoji: '🔢', available: false },
+]
+
+export default function HomePage({ user, onStartQuiz, onReport, onLogout }) {
   const [showLogoutConfirm, setShowLogoutConfirm] = useState(false)
+  const [activeSubject, setActiveSubject] = useState('chinese')
+  const [subjectToast, setSubjectToast] = useState(null)
+
   const xp = storage.getXP(user.id)
   const level = calcLevel(xp)
   const levelProgress = calcLevelProgress(xp)
   const streak = storage.getStreak(user.id)
   const records = storage.getRecords(user.id)
-  const overdueCount = storage.getOverdueWrongCount(user.id)
-
-  const practicedToday = useMemo(() => {
-    const today = new Date().toISOString().slice(0, 10)
-    const set = new Set()
-    records
-      .filter(r => r.timestamp?.startsWith(today))
-      .forEach(r => {
-        if (r.knowledge_tag) set.add(r.knowledge_tag)
-        // 阅读星球 knowledge_tag 是 '阅读理解'，映射为 'reading'
-        if (r.knowledge_tag === '阅读理解') set.add('reading')
-      })
-    return set
-  }, [records])
 
   const handleExport = () => {
-    // 导出当前用户的本地数据快照为 JSON 文件
     const data = exportAll(user.id)
     const json = JSON.stringify(data, null, 2)
     const blob = new Blob([json], { type: 'application/json' })
@@ -89,120 +81,164 @@ export default function HomePage({ user, onStartQuiz, onReport, onLogout, onOpen
     URL.revokeObjectURL(url)
   }
 
+  function handleSubjectClick(subject) {
+    if (subject.available) {
+      setActiveSubject(subject.id)
+    } else {
+      setSubjectToast(subject.label)
+      setTimeout(() => setSubjectToast(null), 2500)
+    }
+  }
+
+  const practicedToday = useMemo(() => {
+    const today = new Date().toISOString().slice(0, 10)
+    const set = new Set()
+    records
+      .filter(r => r.timestamp?.startsWith(today))
+      .forEach(r => {
+        if (r.knowledge_tag) set.add(r.knowledge_tag)
+        if (r.knowledge_tag === '阅读理解') set.add('reading')
+      })
+    return set
+  }, [records])
+
   const weakPoints = useMemo(() => {
     if (records.length < 5) return []
     const d = diagnose(records)
     return getWeakPoints(d)
   }, [records])
 
+  const todayCorrect = useMemo(() => {
+    const today = new Date().toISOString().slice(0, 10)
+    const todayR = records.filter(r => r.timestamp?.startsWith(today))
+    if (todayR.length === 0) return null
+    return Math.round(todayR.filter(r => r.correct).length / todayR.length * 100)
+  }, [records])
+
+  const totalAccuracy = records.length > 0
+    ? Math.round(records.filter(r => r.correct).length / records.length * 100)
+    : 0
+
+  const xpPct = Math.min(100, (levelProgress.currentExp / levelProgress.requiredExp) * 100)
+
   return (
     <div className="min-h-screen flex flex-col">
-      {/* Header */}
-      <div className="bg-white px-5 pt-10 pb-5 shadow-sm">
-        <div className="flex items-center justify-between">
-          <div>
-            <p className="text-gray-400 text-sm">欢迎回来</p>
-            <h1 className="text-2xl font-bold text-gray-800">{user.name} 同学 👋</h1>
+      {/* ===== 顶部栏 ===== */}
+      <div className="bg-white shadow-sm" style={{ paddingTop: 'env(safe-area-inset-top, 36px)' }}>
+
+        {/* 科目切换 */}
+        <div className="px-4 pt-3 pb-2 flex items-center gap-2">
+          <div className="flex gap-2 flex-1">
+            {SUBJECTS.map(s => (
+              <button
+                key={s.id}
+                onClick={() => handleSubjectClick(s)}
+                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-sm font-semibold transition-all ${
+                  activeSubject === s.id
+                    ? 'bg-indigo-600 text-white shadow-sm'
+                    : s.available
+                      ? 'bg-gray-100 text-gray-600'
+                      : 'bg-gray-50 text-gray-300'
+                }`}
+              >
+                <span>{s.emoji}</span>
+                <span>{s.label}</span>
+                {!s.available && <span className="text-[10px] opacity-60">🔒</span>}
+              </button>
+            ))}
           </div>
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-1.5">
             <button
               onClick={onReport}
-              className="flex flex-col items-center bg-indigo-50 rounded-xl px-3 py-2"
-            >
-              <span className="text-xs text-indigo-400 font-medium">报告</span>
-              <span className="text-lg">📊</span>
-            </button>
+              className="w-8 h-8 flex items-center justify-center bg-indigo-50 rounded-xl text-base"
+            >📊</button>
             <button
               onClick={() => setShowLogoutConfirm(true)}
-              className="flex flex-col items-center bg-gray-50 rounded-xl px-3 py-2"
-            >
-              <span className="text-xs text-gray-400 font-medium">切换</span>
-              <span className="text-lg">👤</span>
-            </button>
+              className="w-8 h-8 flex items-center justify-center bg-gray-50 rounded-xl text-base"
+            >👤</button>
             <button
               onClick={handleExport}
-              className="flex flex-col items-center bg-gray-50 rounded-xl px-3 py-2"
-            >
-              <span className="text-xs text-gray-400 font-medium">导出</span>
-              <span className="text-lg">💾</span>
-            </button>
+              className="w-8 h-8 flex items-center justify-center bg-gray-50 rounded-xl text-base"
+            >💾</button>
           </div>
         </div>
 
-      {/* 退出确认弹窗 */}
-        {showLogoutConfirm && (
-          <div className="fixed inset-0 bg-black/40 z-50 flex items-center justify-center px-6">
-            <div className="bg-white rounded-2xl p-6 w-full max-w-xs shadow-xl">
-              <h2 className="text-lg font-bold text-gray-800 mb-2">切换账号？</h2>
-              <p className="text-sm text-gray-500 mb-5">退出后可以重新输入昵称登录，本机数据不会丢失。</p>
-              <button
-                onClick={() => { onLogout(); setShowLogoutConfirm(false) }}
-                className="w-full bg-red-500 text-white font-semibold py-3 rounded-xl mb-2"
-              >
-                确认退出
-              </button>
-              <button
-                onClick={() => setShowLogoutConfirm(false)}
-                className="w-full text-gray-400 py-2 text-sm"
-              >
-                取消
-              </button>
-            </div>
-          </div>
-        )}
-
-        {/* XP bar */}
-        <div className="mt-4">
-          <div className="flex items-center justify-between text-xs text-gray-400 mb-1">
-            <span>⭐ Lv.{level}</span>
-            <span>{levelProgress.currentExp}/{levelProgress.requiredExp} XP</span>
-          </div>
-          <div className="w-full bg-gray-100 rounded-full h-2">
-            <div
-              className="bg-gradient-to-r from-indigo-400 to-purple-500 h-2 rounded-full transition-all"
-              style={{ width: `${Math.min(100, (levelProgress.currentExp / levelProgress.requiredExp) * 100)}%` }}
-            />
-          </div>
+        {/* 用户打招呼 */}
+        <div className="px-4 pb-1">
+          <h1 className="text-xl font-bold text-gray-800">
+            {user.name} 同学，加油！👋
+          </h1>
+          <p className="text-xs text-gray-400 mt-0.5">
+            {streak.count > 0 ? `已连续学习 ${streak.count} 天 🔥` : '今天开始第一天打卡吧！'}
+          </p>
         </div>
 
-        {/* Stats row */}
-        <div className="flex gap-3 mt-4">
-          <div className="flex-1 bg-orange-50 rounded-xl p-3 text-center">
-            <div className="text-2xl font-bold text-orange-500">{streak.count}</div>
-            <div className="text-xs text-gray-400">连续天数 🔥</div>
+        {/* 三个核心数据卡 */}
+        <div className="flex gap-2 px-4 pb-3 mt-2">
+          {/* 连胜卡 */}
+          <div className="flex-1 rounded-2xl p-3 text-center"
+            style={{ background: 'linear-gradient(135deg, #fff7ed, #fed7aa)' }}>
+            <div className="text-2xl font-extrabold text-orange-500">{streak.count}</div>
+            <div className="text-[10px] text-orange-400 font-medium mt-0.5">连续天数 🔥</div>
           </div>
-          <div className="flex-1 bg-blue-50 rounded-xl p-3 text-center">
-            <div className="text-2xl font-bold text-blue-500">{records.length}</div>
-            <div className="text-xs text-gray-400">总答题数</div>
-          </div>
-          <div className="flex-1 bg-green-50 rounded-xl p-3 text-center">
-            <div className="text-2xl font-bold text-green-500">
-              {records.length > 0
-                ? Math.round((records.filter((r) => r.correct).length / records.length) * 100)
-                : 0}%
+
+          {/* 等级+经验卡 */}
+          <div className="flex-1 rounded-2xl p-3"
+            style={{ background: 'linear-gradient(135deg, #f5f3ff, #ddd6fe)' }}>
+            <div className="flex items-baseline gap-1 justify-center">
+              <span className="text-2xl font-extrabold text-indigo-600">Lv.{level}</span>
             </div>
-            <div className="text-xs text-gray-400">正确率</div>
+            <div className="w-full bg-indigo-100 rounded-full h-1.5 mt-1.5">
+              <div
+                className="bg-gradient-to-r from-indigo-400 to-purple-500 h-1.5 rounded-full transition-all"
+                style={{ width: `${xpPct}%` }}
+              />
+            </div>
+            <div className="text-[9px] text-indigo-400 text-center mt-0.5">
+              {levelProgress.currentExp}/{levelProgress.requiredExp} XP
+            </div>
+          </div>
+
+          {/* 正确率卡 */}
+          <div className="flex-1 rounded-2xl p-3 text-center"
+            style={{ background: 'linear-gradient(135deg, #f0fdf4, #bbf7d0)' }}>
+            <div className="text-2xl font-extrabold text-green-600">
+              {todayCorrect !== null ? `${todayCorrect}%` : `${totalAccuracy}%`}
+            </div>
+            <div className="text-[10px] text-green-500 font-medium mt-0.5">
+              {todayCorrect !== null ? '今日正确率' : '总正确率'} ✅
+            </div>
           </div>
         </div>
       </div>
 
-      {/* 积压错题提醒 */}
-      {overdueCount > 0 && (
-        <div className="mx-4 mt-4 bg-red-50 border border-red-200 rounded-2xl p-4 flex items-center justify-between">
-          <div>
-            <p className="text-sm font-semibold text-red-700">🚨 {overdueCount} 道错题积压超3天</p>
-            <p className="text-xs text-red-400">快去消灭它们！</p>
-          </div>
-          <button
-            onClick={() => onStartQuiz({ wrongReview: true })}
-            className="bg-red-500 text-white text-sm font-bold px-4 py-2 rounded-xl"
-          >
-            立刻攻克
-          </button>
+      {/* 科目切换Toast */}
+      {subjectToast && (
+        <div className="fixed top-24 left-1/2 -translate-x-1/2 z-50 bg-gray-800 text-white text-sm px-5 py-2.5 rounded-2xl shadow-xl"
+          style={{ animation: 'fadeInDown 0.3s ease-out' }}>
+          {subjectToast}即将开放，敬请期待 🚀
         </div>
       )}
 
-      {/* Weak points hint */}
+      {/* 退出确认弹窗 */}
+      {showLogoutConfirm && (
+        <div className="fixed inset-0 bg-black/40 z-50 flex items-center justify-center px-6">
+          <div className="bg-white rounded-2xl p-6 w-full max-w-xs shadow-xl">
+            <h2 className="text-lg font-bold text-gray-800 mb-2">切换账号？</h2>
+            <p className="text-sm text-gray-500 mb-5">退出后可以重新输入昵称登录，本机数据不会丢失。</p>
+            <button
+              onClick={() => { onLogout(); setShowLogoutConfirm(false) }}
+              className="w-full bg-red-500 text-white font-semibold py-3 rounded-xl mb-2"
+            >确认退出</button>
+            <button
+              onClick={() => setShowLogoutConfirm(false)}
+              className="w-full text-gray-400 py-2 text-sm"
+            >取消</button>
+          </div>
+        </div>
+      )}
+
+      {/* 弱项建议 */}
       {weakPoints.length > 0 && (
         <div className="mx-4 mt-4 bg-amber-50 border border-amber-200 rounded-2xl p-4">
           <p className="text-sm font-semibold text-amber-700 mb-2">💡 建议重点练习（点击直接进入）</p>
@@ -223,16 +259,8 @@ export default function HomePage({ user, onStartQuiz, onReport, onLogout, onOpen
         </div>
       )}
 
-      {/* MV1 演示入口 */}
-      {typeof onOpenMV1 === 'function' && (
-        <div className="px-4 py-2">
-          <button onClick={onOpenMV1} className="w-full bg-gradient-to-r from-indigo-500 to-purple-600 text-white font-semibold py-3 rounded-xl shadow-sm">
-            🐉 宠物互动
-          </button>
-        </div>
-      )}
-      {/* Planet cards */}
-      <div className="flex-1 px-4 pt-5 pb-8">
+      {/* 星球卡片 */}
+      <div className="flex-1 px-4 pt-4 pb-4">
         <div className="flex items-center justify-between mb-3">
           <h2 className="text-base font-semibold text-gray-600">选择星球开始闯关</h2>
           <span className="text-xs text-gray-400">
@@ -248,9 +276,7 @@ export default function HomePage({ user, onStartQuiz, onReport, onLogout, onOpen
                 key={planet.id}
                 onClick={() => {
                   if (planet.reading) onStartQuiz({ reading: true })
-                  else if (planet.id === 'sentence_practice') onStartQuiz({ sentencePractice: true })
                   else if (planet.id === 'essay') onStartQuiz({ essay: true })
-                  else if (planet.id === 'wrong_answers') onStartQuiz({ wrongReview: true })
                   else onStartQuiz(planet.id === 'all' ? {} : { knowledgeTag: planet.id })
                 }}
                 className={`w-full bg-gradient-to-r ${planet.color} text-white rounded-2xl p-4 flex items-center gap-4 shadow-sm active:scale-95 transition-transform`}
@@ -273,6 +299,13 @@ export default function HomePage({ user, onStartQuiz, onReport, onLogout, onOpen
           })}
         </div>
       </div>
+
+      <style>{`
+        @keyframes fadeInDown {
+          from { opacity: 0; transform: translate(-50%, -8px); }
+          to { opacity: 1; transform: translate(-50%, 0); }
+        }
+      `}</style>
     </div>
   )
 }
