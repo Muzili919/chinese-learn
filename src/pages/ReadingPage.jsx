@@ -71,28 +71,36 @@ function parseVocabItems(subAnsText) {
 // ─── 底部反馈面板 ─────────────────────────────────────────
 function FeedbackPanel({ correct, analysis, answer, onContinue, label }) {
   return (
-    <div className={`fixed bottom-0 left-0 right-0 z-30 rounded-t-3xl shadow-2xl px-5 pt-5 pb-8 ${
+    <div className={`fixed bottom-0 left-0 right-0 z-30 rounded-t-3xl shadow-2xl max-h-[72vh] flex flex-col ${
       correct ? 'bg-green-50 border-t-4 border-green-400' : 'bg-red-50 border-t-4 border-red-400'
     }`}>
-      <div className="max-w-md mx-auto">
-        <p className={`text-xl font-bold mb-1 ${correct ? 'text-green-600' : 'text-red-500'}`}>
-          {correct ? '✓ 正确！' : '✗ 答错了'}
-        </p>
-        {!correct && answer && (
-          <div className="mb-2">
-            <span className="text-xs text-gray-500">参考答案：</span>
-            <span className="text-sm font-semibold text-gray-800 ml-1 whitespace-pre-wrap">{answer}</span>
-          </div>
-        )}
-        {analysis && (
-          <p className="text-xs text-gray-500 leading-relaxed mb-4 line-clamp-3">{analysis}</p>
-        )}
-        <button onClick={onContinue}
-          className={`w-full py-3 rounded-2xl font-bold text-white text-base active:scale-95 transition-all ${
-            correct ? 'bg-green-500' : 'bg-red-500'
-          }`}>
-          {label || '继续'}
-        </button>
+      {/* 可滚动内容区 */}
+      <div className="flex-1 overflow-y-auto px-5 pt-5 pb-2">
+        <div className="max-w-md mx-auto">
+          <p className={`text-xl font-bold mb-2 ${correct ? 'text-green-600' : 'text-red-500'}`}>
+            {correct ? '✓ 正确！' : '✗ 答错了'}
+          </p>
+          {!correct && answer && (
+            <div className="mb-3">
+              <p className="text-xs text-gray-500 mb-1">参考答案：</p>
+              <p className="text-sm font-semibold text-gray-800 whitespace-pre-wrap leading-relaxed">{answer}</p>
+            </div>
+          )}
+          {analysis && (
+            <p className="text-xs text-gray-500 leading-relaxed">{analysis}</p>
+          )}
+        </div>
+      </div>
+      {/* 固定按钮区 */}
+      <div className="px-5 pt-3 pb-8">
+        <div className="max-w-md mx-auto">
+          <button onClick={onContinue}
+            className={`w-full py-3 rounded-2xl font-bold text-white text-base active:scale-95 transition-all ${
+              correct ? 'bg-green-500' : 'bg-red-500'
+            }`}>
+            {label || '继续'}
+          </button>
+        </div>
       </div>
     </div>
   )

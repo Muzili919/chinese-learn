@@ -121,27 +121,78 @@ function parseOrderAnswer(answer) {
   return [...answer.matchAll(/([①②③④⑤⑥⑦⑧⑨])/g)].map(m => m[1])
 }
 
+// ── 多子题解析（通用） ──────────────────────────────────────
+// 把 "指令\n（1）xxx\n（2）yyy" 拆成 instruction + stems[]
+function parseSubQStems(questionText) {
+  const firstSubIdx = questionText.search(/（[1-9]）/)
+  if (firstSubIdx < 0) return { instruction: questionText.trim(), stems: [] }
+  const instruction = questionText.slice(0, firstSubIdx).trim()
+  const rest = questionText.slice(firstSubIdx)
+  const stems = []
+  const matches = [...rest.matchAll(/（([1-9])）([\s\S]*?)(?=（[1-9]）|$)/g)]
+  for (const m of matches) {
+    stems.push({ num: parseInt(m[1]), text: m[2].trim() })
+  }
+  return { instruction, stems }
+}
+
+// "（1）吩咐 （2）爱慕" → {1:'吩咐', 2:'爱慕'}
+function parseExpectedAnswers(answerText) {
+  const map = {}
+  for (const m of (answerText || '').matchAll(/（([1-9])）([\s\S]*?)(?=（[1-9]）|$)/g)) {
+    map[parseInt(m[1])] = m[2].trim()
+  }
+  return map
+}
+
+// 智能评分：短答案精确匹配，长答案关键词匹配
+function smartCheck(input, expected) {
+  const n = normalize(input)
+  const ne = normalize(expected)
+  if (n === ne) return true
+  // 长答案：去中文标点后字数 > 5，用关键词匹配
+  const cjkLen = expected.replace(/[^\u4e00-\u9fff]/g, '').length
+  if (cjkLen <= 5) return false
+  const keywords = expected.split(/[，。！？、；：""''《》（）\s]+/).filter(w => w.length >= 2)
+  if (keywords.length === 0) return n.length > 0
+  const matched = keywords.filter(kw => n.includes(kw)).length
+  return matched / keywords.length >= 0.6
+}
+
+// 判断是否为普通多子题（需要翻页作答）
+function isMultiSubQ(q) {
+  if (q.type !== 'fill_blank') return false
+  if (isJudgmentQ(q) || isTypoQ(q) || isOrderQ(q) || isWordBankQ(q) || isMatchingStyleQ(q)) return false
+  return /（[2-9]）/.test(q.question) || /（[2-9]）/.test(q.answer)
+}
+
 // ─── 底部反馈面板 ─────────────────────────────────────────
 
 function FeedbackPanel({ correct, analysis, answer, onContinue, variantBtn }) {
   return (
-    <div className={`fixed bottom-0 left-0 right-0 z-30 rounded-t-3xl shadow-2xl px-5 pt-5 pb-8 ${
+    <div className={`fixed bottom-0 left-0 right-0 z-30 rounded-t-3xl shadow-2xl max-h-[72vh] flex flex-col ${
       correct ? 'bg-green-50 border-t-4 border-green-400' : 'bg-red-50 border-t-4 border-red-400'
     }`}>
-      <div className="max-w-md mx-auto">
-        <p className={`text-xl font-bold mb-1 ${correct ? 'text-green-600' : 'text-red-500'}`}>
-          {correct ? '✓ 正确！' : '✗ 答错了'}
-        </p>
-        {!correct && answer && (
-          <div className="mb-2">
-            <span className="text-xs text-gray-500">正确答案：</span>
-            <span className="text-sm font-semibold text-gray-800 ml-1">{answer}</span>
-          </div>
-        )}
-        {analysis && (
-          <p className="text-xs text-gray-500 leading-relaxed mb-4 line-clamp-3">{analysis}</p>
-        )}
-        <div className="flex gap-3">
+      {/* 可滚动内容区 */}
+      <div className="flex-1 overflow-y-auto px-5 pt-5 pb-2">
+        <div className="max-w-md mx-auto">
+          <p className={`text-xl font-bold mb-2 ${correct ? 'text-green-600' : 'text-red-500'}`}>
+            {correct ? '✓ 正确！' : '✗ 答错了'}
+          </p>
+          {!correct && answer && (
+            <div className="mb-3">
+              <p className="text-xs text-gray-500 mb-1">正确答案：</p>
+              <p className="text-sm font-semibold text-gray-800 whitespace-pre-wrap leading-relaxed">{answer}</p>
+            </div>
+          )}
+          {analysis && (
+            <p className="text-xs text-gray-500 leading-relaxed">{analysis}</p>
+          )}
+        </div>
+      </div>
+      {/* 固定按钮区 */}
+      <div className="px-5 pt-3 pb-8">
+        <div className="max-w-md mx-auto flex gap-3">
           {variantBtn}
           <button onClick={onContinue}
             className={`flex-1 py-3 rounded-2xl font-bold text-white text-base active:scale-95 transition-all ${
@@ -583,6 +634,138 @@ function WordBankQuestion({ question, onDone }) {
   )
 }
 
+// ─── 普通多子题翻页组件（所有星球里 fill_blank 多子题通用）─
+function PlainMultiSubQuestion({ question, onDone }) {
+  const { instruction, stems } = useMemo(() => parseSubQStems(question.question), [question.question])
+  const expectedMap = useMemo(() => parseExpectedAnswers(question.answer), [question.answer])
+  const [subIndex, setSubIndex] = useState(0)
+  const [input, setInput] = useState('')
+  const [phase, setPhase] = useState('input') // 'input' | 'feedback'
+  const [results, setResults] = useState([])
+  const resultsRef = useRef([])
+
+  const current = stems[subIndex]
+  const expected = expectedMap[current?.num] || ''
+  // 超过5个汉字的答案用 textarea，否则用 input
+  const isLong = expected.replace(/[^\u4e00-\u9fff]/g, '').length > 5
+
+  function handleSubmit() {
+    if (!input.trim()) return
+    const correct = smartCheck(input, expected)
+    const newResults = [...resultsRef.current, { correct }]
+    resultsRef.current = newResults
+    setResults(newResults)
+    setPhase('feedback')
+  }
+
+  function handleNext() {
+    const nextIdx = subIndex + 1
+    if (nextIdx >= stems.length) {
+      const allCorrect = resultsRef.current.every(r => r.correct)
+      onDone(allCorrect ? question.answer : '答错', allCorrect)
+    } else {
+      setSubIndex(nextIdx)
+      setInput('')
+      setPhase('input')
+    }
+  }
+
+  if (!current) return null
+  const thisResult = results[subIndex]
+
+  return (
+    <div className="flex flex-col gap-4">
+      {/* 题目指令（空格前内容） */}
+      {instruction && (
+        <div className="bg-white rounded-2xl px-4 py-3 border border-gray-100 shadow-sm">
+          <p className="text-sm text-gray-700 leading-relaxed whitespace-pre-wrap">{instruction}</p>
+        </div>
+      )}
+
+      {/* 进度点 */}
+      {stems.length > 1 && (
+        <div className="flex gap-1.5 justify-center">
+          {stems.map((_, i) => (
+            <div key={i} className={`h-2 rounded-full transition-all ${
+              i < subIndex ? 'w-5 bg-indigo-400' :
+              i === subIndex ? 'w-5 bg-indigo-600' :
+              'w-2 bg-gray-200'
+            }`} />
+          ))}
+        </div>
+      )}
+
+      {/* 当前子题题干 */}
+      <div className={`rounded-2xl px-4 py-4 border-2 shadow-sm ${
+        phase === 'feedback'
+          ? thisResult?.correct ? 'bg-green-50 border-green-200' : 'bg-red-50 border-red-200'
+          : 'bg-white border-gray-100'
+      }`}>
+        <p className="text-xs text-indigo-500 font-semibold mb-2">
+          第 {subIndex + 1} 题（共 {stems.length} 题）
+        </p>
+        <p className="text-base text-gray-800 leading-relaxed whitespace-pre-wrap">{current.text}</p>
+        {/* 反馈内联显示 */}
+        {phase === 'feedback' && (
+          <div className="mt-3 pt-3 border-t border-gray-200">
+            <p className={`text-sm font-bold mb-1 ${thisResult?.correct ? 'text-green-600' : 'text-red-500'}`}>
+              {thisResult?.correct ? '✓ 正确！' : '✗ 答错了'}
+            </p>
+            <p className="text-sm text-gray-600">你的答案：<span className="font-medium">{input}</span></p>
+            {!thisResult?.correct && (
+              <p className="text-sm text-gray-800 mt-1 font-semibold whitespace-pre-wrap">
+                正确答案：{expected}
+              </p>
+            )}
+          </div>
+        )}
+      </div>
+
+      {/* 输入区 */}
+      {phase === 'input' && (
+        isLong ? (
+          <textarea
+            value={input}
+            onChange={e => setInput(e.target.value)}
+            className="w-full border-2 border-gray-200 rounded-2xl px-4 py-3 text-base text-gray-800 focus:outline-none focus:border-indigo-400 resize-none"
+            rows={3}
+            placeholder="在这里写下答案…"
+            style={{ fontSize: '16px' }}
+          />
+        ) : (
+          <input
+            type="text"
+            value={input}
+            onChange={e => setInput(e.target.value)}
+            onKeyDown={e => e.key === 'Enter' && handleSubmit()}
+            className="w-full border-2 border-gray-200 rounded-2xl px-4 py-3 text-base text-gray-800 focus:outline-none focus:border-indigo-400"
+            placeholder="在这里写下答案…"
+            style={{ fontSize: '16px' }}
+          />
+        )
+      )}
+
+      {/* 按钮 */}
+      {phase === 'input' && (
+        <button onClick={handleSubmit} disabled={!input.trim()}
+          className="w-full bg-indigo-500 disabled:bg-gray-200 disabled:text-gray-400 text-white font-bold py-4 rounded-2xl text-base">
+          确认
+        </button>
+      )}
+      {phase === 'feedback' && (
+        <button onClick={handleNext}
+          className={`w-full font-bold py-4 rounded-2xl text-base text-white ${
+            thisResult?.correct ? 'bg-green-500' : 'bg-red-500'
+          }`}>
+          {subIndex + 1 >= stems.length
+            ? '完成 ✓'
+            : `下一题 → (${subIndex + 2}/${stems.length})`}
+        </button>
+      )}
+    </div>
+  )
+}
+
 // ─── 多义字题（从题目文本里解析①②③④选项）────────────────
 
 function MultiMeaningQuestion({ question, onDone }) {
@@ -747,6 +930,7 @@ export default function DuolingoStyleQuiz({ question, onAnswerSubmit, showVarian
     : isOrderQ(question) ? 'order'
     : isWordBankQ(question) ? 'wordbank'
     : isMatchingStyleQ(question) ? 'matching_fill'
+    : isMultiSubQ(question) ? 'multi_sub'
     : 'plain'
     : null
 
@@ -754,9 +938,9 @@ export default function DuolingoStyleQuiz({ question, onAnswerSubmit, showVarian
   const matchingFillPairs = fillType === 'matching_fill'
     ? extractMatchingPairs(question) : null
 
-  // 判断/错别字/排序/词库题内部已有提交逻辑，答完后只需底部继续条
+  // 以下题型内部有提交逻辑，答完后只展示底部继续条（含解析）
   const hasInternalSubmit = fillType === 'judgment' || fillType === 'typo' || fillType === 'order'
-    || fillType === 'wordbank' || fillType === 'matching_fill'
+    || fillType === 'wordbank' || fillType === 'matching_fill' || fillType === 'multi_sub'
     || question.type === 'matching' || question.type === 'multi_meaning'
 
   return (
@@ -783,8 +967,9 @@ export default function DuolingoStyleQuiz({ question, onAnswerSubmit, showVarian
       {isFill && fillType === 'typo'      && <TypoQuestion           question={question} onDone={handleDone} />}
       {isFill && fillType === 'order'     && <OrderQuestion          question={question} onDone={handleDone} />}
       {isFill && fillType === 'wordbank'  && <WordBankQuestion       question={question} onDone={handleDone} />}
-      {isFill && fillType === 'matching_fill' && <MatchingQuestion   question={{ ...question, pairs: matchingFillPairs }} onDone={handleDone} />}
-      {isFill && fillType === 'plain'     && <FillQuestion           question={question} onDone={handleDone} />}
+      {isFill && fillType === 'matching_fill' && <MatchingQuestion      question={{ ...question, pairs: matchingFillPairs }} onDone={handleDone} />}
+      {isFill && fillType === 'multi_sub'  && <PlainMultiSubQuestion  question={question} onDone={handleDone} />}
+      {isFill && fillType === 'plain'      && <FillQuestion           question={question} onDone={handleDone} />}
 
       {/* 变种题区域（错题模式+答错后） */}
       {answered && showVariantButton && (variantPhase === 'answering' || variantPhase === 'done') && variantQ && (
@@ -840,24 +1025,30 @@ export default function DuolingoStyleQuiz({ question, onAnswerSubmit, showVarian
         />
       )}
 
-      {/* 底部继续条：判断/错别字/排序（内部自带提交，答完后只需继续） */}
+      {/* 底部继续条：内部自带提交的题型，答完后展示总结+解析 */}
       {answered && hasInternalSubmit && (
-        <div className={`fixed bottom-0 left-0 right-0 z-30 rounded-t-3xl shadow-2xl px-5 pt-5 pb-8 ${
+        <div className={`fixed bottom-0 left-0 right-0 z-30 rounded-t-3xl shadow-2xl max-h-[72vh] flex flex-col ${
           phase === 'correct' ? 'bg-green-50 border-t-4 border-green-400' : 'bg-red-50 border-t-4 border-red-400'
         }`}>
-          <div className="max-w-md mx-auto">
-            <p className={`font-bold text-xl mb-1 ${phase === 'correct' ? 'text-green-600' : 'text-red-500'}`}>
-              {phase === 'correct' ? '✓ 全对！' : '✗ 有错误'}
-            </p>
-            {question.analysis && (
-              <p className="text-xs text-gray-500 mb-4 leading-relaxed line-clamp-2">{question.analysis}</p>
-            )}
-            <button onClick={handleContinue}
-              className={`w-full py-3 rounded-2xl font-bold text-white text-base active:scale-95 transition-all ${
-                phase === 'correct' ? 'bg-green-500' : 'bg-red-500'
-              }`}>
-              继续
-            </button>
+          <div className="flex-1 overflow-y-auto px-5 pt-5 pb-2">
+            <div className="max-w-md mx-auto">
+              <p className={`font-bold text-xl mb-2 ${phase === 'correct' ? 'text-green-600' : 'text-red-500'}`}>
+                {phase === 'correct' ? '✓ 全对！' : '✗ 有错误'}
+              </p>
+              {question.analysis && (
+                <p className="text-xs text-gray-500 leading-relaxed">{question.analysis}</p>
+              )}
+            </div>
+          </div>
+          <div className="px-5 pt-3 pb-8">
+            <div className="max-w-md mx-auto">
+              <button onClick={handleContinue}
+                className={`w-full py-3 rounded-2xl font-bold text-white text-base active:scale-95 transition-all ${
+                  phase === 'correct' ? 'bg-green-500' : 'bg-red-500'
+                }`}>
+                继续
+              </button>
+            </div>
           </div>
         </div>
       )}
