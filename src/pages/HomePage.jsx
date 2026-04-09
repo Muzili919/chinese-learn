@@ -50,6 +50,8 @@ const PLANETS = [
   { id: 'wrong_answers', label: '错题星球', emoji: '💥', color: 'from-red-500 to-orange-600', desc: '错误→复盘→攻克·闭环学习' },
 ]
 
+const QUIZ_PLANET_IDS = ['字词', '古诗词', '成语', '句子', '文学常识']
+
 export default function HomePage({ user, onStartQuiz, onReport, onLogout, onOpenMV1 }) {
   const [showLogoutConfirm, setShowLogoutConfirm] = useState(false)
   const xp = storage.getXP(user.id)
@@ -58,6 +60,19 @@ export default function HomePage({ user, onStartQuiz, onReport, onLogout, onOpen
   const streak = storage.getStreak(user.id)
   const records = storage.getRecords(user.id)
   const overdueCount = storage.getOverdueWrongCount(user.id)
+
+  const practicedToday = useMemo(() => {
+    const today = new Date().toISOString().slice(0, 10)
+    const set = new Set()
+    records
+      .filter(r => r.timestamp?.startsWith(today))
+      .forEach(r => {
+        if (r.knowledge_tag) set.add(r.knowledge_tag)
+        // 阅读星球 knowledge_tag 是 '阅读理解'，映射为 'reading'
+        if (r.knowledge_tag === '阅读理解') set.add('reading')
+      })
+    return set
+  }, [records])
 
   const handleExport = () => {
     // 导出当前用户的本地数据快照为 JSON 文件
@@ -218,28 +233,44 @@ export default function HomePage({ user, onStartQuiz, onReport, onLogout, onOpen
       )}
       {/* Planet cards */}
       <div className="flex-1 px-4 pt-5 pb-8">
-        <h2 className="text-base font-semibold text-gray-600 mb-3">选择星球开始闯关</h2>
+        <div className="flex items-center justify-between mb-3">
+          <h2 className="text-base font-semibold text-gray-600">选择星球开始闯关</h2>
+          <span className="text-xs text-gray-400">
+            今日已练 {QUIZ_PLANET_IDS.filter(id => practicedToday.has(id)).length + (practicedToday.has('reading') ? 1 : 0)}/{QUIZ_PLANET_IDS.length + 1} 个星球
+          </span>
+        </div>
         <div className="flex flex-col gap-3">
-          {PLANETS.map((planet) => (
-            <button
-              key={planet.id}
-              onClick={() => {
-                if (planet.reading) onStartQuiz({ reading: true })
-                else if (planet.id === 'sentence_practice') onStartQuiz({ sentencePractice: true })
-                else if (planet.id === 'essay') onStartQuiz({ essay: true })
-                else if (planet.id === 'wrong_answers') onStartQuiz({ wrongReview: true })
-                else onStartQuiz(planet.id === 'all' ? {} : { knowledgeTag: planet.id })
-              }}
-              className={`w-full bg-gradient-to-r ${planet.color} text-white rounded-2xl p-4 flex items-center gap-4 shadow-sm active:scale-95 transition-transform`}
-            >
-              <span className="text-4xl">{planet.emoji}</span>
-              <div className="text-left">
-                <div className="font-bold text-base">{planet.label}</div>
-                <div className="text-sm opacity-80">{planet.desc}</div>
-              </div>
-              <span className="ml-auto text-2xl opacity-60">→</span>
-            </button>
-          ))}
+          {PLANETS.map((planet) => {
+            const tagId = planet.reading ? 'reading' : planet.id
+            const donedToday = practicedToday.has(tagId)
+            return (
+              <button
+                key={planet.id}
+                onClick={() => {
+                  if (planet.reading) onStartQuiz({ reading: true })
+                  else if (planet.id === 'sentence_practice') onStartQuiz({ sentencePractice: true })
+                  else if (planet.id === 'essay') onStartQuiz({ essay: true })
+                  else if (planet.id === 'wrong_answers') onStartQuiz({ wrongReview: true })
+                  else onStartQuiz(planet.id === 'all' ? {} : { knowledgeTag: planet.id })
+                }}
+                className={`w-full bg-gradient-to-r ${planet.color} text-white rounded-2xl p-4 flex items-center gap-4 shadow-sm active:scale-95 transition-transform`}
+              >
+                <span className="text-4xl">{planet.emoji}</span>
+                <div className="text-left flex-1">
+                  <div className="font-bold text-base flex items-center gap-2">
+                    {planet.label}
+                    {donedToday && (
+                      <span className="text-xs bg-white/30 text-white font-semibold px-2 py-0.5 rounded-full">
+                        ✓今日已练
+                      </span>
+                    )}
+                  </div>
+                  <div className="text-sm opacity-80">{planet.desc}</div>
+                </div>
+                <span className="text-2xl opacity-60">→</span>
+              </button>
+            )
+          })}
         </div>
       </div>
     </div>

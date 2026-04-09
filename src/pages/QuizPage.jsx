@@ -50,7 +50,9 @@ export default function QuizPage({ user, options = {}, onFinish, onBack }) {
     }
     let pool = ALL_QUESTIONS
     if (knowledgeTag) pool = pool.filter((q) => q.knowledge_tag === knowledgeTag)
-    return scheduleSession(pool, srsStates.current, SESSION_SIZE, focusTag).map(shuffleOptions)
+    // 全部混合模式：无 knowledgeTag 且无 focusTag 时，从各星球各抽题
+    const isMixed = !knowledgeTag && !focusTag
+    return scheduleSession(pool, srsStates.current, SESSION_SIZE, focusTag, isMixed).map(shuffleOptions)
   }, [focusTag, knowledgeTag, wrongCardIds])
 
   const isWrongReview = !!(wrongCardIds?.length)
@@ -138,6 +140,7 @@ export default function QuizPage({ user, options = {}, onFinish, onBack }) {
       {/* Question area */}
       <div className="flex-1 flex flex-col px-4 py-6">
         <DuolingoStyleQuiz
+          key={current.id}
           question={current}
           onAnswerSubmit={handleAnswerSubmit}
           showVariantButton={isWrongReview}

@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useRef, useEffect, useMemo } from 'react'
 import { generateVariant } from '../utils/ai'
 
 // ─── 工具函数 ─────────────────────────────────────────────
@@ -7,6 +7,13 @@ function normalize(s) {
   return (s || '').trim()
     .replace(/（[0-9]）/g, ' ')
     .replace(/[，。！？、；：""''《》（）\s]/g, '')
+}
+
+function isWordBankQ(q) {
+  return q.type === 'fill_blank'
+    && /（[1-9]）/.test(q.answer)
+    && q.question.includes('________________')
+    && !isJudgmentQ(q) && !isTypoQ(q) && !isOrderQ(q)
 }
 
 function isJudgmentQ(q) {
@@ -48,6 +55,32 @@ function parseTypoCorrections(answer) {
     result[parseInt(m[1])] = '__ok__'
   }
   return result
+}
+
+// 解析词库子题答案 （1）死去元知万事空 → [{num,text}]
+function parseWordBankSubAnswers(answer) {
+  const results = []
+  for (const m of answer.matchAll(/（([1-9])）([^（\n]+)/g)) {
+    results.push({ num: parseInt(m[1]), text: m[2].trim() })
+  }
+  return results
+}
+
+// 提取题目里第 n 项的原句（含空格行）
+function extractBlankLine(questionText, num) {
+  const lines = questionText.split('\n')
+  const line = lines.find(l => l.includes(`（${num}）`))
+  return line ? line.trim() : ''
+}
+
+// 把答案文本切成2字词块
+function segmentToChips(text) {
+  const cleaned = text.replace(/[，。！？、；：""''《》（）\s]/g, '')
+  const chips = []
+  for (let i = 0; i < cleaned.length; i += 2) {
+    chips.push(cleaned.slice(i, Math.min(i + 2, cleaned.length)))
+  }
+  return chips
 }
 
 function parseOrderOptions(text) {
@@ -153,16 +186,16 @@ function JudgmentQuestion({ question, onDone }) {
               <span className="font-bold text-indigo-500">（{i + 1}）</span>{stmt}
             </p>
             <div className="flex gap-2">
-              {['√', '×'].map(val => {
+              {[{ label: '对', value: '√' }, { label: '错', value: '×' }].map(({ label, value }) => {
                 let cls = 'border-gray-200 text-gray-400 bg-white'
-                if (!submitted && picked === val) cls = 'border-indigo-400 bg-indigo-50 text-indigo-700'
-                if (submitted && val === correctAnswers[i]) cls = 'border-green-400 bg-green-100 text-green-700'
-                if (submitted && picked === val && val !== correctAnswers[i]) cls = 'border-red-400 bg-red-100 text-red-700'
+                if (!submitted && picked === value) cls = 'border-indigo-400 bg-indigo-50 text-indigo-700'
+                if (submitted && value === correctAnswers[i]) cls = 'border-green-400 bg-green-100 text-green-700'
+                if (submitted && picked === value && value !== correctAnswers[i]) cls = 'border-red-400 bg-red-100 text-red-700'
                 return (
-                  <button key={val} onClick={() => !submitted && setPicks(p => ({ ...p, [i]: val }))}
+                  <button key={value} onClick={() => !submitted && setPicks(p => ({ ...p, [i]: value }))}
                     disabled={submitted}
                     className={`flex-1 py-2.5 rounded-xl border-2 font-bold text-xl transition-all ${cls}`}>
-                    {val}
+                    {label}
                   </button>
                 )
               })}
@@ -358,6 +391,159 @@ function FillQuestion({ question, onDone }) {
   )
 }
 
+// ─── 词库填空题（诗句/多项填空，点击词块拼答案）──────────
+function WordBankQuestion({ question, onDone }) {
+  const subAnswers = useMemo(() => parseWordBankSubAnswers(question.answer), [question.answer])
+  const [subIndex, setSubIndex] = useState(0)
+  const [assembled, setAssembled] = useState([]) // 已点的词块
+  const [subPhase, setSubPhase] = useState('input') // 'input' | 'feedback'
+  const [results, setResults] = useState([])
+  const timerRef = useRef(null)
+  useEffect(() => () => clearTimeout(timerRef.current), [])
+
+  const current = subAnswers[subIndex]
+
+  // 每换子题时重置词块
+  const wordBank = useMemo(() => {
+    if (!current) return []
+    const correctChips = segmentToChips(current.text)
+    const otherChips = subAnswers
+      .filter((_, i) => i !== subIndex)
+      .flatMap(a => segmentToChips(a.text))
+    const distractors = [...otherChips].sort(() => Math.random() - 0.5).slice(0, 2)
+    // 给每个词块加唯一key（因可能有重复词）
+    return [...correctChips, ...distractors]
+      .sort(() => Math.random() - 0.5)
+      .map((text, i) => ({ id: i, text }))
+  }, [subIndex]) // eslint-disable-line
+
+  const usedIds = assembled.map(c => c.id)
+  const assembledText = assembled.map(c => c.text).join('')
+  const correctChips = current ? segmentToChips(current.text) : []
+  const canSubmit = subPhase === 'input' && assembled.length >= correctChips.length
+
+  function handleChipClick(chip) {
+    if (subPhase !== 'input' || usedIds.includes(chip.id)) return
+    setAssembled(prev => [...prev, chip])
+  }
+
+  function handleUndo() {
+    if (subPhase !== 'input') return
+    setAssembled(prev => prev.slice(0, -1))
+  }
+
+  function handleSubmit() {
+    if (!canSubmit) return
+    const isCorrect = normalize(assembledText) === normalize(current.text)
+    const newResults = [...results, { correct: isCorrect }]
+    setResults(newResults)
+    setSubPhase('feedback')
+
+    timerRef.current = setTimeout(() => {
+      const nextIdx = subIndex + 1
+      if (nextIdx >= subAnswers.length) {
+        const allCorrect = newResults.every(r => r.correct)
+        onDone(allCorrect ? question.answer : '答错', allCorrect)
+      } else {
+        setSubIndex(nextIdx)
+        setSubPhase('input')
+        setAssembled([])
+      }
+    }, 1100)
+  }
+
+  if (!current) return null
+  const thisResult = results[subIndex]
+  const blankLine = extractBlankLine(question.question, current.num)
+  // 第一行作为题目指令（如"补充下列诗句。"）
+  const instruction = question.question.split('\n').filter(l => l.trim() && !/^（[1-9]）/.test(l.trim()))[0] || ''
+
+  return (
+    <div className="flex flex-col gap-4">
+      {/* 题目指令 */}
+      {instruction && (
+        <div className="bg-white rounded-2xl px-4 py-3 border border-gray-100 shadow-sm">
+          <p className="text-sm text-gray-600">{instruction}</p>
+        </div>
+      )}
+
+      {/* 进度点 */}
+      {subAnswers.length > 1 && (
+        <div className="flex gap-1.5 justify-center">
+          {subAnswers.map((_, i) => (
+            <div key={i} className={`h-2 rounded-full transition-all ${
+              i < subIndex ? 'w-5 bg-indigo-400' :
+              i === subIndex ? 'w-5 bg-indigo-600' :
+              'w-2 bg-gray-200'
+            }`} />
+          ))}
+        </div>
+      )}
+
+      {/* 当前空格所在的诗句/题干 */}
+      {blankLine && (
+        <div className="bg-white rounded-2xl px-4 py-3 border border-gray-100 shadow-sm">
+          <p className="text-xs text-indigo-500 font-semibold mb-1">第 {subIndex + 1} 空（共 {subAnswers.length} 空）</p>
+          <p className="text-base text-gray-700 leading-relaxed font-medium">
+            {blankLine.replace(/________________/g, '＿＿＿＿')}
+          </p>
+        </div>
+      )}
+
+      {/* 已拼区域 */}
+      <div className={`min-h-[60px] rounded-2xl border-2 px-4 py-3 flex flex-wrap items-center gap-1 transition-all ${
+        subPhase === 'feedback'
+          ? thisResult?.correct ? 'bg-green-50 border-green-400' : 'bg-red-50 border-red-400'
+          : assembled.length ? 'bg-indigo-50 border-indigo-300' : 'bg-gray-50 border-dashed border-gray-200'
+      }`}>
+        {assembled.length === 0
+          ? <p className="text-xs text-gray-300 w-full text-center">点击下方词块拼出答案</p>
+          : assembled.map((c, i) => (
+            <span key={i} className="text-base font-semibold text-indigo-700">{c.text}</span>
+          ))
+        }
+        {subPhase === 'feedback' && !thisResult?.correct && (
+          <p className="text-xs text-green-600 font-bold w-full mt-1">正确答案：{current.text}</p>
+        )}
+      </div>
+
+      {/* 词块 + 撤销 */}
+      {subPhase === 'input' && (
+        <div className="flex flex-wrap gap-2">
+          {wordBank.map(chip => {
+            const used = usedIds.includes(chip.id)
+            return (
+              <button key={chip.id} onClick={() => handleChipClick(chip)}
+                disabled={used}
+                className={`px-4 py-2.5 rounded-xl border-2 text-base font-semibold transition-all ${
+                  used
+                    ? 'bg-gray-50 border-gray-100 text-gray-200 cursor-not-allowed'
+                    : 'bg-white border-gray-200 text-gray-800 active:scale-95 shadow-sm'
+                }`}>
+                {chip.text}
+              </button>
+            )
+          })}
+          {assembled.length > 0 && (
+            <button onClick={handleUndo}
+              className="px-3 py-2.5 bg-gray-100 text-gray-500 rounded-xl text-sm border border-gray-200">
+              ← 撤销
+            </button>
+          )}
+        </div>
+      )}
+
+      {/* 确认按钮 */}
+      {subPhase === 'input' && (
+        <button onClick={handleSubmit} disabled={!canSubmit}
+          className="w-full bg-indigo-500 disabled:bg-gray-200 disabled:text-gray-400 text-white font-bold py-4 rounded-2xl text-base">
+          确认
+        </button>
+      )}
+    </div>
+  )
+}
+
 // ─── 多义字题（从题目文本里解析①②③④选项）────────────────
 
 function MultiMeaningQuestion({ question, onDone }) {
@@ -520,11 +706,13 @@ export default function DuolingoStyleQuiz({ question, onAnswerSubmit, showVarian
     ? isJudgmentQ(question) ? 'judgment'
     : isTypoQ(question) ? 'typo'
     : isOrderQ(question) ? 'order'
+    : isWordBankQ(question) ? 'wordbank'
     : 'plain'
     : null
 
-  // 判断/错别字/排序题内部已有提交逻辑，答完后只需底部继续条
+  // 判断/错别字/排序/词库题内部已有提交逻辑，答完后只需底部继续条
   const hasInternalSubmit = fillType === 'judgment' || fillType === 'typo' || fillType === 'order'
+    || fillType === 'wordbank'
     || question.type === 'matching' || question.type === 'multi_meaning'
 
   return (
@@ -550,6 +738,7 @@ export default function DuolingoStyleQuiz({ question, onAnswerSubmit, showVarian
       {isFill && fillType === 'judgment'  && <JudgmentQuestion       question={question} onDone={handleDone} />}
       {isFill && fillType === 'typo'      && <TypoQuestion           question={question} onDone={handleDone} />}
       {isFill && fillType === 'order'     && <OrderQuestion          question={question} onDone={handleDone} />}
+      {isFill && fillType === 'wordbank'  && <WordBankQuestion       question={question} onDone={handleDone} />}
       {isFill && fillType === 'plain'     && <FillQuestion           question={question} onDone={handleDone} />}
 
       {/* 变种题区域（错题模式+答错后） */}
