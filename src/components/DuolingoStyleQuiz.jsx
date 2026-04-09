@@ -180,13 +180,16 @@ function FeedbackPanel({ correct, analysis, answer, onContinue, variantBtn }) {
             {correct ? '✓ 正确！' : '✗ 答错了'}
           </p>
           {!correct && answer && (
-            <div className="mb-3">
-              <p className="text-xs text-gray-500 mb-1">正确答案：</p>
+            <div className="mb-3 bg-white rounded-2xl px-4 py-3 border border-gray-200">
+              <p className="text-xs text-gray-400 mb-1 font-medium">正确答案</p>
               <p className="text-sm font-semibold text-gray-800 whitespace-pre-wrap leading-relaxed">{answer}</p>
             </div>
           )}
           {analysis && (
-            <p className="text-xs text-gray-500 leading-relaxed">{analysis}</p>
+            <div className="bg-white/60 rounded-2xl px-4 py-3 border border-gray-100">
+              <p className="text-xs text-gray-400 mb-1 font-medium">解析</p>
+              <p className="text-xs text-gray-600 leading-relaxed whitespace-pre-wrap">{analysis}</p>
+            </div>
           )}
         </div>
       </div>
@@ -237,123 +240,239 @@ function ChoiceQuestion({ question, onDone }) {
   )
 }
 
-// ─── 判断题 ──────────────────────────────────────────────
+// ─── 判断题（翻页逐题作答）────────────────────────────────
 
 function JudgmentQuestion({ question, onDone }) {
   const correctAnswers = parseJudgmentAnswers(question.answer)
   const statements = parseJudgmentStatements(question.question)
-  const [picks, setPicks] = useState({})
-  const [submitted, setSubmitted] = useState(false)
-  const allPicked = statements.every((_, i) => picks[i] !== undefined)
+  const instruction = question.question.split('\n').filter(l => l.trim() && !/^（[1-9]）/.test(l.trim()))[0] || ''
+  const [subIndex, setSubIndex] = useState(0)
+  const [pick, setPick] = useState(null)
+  const [phase, setPhase] = useState('input') // 'input' | 'feedback'
+  const resultsRef = useRef([])
+  const [results, setResults] = useState([])
+
+  const current = statements[subIndex]
+  const correctAns = correctAnswers[subIndex]
 
   function handleSubmit() {
-    const correct = correctAnswers.every((ans, i) => picks[i] === ans)
-    setSubmitted(true)
-    onDone(correct ? question.answer : '答错', correct)
+    const isCorrect = pick === correctAns
+    const newResults = [...resultsRef.current, { correct: isCorrect }]
+    resultsRef.current = newResults
+    setResults(newResults)
+    setPhase('feedback')
   }
 
+  function handleNext() {
+    const nextIdx = subIndex + 1
+    if (nextIdx >= statements.length) {
+      const allCorrect = resultsRef.current.every(r => r.correct)
+      onDone(allCorrect ? question.answer : '答错', allCorrect)
+    } else {
+      setSubIndex(nextIdx)
+      setPick(null)
+      setPhase('input')
+    }
+  }
+
+  if (!current) return null
+  const thisResult = results[subIndex]
+
   return (
-    <div className="flex flex-col gap-3">
-      {statements.map((stmt, i) => {
-        const picked = picks[i]
-        return (
-          <div key={i} className={`rounded-2xl p-4 border-2 ${
-            submitted
-              ? picks[i] === correctAnswers[i] ? 'bg-green-50 border-green-300' : 'bg-red-50 border-red-300'
-              : 'bg-white border-gray-200'
-          }`}>
-            <p className="text-sm text-gray-800 leading-relaxed mb-3">
-              <span className="font-bold text-indigo-500">（{i + 1}）</span>{stmt}
+    <div className="flex flex-col gap-4">
+      {/* 题目指令 */}
+      {instruction && (
+        <div className="bg-white rounded-2xl px-4 py-3 border border-gray-100 shadow-sm">
+          <p className="text-sm text-gray-600">{instruction}</p>
+        </div>
+      )}
+
+      {/* 进度点 */}
+      {statements.length > 1 && (
+        <div className="flex gap-1.5 justify-center">
+          {statements.map((_, i) => (
+            <div key={i} className={`h-2 rounded-full transition-all ${
+              i < subIndex ? 'w-5 bg-indigo-400' :
+              i === subIndex ? 'w-5 bg-indigo-600' :
+              'w-2 bg-gray-200'
+            }`} />
+          ))}
+        </div>
+      )}
+
+      {/* 当前题干 */}
+      <div className={`rounded-2xl px-4 py-4 border-2 shadow-sm ${
+        phase === 'feedback'
+          ? thisResult?.correct ? 'bg-green-50 border-green-200' : 'bg-red-50 border-red-200'
+          : 'bg-white border-gray-100'
+      }`}>
+        <p className="text-xs text-indigo-500 font-semibold mb-2">
+          第 {subIndex + 1} 题（共 {statements.length} 题）
+        </p>
+        <p className="text-base text-gray-800 leading-relaxed">{current}</p>
+        {phase === 'feedback' && (
+          <div className="mt-3 pt-3 border-t border-gray-200">
+            <p className={`text-sm font-bold mb-1 ${thisResult?.correct ? 'text-green-600' : 'text-red-500'}`}>
+              {thisResult?.correct ? '✓ 正确！' : '✗ 答错了'}
             </p>
-            <div className="flex gap-2">
-              {[{ label: '对', value: '√' }, { label: '错', value: '×' }].map(({ label, value }) => {
-                let cls = 'border-gray-200 text-gray-400 bg-white'
-                if (!submitted && picked === value) cls = 'border-indigo-400 bg-indigo-50 text-indigo-700'
-                if (submitted && value === correctAnswers[i]) cls = 'border-green-400 bg-green-100 text-green-700'
-                if (submitted && picked === value && value !== correctAnswers[i]) cls = 'border-red-400 bg-red-100 text-red-700'
-                return (
-                  <button key={value} onClick={() => !submitted && setPicks(p => ({ ...p, [i]: value }))}
-                    disabled={submitted}
-                    className={`flex-1 py-2.5 rounded-xl border-2 font-bold text-xl transition-all ${cls}`}>
-                    {label}
-                  </button>
-                )
-              })}
-            </div>
+            {!thisResult?.correct && (
+              <p className="text-sm text-gray-700">正确答案：<span className="font-semibold">{correctAns === '√' ? '对（√）' : '错（×）'}</span></p>
+            )}
           </div>
-        )
-      })}
-      {!submitted && (
-        <button onClick={handleSubmit} disabled={!allPicked}
-          className="w-full bg-indigo-500 disabled:bg-gray-200 disabled:text-gray-400 text-white font-bold py-4 rounded-2xl text-base mt-1">
-          提交
+        )}
+      </div>
+
+      {/* 对/错 按钮 */}
+      {phase === 'input' && (
+        <div className="flex gap-3">
+          {[{ label: '对', value: '√' }, { label: '错', value: '×' }].map(({ label, value }) => (
+            <button key={value} onClick={() => setPick(value)}
+              className={`flex-1 py-4 rounded-2xl border-2 font-bold text-xl transition-all ${
+                pick === value
+                  ? 'border-indigo-500 bg-indigo-50 text-indigo-700'
+                  : 'border-gray-200 bg-white text-gray-500'
+              }`}>
+              {label}
+            </button>
+          ))}
+        </div>
+      )}
+
+      {phase === 'input' && (
+        <button onClick={handleSubmit} disabled={!pick}
+          className="w-full bg-indigo-500 disabled:bg-gray-200 disabled:text-gray-400 text-white font-bold py-4 rounded-2xl text-base">
+          确认
+        </button>
+      )}
+      {phase === 'feedback' && (
+        <button onClick={handleNext}
+          className={`w-full font-bold py-4 rounded-2xl text-base text-white ${
+            thisResult?.correct ? 'bg-green-500' : 'bg-red-500'
+          }`}>
+          {subIndex + 1 >= statements.length ? '完成 ✓' : `下一题 → (${subIndex + 2}/${statements.length})`}
         </button>
       )}
     </div>
   )
 }
 
-// ─── 错别字题 ─────────────────────────────────────────────
+// ─── 错别字题（翻页逐项作答）────────────────────────────────
 
 function TypoQuestion({ question, onDone }) {
   const items = parseTypoItems(question.question)
   const corrections = parseTypoCorrections(question.answer)
-  const [inputs, setInputs] = useState({})
-  const [submitted, setSubmitted] = useState(false)
+  const instruction = question.question.split('\n')[0] || ''
+  const [subIndex, setSubIndex] = useState(0)
+  const [input, setInput] = useState('')
+  const [phase, setPhase] = useState('input') // 'input' | 'feedback'
+  const resultsRef = useRef([])
+  const [results, setResults] = useState([])
 
-  const allFilled = items.every(item =>
-    corrections[item.num] === '__ok__' || (inputs[item.num] || '').trim() !== ''
-  )
+  const current = items[subIndex]
+  if (!current) return null
+
+  const expected = corrections[current.num]
+  const isOk = expected === '__ok__'
+  const thisResult = results[subIndex]
+  const canSubmit = isOk || input.trim() !== ''
 
   function handleSubmit() {
-    let correct = true
-    for (const item of items) {
-      const expected = corrections[item.num]
-      if (expected === '__ok__') continue
-      if ((inputs[item.num] || '').trim() !== expected) { correct = false; break }
-    }
-    setSubmitted(true)
-    onDone(correct ? question.answer : '答错', correct)
+    const isCorrect = isOk ? true : (input.trim() === expected)
+    const newResults = [...resultsRef.current, { correct: isCorrect }]
+    resultsRef.current = newResults
+    setResults(newResults)
+    setPhase('feedback')
   }
 
-  const instruction = question.question.split('\n')[0] || ''
+  function handleNext() {
+    const nextIdx = subIndex + 1
+    if (nextIdx >= items.length) {
+      const allCorrect = resultsRef.current.every(r => r.correct)
+      onDone(allCorrect ? question.answer : '答错', allCorrect)
+    } else {
+      setSubIndex(nextIdx)
+      setInput('')
+      setPhase('input')
+    }
+  }
 
   return (
-    <div className="flex flex-col gap-3">
-      <p className="text-sm text-gray-500 bg-white rounded-2xl px-4 py-3 border border-gray-100">{instruction}</p>
-      {items.map(item => {
-        const expected = corrections[item.num]
-        const isOk = expected === '__ok__'
-        const val = (inputs[item.num] || '').trim()
-        const itemCorrect = isOk || val === expected
-        return (
-          <div key={item.num} className={`rounded-2xl px-4 py-3 border-2 flex items-center gap-3 ${
-            !submitted ? 'bg-white border-gray-200' :
-            itemCorrect ? 'bg-green-50 border-green-300' : 'bg-red-50 border-red-300'
-          }`}>
-            <span className="text-indigo-500 font-bold shrink-0">（{item.num}）</span>
-            <span className="text-gray-800 flex-1">{item.word}</span>
-            {isOk ? (
-              <span className={`text-sm font-semibold px-3 py-1 rounded-xl ${submitted ? 'bg-green-100 text-green-700' : 'bg-gray-100 text-gray-400'}`}>无错</span>
-            ) : (
-              <div className="flex flex-col items-end">
-                <input type="text" value={inputs[item.num] || ''}
-                  onChange={e => setInputs(p => ({ ...p, [item.num]: e.target.value }))}
-                  disabled={submitted} placeholder="改正" maxLength={6}
-                  className="w-20 border-2 border-gray-300 rounded-xl px-2 py-1.5 text-center text-base focus:outline-none focus:border-indigo-400 disabled:bg-transparent"
-                />
-                {submitted && !itemCorrect && (
-                  <span className="text-xs text-green-600 mt-1">→ {expected}</span>
-                )}
-              </div>
+    <div className="flex flex-col gap-4">
+      {/* 题目指令 */}
+      <div className="bg-white rounded-2xl px-4 py-3 border border-gray-100 shadow-sm">
+        <p className="text-sm text-gray-600">{instruction}</p>
+      </div>
+
+      {/* 进度点 */}
+      {items.length > 1 && (
+        <div className="flex gap-1.5 justify-center">
+          {items.map((_, i) => (
+            <div key={i} className={`h-2 rounded-full transition-all ${
+              i < subIndex ? 'w-5 bg-indigo-400' :
+              i === subIndex ? 'w-5 bg-indigo-600' :
+              'w-2 bg-gray-200'
+            }`} />
+          ))}
+        </div>
+      )}
+
+      {/* 当前题干 */}
+      <div className={`rounded-2xl px-4 py-4 border-2 shadow-sm ${
+        phase === 'feedback'
+          ? thisResult?.correct ? 'bg-green-50 border-green-200' : 'bg-red-50 border-red-200'
+          : 'bg-white border-gray-100'
+      }`}>
+        <p className="text-xs text-indigo-500 font-semibold mb-2">
+          第 {subIndex + 1} 题（共 {items.length} 题）
+        </p>
+        <p className="text-base text-gray-800 leading-relaxed">{current.word}</p>
+        {phase === 'feedback' && (
+          <div className="mt-3 pt-3 border-t border-gray-200">
+            <p className={`text-sm font-bold mb-1 ${thisResult?.correct ? 'text-green-600' : 'text-red-500'}`}>
+              {thisResult?.correct ? (isOk ? '✓ 无错别字' : '✓ 正确！') : '✗ 答错了'}
+            </p>
+            {!thisResult?.correct && (
+              <p className="text-sm text-gray-700">正确改法：<span className="font-semibold text-green-700">{expected}</span></p>
+            )}
+            {thisResult?.correct && isOk && (
+              <p className="text-sm text-gray-500">此句没有错别字 ✓</p>
             )}
           </div>
+        )}
+      </div>
+
+      {/* 输入区 */}
+      {phase === 'input' && (
+        isOk ? (
+          <div className="bg-blue-50 rounded-2xl px-4 py-3 border border-blue-200 text-center text-blue-600 text-sm font-medium">
+            此项无错别字，直接点"确认"
+          </div>
+        ) : (
+          <input
+            type="text"
+            value={input}
+            onChange={e => setInput(e.target.value)}
+            onKeyDown={e => e.key === 'Enter' && canSubmit && handleSubmit()}
+            className="w-full border-2 border-gray-200 rounded-2xl px-4 py-3 text-base text-gray-800 focus:outline-none focus:border-indigo-400"
+            placeholder="写出改正后的字"
+            maxLength={6}
+            style={{ fontSize: '16px' }}
+          />
         )
-      })}
-      {!submitted && (
-        <button onClick={handleSubmit} disabled={!allFilled}
-          className="w-full bg-indigo-500 disabled:bg-gray-200 disabled:text-gray-400 text-white font-bold py-4 rounded-2xl text-base mt-1">
-          提交
+      )}
+
+      {phase === 'input' && (
+        <button onClick={handleSubmit} disabled={!canSubmit}
+          className="w-full bg-indigo-500 disabled:bg-gray-200 disabled:text-gray-400 text-white font-bold py-4 rounded-2xl text-base">
+          确认
+        </button>
+      )}
+      {phase === 'feedback' && (
+        <button onClick={handleNext}
+          className={`w-full font-bold py-4 rounded-2xl text-base text-white ${
+            thisResult?.correct ? 'bg-green-500' : 'bg-red-500'
+          }`}>
+          {subIndex + 1 >= items.length ? '完成 ✓' : `下一题 → (${subIndex + 2}/${items.length})`}
         </button>
       )}
     </div>
@@ -1025,18 +1144,27 @@ export default function DuolingoStyleQuiz({ question, onAnswerSubmit, showVarian
         />
       )}
 
-      {/* 底部继续条：内部自带提交的题型，答完后展示总结+解析 */}
+      {/* 底部继续条：内部自带提交的题型，答完后展示总结+完整答案+解析 */}
       {answered && hasInternalSubmit && (
-        <div className={`fixed bottom-0 left-0 right-0 z-30 rounded-t-3xl shadow-2xl max-h-[72vh] flex flex-col ${
+        <div className={`fixed bottom-0 left-0 right-0 z-30 rounded-t-3xl shadow-2xl max-h-[75vh] flex flex-col ${
           phase === 'correct' ? 'bg-green-50 border-t-4 border-green-400' : 'bg-red-50 border-t-4 border-red-400'
         }`}>
           <div className="flex-1 overflow-y-auto px-5 pt-5 pb-2">
             <div className="max-w-md mx-auto">
-              <p className={`font-bold text-xl mb-2 ${phase === 'correct' ? 'text-green-600' : 'text-red-500'}`}>
+              <p className={`font-bold text-xl mb-3 ${phase === 'correct' ? 'text-green-600' : 'text-red-500'}`}>
                 {phase === 'correct' ? '✓ 全对！' : '✗ 有错误'}
               </p>
+              {phase === 'wrong' && question.answer && (
+                <div className="mb-3 bg-white rounded-2xl px-4 py-3 border border-gray-200">
+                  <p className="text-xs text-gray-400 mb-1 font-medium">完整正确答案</p>
+                  <p className="text-sm text-gray-800 font-semibold whitespace-pre-wrap leading-relaxed">{question.answer}</p>
+                </div>
+              )}
               {question.analysis && (
-                <p className="text-xs text-gray-500 leading-relaxed">{question.analysis}</p>
+                <div className="bg-white/60 rounded-2xl px-4 py-3 border border-gray-100">
+                  <p className="text-xs text-gray-400 mb-1 font-medium">解析</p>
+                  <p className="text-xs text-gray-600 leading-relaxed whitespace-pre-wrap">{question.analysis}</p>
+                </div>
               )}
             </div>
           </div>
