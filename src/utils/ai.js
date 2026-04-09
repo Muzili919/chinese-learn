@@ -114,3 +114,31 @@ ${essay}`
 
   return callDeepSeek(system, user)
 }
+
+/**
+ * AI批改阅读理解答案（像老师一样分析要点）
+ * @param {string} questionText - 题目文本
+ * @param {string} userAnswer - 学生答案
+ * @param {string} correctAnswer - 参考答案
+ * @returns {{ score, correct, hitPoints, missedPoints, teacherComment, improvement }}
+ */
+export async function evaluateReadingAnswer(questionText, userAnswer, correctAnswer) {
+  const system = `你是一位小学语文老师，正在批改阅读理解题。
+请用JSON格式返回批改结果，包含以下字段：
+- score: 得分（0-100的整数）
+- correct: 布尔值（score>=60为true）
+- hitPoints: 数组，写出学生答案中答对的要点（每项不超过20字，最多3项，没有则为空数组）
+- missedPoints: 数组，写出学生遗漏的重要要点（每项不超过20字，最多3项，没有则为空数组）
+- teacherComment: 字符串，像老师批改一样先肯定亮点再指出不足，口吻亲切（50字以内）
+- improvement: 字符串，最重要的一条改进方向，具体可操作（25字以内）
+
+评分标准：答出核心意思60分起，要点覆盖越全分越高，语言通顺适当加分。
+请针对小学生水平，评价要鼓励为主，不要太苛刻。`
+
+  const user = `题目：${questionText}
+参考答案：${correctAnswer}
+学生回答：${userAnswer}
+请批改并返回JSON。`
+
+  return callDeepSeek(system, user)
+}

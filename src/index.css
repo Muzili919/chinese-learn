@@ -1,5 +1,6 @@
 @import "tailwindcss";
 @import "./styles/fill-blank-mobile.css";
+@import "./styles/duolingo-quiz.css";
 
 @layer base {
   * {
