@@ -1,0 +1,260 @@
+[
+  {
+    "id": "en_reading_001",
+    "subject": "english",
+    "knowledge_tag": "英语阅读",
+    "ability_tag": "阅读理解",
+    "type": "multiple_choice",
+    "question": "阅读下面短文，判断句子正误，正确的写T，错误的写F。\n\nMy name is Amy. I am a student. I get up at 6:30 every morning. I eat breakfast at 7:00. Then I go to school at 7:30. I have four classes in the morning and two in the afternoon. I like English best. After school, I play basketball with my friends. I go home at 5:00. I do my homework first, then watch TV. I go to bed at 9:00.\n\n(1) Amy gets up at seven o'clock in the morning. (　)\n(2) She has six classes every day. (　)\n(3) Her favorite subject is English. (　)\n(4) She plays football after school. (　)\n(5) She goes to bed at nine in the evening. (　)",
+    "options": [
+      "A. T（正确）",
+      "B. F（错误）"
+    ],
+    "answer": "(1) F (2) T (3) T (4) F (5) T",
+    "analysis": "【考点】本题考查短文细节信息的提取和判断。\n【解题思路】逐句定位原文信息进行比对。\n【总结】判断正误题要仔细比对原文，注意数字、时间、人物、动作等细节，不能凭印象。",
+    "difficulty": 0.5
+  },
+  {
+    "id": "en_reading_002",
+    "subject": "english",
+    "knowledge_tag": "英语阅读",
+    "ability_tag": "阅读理解",
+    "type": "multiple_choice",
+    "question": "阅读下面短文，选择正确答案。\n\nDear Tom,\nHow are you? I'm writing to tell you about my school. Our school is big and beautiful. There is a large playground. We often play sports there. There is a library with many books. I like reading storybooks. There is also a music room and an art room. We have music and art classes every week. My favorite day is Friday because we have a science class. Science is very interesting.\n\nYours,\nMike\n\n(1) The school has a ______ playground.\nA. small B. large C. new D. old\n\n(2) Mike likes reading ______.\nA. science books B. storybooks C. art books D. music books\n\n(3) Mike's favorite day is ______.\nA. Monday B. Wednesday C. Friday D. Sunday\n\n(4) Why does Mike like Friday?\nA. Because he has music class. B. Because he has art class.\nC. Because he has science class. D. Because he can play sports.",
+    "options": [],
+    "answer": "(1) B (2) B (3) C (4) C",
+    "analysis": "【考点】本题考查短文细节理解和信息提取。\n【解题思路】从文中找到对应句子。\n【总结】选择题答案在原文中可直接找到，定位关键词如large, storybooks, Friday, science class。",
+    "difficulty": 0.5
+  },
+  {
+    "id": "en_reading_003",
+    "subject": "english",
+    "knowledge_tag": "英语阅读",
+    "ability_tag": "阅读理解",
+    "type": "multiple_choice",
+    "question": "阅读下面短文，用完整的英语句子回答问题。\n\nMy name is Li Hua. I live in Chongqing. It's a big city. Last weekend, I went to the zoo with my parents. We saw many animals. The pandas were very cute. They ate bamboo. The monkeys were funny. They jumped up and down. My mother took some photos. We stayed there for three hours. Then we went to a restaurant and had lunch. I ate noodles. It was a happy day.\n\n(1) Where does Li Hua live?\n________________________________________\n(2) Who did Li Hua go to the zoo with?\n________________________________________\n(3) What did the pandas eat?\n________________________________________\n(4) How long did they stay at the zoo?\n________________________________________\n(5) What did Li Hua eat for lunch?\n________________________________________",
+    "options": [],
+    "answer": "(1) He lives in Chongqing.\n(2) He went to the zoo with his parents.\n(3) The pandas ate bamboo.\n(4) They stayed there for three hours.\n(5) He ate noodles.",
+    "analysis": "【考点】本题考查根据短文内容回答问题。\n【解题思路】从文中找到对应信息，用完整句子回答。\n【总结】回答问题时，注意人称和时态要与原文一致。问Where用in+地点，问Who用with，问What用具体内容，问How long用for+时间。",
+    "difficulty": 0.5
+  },
+  {
+    "id": "en_reading_004",
+    "subject": "english",
+    "knowledge_tag": "英语阅读",
+    "ability_tag": "阅读理解",
+    "type": "multiple_choice",
+    "question": "阅读下面短文，将下列事件按文中发生的顺序排序（1-5）。\n\nYesterday was Sunday. I had a busy day. I got up at 7:00. Then I had breakfast at 7:30. After breakfast, I did my homework. It took me two hours. At 10:30, I went to the library. I borrowed two books. Then I went home at 11:30. In the afternoon, I visited my grandparents. We had dinner together at 6:00. In the evening, I watched TV for an hour. Then I went to bed at 9:00.\n\n事件：\nA. Visited grandparents.\nB. Did homework.\nC. Went to the library.\nD. Watched TV.\nE. Had breakfast.\n\n正确的顺序是：____ → ____ → ____ → ____ → ____",
+    "options": [],
+    "answer": "E → B → C → A → D",
+    "analysis": "【考点】本题考查对事件顺序的理解和排序。\n【解题思路】按时间顺序找出事件先后：吃早餐→做作业→去图书馆→看望祖父母→看电视。\n【总结】排序题要抓住时间顺序词（first, then, after that, later, finally）或具体时间点。",
+    "difficulty": 0.5
+  },
+  {
+    "id": "en_reading_005",
+    "subject": "english",
+    "knowledge_tag": "英语阅读",
+    "ability_tag": "阅读理解",
+    "type": "multiple_choice",
+    "question": "阅读下面短文，完成题目。\n\nIt is winter now. The weather is very cold. Snow is falling. The children are very happy. They can make snowmen and play with snow. Some are throwing snowballs. Look at Tom and Mike. They are making a big snowman. They put a carrot as its nose and two stones as its eyes. They also put a hat on its head. It looks funny. The children are laughing.\n\n根据短文内容，选择正确答案。\n(1) What season is it?\nA. Spring B. Summer C. Autumn D. Winter\n\n(2) What are the children doing?\nA. They are making snowmen and playing with snow.\nB. They are swimming in the river.\nC. They are flying kites.\nD. They are reading books.\n\n判断正误。\n(3) Tom and Mike are making a big snowman. (　)\n(4) They put an apple as the snowman's nose. (　)",
+    "options": [
+      "A. T（正确）",
+      "B. F（错误）"
+    ],
+    "answer": "(1) D (2) A (3) T (4) F",
+    "analysis": "【考点】本题考查短文细节理解。\n【解题思路】根据原文信息判断。\n【总结】混合型题目要分别对待，选择题在选项中找匹配，判断题需仔细比对细节。",
+    "difficulty": 0.5
+  },
+  {
+    "id": "en_reading_006",
+    "subject": "english",
+    "knowledge_tag": "英语阅读",
+    "ability_tag": "阅读理解",
+    "type": "multiple_choice",
+    "question": "阅读下面短文，选择正确答案。\n\nThere are four seasons in a year. They are spring, summer, autumn and winter. Spring is warm. Trees turn green and flowers come out. Summer is hot. People like to go swimming. Autumn is cool. It is a harvest season. Farmers are busy picking apples and pears. Winter is cold. Children like to make snowmen and skate.\n\n(1) How many seasons are there in a year?\nA. Three B. Four C. Five D. Six\n\n(2) What season is warm?\nA. Spring B. Summer C. Autumn D. Winter\n\n(3) What do people like to do in summer?\nA. Make snowmen B. Go swimming C. Pick apples D. Fly kites\n\n(4) Why are farmers busy in autumn?\nA. Because it is cold. B. Because they are planting trees.\nC. Because it is a harvest season. D. Because they like to work.\n\n(5) What do children like to do in winter?\nA. Go swimming B. Pick apples C. Make snowmen D. Fly kites",
+    "options": [],
+    "answer": "(1) B (2) A (3) B (4) C (5) C",
+    "analysis": "【考点】本题考查季节相关词汇及细节理解。\n【解题思路】逐题在文中定位信息。\n【总结】细节题直接找原文对应句子，注意同义表达（如harvest season = busy）。",
+    "difficulty": 0.5
+  },
+  {
+    "id": "en_reading_007",
+    "subject": "english",
+    "knowledge_tag": "英语阅读",
+    "ability_tag": "阅读理解",
+    "type": "multiple_choice",
+    "question": "阅读下面短文，判断句子正误，正确的写T，错误的写F。\n\nTom is a student. He is twelve years old. He is in Class 5, Grade 6. His favorite subject is PE because he likes playing basketball. After school, he often plays basketball with his classmates. He also likes reading. He reads storybooks every night before going to bed. His favorite book is The Adventures of Tom Sawyer. He wants to be a writer in the future.\n\n(1) Tom is thirteen years old. (　)\n(2) Tom's favorite subject is PE. (　)\n(3) He plays basketball after school. (　)\n(4) He reads storybooks every morning. (　)\n(5) He wants to be a teacher. (　)",
+    "options": [
+      "A. T（正确）",
+      "B. F（错误）"
+    ],
+    "answer": "(1) F (2) T (3) T (4) F (5) F",
+    "analysis": "【考点】本题考查细节判断。\n【解题思路】与原文逐句比对。\n【总结】注意数字、时间、人物、职业等关键信息的准确比对。",
+    "difficulty": 0.5
+  },
+  {
+    "id": "en_reading_008",
+    "subject": "english",
+    "knowledge_tag": "英语阅读",
+    "ability_tag": "阅读理解",
+    "type": "multiple_choice",
+    "question": "阅读下面短文，用完整的英语句子回答问题。\n\nMy school is very big and beautiful. There are three buildings. The classroom building is in the middle. The library is on the left. The gym is on the right. There is a large playground behind the classroom building. We have PE class there. I like my school very much.\n\n(1) How many buildings are there in the school?\n________________________________________\n(2) Where is the library?\n________________________________________\n(3) What is behind the classroom building?\n________________________________________\n(4) Does the writer like his/her school?\n________________________________________",
+    "options": [],
+    "answer": "(1) There are three buildings.\n(2) The library is on the left.\n(3) A large playground is behind the classroom building.\n(4) Yes, he/she does. / Yes, the writer likes his/her school very much.",
+    "analysis": "【考点】本题考查方位描述及数量信息的提取。\n【解题思路】从文中直接找到答案，注意句子完整性。\n【总结】回答Where问题要给出具体方位词（on the left/right, in the middle, behind）；回答How many用数字；一般疑问句用Yes/No开头。",
+    "difficulty": 0.5
+  },
+  {
+    "id": "en_reading_009",
+    "subject": "english",
+    "knowledge_tag": "英语阅读",
+    "ability_tag": "阅读理解",
+    "type": "multiple_choice",
+    "question": "阅读下面短文，将下列事件按文中发生的顺序排序（1-5）。\n\nYesterday was my birthday. I had a great day. First, I woke up at 7:00 and found a gift on my desk. It was a new watch from my parents. Then I had breakfast with my family. After breakfast, I went to school. My friends sang a birthday song to me. At lunchtime, we ate a big cake together. After school, I went to the cinema with my best friend. We watched a funny movie. In the evening, my parents took me to a restaurant. We had a delicious dinner. Finally, I went to bed at 10:00. I was very happy.\n\n事件：\nA. Watched a movie at the cinema.\nB. Ate a big cake at lunchtime.\nC. Had dinner at a restaurant.\nD. Found a gift on the desk.\nE. Friends sang a birthday song.\n\n正确的顺序是：____ → ____ → ____ → ____ → ____",
+    "options": [],
+    "answer": "D → E → B → A → C",
+    "analysis": "【考点】本题考查事件顺序的排列。\n【解题思路】按时间顺序：发现礼物→朋友唱生日歌→吃蛋糕→看电影→餐厅吃晚饭。\n【总结】注意顺序词：first, then, after that, in the evening, finally。",
+    "difficulty": 0.5
+  },
+  {
+    "id": "en_reading_010",
+    "subject": "english",
+    "knowledge_tag": "英语阅读",
+    "ability_tag": "阅读理解",
+    "type": "multiple_choice",
+    "question": "阅读下面短文，完成题目。\n\nMany people like to keep pets. Pets are good friends. Dogs are loyal. They can guard the house. Cats are quiet and clean. They like to sleep on the sofa. Birds can sing beautiful songs. Fish are easy to look after. They just need food and clean water. Keeping pets can make people happy. But you need to take care of them. They need food, water and love.\n\n(1) What is the main idea of this passage?\nA. Different kinds of pets.\nB. How to feed fish.\nC. Pets are good friends and need care.\nD. Dogs are better than cats.\n\n(2) Which pet can guard the house?\nA. Cat B. Bird C. Dog D. Fish\n\n(3) What do fish need?\nA. A big house B. Songs C. Food and clean water D. A sofa\n\n(4) According to the passage, keeping pets can make people ______.\nA. sad B. tired C. happy D. busy",
+    "options": [],
+    "answer": "(1) C (2) C (3) C (4) C",
+    "analysis": "【考点】本题考查主旨大意和细节理解。\n【解题思路】主旨从首尾句提炼，细节在文中定位。\n【总结】主旨题关注首段、尾段或反复出现的词；细节题定位关键词。",
+    "difficulty": 0.5
+  },
+  {
+    "id": "en_reading_011",
+    "subject": "english",
+    "knowledge_tag": "英语阅读",
+    "ability_tag": "阅读理解",
+    "type": "multiple_choice",
+    "question": "阅读下面短文，判断句子正误，正确的写T，错误的写F。\n\nIt was a sunny day yesterday. Lily and her mother went to the beach. They took an umbrella, a towel and some food. The beach was crowded. Many people were swimming in the sea. Some children were building sandcastles. Lily played volleyball with her new friends. Her mother sat under the umbrella and read a book. They had lunch at 12:00. They ate sandwiches and drank orange juice. They went home at 3:00 in the afternoon. Lily was tired but happy.\n\n(1) It was rainy yesterday. (　)\n(2) Lily and her mother went to the beach. (　)\n(3) Lily played basketball with her friends. (　)\n(4) They had lunch at 2:00. (　)\n(5) Lily was happy at the end of the day. (　)",
+    "options": [
+      "A. T（正确）",
+      "B. F（错误）"
+    ],
+    "answer": "(1) F (2) T (3) F (4) F (5) T",
+    "analysis": "【考点】本题考查细节理解和信息提取。\n【解题思路】逐句与原文比对。\n【总结】注意否定词和动作的准确对应，如“sunny”不等于“rainy”，“volleyball”不等于“basketball”。",
+    "difficulty": 0.5
+  },
+  {
+    "id": "en_reading_012",
+    "subject": "english",
+    "knowledge_tag": "英语阅读",
+    "ability_tag": "阅读理解",
+    "type": "multiple_choice",
+    "question": "阅读下面短文，选择正确答案。\n\nMy name is Sarah. I am from Canada. Now I live in Beijing with my parents. My father is a doctor. He works in a hospital. My mother is a teacher. She teaches English in a primary school. I am a student. I study at Beijing International School. I like Chinese food very much. My favorite food is dumplings. I also like pandas. They are very cute. On weekends, I often go to the zoo to see them.\n\n(1) Where is Sarah from?\nA. China B. Canada C. America D. Australia\n\n(2) What does Sarah's mother do?\nA. She is a doctor. B. She is a nurse.\nC. She is a teacher. D. She is a student.\n\n(3) What is Sarah's favorite food?\nA. Noodles B. Rice C. Dumplings D. Hamburgers\n\n(4) What animal does Sarah like?\nA. Monkeys B. Pandas C. Elephants D. Tigers\n\n(5) Where does Sarah often go on weekends?\nA. To the park B. To the library C. To the zoo D. To the cinema",
+    "options": [],
+    "answer": "(1) B (2) C (3) C (4) B (5) C",
+    "analysis": "【考点】本题考查个人信息提取。\n【解题思路】在文中定位关键词。\n【总结】人物介绍类阅读，答案往往直接出现在文中，注意同义表达（如“like” = “favorite”）。",
+    "difficulty": 0.5
+  },
+  {
+    "id": "en_reading_013",
+    "subject": "english",
+    "knowledge_tag": "英语阅读",
+    "ability_tag": "阅读理解",
+    "type": "multiple_choice",
+    "question": "阅读下面短文，用完整的英语句子回答问题。\n\nHi, I'm Tom. I'm going to have a busy weekend. On Saturday morning, I'm going to do my homework. Then I'm going to play football with my friends in the park. In the afternoon, I'm going to visit my grandparents. They live in the countryside. On Sunday morning, I'm going to help my mother clean the house. In the afternoon, I'm going to read a storybook. In the evening, I'm going to watch a movie with my family.\n\n(1) What is Tom going to do on Saturday morning?\n________________________________________\n(2) Where is Tom going to play football?\n________________________________________\n(3) Who is Tom going to visit on Saturday afternoon?\n________________________________________\n(4) What is Tom going to do on Sunday morning?\n________________________________________\n(5) When is Tom going to watch a movie?\n________________________________________",
+    "options": [],
+    "answer": "(1) He is going to do his homework.\n(2) He is going to play football in the park.\n(3) He is going to visit his grandparents.\n(4) He is going to help his mother clean the house.\n(5) He is going to watch a movie on Sunday evening.",
+    "analysis": "【考点】本题考查be going to结构的理解和信息提取。\n【解题思路】从文中找到对应时间点的活动。\n【总结】回答将来时问题，要用完整句，保持be going to结构。注意介词短语（in the park, on Sunday evening）不能遗漏。",
+    "difficulty": 0.5
+  },
+  {
+    "id": "en_reading_014",
+    "subject": "english",
+    "knowledge_tag": "英语阅读",
+    "ability_tag": "阅读理解",
+    "type": "multiple_choice",
+    "question": "阅读下面短文，将下列事件按文中发生的顺序排序（1-5）。\n\nLast Saturday, my family went to a restaurant for dinner. When we arrived, a waiter showed us to a table. First, we looked at the menu. Then the waiter came and asked, “May I take your order?” My father ordered beef noodles. My mother ordered vegetable salad. I ordered fried rice. After a while, the food arrived. It looked delicious. We ate happily. At the end of the meal, my father paid the bill. Then we left the restaurant.\n\n事件：\nA. The waiter took their order.\nB. They looked at the menu.\nC. They left the restaurant.\nD. The father paid the bill.\nE. They ate the food.\n\n正确的顺序是：____ → ____ → ____ → ____ → ____",
+    "options": [],
+    "answer": "B → A → E → D → C",
+    "analysis": "【考点】本题考查餐厅用餐流程的顺序。\n【解题思路】按事件发展：看菜单→点餐→吃饭→付钱→离开。\n【总结】注意顺序词：first, then, after a while, at the end of the meal, then。",
+    "difficulty": 0.5
+  },
+  {
+    "id": "en_reading_015",
+    "subject": "english",
+    "knowledge_tag": "英语阅读",
+    "ability_tag": "阅读理解",
+    "type": "multiple_choice",
+    "question": "阅读下面短文，选择正确答案。\n\nElephants are the largest land animals on Earth. They have big ears and long trunks. They use their trunks to drink water, pick up food, and even take a shower. Elephants are very smart. They can remember places and people for a long time. They live in groups. The mother elephant takes care of the baby elephants. Elephants eat grass, leaves, and fruits. They need to eat a lot because they are so big. Now, many elephants are in danger because people cut down forests.\n\n(1) What is the largest land animal on Earth?\nA. Giraffe B. Lion C. Elephant D. Tiger\n\n(2) What do elephants use their trunks to do?\nA. To drink water B. To pick up food\nC. To take a shower D. All of the above\n\n(3) Why do elephants need to eat a lot?\nA. Because they are smart. B. Because they are big.\nC. Because they live in groups. D. Because they like to eat.\n\n(4) Why are many elephants in danger?\nA. Because people hunt them. B. Because people cut down forests.\nC. Because they have no food. D. Because they are too big.\n\n(5) What is the main idea of this passage?\nA. Elephants are dangerous. B. Elephants are small animals.\nC. Elephants are smart and in danger. D. Elephants only eat grass.",
+    "options": [],
+    "answer": "(1) C (2) D (3) B (4) B (5) C",
+    "analysis": "【考点】本题考查说明文的细节和主旨理解。\n【解题思路】逐题定位。\n【总结】说明文常考动物特征、原因和主旨。注意因果关系词because。",
+    "difficulty": 0.5
+  },
+  {
+    "id": "en_reading_016",
+    "subject": "english",
+    "knowledge_tag": "英语阅读",
+    "ability_tag": "阅读理解",
+    "type": "multiple_choice",
+    "question": "阅读下面短文，判断句子正误，正确的写T，错误的写F。\n\nMy school day starts at 8:00. I have six classes every day. Each class is 40 minutes long. I have a 10-minute break between classes. At 12:00, I have lunch. I usually eat in the school cafeteria. My favorite subject is science. I like doing experiments. After school, I join the art club. I like drawing pictures. I go home at 5:00. Then I do my homework. I usually finish my homework before dinner. I go to bed at 9:30.\n\n(1) The writer has six classes every day. (　)\n(2) Each class is 30 minutes long. (　)\n(3) The writer's favorite subject is math. (　)\n(4) The writer joins the art club after school. (　)\n(5) The writer goes to bed at 9:00. (　)",
+    "options": [
+      "A. T（正确）",
+      "B. F（错误）"
+    ],
+    "answer": "(1) T (2) F (3) F (4) T (5) F",
+    "analysis": "【考点】本题考查学校生活细节判断。\n【解题思路】与原文逐句比对。\n【总结】注意数字（40 vs 30）、学科名称（science vs math）和时间（9:30 vs 9:00）的准确比对。",
+    "difficulty": 0.5
+  },
+  {
+    "id": "en_reading_017",
+    "subject": "english",
+    "knowledge_tag": "英语阅读",
+    "ability_tag": "阅读理解",
+    "type": "multiple_choice",
+    "question": "阅读下面短文，选择正确答案。\n\nLast Sunday, I went shopping with my mother. We went to a new shopping mall. First, we went to the clothes shop. My mother wanted to buy a dress. She tried on three dresses. Finally, she chose a blue one. It was 200 yuan. Then we went to the bookstore. I bought a storybook. It was 35 yuan. After that, we went to the supermarket. We bought some apples, bananas, and milk. We also bought a cake for my father's birthday. We spent about two hours in the mall. Then we went home by taxi.\n\n(1) Where did they go first?\nA. Bookstore B. Supermarket C. Clothes shop D. Restaurant\n\n(2) How much was the dress?\nA. 35 yuan B. 200 yuan C. 235 yuan D. 100 yuan\n\n(3) What did the writer buy?\nA. A dress B. A cake C. A storybook D. Apples\n\n(4) Why did they buy a cake?\nA. Because it was cheap. B. Because it was for the writer's birthday.\nC. Because it was for the writer's father's birthday. D. Because they were hungry.\n\n(5) How did they go home?\nA. By bus B. By taxi C. By car D. On foot",
+    "options": [],
+    "answer": "(1) C (2) B (3) C (4) C (5) B",
+    "analysis": "【考点】本题考查购物场景的细节理解。\n【解题思路】按顺序定位信息。\n【总结】注意顺序词first/then/after that，以及价格、物品、目的等关键信息。",
+    "difficulty": 0.5
+  },
+  {
+    "id": "en_reading_018",
+    "subject": "english",
+    "knowledge_tag": "英语阅读",
+    "ability_tag": "阅读理解",
+    "type": "multiple_choice",
+    "question": "阅读下面短文，用完整的英语句子回答问题。\n\nLast summer, I went to Sanya with my family. We went there by plane. It was my first time on a plane. I was very excited. We stayed in a hotel near the beach. Every morning, we went to the beach. I swam in the sea and built sandcastles. My parents took many photos. We also ate seafood. It was delicious. One day, we went to a butterfly park. I saw many beautiful butterflies. We stayed in Sanya for five days. Then we flew back home. I had a wonderful time.\n\n(1) How did they go to Sanya?\n________________________________________\n(2) Where did they stay?\n________________________________________\n(3) What did the writer do on the beach?\n________________________________________\n(4) What did they eat?\n________________________________________\n(5) How long did they stay in Sanya?\n________________________________________",
+    "options": [],
+    "answer": "(1) They went there by plane.\n(2) They stayed in a hotel near the beach.\n(3) He/She swam in the sea and built sandcastles.\n(4) They ate seafood.\n(5) They stayed there for five days.",
+    "analysis": "【考点】本题考查假期旅行信息提取。\n【解题思路】从文中找到对应句子。\n【总结】回答交通工具用by + 名词；回答地点用介词短语；回答时间用for + 时间段。",
+    "difficulty": 0.5
+  },
+  {
+    "id": "en_reading_019",
+    "subject": "english",
+    "knowledge_tag": "英语阅读",
+    "ability_tag": "阅读理解",
+    "type": "multiple_choice",
+    "question": "阅读下面短文，将下列步骤按文中顺序排序（1-5）。\n\nHow to make a fruit salad? First, wash the fruits. You can use apples, bananas, oranges, and strawberries. Next, peel the bananas and oranges. Then, cut all the fruits into small pieces. After that, put the fruits into a big bowl. Finally, add some yogurt and mix well. Now you can enjoy your delicious fruit salad!\n\n步骤：\nA. Add yogurt and mix.\nB. Cut the fruits into pieces.\nC. Wash the fruits.\nD. Put the fruits into a bowl.\nE. Peel the bananas and oranges.\n\n正确的顺序是：____ → ____ → ____ → ____ → ____",
+    "options": [],
+    "answer": "C → E → B → D → A",
+    "analysis": "【考点】本题考查说明文中的顺序词。\n【解题思路】按first, next, then, after that, finally的顺序对应步骤。\n【总结】制作流程类阅读，关注顺序词和动作动词。",
+    "difficulty": 0.5
+  },
+  {
+    "id": "en_reading_020",
+    "subject": "english",
+    "knowledge_tag": "英语阅读",
+    "ability_tag": "阅读理解",
+    "type": "multiple_choice",
+    "question": "阅读下面短文，完成题目。\n\nToday many people use the Internet. It is very useful. We can send emails to our friends. We can watch movies and listen to music. We can also find information for our homework. But we need to be careful. Some people use the Internet to do bad things. Never give your password to others. Don't talk to strangers online. And don't spend too much time on the Internet. It is bad for your eyes and health.\n\n(1) What is the main idea of this passage?\nA. How to play games online.\nB. The Internet is useful but we need to be careful.\nC. How to send emails.\nD. The Internet is bad.\n\n(2) What can we do on the Internet according to the passage?\nA. Send emails B. Watch movies C. Find information D. All of the above\n\n(3) Why should we not give our password to others?\nA. Because it's a secret. B. Because some people may do bad things.\nC. Because the Internet is slow. D. Because passwords are useless.\n\n(4) What is bad for your eyes and health?\nA. Watching movies B. Sending emails\nC. Spending too much time on the Internet D. Talking to friends\n\n(5) What should you do if a stranger talks to you online?\nA. Talk back B. Give your phone number\nC. Don't talk to them D. Send them a gift",
+    "options": [
+      "A. T（正确）",
+      "B. F（错误）"
+    ],
+    "answer": "(1) B (2) D (3) B (4) C (5) C",
+    "analysis": "【考点】本题考查主旨大意、细节理解和推理判断。\n【解题思路】主旨从首尾句和转折词but判断；细节直接定位；推理从建议句得出。\n【总结】主旨题关注转折词（but, however）后面的内容；推理题根据文中建议句判断。",
+    "difficulty": 0.5
+  }
+]

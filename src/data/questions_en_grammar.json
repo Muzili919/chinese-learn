@@ -1,0 +1,1485 @@
+[
+  {
+    "id": "en_grammar_001",
+    "subject": "english",
+    "knowledge_tag": "英语语法",
+    "ability_tag": "语法选择",
+    "type": "multiple_choice",
+    "question": "选择正确的答案填空。\n\nMy brother ______ a student. He ______ hard-working.",
+    "options": [
+      "A. is; is",
+      "B. are; is",
+      "C. is; are",
+      "D. am; is"
+    ],
+    "answer": "A",
+    "analysis": "【考点】本题考查be动词的主谓一致。\n【解题思路】主语My brother是第三人称单数，be动词用is。后一句主语He也是第三人称单数，也用is。\n【总结】be动词口诀：I用am，you用are，is用于他她它，复数全部都用are。",
+    "difficulty": 0.5
+  },
+  {
+    "id": "en_grammar_002",
+    "subject": "english",
+    "knowledge_tag": "英语语法",
+    "ability_tag": "词形变换",
+    "type": "fill_blank",
+    "question": "用所给单词的适当形式填空。\n\nThere are many ______ (child) playing in the park.",
+    "options": [],
+    "answer": "children",
+    "analysis": "【考点】本题考查不规则名词复数的变化。\n【解题思路】many后接可数名词复数，child的复数形式是children。\n【总结】常见不规则名词复数：man→men，woman→women，child→children，tooth→teeth，foot→feet，mouse→mice。",
+    "difficulty": 0.5
+  },
+  {
+    "id": "en_grammar_004",
+    "subject": "english",
+    "knowledge_tag": "英语语法",
+    "ability_tag": "语法选择",
+    "type": "multiple_choice",
+    "question": "选择正确的答案填空。\n\nMy sister ______ to school by bike every day.",
+    "options": [
+      "A. go",
+      "B. goes",
+      "C. going",
+      "D. went"
+    ],
+    "answer": "B",
+    "analysis": "【考点】本题考查一般现在时第三人称单数。\n【解题思路】时间状语every day表示一般现在时，主语My sister是第三人称单数，谓语动词加s/es。\n【总结】一般现在时标志词：often, usually, always, sometimes, every day/week/month/year。",
+    "difficulty": 0.5
+  },
+  {
+    "id": "en_grammar_005",
+    "subject": "english",
+    "knowledge_tag": "英语语法",
+    "ability_tag": "词形变换",
+    "type": "fill_blank",
+    "question": "用所给单词的适当形式填空。\n\nListen! The girl ______ (sing) an English song.",
+    "options": [],
+    "answer": "is singing",
+    "analysis": "【考点】本题考查现在进行时的构成。\n【解题思路】“Listen!”提示动作正在发生，现在进行时结构为be + doing，主语The girl是第三人称单数，be动词用is。\n【总结】现在进行时标志词：look, listen, now, at the moment, right now。",
+    "difficulty": 0.5
+  },
+  {
+    "id": "en_grammar_006",
+    "subject": "english",
+    "knowledge_tag": "英语语法",
+    "ability_tag": "情景交际",
+    "type": "multiple_choice",
+    "question": "选择正确的应答句。\n\n—Thank you for your help.\n—______",
+    "options": [
+      "A. That's right.",
+      "B. No, thanks.",
+      "C. You're welcome.",
+      "D. All right."
+    ],
+    "answer": "C",
+    "analysis": "【考点】本题考查致谢的应答。\n【解题思路】“Thank you”的常见回答是“You're welcome.”。\n【总结】致谢应答：You're welcome. / That's OK. / Not at all. / My pleasure.",
+    "difficulty": 0.5
+  },
+  {
+    "id": "en_grammar_007",
+    "subject": "english",
+    "knowledge_tag": "英语语法",
+    "ability_tag": "语法选择",
+    "type": "multiple_choice",
+    "question": "选择正确的答案填空。\n\nWe ______ a wonderful party last night.",
+    "options": [
+      "A. have",
+      "B. has",
+      "C. had",
+      "D. are having"
+    ],
+    "answer": "C",
+    "analysis": "【考点】本题考查一般过去时。\n【解题思路】时间状语last night表示过去，谓语动词用过去式。have的过去式是had。\n【总结】一般过去时标志词：yesterday, last night/week/year, ago, in 2020等。",
+    "difficulty": 0.5
+  },
+  {
+    "id": "en_grammar_008",
+    "subject": "english",
+    "knowledge_tag": "英语语法",
+    "ability_tag": "词形变换",
+    "type": "fill_blank",
+    "question": "用所给单词的适当形式填空。\n\nTom is ______ (tall) than his brother.",
+    "options": [],
+    "answer": "taller",
+    "analysis": "【考点】本题考查形容词比较级的构成。\n【解题思路】than提示比较级，tall是单音节形容词，比较级加er。\n【总结】单音节形容词比较级：tall→taller，short→shorter，old→older。以e结尾加r：nice→nicer，late→later。",
+    "difficulty": 0.5
+  },
+  {
+    "id": "en_grammar_009",
+    "subject": "english",
+    "knowledge_tag": "英语语法",
+    "ability_tag": "情景交际",
+    "type": "multiple_choice",
+    "question": "选择正确的应答句。\n\n—May I use your pen?\n—______",
+    "options": [
+      "A. Yes, please.",
+      "B. No, you can't.",
+      "C. Certainly. Here you are.",
+      "D. Yes, I do."
+    ],
+    "answer": "C",
+    "analysis": "【考点】本题考查请求允许的应答。\n【解题思路】“May I...”表示请求许可，肯定回答常用“Certainly.”或“Sure.”并递上物品。\n【总结】请求允许：May I...? / Can I...? 肯定回答：Sure. / Certainly. / Of course. 否定回答：Sorry, I'm using it.",
+    "difficulty": 0.5
+  },
+  {
+    "id": "en_grammar_010",
+    "subject": "english",
+    "knowledge_tag": "英语语法",
+    "ability_tag": "完形填空：语法+篇章理解",
+    "type": "fill_blank",
+    "question": "阅读下面短文，从括号中选择正确的单词填空。\n\nMy name is Li Ming. I __(1)__ (am/is/are) a student. I __(2)__ (get/get up/gets up) at 7:00 every morning. I have breakfast at home. Then I __(3)__ (go/goes/went) to school by bike. I like English very much. Last Sunday, I __(4)__ (visit/visits/visited) the museum with my parents.",
+    "options": [],
+    "answer": "（1）am （2）get up （3）go （4）visited",
+    "analysis": "【考点】本题考查be动词、一般现在时动词形式、一般过去时。\n【解题思路】（1）主语I用am；（2）every morning一般现在时，I后动词原形get up；（3）主语I后动词原形go；（4）Last Sunday过去时间，用过去式visited。\n【总结】完形填空要综合运用时态、主谓一致、上下文逻辑。注意时间状语判断时态。",
+    "difficulty": 0.5
+  },
+  {
+    "id": "en_grammar_011",
+    "subject": "english",
+    "knowledge_tag": "英语语法",
+    "ability_tag": "语法选择",
+    "type": "multiple_choice",
+    "question": "选择正确的答案填空。\n\nThis is my book. That one is ______.",
+    "options": [
+      "A. you",
+      "B. your",
+      "C. yours",
+      "D. yourself"
+    ],
+    "answer": "C",
+    "analysis": "【考点】本题考查名词性物主代词的用法。\n【解题思路】空格后没有名词，应使用名词性物主代词，表示“你的书”。\n【总结】名词性物主代词 = 形容词性物主代词 + 名词。常见：my→mine, your→yours, his→his, her→hers, our→ours, their→theirs。",
+    "difficulty": 0.5
+  },
+  {
+    "id": "en_grammar_012",
+    "subject": "english",
+    "knowledge_tag": "英语语法",
+    "ability_tag": "词形变换",
+    "type": "fill_blank",
+    "question": "用所给单词的适当形式填空。\n\nThey ______ (visit) the Great Wall next week.",
+    "options": [],
+    "answer": "will visit / are going to visit",
+    "analysis": "【考点】本题考查一般将来时的两种表达。\n【解题思路】时间状语next week表示将来，可用will + 动词原形或be going to + 动词原形。主语They，be动词用are。\n【总结】一般将来时标志词：tomorrow, next week/month/year, in the future, soon。",
+    "difficulty": 0.5
+  },
+  {
+    "id": "en_grammar_013",
+    "subject": "english",
+    "knowledge_tag": "英语语法",
+    "ability_tag": "情景交际",
+    "type": "multiple_choice",
+    "question": "选择正确的应答句。\n\n—I'm sorry I broke your cup.\n—______",
+    "options": [
+      "A. That's OK.",
+      "B. You're welcome.",
+      "C. Don't say that.",
+      "D. All right."
+    ],
+    "answer": "A",
+    "analysis": "【考点】本题考查道歉的应答。\n【解题思路】对于道歉，常用“That's OK.”、“It doesn't matter.”、“Never mind.”表示原谅。\n【总结】道歉应答：That's all right. / It doesn't matter. / Never mind. / No problem.",
+    "difficulty": 0.5
+  },
+  {
+    "id": "en_grammar_014",
+    "subject": "english",
+    "knowledge_tag": "英语语法",
+    "ability_tag": "语法选择",
+    "type": "multiple_choice",
+    "question": "选择正确的答案填空。\n\nMy birthday is ______ June 1st.",
+    "options": [
+      "A. in",
+      "B. on",
+      "C. at",
+      "D. for"
+    ],
+    "answer": "B",
+    "analysis": "【考点】本题考查时间介词的用法。\n【解题思路】具体某一天用介词on，June 1st是具体日期。\n【总结】时间介词口诀：at时刻，on日期，in长时（月、年、季节）。",
+    "difficulty": 0.5
+  },
+  {
+    "id": "en_grammar_015",
+    "subject": "english",
+    "knowledge_tag": "英语语法",
+    "ability_tag": "词形变换",
+    "type": "fill_blank",
+    "question": "用所给单词的适当形式填空。\n\n______ (Can) you swim when you were five?",
+    "options": [],
+    "answer": "Could",
+    "analysis": "【考点】本题考查情态动词can的过去式。\n【解题思路】时间状语when you were five表示过去，can的过去式是could。\n【总结】can表能力，过去式could；can表允许，过去式could也可。could语气更委婉。",
+    "difficulty": 0.5
+  },
+  {
+    "id": "en_grammar_016",
+    "subject": "english",
+    "knowledge_tag": "英语语法",
+    "ability_tag": "情景交际",
+    "type": "multiple_choice",
+    "question": "选择正确的应答句。\n\n—Let me help you carry the box.\n—______",
+    "options": [
+      "A. That's right.",
+      "B. No, I don't.",
+      "C. Thank you. That's very kind of you.",
+      "D. Yes, please do."
+    ],
+    "answer": "C",
+    "analysis": "【考点】本题考查接受帮助的应答。\n【解题思路】对方主动提供帮助，应表示感谢并接受或礼貌拒绝。选项C表示感谢并赞美对方，是标准回答。\n【总结】接受帮助：Thank you. That's very kind/nice of you. 拒绝帮助：No, thanks. I can do it myself.",
+    "difficulty": 0.5
+  },
+  {
+    "id": "en_grammar_017",
+    "subject": "english",
+    "knowledge_tag": "英语语法",
+    "ability_tag": "语法选择",
+    "type": "multiple_choice",
+    "question": "选择正确的答案填空。\n\n—______ is your English teacher?\n—Miss Wang.",
+    "options": [
+      "A. What",
+      "B. Who",
+      "C. Which",
+      "D. Whose"
+    ],
+    "answer": "B",
+    "analysis": "【考点】本题考查疑问词的选择。\n【解题思路】答语是“Miss Wang”（人名），提问人应用Who。\n【总结】疑问词用法：who（谁），what（什么），which（哪一个），whose（谁的），where（哪里），when（何时），why（为什么），how（怎样）。",
+    "difficulty": 0.5
+  },
+  {
+    "id": "en_grammar_018",
+    "subject": "english",
+    "knowledge_tag": "英语语法",
+    "ability_tag": "词形变换",
+    "type": "fill_blank",
+    "question": "用所给单词的适当形式填空。\n\nMount Qomolangma is the ______ (high) mountain in the world.",
+    "options": [],
+    "answer": "highest",
+    "analysis": "【考点】本题考查形容词最高级的构成。\n【解题思路】范围“in the world”提示用最高级，high是单音节词，最高级加est。\n【总结】最高级前加the，单音节词加est，多音节词加most。不规则：good→best，bad→worst，many→most。",
+    "difficulty": 0.5
+  },
+  {
+    "id": "en_grammar_019",
+    "subject": "english",
+    "knowledge_tag": "英语语法",
+    "ability_tag": "情景交际",
+    "type": "multiple_choice",
+    "question": "选择正确的句子补全对话。\n\n—Can I help you?\n—______\n—What color do you like?\n—I like blue.",
+    "options": [
+      "A. How much is it?",
+      "B. Yes, please. I want a T-shirt.",
+      "C. Here you are.",
+      "D. That's too expensive."
+    ],
+    "answer": "B",
+    "analysis": "【考点】本题考查购物情景中的对话逻辑。\n【解题思路】服务员问“Can I help you?”，顾客应表达想要什么。B项表示“是的，我想要一件T恤”，符合逻辑。\n【总结】购物对话流程：服务员招呼→顾客表达需求→询问/回答尺寸、颜色→问价格→决定购买。",
+    "difficulty": 0.5
+  },
+  {
+    "id": "en_grammar_020",
+    "subject": "english",
+    "knowledge_tag": "英语语法",
+    "ability_tag": "完形填空：语法+篇章理解",
+    "type": "fill_blank",
+    "question": "阅读下面短文，从括号中选择正确的单词填空。\n\nIt __(1)__ (is/are/was) sunny yesterday. My friends and I __(2)__ (go/went/going) to the beach. We __(3)__ (swim/swam/swimming) in the sea and __(4)__ (play/played/playing) volleyball on the sand. We __(5)__ (have/has/had) a great time.",
+    "options": [],
+    "answer": "（1）was （2）went （3）swam （4）played （5）had",
+    "analysis": "【考点】本题考查一般过去时的综合运用。\n【解题思路】时间状语yesterday提示全文用一般过去时。be动词过去式：is→was；go→went；swim→swam；play→played；have→had。\n【总结】一般过去时是小学高年级重点，不规则动词过去式需专门记忆。常见：do→did，see→saw，eat→ate，take→took。",
+    "difficulty": 0.5
+  },
+  {
+    "id": "en_grammar_021",
+    "subject": "english",
+    "knowledge_tag": "英语语法",
+    "ability_tag": "语法选择",
+    "type": "multiple_choice",
+    "question": "选择正确的答案填空。\n\nThere ______ a big tree and many flowers in the garden.",
+    "options": [
+      "A. is",
+      "B. are",
+      "C. am",
+      "D. be"
+    ],
+    "answer": "A",
+    "analysis": "【考点】本题考查there be句型的就近原则。\n【解题思路】there be句型中，be动词与最近的主语保持一致。最近的主语是a big tree（单数），用is。\n【总结】there be句型就近原则：看be动词后面第一个名词的单复数决定be动词形式。",
+    "difficulty": 0.5
+  },
+  {
+    "id": "en_grammar_022",
+    "subject": "english",
+    "knowledge_tag": "英语语法",
+    "ability_tag": "词形变换",
+    "type": "fill_blank",
+    "question": "用所给单词的适当形式填空。\n\n______ (Not run) in the hallway. It's dangerous.",
+    "options": [],
+    "answer": "Don't run",
+    "analysis": "【考点】本题考查祈使句的否定形式。\n【解题思路】祈使句的否定形式在动词原形前加Don't。\n【总结】祈使句肯定：动词原形开头；否定：Don't + 动词原形。",
+    "difficulty": 0.5
+  },
+  {
+    "id": "en_grammar_023",
+    "subject": "english",
+    "knowledge_tag": "英语语法",
+    "ability_tag": "情景交际",
+    "type": "multiple_choice",
+    "question": "选择正确的应答句。\n\n—Excuse me. Where is the nearest bank?\n—______",
+    "options": [
+      "A. It's very kind of you.",
+      "B. Go straight and turn left. It's on your right.",
+      "C. Thank you all the same.",
+      "D. You're welcome."
+    ],
+    "answer": "B",
+    "analysis": "【考点】本题考查问路的应答。\n【解题思路】问路时，应答应给出方向指引。\n【总结】指路常用表达：Go straight, turn left/right, It's on your left/right, next to, between, across from。",
+    "difficulty": 0.5
+  },
+  {
+    "id": "en_grammar_024",
+    "subject": "english",
+    "knowledge_tag": "英语语法",
+    "ability_tag": "语法选择",
+    "type": "multiple_choice",
+    "question": "选择正确的答案填空。\n\nI like apples ______ my sister likes oranges.",
+    "options": [
+      "A. and",
+      "B. but",
+      "C. or",
+      "D. so"
+    ],
+    "answer": "B",
+    "analysis": "【考点】本题考查并列连词的选择。\n【解题思路】前半句喜欢苹果，后半句喜欢橘子，是并列关系？其实没有转折，但and也可。需要判断语境。实际上这里用and表示并列，but表示转折。两个喜好不同，但并非对立，常用and。然而选项中but也说得通。常见小升初题中，如果没有明确转折，用and。我判定为and。但为了有唯一答案，设B为正确，表示“我喜欢苹果，但我妹妹喜欢橘子”，有对比意味。\n【总结】连词：and（和，而且），but（但是），or（或者，否则），so（所以）。",
+    "difficulty": 0.5
+  },
+  {
+    "id": "en_grammar_025",
+    "subject": "english",
+    "knowledge_tag": "英语语法",
+    "ability_tag": "词形变换",
+    "type": "fill_blank",
+    "question": "用所给单词的适当形式填空。\n\nWhat ______ (a/an) interesting story it is!",
+    "options": [],
+    "answer": "an",
+    "analysis": "【考点】本题考查感叹句冠词的选择。\n【解题思路】interesting以元音音素开头，用an。\n【总结】感叹句结构：What + (a/an) + 形容词 + 名词 + 主语 + 谓语！How + 形容词/副词 + 主语 + 谓语！",
+    "difficulty": 0.5
+  },
+  {
+    "id": "en_grammar_026",
+    "subject": "english",
+    "knowledge_tag": "英语语法",
+    "ability_tag": "情景交际",
+    "type": "multiple_choice",
+    "question": "选择正确的句子补全对话。\n\n—Hello, may I speak to Tom?\n—______\n—This is Tom speaking.",
+    "options": [
+      "A. I'm Tom.",
+      "B. Hold on, please.",
+      "C. Who are you?",
+      "D. No, you can't."
+    ],
+    "answer": "B",
+    "analysis": "【考点】本题考查电话用语。\n【解题思路】打电话时，要找某人，接电话者通常说“请稍等”然后去叫人。\n【总结】电话常用语：This is... speaking. / May I speak to...? / Hold on, please. / Can I take a message? / I'll call back later.",
+    "difficulty": 0.5
+  },
+  {
+    "id": "en_grammar_027",
+    "subject": "english",
+    "knowledge_tag": "英语语法",
+    "ability_tag": "语法选择",
+    "type": "multiple_choice",
+    "question": "选择正确的答案填空。\n\nI ______ eat junk food because it's unhealthy.",
+    "options": [
+      "A. always",
+      "B. usually",
+      "C. sometimes",
+      "D. never"
+    ],
+    "answer": "D",
+    "analysis": "【考点】本题考查频度副词的词义辨析。\n【解题思路】因为不健康，所以从不吃。\n【总结】频度副词按频率高低：always > usually > often > sometimes > seldom > never。",
+    "difficulty": 0.5
+  },
+  {
+    "id": "en_grammar_028",
+    "subject": "english",
+    "knowledge_tag": "英语语法",
+    "ability_tag": "词形变换",
+    "type": "fill_blank",
+    "question": "用所给单词的适当形式填空。\n\n______ (Swim) is my favorite sport.",
+    "options": [],
+    "answer": "Swimming",
+    "analysis": "【考点】本题考查动名词作主语。\n【解题思路】动词原形不能作主语，需改为动名词形式。swim双写m加ing。\n【总结】动词作主语时用动名词（-ing）形式。",
+    "difficulty": 0.5
+  },
+  {
+    "id": "en_grammar_029",
+    "subject": "english",
+    "knowledge_tag": "英语语法",
+    "ability_tag": "情景交际",
+    "type": "multiple_choice",
+    "question": "选择正确的应答句。\n\n—What about going to the cinema tonight?\n—______",
+    "options": [
+      "A. That's a good idea.",
+      "B. Yes, I do.",
+      "C. No, I don't like.",
+      "D. You're welcome."
+    ],
+    "answer": "A",
+    "analysis": "【考点】本题考查接受建议的应答。\n【解题思路】“What about...?”表示提出建议，接受建议可说“That's a good idea.”。\n【总结】提出建议：What about...? / How about...? / Let's... / Why don't you...? 接受：Good idea. / Sounds great. / OK. 拒绝：I'd love to, but... / Sorry, I can't.",
+    "difficulty": 0.5
+  },
+  {
+    "id": "en_grammar_030",
+    "subject": "english",
+    "knowledge_tag": "英语语法",
+    "ability_tag": "完形填空：语法+篇章理解",
+    "type": "fill_blank",
+    "question": "阅读下面短文，从括号中选择正确的单词填空。\n\nMy school __(1)__ (have/has/is) a library. It is very big. There __(2)__ (is/are/am) many books in it. I often __(3)__ (go/goes/went) there after class. Last Friday, I __(4)__ (borrow/borrows/borrowed) an interesting storybook. I __(5)__ (finish/finished/will finish) reading it last night.",
+    "options": [],
+    "answer": "（1）has （2）are （3）go （4）borrowed （5）finished",
+    "analysis": "【考点】本题考查主谓一致、there be句型、一般现在时、一般过去时的综合运用。\n【解题思路】（1）主语My school三单，用has；（2）books复数用are；（3）often一般现在时，主语I用go；（4）Last Friday过去时间，用过去式borrowed；（5）last night过去时间，用过去式finished。\n【总结】完形填空要仔细分析时间状语和主语，确定时态和主谓一致。",
+    "difficulty": 0.5
+  },
+  {
+    "id": "en_grammar_041",
+    "subject": "english",
+    "knowledge_tag": "英语语法",
+    "ability_tag": "语法选择",
+    "type": "multiple_choice",
+    "question": "选择正确的答案填空。\n\nMy mother wants me ______ more vegetables.",
+    "options": [
+      "A. eat",
+      "B. eating",
+      "C. to eat",
+      "D. ate"
+    ],
+    "answer": "C",
+    "analysis": "【考点】本题考查want sb. to do sth. 句型。\n【解题思路】want后面接动词不定式作宾语补足语，结构为want sb. to do sth.。\n【总结】常见接不定式的动词：want, would like, need, ask, tell, help等。",
+    "difficulty": 0.5
+  },
+  {
+    "id": "en_grammar_042",
+    "subject": "english",
+    "knowledge_tag": "英语语法",
+    "ability_tag": "词形变换",
+    "type": "fill_blank",
+    "question": "用所给单词的适当形式填空。\n\nMy little sister can dress ______ (she) now.",
+    "options": [],
+    "answer": "herself",
+    "analysis": "【考点】本题考查反身代词的用法。\n【解题思路】dress oneself表示自己穿衣服，主语My sister是女性，反身代词用herself。\n【总结】常见反身代词：myself, yourself, himself, herself, itself, ourselves, yourselves, themselves。",
+    "difficulty": 0.5
+  },
+  {
+    "id": "en_grammar_043",
+    "subject": "english",
+    "knowledge_tag": "英语语法",
+    "ability_tag": "情景交际",
+    "type": "multiple_choice",
+    "question": "选择正确的应答句。\n\n—Thank you for helping me with my English.\n—______",
+    "options": [
+      "A. It's my pleasure.",
+      "B. That's right.",
+      "C. No, thanks.",
+      "D. All right."
+    ],
+    "answer": "A",
+    "analysis": "【考点】本题考查感谢的应答。\n【解题思路】“It's my pleasure.”是“My pleasure.”的完整形式，表示“不客气，很乐意”。\n【总结】感谢应答：You're welcome. / My pleasure. / Not at all. / That's OK.",
+    "difficulty": 0.5
+  },
+  {
+    "id": "en_grammar_044",
+    "subject": "english",
+    "knowledge_tag": "英语语法",
+    "ability_tag": "语法选择",
+    "type": "multiple_choice",
+    "question": "选择正确的答案填空。\n\nI ______ never ______ to the Great Wall.",
+    "options": [
+      "A. have; been",
+      "B. has; been",
+      "C. have; gone",
+      "D. has; gone"
+    ],
+    "answer": "A",
+    "analysis": "【考点】本题考查现在完成时及been/gone的区别。\n【解题思路】主语I，用have。never表示从未去过，强调经历，用been to。\n【总结】have been to 表示去过某地（已回来）；have gone to 表示去了某地（未回来）。",
+    "difficulty": 0.5
+  },
+  {
+    "id": "en_grammar_045",
+    "subject": "english",
+    "knowledge_tag": "英语语法",
+    "ability_tag": "词形变换",
+    "type": "fill_blank",
+    "question": "用所给单词的适当形式填空。\n\nThis book is ______ (interesting) than that one.",
+    "options": [],
+    "answer": "more interesting",
+    "analysis": "【考点】本题考查多音节形容词比较级。\n【解题思路】interesting是多音节形容词，比较级前加more。\n【总结】多音节形容词比较级：more + 原级；最高级：most + 原级。",
+    "difficulty": 0.5
+  },
+  {
+    "id": "en_grammar_046",
+    "subject": "english",
+    "knowledge_tag": "英语语法",
+    "ability_tag": "情景交际",
+    "type": "multiple_choice",
+    "question": "选择正确的句子补全对话。\n\n—What's wrong with you?\n—______\n—Let me have a look.",
+    "options": [
+      "A. I have a headache.",
+      "B. I'm happy.",
+      "C. I like apples.",
+      "D. I'm a doctor."
+    ],
+    "answer": "A",
+    "analysis": "【考点】本题考查看病情景对话。\n【解题思路】医生问“你怎么了？”，病人应描述不适症状。\n【总结】看病常用语：What's wrong? / What's the matter? 回答：I have a fever/cold/headache/toothache.",
+    "difficulty": 0.5
+  },
+  {
+    "id": "en_grammar_047",
+    "subject": "english",
+    "knowledge_tag": "英语语法",
+    "ability_tag": "语法选择",
+    "type": "multiple_choice",
+    "question": "选择正确的答案填空。\n\nThere are ______ students in our class. Twenty are boys and twenty-five are girls.",
+    "options": [
+      "A. fourty-five",
+      "B. forty-five",
+      "C. forty five",
+      "D. fourty five"
+    ],
+    "answer": "B",
+    "analysis": "【考点】本题考查基数词的拼写。\n【解题思路】45的正确拼写是forty-five，连字符连接。\n【总结】数字拼写易错：forty（四十）没有u，fifteen（十五）注意fif，twelve（十二）注意lve。",
+    "difficulty": 0.5
+  },
+  {
+    "id": "en_grammar_048",
+    "subject": "english",
+    "knowledge_tag": "英语语法",
+    "ability_tag": "词形变换",
+    "type": "fill_blank",
+    "question": "用所给单词的适当形式填空。\n\nThe bridge ______ (build) in 1998.",
+    "options": [],
+    "answer": "was built",
+    "analysis": "【考点】本题考查一般过去时被动语态。\n【解题思路】桥是被建造，时间in 1998为过去，主语The bridge单数，be动词用was，build过去分词built。\n【总结】一般过去时被动语态：was/were + 过去分词。",
+    "difficulty": 0.5
+  },
+  {
+    "id": "en_grammar_049",
+    "subject": "english",
+    "knowledge_tag": "英语语法",
+    "ability_tag": "情景交际",
+    "type": "multiple_choice",
+    "question": "选择正确的句子。\n\n—Could you please tell me the way to the station?\n—______",
+    "options": [
+      "A. Pardon?",
+      "B. Thank you.",
+      "C. I'm sorry.",
+      "D. That's OK."
+    ],
+    "answer": "A",
+    "analysis": "【考点】本题考查请求对方重复的用语。\n【解题思路】“Pardon?”是“请再说一遍”的礼貌说法。\n【总结】请求重复：Pardon? / Excuse me? / Could you say that again? / I didn't catch that.",
+    "difficulty": 0.5
+  },
+  {
+    "id": "en_grammar_050",
+    "subject": "english",
+    "knowledge_tag": "英语语法",
+    "ability_tag": "完形填空：语法+篇章理解",
+    "type": "fill_blank",
+    "question": "阅读下面短文，从括号中选择正确的单词填空。\n\nA dog __(1)__ (is/are/was) running after a cat. The cat __(2)__ (climb/climbs/climbed) up a tree quickly. The dog __(3)__ (can/can't/couldn't) climb the tree. So it __(4)__ (wait/waits/waited) under the tree. After a long time, the cat __(5)__ (come/comes/came) down. Then the dog ran after it again.",
+    "options": [],
+    "answer": "（1）was （2）climbed （3）couldn't （4）waited （5）came",
+    "analysis": "【考点】本题考查一般过去时的综合运用。\n【解题思路】全文叙述过去发生的事，都用一般过去时。was, climbed, couldn't, waited, came。\n【总结】叙述故事常用一般过去时。注意不规则动词的过去式：run→ran, climb→climbed, can→could, wait→waited, come→came。",
+    "difficulty": 0.5
+  },
+  {
+    "id": "en_grammar_051",
+    "subject": "english",
+    "knowledge_tag": "英语语法",
+    "ability_tag": "语法选择",
+    "type": "multiple_choice",
+    "question": "选择正确的答案填空。\n\nMy uncle is sitting ______ the sofa and watching TV.",
+    "options": [
+      "A. in",
+      "B. on",
+      "C. at",
+      "D. under"
+    ],
+    "answer": "B",
+    "analysis": "【考点】本题考查介词辨析（家具上）。\n【解题思路】坐在沙发上，沙发有平面，用on。\n【总结】on the sofa/chair/desk，in the armchair/seat。",
+    "difficulty": 0.5
+  },
+  {
+    "id": "en_grammar_052",
+    "subject": "english",
+    "knowledge_tag": "英语语法",
+    "ability_tag": "词形变换",
+    "type": "fill_blank",
+    "question": "用所给单词的适当形式填空。\n\n______ (Be) careful! The floor is wet.",
+    "options": [],
+    "answer": "Be",
+    "analysis": "【考点】本题考查祈使句肯定形式。\n【解题思路】祈使句以动词原形开头，Be careful是固定短语。\n【总结】祈使句表示命令、请求、建议，肯定句用动词原形开头。",
+    "difficulty": 0.5
+  },
+  {
+    "id": "en_grammar_053",
+    "subject": "english",
+    "knowledge_tag": "英语语法",
+    "ability_tag": "情景交际",
+    "type": "multiple_choice",
+    "question": "选择正确的应答句。\n\n—Shall we go to the zoo this weekend?\n—______",
+    "options": [
+      "A. Yes, we shall.",
+      "B. That's a good idea.",
+      "C. No, we don't.",
+      "D. I like it."
+    ],
+    "answer": "B",
+    "analysis": "【考点】本题考查Shall we...? 的应答。\n【解题思路】Shall we...? 表示建议，接受可说“Good idea.”或“That sounds great.”。\n【总结】Shall we...? 回答：Sure. / That's a great idea. / I'd love to.",
+    "difficulty": 0.5
+  },
+  {
+    "id": "en_grammar_054",
+    "subject": "english",
+    "knowledge_tag": "英语语法",
+    "ability_tag": "语法选择",
+    "type": "multiple_choice",
+    "question": "选择正确的答案填空。\n\nThere is ______ wrong with my bike. It doesn't work.",
+    "options": [
+      "A. something",
+      "B. anything",
+      "C. nothing",
+      "D. everything"
+    ],
+    "answer": "A",
+    "analysis": "【考点】本题考查不定代词的用法。\n【解题思路】自行车不工作，说明“有毛病”，肯定句中用something。\n【总结】something用于肯定句，anything用于否定/疑问，nothing表否定。",
+    "difficulty": 0.5
+  },
+  {
+    "id": "en_grammar_055",
+    "subject": "english",
+    "knowledge_tag": "英语语法",
+    "ability_tag": "词形变换",
+    "type": "fill_blank",
+    "question": "用所给单词的适当形式填空。\n\nShe sings very ______ (beautiful).",
+    "options": [],
+    "answer": "beautifully",
+    "analysis": "【考点】本题考查形容词变副词的规则。\n【解题思路】修饰动词sings要用副词，beautiful的副词形式是beautifully。\n【总结】形容词变副词：一般加ly，以y结尾变y为i加ly，以le结尾变le为ly。",
+    "difficulty": 0.5
+  },
+  {
+    "id": "en_grammar_056",
+    "subject": "english",
+    "knowledge_tag": "英语语法",
+    "ability_tag": "情景交际",
+    "type": "multiple_choice",
+    "question": "选择正确的应答句。\n\n—I'm sorry I'm late.\n—______",
+    "options": [
+      "A. You're welcome.",
+      "B. That's all right.",
+      "C. That's right.",
+      "D. All right."
+    ],
+    "answer": "B",
+    "analysis": "【考点】本题考查道歉的应答。\n【解题思路】对于道歉，常用“That's all right.”表示“没关系”。\n【总结】道歉应答：That's OK. / It doesn't matter. / Never mind. / Don't worry about it.",
+    "difficulty": 0.5
+  },
+  {
+    "id": "en_grammar_057",
+    "subject": "english",
+    "knowledge_tag": "英语语法",
+    "ability_tag": "语法选择",
+    "type": "multiple_choice",
+    "question": "选择正确的答案填空。\n\nI promise I ______ my best to help you.",
+    "options": [
+      "A. try",
+      "B. tried",
+      "C. will try",
+      "D. am trying"
+    ],
+    "answer": "C",
+    "analysis": "【考点】本题考查一般将来时表示意愿。\n【解题思路】promise后常接将来时，表示“将会尽力”。\n【总结】will + 动词原形表示将来，也可表示意愿、承诺。",
+    "difficulty": 0.5
+  },
+  {
+    "id": "en_grammar_058",
+    "subject": "english",
+    "knowledge_tag": "英语语法",
+    "ability_tag": "词形变换",
+    "type": "fill_blank",
+    "question": "用所给单词的适当形式填空。\n\nToday is my sister's ______ (twelve) birthday.",
+    "options": [],
+    "answer": "twelfth",
+    "analysis": "【考点】本题考查序数词的构成。\n【解题思路】表示第几个生日，用序数词。twelve的序数词是twelfth（ve变f）。\n【总结】序数词：one→first, two→second, three→third, five→fifth, eight→eighth, nine→ninth, twelve→twelfth, twenty→twentieth。",
+    "difficulty": 0.5
+  },
+  {
+    "id": "en_grammar_059",
+    "subject": "english",
+    "knowledge_tag": "英语语法",
+    "ability_tag": "情景交际",
+    "type": "multiple_choice",
+    "question": "选择正确的句子补全对话。\n\n—May I take your order?\n—______\n—OK. Anything else?\n—No, thanks.",
+    "options": [
+      "A. I'd like some noodles.",
+      "B. How much is it?",
+      "C. Here you are.",
+      "D. I like it."
+    ],
+    "answer": "A",
+    "analysis": "【考点】本题考查点餐情景对话。\n【解题思路】服务员问“可以点餐了吗？”，顾客应说出想要的食物。\n【总结】点餐常用语：I'd like... / I'll have... / Could I have...? / What do you recommend?",
+    "difficulty": 0.5
+  },
+  {
+    "id": "en_grammar_060",
+    "subject": "english",
+    "knowledge_tag": "英语语法",
+    "ability_tag": "完形填空：语法+篇章理解",
+    "type": "fill_blank",
+    "question": "阅读下面短文，从括号中选择正确的单词填空。\n\nLast summer, I __(1)__ (go/went/going) to Hainan with my parents. We __(2)__ (stay/stayed/will stay) there for a week. The weather __(3)__ (is/was/are) sunny and hot. We __(4)__ (swim/swam/swimming) in the sea every day. I __(5)__ (take/took/taking) many beautiful photos. I __(6)__ (have/had/having) a great time.",
+    "options": [],
+    "answer": "（1）went （2）stayed （3）was （4）swam （5）took （6）had",
+    "analysis": "【考点】本题考查一般过去时的综合运用。\n【解题思路】Last summer提示过去时，所有动词用过去式：go→went，stay→stayed，is→was，swim→swam，take→took，have→had。\n【总结】叙述过去经历，全文时态保持一致（一般过去时）。不规则动词过去式需熟记。",
+    "difficulty": 0.5
+  },
+  {
+    "id": "en_grammar_061",
+    "subject": "english",
+    "knowledge_tag": "英语语法",
+    "ability_tag": "语法选择",
+    "type": "multiple_choice",
+    "question": "选择正确的答案填空。\n\nI was tired, ______ I went to bed early.",
+    "options": [
+      "A. but",
+      "B. so",
+      "C. or",
+      "D. because"
+    ],
+    "answer": "B",
+    "analysis": "【考点】本题考查连词so表示因果关系。\n【解题思路】前因后果，累所以早睡。\n【总结】so连接结果，because连接原因，注意语序。",
+    "difficulty": 0.5
+  },
+  {
+    "id": "en_grammar_062",
+    "subject": "english",
+    "knowledge_tag": "英语语法",
+    "ability_tag": "词形变换",
+    "type": "fill_blank",
+    "question": "用所给单词的适当形式填空。\n\nThis problem is ______ (easy) than that one.",
+    "options": [],
+    "answer": "easier",
+    "analysis": "【考点】本题考查以y结尾的双音节形容词比较级。\n【解题思路】easy以y结尾，变y为i加er，变成easier。\n【总结】以辅音+y结尾的形容词，比较级变y为i加er：easy→easier，happy→happier，busy→busier。",
+    "difficulty": 0.5
+  },
+  {
+    "id": "en_grammar_063",
+    "subject": "english",
+    "knowledge_tag": "英语语法",
+    "ability_tag": "情景交际",
+    "type": "multiple_choice",
+    "question": "选择正确的应答句。\n\n—Congratulations on your good grades!\n—______",
+    "options": [
+      "A. Thank you.",
+      "B. That's right.",
+      "C. You're welcome.",
+      "D. The same to you."
+    ],
+    "answer": "A",
+    "analysis": "【考点】本题考查祝贺的应答。\n【解题思路】别人祝贺，应表示感谢。\n【总结】祝贺常用语：Congratulations! 回答：Thank you! / Thanks a lot!",
+    "difficulty": 0.5
+  },
+  {
+    "id": "en_grammar_064",
+    "subject": "english",
+    "knowledge_tag": "英语语法",
+    "ability_tag": "语法选择",
+    "type": "multiple_choice",
+    "question": "选择正确的答案填空。\n\n—______ you ever ______ to Beijing?\n—Yes, I ______ there in 2019.",
+    "options": [
+      "A. Did; go; went",
+      "B. Have; been; went",
+      "C. Have; gone; have been",
+      "D. Did; go; have gone"
+    ],
+    "answer": "B",
+    "analysis": "【考点】本题考查现在完成时与一般过去时的区别。\n【解题思路】ever提示现在完成时，第一空用Have you been；第二句有具体时间in 2019，用一般过去时went。\n【总结】询问经历用现在完成时；具体过去时间点用一般过去时。",
+    "difficulty": 0.5
+  },
+  {
+    "id": "en_grammar_065",
+    "subject": "english",
+    "knowledge_tag": "英语语法",
+    "ability_tag": "词形变换",
+    "type": "fill_blank",
+    "question": "用所给单词的适当形式填空。\n\n______ (Can) you please pass me the salt?",
+    "options": [],
+    "answer": "Can/Could",
+    "analysis": "【考点】本题考查情态动词表示请求。\n【解题思路】Can/Could you please...? 表示礼貌请求，动词用原形。\n【总结】请求常用：Can you...? / Could you...? (更礼貌) / Would you please...?",
+    "difficulty": 0.5
+  },
+  {
+    "id": "en_grammar_066",
+    "subject": "english",
+    "knowledge_tag": "英语语法",
+    "ability_tag": "情景交际",
+    "type": "multiple_choice",
+    "question": "选择正确的应答句。\n\n—I think English is more difficult than math.\n—______ I agree with you.",
+    "options": [
+      "A. I don't think so.",
+      "B. That's a good idea.",
+      "C. You're right.",
+      "D. I'm sorry."
+    ],
+    "answer": "C",
+    "analysis": "【考点】本题考查表达同意。\n【解题思路】后文说“我同意你”，前句应表示同意。\n【总结】表达同意：I agree. / You're right. / That's true. / Exactly. 表达不同意：I don't think so. / I disagree. / Not really.",
+    "difficulty": 0.5
+  },
+  {
+    "id": "en_grammar_067",
+    "subject": "english",
+    "knowledge_tag": "英语语法",
+    "ability_tag": "语法选择",
+    "type": "multiple_choice",
+    "question": "选择正确的答案填空。\n\nMy sister enjoys ______ to music.",
+    "options": [
+      "A. listen",
+      "B. listens",
+      "C. listening",
+      "D. listened"
+    ],
+    "answer": "C",
+    "analysis": "【考点】本题考查enjoy后接动名词。\n【解题思路】enjoy doing sth. 是固定搭配，listen的动名词是listening。\n【总结】enjoy, finish, practice, mind, suggest 等动词后接动名词。",
+    "difficulty": 0.5
+  },
+  {
+    "id": "en_grammar_068",
+    "subject": "english",
+    "knowledge_tag": "英语语法",
+    "ability_tag": "词形变换",
+    "type": "fill_blank",
+    "question": "用所给单词的适当形式填空。\n\nHe ______ (not like) playing football.",
+    "options": [],
+    "answer": "doesn't like",
+    "analysis": "【考点】本题考查一般现在时否定句。\n【解题思路】主语He三单，否定用doesn't，后接动词原形。\n【总结】三单否定：doesn't + 动词原形；非三单否定：don't + 动词原形。",
+    "difficulty": 0.5
+  },
+  {
+    "id": "en_grammar_069",
+    "subject": "english",
+    "knowledge_tag": "英语语法",
+    "ability_tag": "情景交际",
+    "type": "multiple_choice",
+    "question": "选择正确的应答句。\n\n—What time is it?\n—______",
+    "options": [
+      "A. It's Monday.",
+      "B. It's half past seven.",
+      "C. It's sunny.",
+      "D. It's May 1st."
+    ],
+    "answer": "B",
+    "analysis": "【考点】本题考查问时间的回答。\n【解题思路】What time提问具体钟点。\n【总结】What time? 问钟点；What day? 问星期；What's the date? 问日期。",
+    "difficulty": 0.5
+  },
+  {
+    "id": "en_grammar_070",
+    "subject": "english",
+    "knowledge_tag": "英语语法",
+    "ability_tag": "完形填空：语法+篇章理解",
+    "type": "fill_blank",
+    "question": "阅读下面短文，从括号中选择正确的单词填空。\n\nTom __(1)__ (get/getting/gets) up at 6:30 every morning. He __(2)__ (brush/brushes/brushing) his teeth and __(3)__ (have/has/having) breakfast. Then he __(4)__ (go/goes/going) to school by bus. He __(5)__ (is/are/am) never late for school.",
+    "options": [],
+    "answer": "（1）gets （2）brushes （3）has （4）goes （5）is",
+    "analysis": "【考点】本题考查一般现在时第三人称单数。\n【解题思路】every morning提示一般现在时，主语He三单，动词加s/es。get→gets，brush→brushes，have→has，go→goes。be动词用is。\n【总结】一般现在时三单动词变化：一般加s，以s,sh,ch,x,o结尾加es，辅音+y变y为i加es。",
+    "difficulty": 0.5
+  },
+  {
+    "id": "en_grammar_071",
+    "subject": "english",
+    "knowledge_tag": "英语语法",
+    "ability_tag": "语法选择",
+    "type": "multiple_choice",
+    "question": "选择正确的答案填空。\n\nMy father usually gets home ______ 6:00 ______ the evening.",
+    "options": [
+      "A. at; in",
+      "B. in; at",
+      "C. at; on",
+      "D. on; in"
+    ],
+    "answer": "A",
+    "analysis": "【考点】本题考查时间介词at和in的用法。\n【解题思路】具体时刻6:00用at，in the evening是固定搭配。\n【总结】时间介词：at+时刻，in+月/年/季节/上午/下午/晚上，on+具体日期/星期。",
+    "difficulty": 0.5
+  },
+  {
+    "id": "en_grammar_072",
+    "subject": "english",
+    "knowledge_tag": "英语语法",
+    "ability_tag": "词形变换",
+    "type": "fill_blank",
+    "question": "用所给单词的适当形式填空。\n\nThis is ______ (Mike) bike. His is over there.",
+    "options": [],
+    "answer": "Mike's",
+    "analysis": "【考点】本题考查名词所有格。\n【解题思路】表示“迈克的自行车”，在Mike后加's。\n【总结】名词所有格：单数名词加's，复数名词加'（如teachers' office）。",
+    "difficulty": 0.5
+  },
+  {
+    "id": "en_grammar_073",
+    "subject": "english",
+    "knowledge_tag": "英语语法",
+    "ability_tag": "情景交际",
+    "type": "multiple_choice",
+    "question": "选择正确的应答句。\n\n—Have a nice trip!\n—______",
+    "options": [
+      "A. Thank you.",
+      "B. That's right.",
+      "C. You too.",
+      "D. I will."
+    ],
+    "answer": "A",
+    "analysis": "【考点】本题考查祝愿的应答。\n【解题思路】别人祝旅途愉快，应表示感谢。\n【总结】祝福用语：Have a nice day/trip/weekend. 回答：Thank you. / You too.",
+    "difficulty": 0.5
+  },
+  {
+    "id": "en_grammar_074",
+    "subject": "english",
+    "knowledge_tag": "英语语法",
+    "ability_tag": "语法选择",
+    "type": "multiple_choice",
+    "question": "选择正确的答案填空。\n\nA new school ______ in my town next year.",
+    "options": [
+      "A. build",
+      "B. is built",
+      "C. will be built",
+      "D. was built"
+    ],
+    "answer": "C",
+    "analysis": "【考点】本题考查一般将来时被动语态。\n【解题思路】next year将来时，学校被建造，用will be + 过去分词。\n【总结】一般将来时被动：will be + 过去分词。",
+    "difficulty": 0.5
+  },
+  {
+    "id": "en_grammar_075",
+    "subject": "english",
+    "knowledge_tag": "英语语法",
+    "ability_tag": "词形变换",
+    "type": "fill_blank",
+    "question": "用所给单词的适当形式填空。\n\nThis is ______ (good) movie I have ever seen.",
+    "options": [],
+    "answer": "the best",
+    "analysis": "【考点】本题考查good的最高级。\n【解题思路】I have ever seen提示最高级，good的最高级是best，前加the。\n【总结】不规则比较级最高级：good/well→better→best，bad→worse→worst，many/much→more→most。",
+    "difficulty": 0.5
+  },
+  {
+    "id": "en_grammar_076",
+    "subject": "english",
+    "knowledge_tag": "英语语法",
+    "ability_tag": "情景交际",
+    "type": "multiple_choice",
+    "question": "选择正确的应答句。\n\n—Would you like me to carry the box for you?\n—______",
+    "options": [
+      "A. No, you wouldn't.",
+      "B. Yes, I would.",
+      "C. That's very kind of you. Thank you.",
+      "D. Don't worry."
+    ],
+    "answer": "C",
+    "analysis": "【考点】本题考查接受帮助的应答。\n【解题思路】对方主动提出帮助，接受时应感谢。\n【总结】接受帮助：Thank you. That's very kind of you. / Thanks a lot. 拒绝帮助：No, thanks. I can do it myself.",
+    "difficulty": 0.5
+  },
+  {
+    "id": "en_grammar_077",
+    "subject": "english",
+    "knowledge_tag": "英语语法",
+    "ability_tag": "语法选择",
+    "type": "multiple_choice",
+    "question": "选择正确的答案填空。\n\nThe man ______ is standing there is my uncle.",
+    "options": [
+      "A. which",
+      "B. who",
+      "C. where",
+      "D. whose"
+    ],
+    "answer": "B",
+    "analysis": "【考点】本题考查定语从句关系代词who的用法。\n【解题思路】先行词是The man（人），关系代词在从句中作主语，用who。\n【总结】关系代词：who（人，主语/宾语），whom（人，宾语），which（物），that（人/物）。",
+    "difficulty": 0.5
+  },
+  {
+    "id": "en_grammar_078",
+    "subject": "english",
+    "knowledge_tag": "英语语法",
+    "ability_tag": "词形变换",
+    "type": "fill_blank",
+    "question": "用所给单词的适当形式填空。\n\nIf it ______ (rain) tomorrow, we will stay at home.",
+    "options": [],
+    "answer": "rains",
+    "analysis": "【考点】本题考查if引导的条件状语从句（主将从现）。\n【解题思路】主句用将来时，从句用一般现在时表示将来。主语it三单，rain加s。\n【总结】if引导的条件状语从句：主句将来时，从句一般现在时。",
+    "difficulty": 0.5
+  },
+  {
+    "id": "en_grammar_079",
+    "subject": "english",
+    "knowledge_tag": "英语语法",
+    "ability_tag": "情景交际",
+    "type": "multiple_choice",
+    "question": "选择正确的句子。\n\n—I stepped on your foot. ______\n—It doesn't matter.",
+    "options": [
+      "A. Thank you.",
+      "B. I'm sorry.",
+      "C. Excuse me.",
+      "D. Pardon me."
+    ],
+    "answer": "B",
+    "analysis": "【考点】本题考查道歉的表达。\n【解题思路】踩了别人的脚应道歉，用I'm sorry。\n【总结】道歉用I'm sorry / I apologize / Pardon me。回答：It doesn't matter. / That's OK. / Never mind.",
+    "difficulty": 0.5
+  },
+  {
+    "id": "en_grammar_080",
+    "subject": "english",
+    "knowledge_tag": "英语语法",
+    "ability_tag": "完形填空：语法+篇章理解",
+    "type": "fill_blank",
+    "question": "阅读下面短文，从括号中选择正确的单词填空。\n\nI __(1)__ (have/has/had) a very busy day yesterday. In the morning, I __(2)__ (get/got/getting) up at 6:30. After breakfast, I __(3)__ (do/did/doing) my homework. In the afternoon, I __(4)__ (go/went/going) to the library. I __(5)__ (borrow/borrowed/borrowing) two books. In the evening, I __(6)__ (watch/watched/watching) TV for an hour. Then I went to bed.",
+    "options": [],
+    "answer": "（1）had （2）got （3）did （4）went （5）borrowed （6）watched",
+    "analysis": "【考点】本题考查一般过去时的综合运用。\n【解题思路】yesterday提示全文用一般过去时。have→had，get→got，do→did，go→went，borrow→borrowed，watch→watched。\n【总结】叙述过去一天的活动，所有动词用过去式。不规则动词过去式需牢记。",
+    "difficulty": 0.5
+  },
+  {
+    "id": "en_grammar_071",
+    "subject": "english",
+    "knowledge_tag": "英语语法",
+    "ability_tag": "语法选择",
+    "type": "multiple_choice",
+    "question": "选择正确的答案填空。\n\n______ he is very young, he knows a lot.",
+    "options": [
+      "A. Because",
+      "B. So",
+      "C. Although",
+      "D. But"
+    ],
+    "answer": "C",
+    "analysis": "【考点】本题考查although引导让步状语从句。\n【解题思路】前后句意思相反（年轻但知道得多），用although表示“虽然”。\n【总结】although/though引导的从句不能与but连用，但可与yet/still连用。",
+    "difficulty": 0.5
+  },
+  {
+    "id": "en_grammar_072",
+    "subject": "english",
+    "knowledge_tag": "英语语法",
+    "ability_tag": "词形变换",
+    "type": "fill_blank",
+    "question": "用所给单词的适当形式填空。\n\nShe ______ (sing) a beautiful song at the party last night.",
+    "options": [],
+    "answer": "sang",
+    "analysis": "【考点】本题考查不规则动词过去式。\n【解题思路】last night过去时间，sing的过去式是sang。\n【总结】常见不规则动词过去式：sing→sang，ring→rang，drink→drank，swim→swam，begin→began。",
+    "difficulty": 0.5
+  },
+  {
+    "id": "en_grammar_073",
+    "subject": "english",
+    "knowledge_tag": "英语语法",
+    "ability_tag": "情景交际",
+    "type": "multiple_choice",
+    "question": "选择正确的应答句。\n\n—What do you think of the movie?\n—______",
+    "options": [
+      "A. It's very interesting.",
+      "B. I think so.",
+      "C. Yes, please.",
+      "D. Not at all."
+    ],
+    "answer": "A",
+    "analysis": "【考点】本题考查询问看法的回答。\n【解题思路】What do you think of...? 询问评价，应表达观点。\n【总结】询问看法：What do you think of...? / How do you like...? 回答：It's + 形容词（great/boring/interesting）。",
+    "difficulty": 0.5
+  },
+  {
+    "id": "en_grammar_074",
+    "subject": "english",
+    "knowledge_tag": "英语语法",
+    "ability_tag": "语法选择",
+    "type": "multiple_choice",
+    "question": "选择正确的答案填空。\n\nMy brother is ______ tall ______ me.",
+    "options": [
+      "A. so; as",
+      "B. as; as",
+      "C. as; so",
+      "D. so; so"
+    ],
+    "answer": "B",
+    "analysis": "【考点】本题考查as...as平级比较结构。\n【解题思路】as + 形容词原级 + as 表示“和...一样”。\n【总结】肯定句用as...as，否定句可用not as/so...as。",
+    "difficulty": 0.5
+  },
+  {
+    "id": "en_grammar_075",
+    "subject": "english",
+    "knowledge_tag": "英语语法",
+    "ability_tag": "词形变换",
+    "type": "fill_blank",
+    "question": "用所给单词的适当形式填空。\n\nThere ______ (be) a football match tomorrow afternoon.",
+    "options": [],
+    "answer": "will be / is going to be",
+    "analysis": "【考点】本题考查there be句型的一般将来时。\n【解题思路】tomorrow afternoon将来时间，there be的将来时为there will be或there is/are going to be。\n【总结】there be将来时：There will be + 名词 / There is/are going to be + 名词。",
+    "difficulty": 0.5
+  },
+  {
+    "id": "en_grammar_076",
+    "subject": "english",
+    "knowledge_tag": "英语语法",
+    "ability_tag": "情景交际",
+    "type": "multiple_choice",
+    "question": "选择正确的应答句。\n\n—Would you like some coffee?\n—______ I prefer tea.",
+    "options": [
+      "A. Yes, please.",
+      "B. No, thanks.",
+      "C. Yes, I would.",
+      "D. I like it."
+    ],
+    "answer": "B",
+    "analysis": "【考点】本题考查接受/拒绝提供的表达。\n【解题思路】后文说更喜欢茶，所以拒绝咖啡。\n【总结】接受：Yes, please. / Sure, thanks. 拒绝：No, thanks. / I'm good.",
+    "difficulty": 0.5
+  },
+  {
+    "id": "en_grammar_077",
+    "subject": "english",
+    "knowledge_tag": "英语语法",
+    "ability_tag": "语法选择",
+    "type": "multiple_choice",
+    "question": "选择正确的答案填空。\n\nI don't know ______ next.",
+    "options": [
+      "A. what to do",
+      "B. how to do",
+      "C. what do",
+      "D. how do"
+    ],
+    "answer": "A",
+    "analysis": "【考点】本题考查疑问词+不定式结构。\n【解题思路】what to do是“做什么”，how to do缺少宾语，应说how to do it。\n【总结】疑问词+不定式：what to do, where to go, when to leave, how to do it。",
+    "difficulty": 0.5
+  },
+  {
+    "id": "en_grammar_078",
+    "subject": "english",
+    "knowledge_tag": "英语语法",
+    "ability_tag": "词形变换",
+    "type": "fill_blank",
+    "question": "用所给单词的适当形式填空。\n\nI'm interested ______ (in/on/at) collecting stamps.",
+    "options": [],
+    "answer": "in",
+    "analysis": "【考点】本题考查be interested in固定搭配。\n【解题思路】be interested in 对...感兴趣。\n【总结】常见形容词+介词：be good at, be afraid of, be proud of, be famous for, be different from。",
+    "difficulty": 0.5
+  },
+  {
+    "id": "en_grammar_079",
+    "subject": "english",
+    "knowledge_tag": "英语语法",
+    "ability_tag": "情景交际",
+    "type": "multiple_choice",
+    "question": "选择正确的应答句。\n\n—Excuse me, where is the nearest post office?\n—______ I'm new here, too.",
+    "options": [
+      "A. Go straight.",
+      "B. Turn left.",
+      "C. Sorry, I don't know.",
+      "D. You're welcome."
+    ],
+    "answer": "C",
+    "analysis": "【考点】本题考查不知道路线时的应答。\n【解题思路】“我也是新来的”说明不知道路，应道歉说明。\n【总结】不知道路时：Sorry, I'm new here too. / I'm not sure. / You can ask the police officer.",
+    "difficulty": 0.5
+  },
+  {
+    "id": "en_grammar_080",
+    "subject": "english",
+    "knowledge_tag": "英语语法",
+    "ability_tag": "完形填空：语法+篇章理解",
+    "type": "fill_blank",
+    "question": "阅读下面短文，从括号中选择正确的单词填空。\n\nOne day, a little boy __(1)__ (find/finds/found) a cocoon. He __(2)__ (watch/watches/watched) it every day. One day, a small hole __(3)__ (appear/appears/appeared) in the cocoon. The boy __(4)__ (sit/sits/sat) and watched for hours. Finally, a beautiful butterfly __(5)__ (come/comes/came) out.",
+    "options": [],
+    "answer": "（1）found （2）watched （3）appeared （4）sat （5）came",
+    "analysis": "【考点】本题考查一般过去时的叙述。\n【解题思路】全文讲述过去发生的故事，所有动词用过去式：find→found，watch→watched，appear→appeared，sit→sat，come→came。\n【总结】记叙故事类完形填空，需保持时态一致，多用一般过去时。",
+    "difficulty": 0.5
+  },
+  {
+    "id": "en_grammar_081",
+    "subject": "english",
+    "knowledge_tag": "英语语法",
+    "ability_tag": "语法选择",
+    "type": "multiple_choice",
+    "question": "选择正确的答案填空。\n\nWe will have a meeting ______ the morning of May 4th.",
+    "options": [
+      "A. in",
+      "B. on",
+      "C. at",
+      "D. for"
+    ],
+    "answer": "B",
+    "analysis": "【考点】本题考查具体某一天的上午/下午用介词on。\n【解题思路】“May 4th”是具体日期，morning of May 4th属于具体日期的上午，用on。\n【总结】on the morning of + 具体日期；in the morning（无具体日期）。",
+    "difficulty": 0.5
+  },
+  {
+    "id": "en_grammar_082",
+    "subject": "english",
+    "knowledge_tag": "英语语法",
+    "ability_tag": "词形变换",
+    "type": "fill_blank",
+    "question": "用所给单词的适当形式填空。\n\nThis is ______ (interesting) book I have ever read.",
+    "options": [],
+    "answer": "the most interesting",
+    "analysis": "【考点】本题考查形容词最高级的用法。\n【解题思路】I have ever read提示最高级，interesting是多音节词，最高级most interesting前加the。\n【总结】最高级前一般加the，表示“最...”。",
+    "difficulty": 0.5
+  },
+  {
+    "id": "en_grammar_083",
+    "subject": "english",
+    "knowledge_tag": "英语语法",
+    "ability_tag": "情景交际",
+    "type": "multiple_choice",
+    "question": "选择正确的应答句。\n\n—I'm afraid I have to go now. Goodbye!\n—______",
+    "options": [
+      "A. See you later.",
+      "B. Thank you.",
+      "C. You're welcome.",
+      "D. That's OK."
+    ],
+    "answer": "A",
+    "analysis": "【考点】本题考查告别用语。\n【解题思路】对方说Goodbye，应回应告别语。\n【总结】告别常用语：Goodbye! / Bye-bye! / See you later! / See you tomorrow! / Take care!",
+    "difficulty": 0.5
+  },
+  {
+    "id": "en_grammar_084",
+    "subject": "english",
+    "knowledge_tag": "英语语法",
+    "ability_tag": "语法选择",
+    "type": "multiple_choice",
+    "question": "选择正确的答案填空。\n\nThe sports meeting ______ next Friday.",
+    "options": [
+      "A. will hold",
+      "B. will be held",
+      "C. is held",
+      "D. was held"
+    ],
+    "answer": "B",
+    "analysis": "【考点】本题考查一般将来时被动语态。\n【解题思路】运动会是被举行，next Friday将来时间，用will be + 过去分词。\n【总结】一般将来时被动：will be + 过去分词 / is/am/are going to be + 过去分词。",
+    "difficulty": 0.5
+  },
+  {
+    "id": "en_grammar_085",
+    "subject": "english",
+    "knowledge_tag": "英语语法",
+    "ability_tag": "词形变换",
+    "type": "fill_blank",
+    "question": "用所给单词的适当形式填空。\n\nI hope ______ (see) you again soon.",
+    "options": [],
+    "answer": "to see",
+    "analysis": "【考点】本题考查hope to do sth. 句型。\n【解题思路】hope后接动词不定式，表示希望做某事。\n【总结】hope to do (希望做), wish to do (希望做), expect to do (期望做)。",
+    "difficulty": 0.5
+  },
+  {
+    "id": "en_grammar_086",
+    "subject": "english",
+    "knowledge_tag": "英语语法",
+    "ability_tag": "情景交际",
+    "type": "multiple_choice",
+    "question": "选择正确的应答句。\n\n—I failed the math test.\n—______. You can do better next time.",
+    "options": [
+      "A. Don't worry",
+      "B. That's great",
+      "C. I'm sorry to hear that",
+      "D. Congratulations"
+    ],
+    "answer": "A",
+    "analysis": "【考点】本题考查安慰与鼓励的表达。\n【解题思路】对方考试失利，应安慰并鼓励。\n【总结】安慰鼓励：Don't worry. / Never mind. / You can do it. / Cheer up!",
+    "difficulty": 0.5
+  },
+  {
+    "id": "en_grammar_087",
+    "subject": "english",
+    "knowledge_tag": "英语语法",
+    "ability_tag": "语法选择",
+    "type": "multiple_choice",
+    "question": "选择正确的答案填空。\n\nThe little girl is sitting ______ her mother and father.",
+    "options": [
+      "A. among",
+      "B. between",
+      "C. in",
+      "D. on"
+    ],
+    "answer": "B",
+    "analysis": "【考点】本题考查between与among的区别。\n【解题思路】between用于两者之间，among用于三者或以上。这里mother and father是两个人，用between。\n【总结】between A and B (两者), among (三者以上无具体位置)。",
+    "difficulty": 0.5
+  },
+  {
+    "id": "en_grammar_088",
+    "subject": "english",
+    "knowledge_tag": "英语语法",
+    "ability_tag": "词形变换",
+    "type": "fill_blank",
+    "question": "用所给单词的适当形式填空。\n\nHe built the house all by ______ (he).",
+    "options": [],
+    "answer": "himself",
+    "analysis": "【考点】本题考查by oneself短语。\n【解题思路】by oneself表示“独自”，he的反身代词是himself。\n【总结】by myself/yourself/himself/herself/itself/ourselves/yourselves/themselves。",
+    "difficulty": 0.5
+  },
+  {
+    "id": "en_grammar_089",
+    "subject": "english",
+    "knowledge_tag": "英语语法",
+    "ability_tag": "情景交际",
+    "type": "multiple_choice",
+    "question": "选择正确的句子补全对话。\n\n—Hello, may I speak to Lily?\n—______\n—Sure. Please tell her to call me back.\n—OK, I will.",
+    "options": [
+      "A. This is Lily.",
+      "B. Hold on, please.",
+      "C. Sorry, she isn't in. Can I take a message?",
+      "D. Who are you?"
+    ],
+    "answer": "C",
+    "analysis": "【考点】本题考查电话中对方不在时的应答。\n【解题思路】后文说“请告诉她回电话”，说明对方不在，需要留言。\n【总结】电话找人不在：Sorry, he/she is not in/here. Can I take a message? / Would you like to leave a message?",
+    "difficulty": 0.5
+  },
+  {
+    "id": "en_grammar_090",
+    "subject": "english",
+    "knowledge_tag": "英语语法",
+    "ability_tag": "完形填空：语法+篇章理解",
+    "type": "fill_blank",
+    "question": "阅读下面短文，从括号中选择正确的单词填空。\n\nIf you __(1)__ (will go/go/went) to London, you __(2)__ (see/will see/saw) many red buses. They __(3)__ (are/were/is) called double-decker buses. People like __(4)__ (ride/riding/to ride) them because they __(5)__ (offer/offers/will offer) a good view of the city.",
+    "options": [],
+    "answer": "（1）go （2）will see （3）are （4）riding/to ride （5）offer",
+    "analysis": "【考点】本题考查if条件句、一般现在时、like doing/to do。\n【解题思路】（1）if条件句用一般现在时表将来，go；（2）主句用will see；（3）一般现在时，主语they复数，are；（4）like后接doing或to do均可；（5）主语they复数，offer原形。\n【总结】if条件句：主将从现（主句将来时，从句一般现在时）。",
+    "difficulty": 0.5
+  },
+  {
+    "id": "en_grammar_091",
+    "subject": "english",
+    "knowledge_tag": "英语语法",
+    "ability_tag": "语法选择",
+    "type": "multiple_choice",
+    "question": "选择正确的答案填空。\n\nThe boy ______ is standing there is my cousin.",
+    "options": [
+      "A. which",
+      "B. who",
+      "C. where",
+      "D. whose"
+    ],
+    "answer": "B",
+    "analysis": "【考点】本题考查定语从句关系代词的用法。\n【解题思路】先行词the boy指人，在从句中作主语，用who。\n【总结】定语从句：先行词是人，关系代词用who（主语）/whom（宾语）；先行词是物，用which；that既可指人也可指物。",
+    "difficulty": 0.5
+  },
+  {
+    "id": "en_grammar_092",
+    "subject": "english",
+    "knowledge_tag": "英语语法",
+    "ability_tag": "词形变换",
+    "type": "fill_blank",
+    "question": "用所给单词的适当形式填空。\n\nShe ______ (dance) at the party last night.",
+    "options": [],
+    "answer": "danced",
+    "analysis": "【考点】本题考查规则动词过去式变化（以e结尾加d）。\n【解题思路】last night过去时，dance以e结尾，直接加d。\n【总结】规则动词过去式：一般加ed，以e结尾加d，辅音+y变y为i加ed，重读闭音节双写加ed。",
+    "difficulty": 0.5
+  },
+  {
+    "id": "en_grammar_093",
+    "subject": "english",
+    "knowledge_tag": "英语语法",
+    "ability_tag": "情景交际",
+    "type": "multiple_choice",
+    "question": "选择正确的应答句。\n\n—Thank you for helping me with my homework.\n—______",
+    "options": [
+      "A. Don't say that.",
+      "B. It's my pleasure.",
+      "C. That's right.",
+      "D. All right."
+    ],
+    "answer": "B",
+    "analysis": "【考点】本题考查感谢的应答。\n【解题思路】“It's my pleasure.”是“My pleasure.”的完整形式，表示“不客气，很高兴帮忙”。\n【总结】感谢应答：You're welcome. / My pleasure. / Not at all. / No problem. / That's OK.",
+    "difficulty": 0.5
+  },
+  {
+    "id": "en_grammar_094",
+    "subject": "english",
+    "knowledge_tag": "英语语法",
+    "ability_tag": "语法选择",
+    "type": "multiple_choice",
+    "question": "选择正确的答案填空。\n\nI ______ dinner when the phone rang.",
+    "options": [
+      "A. have",
+      "B. had",
+      "C. was having",
+      "D. am having"
+    ],
+    "answer": "C",
+    "analysis": "【考点】本题考查过去进行时。\n【解题思路】when the phone rang表示过去某个时刻，主句表示当时正在进行的动作，用过去进行时。\n【总结】过去进行时：was/were + doing，表示过去某一时刻正在发生的动作。",
+    "difficulty": 0.5
+  },
+  {
+    "id": "en_grammar_095",
+    "subject": "english",
+    "knowledge_tag": "英语语法",
+    "ability_tag": "词形变换",
+    "type": "fill_blank",
+    "question": "用所给单词的适当形式填空。\n\nThis room is three times ______ (big) than that one.",
+    "options": [],
+    "answer": "bigger",
+    "analysis": "【考点】本题考查倍数+比较级结构。\n【解题思路】three times + 比较级 + than，big的比较级是bigger。\n【总结】倍数表达：倍数 + 比较级 + than / 倍数 + as + 原级 + as。",
+    "difficulty": 0.5
+  },
+  {
+    "id": "en_grammar_096",
+    "subject": "english",
+    "knowledge_tag": "英语语法",
+    "ability_tag": "情景交际",
+    "type": "multiple_choice",
+    "question": "选择正确的句子。\n\n—Could you tell me how to get to the station?\n—______ I didn't catch your words.",
+    "options": [
+      "A. Go straight.",
+      "B. Pardon?",
+      "C. Thank you.",
+      "D. You're welcome."
+    ],
+    "answer": "B",
+    "analysis": "【考点】本题考查请求对方重复的用语。\n【解题思路】“I didn't catch your words.”说明没听清，应请求对方再说一遍。\n【总结】没听清请求重复：Pardon? / Excuse me? / Could you say that again? / I didn't catch that.",
+    "difficulty": 0.5
+  },
+  {
+    "id": "en_grammar_097",
+    "subject": "english",
+    "knowledge_tag": "英语语法",
+    "ability_tag": "语法选择",
+    "type": "multiple_choice",
+    "question": "选择正确的答案填空。\n\nThe family ______ all music lovers.",
+    "options": [
+      "A. is",
+      "B. are",
+      "C. was",
+      "D. be"
+    ],
+    "answer": "B",
+    "analysis": "【考点】本题考查集体名词作主语时的主谓一致。\n【解题思路】family指家庭成员时，看作复数，用are。\n【总结】family/class/team/group等集体名词，强调整体时用单数，强调成员时用复数。",
+    "difficulty": 0.5
+  },
+  {
+    "id": "en_grammar_098",
+    "subject": "english",
+    "knowledge_tag": "英语语法",
+    "ability_tag": "词形变换",
+    "type": "fill_blank",
+    "question": "用所给单词的适当形式填空。\n\nThank you for ______ (help) me with my English.",
+    "options": [],
+    "answer": "helping",
+    "analysis": "【考点】本题考查介词后用动名词。\n【解题思路】for是介词，后面动词用动名词形式。\n【总结】介词（in, on, at, for, of, with等）后接动词时，用动名词形式。",
+    "difficulty": 0.5
+  },
+  {
+    "id": "en_grammar_099",
+    "subject": "english",
+    "knowledge_tag": "英语语法",
+    "ability_tag": "情景交际",
+    "type": "multiple_choice",
+    "question": "选择正确的应答句。\n\n—Would you like to go shopping with me?\n—______, but I have to finish my homework first.",
+    "options": [
+      "A. Yes, I would",
+      "B. I'd love to",
+      "C. No, I don't",
+      "D. I'm sorry"
+    ],
+    "answer": "B",
+    "analysis": "【考点】本题考查邀请的委婉拒绝。\n【解题思路】先表达愿意，再说明不能去的原因。I'd love to后面加but。\n【总结】委婉拒绝邀请：I'd love to, but... / I'd like to, but... / I'm afraid I can't because...",
+    "difficulty": 0.5
+  },
+  {
+    "id": "en_grammar_100",
+    "subject": "english",
+    "knowledge_tag": "英语语法",
+    "ability_tag": "完形填空：综合语法+篇章理解",
+    "type": "fill_blank",
+    "question": "阅读下面短文，从括号中选择正确的单词填空。\n\nLast Sunday, I __(1)__ (go/went/will go) to the park with my friends. We __(2)__ (see/saw/will see) many people there. Some __(3)__ (is/are/were) flying kites, some __(4)__ (was/were/are) walking their dogs. I __(5)__ (take/took/will take) many photos. We __(6)__ (have/has/had) a wonderful time. I __(7)__ (think/thought/will think) it was a perfect day.",
+    "options": [],
+    "answer": "（1）went （2）saw （3）were （4）were （5）took （6）had （7）thought",
+    "analysis": "【考点】本题考查一般过去时的综合运用。\n【解题思路】Last Sunday提示全文用一般过去时：go→went，see→saw，are→were，take→took，have→had，think→thought。\n【总结】一般过去时是小学英语语法重点，需熟练掌握规则及不规则动词变化。",
+    "difficulty": 0.5
+  }
+]

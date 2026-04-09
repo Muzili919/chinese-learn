@@ -1053,7 +1053,7 @@ function MatchingQuestion({ question, onDone }) {
 
 // ─── 主组件 ──────────────────────────────────────────────
 
-export default function DuolingoStyleQuiz({ question, onAnswerSubmit, showVariantButton }) {
+export default function DuolingoStyleQuiz({ question, onAnswerSubmit, showVariantButton, onSpeak }) {
   const [phase, setPhase] = useState('answering') // 'answering'|'correct'|'wrong'
   const [chosenAnswer, setChosenAnswer] = useState(null)
   const [variantQ, setVariantQ] = useState(null)
@@ -1123,8 +1123,24 @@ export default function DuolingoStyleQuiz({ question, onAnswerSubmit, showVarian
         </div>
       )}
 
+      {/* multiple_choice 题干（英语题使用） */}
+      {question.type === 'multiple_choice' && (
+        <div className="bg-white rounded-3xl px-5 py-5 shadow-sm border border-gray-100">
+          <div className="flex items-start gap-2">
+            <p className="text-lg text-gray-800 leading-relaxed font-medium flex-1 whitespace-pre-wrap">{question.question}</p>
+            {onSpeak && (
+              <button
+                onClick={() => onSpeak(question.question)}
+                className="inline-flex items-center justify-center w-8 h-8 bg-sky-100 text-sky-500 rounded-full text-lg ml-2 flex-shrink-0 active:bg-sky-200 transition-colors"
+                title="朗读题目"
+              >🔊</button>
+            )}
+          </div>
+        </div>
+      )}
+
       {/* 答题区 */}
-      {question.type === 'single_choice'  && <ChoiceQuestion        question={question} onDone={handleDone} />}
+      {(question.type === 'single_choice' || question.type === 'multiple_choice') && <ChoiceQuestion question={question} onDone={handleDone} />}
       {question.type === 'multi_meaning'  && <MultiMeaningQuestion   question={question} onDone={handleDone} />}
       {question.type === 'matching'       && <MatchingQuestion       question={question} onDone={handleDone} />}
       {isFill && fillType === 'judgment'  && <JudgmentQuestion       question={question} onDone={handleDone} />}

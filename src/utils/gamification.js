@@ -751,7 +751,6 @@ function getPetPool(state) { return state.petPool; }
 //  导出
 // ============================================================
 export {
-  initGamificationState,
   gainExpForLearning,
   feedPet,
   tapPet,
@@ -761,7 +760,7 @@ export {
   getPetPool,
   getPetStage,
   // 以下已通过 export function 直接导出:
-  // cleanPet, restPet, tickPetStats, claimTaskReward, updateTaskProgress
+  // initGamificationState, cleanPet, restPet, tickPetStats, claimTaskReward, updateTaskProgress
   // equipAccessory, unequipAccessory, buyAccessory, useItemOnPet
   // getDialogueType, getDialogue, initDailyTasks, getEquippedAccessory
 };

@@ -44,6 +44,7 @@ const PLANETS = [
   { id: '句子',   label: '句子星球', emoji: '✏️', color: 'from-violet-400 to-purple-600', desc: '修辞·句式·病句·关联词' },
   { id: 'reading',label: '阅读星球', emoji: '📖', color: 'from-emerald-400 to-teal-600', desc: 'AI评分·短文阅读理解', reading: true },
   { id: '文学常识',label: '文学星球', emoji: '🎭', color: 'from-rose-400 to-pink-600',   desc: '四大名著·标点·文体' },
+  { id: 'sentence_practice', label: '造句星球', emoji: '✍️', color: 'from-amber-400 to-orange-500', desc: 'AI即时批改·学会用词' },
   { id: 'essay', label: '作文星球', emoji: '📝', color: 'from-pink-500 to-rose-600', desc: 'AI三维评分·提升写作' },
 ]
 
@@ -52,13 +53,13 @@ const QUIZ_PLANET_IDS = ['字词', '古诗词', '成语', '句子', '文学常�
 // 科目配置
 const SUBJECTS = [
   { id: 'chinese', label: '语文', emoji: '📖', available: true },
-  { id: 'english', label: '英语', emoji: '🌎', available: false },
+  { id: 'english', label: '英语', emoji: '🌎', available: true },
   { id: 'math',    label: '数学', emoji: '🔢', available: false },
 ]
 
-export default function HomePage({ user, onStartQuiz, onReport, onLogout }) {
+export default function HomePage({ user, onStartQuiz, onReport, onLogout, onSubjectChange, activeSubject: activeSubjectProp }) {
   const [showLogoutConfirm, setShowLogoutConfirm] = useState(false)
-  const [activeSubject, setActiveSubject] = useState('chinese')
+  const [activeSubject, setActiveSubject] = useState(activeSubjectProp || 'chinese')
   const [subjectToast, setSubjectToast] = useState(null)
 
   const xp = storage.getXP(user.id)
@@ -84,6 +85,9 @@ export default function HomePage({ user, onStartQuiz, onReport, onLogout }) {
   function handleSubjectClick(subject) {
     if (subject.available) {
       setActiveSubject(subject.id)
+      if (subject.id === 'english' && onSubjectChange) {
+        onSubjectChange('english')
+      }
     } else {
       setSubjectToast(subject.label)
       setTimeout(() => setSubjectToast(null), 2500)
@@ -277,6 +281,7 @@ export default function HomePage({ user, onStartQuiz, onReport, onLogout }) {
                 onClick={() => {
                   if (planet.reading) onStartQuiz({ reading: true })
                   else if (planet.id === 'essay') onStartQuiz({ essay: true })
+                  else if (planet.id === 'sentence_practice') onStartQuiz({ sentencePractice: true })
                   else onStartQuiz(planet.id === 'all' ? {} : { knowledgeTag: planet.id })
                 }}
                 className={`w-full bg-gradient-to-r ${planet.color} text-white rounded-2xl p-4 flex items-center gap-4 shadow-sm active:scale-95 transition-transform`}

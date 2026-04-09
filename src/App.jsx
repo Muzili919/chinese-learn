@@ -10,6 +10,8 @@ import SentencePracticePage from './pages/SentencePracticePage'
 import EssayPage from './pages/EssayPage'
 import WrongAnswersPage from './pages/WrongAnswersPage'
 import MV1Demo from './pages/MV1Demo'
+import EnglishHomePage from './pages/EnglishHomePage'
+import EnglishQuizPage from './pages/EnglishQuizPage'
 import { initGamificationState } from './utils/gamification'
 import { fetchMV1State, upsertMV1State } from './utils/mv1_cloud'
 
@@ -130,6 +132,8 @@ export default function App() {
   const [quizOptions, setQuizOptions] = useState(null)
   const [gameState, setGameState] = useState(() => initGamificationState())
   const [overdueCount, setOverdueCount] = useState(0)
+  const [englishQuizOptions, setEnglishQuizOptions] = useState({})
+  const [activeSubject, setActiveSubject] = useState('chinese')
 
   // 加载宠物游戏状态
   useEffect(() => {
@@ -156,12 +160,25 @@ export default function App() {
   }
 
   function startQuiz(opts = {}) {
-    setQuizOptions(opts)
-    if (opts.reading) setPage('reading')
-    else if (opts.sentencePractice) setPage('sentence_practice')
-    else if (opts.essay) setPage('essay')
-    else if (opts.wrongReview) setPage('wrong_answers_quiz')
-    else setPage('quiz')
+    if (opts.englishTag) {
+      setEnglishQuizOptions(opts)
+      setPage('englishQuiz')
+    } else if (opts.reading) {
+      setQuizOptions(opts)
+      setPage('reading')
+    } else if (opts.sentencePractice) {
+      setQuizOptions(opts)
+      setPage('sentence_practice')
+    } else if (opts.essay) {
+      setQuizOptions(opts)
+      setPage('essay')
+    } else if (opts.wrongReview) {
+      setQuizOptions(opts)
+      setPage('wrong_answers_quiz')
+    } else {
+      setQuizOptions(opts)
+      setPage('quiz')
+    }
   }
 
   function finishQuiz(result) {
@@ -173,6 +190,7 @@ export default function App() {
     setPage('home')
     setSessionResult(null)
     setQuizOptions(null)
+    setEnglishQuizOptions({})
     if (user?.id) setOverdueCount(storage.getOverdueWrongCount(user.id))
   }
 
@@ -188,6 +206,8 @@ export default function App() {
   function handleTabChange(tab) {
     setActiveTab(tab)
     setPage('home') // 确保回到主页模式
+    // 切换 tab 时重置科目到语文（避免英语主页残留在非学习tab）
+    if (tab !== 'home') setActiveSubject('chinese')
   }
 
   // 是否显示底部导航（仅主界面）
@@ -209,17 +229,38 @@ export default function App() {
     )
     if (page === 'result') return <ResultPage result={sessionResult} user={user} onHome={goHome} onRetry={() => startQuiz(quizOptions)} />
     if (page === 'report') return <ReportPage user={user} onBack={goHome} />
+    if (page === 'englishQuiz') return (
+      <EnglishQuizPage
+        user={user}
+        options={englishQuizOptions}
+        onFinish={(result) => { setSessionResult(result); setPage('result') }}
+        onBack={() => { setPage('home'); setActiveSubject('english') }}
+      />
+    )
 
     // 主页模式：根据 activeTab 渲染
     if (page === 'home') {
-      if (activeTab === 'home') return (
-        <HomePage
-          user={user}
-          onStartQuiz={startQuiz}
-          onReport={() => setPage('report')}
-          onLogout={handleLogout}
-        />
-      )
+      if (activeTab === 'home') {
+        // 英语主页
+        if (activeSubject === 'english') return (
+          <EnglishHomePage
+            user={user}
+            onStartQuiz={startQuiz}
+            onBack={() => setActiveSubject('chinese')}
+          />
+        )
+        // 语文主页（默认）
+        return (
+          <HomePage
+            user={user}
+            onStartQuiz={startQuiz}
+            onReport={() => setPage('report')}
+            onLogout={handleLogout}
+            onSubjectChange={setActiveSubject}
+            activeSubject={activeSubject}
+          />
+        )
+      }
       if (activeTab === 'pet') return (
         <MV1Demo
           onBack={() => setActiveTab('home')}

@@ -1,0 +1,782 @@
+[
+  {
+    "id": "en_listen_001",
+    "subject": "english",
+    "knowledge_tag": "英语听力",
+    "ability_tag": "听力辨识",
+    "type": "multiple_choice",
+    "question": "听录音，选择与所听内容相符的图片。",
+    "options": [
+      "A. 一个红色书包的图片描述",
+      "B. 一个蓝白相间书包的图片描述",
+      "C. 一个绿色书包的图片描述",
+      "D. 一个黄色书包的图片描述"
+    ],
+    "answer": "B",
+    "analysis": "【考点】本题考查听辨颜色和物品名词。\n【解题思路】听力文本中提到“schoolbag”和“blue and white”，需匹配蓝白相间的书包。\n【总结】听音选图题要抓住关键词：物品（schoolbag）和颜色（blue and white）。",
+    "difficulty": 0.5,
+    "listening_text": "I have a new schoolbag. It's blue and white."
+  },
+  {
+    "id": "en_listen_002",
+    "subject": "english",
+    "knowledge_tag": "英语听力",
+    "ability_tag": "听力辨识",
+    "type": "multiple_choice",
+    "question": "听录音，选择你所听到的单词。",
+    "options": [
+      "A. strict",
+      "B. funny",
+      "C. kind",
+      "D. young"
+    ],
+    "answer": "C",
+    "analysis": "【考点】本题考查听辨描述人物性格的形容词。\n【解题思路】听力文本中的关键词是“kind”。\n【总结】听单词题要集中注意力捕捉核心形容词。",
+    "difficulty": 0.5,
+    "listening_text": "My math teacher is very kind."
+  },
+  {
+    "id": "en_listen_003",
+    "subject": "english",
+    "knowledge_tag": "英语听力",
+    "ability_tag": "听力判断",
+    "type": "multiple_choice",
+    "question": "听对话，判断下列说法是否正确，正确的选T，错误的选F。",
+    "options": [
+      "A. T",
+      "B. F"
+    ],
+    "answer": "A",
+    "analysis": "【考点】本题考查听辨星期和课程安排。\n【解题思路】对话中明确提到“We have art class on Wednesdays.”。\n【总结】听对话判断要关注细节信息，特别是星期和活动。",
+    "difficulty": 0.5,
+    "listening_text": "W: What day is it today?\nM: It's Wednesday.\nW: Great! We have art class on Wednesdays.\n\n句子：They have art class on Wednesdays."
+  },
+  {
+    "id": "en_listen_004",
+    "subject": "english",
+    "knowledge_tag": "英语听力",
+    "ability_tag": "听力排序",
+    "type": "fill_blank",
+    "question": "听录音，将下列图片按听到的顺序排序（1-4）。",
+    "options": [],
+    "answer": "B → A → C → D",
+    "analysis": "【考点】本题考查听辨时间顺序和日常活动。\n【解题思路】按文本顺序：起床→吃早餐→上学→上英语课。\n【总结】听音排序要抓住顺序词：first, then, after that, finally。",
+    "difficulty": 0.5,
+    "listening_text": "First, I get up at 7 o'clock.\nThen, I eat breakfast at 7:30.\nAfter that, I go to school at 8 o'clock.\nFinally, I have English class at 9 o'clock.\n\n选项（图片描述）：\nA. 吃早餐\nB. 起床\nC. 上学\nD. 上英语课"
+  },
+  {
+    "id": "en_listen_005",
+    "subject": "english",
+    "knowledge_tag": "英语听力",
+    "ability_tag": "听短文填空",
+    "type": "fill_blank",
+    "question": "听短文，填入所缺的单词。",
+    "options": [],
+    "answer": "summer",
+    "analysis": "【考点】本题考查听辨季节及原因。\n【解题思路】从“go swimming”可推断出季节是夏季。\n【总结】听短文填空要结合常识和上下文推理。",
+    "difficulty": 0.5,
+    "listening_text": "My name is Amy. I am 11 years old. My favorite season is ______ because I can go swimming."
+  },
+  {
+    "id": "en_listen_006",
+    "subject": "english",
+    "knowledge_tag": "英语听力",
+    "ability_tag": "听力辨识",
+    "type": "multiple_choice",
+    "question": "听录音，选择与所听内容相符的图片。",
+    "options": [
+      "A. 狗在沙发上睡觉",
+      "B. 狗在树下睡觉",
+      "C. 狗在椅子上睡觉",
+      "D. 狗在桌子上睡觉"
+    ],
+    "answer": "B",
+    "analysis": "【考点】本题考查听辨方位介词（under）和地点名词（tree）。\n【解题思路】关键词“under the tree”。\n【总结】注意介词短语的位置信息。",
+    "difficulty": 0.5,
+    "listening_text": "The dog is sleeping under the tree."
+  },
+  {
+    "id": "en_listen_007",
+    "subject": "english",
+    "knowledge_tag": "英语听力",
+    "ability_tag": "听对话选择回答",
+    "type": "multiple_choice",
+    "question": "听对话，选择正确的应答句。",
+    "options": [
+      "A. Yes, please.",
+      "B. No, I don't.",
+      "C. Yes, I like.",
+      "D. No, please."
+    ],
+    "answer": "A",
+    "analysis": "【考点】本题考查情景交际中接受邀请的正确表达。\n【解题思路】Would you like...? 的肯定回答是 Yes, please. 否定回答是 No, thanks.\n【总结】情景对话要记忆固定句型。",
+    "difficulty": 0.5,
+    "listening_text": "M: Would you like some juice?\nW: ______"
+  },
+  {
+    "id": "en_listen_008",
+    "subject": "english",
+    "knowledge_tag": "英语听力",
+    "ability_tag": "听音判断正误",
+    "type": "multiple_choice",
+    "question": "听录音，判断下列句子与所听内容是否相符。相符选T，不相符选F。",
+    "options": [
+      "A. T",
+      "B. F"
+    ],
+    "answer": "B",
+    "analysis": "【考点】本题考查听辨数字信息。\n【解题思路】文本提到四口人，句子说三口人，不符。\n【总结】注意数字细节的精确捕捉。",
+    "difficulty": 0.5,
+    "listening_text": "There are four people in my family: my parents, my sister and me.\n\n句子：There are three people in the speaker's family."
+  },
+  {
+    "id": "en_listen_009",
+    "subject": "english",
+    "knowledge_tag": "英语听力",
+    "ability_tag": "词汇运用",
+    "type": "fill_blank",
+    "question": "听录音，选择正确的单词填空。",
+    "options": [],
+    "answer": "A",
+    "analysis": "【考点】本题考查一般现在时主语I后面的动词原形。\n【解题思路】I为第一人称，谓语用动词原形。\n【总结】听力中语法题要结合主谓一致判断。",
+    "difficulty": 0.5,
+    "listening_text": "I often ______ books on the weekend.\n\n选项：\nA. read\nB. reads\nC. reading\nD. to read"
+  },
+  {
+    "id": "en_listen_010",
+    "subject": "english",
+    "knowledge_tag": "英语听力",
+    "ability_tag": "听短文排序",
+    "type": "fill_blank",
+    "question": "听短文，将下列活动按听到的顺序排序。",
+    "options": [],
+    "answer": "C → D → A → B",
+    "analysis": "【考点】本题考查听辨一天中的活动顺序。\n【解题思路】按时间顺序：上午做作业→然后去公园→下午踢足球→晚上看电视。\n【总结】注意时间状语和顺序连词（then, in the afternoon, in the evening）。",
+    "difficulty": 0.5,
+    "listening_text": "In the morning, I do my homework. Then I go to the park. In the afternoon, I play football. In the evening, I watch TV.\n\n活动：\nA. 踢足球\nB. 看电视\nC. 做作业\nD. 去公园"
+  },
+  {
+    "id": "en_listen_011",
+    "subject": "english",
+    "knowledge_tag": "英语听力",
+    "ability_tag": "听力辨识",
+    "type": "multiple_choice",
+    "question": "听录音，选择与所听内容相符的图片。",
+    "options": [
+      "A. 警察在警局",
+      "B. 医生在医院",
+      "C. 老师在教室",
+      "D. 农民在农场"
+    ],
+    "answer": "B",
+    "analysis": "【考点】本题考查听辨职业和工作地点。\n【解题思路】关键词“doctor”和“hospital”。\n【总结】抓住职业名词和地点名词的对应关系。",
+    "difficulty": 0.5,
+    "listening_text": "My uncle is a doctor. He works in a hospital."
+  },
+  {
+    "id": "en_listen_012",
+    "subject": "english",
+    "knowledge_tag": "英语听力",
+    "ability_tag": "听力辨识",
+    "type": "multiple_choice",
+    "question": "听录音，选择你所听到的单词。",
+    "options": [
+      "A. sunny",
+      "B. rainy",
+      "C. cloudy",
+      "D. windy"
+    ],
+    "answer": "A",
+    "analysis": "【考点】本题考查听辨天气类形容词。\n【解题思路】听力文本中明确提到“sunny”。\n【总结】天气类词汇要能快速识别。",
+    "difficulty": 0.5,
+    "listening_text": "The weather is sunny and hot today."
+  },
+  {
+    "id": "en_listen_013",
+    "subject": "english",
+    "knowledge_tag": "英语听力",
+    "ability_tag": "听力判断",
+    "type": "multiple_choice",
+    "question": "听对话，判断下列说法是否正确，正确的选T，错误的选F。",
+    "options": [
+      "A. T",
+      "B. F"
+    ],
+    "answer": "B",
+    "analysis": "【考点】本题考查听辨能力（can/can't）。\n【解题思路】Lily回答“Yes, I can.”，说明她会游泳。\n【总结】注意听清肯定和否定回答。",
+    "difficulty": 0.5,
+    "listening_text": "M: Can you swim, Lily?\nW: Yes, I can. I can swim very well.\n\n句子：Lily cannot swim."
+  },
+  {
+    "id": "en_listen_014",
+    "subject": "english",
+    "knowledge_tag": "英语听力",
+    "ability_tag": "听力排序",
+    "type": "fill_blank",
+    "question": "听录音，将下列食物按听到的顺序排序（1-4）。",
+    "options": [],
+    "answer": "B → A → C → D",
+    "analysis": "【考点】本题考查听辨三餐及食物顺序。\n【解题思路】按文本顺序：早餐（bread and milk）→午餐（rice and chicken）→晚餐（noodles and fish）→甜点（ice cream）。\n【总结】关注时间词：breakfast, lunch, dinner, dessert。",
+    "difficulty": 0.5,
+    "listening_text": "For breakfast, I have bread and milk.\nFor lunch, I have rice and chicken.\nFor dinner, I have noodles and fish.\nAnd for dessert, I have ice cream.\n\n食物：\nA. 米饭和鸡肉\nB. 面包和牛奶\nC. 面条和鱼\nD. 冰淇淋"
+  },
+  {
+    "id": "en_listen_015",
+    "subject": "english",
+    "knowledge_tag": "英语听力",
+    "ability_tag": "听短文填空",
+    "type": "fill_blank",
+    "question": "听短文，填入所缺的单词。",
+    "options": [],
+    "answer": "black",
+    "analysis": "【考点】本题考查听辨颜色形容词。\n【解题思路】文本中“white and...”需要填一个颜色，常见搭配有black。\n【总结】注意and前后的颜色并列关系。",
+    "difficulty": 0.5,
+    "listening_text": "I have a pet cat. Its name is Mimi. It is white and ______. It likes to play with a ball."
+  },
+  {
+    "id": "en_listen_016",
+    "subject": "english",
+    "knowledge_tag": "英语听力",
+    "ability_tag": "听力辨识",
+    "type": "multiple_choice",
+    "question": "听录音，选择与所听内容相符的图片。",
+    "options": [
+      "A. 男孩在公园跑步",
+      "B. 男孩在公园骑自行车",
+      "C. 男孩在公园游泳",
+      "D. 男孩在公园滑冰"
+    ],
+    "answer": "B",
+    "analysis": "【考点】本题考查听辨动作和地点。\n【解题思路】关键词“riding a bike”和“in the park”。\n【总结】动词短语要整体识别。",
+    "difficulty": 0.5,
+    "listening_text": "The boy is riding a bike in the park."
+  },
+  {
+    "id": "en_listen_017",
+    "subject": "english",
+    "knowledge_tag": "英语听力",
+    "ability_tag": "听对话选择回答",
+    "type": "multiple_choice",
+    "question": "听对话，选择正确的应答句。",
+    "options": [
+      "A. By bus.",
+      "B. At 8 o'clock.",
+      "C. With my friend.",
+      "D. To the library."
+    ],
+    "answer": "A",
+    "analysis": "【考点】本题考查交通方式的问答。\n【解题思路】How do you go to school? 回答交通方式。\n【总结】特殊疑问句要听懂疑问词。",
+    "difficulty": 0.5,
+    "listening_text": "W: How do you go to school?\nM: ______"
+  },
+  {
+    "id": "en_listen_018",
+    "subject": "english",
+    "knowledge_tag": "英语听力",
+    "ability_tag": "听音判断正误",
+    "type": "multiple_choice",
+    "question": "听录音，判断下列句子与所听内容是否相符。相符选T，不相符选F。",
+    "options": [
+      "A. T",
+      "B. F"
+    ],
+    "answer": "B",
+    "analysis": "【考点】本题考查听辨星期信息。\n【解题思路】文本说“because it's Sunday”，所以今天是周日，不是周一。\n【总结】注意but后面的信息往往是关键。",
+    "difficulty": 0.5,
+    "listening_text": "I usually get up at 6:30, but today I got up at 7:00 because it's Sunday.\n\n句子：Today is Monday."
+  },
+  {
+    "id": "en_listen_019",
+    "subject": "english",
+    "knowledge_tag": "英语听力",
+    "ability_tag": "词汇运用",
+    "type": "fill_blank",
+    "question": "听录音，选择正确的单词填空。",
+    "options": [],
+    "answer": "A",
+    "analysis": "【考点】本题考查There be句型的就近原则。\n【解题思路】a pen是单数，be动词用is。\n【总结】There be句型中，be动词与最近的主语保持一致。",
+    "difficulty": 0.5,
+    "listening_text": "There ______ a pen and two pencils on the desk.\n\n选项：\nA. is\nB. are\nC. am\nD. be"
+  },
+  {
+    "id": "en_listen_020",
+    "subject": "english",
+    "knowledge_tag": "英语听力",
+    "ability_tag": "听短文排序",
+    "type": "fill_blank",
+    "question": "听短文，将下列地点按听到的顺序排序。",
+    "options": [],
+    "answer": "C → D → A → B",
+    "analysis": "【考点】本题考查听辨地点顺序。\n【解题思路】按文本顺序：超市→图书馆→公园→家。\n【总结】关注顺序词：first, next, then, finally。",
+    "difficulty": 0.5,
+    "listening_text": "First, I go to the supermarket to buy some fruit.\nNext, I go to the library to read books.\nThen, I go to the park to fly a kite.\nFinally, I go home.\n\n地点：\nA. 公园\nB. 家\nC. 超市\nD. 图书馆"
+  },
+  {
+    "id": "en_listen_021",
+    "subject": "english",
+    "knowledge_tag": "英语听力",
+    "ability_tag": "听力辨识",
+    "type": "multiple_choice",
+    "question": "听录音，选择与所听内容相符的图片。",
+    "options": [
+      "A. 猫在床下",
+      "B. 猫在沙发上",
+      "C. 猫在椅子上",
+      "D. 猫在桌子上"
+    ],
+    "answer": "B",
+    "analysis": "【考点】本题考查听辨方位介词（on）和家具名词（sofa）。\n【解题思路】关键词“on the sofa”。\n【总结】注意介词on表示表面接触，sofa是沙发。",
+    "difficulty": 0.5,
+    "listening_text": "The cat is sleeping on the sofa."
+  },
+  {
+    "id": "en_listen_022",
+    "subject": "english",
+    "knowledge_tag": "英语听力",
+    "ability_tag": "听力辨识",
+    "type": "multiple_choice",
+    "question": "听录音，选择你所听到的单词。",
+    "options": [
+      "A. doctor",
+      "B. teacher",
+      "C. worker",
+      "D. driver"
+    ],
+    "answer": "C",
+    "analysis": "【考点】本题考查听辨职业名词。\n【解题思路】听力文本中的关键词是“worker”。\n【总结】注意factory worker是固定词组。",
+    "difficulty": 0.5,
+    "listening_text": "My uncle is a factory worker."
+  },
+  {
+    "id": "en_listen_023",
+    "subject": "english",
+    "knowledge_tag": "英语听力",
+    "ability_tag": "听力判断",
+    "type": "multiple_choice",
+    "question": "听对话，判断下列说法是否正确，正确的选T，错误的选F。",
+    "options": [
+      "A. T",
+      "B. F"
+    ],
+    "answer": "B",
+    "analysis": "【考点】本题考查听辨季节和原因。\n【解题思路】对话中Amy说最喜欢冬季，句子说夏季，不符。\n【总结】注意听清季节名词和原因状语从句。",
+    "difficulty": 0.5,
+    "listening_text": "M: What's your favorite season, Amy?\nW: I like winter best because I can make a snowman.\n\n句子：Amy's favorite season is summer."
+  },
+  {
+    "id": "en_listen_024",
+    "subject": "english",
+    "knowledge_tag": "英语听力",
+    "ability_tag": "听力排序",
+    "type": "fill_blank",
+    "question": "听录音，将下列颜色按听到的顺序排序（1-4）。",
+    "options": [],
+    "answer": "B → A → D → C",
+    "analysis": "【考点】本题考查听辨颜色顺序。\n【解题思路】按文本顺序：红色→蓝色→黄色→绿色。\n【总结】注意颜色单词的发音区别。",
+    "difficulty": 0.5,
+    "listening_text": "My schoolbag is red.\nMy pencil box is blue.\nMy eraser is yellow.\nMy ruler is green.\n\n选项：\nA. 蓝色\nB. 红色\nC. 绿色\nD. 黄色"
+  },
+  {
+    "id": "en_listen_025",
+    "subject": "english",
+    "knowledge_tag": "英语听力",
+    "ability_tag": "听短文填空",
+    "type": "fill_blank",
+    "question": "听短文，填入所缺的单词。",
+    "options": [],
+    "answer": "bookshelf",
+    "analysis": "【考点】本题考查听辨家具名词及功能。\n【解题思路】“put my books and toys in it”提示是书柜。\n【总结】根据物品用途推断单词。",
+    "difficulty": 0.5,
+    "listening_text": "There is a ______ in my room. It is big and tall. I put my books and toys in it."
+  },
+  {
+    "id": "en_listen_026",
+    "subject": "english",
+    "knowledge_tag": "英语听力",
+    "ability_tag": "听力辨识",
+    "type": "multiple_choice",
+    "question": "听录音，选择与所听内容相符的图片。",
+    "options": [
+      "A. 骑自行车",
+      "B. 坐公交车",
+      "C. 步行",
+      "D. 坐地铁"
+    ],
+    "answer": "B",
+    "analysis": "【考点】本题考查听辨交通方式。\n【解题思路】关键词“by bus”。\n【总结】注意介词by后跟交通工具。",
+    "difficulty": 0.5,
+    "listening_text": "I often go to the zoo by bus."
+  },
+  {
+    "id": "en_listen_027",
+    "subject": "english",
+    "knowledge_tag": "英语听力",
+    "ability_tag": "听对话选择回答",
+    "type": "multiple_choice",
+    "question": "听对话，选择正确的应答句。",
+    "options": [
+      "A. I'm 12 years old.",
+      "B. I'm 1.5 meters tall.",
+      "C. I'm in Class 5.",
+      "D. I like apples."
+    ],
+    "answer": "B",
+    "analysis": "【考点】本题考查对身高提问的正确应答。\n【解题思路】“How tall”询问身高。\n【总结】特殊疑问句要针对关键词回答。",
+    "difficulty": 0.5,
+    "listening_text": "W: How tall are you?\nM: ______"
+  },
+  {
+    "id": "en_listen_028",
+    "subject": "english",
+    "knowledge_tag": "英语听力",
+    "ability_tag": "听音判断正误",
+    "type": "multiple_choice",
+    "question": "听录音，判断下列句子与所听内容是否相符。相符选T，不相符选F。",
+    "options": [
+      "A. T",
+      "B. F"
+    ],
+    "answer": "B",
+    "analysis": "【考点】本题考查听辨时间信息。\n【解题思路】文本说工作日开放，周末未提及。\n【总结】注意on weekdays和on weekends的区别。",
+    "difficulty": 0.5,
+    "listening_text": "The museum is open from 9:00 a.m. to 5:00 p.m. on weekdays.\n\n句子：The museum is open on weekends."
+  },
+  {
+    "id": "en_listen_029",
+    "subject": "english",
+    "knowledge_tag": "英语听力",
+    "ability_tag": "词汇运用",
+    "type": "fill_blank",
+    "question": "听录音，选择正确的单词填空。",
+    "options": [],
+    "answer": "D",
+    "analysis": "【考点】本题考查现在进行时的主谓一致。\n【解题思路】“Look!”提示现在进行时，主语“The boys”复数，用are playing。\n【总结】现在进行时标志词：look, listen, now。",
+    "difficulty": 0.5,
+    "listening_text": "Look! The boys ______ football on the playground.\n\n选项：\nA. play\nB. plays\nC. is playing\nD. are playing"
+  },
+  {
+    "id": "en_listen_030",
+    "subject": "english",
+    "knowledge_tag": "英语听力",
+    "ability_tag": "听短文排序",
+    "type": "fill_blank",
+    "question": "听短文，将下列学科按听到的顺序排序。",
+    "options": [],
+    "answer": "D → C → A → B",
+    "analysis": "【考点】本题考查听辨星期和学科对应关系。\n【解题思路】周一语文→周二数学→周三英语→周四科学。\n【总结】注意星期单词和学科单词的配对。",
+    "difficulty": 0.5,
+    "listening_text": "On Monday, we have Chinese.\nOn Tuesday, we have math.\nOn Wednesday, we have English.\nOn Thursday, we have science.\n\n学科：\nA. 英语\nB. 科学\nC. 数学\nD. 语文"
+  },
+  {
+    "id": "en_listen_031",
+    "subject": "english",
+    "knowledge_tag": "英语听力",
+    "ability_tag": "听力辨识",
+    "type": "multiple_choice",
+    "question": "听录音，选择与所听内容相符的图片。",
+    "options": [
+      "A. 穿绿色T恤和黑色裤子",
+      "B. 穿红色T恤和蓝色牛仔裤",
+      "C. 穿黄色T恤和灰色短裤",
+      "D. 穿白色衬衫和棕色长裤"
+    ],
+    "answer": "B",
+    "analysis": "【考点】本题考查听辨颜色和服装名词。\n【解题思路】关键词“red T-shirt”和“blue jeans”。\n【总结】注意服装类单词：T-shirt, jeans, pants, shorts。",
+    "difficulty": 0.5,
+    "listening_text": "The boy is wearing a red T-shirt and blue jeans."
+  },
+  {
+    "id": "en_listen_032",
+    "subject": "english",
+    "knowledge_tag": "英语听力",
+    "ability_tag": "听力辨识",
+    "type": "multiple_choice",
+    "question": "听录音，选择你所听到的单词。",
+    "options": [
+      "A. stomachache",
+      "B. toothache",
+      "C. headache",
+      "D. fever"
+    ],
+    "answer": "C",
+    "analysis": "【考点】本题考查听辨身体不适的单词。\n【解题思路】听力文本中的关键词是“headache”。\n【总结】身体不适词汇：headache, toothache, stomachache, fever, cold。",
+    "difficulty": 0.5,
+    "listening_text": "I have a headache. I need to see a doctor."
+  },
+  {
+    "id": "en_listen_033",
+    "subject": "english",
+    "knowledge_tag": "英语听力",
+    "ability_tag": "听力判断",
+    "type": "multiple_choice",
+    "question": "听对话，判断下列说法是否正确，正确的选T，错误的选F。",
+    "options": [
+      "A. T",
+      "B. F"
+    ],
+    "answer": "B",
+    "analysis": "【考点】本题考查听辨时间和日常活动。\n【解题思路】对话中周末起床时间是8:00，不是6:30。\n【总结】注意区分weekdays和weekends的时间差异。",
+    "difficulty": 0.5,
+    "listening_text": "W: What time do you get up every day?\nM: I get up at 6:30. But on weekends, I get up at 8:00.\n\n句子：He gets up at 6:30 on weekends."
+  },
+  {
+    "id": "en_listen_034",
+    "subject": "english",
+    "knowledge_tag": "英语听力",
+    "ability_tag": "听力排序",
+    "type": "fill_blank",
+    "question": "听录音，将下列动物按听到的顺序排序（1-4）。",
+    "options": [],
+    "answer": "B → D → A → C",
+    "analysis": "【考点】本题考查听辨动物名词顺序。\n【解题思路】按文本顺序：熊猫→猴子→老虎→大象。\n【总结】注意动物单词的发音和顺序词。",
+    "difficulty": 0.5,
+    "listening_text": "I like pandas.\nMy sister likes monkeys.\nMy brother likes tigers.\nMy mother likes elephants.\n\n选项：\nA. 老虎\nB. 熊猫\nC. 大象\nD. 猴子"
+  },
+  {
+    "id": "en_listen_035",
+    "subject": "english",
+    "knowledge_tag": "英语听力",
+    "ability_tag": "听短文填空",
+    "type": "fill_blank",
+    "question": "听短文，填入所缺的单词。",
+    "options": [],
+    "answer": "January",
+    "analysis": "【考点】本题考查听辨月份。\n【解题思路】“the first month of the year”提示是一月。\n【总结】月份单词：January, February, March, April, May, June, July, August, September, October, November, December。",
+    "difficulty": 0.5,
+    "listening_text": "My birthday is in ______. It's the first month of the year."
+  },
+  {
+    "id": "en_listen_036",
+    "subject": "english",
+    "knowledge_tag": "英语听力",
+    "ability_tag": "听力辨识",
+    "type": "multiple_choice",
+    "question": "听录音，选择与所听内容相符的图片。",
+    "options": [
+      "A. 公园在电影院和学校之间",
+      "B. 学校在公园和电影院之间",
+      "C. 电影院在公园和学校之间",
+      "D. 公园在学校和电影院之间"
+    ],
+    "answer": "C",
+    "analysis": "【考点】本题考查听辨方位词between。\n【解题思路】关键词“cinema is between the park and the school”。\n【总结】between A and B 表示在A和B之间。",
+    "difficulty": 0.5,
+    "listening_text": "The cinema is between the park and the school."
+  },
+  {
+    "id": "en_listen_037",
+    "subject": "english",
+    "knowledge_tag": "英语听力",
+    "ability_tag": "听对话选择回答",
+    "type": "multiple_choice",
+    "question": "听对话，选择正确的应答句。",
+    "options": [
+      "A. She is a nurse.",
+      "B. She is at home.",
+      "C. She likes singing.",
+      "D. She is tall."
+    ],
+    "answer": "A",
+    "analysis": "【考点】本题考查对职业提问的正确应答。\n【解题思路】“What does...do?”询问职业。\n【总结】职业句型：What do/does...do? 回答：...is a/an + 职业。",
+    "difficulty": 0.5,
+    "listening_text": "M: What does your mother do?\nW: ______"
+  },
+  {
+    "id": "en_listen_038",
+    "subject": "english",
+    "knowledge_tag": "英语听力",
+    "ability_tag": "听音判断正误",
+    "type": "multiple_choice",
+    "question": "听录音，判断下列句子与所听内容是否相符。相符选T，不相符选F。",
+    "options": [
+      "A. T",
+      "B. F"
+    ],
+    "answer": "B",
+    "analysis": "【考点】本题考查听辨活动动词。\n【解题思路】文本说go boating，句子说go swimming，不符。\n【总结】注意区分不同活动：boating, swimming, fishing, running。",
+    "difficulty": 0.5,
+    "listening_text": "There is a river in the park. You can go boating on it.\n\n句子：You can go swimming in the river."
+  },
+  {
+    "id": "en_listen_039",
+    "subject": "english",
+    "knowledge_tag": "英语听力",
+    "ability_tag": "词汇运用",
+    "type": "fill_blank",
+    "question": "听录音，选择正确的单词填空。",
+    "options": [],
+    "answer": "B",
+    "analysis": "【考点】本题考查不定冠词a/an的用法。\n【解题思路】umbrella以元音音素开头，用an。\n【总结】元音音素开头的单词前用an：apple, elephant, umbrella, hour。",
+    "difficulty": 0.5,
+    "listening_text": "This is ______ umbrella. It's new.\n\n选项：\nA. a\nB. an\nC. the\nD. /"
+  },
+  {
+    "id": "en_listen_040",
+    "subject": "english",
+    "knowledge_tag": "英语听力",
+    "ability_tag": "听短文排序",
+    "type": "fill_blank",
+    "question": "听短文，将下列月份按听到的顺序排序。",
+    "options": [],
+    "answer": "B → D → A → C",
+    "analysis": "【考点】本题考查听辨节日对应的月份。\n【解题思路】一月元旦→三月植树节→六月儿童节→十月国庆节。\n【总结】常见节日与月份对应：New Year's Day(Jan.), Tree Planting Day(Mar.), Children's Day(Jun.), National Day(Oct.)。",
+    "difficulty": 0.5,
+    "listening_text": "New Year's Day is in January.\nTree Planting Day is in March.\nChildren's Day is in June.\nNational Day is in October.\n\n月份：\nA. 六月\nB. 一月\nC. 十月\nD. 三月"
+  },
+  {
+    "id": "en_listen_041",
+    "subject": "english",
+    "knowledge_tag": "英语听力",
+    "ability_tag": "听力辨识",
+    "type": "multiple_choice",
+    "question": "听录音，选择与所听内容相符的图片。",
+    "options": [
+      "A. 一碗面条加牛肉",
+      "B. 一碗面条加蔬菜",
+      "C. 一碗米饭加鸡肉",
+      "D. 一碗米饭加鱼肉"
+    ],
+    "answer": "B",
+    "analysis": "【考点】本题考查听辨食物搭配。\n【解题思路】关键词“noodles with vegetables”。\n【总结】注意with表示“带有、配有”。",
+    "difficulty": 0.5,
+    "listening_text": "I'd like a bowl of noodles with vegetables."
+  },
+  {
+    "id": "en_listen_042",
+    "subject": "english",
+    "knowledge_tag": "英语听力",
+    "ability_tag": "听力辨识",
+    "type": "multiple_choice",
+    "question": "听录音，选择你所听到的单词。",
+    "options": [
+      "A. strict",
+      "B. funny",
+      "C. friendly",
+      "D. quiet"
+    ],
+    "answer": "C",
+    "analysis": "【考点】本题考查听辨描述性格的形容词。\n【解题思路】听力文本中的关键词是“friendly”。\n【总结】性格形容词：friendly, kind, strict, funny, shy, helpful。",
+    "difficulty": 0.5,
+    "listening_text": "My English teacher is very friendly and helpful."
+  },
+  {
+    "id": "en_listen_043",
+    "subject": "english",
+    "knowledge_tag": "英语听力",
+    "ability_tag": "听力判断",
+    "type": "multiple_choice",
+    "question": "听对话，判断下列说法是否正确，正确的选T，错误的选F。",
+    "options": [
+      "A. T",
+      "B. F"
+    ],
+    "answer": "B",
+    "analysis": "【考点】本题考查听辨能力（can/can't）。\n【解题思路】对话中明确说“No, I can't. But I can play the guitar.”\n【总结】注意can/can't的否定和肯定信息。",
+    "difficulty": 0.5,
+    "listening_text": "W: Can you play the piano?\nM: No, I can't. But I can play the guitar.\n\n句子：He can play the piano."
+  },
+  {
+    "id": "en_listen_044",
+    "subject": "english",
+    "knowledge_tag": "英语听力",
+    "ability_tag": "听力排序",
+    "type": "fill_blank",
+    "question": "听录音，将下列数字按听到的顺序排序（1-4）。",
+    "options": [],
+    "answer": "C → B → A → D",
+    "analysis": "【考点】本题考查听辨数字顺序。\n【解题思路】号码中出现的顺序：6,8,2,5。\n【总结】听力中数字题要集中注意力，可边听边记。",
+    "difficulty": 0.5,
+    "listening_text": "My phone number is 6-8-3-2-5-1-7.\nPlease call me.\n\n数字：\nA. 2\nB. 8\nC. 6\nD. 5"
+  },
+  {
+    "id": "en_listen_045",
+    "subject": "english",
+    "knowledge_tag": "英语听力",
+    "ability_tag": "听短文填空",
+    "type": "fill_blank",
+    "question": "听短文，填入所缺的单词。",
+    "options": [],
+    "answer": "village",
+    "analysis": "【考点】本题考查听辨居住地名词。\n【解题思路】“small”和“many trees and flowers”提示是村庄。\n【总结】居住地名词：city, town, village, countryside。",
+    "difficulty": 0.5,
+    "listening_text": "I live in a small ______. There are many trees and flowers around it."
+  },
+  {
+    "id": "en_listen_046",
+    "subject": "english",
+    "knowledge_tag": "英语听力",
+    "ability_tag": "听力辨识",
+    "type": "multiple_choice",
+    "question": "听录音，选择与所听内容相符的图片。",
+    "options": [
+      "A. 直走，银行在左边",
+      "B. 右转，银行在右边",
+      "C. 左转，银行在右边",
+      "D. 左转，银行在左边"
+    ],
+    "answer": "C",
+    "analysis": "【考点】本题考查听辨指路方向。\n【解题思路】关键词“turn left”和“bank on your right”。\n【总结】指路常用短语：turn left/right, go straight, on your left/right。",
+    "difficulty": 0.5,
+    "listening_text": "Turn left at the corner, then you'll see the bank on your right."
+  },
+  {
+    "id": "en_listen_047",
+    "subject": "english",
+    "knowledge_tag": "英语听力",
+    "ability_tag": "听对话选择回答",
+    "type": "multiple_choice",
+    "question": "听对话，选择正确的应答句。",
+    "options": [
+      "A. I like playing basketball.",
+      "B. Three times a week.",
+      "C. I play with my friends.",
+      "D. At the playground."
+    ],
+    "answer": "B",
+    "analysis": "【考点】本题考查对频率提问的正确应答。\n【解题思路】“How often”询问频率。\n【总结】频率表达：every day, once/twice/three times a week。",
+    "difficulty": 0.5,
+    "listening_text": "W: How often do you play sports?\nM: ______"
+  },
+  {
+    "id": "en_listen_048",
+    "subject": "english",
+    "knowledge_tag": "英语听力",
+    "ability_tag": "听音判断正误",
+    "type": "multiple_choice",
+    "question": "听录音，判断下列句子与所听内容是否相符。相符选T，不相符选F。",
+    "options": [
+      "A. T",
+      "B. F"
+    ],
+    "answer": "B",
+    "analysis": "【考点】本题考查听辨比较级。\n【解题思路】Sarah 1.55米，姐姐1.6米，Sarah更矮。\n【总结】比较级要注意谁比谁高/矮。",
+    "difficulty": 0.5,
+    "listening_text": "Sarah is shorter than her sister. Her sister is 1.6 meters tall. Sarah is 1.55 meters tall.\n\n句子：Sarah is taller than her sister."
+  },
+  {
+    "id": "en_listen_049",
+    "subject": "english",
+    "knowledge_tag": "英语听力",
+    "ability_tag": "词汇运用",
+    "type": "fill_blank",
+    "question": "听录音，选择正确的单词填空。",
+    "options": [],
+    "answer": "A",
+    "analysis": "【考点】本题考查There be句型的就近原则。\n【解题思路】离be动词最近的主语是a pen（单数），用is。\n【总结】There be句型遵循就近原则。",
+    "difficulty": 0.5,
+    "listening_text": "There ______ a pen and two books on the desk.\n\n选项：\nA. is\nB. are\nC. am\nD. be"
+  },
+  {
+    "id": "en_listen_050",
+    "subject": "english",
+    "knowledge_tag": "英语听力",
+    "ability_tag": "听短文填空",
+    "type": "fill_blank",
+    "question": "听短文，填入所缺的单词。",
+    "options": [],
+    "answer": "cold",
+    "analysis": "【考点】本题考查听辨天气和温度。\n【解题思路】温度降到5度，提示天气寒冷。\n【总结】天气与温度对应：cold（低温），hot（高温），warm（温暖），cool（凉爽）。",
+    "difficulty": 0.5,
+    "listening_text": "Tomorrow will be ______. The temperature will drop to 5 degrees. Don't forget to wear your coat."
+  }
+]
