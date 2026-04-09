@@ -10,10 +10,39 @@ function normalize(s) {
 }
 
 function isWordBankQ(q) {
+  if (q.type !== 'fill_blank') return false
+  if (isJudgmentQ(q) || isTypoQ(q) || isOrderQ(q)) return false
+  if (!/（[1-9]）/.test(q.answer)) return false
+  if (!/__{4,}/.test(q.question)) return false
+  // 每个子答案 ≤ 15 字，过滤掉翻译/赏析类长答案
+  const subs = parseWordBankSubAnswers(q.answer)
+  return subs.length > 0 && subs.every(a => a.text.length <= 15)
+}
+
+function isMatchingStyleQ(q) {
   return q.type === 'fill_blank'
-    && /（[1-9]）/.test(q.answer)
-    && q.question.includes('________________')
+    && !q.pairs
+    && (q.question.includes('左列') || q.question.includes('连一连') || q.question.includes('连起来'))
+    && /^[1-9]\./m.test(q.question)
+    && /^[A-F]\./m.test(q.question)
     && !isJudgmentQ(q) && !isTypoQ(q) && !isOrderQ(q)
+}
+
+function extractMatchingPairs(q) {
+  const leftItems = [...q.question.matchAll(/^([1-9])\.\s*(.+)$/gm)]
+    .map(m => ({ num: parseInt(m[1]), text: m[2].trim() }))
+  const rightItems = {}
+  for (const m of q.question.matchAll(/^([A-F])\.\s*(.+)$/gm)) {
+    rightItems[m[1]] = m[2].trim()
+  }
+  const answerMap = {}
+  for (const m of q.answer.matchAll(/([1-9])[—-]([A-F])/g)) {
+    answerMap[parseInt(m[1])] = m[2]
+  }
+  return leftItems.map(item => ({
+    left: item.text,
+    right: rightItems[answerMap[item.num]] || ''
+  }))
 }
 
 function isJudgmentQ(q) {
@@ -42,7 +71,7 @@ function parseJudgmentStatements(text) {
 }
 
 function parseTypoItems(text) {
-  return [...text.matchAll(/（([1-9])）\s*([^（\n]+?)\s*（　）/g)]
+  return [...text.matchAll(/（([1-9])）\s*([^→\n]+?)\s*（　）/g)]
     .map(m => ({ num: parseInt(m[1]), word: m[2].trim() }))
 }
 
@@ -398,8 +427,7 @@ function WordBankQuestion({ question, onDone }) {
   const [assembled, setAssembled] = useState([]) // 已点的词块
   const [subPhase, setSubPhase] = useState('input') // 'input' | 'feedback'
   const [results, setResults] = useState([])
-  const timerRef = useRef(null)
-  useEffect(() => () => clearTimeout(timerRef.current), [])
+  const resultsRef = useRef([])
 
   const current = subAnswers[subIndex]
 
@@ -435,21 +463,22 @@ function WordBankQuestion({ question, onDone }) {
   function handleSubmit() {
     if (!canSubmit) return
     const isCorrect = normalize(assembledText) === normalize(current.text)
-    const newResults = [...results, { correct: isCorrect }]
+    const newResults = [...resultsRef.current, { correct: isCorrect }]
+    resultsRef.current = newResults
     setResults(newResults)
     setSubPhase('feedback')
+  }
 
-    timerRef.current = setTimeout(() => {
-      const nextIdx = subIndex + 1
-      if (nextIdx >= subAnswers.length) {
-        const allCorrect = newResults.every(r => r.correct)
-        onDone(allCorrect ? question.answer : '答错', allCorrect)
-      } else {
-        setSubIndex(nextIdx)
-        setSubPhase('input')
-        setAssembled([])
-      }
-    }, 1100)
+  function handleNext() {
+    const nextIdx = subIndex + 1
+    if (nextIdx >= subAnswers.length) {
+      const allCorrect = resultsRef.current.every(r => r.correct)
+      onDone(allCorrect ? question.answer : '答错', allCorrect)
+    } else {
+      setSubIndex(nextIdx)
+      setSubPhase('input')
+      setAssembled([])
+    }
   }
 
   if (!current) return null
@@ -533,11 +562,21 @@ function WordBankQuestion({ question, onDone }) {
         </div>
       )}
 
-      {/* 确认按钮 */}
+      {/* 确认按钮 / 继续按钮 */}
       {subPhase === 'input' && (
         <button onClick={handleSubmit} disabled={!canSubmit}
           className="w-full bg-indigo-500 disabled:bg-gray-200 disabled:text-gray-400 text-white font-bold py-4 rounded-2xl text-base">
           确认
+        </button>
+      )}
+      {subPhase === 'feedback' && (
+        <button onClick={handleNext}
+          className={`w-full font-bold py-4 rounded-2xl text-base text-white ${
+            results[subIndex]?.correct ? 'bg-green-500' : 'bg-red-500'
+          }`}>
+          {subIndex + 1 >= subAnswers.length
+            ? '完成 ✓'
+            : `下一空 → (${subIndex + 2}/${subAnswers.length})`}
         </button>
       )}
     </div>
@@ -707,12 +746,17 @@ export default function DuolingoStyleQuiz({ question, onAnswerSubmit, showVarian
     : isTypoQ(question) ? 'typo'
     : isOrderQ(question) ? 'order'
     : isWordBankQ(question) ? 'wordbank'
+    : isMatchingStyleQ(question) ? 'matching_fill'
     : 'plain'
     : null
 
+  // 动态连线题：从题目文本中解析 pairs
+  const matchingFillPairs = fillType === 'matching_fill'
+    ? extractMatchingPairs(question) : null
+
   // 判断/错别字/排序/词库题内部已有提交逻辑，答完后只需底部继续条
   const hasInternalSubmit = fillType === 'judgment' || fillType === 'typo' || fillType === 'order'
-    || fillType === 'wordbank'
+    || fillType === 'wordbank' || fillType === 'matching_fill'
     || question.type === 'matching' || question.type === 'multi_meaning'
 
   return (
@@ -739,10 +783,11 @@ export default function DuolingoStyleQuiz({ question, onAnswerSubmit, showVarian
       {isFill && fillType === 'typo'      && <TypoQuestion           question={question} onDone={handleDone} />}
       {isFill && fillType === 'order'     && <OrderQuestion          question={question} onDone={handleDone} />}
       {isFill && fillType === 'wordbank'  && <WordBankQuestion       question={question} onDone={handleDone} />}
+      {isFill && fillType === 'matching_fill' && <MatchingQuestion   question={{ ...question, pairs: matchingFillPairs }} onDone={handleDone} />}
       {isFill && fillType === 'plain'     && <FillQuestion           question={question} onDone={handleDone} />}
 
       {/* 变种题区域（错题模式+答错后） */}
-      {answered && showVariantButton && variantPhase === 'answering' && variantQ && (
+      {answered && showVariantButton && (variantPhase === 'answering' || variantPhase === 'done') && variantQ && (
         <div className="bg-violet-50 border-2 border-violet-200 rounded-3xl p-5">
           <div className="flex items-center gap-2 mb-3">
             <span className="text-violet-600 text-sm font-bold">🔀 举一反三</span>
