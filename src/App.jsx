@@ -12,6 +12,7 @@ import WrongAnswersPage from './pages/WrongAnswersPage'
 import MV1Demo from './pages/MV1Demo'
 import EnglishHomePage from './pages/EnglishHomePage'
 import EnglishQuizPage from './pages/EnglishQuizPage'
+import WordPlanetPage from './pages/WordPlanetPage'
 import { initGamificationState } from './utils/gamification'
 import { fetchMV1State, upsertMV1State } from './utils/mv1_cloud'
 
@@ -229,7 +230,14 @@ export default function App() {
     )
     if (page === 'result') return <ResultPage result={sessionResult} user={user} onHome={goHome} onRetry={() => startQuiz(quizOptions)} />
     if (page === 'report') return <ReportPage user={user} onBack={goHome} />
-    if (page === 'englishQuiz') return (
+    if (page === 'englishQuiz' && englishQuizOptions.englishTag === 'en_words') return (
+      <WordPlanetPage
+        user={user}
+        onFinish={(result) => { setSessionResult(result); setPage('result') }}
+        onBack={() => { setPage('home'); setActiveSubject('english') }}
+      />
+    )
+    if (page === 'englishQuiz' && englishQuizOptions.englishTag !== 'en_words') return (
       <EnglishQuizPage
         user={user}
         options={englishQuizOptions}
