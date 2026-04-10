@@ -31,7 +31,8 @@ function shuffle(arr) {
 }
 
 function pickSessionWords() {
-  return shuffle(tier1Words).slice(0, SESSION_SIZE)
+  // 使用全部单词（不限 tier1），确保每次进入都有足够多样性
+  return shuffle(allWords).slice(0, SESSION_SIZE)
 }
 
 // ─── 生成 2 道题（联想题 + 辨析题） ──────────────────────────────────────
@@ -238,11 +239,11 @@ function WordTree({ wordObj, visible, onNodeClick, onConfusableClick }) {
           </div>
           <div className="flex flex-wrap justify-center gap-2">
             {associations.map((w, i) => {
-              const obj = allWordsMap[w]
+              const obj = allWordsMap[w] || allWordsMap[w.toLowerCase()]
               return (
                 <button
                   key={w}
-                  onClick={() => obj && onNodeClick(w)}
+                  onClick={() => onNodeClick(w)}
                   className="flex flex-col items-center px-4 py-2 rounded-2xl active:scale-95 transition-all"
                   style={{
                     background: 'linear-gradient(135deg, #dbeafe, #bfdbfe)',
@@ -251,12 +252,15 @@ function WordTree({ wordObj, visible, onNodeClick, onConfusableClick }) {
                     opacity: visible ? 1 : 0,
                     transform: visible ? 'translateY(0)' : 'translateY(-12px)',
                     transition: `opacity 0.35s ${i * 0.07}s ease, transform 0.35s ${i * 0.07}s ease`,
-                    boxShadow: obj ? '0 2px 8px rgba(59,130,246,0.2)' : 'none',
-                    cursor: obj ? 'pointer' : 'default',
+                    boxShadow: '0 2px 8px rgba(59,130,246,0.2)',
+                    cursor: 'pointer',
                   }}
                 >
                   <span className="font-bold text-sm">{w}</span>
-                  {obj && <span className="text-[10px] opacity-80">{obj.meaning}</span>}
+                  {obj
+                    ? <span className="text-[10px] opacity-80">{obj.meaning}</span>
+                    : <span className="text-[10px] opacity-50">查看 →</span>
+                  }
                 </button>
               )
             })}
@@ -617,16 +621,23 @@ function QuizSection({ wordObj, onWordDone }) {
 export default function AssociationPlanetPage({ user, onFinish, onBack }) {
   const [sessionWords] = useState(() => pickSessionWords())
   const [currentIdx, setCurrentIdx] = useState(0)
+  const [tempWord, setTempWord] = useState(null) // 点击联想词时临时预览，不影响 session 进度
   const [treeVisible, setTreeVisible] = useState(false)
   const [showQuiz, setShowQuiz] = useState(false)
   const [modal, setModal] = useState(null) // { wordA, wordB }
   const [sessionResults, setSessionResults] = useState([]) // { correct, total }
   const [totalXP, setTotalXP] = useState(0)
   const [done, setDone] = useState(false)
+  const [toast, setToast] = useState(null)
   const scrollContainerRef = useRef(null)
 
-  const currentWord = sessionWords[currentIdx]
+  const currentWord = tempWord || sessionWords[currentIdx]
   const xp = storage.getXP(user?.id)
+
+  function showToast(msg) {
+    setToast(msg)
+    setTimeout(() => setToast(null), 2000)
+  }
 
   // 词切换时：滚回顶部 → fade out → 换词 → fade in + TTS
   const switchWord = useCallback((newIdx) => {
@@ -635,6 +646,7 @@ export default function AssociationPlanetPage({ user, onFinish, onBack }) {
     }
     setTreeVisible(false)
     setShowQuiz(false)
+    setTempWord(null)
     setTimeout(() => {
       setCurrentIdx(newIdx)
       setTreeVisible(true)
@@ -660,13 +672,26 @@ export default function AssociationPlanetPage({ user, onFinish, onBack }) {
   }
 
   function handleNodeClick(wordKey) {
-    const idx = sessionWords.findIndex(w => w.word === wordKey)
+    const key = wordKey.toLowerCase()
+    // 先在 session 中查找
+    const idx = sessionWords.findIndex(w => w.word.toLowerCase() === key)
     if (idx !== -1) {
+      setTempWord(null)
       switchWord(idx)
+      return
+    }
+    // session 外，在完整词库中查找
+    const networkWord = allWordsMap[key] || allWordsMap[wordKey]
+    if (networkWord) {
+      if (scrollContainerRef.current) scrollContainerRef.current.scrollTop = 0
+      setTreeVisible(false)
+      setShowQuiz(false)
+      setTimeout(() => {
+        setTempWord(networkWord)
+        setTreeVisible(true)
+      }, 300)
     } else {
-      // 词在 session 外，动态切换（仅展示，不计入 session）
-      // 找到该词的 index 或直接替换当前展示
-      // 这里简单地显示弹窗或忽略，保持 session 稳定
+      showToast(`"${wordKey}" 暂未收录`)
     }
   }
 
@@ -789,7 +814,7 @@ export default function AssociationPlanetPage({ user, onFinish, onBack }) {
             )}
           </div>
 
-          {/* 分割线 + 闯关按钮 */}
+          {/* 分割线 + 闯关/返回按钮 */}
           {!showQuiz && treeVisible && (
             <div
               className="px-4 mt-6"
@@ -800,19 +825,34 @@ export default function AssociationPlanetPage({ user, onFinish, onBack }) {
             >
               <div className="flex items-center gap-3 mb-4">
                 <div className="flex-1 h-px bg-gray-200" />
-                <span className="text-xs text-gray-400 font-medium">准备好了吗？</span>
+                <span className="text-xs text-gray-400 font-medium">
+                  {tempWord ? '正在预览联想词' : '准备好了吗？'}
+                </span>
                 <div className="flex-1 h-px bg-gray-200" />
               </div>
-              <button
-                onClick={() => setShowQuiz(true)}
-                className="w-full py-3.5 rounded-2xl bg-gradient-to-r from-emerald-400 to-teal-600 text-white font-bold text-base active:scale-95 transition-transform shadow-md"
-              >
-                开始闯关 ✍️ （3 道题）
-              </button>
+              {tempWord ? (
+                <button
+                  onClick={() => {
+                    if (scrollContainerRef.current) scrollContainerRef.current.scrollTop = 0
+                    setTreeVisible(false)
+                    setTimeout(() => { setTempWord(null); setTreeVisible(true) }, 300)
+                  }}
+                  className="w-full py-3.5 rounded-2xl bg-gradient-to-r from-indigo-400 to-purple-500 text-white font-bold text-base active:scale-95 transition-transform shadow-md"
+                >
+                  ← 返回当前学习词（{sessionWords[currentIdx]?.word}）
+                </button>
+              ) : (
+                <button
+                  onClick={() => setShowQuiz(true)}
+                  className="w-full py-3.5 rounded-2xl bg-gradient-to-r from-emerald-400 to-teal-600 text-white font-bold text-base active:scale-95 transition-transform shadow-md"
+                >
+                  开始闯关 ✍️ （3 道题）
+                </button>
+              )}
             </div>
           )}
 
-          {/* 答题区 */}
+          {/* 答题区（始终对 session 词出题，忽略 tempWord） */}
           {showQuiz && (
             <div className="mt-2">
               <div className="flex items-center gap-3 px-4 mb-4">
@@ -821,8 +861,8 @@ export default function AssociationPlanetPage({ user, onFinish, onBack }) {
                 <div className="flex-1 h-px bg-gray-200" />
               </div>
               <QuizSection
-                key={currentWord.word}
-                wordObj={currentWord}
+                key={sessionWords[currentIdx].word}
+                wordObj={sessionWords[currentIdx]}
                 onWordDone={handleWordDone}
               />
             </div>
@@ -837,6 +877,20 @@ export default function AssociationPlanetPage({ user, onFinish, onBack }) {
           wordB={modal.wordB}
           onClose={() => setModal(null)}
         />
+      )}
+
+      {/* Toast 提示 */}
+      {toast && (
+        <div
+          style={{
+            position: 'fixed', bottom: 80, left: '50%', transform: 'translateX(-50%)',
+            background: 'rgba(30,30,30,0.88)', color: '#fff', padding: '8px 20px',
+            borderRadius: 20, fontSize: 13, fontWeight: 500, zIndex: 99,
+            pointerEvents: 'none',
+          }}
+        >
+          {toast}
+        </div>
       )}
 
       {/* 弹窗动画样式 */}

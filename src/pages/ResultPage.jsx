@@ -8,7 +8,14 @@ const GRADE_LABEL = { good: '掌握良好', slow: '知道但不熟', weak: '需�
 const GRADE_COLOR = { good: 'text-green-600', slow: 'text-amber-600', weak: 'text-red-500' }
 
 export default function ResultPage({ result, user, onHome, onRetry }) {
-  const { session, records } = result
+  // 兼容两种格式：{ session, records } 或 { correct, total, xpGained }（英语页面）
+  const session = result?.session || {
+    total: result?.total || 0,
+    correct: result?.correct || 0,
+    xpEarned: result?.xpGained || 0,
+    durationSec: 0,
+  }
+  const records = result?.records || []
   const accuracy = session.total > 0 ? Math.round((session.correct / session.total) * 100) : 0
 
   const xpNow = storage.getXP(user.id)

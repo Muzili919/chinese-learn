@@ -208,8 +208,6 @@ export default function App() {
   function handleTabChange(tab) {
     setActiveTab(tab)
     setPage('home') // 确保回到主页模式
-    // 切换 tab 时重置科目到语文（避免英语主页残留在非学习tab）
-    if (tab !== 'home') setActiveSubject('chinese')
   }
 
   // 是否显示底部导航（仅主界面）
@@ -225,6 +223,7 @@ export default function App() {
     if (page === 'wrong_answers_quiz') return (
       <WrongAnswersPage
         user={user}
+        subject={activeSubject}
         onStartWrongQuiz={(ids) => { setQuizOptions({ wrongCardIds: ids }); setPage('quiz') }}
         onBack={goHome}
       />
