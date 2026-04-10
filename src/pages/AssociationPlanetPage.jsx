@@ -777,14 +777,16 @@ export default function AssociationPlanetPage({ user, onFinish, onBack }) {
       {/* 内容区 */}
       <div ref={scrollContainerRef} className="flex-1 overflow-y-auto pb-10">
         <div className="pt-5 pb-4">
-          {/* 词根树 */}
-          <div style={{ minHeight: 400 }}>
-            <WordTree
-              wordObj={currentWord}
-              visible={treeVisible}
-              onNodeClick={handleNodeClick}
-              onConfusableClick={handleConfusableClick}
-            />
+          {/* 词根树 — 答题时隐藏，防止抄答案 */}
+          <div style={{ minHeight: showQuiz ? 0 : 400, overflow: 'hidden' }}>
+            {!showQuiz && (
+              <WordTree
+                wordObj={currentWord}
+                visible={treeVisible}
+                onNodeClick={handleNodeClick}
+                onConfusableClick={handleConfusableClick}
+              />
+            )}
           </div>
 
           {/* 分割线 + 闯关按钮 */}
