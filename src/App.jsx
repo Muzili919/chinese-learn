@@ -13,6 +13,7 @@ import MV1Demo from './pages/MV1Demo'
 import EnglishHomePage from './pages/EnglishHomePage'
 import EnglishQuizPage from './pages/EnglishQuizPage'
 import WordPlanetPage from './pages/WordPlanetPage'
+import AssociationPlanetPage from './pages/AssociationPlanetPage'
 import { initGamificationState } from './utils/gamification'
 import { fetchMV1State, upsertMV1State } from './utils/mv1_cloud'
 
@@ -237,7 +238,14 @@ export default function App() {
         onBack={() => { setPage('home'); setActiveSubject('english') }}
       />
     )
-    if (page === 'englishQuiz' && englishQuizOptions.englishTag !== 'en_words') return (
+    if (page === 'englishQuiz' && englishQuizOptions.englishTag === 'en_association') return (
+      <AssociationPlanetPage
+        user={user}
+        onFinish={(result) => { setSessionResult(result); setPage('result') }}
+        onBack={() => { setPage('home'); setActiveSubject('english') }}
+      />
+    )
+    if (page === 'englishQuiz' && englishQuizOptions.englishTag !== 'en_words' && englishQuizOptions.englishTag !== 'en_association') return (
       <EnglishQuizPage
         user={user}
         options={englishQuizOptions}
