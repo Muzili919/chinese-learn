@@ -79,6 +79,7 @@ export default function MV1Demo({ onBack, initialState, onStateChange }) {
         ...base,
         ...(cloud || {}),
         exp: storageXP,
+        petExpConsumed: cloud?.petExpConsumed || 0,
         currentPet: {
           ...base.currentPet,
           ...(cloud?.currentPet || {}),
@@ -107,20 +108,16 @@ export default function MV1Demo({ onBack, initialState, onStateChange }) {
     return () => clearInterval(iv);
   }, []);
 
-  // 宠物升级（消耗 XP）
+  // 宠物升级（从累计经验池消耗）
   const handlePetLevelUp = useCallback(() => {
     setState(s => {
       const pet = s.currentPet;
       const petLevel = pet?.level || 1;
       const threshold = petLevel * 100;
-      const petExp = pet?.exp || 0;
-      // 宠物经验 = 玩家在当前等级内积累的 XP
-      const lp = calcLevelProgress(s.exp || 0);
-      const availableExp = lp.currentExp; // 当前等级内可用经验
-      if (availableExp < threshold) return s;
-
-      const user = storage.getUser();
-      if (user?.id) storage.addXP(user.id, -threshold);
+      const totalXP = storage.getXP(storage.getUser()?.id || '') || s.exp || 0;
+      const consumed = s.petExpConsumed || 0;
+      const petExp = Math.max(0, totalXP - consumed);
+      if (petExp < threshold) return s;
 
       setLevelUpAnim(true);
       setTimeout(() => setLevelUpAnim(false), 2000);
@@ -128,11 +125,11 @@ export default function MV1Demo({ onBack, initialState, onStateChange }) {
       const newPetLevel = petLevel + 1;
       return {
         ...s,
-        exp: Math.max(0, (s.exp || 0) - threshold),
+        exp: totalXP, // 同步最新 XP（不消耗玩家 XP）
+        petExpConsumed: consumed + threshold, // 标记已消耗的经验量
         currentPet: {
           ...pet,
           level: newPetLevel,
-          exp: Math.max(0, petExp - threshold),
           stage: getPetStage(newPetLevel),
           lastAction: 'levelUp',
         },
@@ -223,14 +220,18 @@ export default function MV1Demo({ onBack, initialState, onStateChange }) {
   // 派生数据
   const currentPet = state.currentPet;
   const petLevel = currentPet?.level || 1;
-  const petExp = currentPet?.exp || 0;
   const petThreshold = petLevel * 100;
-  const petExpPct = Math.min(100, (petExp / petThreshold) * 100);
 
-  const totalXP = state.exp || 0;
+  // 用 storage 直接读取最新 XP，确保宠物经验池不依赖 state.exp 的时效性
+  const totalXP = storage.getXP(storage.getUser()?.id || '') || state.exp || 0;
   const lp = calcLevelProgress(totalXP);
-  const spendableXP = lp.currentExp; // 当前等级内可消费经验
-  const canLevelUpPet = spendableXP >= petThreshold;
+  const spendableXP = lp.currentExp; // 当前等级内可消费经验（用于商店）
+
+  // 宠物经验 = 玩家总 XP - 已消耗在宠物升级上的 XP（持续累积，不随玩家升级重置）
+  const petExpConsumed = state.petExpConsumed || 0;
+  const petExp = Math.max(0, totalXP - petExpConsumed);
+  const petExpPct = Math.min(100, (petExp / petThreshold) * 100);
+  const canLevelUpPet = petExp >= petThreshold;
 
   const petStage = useMemo(() => {
     if (petLevel < 2) return '蛋';
@@ -341,7 +342,7 @@ export default function MV1Demo({ onBack, initialState, onStateChange }) {
               </div>
               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                 <p style={{ margin: 0, fontSize: 11, color: '#9ca3af' }}>
-                  当前可消费经验: <strong style={{ color: '#6366f1' }}>{spendableXP}</strong> XP
+                  宠物经验池: <strong style={{ color: '#6366f1' }}>{petExp}</strong> XP（升级需 {petThreshold}）
                 </p>
                 {canLevelUpPet ? (
                   <button onClick={handlePetLevelUp} style={{
