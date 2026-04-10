@@ -152,7 +152,8 @@ export default function ReportPage({ user, onBack }) {
         </div>
       )}
 
-      {records.length >= 5 && <div className="px-4 pt-5 space-y-5">
+      {records.length >= 5 && (
+      <div className="px-4 pt-5 space-y-5">
         {/* 14-day heatmap */}
         <div className="bg-white rounded-2xl p-4 shadow-sm border border-gray-100">
           <h2 className="text-sm font-semibold text-gray-500 mb-3">近14天答题量</h2>
@@ -275,7 +276,8 @@ export default function ReportPage({ user, onBack }) {
               ))}
           </div>
         </div>
-      </div>}
+      </div>
+      )}
     </div>
   )
 }
