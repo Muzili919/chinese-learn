@@ -5,9 +5,17 @@ import poetryQ from '../data/questions_poetry.json'
 import idiomQ from '../data/questions_idiom.json'
 import sentenceQ from '../data/questions_sentence.json'
 import litQ from '../data/questions_literature.json'
+import enVocabQ from '../data/questions_en_vocab.json'
+import enListenQ from '../data/questions_en_listen.json'
+import enGrammarQ from '../data/questions_en_grammar.json'
+import enReadingQ from '../data/questions_en_reading.json'
+import enWritingQ from '../data/questions_en_writing.json'
 
 const ALL_QUESTIONS = [...vocabQ, ...poetryQ, ...idiomQ, ...sentenceQ, ...litQ]
 const Q_MAP = Object.fromEntries(ALL_QUESTIONS.map(q => [q.id, q]))
+
+const EN_ALL_QUESTIONS = [...enVocabQ, ...enListenQ, ...enGrammarQ, ...enReadingQ, ...enWritingQ]
+const EN_Q_MAP = Object.fromEntries(EN_ALL_QUESTIONS.map(q => [q.id, q]))
 
 const TAG_COLORS = {
   字词: 'bg-blue-100 text-blue-700',
@@ -58,7 +66,7 @@ export default function WrongAnswersPage({ user, subject = 'chinese', onStartWro
 
     for (const [cardId, rec] of Object.entries(latest)) {
       if (rec.correct) continue  // 最近一次答对了，不算错题
-      const q = Q_MAP[cardId]
+      const q = subject === 'english' ? EN_Q_MAP[cardId] : Q_MAP[cardId]
       if (!q) continue
 
       const srs = srsStates[cardId]

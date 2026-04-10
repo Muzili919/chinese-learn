@@ -12,9 +12,18 @@ export default function ReportPage({ user, onBack }) {
   const [pinInput, setPinInput] = useState('')
   const [unlocked, setUnlocked] = useState(false)
   const [pinError, setPinError] = useState(false)
+  const [reportSubject, setReportSubject] = useState('chinese') // 'chinese' | 'english'
 
-  const records = storage.getRecords(user.id)
+  const allRecords = storage.getRecords(user.id)
   const sessions = storage.getSessions(user.id)
+
+  // 按科目分组
+  const chineseRecords = useMemo(() =>
+    allRecords.filter(r => !r.subject || r.subject === 'chinese'), [allRecords])
+  const englishRecords = useMemo(() =>
+    allRecords.filter(r => r.subject === 'english'), [allRecords])
+
+  const records = reportSubject === 'english' ? englishRecords : chineseRecords
 
   const diagnosisResult = useMemo(() => {
     if (!records.length) return {}
@@ -79,22 +88,15 @@ export default function ReportPage({ user, onBack }) {
     )
   }
 
-  if (records.length < 5) {
-    return (
-      <div className="min-h-screen flex flex-col items-center justify-center px-6 text-center">
-        <div className="text-5xl mb-4">📊</div>
-        <h1 className="text-xl font-bold text-gray-800 mb-2">数据还不够</h1>
-        <p className="text-gray-500 text-sm">至少答 5 道题后才能生成报告</p>
-        <p className="text-gray-400 text-sm mt-1">当前：{records.length} 题</p>
-        <button onClick={onBack} className="mt-6 text-indigo-500 font-medium">← 返回</button>
-      </div>
-    )
-  }
-
   const totalCorrect = records.filter((r) => r.correct).length
-  const overallAcc = Math.round((totalCorrect / records.length) * 100)
+  const overallAcc = records.length > 0 ? Math.round((totalCorrect / records.length) * 100) : 0
   const totalMinutes = Math.round(sessions.reduce((s, ses) => s + (ses.durationSec || 0), 0) / 60)
   const streak = storage.getStreak(user.id)
+
+  const SUBJECT_TABS = [
+    { id: 'chinese', label: '语文 📖', count: chineseRecords.length },
+    { id: 'english', label: '英语 🌎', count: englishRecords.length },
+  ]
 
   return (
     <div className="min-h-screen pb-8">
@@ -103,7 +105,7 @@ export default function ReportPage({ user, onBack }) {
         <button onClick={onBack} className="text-indigo-200 text-sm mb-3">← 返回</button>
         <h1 className="text-2xl font-bold">{user.name} 的学习报告</h1>
         <p className="text-indigo-200 text-sm mt-1">
-          共答 {records.length} 题 · 累计 {totalMinutes} 分钟
+          共答 {allRecords.length} 题 · 累计 {totalMinutes} 分钟
         </p>
 
         <div className="flex gap-3 mt-4">
@@ -120,7 +122,37 @@ export default function ReportPage({ user, onBack }) {
         </div>
       </div>
 
-      <div className="px-4 pt-5 space-y-5">
+      {/* 科目切换 Tab */}
+      <div className="flex border-b border-gray-200 bg-white">
+        {SUBJECT_TABS.map(tab => (
+          <button
+            key={tab.id}
+            onClick={() => setReportSubject(tab.id)}
+            className={`flex-1 py-3 text-sm font-semibold transition-colors ${
+              reportSubject === tab.id
+                ? 'text-indigo-600 border-b-2 border-indigo-500'
+                : 'text-gray-400'
+            }`}
+          >
+            {tab.label}
+            <span className="ml-1 text-xs opacity-60">({tab.count}题)</span>
+          </button>
+        ))}
+      </div>
+
+      {/* 题数不足提示 */}
+      {records.length < 5 && (
+        <div className="flex flex-col items-center justify-center px-6 py-16 text-center">
+          <div className="text-5xl mb-4">📊</div>
+          <h1 className="text-xl font-bold text-gray-800 mb-2">
+            {reportSubject === 'english' ? '英语' : '语文'}数据还不够
+          </h1>
+          <p className="text-gray-500 text-sm">至少答 5 道题后才能生成报告</p>
+          <p className="text-gray-400 text-sm mt-1">当前：{records.length} 题</p>
+        </div>
+      )}
+
+      {records.length >= 5 && <div className="px-4 pt-5 space-y-5">
         {/* 14-day heatmap */}
         <div className="bg-white rounded-2xl p-4 shadow-sm border border-gray-100">
           <h2 className="text-sm font-semibold text-gray-500 mb-3">近14天答题量</h2>
@@ -243,7 +275,7 @@ export default function ReportPage({ user, onBack }) {
               ))}
           </div>
         </div>
-      </div>
+      </div>}
     </div>
   )
 }
