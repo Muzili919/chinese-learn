@@ -1,0 +1,262 @@
+/* Duolingo Style Quiz Styles */
+.duolingo-quiz-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(135deg, #7b68ee, #4a90e2);
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.quiz-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  color: white;
+}
+
+.quiz-progress-bar {
+  flex: 1;
+  height: 8px;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 4px;
+  overflow: hidden;
+  margin: 0 10px;
+}
+
+.quiz-progress-fill {
+  height: 100%;
+  background: white;
+  border-radius: 4px;
+  transition: width 0.3s ease;
+}
+
+.quiz-hearts {
+  display: flex;
+  gap: 4px;
+}
+
+.heart-icon {
+  width: 24px;
+  height: 24px;
+  fill: white;
+}
+
+.quiz-question-card {
+  background: white;
+  border-radius: 24px;
+  padding: 32px 24px;
+  margin: 20px 0;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.quiz-question-text {
+  font-size: 24px;
+  font-weight: 600;
+  color: #333;
+  line-height: 1.4;
+  margin-bottom: 24px;
+  min-height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.quiz-options-grid {
+  display: grid;
+  gap: 16px;
+  margin-top: 24px;
+}
+
+.quiz-option-btn {
+  background: #f8f9fa;
+  border: 2px solid #e9ecef;
+  border-radius: 16px;
+  padding: 16px 24px;
+  font-size: 18px;
+  font-weight: 500;
+  color: #495057;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: center;
+}
+
+.quiz-option-btn:hover {
+  background: #e9ecef;
+  transform: translateY(-2px);
+}
+
+.quiz-option-btn.correct {
+  background: #d4edda;
+  border-color: #c3e6cb;
+  color: #155724;
+  animation: correctPulse 0.6s ease;
+}
+
+.quiz-option-btn.incorrect {
+  background: #f8d7da;
+  border-color: #f5c6cb;
+  color: #721c24;
+  animation: shake 0.6s ease;
+}
+
+.quiz-input-container {
+  margin-top: 24px;
+}
+
+.quiz-text-input {
+  width: 100%;
+  padding: 16px 20px;
+  font-size: 18px;
+  border: 2px solid #dee2e6;
+  border-radius: 16px;
+  text-align: center;
+  outline: none;
+}
+
+.quiz-text-input:focus {
+  border-color: #7b68ee;
+  box-shadow: 0 0 0 3px rgba(123, 104, 238, 0.2);
+}
+
+.quiz-submit-btn {
+  background: #28a745;
+  color: white;
+  border: none;
+  border-radius: 16px;
+  padding: 16px 32px;
+  font-size: 18px;
+  font-weight: 600;
+  margin-top: 24px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.quiz-submit-btn:hover:not(:disabled) {
+  background: #218838;
+}
+
+.quiz-submit-btn:disabled {
+  background: #6c757d;
+  cursor: not-allowed;
+}
+
+.quiz-feedback {
+  margin-top: 20px;
+  padding: 16px;
+  border-radius: 16px;
+  font-size: 16px;
+  font-weight: 500;
+  text-align: center;
+}
+
+.feedback-correct {
+  background: #d4edda;
+  color: #155724;
+}
+
+.feedback-incorrect {
+  background: #f8d7da;
+  color: #721c24;
+}
+
+.quiz-next-btn {
+  background: #7b68ee;
+  color: white;
+  border: none;
+  border-radius: 16px;
+  padding: 16px 32px;
+  font-size: 18px;
+  font-weight: 600;
+  margin-top: 24px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.quiz-next-btn:hover {
+  background: #6a5acd;
+}
+
+/* Animations */
+@keyframes correctPulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-5px); }
+  75% { transform: translateX(5px); }
+}
+
+/* Mobile optimizations */
+@media (max-width: 768px) {
+  .duolingo-quiz-container {
+    padding: 16px;
+  }
+  
+  .quiz-question-text {
+    font-size: 20px;
+    padding: 0 10px;
+  }
+  
+  .quiz-option-btn {
+    padding: 14px 20px;
+    font-size: 16px;
+  }
+  
+  .quiz-text-input {
+    padding: 14px 16px;
+    font-size: 16px;
+  }
+  
+  .quiz-submit-btn,
+  .quiz-next-btn {
+    padding: 14px 28px;
+    font-size: 16px;
+  }
+}
+
+/* Fill-in-blank specific styles */
+.fill-blank-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+  margin: 20px 0;
+  min-height: 60px;
+}
+
+.fill-blank-word {
+  background: #e9ecef;
+  padding: 8px 16px;
+  border-radius: 12px;
+  font-size: 18px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.fill-blank-word:hover {
+  background: #dee2e6;
+  transform: translateY(-2px);
+}
+
+.fill-blank-word.selected {
+  background: #7b68ee;
+  color: white;
+}
+
+.fill-blank-sentence {
+  font-size: 20px;
+  line-height: 1.6;
+  margin: 20px 0;
+  min-height: 60px;
+}
