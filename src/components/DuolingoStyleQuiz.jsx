@@ -9,6 +9,41 @@ function normalize(s) {
     .replace(/[，。！？、；：""''《》（）\s]/g, '')
 }
 
+// 通用答案归一化（支持英文选择题 "A. xxx" 前缀）
+function normalizeAnswer(str) {
+  if (!str) return ''
+  return String(str).trim().toLowerCase()
+    .replace(/^[a-d]\.\s*/i, '')  // 去掉 "A. " 前缀
+    .replace(/\s+/g, ' ')
+}
+
+// 通用答案匹配函数：处理 A/B/C/D 字母、选项全文、大小写等
+function isAnswerCorrect(userAnswer, correctAnswer, options) {
+  const ua = normalizeAnswer(userAnswer)
+  const ca = normalizeAnswer(correctAnswer)
+
+  // 直接匹配
+  if (ua === ca) return true
+
+  // 如果 correctAnswer 是字母（A/B/C/D），匹配选项内容
+  if (/^[a-d]$/i.test(correctAnswer.trim()) && options && options.length) {
+    const idx = correctAnswer.trim().toUpperCase().charCodeAt(0) - 65
+    if (idx >= 0 && idx < options.length) {
+      return ua === normalizeAnswer(options[idx])
+    }
+  }
+
+  // 如果 userAnswer 是字母，反向匹配
+  if (/^[a-d]$/i.test(userAnswer.trim()) && options && options.length) {
+    const idx = userAnswer.trim().toUpperCase().charCodeAt(0) - 65
+    if (idx >= 0 && idx < options.length) {
+      return normalizeAnswer(options[idx]) === ca
+    }
+  }
+
+  return false
+}
+
 function isWordBankQ(q) {
   if (q.type !== 'fill_blank') return false
   if (isJudgmentQ(q) || isTypoQ(q) || isOrderQ(q)) return false
@@ -259,18 +294,37 @@ function FeedbackPanel({ correct, analysis, answer, onContinue, variantState }) 
 function ChoiceQuestion({ question, onDone }) {
   const [selected, setSelected] = useState(null)
 
+  // 找出正确选项的全文（兼容 answer="B" 或 answer="B. bag" 或选项全文）
+  function getCorrectOption() {
+    const opts = question.options || []
+    for (const opt of opts) {
+      if (isAnswerCorrect(opt, question.answer, opts)) return opt
+    }
+    return question.answer
+  }
+
   function handleSelect(opt) {
     if (selected) return
     setSelected(opt)
-    onDone(opt, opt === question.answer)
+    const correct = isAnswerCorrect(opt, question.answer, question.options)
+    console.log('[答案判定]', {
+      questionId: question.id,
+      questionType: question.type,
+      userAnswer: opt,
+      correctAnswer: question.answer,
+      isCorrect: correct
+    })
+    onDone(opt, correct)
   }
+
+  const correctOpt = getCorrectOption()
 
   return (
     <div className="flex flex-col gap-3">
       {question.options.map(opt => {
         let cls = 'bg-white border-2 border-gray-200 text-gray-800'
         if (selected) {
-          if (opt === question.answer) cls = 'bg-green-100 border-2 border-green-500 text-green-800'
+          if (isAnswerCorrect(opt, question.answer, question.options)) cls = 'bg-green-100 border-2 border-green-500 text-green-800'
           else if (opt === selected) cls = 'bg-red-100 border-2 border-red-400 text-red-700'
           else cls = 'bg-white border-2 border-gray-100 text-gray-300'
         }
@@ -602,12 +656,20 @@ function OrderQuestion({ question, onDone }) {
 function FillQuestion({ question, onDone }) {
   const [input, setInput] = useState('')
   const [submitted, setSubmitted] = useState(false)
-  const correct = submitted && normalize(input) === normalize(question.answer)
+  const correct = submitted && isAnswerCorrect(input, question.answer, null)
 
   function handleSubmit() {
     if (!input.trim() || submitted) return
     setSubmitted(true)
-    onDone(input, normalize(input) === normalize(question.answer))
+    const isCorrect = isAnswerCorrect(input, question.answer, null)
+    console.log('[答案判定]', {
+      questionId: question.id,
+      questionType: question.type,
+      userAnswer: input,
+      correctAnswer: question.answer,
+      isCorrect
+    })
+    onDone(input, isCorrect)
   }
 
   return (

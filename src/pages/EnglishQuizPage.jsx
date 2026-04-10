@@ -39,14 +39,19 @@ function shuffleOptions(question) {
   return { ...question, options: opts }
 }
 
-// TTS 朗读英文
-function speakEnglish(text) {
-  if (!text || !window.speechSynthesis) return
+// TTS 朗读英文（返回 utterance 对象以便绑定回调）
+function speakEnglish(text, onEnd) {
+  if (!text || !window.speechSynthesis) return null
   window.speechSynthesis.cancel()
   const utter = new SpeechSynthesisUtterance(text)
   utter.lang = 'en-US'
   utter.rate = 0.85
+  if (onEnd) {
+    utter.onend = () => onEnd()
+    utter.onerror = () => onEnd()
+  }
   window.speechSynthesis.speak(utter)
+  return utter
 }
 
 // 写作题组件（open_ended）
@@ -149,16 +154,16 @@ export default function EnglishQuizPage({ user, options = {}, onFinish, onBack }
     questionStartTime.current = Date.now()
   }, [index])
 
-  // 听力题：题目加载时自动播放
+  // 听力题：题目加载时自动播放一次
   useEffect(() => {
     if (current?.listening_text) {
       setIsPlayingAudio(true)
-      speakEnglish(current.listening_text)
-      // 估算播放时长（约 100ms/字 + 1秒缓冲）
-      const duration = current.listening_text.split(' ').length * 400 + 1000
-      const timer = setTimeout(() => setIsPlayingAudio(false), duration)
-      return () => clearTimeout(timer)
+      speakEnglish(current.listening_text, () => setIsPlayingAudio(false))
     } else {
+      setIsPlayingAudio(false)
+    }
+    return () => {
+      window.speechSynthesis?.cancel()
       setIsPlayingAudio(false)
     }
   }, [index, current?.id])
@@ -248,21 +253,25 @@ export default function EnglishQuizPage({ user, options = {}, onFinish, onBack }
 
       {/* 听力题提示区 */}
       {current.listening_text && (
-        <div className="mx-4 mt-2 bg-violet-50 border border-violet-200 rounded-xl px-4 py-2 flex items-center gap-3">
-          <span className="text-lg">{isPlayingAudio ? '🔊' : '🎧'}</span>
+        <div className="mx-4 mt-2 bg-violet-50 border border-violet-200 rounded-xl px-4 py-3 flex items-center gap-3">
+          <span className="text-2xl">{isPlayingAudio ? '🔊' : '🎧'}</span>
           <span className="text-sm text-violet-600 font-medium flex-1">
             {isPlayingAudio ? '正在播放听力...' : '听力已播放完毕'}
           </span>
           <button
             onClick={() => {
+              if (isPlayingAudio) return
               setIsPlayingAudio(true)
-              speakEnglish(current.listening_text)
-              const duration = current.listening_text.split(' ').length * 400 + 1000
-              setTimeout(() => setIsPlayingAudio(false), duration)
+              speakEnglish(current.listening_text, () => setIsPlayingAudio(false))
             }}
-            className="text-xs text-violet-500 bg-violet-100 px-3 py-1 rounded-full font-medium active:bg-violet-200 transition-colors"
+            disabled={isPlayingAudio}
+            className={`text-sm px-4 py-2 rounded-full font-bold transition-colors ${
+              isPlayingAudio
+                ? 'bg-violet-200 text-violet-400 cursor-not-allowed'
+                : 'bg-violet-500 text-white active:bg-violet-600'
+            }`}
           >
-            重播 🔊
+            {isPlayingAudio ? '播放中...' : '重新播放'}
           </button>
         </div>
       )}

@@ -116,6 +116,32 @@ ${essay}`
 }
 
 /**
+ * AI批改作文（通用版本，返回评分+优点+建议+总评）
+ * @param {string} prompt - 作文题目
+ * @param {string} essayText - 学生写的作文
+ * @returns {{ score, level, strengths, suggestions, rewrite, comment }}
+ */
+export async function gradeEssay(prompt, essayText) {
+  const systemMsg = `你是一位小学语文老师，负责批改作文。请用JSON格式返回批改结果。`
+  const userMsg = `作文题目：${prompt}
+
+学生作文：
+${essayText}
+
+请返回如下JSON格式（只返回JSON，不要解释）：
+{
+  "score": 85,
+  "level": "良好",
+  "strengths": ["优点1", "优点2"],
+  "suggestions": ["修改建议1", "修改建议2", "修改建议3"],
+  "rewrite": "优化后的开头示例（50字内）",
+  "comment": "总评（100字内）"
+}`
+
+  return callDeepSeek(systemMsg, userMsg)
+}
+
+/**
  * AI批改阅读理解答案（像老师一样分析要点）
  * @param {string} questionText - 题目文本
  * @param {string} userAnswer - 学生答案
