@@ -288,6 +288,7 @@ export default function App() {
       if (activeTab === 'wrong') return (
         <WrongAnswersPage
           user={user}
+          subject={activeSubject}
           onStartWrongQuiz={(ids) => { setQuizOptions({ wrongCardIds: ids }); setPage('quiz') }}
           onBack={() => setActiveTab('home')}
         />

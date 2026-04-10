@@ -2,7 +2,7 @@ import { useMemo } from 'react'
 import { storage, calcLevel, calcLevelProgress } from '../utils/storage'
 
 const EN_PLANETS = [
-  { id: 'en_words',       label: '单词星球', emoji: '🔤', color: 'from-sky-400 to-indigo-600',     desc: '联想记忆·辨析陷阱' },
+  { id: 'en_words',       label: '单词星球', emoji: '🔤', color: 'from-sky-400 to-indigo-600',     desc: '895词浏览·分类学习·记忆测验' },
   { id: 'en_association', label: '联想星球', emoji: '🌐', color: 'from-emerald-400 to-teal-600',   desc: '词根树·联想记忆·举一反三' },
   { id: 'en_vocab',   label: '词汇星球', emoji: '📝', color: 'from-sky-400 to-blue-600',     desc: '拼写·翻译·辨音' },
   { id: 'en_listen',  label: '听力星球', emoji: '🎧', color: 'from-violet-400 to-purple-600', desc: 'TTS听音·判断·选择' },

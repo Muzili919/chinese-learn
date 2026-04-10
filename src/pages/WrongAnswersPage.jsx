@@ -26,11 +26,16 @@ function daysDiff(dateStr) {
   return diff
 }
 
-export default function WrongAnswersPage({ user, onStartWrongQuiz, onBack }) {
+export default function WrongAnswersPage({ user, subject = 'chinese', onStartWrongQuiz, onBack }) {
   const [filter, setFilter] = useState('all')  // all | overdue | pending
 
   const { wrongCards, overdueCount } = useMemo(() => {
-    const records = storage.getRecords(user.id)
+    const allRecords = storage.getRecords(user.id)
+    // 按科目过滤：英语题有 subject==='english'，语文题没有 subject 或 subject==='chinese'
+    const records = allRecords.filter(r => {
+      if (subject === 'english') return r.subject === 'english'
+      return !r.subject || r.subject === 'chinese'
+    })
     const srsStates = storage.getSrsState(user.id)
 
     // 每张卡最新一条记录
@@ -96,7 +101,7 @@ export default function WrongAnswersPage({ user, onStartWrongQuiz, onBack }) {
         <div className="flex items-center gap-3 mb-3">
           <button onClick={onBack} className="text-gray-400 text-xl p-1">✕</button>
           <div>
-            <h1 className="text-xl font-bold text-gray-800">💥 错题本</h1>
+            <h1 className="text-xl font-bold text-gray-800">💥 错题本{subject === 'english' ? '（英语）' : '（语文）'}</h1>
             <p className="text-xs text-gray-400">错误 → 复盘 → 攻克，共 {wrongCards.length} 道错题</p>
           </div>
         </div>

@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useEffect, useCallback, useRef } from 'react'
 import { storage } from '../utils/storage'
 import wordsNetwork from '../data/words_network.json'
 
@@ -78,7 +78,66 @@ function buildQuestions(wordObj) {
     })
   }
 
+  // 拼写题
+  questions.push({
+    type: 'spelling',
+    prompt: '根据中文意思，拼写出英文单词：',
+    hint: wordObj.meaning,
+    phonetic: wordObj.phonetic || '',
+    answer: wordObj.word,
+    feedback: `正确拼写：${wordObj.word}（${wordObj.meaning}）`,
+  })
+
   return questions
+}
+
+// ─── 音节分割 ─────────────────────────────────────────────────────────────
+function splitSyllables(word) {
+  const w = word.toLowerCase()
+  const dict = {
+    basketball: ['bas','ket','ball'], football: ['foot','ball'],
+    volleyball: ['vol','ley','ball'], bedroom: ['bed','room'],
+    classroom: ['class','room'], blackboard: ['black','board'],
+    breakfast: ['break','fast'], watermelon: ['wa','ter','me','lon'],
+    elephant: ['el','e','phant'], beautiful: ['beau','ti','ful'],
+    computer: ['com','pu','ter'], umbrella: ['um','brel','la'],
+    butterfly: ['but','ter','fly'], interesting: ['in','ter','est','ing'],
+    different: ['dif','fer','ent'], important: ['im','por','tant'],
+    remember: ['re','mem','ber'], together: ['to','geth','er'],
+    understand: ['un','der','stand'], chocolate: ['choc','o','late'],
+    strawberry: ['straw','ber','ry'], dictionary: ['dic','tion','ar','y'],
+    september: ['sep','tem','ber'], november: ['no','vem','ber'],
+    december: ['de','cem','ber'], february: ['feb','ru','ar','y'],
+    morning: ['mor','ning'], evening: ['eve','ning'], afternoon: ['af','ter','noon'],
+    birthday: ['birth','day'], garden: ['gar','den'], window: ['win','dow'],
+    family: ['fam','i','ly'], animal: ['an','i','mal'], student: ['stu','dent'],
+    teacher: ['teach','er'], mother: ['moth','er'], father: ['fa','ther'],
+    brother: ['broth','er'], sister: ['sis','ter'], rabbit: ['rab','bit'],
+    monkey: ['mon','key'], tiger: ['ti','ger'], table: ['ta','ble'],
+    purple: ['pur','ple'], circle: ['cir','cle'], people: ['peo','ple'],
+    little: ['lit','tle'], bottle: ['bot','tle'], apple: ['ap','ple'],
+  }
+  if (dict[w]) return dict[w]
+  if (w.length <= 4) return [word]
+  return [word]
+}
+
+const SYLLABLE_COLORS = ['text-blue-600', 'text-emerald-600', 'text-purple-600', 'text-orange-500']
+
+function SyllableDisplay({ word }) {
+  const syllables = splitSyllables(word)
+  if (syllables.length <= 1) {
+    return <span className="font-mono text-3xl font-extrabold text-gray-800">{word}</span>
+  }
+  return (
+    <span className="font-mono text-3xl font-extrabold">
+      {syllables.map((syl, i) => (
+        <span key={i} className={SYLLABLE_COLORS[i % SYLLABLE_COLORS.length]}>
+          {syl}{i < syllables.length - 1 ? <span className="text-gray-300">·</span> : ''}
+        </span>
+      ))}
+    </span>
+  )
 }
 
 // ─── 对比弹窗 ──────────────────────────────────────────────────────────────
@@ -230,9 +289,7 @@ function WordTree({ wordObj, visible, onNodeClick, onConfusableClick }) {
             🔊
           </button>
           <div className="flex-1">
-            <div className="text-3xl font-extrabold text-gray-800 leading-tight">
-              {wordObj.word}
-            </div>
+            <SyllableDisplay word={wordObj.word} />
             <div className="text-base text-emerald-700 font-semibold mt-0.5">
               {wordObj.meaning}
             </div>
@@ -256,7 +313,7 @@ function WordTree({ wordObj, visible, onNodeClick, onConfusableClick }) {
 
         {/* 例句 */}
         {wordObj.example && (
-          <div className="mx-4 mb-4 px-3 py-2 bg-white/60 rounded-xl flex items-start gap-2">
+          <div className="mx-4 mb-2 px-3 py-2 bg-white/60 rounded-xl flex items-start gap-2">
             <button
               onClick={() => speakEnglish(wordObj.example)}
               className="text-base flex-shrink-0 mt-0.5 active:scale-90 transition-transform"
@@ -268,6 +325,15 @@ function WordTree({ wordObj, visible, onNodeClick, onConfusableClick }) {
             </span>
           </div>
         )}
+
+        {/* 用法区别 */}
+        {wordObj.usage_note && (
+          <div className="mx-4 mb-4 bg-amber-50 border border-amber-200 rounded-xl px-3 py-2">
+            <div className="text-xs font-bold text-amber-600 mb-1">💡 用法区别</div>
+            <div className="text-sm text-amber-800">{wordObj.usage_note}</div>
+          </div>
+        )}
+        {!wordObj.usage_note && <div className="mb-4" />}
       </div>
 
       {/* 连线装饰 */}
@@ -313,11 +379,19 @@ function WordTree({ wordObj, visible, onNodeClick, onConfusableClick }) {
   )
 }
 
+// ─── 拼写判分 ────────────────────────────────────────────────────────────
+function checkSpelling(input, answer) {
+  return input.trim().toLowerCase() === answer.toLowerCase()
+}
+
 // ─── 答题区 ──────────────────────────────────────────────────────────────
 function QuizSection({ wordObj, onWordDone }) {
   const [questions] = useState(() => buildQuestions(wordObj))
   const [qIndex, setQIndex] = useState(0)
   const [selected, setSelected] = useState(null)
+  const [userInput, setUserInput] = useState('')
+  const [submitted, setSubmitted] = useState(false)
+  const [isCorrect, setIsCorrect] = useState(false)
   const [results, setResults] = useState([])
   const [done, setDone] = useState(false)
 
@@ -330,12 +404,24 @@ function QuizSection({ wordObj, onWordDone }) {
     setResults(prev => [...prev, { correct }])
   }
 
+  function handleSubmit() {
+    if (q.type === 'spelling') {
+      const correct = checkSpelling(userInput, q.answer)
+      setIsCorrect(correct)
+      setSubmitted(true)
+      setResults(prev => [...prev, { correct }])
+    }
+  }
+
   function handleNext() {
     if (qIndex + 1 >= questions.length) {
       setDone(true)
     } else {
       setQIndex(i => i + 1)
       setSelected(null)
+      setUserInput('')
+      setSubmitted(false)
+      setIsCorrect(false)
     }
   }
 
@@ -380,8 +466,68 @@ function QuizSection({ wordObj, onWordDone }) {
     )
   }
 
-  const answered = selected !== null
-  const isCorrect = answered && selected === q.answer
+  const choiceAnswered = selected !== null
+  const choiceCorrect = choiceAnswered && selected === q.answer
+
+  // 拼写题渲染
+  if (q.type === 'spelling') {
+    return (
+      <div className="px-4 mt-4 pb-8">
+        {/* 题型标签 + 进度 */}
+        <div className="flex items-center justify-between mb-3">
+          <span className="text-xs font-bold px-3 py-1 rounded-full" style={{ background: '#f3e8ff', color: '#6b21a8' }}>
+            ✏️ 拼写挑战
+          </span>
+          <span className="text-xs text-gray-400">{qIndex + 1} / {questions.length}</span>
+        </div>
+
+        <div>
+          <p className="text-lg font-bold text-gray-800 mb-1">{q.prompt}</p>
+          <div className="text-3xl font-bold text-center my-4 text-indigo-600">{q.hint}</div>
+          {q.phonetic && (
+            <div className="text-center text-gray-400 text-sm mb-4">{q.phonetic}</div>
+          )}
+          {!submitted ? (
+            <div>
+              <input
+                type="text"
+                value={userInput}
+                onChange={e => setUserInput(e.target.value)}
+                onKeyDown={e => e.key === 'Enter' && userInput.trim() && handleSubmit()}
+                placeholder="输入英文单词..."
+                className="w-full border-2 border-gray-200 rounded-xl px-4 py-3 text-lg text-center font-mono tracking-widest focus:border-purple-400 outline-none"
+                autoFocus
+                autoComplete="off"
+                autoCorrect="off"
+                spellCheck="false"
+              />
+              <button
+                onClick={handleSubmit}
+                disabled={!userInput.trim()}
+                className="w-full mt-3 bg-purple-500 disabled:bg-gray-200 text-white font-bold py-3 rounded-xl active:scale-95 transition-all"
+              >
+                提交拼写
+              </button>
+            </div>
+          ) : (
+            <div>
+              <div className={`rounded-xl p-4 text-center mb-3 ${isCorrect ? 'bg-green-50 border-2 border-green-200' : 'bg-red-50 border-2 border-red-200'}`}>
+                <div className="text-3xl mb-2">{isCorrect ? '✅' : '❌'}</div>
+                <div className="font-bold text-lg">{isCorrect ? '拼写正确！+' + XP_CORRECT + ' XP' : `正确拼写：${q.answer}`}</div>
+                {!isCorrect && <div className="text-sm text-gray-500 mt-1">你的答案：{userInput}</div>}
+              </div>
+              <button
+                onClick={handleNext}
+                className="w-full py-3 rounded-2xl bg-gradient-to-r from-emerald-400 to-teal-500 text-white font-bold text-base active:scale-95 transition-transform shadow-md"
+              >
+                {qIndex + 1 >= questions.length ? '查看本词结果 →' : '下一题 →'}
+              </button>
+            </div>
+          )}
+        </div>
+      </div>
+    )
+  }
 
   return (
     <div className="px-4 mt-4 pb-8">
@@ -412,7 +558,7 @@ function QuizSection({ wordObj, onWordDone }) {
       <div className="grid grid-cols-2 gap-3 mb-3">
         {q.options.map((opt, i) => {
           let style = 'border-gray-200 bg-white text-gray-700'
-          if (answered) {
+          if (choiceAnswered) {
             if (opt === q.answer) style = 'border-green-400 bg-green-50 text-green-700'
             else if (opt === selected) style = 'border-red-400 bg-red-50 text-red-600'
             else style = 'border-gray-200 bg-white text-gray-400'
@@ -421,7 +567,7 @@ function QuizSection({ wordObj, onWordDone }) {
             <button
               key={i}
               onClick={() => handleSelect(opt)}
-              disabled={answered}
+              disabled={choiceAnswered}
               className={`rounded-2xl border-2 px-3 py-3 text-sm font-medium text-left transition-all active:scale-95 ${style}`}
             >
               <span className="mr-1.5 text-xs font-bold text-gray-400">
@@ -434,11 +580,11 @@ function QuizSection({ wordObj, onWordDone }) {
       </div>
 
       {/* 反馈 */}
-      {answered && (
+      {choiceAnswered && (
         <div
-          className={`rounded-2xl px-4 py-3 text-sm leading-relaxed mb-3 ${isCorrect ? 'bg-green-50 border border-green-200 text-green-800' : 'bg-red-50 border border-red-200 text-red-800'}`}
+          className={`rounded-2xl px-4 py-3 text-sm leading-relaxed mb-3 ${choiceCorrect ? 'bg-green-50 border border-green-200 text-green-800' : 'bg-red-50 border border-red-200 text-red-800'}`}
         >
-          {isCorrect ? (
+          {choiceCorrect ? (
             <div className="font-bold">✅ 答对了！+{XP_CORRECT} XP</div>
           ) : (
             <>
@@ -453,7 +599,7 @@ function QuizSection({ wordObj, onWordDone }) {
       )}
 
       {/* 下一题 */}
-      {answered && (
+      {choiceAnswered && (
         <button
           onClick={handleNext}
           className="w-full py-3 rounded-2xl bg-gradient-to-r from-emerald-400 to-teal-500 text-white font-bold text-base active:scale-95 transition-transform shadow-md"
@@ -477,12 +623,16 @@ export default function AssociationPlanetPage({ user, onFinish, onBack }) {
   const [sessionResults, setSessionResults] = useState([]) // { correct, total }
   const [totalXP, setTotalXP] = useState(0)
   const [done, setDone] = useState(false)
+  const scrollContainerRef = useRef(null)
 
   const currentWord = sessionWords[currentIdx]
   const xp = storage.getXP(user?.id)
 
-  // 词切换时：fade out → 换词 → fade in + TTS
+  // 词切换时：滚回顶部 → fade out → 换词 → fade in + TTS
   const switchWord = useCallback((newIdx) => {
+    if (scrollContainerRef.current) {
+      scrollContainerRef.current.scrollTop = 0
+    }
     setTreeVisible(false)
     setShowQuiz(false)
     setTimeout(() => {
@@ -625,15 +775,17 @@ export default function AssociationPlanetPage({ user, onFinish, onBack }) {
       </div>
 
       {/* 内容区 */}
-      <div className="flex-1 overflow-y-auto pb-10">
+      <div ref={scrollContainerRef} className="flex-1 overflow-y-auto pb-10">
         <div className="pt-5 pb-4">
           {/* 词根树 */}
-          <WordTree
-            wordObj={currentWord}
-            visible={treeVisible}
-            onNodeClick={handleNodeClick}
-            onConfusableClick={handleConfusableClick}
-          />
+          <div style={{ minHeight: 400 }}>
+            <WordTree
+              wordObj={currentWord}
+              visible={treeVisible}
+              onNodeClick={handleNodeClick}
+              onConfusableClick={handleConfusableClick}
+            />
+          </div>
 
           {/* 分割线 + 闯关按钮 */}
           {!showQuiz && treeVisible && (
@@ -653,7 +805,7 @@ export default function AssociationPlanetPage({ user, onFinish, onBack }) {
                 onClick={() => setShowQuiz(true)}
                 className="w-full py-3.5 rounded-2xl bg-gradient-to-r from-emerald-400 to-teal-600 text-white font-bold text-base active:scale-95 transition-transform shadow-md"
               >
-                开始闯关 ✍️ （2 道题）
+                开始闯关 ✍️ （3 道题）
               </button>
             </div>
           )}
