@@ -223,10 +223,10 @@ function MultiSubQuiz({ question: q, onSubmit }) {
         <p className="text-gray-800 text-sm leading-relaxed">{current.displayText}</p>
       </div>
 
-      {/* T/F 按钮 */}
+      {/* T/F 按钮（英语用 A/B 标签） */}
       {current.type === 'tf' && !submitted && (
         <div className="grid grid-cols-2 gap-3">
-          {[['T','✓ 正确 (T)','text-green-700','border-green-200'], ['F','✗ 错误 (F)','text-red-600','border-red-200']].map(([val, label, tc, bc]) => (
+          {[['T','A  正确','text-green-700','border-green-200'], ['F','B  错误','text-red-600','border-red-200']].map(([val, label, tc, bc]) => (
             <button
               key={val}
               onClick={() => handleTF(val)}
@@ -243,15 +243,12 @@ function MultiSubQuiz({ question: q, onSubmit }) {
         <div className="grid grid-cols-2 gap-3">
           {['T','F'].map(val => {
             const isCorrectOpt = val === current.rawAnswer.toUpperCase()
-            const wasSelected = currentCorrect
-              ? val === current.rawAnswer.toUpperCase()
-              : val !== current.rawAnswer.toUpperCase()
             let cls = 'bg-white border-gray-200 text-gray-400'
             if (isCorrectOpt) cls = 'bg-green-50 border-green-400 text-green-700'
             else if (!currentCorrect && val !== current.rawAnswer.toUpperCase()) cls = 'bg-red-50 border-red-300 text-red-500'
             return (
               <div key={val} className={`py-4 rounded-2xl border-2 font-bold text-base text-center ${cls}`}>
-                {val === 'T' ? '✓ 正确 (T)' : '✗ 错误 (F)'}
+                {val === 'T' ? 'A  正确' : 'B  错误'}
               </div>
             )
           })}
@@ -473,7 +470,7 @@ function EnglishQuestion({ question: q, onSubmit }) {
               <button key={i} onClick={() => handleSelect(opt)} disabled={submitted}
                 className={`rounded-2xl border-2 px-4 py-3 text-sm font-medium text-left transition-all active:scale-95 ${cls}`}>
                 <span className="mr-2 text-xs font-bold opacity-40">{['A','B','C','D'][i]}.</span>
-                {opt.replace(/^[A-D]\.\s*/i, '')}
+                {opt.replace(/^[A-D]\.\s*/i, '').replace(/^T$/, '正确').replace(/^F$/, '错误').replace(/的图片描述$/, '')}
               </button>
             )
           })}

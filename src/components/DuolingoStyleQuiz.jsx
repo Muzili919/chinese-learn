@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect, useMemo } from 'react'
-import { generateVariant } from '../utils/ai'
+import { generateVariant, evaluateClassicalTranslation } from '../utils/ai'
 
 // ─── 工具函数 ─────────────────────────────────────────────
 
@@ -866,22 +866,57 @@ function PlainMultiSubQuestion({ question, onDone }) {
   const expectedMap = useMemo(() => parseExpectedAnswers(question.answer), [question.answer])
   const [subIndex, setSubIndex] = useState(0)
   const [input, setInput] = useState('')
-  const [phase, setPhase] = useState('input') // 'input' | 'feedback'
+  const [phase, setPhase] = useState('input') // 'input' | 'grading' | 'feedback'
   const [results, setResults] = useState([])
+  const [aiFeedback, setAiFeedback] = useState(null)
   const resultsRef = useRef([])
+
+  // 检测是否为文言文翻译题
+  const isTranslation = /翻译|文言文|现代汉语/.test(question.question)
 
   const current = stems[subIndex]
   const expected = expectedMap[current?.num] || ''
-  // 超过5个汉字的答案用 textarea，否则用 input
-  const isLong = expected.replace(/[^\u4e00-\u9fff]/g, '').length > 5
+  // 翻译题或长答案用 textarea
+  const isLong = isTranslation || expected.replace(/[^\u4e00-\u9fff]/g, '').length > 5
 
-  function handleSubmit() {
+  // 从子题文本中提取文言文原句（去掉"翻译：____"等填空提示）
+  function extractClassicalText(text) {
+    return text
+      .split('\n')
+      .filter(line => !/翻译[:：]|意思[:：]|______/.test(line))
+      .join('').trim()
+  }
+
+  async function handleSubmit() {
     if (!input.trim()) return
-    const correct = smartCheck(input, expected)
-    const newResults = [...resultsRef.current, { correct }]
-    resultsRef.current = newResults
-    setResults(newResults)
-    setPhase('feedback')
+    if (isTranslation) {
+      setPhase('grading')
+      setAiFeedback(null)
+      try {
+        const classicalText = extractClassicalText(current.text)
+        const result = await evaluateClassicalTranslation(classicalText, input.trim(), expected)
+        const correct = result.correct ?? (result.score >= 60)
+        setAiFeedback(result)
+        const newResults = [...resultsRef.current, { correct }]
+        resultsRef.current = newResults
+        setResults(newResults)
+        setPhase('feedback')
+      } catch {
+        // AI 失败时降级为精确匹配
+        const correct = smartCheck(input, expected)
+        setAiFeedback(null)
+        const newResults = [...resultsRef.current, { correct }]
+        resultsRef.current = newResults
+        setResults(newResults)
+        setPhase('feedback')
+      }
+    } else {
+      const correct = smartCheck(input, expected)
+      const newResults = [...resultsRef.current, { correct }]
+      resultsRef.current = newResults
+      setResults(newResults)
+      setPhase('feedback')
+    }
   }
 
   function handleNext() {
@@ -892,6 +927,7 @@ function PlainMultiSubQuestion({ question, onDone }) {
     } else {
       setSubIndex(nextIdx)
       setInput('')
+      setAiFeedback(null)
       setPhase('input')
     }
   }
@@ -901,7 +937,7 @@ function PlainMultiSubQuestion({ question, onDone }) {
 
   return (
     <div className="flex flex-col gap-4">
-      {/* 题目指令（空格前内容） */}
+      {/* 题目指令 */}
       {instruction && (
         <div className="bg-white rounded-2xl px-4 py-3 border border-gray-100 shadow-sm">
           <p className="text-sm text-gray-700 leading-relaxed whitespace-pre-wrap">{instruction}</p>
@@ -931,8 +967,9 @@ function PlainMultiSubQuestion({ question, onDone }) {
           第 {subIndex + 1} 题（共 {stems.length} 题）
         </p>
         <p className="text-base text-gray-800 leading-relaxed whitespace-pre-wrap">{current.text}</p>
-        {/* 反馈内联显示 */}
-        {phase === 'feedback' && (
+
+        {/* 反馈 —— 普通题 */}
+        {phase === 'feedback' && !isTranslation && (
           <div className="mt-3 pt-3 border-t border-gray-200">
             <p className={`text-sm font-bold mb-1 ${thisResult?.correct ? 'text-green-600' : 'text-red-500'}`}>
               {thisResult?.correct ? '✓ 正确！' : '✗ 答错了'}
@@ -945,7 +982,48 @@ function PlainMultiSubQuestion({ question, onDone }) {
             )}
           </div>
         )}
+
+        {/* 反馈 —— 翻译题 AI 批改结果 */}
+        {phase === 'feedback' && isTranslation && (
+          <div className="mt-3 pt-3 border-t border-gray-200 flex flex-col gap-2">
+            <div className={`flex items-center gap-2 font-bold text-sm ${thisResult?.correct ? 'text-green-600' : 'text-amber-600'}`}>
+              {thisResult?.correct ? '✅ 翻译正确！' : '📝 翻译需改进'}
+              {aiFeedback?.score !== undefined && (
+                <span className="ml-auto text-xs font-normal text-gray-500">得分 {aiFeedback.score}/100</span>
+              )}
+            </div>
+            {aiFeedback ? (
+              <>
+                <p className="text-sm text-gray-700">{aiFeedback.feedback}</p>
+                {aiFeedback.keyWords?.length > 0 && (
+                  <div className="flex flex-wrap gap-1 mt-1">
+                    {aiFeedback.keyWords.map((kw, i) => (
+                      <span key={i} className="text-xs bg-indigo-50 text-indigo-600 px-2 py-0.5 rounded-full border border-indigo-100">{kw}</span>
+                    ))}
+                  </div>
+                )}
+                <div className="bg-amber-50 border border-amber-200 rounded-xl px-3 py-2 mt-1">
+                  <span className="text-xs text-amber-600 font-semibold">参考译文：</span>
+                  <span className="text-xs text-gray-700">{aiFeedback.suggestion || expected}</span>
+                </div>
+              </>
+            ) : (
+              <div className="text-sm text-gray-600">
+                <p>你的答案：<span className="font-medium">{input}</span></p>
+                <p className="mt-1 font-semibold text-gray-800">参考答案：{expected}</p>
+              </div>
+            )}
+          </div>
+        )}
       </div>
+
+      {/* AI 批改中加载状态 */}
+      {phase === 'grading' && (
+        <div className="flex flex-col items-center gap-3 py-6">
+          <div className="w-8 h-8 border-4 border-indigo-300 border-t-indigo-600 rounded-full animate-spin" />
+          <p className="text-sm text-indigo-500 font-medium">AI 正在批改翻译…</p>
+        </div>
+      )}
 
       {/* 输入区 */}
       {phase === 'input' && (
@@ -954,8 +1032,8 @@ function PlainMultiSubQuestion({ question, onDone }) {
             value={input}
             onChange={e => setInput(e.target.value)}
             className="w-full border-2 border-gray-200 rounded-2xl px-4 py-3 text-base text-gray-800 focus:outline-none focus:border-indigo-400 resize-none"
-            rows={3}
-            placeholder="在这里写下答案…"
+            rows={isTranslation ? 4 : 3}
+            placeholder={isTranslation ? "把文言文翻译成现代汉语…" : "在这里写下答案…"}
             style={{ fontSize: '16px' }}
           />
         ) : (
@@ -975,13 +1053,13 @@ function PlainMultiSubQuestion({ question, onDone }) {
       {phase === 'input' && (
         <button onClick={handleSubmit} disabled={!input.trim()}
           className="w-full bg-indigo-500 disabled:bg-gray-200 disabled:text-gray-400 text-white font-bold py-4 rounded-2xl text-base">
-          确认
+          {isTranslation ? 'AI 批改翻译 ✨' : '确认'}
         </button>
       )}
       {phase === 'feedback' && (
         <button onClick={handleNext}
           className={`w-full font-bold py-4 rounded-2xl text-base text-white ${
-            thisResult?.correct ? 'bg-green-500' : 'bg-red-500'
+            thisResult?.correct ? 'bg-green-500' : 'bg-indigo-500'
           }`}>
           {subIndex + 1 >= stems.length
             ? '完成 ✓'

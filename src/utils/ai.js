@@ -148,6 +148,36 @@ ${essayText}
  * @param {string} correctAnswer - 参考答案
  * @returns {{ score, correct, hitPoints, missedPoints, teacherComment, improvement }}
  */
+/**
+ * 批改文言文翻译
+ * @param {string} classicalText - 文言文原句
+ * @param {string} userTranslation - 学生翻译
+ * @param {string} referenceTranslation - 参考翻译
+ * @returns {{ correct: boolean, score: number, keyWords: string[], feedback: string, suggestion: string }}
+ */
+export async function evaluateClassicalTranslation(classicalText, userTranslation, referenceTranslation) {
+  const system = `你是一位小学语文老师，正在批改学生的文言文翻译作业。
+请用JSON格式返回批改结果，包含以下字段：
+- score: 得分（0-100的整数）
+- correct: 布尔值（score>=60为true，意思基本正确即可）
+- keyWords: 数组，列出关键字词的翻译是否正确（每项格式："'字词': 正确/错误"，最多4项）
+- feedback: 字符串，用"你的翻译..."开头，指出亮点和不足，口吻亲切鼓励（40字以内）
+- suggestion: 字符串，参考译文（直接给出标准翻译，30字以内）
+
+评分标准：
+- 意思基本准确 60分起
+- 关键词翻译正确适当加分
+- 语言通顺加分
+- 小学生水平，宽松判断，鼓励为主`
+
+  const user = `文言文原句：「${classicalText}」
+参考翻译：「${referenceTranslation}」
+学生翻译：「${userTranslation}」
+请批改。`
+
+  return callDeepSeek(system, user)
+}
+
 export async function evaluateReadingAnswer(questionText, userAnswer, correctAnswer) {
   const system = `你是一位小学语文老师，正在批改阅读理解题。
 请用JSON格式返回批改结果，包含以下字段：
