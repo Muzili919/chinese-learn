@@ -63,7 +63,17 @@ export default function EssayPage({ user, onBack, onFinish }) {
     
     setIsEvaluating(true)
     try {
-      const result = await evaluateEssay(userEssay, currentPrompt)
+      const raw = await evaluateEssay(currentPrompt.title, userEssay)
+      // evaluateEssay returns { total, structure, content, language, summary, suggestion, ... }
+      // Normalize to component's expected format
+      const result = {
+        overall: Math.round((raw.total || 0) / 10), // convert 0-100 to 0-10 scale
+        content: Math.round((raw.content || 0) / 4), // 0-40 -> 0-10
+        language: Math.round((raw.language || 0) / 3), // 0-30 -> 0-10
+        structure: Math.round((raw.structure || 0) / 3), // 0-30 -> 0-10
+        feedback: raw.summary || raw.suggestion || '作文已评分，继续加油！',
+        ...raw,
+      }
       setEvaluation(result)
       
       // Update user stats
@@ -74,11 +84,28 @@ export default function EssayPage({ user, onBack, onFinish }) {
         userData.averageScore = userData.totalScore / userData.essaysSubmitted
         storage.setUser(userData)
         
-        // Sync to cloud
-        await syncAfterSession('essay', result.overall)
+        // Save essay history
+        storage.addEssay(userData.id, {
+          prompt: currentPrompt.title,
+          content: userEssay,
+          score: result.overall,
+          feedback: result.feedback,
+          category: currentPrompt.category,
+        })
+        
+        // Sync to cloud - pass userId, not 'essay'
+        if (userData.id) {
+          syncAfterSession(userData.id)
+        }
       }
     } catch (error) {
       console.error('评分失败:', error)
+      // Show error to user instead of silently failing
+      setEvaluation({
+        overall: 0, content: 0, language: 0, structure: 0,
+        feedback: `评分出错：${error.message}。请检查网络连接后重试。`,
+        isError: true,
+      })
     } finally {
       setIsEvaluating(false)
     }
@@ -159,54 +186,95 @@ export default function EssayPage({ user, onBack, onFinish }) {
         ) : evaluation ? (
           /* Evaluation Result */
           <div className="bg-white rounded-2xl shadow-lg p-6">
-            <div className="text-center mb-6">
-              <h2 className="text-xl font-bold text-gray-800 mb-2">作文评分完成！</h2>
-              <ScoreBadge score={evaluation.overall} />
-            </div>
+            {evaluation.isError ? (
+              <>
+                <div className="text-center mb-6">
+                  <div className="text-4xl mb-2">😞</div>
+                  <h2 className="text-xl font-bold text-gray-800 mb-2">评分遇到问题</h2>
+                </div>
+                <div className="bg-red-50 rounded-xl p-4 mb-6">
+                  <p className="text-red-700 text-sm leading-relaxed">{evaluation.feedback}</p>
+                </div>
+                <div className="flex space-x-3">
+                  <button
+                    onClick={() => setEvaluation(null)}
+                    className="flex-1 py-3 bg-indigo-600 text-white rounded-xl font-semibold hover:bg-indigo-700 transition-colors"
+                  >
+                    重新评分
+                  </button>
+                  <button
+                    onClick={() => { setCurrentPrompt(null); setEvaluation(null) }}
+                    className="flex-1 py-3 bg-gray-200 text-gray-800 rounded-xl font-semibold hover:bg-gray-300 transition-colors"
+                  >
+                    返回选题
+                  </button>
+                </div>
+              </>
+            ) : (
+              <>
+                <div className="text-center mb-6">
+                  <h2 className="text-xl font-bold text-gray-800 mb-2">作文评分完成！</h2>
+                  <ScoreBadge score={evaluation.overall} />
+                </div>
 
-            <div className="space-y-4 mb-6">
-              <ScoreBar 
-                label="内容完整度" 
-                score={evaluation.content} 
-                max={10} 
-                color={CATEGORY_COLORS[currentPrompt.category] || 'from-gray-400 to-gray-500'}
-              />
-              <ScoreBar 
-                label="语言表达" 
-                score={evaluation.language} 
-                max={10} 
-                color={CATEGORY_COLORS[currentPrompt.category] || 'from-gray-400 to-gray-500'}
-              />
-              <ScoreBar 
-                label="结构逻辑" 
-                score={evaluation.structure} 
-                max={10} 
-                color={CATEGORY_COLORS[currentPrompt.category] || 'from-gray-400 to-gray-500'}
-              />
-            </div>
+                <div className="space-y-4 mb-6">
+                  <ScoreBar 
+                    label="内容完整度" 
+                    score={evaluation.content} 
+                    max={10} 
+                    color={CATEGORY_COLORS[currentPrompt?.category] || 'from-gray-400 to-gray-500'}
+                  />
+                  <ScoreBar 
+                    label="语言表达" 
+                    score={evaluation.language} 
+                    max={10} 
+                    color={CATEGORY_COLORS[currentPrompt?.category] || 'from-gray-400 to-gray-500'}
+                  />
+                  <ScoreBar 
+                    label="结构逻辑" 
+                    score={evaluation.structure} 
+                    max={10} 
+                    color={CATEGORY_COLORS[currentPrompt?.category] || 'from-gray-400 to-gray-500'}
+                  />
+                </div>
 
-            <div className="bg-blue-50 rounded-xl p-4 mb-6">
-              <h3 className="font-semibold text-blue-800 mb-2">AI点评：</h3>
-              <p className="text-blue-700 text-sm leading-relaxed">{evaluation.feedback}</p>
-            </div>
+                <div className="bg-blue-50 rounded-xl p-4 mb-6">
+                  <h3 className="font-semibold text-blue-800 mb-2">AI点评：</h3>
+                  <p className="text-blue-700 text-sm leading-relaxed">{evaluation.feedback}</p>
+                  {evaluation.improvements && Array.isArray(evaluation.improvements) && (
+                    <div className="mt-3 space-y-2">
+                      <h4 className="font-semibold text-blue-800 text-sm">修改建议：</h4>
+                      {evaluation.improvements.map((imp, i) => (
+                        <div key={i} className="text-xs text-blue-600 bg-blue-100 rounded-lg p-2">
+                          <span className="line-through">{imp.original}</span>
+                          {' → '}
+                          <span className="font-medium">{imp.revised}</span>
+                          <span className="text-blue-400 ml-1">({imp.reason})</span>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
 
-            <div className="flex space-x-3">
-              <button
-                onClick={() => {
-                  setCurrentPrompt(null)
-                  setEvaluation(null)
-                }}
-                className="flex-1 py-3 bg-gray-200 text-gray-800 rounded-xl font-semibold hover:bg-gray-300 transition-colors"
-              >
-                重新选题
-              </button>
-              <button
-                onClick={() => onFinish({ type: 'essay', score: evaluation.overall })}
-                className="flex-1 py-3 bg-indigo-600 text-white rounded-xl font-semibold hover:bg-indigo-700 transition-colors"
-              >
-                返回首页
-              </button>
-            </div>
+                <div className="flex space-x-3">
+                  <button
+                    onClick={() => {
+                      setCurrentPrompt(null)
+                      setEvaluation(null)
+                    }}
+                    className="flex-1 py-3 bg-gray-200 text-gray-800 rounded-xl font-semibold hover:bg-gray-300 transition-colors"
+                  >
+                    重新选题
+                  </button>
+                  <button
+                    onClick={() => onFinish({ type: 'essay', score: evaluation.overall })}
+                    className="flex-1 py-3 bg-indigo-600 text-white rounded-xl font-semibold hover:bg-indigo-700 transition-colors"
+                  >
+                    返回首页
+                  </button>
+                </div>
+              </>
+            )}
           </div>
         ) : (
           /* Writing Interface */

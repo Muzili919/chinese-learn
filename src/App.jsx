@@ -135,6 +135,7 @@ export default function App() {
   const [overdueCount, setOverdueCount] = useState(0)
   const [englishQuizOptions, setEnglishQuizOptions] = useState({})
   const [activeSubject, setActiveSubject] = useState('chinese')
+  const [grade, setGrade] = useState('primary') // 'primary' | 'junior2'
 
   // 加载宠物游戏状态
   useEffect(() => {

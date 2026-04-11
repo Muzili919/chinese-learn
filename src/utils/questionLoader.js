@@ -4,8 +4,14 @@
  * 避免全盘扫描，提高加载效率
  */
 
-import knowledgeTree from '../data/meta/knowledge_tree.json';
-import questionIndex from '../data/meta/index.json';
+// Meta data files (knowledge_tree.json, index.json) are not yet available.
+// When they exist, uncomment the imports below:
+// import knowledgeTree from '../data/meta/knowledge_tree.json';
+// import questionIndex from '../data/meta/index.json';
+
+// Fallback: use empty structures so the module doesn't crash on import
+const knowledgeTree = { knowledge_tree: {} };
+const questionIndex = { index: {} };
 
 // 缓存已加载的题目
 const questionCache = {};

@@ -22,5 +22,13 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# macOS resource forks (._*)
+._*
+.DS_Store
+
+# Suspicious/generated files
+ziF3kS6l
+
 .vercel
 .env*.local
