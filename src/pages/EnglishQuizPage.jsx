@@ -52,12 +52,17 @@ function speakEnglish(text, onEnd) {
 // ─── 多子题解析 ────────────────────────────────────────────────────────────
 
 function isMultiPartAnswer(q) {
-  return /\(1\)|\（1\）/.test(q.answer || '')
+  return /\(1\)|\（1\）/.test(q.answer || '') || /→/.test(q.answer || '')
 }
 
-// 将题目字符串按 (1)(2)... 分段
+// 将题目字符串按 (1)(2)... 或 → 分段
 function splitAtNums(str) {
   const results = []
+  // 先检测箭头格式 "B → A → C → D"
+  if (/→/.test(str)) {
+    const items = str.split('→').map(s => s.trim()).filter(Boolean)
+    return { preamble: '', parts: items.map((item, i) => ({ num: i + 1, text: item })) }
+  }
   // 匹配 ASCII (1) 或 中文 （1）
   const regex = /[（(](\d+)[）)]/g
   let match
@@ -77,10 +82,10 @@ function splitAtNums(str) {
 
 // 从子题文字中提取 A/B/C/D 选项
 function extractInlineOptions(text) {
-  // "A. small B. large C. new D. old" 格式
-  const matches = [...text.matchAll(/\b([A-D])\.\s*([^A-D\n]+?)(?=\s+[A-D]\.|$)/g)]
+  // "A. small B. large C. new D. old" 格式（选项同行排列）
+  const matches = [...text.matchAll(/([A-D])\.\s*(.+?)(?=\s+[A-D]\.\s|$)/g)]
   if (matches.length >= 2) {
-    return matches.map(m => ({ letter: m[1], text: m[2].trim().replace(/\s+$/, '') }))
+    return matches.map(m => ({ letter: m[1], text: m[2].trim() }))
   }
   return null
 }
@@ -110,8 +115,13 @@ function parseSubParts(q) {
           text: o.replace(/^[A-D]\.\s*/i, '').trim(),
         }))
       }
-      // 去掉选项行，只保留问题干
-      displayText = part.text.replace(/\b[A-D]\.\s*[^\nA-D]+/g, '').trim()
+      // 去掉选项行，只保留问题干（处理 "A. xxx B. xxx C. xxx D. xxx" 同行格式）
+      const optionsLine = text.match(/^[A-D]\.\s*.+[A-D]\.\s*.+$/m)
+      if (optionsLine) {
+        displayText = part.text.replace(optionsLine[0], '').trim()
+      } else {
+        displayText = part.text.replace(/\b[A-D]\.\s*[^\n]+/g, '').trim()
+      }
     }
 
     return {
@@ -569,7 +579,9 @@ function EnglishQuestion({ question: q, onSubmit, englishTag }) {
           <button onClick={() => speakEnglish(q.question)}
             className="ml-auto w-7 h-7 flex items-center justify-center bg-sky-100 text-sky-500 rounded-full text-sm">🔊</button>
         </div>
-        <p className="text-gray-800 text-sm leading-relaxed whitespace-pre-wrap">{q.question}</p>
+        <p className="text-gray-800 text-sm leading-relaxed whitespace-pre-wrap" dangerouslySetInnerHTML={{
+          __html: q.question.replace(/<u>(.*?)<\/u>/g, '<u style="text-decoration:underline;text-decoration-style:wavy;text-decoration-color:#ef4444;text-underline-offset:3px;font-weight:600">$1</u>')
+        }}></p>
       </div>
 
       {/* 选择题 */}

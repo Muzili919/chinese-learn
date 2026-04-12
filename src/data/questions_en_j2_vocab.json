@@ -6,7 +6,7 @@
     "knowledge_tag": "词汇辨析",
     "ability_tag": "近义词辨析",
     "type": "multiple_choice",
-    "question": "选出与划线单词意思最接近的选项。\n\nThe teacher asked us to discuss the problem in groups.\n\nA. talk about\nB. write down\nC. look up\nD. give up",
+    "question": "选出与划线单词意思最接近的选项。\n\nThe teacher asked us to <u>discuss</u> the problem in groups.\n\nA. talk about\nB. write down\nC. look up\nD. give up",
     "options": [
       "A. talk about",
       "B. write down",
@@ -26,7 +26,7 @@
     "knowledge_tag": "词汇辨析",
     "ability_tag": "近义词辨析",
     "type": "multiple_choice",
-    "question": "选出与划线单词意思最接近的选项。\n\nPlease return the book to the library on time.\n\nA. give back\nB. take away\nC. put on\nD. throw away",
+    "question": "选出与划线单词意思最接近的选项。\n\nPlease <u>return</u> the book to the library on time.\n\nA. give back\nB. take away\nC. put on\nD. throw away",
     "options": [
       "A. give back",
       "B. take away",
@@ -46,7 +46,7 @@
     "knowledge_tag": "词汇辨析",
     "ability_tag": "近义词辨析",
     "type": "multiple_choice",
-    "question": "选出与划线单词意思最接近的选项。\n\nThe movie was so boring that I almost fell asleep.\n\nA. not interesting\nB. not important\nC. not difficult\nD. not comfortable",
+    "question": "选出与划线单词意思最接近的选项。\n\nThe movie was so <u>boring</u> that I almost fell asleep.\n\nA. not interesting\nB. not important\nC. not difficult\nD. not comfortable",
     "options": [
       "A. not interesting",
       "B. not important",
@@ -66,7 +66,7 @@
     "knowledge_tag": "词汇辨析",
     "ability_tag": "近义词辨析",
     "type": "multiple_choice",
-    "question": "选出与划线单词意思最接近的选项。\n\nWe should protect the environment.\n\nA. make...clean\nB. keep...safe\nC. make...beautiful\nD. keep...warm",
+    "question": "选出与划线单词意思最接近的选项。\n\nWe should <u>protect</u> the environment.\n\nA. make...clean\nB. keep...safe\nC. make...beautiful\nD. keep...warm",
     "options": [
       "A. make...clean",
       "B. keep...safe",
@@ -86,7 +86,7 @@
     "knowledge_tag": "词汇辨析",
     "ability_tag": "近义词辨析",
     "type": "multiple_choice",
-    "question": "选出与划线单词意思最接近的选项。\n\nHe refused to tell me the truth.\n\nA. agreed\nB. decided not to\nC. wanted to\nD. forgot to",
+    "question": "选出与划线单词意思最接近的选项。\n\nHe <u>refuse</u>d to tell me the truth.\n\nA. agreed\nB. decided not to\nC. wanted to\nD. forgot to",
     "options": [
       "A. agreed",
       "B. decided not to",
@@ -106,7 +106,7 @@
     "knowledge_tag": "词汇辨析",
     "ability_tag": "近义词辨析",
     "type": "multiple_choice",
-    "question": "选出与划线单词意思最接近的选项。\n\nThe doctor advised him to give up smoking.\n\nA. stop\nB. keep\nC. enjoy\nD. start",
+    "question": "选出与划线单词意思最接近的选项。\n\nThe doctor advised him to <u>give up</u> smoking.\n\nA. stop\nB. keep\nC. enjoy\nD. start",
     "options": [
       "A. stop",
       "B. keep",
@@ -126,7 +126,7 @@
     "knowledge_tag": "词汇辨析",
     "ability_tag": "近义词辨析",
     "type": "multiple_choice",
-    "question": "选出与划线单词意思最接近的选项。\n\nThe building is about 200 meters tall.\n\nA. over\nB. more than\nC. almost\nD. around",
+    "question": "选出与划线单词意思最接近的选项。\n\nThe building is <u>about</u> 200 meters tall.\n\nA. over\nB. more than\nC. almost\nD. around",
     "options": [
       "A. over",
       "B. more than",
@@ -146,7 +146,7 @@
     "knowledge_tag": "词汇辨析",
     "ability_tag": "近义词辨析",
     "type": "multiple_choice",
-    "question": "选出与划线单词意思最接近的选项。\n\nShe realized she had left her bag at home.\n\nA. knew\nB. guessed\nC. noticed\nD. remembered",
+    "question": "选出与划线单词意思最接近的选项。\n\nShe <u>realize</u>d she had left her bag at home.\n\nA. knew\nB. guessed\nC. noticed\nD. remembered",
     "options": [
       "A. knew",
       "B. guessed",
@@ -166,7 +166,7 @@
     "knowledge_tag": "词汇辨析",
     "ability_tag": "近义词辨析",
     "type": "multiple_choice",
-    "question": "选出与划线单词意思最接近的选项。\n\nHe has been absent from school for three days.\n\nA. late for\nB. away from\nC. interested in\nD. good at",
+    "question": "选出与划线单词意思最接近的选项。\n\nHe has been <u>absent from</u> school for three days.\n\nA. late for\nB. away from\nC. interested in\nD. good at",
     "options": [
       "A. late for",
       "B. away from",
@@ -186,7 +186,7 @@
     "knowledge_tag": "词汇辨析",
     "ability_tag": "近义词辨析",
     "type": "multiple_choice",
-    "question": "选出与划线单词意思最接近的选项。\n\nPlease repeat what I just said.\n\nA. say again\nB. write down\nC. think about\nD. look for",
+    "question": "选出与划线单词意思最接近的选项。\n\nPlease <u>repeat</u> what I just said.\n\nA. say again\nB. write down\nC. think about\nD. look for",
     "options": [
       "A. say again",
       "B. write down",
@@ -206,7 +206,7 @@
     "knowledge_tag": "词汇辨析",
     "ability_tag": "近义词辨析",
     "type": "multiple_choice",
-    "question": "选出与划线单词意思最接近的选项。\n\nThey provided us with food and water.\n\nA. gave\nB. showed\nC. sold\nD. lent",
+    "question": "选出与划线单词意思最接近的选项。\n\nThey <u>provide</u>d us with food and water.\n\nA. gave\nB. showed\nC. sold\nD. lent",
     "options": [
       "A. gave",
       "B. showed",
@@ -226,7 +226,7 @@
     "knowledge_tag": "词汇辨析",
     "ability_tag": "近义词辨析",
     "type": "multiple_choice",
-    "question": "选出与划线单词意思最接近的选项。\n\nShe was nervous before the exam.\n\nA. excited\nB. worried\nC. happy\nD. angry",
+    "question": "选出与划线单词意思最接近的选项。\n\nShe was <u>nervous</u> before the exam.\n\nA. excited\nB. worried\nC. happy\nD. angry",
     "options": [
       "A. excited",
       "B. worried",
@@ -246,7 +246,7 @@
     "knowledge_tag": "词汇辨析",
     "ability_tag": "近义词辨析",
     "type": "multiple_choice",
-    "question": "选出与划线单词意思最接近的选项。\n\nThe man was very brave and saved the child.\n\nA. clever\nB. strong\nC. not afraid\nD. careful",
+    "question": "选出与划线单词意思最接近的选项。\n\nThe man was very <u>brave</u> and saved the child.\n\nA. clever\nB. strong\nC. not afraid\nD. careful",
     "options": [
       "A. clever",
       "B. strong",
@@ -266,7 +266,7 @@
     "knowledge_tag": "词汇辨析",
     "ability_tag": "近义词辨析",
     "type": "multiple_choice",
-    "question": "选出与划线单词意思最接近的选项。\n\nWe need to find a solution to this problem.\n\nA. a way to solve\nB. a reason for\nC. a question about\nD. a story about",
+    "question": "选出与划线单词意思最接近的选项。\n\nWe need to find a <u>solution</u> to this problem.\n\nA. a way to solve\nB. a reason for\nC. a question about\nD. a story about",
     "options": [
       "A. a way to solve",
       "B. a reason for",
@@ -286,7 +286,7 @@
     "knowledge_tag": "词汇辨析",
     "ability_tag": "近义词辨析",
     "type": "multiple_choice",
-    "question": "选出与划线单词意思最接近的选项。\n\nThe teacher praised him for his hard work.\n\nA. was angry with\nB. spoke highly of\nC. was strict with\nD. was worried about",
+    "question": "选出与划线单词意思最接近的选项。\n\nThe teacher <u>praise</u>d him for his hard work.\n\nA. was angry with\nB. spoke highly of\nC. was strict with\nD. was worried about",
     "options": [
       "A. was angry with",
       "B. spoke highly of",
@@ -306,7 +306,7 @@
     "knowledge_tag": "词汇辨析",
     "ability_tag": "近义词辨析",
     "type": "multiple_choice",
-    "question": "选出与划线单词意思最接近的选项。\n\nPlease complete the form with your personal information.\n\nA. fill in\nB. look at\nC. read through\nD. hand in",
+    "question": "选出与划线单词意思最接近的选项。\n\nPlease <u>complete</u> the form with your personal information.\n\nA. fill in\nB. look at\nC. read through\nD. hand in",
     "options": [
       "A. fill in",
       "B. look at",
@@ -326,7 +326,7 @@
     "knowledge_tag": "词汇辨析",
     "ability_tag": "近义词辨析",
     "type": "multiple_choice",
-    "question": "选出与划线单词意思最接近的选项。\n\nShe is looking forward to hearing from you.\n\nA. waiting for\nB. worrying about\nC. thinking of\nD. dreaming of",
+    "question": "选出与划线单词意思最接近的选项。\n\nShe is <u>looking forward to</u> hearing from you.\n\nA. waiting for\nB. worrying about\nC. thinking of\nD. dreaming of",
     "options": [
       "A. waiting for",
       "B. worrying about",
@@ -346,7 +346,7 @@
     "knowledge_tag": "词汇辨析",
     "ability_tag": "近义词辨析",
     "type": "multiple_choice",
-    "question": "选出与划线单词意思最接近的选项。\n\nThe population of this city has increased rapidly.\n\nA. gone up\nB. gone down\nC. stayed the same\nD. changed a lot",
+    "question": "选出与划线单词意思最接近的选项。\n\nThe population of this city has <u>increase</u>d rapidly.\n\nA. gone up\nB. gone down\nC. stayed the same\nD. changed a lot",
     "options": [
       "A. gone up",
       "B. gone down",
@@ -366,7 +366,7 @@
     "knowledge_tag": "词汇辨析",
     "ability_tag": "近义词辨析",
     "type": "multiple_choice",
-    "question": "选出与划线单词意思最接近的选项。\n\nHe couldn't sleep last night because the noise kept him awake.\n\nA. asleep\nB. not sleeping\nC. tired\nD. sick",
+    "question": "选出与划线单词意思最接近的选项。\n\nHe couldn't sleep last night because the noise kept him <u>awake</u>.\n\nA. asleep\nB. not sleeping\nC. tired\nD. sick",
     "options": [
       "A. asleep",
       "B. not sleeping",
@@ -386,7 +386,7 @@
     "knowledge_tag": "词汇辨析",
     "ability_tag": "近义词辨析",
     "type": "multiple_choice",
-    "question": "选出与划线单词意思最接近的选项。\n\nThe students took part in the sports meeting yesterday.\n\nA. joined in\nB. watched\nC. organized\nD. won",
+    "question": "选出与划线单词意思最接近的选项。\n\nThe students <u>took part in</u> the sports meeting yesterday.\n\nA. joined in\nB. watched\nC. organized\nD. won",
     "options": [
       "A. joined in",
       "B. watched",
