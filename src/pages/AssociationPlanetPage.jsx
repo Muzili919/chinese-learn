@@ -1,6 +1,8 @@
 import { useState, useEffect, useCallback, useRef } from 'react'
 import { storage } from '../utils/storage'
+import { speakEnglish as _speakEnglish } from '../utils/tts'
 import wordsNetwork from '../data/words_network.json'
+import j2WordsNetwork from '../data/words_network_j2.json'
 
 // ─── 常量 ───────────────────────────────────────────────────────────────
 const SESSION_SIZE = 15
@@ -8,18 +10,23 @@ const XP_CORRECT = 10
 
 // ─── TTS ──────────────────────────────────────────────────────────────────
 function speakEnglish(text) {
-  if (!text || !window.speechSynthesis) return
-  window.speechSynthesis.cancel()
-  const utter = new SpeechSynthesisUtterance(text)
-  utter.lang = 'en-US'
-  utter.rate = 0.85
-  window.speechSynthesis.speak(utter)
+  if (!text) return
+  _speakEnglish(text)
 }
 
 // ─── 工具函数 ────────────────────────────────────────────────────────────
-const allWords = Object.values(wordsNetwork.words)
-const allWordsMap = wordsNetwork.words
-const tier1Words = allWords.filter(w => w.tier === 1)
+// ─── 工具函数（支持grade切换） ─────────────────────────────────────────
+function getWordContext(grade) {
+  const wn = grade === 'junior2' ? j2WordsNetwork : wordsNetwork
+  const aw = Object.values(wn.words)
+  return { allWords: aw, allWordsMap: wn.words, tier1Words: aw.filter(w => w.tier === 1) }
+}
+
+// 模块级默认值（小学）
+const _defaultCtx = getWordContext('primary')
+const allWords = _defaultCtx.allWords
+const allWordsMap = _defaultCtx.allWordsMap
+const tier1Words = _defaultCtx.tier1Words
 
 function shuffle(arr) {
   const a = [...arr]
@@ -30,13 +37,14 @@ function shuffle(arr) {
   return a
 }
 
-function pickSessionWords() {
-  // 使用全部单词（不限 tier1），确保每次进入都有足够多样性
-  return shuffle(allWords).slice(0, SESSION_SIZE)
+function pickSessionWords(ctx) {
+  const w = ctx || _defaultCtx
+  return shuffle(w.allWords).slice(0, SESSION_SIZE)
 }
 
 // ─── 生成 2 道题（联想题 + 辨析题） ──────────────────────────────────────
-function buildQuestions(wordObj) {
+function buildQuestions(wordObj, ctx) {
+  const c = ctx || _defaultCtx
   const questions = []
 
   // 联想题：word 可以联想到哪个词？
@@ -44,7 +52,7 @@ function buildQuestions(wordObj) {
   if (assocs.length > 0) {
     const correct = assocs[0]
     const distractors = shuffle(
-      allWords
+      c.allWords
         .filter(w => !assocs.includes(w.word) && w.word !== wordObj.word)
         .map(w => w.word)
     ).slice(0, 3)
@@ -59,12 +67,12 @@ function buildQuestions(wordObj) {
   }
 
   // 辨析题：从 confusables 里选一个作为正确答案，考查区分
-  const confusables = (wordObj.confusables || []).filter(w => allWordsMap[w])
+  const confusables = (wordObj.confusables || []).filter(w => c.allWordsMap[w])
   if (confusables.length > 0) {
     const targetWord = confusables[0]
-    const targetObj = allWordsMap[targetWord]
+    const targetObj = c.allWordsMap[targetWord]
     const distractors = shuffle(
-      allWords
+      c.allWords
         .filter(w => w.word !== targetWord)
         .map(w => w.word)
     ).slice(0, 3)
@@ -390,7 +398,7 @@ function checkSpelling(input, answer) {
 
 // ─── 答题区 ──────────────────────────────────────────────────────────────
 function QuizSection({ wordObj, onWordDone }) {
-  const [questions] = useState(() => buildQuestions(wordObj))
+  const [questions] = useState(() => buildQuestions(wordObj, getWordContext(grade)))
   const [qIndex, setQIndex] = useState(0)
   const [selected, setSelected] = useState(null)
   const [userInput, setUserInput] = useState('')
@@ -618,8 +626,9 @@ function QuizSection({ wordObj, onWordDone }) {
 // ═══════════════════════════════════════════════════════════════════════════
 // 主页面
 // ═══════════════════════════════════════════════════════════════════════════
-export default function AssociationPlanetPage({ user, onFinish, onBack }) {
-  const [sessionWords] = useState(() => pickSessionWords())
+export default function AssociationPlanetPage({ user, grade = 'primary', onFinish, onBack }) {
+  const wordCtx = useMemo(() => getWordContext(grade), [grade])
+  const [sessionWords] = useState(() => pickSessionWords(getWordContext(grade)))
   const [currentIdx, setCurrentIdx] = useState(0)
   const [tempWord, setTempWord] = useState(null) // 点击联想词时临时预览，不影响 session 进度
   const [treeVisible, setTreeVisible] = useState(false)

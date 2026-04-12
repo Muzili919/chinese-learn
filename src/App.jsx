@@ -9,12 +9,19 @@ import ReadingPage from './pages/ReadingPage'
 import SentencePracticePage from './pages/SentencePracticePage'
 import EssayPage from './pages/EssayPage'
 import WrongAnswersPage from './pages/WrongAnswersPage'
+import VariantTrainingPage from './pages/VariantTrainingPage'
 import MV1Demo from './pages/MV1Demo'
 import EnglishHomePage from './pages/EnglishHomePage'
 import EnglishQuizPage from './pages/EnglishQuizPage'
 import AssociationPlanetPage from './pages/AssociationPlanetPage'
+import DictationPage from './pages/DictationPage'
+import SelfTestPage from './pages/SelfTestPage'
+import PoliticsHomePage from './pages/PoliticsHomePage'
+import PoliticsQuizPage from './pages/PoliticsQuizPage'
 import { initGamificationState } from './utils/gamification'
 import { fetchMV1State, upsertMV1State } from './utils/mv1_cloud'
+import LeaderboardPage from './pages/LeaderboardPage'
+import GlobalPetDock from './components/GlobalPetDock'
 
 // 底部导航栏（仅主界面可见）
 function BottomNav({ activeTab, onTabChange, overdueCount }) {
@@ -88,43 +95,7 @@ function BottomNav({ activeTab, onTabChange, overdueCount }) {
   )
 }
 
-// 排行榜占位页（即将上线）
-function LeaderboardPlaceholder({ user }) {
-  return (
-    <div className="min-h-screen flex flex-col items-center justify-center px-8 pb-24">
-      <div style={{ fontSize: 72, marginBottom: 16 }}>🏆</div>
-      <h2 style={{ fontSize: 22, fontWeight: 700, color: '#1f2937', margin: '0 0 8px' }}>
-        好友排行榜
-      </h2>
-      <p style={{ fontSize: 14, color: '#9ca3af', textAlign: 'center', lineHeight: 1.6, margin: '0 0 24px' }}>
-        即将上线！到时候你可以看到好友的学习排名，互相比拼、共同进步 🚀
-      </p>
-      <div style={{
-        background: 'linear-gradient(135deg, #f3e8ff, #e0e7ff)',
-        borderRadius: 16, padding: '16px 24px',
-        display: 'flex', alignItems: 'center', gap: 12,
-        width: '100%', maxWidth: 280,
-      }}>
-        <div style={{ fontSize: 36 }}>📊</div>
-        <div>
-          <div style={{ fontSize: 13, fontWeight: 600, color: '#4c1d95' }}>你的当前数据</div>
-          <div style={{ fontSize: 11, color: '#7c3aed' }}>
-            {user?.name} · 答题中...
-          </div>
-        </div>
-      </div>
-      <div style={{
-        marginTop: 12,
-        background: 'rgba(99,102,241,0.06)',
-        borderRadius: 12, padding: '10px 20px',
-        fontSize: 11, color: '#6b7280', textAlign: 'center',
-      }}>
-        🔔 上线时会第一时间通知你
-      </div>
-    </div>
-  )
-}
-
+// 排行榜
 export default function App() {
   const [user, setUser] = useState(() => storage.getUser())
   const [page, setPage] = useState(() => storage.getUser() ? 'home' : 'onboarding')
@@ -136,6 +107,7 @@ export default function App() {
   const [englishQuizOptions, setEnglishQuizOptions] = useState({})
   const [activeSubject, setActiveSubject] = useState('chinese')
   const [grade, setGrade] = useState('primary') // 'primary' | 'junior2'
+  const [variantQuestion, setVariantQuestion] = useState(null)
 
   // 加载宠物游戏状态
   useEffect(() => {
@@ -162,7 +134,13 @@ export default function App() {
   }
 
   function startQuiz(opts = {}) {
-    if (opts.englishTag) {
+    if (opts.selfTest) {
+      setQuizOptions(opts)
+      setPage('self_test')
+    } else if (opts.politicsTag) {
+      setQuizOptions(opts)
+      setPage('politicsQuiz')
+    } else if (opts.englishTag) {
       setEnglishQuizOptions(opts)
       setPage('englishQuiz')
     } else if (opts.reading) {
@@ -174,6 +152,9 @@ export default function App() {
     } else if (opts.essay) {
       setQuizOptions(opts)
       setPage('essay')
+    } else if (opts.dictation) {
+      setQuizOptions(opts)
+      setPage('dictation')
     } else if (opts.wrongReview) {
       setQuizOptions(opts)
       setPage('wrong_answers_quiz')
@@ -210,6 +191,11 @@ export default function App() {
     setPage('home') // 确保回到主页模式
   }
 
+  function startVariantTraining(question) {
+    setVariantQuestion(question)
+    setPage('variant_training')
+  }
+
   // 是否显示底部导航（仅主界面）
   const showBottomNav = page === 'home' && user
 
@@ -220,11 +206,42 @@ export default function App() {
     if (page === 'reading') return <ReadingPage user={user} onFinish={finishQuiz} onBack={goHome} />
     if (page === 'sentence_practice') return <SentencePracticePage user={user} onBack={goHome} />
     if (page === 'essay') return <EssayPage user={user} onBack={goHome} />
+    if (page === 'dictation') return <DictationPage user={user} subject={quizOptions?.dictationSubject} onBack={goHome} />
+    if (page === 'self_test') return (
+      <SelfTestPage
+        user={user}
+        subject={quizOptions?.selfTestSubject || 'chinese'}
+        onBack={goHome}
+      />
+    )
+    if (page === 'variant_training') return (
+      <VariantTrainingPage
+        question={variantQuestion}
+        user={user}
+        onBack={goHome}
+      />
+    )
+    if (page === 'politics_home') return (
+      <PoliticsHomePage
+        user={user}
+        onStartQuiz={startQuiz}
+        onBack={() => { setPage('home'); setActiveSubject('chinese') }}
+      />
+    )
+    if (page === 'politicsQuiz') return (
+      <PoliticsQuizPage
+        user={user}
+        options={quizOptions}
+        onFinish={(result) => { setSessionResult(result); setPage('result') }}
+        onBack={() => { setPage('home'); setActiveSubject('chinese') }}
+      />
+    )
     if (page === 'wrong_answers_quiz') return (
       <WrongAnswersPage
         user={user}
         subject={activeSubject}
         onStartWrongQuiz={(ids) => { setQuizOptions({ wrongCardIds: ids }); setPage('quiz') }}
+        onVariantTraining={startVariantTraining}
         onBack={goHome}
       />
     )
@@ -233,6 +250,7 @@ export default function App() {
     if (page === 'englishQuiz' && englishQuizOptions.englishTag === 'en_association') return (
       <AssociationPlanetPage
         user={user}
+        grade={grade}
         onFinish={(result) => { setSessionResult(result); setPage('result') }}
         onBack={() => { setPage('home'); setActiveSubject('english') }}
       />
@@ -240,7 +258,7 @@ export default function App() {
     if (page === 'englishQuiz' && englishQuizOptions.englishTag !== 'en_association') return (
       <EnglishQuizPage
         user={user}
-        options={englishQuizOptions}
+        options={{ ...englishQuizOptions, grade }}
         onFinish={(result) => { setSessionResult(result); setPage('result') }}
         onBack={() => { setPage('home'); setActiveSubject('english') }}
       />
@@ -252,6 +270,15 @@ export default function App() {
         // 英语主页
         if (activeSubject === 'english') return (
           <EnglishHomePage
+            user={user}
+            grade={grade}
+            onStartQuiz={startQuiz}
+            onBack={() => setActiveSubject('chinese')}
+          />
+        )
+        // 政治主页
+        if (activeSubject === 'politics') return (
+          <PoliticsHomePage
             user={user}
             onStartQuiz={startQuiz}
             onBack={() => setActiveSubject('chinese')}
@@ -266,6 +293,8 @@ export default function App() {
             onLogout={handleLogout}
             onSubjectChange={setActiveSubject}
             activeSubject={activeSubject}
+            grade={grade}
+            onGradeChange={setGrade}
           />
         )
       }
@@ -276,12 +305,13 @@ export default function App() {
           onStateChange={setGameState}
         />
       )
-      if (activeTab === 'rank') return <LeaderboardPlaceholder user={user} />
+      if (activeTab === 'rank') return <LeaderboardPage user={user} gameState={gameState} />
       if (activeTab === 'wrong') return (
         <WrongAnswersPage
           user={user}
           subject={activeSubject}
           onStartWrongQuiz={(ids) => { setQuizOptions({ wrongCardIds: ids }); setPage('quiz') }}
+          onVariantTraining={startVariantTraining}
           onBack={() => setActiveTab('home')}
         />
       )
@@ -302,6 +332,10 @@ export default function App() {
           onTabChange={handleTabChange}
           overdueCount={overdueCount}
         />
+      )}
+      {/* 全局悬浮宠物（仅主页且非宠物标签时显示） */}
+      {showBottomNav && activeTab !== 'pet' && (
+        <GlobalPetDock gameState={gameState} />
       )}
     </div>
   )

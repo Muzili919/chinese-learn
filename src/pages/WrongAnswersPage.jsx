@@ -1,5 +1,6 @@
-import { useMemo, useState } from 'react'
+import { useMemo, useState, useRef } from 'react'
 import { storage } from '../utils/storage'
+import { getPhotoQuestions, recognizePhotoQuestion, savePhotoQuestionToWrongBook } from '../utils/ai_v2'
 import vocabQ from '../data/questions_vocab.json'
 import poetryQ from '../data/questions_poetry.json'
 import idiomQ from '../data/questions_idiom.json'
@@ -16,6 +17,18 @@ const Q_MAP = Object.fromEntries(ALL_QUESTIONS.map(q => [q.id, q]))
 
 const EN_ALL_QUESTIONS = [...enVocabQ, ...enListenQ, ...enGrammarQ, ...enReadingQ, ...enWritingQ]
 const EN_Q_MAP = Object.fromEntries(EN_ALL_QUESTIONS.map(q => [q.id, q]))
+
+// 合并拍照上传的题目
+function getAllQMap(subject) {
+  const photoQs = getPhotoQuestions()
+  const photoFiltered = Object.fromEntries(
+    Object.entries(photoQs).filter(([, q]) => {
+      if (subject === 'english') return q.subject === 'english'
+      return !q.subject || q.subject === 'chinese'
+    })
+  )
+  return { ...photoFiltered, ...(subject === 'english' ? EN_Q_MAP : Q_MAP) }
+}
 
 const TAG_COLORS = {
   字词: 'bg-blue-100 text-blue-700',
@@ -34,8 +47,12 @@ function daysDiff(dateStr) {
   return diff
 }
 
-export default function WrongAnswersPage({ user, subject = 'chinese', onStartWrongQuiz, onBack }) {
+export default function WrongAnswersPage({ user, subject = 'chinese', onStartWrongQuiz, onVariantTraining, onBack }) {
   const [filter, setFilter] = useState('all')  // all | overdue | pending
+  const [selectedIds, setSelectedIds] = useState(new Set())
+  const [showPhotoUpload, setShowPhotoUpload] = useState(false)
+  const fileInputRef = useRef(null)
+  const allQMap = useMemo(() => getAllQMap(subject), [subject])
 
   const { wrongCards, overdueCount } = useMemo(() => {
     const allRecords = storage.getRecords(user.id)
@@ -66,7 +83,7 @@ export default function WrongAnswersPage({ user, subject = 'chinese', onStartWro
 
     for (const [cardId, rec] of Object.entries(latest)) {
       if (rec.correct) continue  // 最近一次答对了，不算错题
-      const q = subject === 'english' ? EN_Q_MAP[cardId] : Q_MAP[cardId]
+      const q = allQMap[cardId]
       if (!q) continue
 
       const srs = srsStates[cardId]
@@ -102,16 +119,71 @@ export default function WrongAnswersPage({ user, subject = 'chinese', onStartWro
 
   const dueIds = wrongCards.filter(c => c.isDueToday).map(c => c.id)
 
+  // 选择操作
+  const toggleSelect = (id) => {
+    setSelectedIds(prev => {
+      const next = new Set(prev)
+      if (next.has(id)) next.delete(id)
+      else next.add(id)
+      return next
+    })
+  }
+  const selectAll = () => setSelectedIds(new Set(filtered.map(c => c.id)))
+  const clearSelection = () => setSelectedIds(new Set())
+
+  // 拍照上传
+  const handlePhotoUpload = async (e) => {
+    const file = e.target.files?.[0]
+    if (!file) return
+    try {
+      // 读取图片为 base64
+      const base64 = await new Promise((resolve) => {
+        const reader = new FileReader()
+        reader.onload = () => resolve(reader.result)
+        reader.readAsDataURL(file)
+      })
+      // 使用 AI 识别题目
+      const result = await recognizePhotoQuestion(base64)
+      if (result.success && result.questions?.length > 0) {
+        for (const q of result.questions) {
+          savePhotoQuestionToWrongBook(user.id, q, storage)
+        }
+        alert(`✅ 成功识别 ${result.questions.length} 道题目，已加入错题本！`)
+      } else {
+        alert('⚠️ 未能成功识别题目，请确保照片清晰或手动输入。')
+      }
+    } catch (err) {
+      console.error('Photo upload error:', err)
+      alert('❌ 识别失败，请重试。')
+    }
+    if (fileInputRef.current) fileInputRef.current.value = ''
+  }
+
   return (
     <div className="flex flex-col min-h-screen bg-gradient-to-b from-red-50 to-orange-50">
       {/* Header */}
       <div className="bg-white px-4 pt-10 pb-4 shadow-sm">
         <div className="flex items-center gap-3 mb-3">
           <button onClick={onBack} className="text-gray-400 text-xl p-1">✕</button>
-          <div>
+          <div className="flex-1">
             <h1 className="text-xl font-bold text-gray-800">💥 错题本{subject === 'english' ? '（英语）' : '（语文）'}</h1>
             <p className="text-xs text-gray-400">错误 → 复盘 → 攻克，共 {wrongCards.length} 道错题</p>
           </div>
+          <button
+            onClick={() => fileInputRef.current?.click()}
+            className="w-9 h-9 flex items-center justify-center bg-indigo-50 rounded-xl text-base active:scale-95 transition-all"
+            title="📷 拍照上传错题"
+          >
+            📷
+          </button>
+          <input
+            ref={fileInputRef}
+            type="file"
+            accept="image/*"
+            capture="environment"
+            style={{ display: 'none' }}
+            onChange={handlePhotoUpload}
+          />
         </div>
 
         {/* 积压警告 */}
@@ -140,8 +212,8 @@ export default function WrongAnswersPage({ user, subject = 'chinese', onStartWro
           </div>
         ) : (
           <>
-            {/* 筛选 + 开始按钮 */}
-            <div className="flex items-center justify-between mb-4">
+            {/* 筛选 + 选择操作 */}
+            <div className="flex items-center justify-between mb-3">
               <div className="flex gap-2">
                 {[
                   { key: 'all', label: `全部 ${wrongCards.length}` },
@@ -150,7 +222,7 @@ export default function WrongAnswersPage({ user, subject = 'chinese', onStartWro
                 ].map(f => (
                   <button
                     key={f.key}
-                    onClick={() => setFilter(f.key)}
+                    onClick={() => { setFilter(f.key); setSelectedIds(new Set()) }}
                     className={`px-3 py-1 rounded-full text-xs font-medium transition-colors ${
                       filter === f.key
                         ? 'bg-red-500 text-white'
@@ -161,7 +233,36 @@ export default function WrongAnswersPage({ user, subject = 'chinese', onStartWro
                   </button>
                 ))}
               </div>
+              <div className="flex gap-1">
+                <button onClick={selectAll} className="text-xs px-2 py-1 rounded-lg bg-gray-100 text-gray-500 active:scale-95">全选</button>
+                <button onClick={clearSelection} className="text-xs px-2 py-1 rounded-lg bg-gray-100 text-gray-500 active:scale-95">清除</button>
+              </div>
             </div>
+
+            {/* 已选择操作栏 */}
+            {selectedIds.size > 0 && (
+              <div className="bg-violet-50 border border-violet-200 rounded-2xl p-3 mb-3 flex items-center justify-between">
+                <span className="text-sm font-semibold text-violet-700">已选 {selectedIds.size} 道题</span>
+                <div className="flex gap-2">
+                  <button
+                    onClick={() => onStartWrongQuiz([...selectedIds])}
+                    className="text-xs px-3 py-1.5 rounded-xl bg-red-500 text-white font-bold active:scale-95"
+                  >
+                    练习选中
+                  </button>
+                  <button
+                    onClick={() => {
+                      const q = allQMap[[...selectedIds][0]]
+                      if (q && onVariantTraining) onVariantTraining(q)
+                    }}
+                    className="text-xs px-3 py-1.5 rounded-xl bg-violet-500 text-white font-bold active:scale-95"
+                    disabled={selectedIds.size !== 1}
+                  >
+                    🔀 举一反三
+                  </button>
+                </div>
+              </div>
+            )}
 
             {/* 一键攻克按钮 */}
             {dueIds.length > 0 && (
@@ -179,11 +280,23 @@ export default function WrongAnswersPage({ user, subject = 'chinese', onStartWro
                 <div
                   key={card.id}
                   className={`bg-white rounded-2xl p-4 border-l-4 shadow-sm ${
-                    card.isOverdue ? 'border-red-400' : 'border-orange-300'
+                    selectedIds.has(card.id) ? 'border-l-violet-400 ring-2 ring-violet-200' :
+                    card.isOverdue ? 'border-l-red-400' : 'border-l-orange-300'
                   }`}
                 >
                   <div className="flex items-start justify-between gap-2 mb-2">
-                    <div className="flex gap-2 flex-wrap">
+                    <div className="flex gap-2 flex-wrap items-center">
+                      {/* 选择复选框 */}
+                      <button
+                        onClick={() => toggleSelect(card.id)}
+                        className={`w-5 h-5 rounded-md border-2 flex items-center justify-center flex-shrink-0 transition-all ${
+                          selectedIds.has(card.id)
+                            ? 'bg-violet-500 border-violet-500 text-white'
+                            : 'border-gray-300 bg-white'
+                        }`}
+                      >
+                        {selectedIds.has(card.id) && <span className="text-xs">✓</span>}
+                      </button>
                       <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${TAG_COLORS[card.question.knowledge_tag] || 'bg-gray-100 text-gray-600'}`}>
                         {card.question.knowledge_tag}
                       </span>
@@ -191,20 +304,32 @@ export default function WrongAnswersPage({ user, subject = 'chinese', onStartWro
                         {card.question.ability_tag}
                       </span>
                     </div>
-                    <div className="text-right flex-shrink-0">
-                      {card.isOverdue ? (
-                        <span className="text-xs font-bold text-red-500">
-                          积压{card.daysSinceDue}天 🚨
-                        </span>
-                      ) : card.isDueToday ? (
-                        <span className="text-xs font-bold text-orange-500">今日待练 ⚡</span>
-                      ) : (
-                        <span className="text-xs text-gray-400">
-                          {new Date(card.nextReview) > new Date()
-                            ? `${Math.abs(card.daysSinceDue)}天后复习`
-                            : '待复习'}
-                        </span>
+                    <div className="text-right flex-shrink-0 flex items-center gap-1">
+                      {/* 举一反三按钮 */}
+                      {onVariantTraining && (
+                        <button
+                          onClick={() => onVariantTraining(card.question)}
+                          className="text-[10px] px-2 py-1 rounded-lg bg-violet-50 text-violet-600 font-bold active:scale-95 transition-all whitespace-nowrap"
+                          title="AI 举一反三"
+                        >
+                          🔀 举一反三
+                        </button>
                       )}
+                      <div className="text-right">
+                        {card.isOverdue ? (
+                          <span className="text-xs font-bold text-red-500">
+                            积压{card.daysSinceDue}天 🚨
+                          </span>
+                        ) : card.isDueToday ? (
+                          <span className="text-xs font-bold text-orange-500">今日待练 ⚡</span>
+                        ) : (
+                          <span className="text-xs text-gray-400">
+                            {new Date(card.nextReview) > new Date()
+                              ? `${Math.abs(card.daysSinceDue)}天后复习`
+                              : '待复习'}
+                          </span>
+                        )}
+                      </div>
                     </div>
                   </div>
 

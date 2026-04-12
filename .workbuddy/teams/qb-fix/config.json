@@ -1,0 +1,28 @@
+{
+  "name": "qb-fix",
+  "leadAgentId": "1ac3ab9168b04efbbef3682c7d06b22a",
+  "workspacePath": "/Volumes/ORICO/xinwen/claudecode/chinese-learn",
+  "createdAt": "2026-04-12T10:22:55.355Z",
+  "options": {
+    "workspacePath": "/Volumes/ORICO/xinwen/claudecode/chinese-learn",
+    "isAutoTeam": false
+  },
+  "members": [
+    {
+      "memberId": "team-lead@qb-fix",
+      "name": "team-lead",
+      "role": "Team Lead - coordinates the team and interacts with the user"
+    },
+    {
+      "memberId": "pol-answer-fix@qb-fix",
+      "name": "pol-answer-fix",
+      "role": "生成政治简答实践80题"
+    },
+    {
+      "memberId": "wordnet-gen@qb-fix",
+      "name": "wordnet-gen",
+      "role": "生成初中词网络800词"
+    }
+  ],
+  "isAutoTeam": false
+}

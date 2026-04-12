@@ -1,0 +1,54 @@
+{
+  "name": "qb-v2",
+  "leadAgentId": "1ac3ab9168b04efbbef3682c7d06b22a",
+  "workspacePath": "/Volumes/ORICO/xinwen/claudecode/chinese-learn",
+  "createdAt": "2026-04-12T08:40:52.682Z",
+  "options": {
+    "workspacePath": "/Volumes/ORICO/xinwen/claudecode/chinese-learn",
+    "isAutoTeam": false
+  },
+  "members": [
+    {
+      "memberId": "team-lead@qb-v2",
+      "name": "team-lead",
+      "role": "Team Lead - coordinates the team and interacts with the user"
+    },
+    {
+      "memberId": "pol-answer-v2@qb-v2",
+      "name": "pol-answer-v2",
+      "role": "政治简答+实践80题v2"
+    },
+    {
+      "memberId": "listen-v2@qb-v2",
+      "name": "listen-v2",
+      "role": "英语听力60题v2"
+    },
+    {
+      "memberId": "read-v2@qb-v2",
+      "name": "read-v2",
+      "role": "英语阅读+完形40篇v2"
+    },
+    {
+      "memberId": "pol-analysis-v2@qb-v2",
+      "name": "pol-analysis-v2",
+      "role": "政治材料分析60题v2"
+    },
+    {
+      "memberId": "pol-choice-v2@qb-v2",
+      "name": "pol-choice-v2",
+      "role": "政治选择题120题v2"
+    },
+    {
+      "memberId": "write-v2@qb-v2",
+      "name": "write-v2",
+      "role": "英语写作30题v2"
+    }
+  ],
+  "isAutoTeam": false
+}ammar-v2@qb-v2",
+      "name": "grammar-v2",
+      "role": "英语语法120题v2"
+    }
+  ],
+  "isAutoTeam": false
+}

@@ -1,0 +1,20 @@
+[
+  {
+    "id": "shutdown-1775989901859",
+    "from": "team-lead",
+    "to": "pol-answer-fix",
+    "type": "shutdown_request",
+    "content": "{\"type\":\"shutdown_request\",\"request_id\":\"shutdown-1775989901859\",\"reason\":\"任务全部完成，团队即将解散。\",\"from\":\"team-lead\",\"timestamp\":\"2026-04-12T10:31:41.859Z\"}",
+    "timestamp": "2026-04-12T10:31:41.859Z",
+    "read": true
+  },
+  {
+    "id": "shutdown-1775990045119",
+    "from": "team-lead",
+    "to": "pol-answer-fix",
+    "type": "shutdown_request",
+    "content": "{\"type\":\"shutdown_request\",\"request_id\":\"shutdown-1775990045119\",\"reason\":\"任务已确认完成，请关闭。\",\"from\":\"team-lead\",\"timestamp\":\"2026-04-12T10:34:05.119Z\"}",
+    "timestamp": "2026-04-12T10:34:05.119Z",
+    "read": true
+  }
+]

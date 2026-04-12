@@ -1,0 +1,23 @@
+{
+  "name": "_auto_1ac3ab9168b04efbbef3682c7d06b22a",
+  "leadAgentId": "1ac3ab9168b04efbbef3682c7d06b22a",
+  "workspacePath": "/Volumes/ORICO/xinwen/claudecode/chinese-learn",
+  "createdAt": "2026-04-12T11:41:56.932Z",
+  "options": {
+    "workspacePath": "/Volumes/ORICO/xinwen/claudecode/chinese-learn",
+    "isAutoTeam": true
+  },
+  "members": [
+    {
+      "memberId": "team-lead@_auto_1ac3ab9168b04efbbef3682c7d06b22a",
+      "name": "team-lead",
+      "role": "Team Lead - coordinates the team and interacts with the user"
+    },
+    {
+      "memberId": "pol-choice-rev3@_auto_1ac3ab9168b04efbbef3682c7d06b22a",
+      "name": "pol-choice-rev3",
+      "role": "重写政治选择题120题"
+    }
+  ],
+  "isAutoTeam": true
+}

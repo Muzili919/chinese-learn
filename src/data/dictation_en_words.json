@@ -1,0 +1,2846 @@
+[
+  {
+    "id": "en_g4_001",
+    "word": "classroom",
+    "meaning": "教室",
+    "grade": 4,
+    "semester": "上册",
+    "phonetic": "/ˈklɑːsruːm/",
+    "example": "This is my classroom."
+  },
+  {
+    "id": "en_g4_002",
+    "word": "blackboard",
+    "meaning": "黑板",
+    "grade": 4,
+    "semester": "上册",
+    "phonetic": "/ˈblækbɔːrd/",
+    "example": "Look at the blackboard."
+  },
+  {
+    "id": "en_g4_003",
+    "word": "computer",
+    "meaning": "电脑",
+    "grade": 4,
+    "semester": "上册",
+    "phonetic": "/kəmˈpjuːtər/",
+    "example": "I have a new computer."
+  },
+  {
+    "id": "en_g4_004",
+    "word": "window",
+    "meaning": "窗户",
+    "grade": 4,
+    "semester": "上册",
+    "phonetic": "/ˈwɪndəʊ/",
+    "example": "Open the window, please."
+  },
+  {
+    "id": "en_g4_005",
+    "word": "door",
+    "meaning": "门",
+    "grade": 4,
+    "semester": "上册",
+    "phonetic": "/dɔːr/",
+    "example": "Close the door."
+  },
+  {
+    "id": "en_g4_006",
+    "word": "picture",
+    "meaning": "图画",
+    "grade": 4,
+    "semester": "上册",
+    "phonetic": "/ˈpɪktʃər/",
+    "example": "There is a picture on the wall."
+  },
+  {
+    "id": "en_g4_007",
+    "word": "light",
+    "meaning": "灯",
+    "grade": 4,
+    "semester": "上册",
+    "phonetic": "/laɪt/",
+    "example": "Turn on the light."
+  },
+  {
+    "id": "en_g4_008",
+    "word": "clean",
+    "meaning": "打扫",
+    "grade": 4,
+    "semester": "上册",
+    "phonetic": "/kliːn/",
+    "example": "Let me clean the classroom."
+  },
+  {
+    "id": "en_g4_009",
+    "word": "near",
+    "meaning": "在……旁边",
+    "grade": 4,
+    "semester": "上册",
+    "phonetic": "/nɪr/",
+    "example": "The TV is near the window."
+  },
+  {
+    "id": "en_g4_010",
+    "word": "where",
+    "meaning": "在哪里",
+    "grade": 4,
+    "semester": "上册",
+    "phonetic": "/wer/",
+    "example": "Where is the picture?"
+  },
+  {
+    "id": "en_g4_011",
+    "word": "there",
+    "meaning": "那里",
+    "grade": 4,
+    "semester": "上册",
+    "phonetic": "/ðer/",
+    "example": "There is a desk there."
+  },
+  {
+    "id": "en_g4_012",
+    "word": "help",
+    "meaning": "帮助",
+    "grade": 4,
+    "semester": "上册",
+    "phonetic": "/help/",
+    "example": "Let me help you."
+  },
+  {
+    "id": "en_g4_013",
+    "word": "schoolbag",
+    "meaning": "书包",
+    "grade": 4,
+    "semester": "上册",
+    "phonetic": "/ˈskuːlbæɡ/",
+    "example": "I have a new schoolbag."
+  },
+  {
+    "id": "en_g4_014",
+    "word": "notebook",
+    "meaning": "笔记本",
+    "grade": 4,
+    "semester": "上册",
+    "phonetic": "/ˈnəʊtbʊk/",
+    "example": "I need a notebook."
+  },
+  {
+    "id": "en_g4_015",
+    "word": "candy",
+    "meaning": "糖果",
+    "grade": 4,
+    "semester": "上册",
+    "phonetic": "/ˈkændi/",
+    "example": "I have some candy."
+  },
+  {
+    "id": "en_g4_016",
+    "word": "key",
+    "meaning": "钥匙",
+    "grade": 4,
+    "semester": "上册",
+    "phonetic": "/kiː/",
+    "example": "Here is the key."
+  },
+  {
+    "id": "en_g4_017",
+    "word": "toy",
+    "meaning": "玩具",
+    "grade": 4,
+    "semester": "上册",
+    "phonetic": "/tɔɪ/",
+    "example": "I have a toy bear."
+  },
+  {
+    "id": "en_g4_018",
+    "word": "heavy",
+    "meaning": "重的",
+    "grade": 4,
+    "semester": "上册",
+    "phonetic": "/ˈhevi/",
+    "example": "My schoolbag is heavy."
+  },
+  {
+    "id": "en_g4_019",
+    "word": "put",
+    "meaning": "放",
+    "grade": 4,
+    "semester": "上册",
+    "phonetic": "/pʊt/",
+    "example": "Put your book on the desk."
+  },
+  {
+    "id": "en_g4_020",
+    "word": "lost",
+    "meaning": "丢失",
+    "grade": 4,
+    "semester": "上册",
+    "phonetic": "/lɒst/",
+    "example": "I lost my pen."
+  },
+  {
+    "id": "en_g4_021",
+    "word": "strong",
+    "meaning": "强壮的",
+    "grade": 4,
+    "semester": "上册",
+    "phonetic": "/strɒŋ/",
+    "example": "He is strong."
+  },
+  {
+    "id": "en_g4_022",
+    "word": "friendly",
+    "meaning": "友好的",
+    "grade": 4,
+    "semester": "上册",
+    "phonetic": "/ˈfrendli/",
+    "example": "She is very friendly."
+  },
+  {
+    "id": "en_g4_023",
+    "word": "quiet",
+    "meaning": "安静的",
+    "grade": 4,
+    "semester": "上册",
+    "phonetic": "/ˈkwaɪət/",
+    "example": "He is quiet."
+  },
+  {
+    "id": "en_g4_024",
+    "word": "hair",
+    "meaning": "头发",
+    "grade": 4,
+    "semester": "上册",
+    "phonetic": "/her/",
+    "example": "She has long hair."
+  },
+  {
+    "id": "en_g4_025",
+    "word": "glasses",
+    "meaning": "眼镜",
+    "grade": 4,
+    "semester": "上册",
+    "phonetic": "/ˈɡlɑːsɪz/",
+    "example": "He wears glasses."
+  },
+  {
+    "id": "en_g4_026",
+    "word": "shoe",
+    "meaning": "鞋",
+    "grade": 4,
+    "semester": "上册",
+    "phonetic": "/ʃuː/",
+    "example": "Take off your shoes."
+  },
+  {
+    "id": "en_g4_027",
+    "word": "bedroom",
+    "meaning": "卧室",
+    "grade": 4,
+    "semester": "上册",
+    "phonetic": "/ˈbedruːm/",
+    "example": "This is my bedroom."
+  },
+  {
+    "id": "en_g4_028",
+    "word": "kitchen",
+    "meaning": "厨房",
+    "grade": 4,
+    "semester": "上册",
+    "phonetic": "/ˈkɪtʃɪn/",
+    "example": "Mom is in the kitchen."
+  },
+  {
+    "id": "en_g4_029",
+    "word": "fridge",
+    "meaning": "冰箱",
+    "grade": 4,
+    "semester": "上册",
+    "phonetic": "/frɪdʒ/",
+    "example": "The fridge is full."
+  },
+  {
+    "id": "en_g4_030",
+    "word": "sofa",
+    "meaning": "沙发",
+    "grade": 4,
+    "semester": "上册",
+    "phonetic": "/ˈsəʊfə/",
+    "example": "Sit on the sofa."
+  },
+  {
+    "id": "en_g4_031",
+    "word": "bathroom",
+    "meaning": "浴室",
+    "grade": 4,
+    "semester": "上册",
+    "phonetic": "/ˈbɑːθruːm/",
+    "example": "Go to the bathroom."
+  },
+  {
+    "id": "en_g4_032",
+    "word": "living room",
+    "meaning": "客厅",
+    "grade": 4,
+    "semester": "上册",
+    "phonetic": "/ˈlɪvɪŋ ruːm/",
+    "example": "Watch TV in the living room."
+  },
+  {
+    "id": "en_g4_033",
+    "word": "study",
+    "meaning": "书房",
+    "grade": 4,
+    "semester": "上册",
+    "phonetic": "/ˈstʌdi/",
+    "example": "He is in the study."
+  },
+  {
+    "id": "en_g4_034",
+    "word": "beef",
+    "meaning": "牛肉",
+    "grade": 4,
+    "semester": "上册",
+    "phonetic": "/biːf/",
+    "example": "I like beef."
+  },
+  {
+    "id": "en_g4_035",
+    "word": "soup",
+    "meaning": "汤",
+    "grade": 4,
+    "semester": "上册",
+    "phonetic": "/suːp/",
+    "example": "The soup is hot."
+  },
+  {
+    "id": "en_g4_036",
+    "word": "vegetables",
+    "meaning": "蔬菜",
+    "grade": 4,
+    "semester": "上册",
+    "phonetic": "/ˈvedʒtəblz/",
+    "example": "Eat more vegetables."
+  },
+  {
+    "id": "en_g4_037",
+    "word": "chopsticks",
+    "meaning": "筷子",
+    "grade": 4,
+    "semester": "上册",
+    "phonetic": "/ˈtʃɒpstɪks/",
+    "example": "Use chopsticks to eat."
+  },
+  {
+    "id": "en_g4_038",
+    "word": "bowl",
+    "meaning": "碗",
+    "grade": 4,
+    "semester": "上册",
+    "phonetic": "/bəʊl/",
+    "example": "A bowl of rice, please."
+  },
+  {
+    "id": "en_g4_039",
+    "word": "dinner",
+    "meaning": "晚餐",
+    "grade": 4,
+    "semester": "上册",
+    "phonetic": "/ˈdɪnər/",
+    "example": "What's for dinner?"
+  },
+  {
+    "id": "en_g4_040",
+    "word": "ready",
+    "meaning": "准备好的",
+    "grade": 4,
+    "semester": "上册",
+    "phonetic": "/ˈredi/",
+    "example": "Dinner is ready."
+  },
+  {
+    "id": "en_g4_041",
+    "word": "pass",
+    "meaning": "递给",
+    "grade": 4,
+    "semester": "上册",
+    "phonetic": "/pɑːs/",
+    "example": "Pass me the salt, please."
+  },
+  {
+    "id": "en_g4_042",
+    "word": "parents",
+    "meaning": "父母",
+    "grade": 4,
+    "semester": "上册",
+    "phonetic": "/ˈpeərənts/",
+    "example": "My parents love me."
+  },
+  {
+    "id": "en_g4_043",
+    "word": "uncle",
+    "meaning": "叔舅",
+    "grade": 4,
+    "semester": "上册",
+    "phonetic": "/ˈʌŋkl/",
+    "example": "My uncle is a doctor."
+  },
+  {
+    "id": "en_g4_044",
+    "word": "aunt",
+    "meaning": "姑姨",
+    "grade": 4,
+    "semester": "上册",
+    "phonetic": "/ɑːnt/",
+    "example": "My aunt lives in Beijing."
+  },
+  {
+    "id": "en_g4_045",
+    "word": "doctor",
+    "meaning": "医生",
+    "grade": 4,
+    "semester": "上册",
+    "phonetic": "/ˈdɒktər/",
+    "example": "She is a doctor."
+  },
+  {
+    "id": "en_g4_046",
+    "word": "driver",
+    "meaning": "司机",
+    "grade": 4,
+    "semester": "上册",
+    "phonetic": "/ˈdraɪvər/",
+    "example": "He is a bus driver."
+  },
+  {
+    "id": "en_g4_047",
+    "word": "farmer",
+    "meaning": "农民",
+    "grade": 4,
+    "semester": "上册",
+    "phonetic": "/ˈfɑːrmər/",
+    "example": "My father is a farmer."
+  },
+  {
+    "id": "en_g4_048",
+    "word": "nurse",
+    "meaning": "护士",
+    "grade": 4,
+    "semester": "上册",
+    "phonetic": "/nɜːrs/",
+    "example": "The nurse is kind."
+  },
+  {
+    "id": "en_g4_049",
+    "word": "cook",
+    "meaning": "厨师",
+    "grade": 4,
+    "semester": "上册",
+    "phonetic": "/kʊk/",
+    "example": "He is a good cook."
+  },
+  {
+    "id": "en_g4_050",
+    "word": "job",
+    "meaning": "工作",
+    "grade": 4,
+    "semester": "上册",
+    "phonetic": "/dʒɒb/",
+    "example": "What's his job?"
+  },
+  {
+    "id": "en_g4_051",
+    "word": "people",
+    "meaning": "人们",
+    "grade": 4,
+    "semester": "上册",
+    "phonetic": "/ˈpiːpl/",
+    "example": "There are many people."
+  },
+  {
+    "id": "en_g4_052",
+    "word": "library",
+    "meaning": "图书馆",
+    "grade": 4,
+    "semester": "下册",
+    "phonetic": "/ˈlaɪbrəri/",
+    "example": "The library is on the first floor."
+  },
+  {
+    "id": "en_g4_053",
+    "word": "playground",
+    "meaning": "操场",
+    "grade": 4,
+    "semester": "下册",
+    "phonetic": "/ˈpleɪɡraʊnd/",
+    "example": "We play on the playground."
+  },
+  {
+    "id": "en_g4_054",
+    "word": "teacher's office",
+    "meaning": "教师办公室",
+    "grade": 4,
+    "semester": "下册",
+    "phonetic": "/ˈtiːtʃərz ˈɒfɪs/",
+    "example": "The teacher's office is next to the library."
+  },
+  {
+    "id": "en_g4_055",
+    "word": "floor",
+    "meaning": "楼层",
+    "grade": 4,
+    "semester": "下册",
+    "phonetic": "/flɔːr/",
+    "example": "It's on the second floor."
+  },
+  {
+    "id": "en_g4_056",
+    "word": "garden",
+    "meaning": "花园",
+    "grade": 4,
+    "semester": "下册",
+    "phonetic": "/ˈɡɑːrdn/",
+    "example": "There is a garden in our school."
+  },
+  {
+    "id": "en_g4_057",
+    "word": "art room",
+    "meaning": "美术教室",
+    "grade": 4,
+    "semester": "下册",
+    "phonetic": "/ɑːrt ruːm/",
+    "example": "The art room is beautiful."
+  },
+  {
+    "id": "en_g4_058",
+    "word": "music room",
+    "meaning": "音乐教室",
+    "grade": 4,
+    "semester": "下册",
+    "phonetic": "/ˈmjuːzɪk ruːm/",
+    "example": "We sing in the music room."
+  },
+  {
+    "id": "en_g4_059",
+    "word": "gym",
+    "meaning": "体育馆",
+    "grade": 4,
+    "semester": "下册",
+    "phonetic": "/dʒɪm/",
+    "example": "We have PE in the gym."
+  },
+  {
+    "id": "en_g4_060",
+    "word": "breakfast",
+    "meaning": "早餐",
+    "grade": 4,
+    "semester": "下册",
+    "phonetic": "/ˈbrekfəst/",
+    "example": "I have breakfast at seven."
+  },
+  {
+    "id": "en_g4_061",
+    "word": "lunch",
+    "meaning": "午餐",
+    "grade": 4,
+    "semester": "下册",
+    "phonetic": "/lʌntʃ/",
+    "example": "It's time for lunch."
+  },
+  {
+    "id": "en_g4_062",
+    "word": "dinner",
+    "meaning": "晚餐",
+    "grade": 4,
+    "semester": "下册",
+    "phonetic": "/ˈdɪnər/",
+    "example": "Dinner is at six o'clock."
+  },
+  {
+    "id": "en_g4_063",
+    "word": "get up",
+    "meaning": "起床",
+    "grade": 4,
+    "semester": "下册",
+    "phonetic": "/ɡet ʌp/",
+    "example": "I get up at six thirty."
+  },
+  {
+    "id": "en_g4_064",
+    "word": "go to school",
+    "meaning": "上学",
+    "grade": 4,
+    "semester": "下册",
+    "phonetic": "/ɡəʊ tə skuːl/",
+    "example": "I go to school at seven."
+  },
+  {
+    "id": "en_g4_065",
+    "word": "go home",
+    "meaning": "回家",
+    "grade": 4,
+    "semester": "下册",
+    "phonetic": "/ɡəʊ həʊm/",
+    "example": "I go home at four."
+  },
+  {
+    "id": "en_g4_066",
+    "word": "go to bed",
+    "meaning": "上床睡觉",
+    "grade": 4,
+    "semester": "下册",
+    "phonetic": "/ɡəʊ tə bed/",
+    "example": "I go to bed at nine."
+  },
+  {
+    "id": "en_g4_067",
+    "word": "ready",
+    "meaning": "准备好的",
+    "grade": 4,
+    "semester": "下册",
+    "phonetic": "/ˈredi/",
+    "example": "Are you ready?"
+  },
+  {
+    "id": "en_g4_068",
+    "word": "hurry up",
+    "meaning": "快点",
+    "grade": 4,
+    "semester": "下册",
+    "phonetic": "/ˈhʌri ʌp/",
+    "example": "Hurry up! We are late."
+  },
+  {
+    "id": "en_g4_069",
+    "word": "warm",
+    "meaning": "温暖的",
+    "grade": 4,
+    "semester": "下册",
+    "phonetic": "/wɔːrm/",
+    "example": "It's warm in spring."
+  },
+  {
+    "id": "en_g4_070",
+    "word": "cool",
+    "meaning": "凉爽的",
+    "grade": 4,
+    "semester": "下册",
+    "phonetic": "/kuːl/",
+    "example": "It's cool in autumn."
+  },
+  {
+    "id": "en_g4_071",
+    "word": "sunny",
+    "meaning": "晴朗的",
+    "grade": 4,
+    "semester": "下册",
+    "phonetic": "/ˈsʌni/",
+    "example": "It's sunny today."
+  },
+  {
+    "id": "en_g4_072",
+    "word": "rainy",
+    "meaning": "下雨的",
+    "grade": 4,
+    "semester": "下册",
+    "phonetic": "/ˈreɪni/",
+    "example": "It's rainy outside."
+  },
+  {
+    "id": "en_g4_073",
+    "word": "cloudy",
+    "meaning": "多云的",
+    "grade": 4,
+    "semester": "下册",
+    "phonetic": "/ˈklaʊdi/",
+    "example": "It's cloudy today."
+  },
+  {
+    "id": "en_g4_074",
+    "word": "snowy",
+    "meaning": "下雪的",
+    "grade": 4,
+    "semester": "下册",
+    "phonetic": "/ˈsnəʊi/",
+    "example": "It's snowy in winter."
+  },
+  {
+    "id": "en_g4_075",
+    "word": "windy",
+    "meaning": "有风的",
+    "grade": 4,
+    "semester": "下册",
+    "phonetic": "/ˈwɪndi/",
+    "example": "It's windy today."
+  },
+  {
+    "id": "en_g4_076",
+    "word": "cold",
+    "meaning": "寒冷的",
+    "grade": 4,
+    "semester": "下册",
+    "phonetic": "/kəʊld/",
+    "example": "It's cold in winter."
+  },
+  {
+    "id": "en_g4_077",
+    "word": "hot",
+    "meaning": "炎热的",
+    "grade": 4,
+    "semester": "下册",
+    "phonetic": "/hɒt/",
+    "example": "It's hot in summer."
+  },
+  {
+    "id": "en_g4_078",
+    "word": "weather",
+    "meaning": "天气",
+    "grade": 4,
+    "semester": "下册",
+    "phonetic": "/ˈweðər/",
+    "example": "What's the weather like?"
+  },
+  {
+    "id": "en_g4_079",
+    "word": "tomato",
+    "meaning": "西红柿",
+    "grade": 4,
+    "semester": "下册",
+    "phonetic": "/təˈmeɪtəʊ/",
+    "example": "I like tomatoes."
+  },
+  {
+    "id": "en_g4_080",
+    "word": "carrot",
+    "meaning": "胡萝卜",
+    "grade": 4,
+    "semester": "下册",
+    "phonetic": "/ˈkærət/",
+    "example": "Rabbits like carrots."
+  },
+  {
+    "id": "en_g4_081",
+    "word": "horse",
+    "meaning": "马",
+    "grade": 4,
+    "semester": "下册",
+    "phonetic": "/hɔːrs/",
+    "example": "The horse is running."
+  },
+  {
+    "id": "en_g4_082",
+    "word": "cow",
+    "meaning": "奶牛",
+    "grade": 4,
+    "semester": "下册",
+    "phonetic": "/kaʊ/",
+    "example": "The cow gives us milk."
+  },
+  {
+    "id": "en_g4_083",
+    "word": "sheep",
+    "meaning": "绵羊",
+    "grade": 4,
+    "semester": "下册",
+    "phonetic": "/ʃiːp/",
+    "example": "There are many sheep."
+  },
+  {
+    "id": "en_g4_084",
+    "word": "hen",
+    "meaning": "母鸡",
+    "grade": 4,
+    "semester": "下册",
+    "phonetic": "/hen/",
+    "example": "The hen has chicks."
+  },
+  {
+    "id": "en_g4_085",
+    "word": "potato",
+    "meaning": "土豆",
+    "grade": 4,
+    "semester": "下册",
+    "phonetic": "/pəˈteɪtəʊ/",
+    "example": "I like potato chips."
+  },
+  {
+    "id": "en_g4_086",
+    "word": "green beans",
+    "meaning": "青豆",
+    "grade": 4,
+    "semester": "下册",
+    "phonetic": "/ɡriːn biːnz/",
+    "example": "These green beans are fresh."
+  },
+  {
+    "id": "en_g4_087",
+    "word": "dress",
+    "meaning": "连衣裙",
+    "grade": 4,
+    "semester": "下册",
+    "phonetic": "/dres/",
+    "example": "She wears a dress."
+  },
+  {
+    "id": "en_g4_088",
+    "word": "skirt",
+    "meaning": "短裙",
+    "grade": 4,
+    "semester": "下册",
+    "phonetic": "/skɜːrt/",
+    "example": "This skirt is pretty."
+  },
+  {
+    "id": "en_g4_089",
+    "word": "sweater",
+    "meaning": "毛衣",
+    "grade": 4,
+    "semester": "下册",
+    "phonetic": "/ˈswetər/",
+    "example": "Put on your sweater."
+  },
+  {
+    "id": "en_g4_090",
+    "word": "pants",
+    "meaning": "裤子",
+    "grade": 4,
+    "semester": "下册",
+    "phonetic": "/pænts/",
+    "example": "These pants are too long."
+  },
+  {
+    "id": "en_g4_091",
+    "word": "shirt",
+    "meaning": "衬衫",
+    "grade": 4,
+    "semester": "下册",
+    "phonetic": "/ʃɜːrt/",
+    "example": "He wears a white shirt."
+  },
+  {
+    "id": "en_g4_092",
+    "word": "coat",
+    "meaning": "外套",
+    "grade": 4,
+    "semester": "下册",
+    "phonetic": "/kəʊt/",
+    "example": "Wear your coat."
+  },
+  {
+    "id": "en_g4_093",
+    "word": "jacket",
+    "meaning": "夹克",
+    "grade": 4,
+    "semester": "下册",
+    "phonetic": "/ˈdʒækɪt/",
+    "example": "This jacket is cool."
+  },
+  {
+    "id": "en_g4_094",
+    "word": "shorts",
+    "meaning": "短裤",
+    "grade": 4,
+    "semester": "下册",
+    "phonetic": "/ʃɔːrts/",
+    "example": "I wear shorts in summer."
+  },
+  {
+    "id": "en_g4_095",
+    "word": "gloves",
+    "meaning": "手套",
+    "grade": 4,
+    "semester": "下册",
+    "phonetic": "/ɡlʌvz/",
+    "example": "Put on your gloves."
+  },
+  {
+    "id": "en_g4_096",
+    "word": "scarf",
+    "meaning": "围巾",
+    "grade": 4,
+    "semester": "下册",
+    "phonetic": "/skɑːrf/",
+    "example": "This scarf is beautiful."
+  },
+  {
+    "id": "en_g4_097",
+    "word": "umbrella",
+    "meaning": "雨伞",
+    "grade": 4,
+    "semester": "下册",
+    "phonetic": "/ʌmˈbrelə/",
+    "example": "Take your umbrella."
+  },
+  {
+    "id": "en_g4_098",
+    "word": "cheap",
+    "meaning": "便宜的",
+    "grade": 4,
+    "semester": "下册",
+    "phonetic": "/tʃiːp/",
+    "example": "This shirt is cheap."
+  },
+  {
+    "id": "en_g4_099",
+    "word": "expensive",
+    "meaning": "昂贵的",
+    "grade": 4,
+    "semester": "下册",
+    "phonetic": "/ɪkˈspensɪv/",
+    "example": "This bag is expensive."
+  },
+  {
+    "id": "en_g4_100",
+    "word": "nice",
+    "meaning": "好看的",
+    "grade": 4,
+    "semester": "下册",
+    "phonetic": "/naɪs/",
+    "example": "This dress is nice."
+  },
+  {
+    "id": "en_g4_101",
+    "word": "try on",
+    "meaning": "试穿",
+    "grade": 4,
+    "semester": "下册",
+    "phonetic": "/traɪ ɒn/",
+    "example": "Can I try on this shirt?"
+  },
+  {
+    "id": "en_g4_102",
+    "word": "size",
+    "meaning": "尺码",
+    "grade": 4,
+    "semester": "下册",
+    "phonetic": "/saɪz/",
+    "example": "What size do you wear?"
+  },
+  {
+    "id": "en_g4_103",
+    "word": "of course",
+    "meaning": "当然",
+    "grade": 4,
+    "semester": "下册",
+    "phonetic": "/əv kɔːrs/",
+    "example": "Of course you can."
+  },
+  {
+    "id": "en_g5_001",
+    "word": "kind",
+    "meaning": "和蔼的",
+    "grade": 5,
+    "semester": "上册",
+    "phonetic": "/kaɪnd/",
+    "example": "Our teacher is very kind."
+  },
+  {
+    "id": "en_g5_002",
+    "word": "strict",
+    "meaning": "严格的",
+    "grade": 5,
+    "semester": "上册",
+    "phonetic": "/strɪkt/",
+    "example": "My father is strict."
+  },
+  {
+    "id": "en_g5_003",
+    "word": "polite",
+    "meaning": "有礼貌的",
+    "grade": 5,
+    "semester": "上册",
+    "phonetic": "/pəˈlaɪt/",
+    "example": "He is polite."
+  },
+  {
+    "id": "en_g5_004",
+    "word": "clever",
+    "meaning": "聪明的",
+    "grade": 5,
+    "semester": "上册",
+    "phonetic": "/ˈklevər/",
+    "example": "She is very clever."
+  },
+  {
+    "id": "en_g5_005",
+    "word": "helpful",
+    "meaning": "乐于助人的",
+    "grade": 5,
+    "semester": "上册",
+    "phonetic": "/ˈhelpfl/",
+    "example": "He is helpful."
+  },
+  {
+    "id": "en_g5_006",
+    "word": "shy",
+    "meaning": "害羞的",
+    "grade": 5,
+    "semester": "上册",
+    "phonetic": "/ʃaɪ/",
+    "example": "She is a shy girl."
+  },
+  {
+    "id": "en_g5_007",
+    "word": "young",
+    "meaning": "年轻的",
+    "grade": 5,
+    "semester": "上册",
+    "phonetic": "/jʌŋ/",
+    "example": "Our English teacher is young."
+  },
+  {
+    "id": "en_g5_008",
+    "word": "funny",
+    "meaning": "有趣的",
+    "grade": 5,
+    "semester": "上册",
+    "phonetic": "/ˈfʌni/",
+    "example": "He is funny."
+  },
+  {
+    "id": "en_g5_009",
+    "word": "old",
+    "meaning": "年老的",
+    "grade": 5,
+    "semester": "上册",
+    "phonetic": "/əʊld/",
+    "example": "Our math teacher is old."
+  },
+  {
+    "id": "en_g5_010",
+    "word": "Monday",
+    "meaning": "星期一",
+    "grade": 5,
+    "semester": "上册",
+    "phonetic": "/ˈmʌndeɪ/",
+    "example": "I have English on Monday."
+  },
+  {
+    "id": "en_g5_011",
+    "word": "Tuesday",
+    "meaning": "星期二",
+    "grade": 5,
+    "semester": "上册",
+    "phonetic": "/ˈtjuːzdeɪ/",
+    "example": "We have PE on Tuesday."
+  },
+  {
+    "id": "en_g5_012",
+    "word": "Wednesday",
+    "meaning": "星期三",
+    "grade": 5,
+    "semester": "上册",
+    "phonetic": "/ˈwenzdeɪ/",
+    "example": "Wednesday is my favorite day."
+  },
+  {
+    "id": "en_g5_013",
+    "word": "Thursday",
+    "meaning": "星期四",
+    "grade": 5,
+    "semester": "上册",
+    "phonetic": "/ˈθɜːrzdeɪ/",
+    "example": "I play football on Thursday."
+  },
+  {
+    "id": "en_g5_014",
+    "word": "Friday",
+    "meaning": "星期五",
+    "grade": 5,
+    "semester": "上册",
+    "phonetic": "/ˈfraɪdeɪ/",
+    "example": "Friday is the last day of school."
+  },
+  {
+    "id": "en_g5_015",
+    "word": "Saturday",
+    "meaning": "星期六",
+    "grade": 5,
+    "semester": "上册",
+    "phonetic": "/ˈsætərdeɪ/",
+    "example": "I go to the park on Saturday."
+  },
+  {
+    "id": "en_g5_016",
+    "word": "Sunday",
+    "meaning": "星期日",
+    "grade": 5,
+    "semester": "上册",
+    "phonetic": "/ˈsʌndeɪ/",
+    "example": "I rest on Sunday."
+  },
+  {
+    "id": "en_g5_017",
+    "word": "weekend",
+    "meaning": "周末",
+    "grade": 5,
+    "semester": "上册",
+    "phonetic": "/ˌwiːkˈend/",
+    "example": "What do you do on the weekend?"
+  },
+  {
+    "id": "en_g5_018",
+    "word": "do homework",
+    "meaning": "做作业",
+    "grade": 5,
+    "semester": "上册",
+    "phonetic": "/duː ˈhəʊmwɜːk/",
+    "example": "I do homework after dinner."
+  },
+  {
+    "id": "en_g5_019",
+    "word": "read books",
+    "meaning": "读书",
+    "grade": 5,
+    "semester": "上册",
+    "phonetic": "/riːd bʊks/",
+    "example": "I like to read books."
+  },
+  {
+    "id": "en_g5_020",
+    "word": "play football",
+    "meaning": "踢足球",
+    "grade": 5,
+    "semester": "上册",
+    "phonetic": "/pleɪ ˈfʊtbɔːl/",
+    "example": "We play football after school."
+  },
+  {
+    "id": "en_g5_021",
+    "word": "wash my clothes",
+    "meaning": "洗衣服",
+    "grade": 5,
+    "semester": "上册",
+    "phonetic": "/wɒʃ maɪ kləʊðz/",
+    "example": "I wash my clothes on Sunday."
+  },
+  {
+    "id": "en_g5_022",
+    "word": "salad",
+    "meaning": "沙拉",
+    "grade": 5,
+    "semester": "上册",
+    "phonetic": "/ˈsæləd/",
+    "example": "I like fruit salad."
+  },
+  {
+    "id": "en_g5_023",
+    "word": "hamburger",
+    "meaning": "汉堡",
+    "grade": 5,
+    "semester": "上册",
+    "phonetic": "/ˈhæmbɜːrɡər/",
+    "example": "I'd like a hamburger."
+  },
+  {
+    "id": "en_g5_024",
+    "word": "fresh",
+    "meaning": "新鲜的",
+    "grade": 5,
+    "semester": "上册",
+    "phonetic": "/freʃ/",
+    "example": "The vegetables are fresh."
+  },
+  {
+    "id": "en_g5_025",
+    "word": "delicious",
+    "meaning": "美味的",
+    "grade": 5,
+    "semester": "上册",
+    "phonetic": "/dɪˈlɪʃəs/",
+    "example": "The food is delicious."
+  },
+  {
+    "id": "en_g5_026",
+    "word": "healthy",
+    "meaning": "健康的",
+    "grade": 5,
+    "semester": "上册",
+    "phonetic": "/ˈhelθi/",
+    "example": "Eat healthy food."
+  },
+  {
+    "id": "en_g5_027",
+    "word": "sweet",
+    "meaning": "甜的",
+    "grade": 5,
+    "semester": "上册",
+    "phonetic": "/swiːt/",
+    "example": "The cake is too sweet."
+  },
+  {
+    "id": "en_g5_028",
+    "word": "thirsty",
+    "meaning": "渴的",
+    "grade": 5,
+    "semester": "上册",
+    "phonetic": "/ˈθɜːrsti/",
+    "example": "I'm thirsty."
+  },
+  {
+    "id": "en_g5_029",
+    "word": "hungry",
+    "meaning": "饥饿的",
+    "grade": 5,
+    "semester": "上册",
+    "phonetic": "/ˈhʌŋɡri/",
+    "example": "I'm hungry."
+  },
+  {
+    "id": "en_g5_030",
+    "word": "favourite",
+    "meaning": "最喜欢的",
+    "grade": 5,
+    "semester": "上册",
+    "phonetic": "/ˈfeɪvərɪt/",
+    "example": "What's your favourite food?"
+  },
+  {
+    "id": "en_g5_031",
+    "word": "sing",
+    "meaning": "唱歌",
+    "grade": 5,
+    "semester": "上册",
+    "phonetic": "/sɪŋ/",
+    "example": "I can sing English songs."
+  },
+  {
+    "id": "en_g5_032",
+    "word": "dance",
+    "meaning": "跳舞",
+    "grade": 5,
+    "semester": "上册",
+    "phonetic": "/dɑːns/",
+    "example": "She can dance very well."
+  },
+  {
+    "id": "en_g5_033",
+    "word": "draw",
+    "meaning": "画画",
+    "grade": 5,
+    "semester": "上册",
+    "phonetic": "/drɔː/",
+    "example": "I like to draw pictures."
+  },
+  {
+    "id": "en_g5_034",
+    "word": "swim",
+    "meaning": "游泳",
+    "grade": 5,
+    "semester": "上册",
+    "phonetic": "/swɪm/",
+    "example": "I can swim."
+  },
+  {
+    "id": "en_g5_035",
+    "word": "cook",
+    "meaning": "做饭",
+    "grade": 5,
+    "semester": "上册",
+    "phonetic": "/kʊk/",
+    "example": "My mother can cook well."
+  },
+  {
+    "id": "en_g5_036",
+    "word": "play the pipa",
+    "meaning": "弹琵琶",
+    "grade": 5,
+    "semester": "上册",
+    "phonetic": "/pleɪ ðə piːpɑː/",
+    "example": "She can play the pipa."
+  },
+  {
+    "id": "en_g5_037",
+    "word": "do kung fu",
+    "meaning": "练武术",
+    "grade": 5,
+    "semester": "上册",
+    "phonetic": "/duː kʌŋ fuː/",
+    "example": "He can do kung fu."
+  },
+  {
+    "id": "en_g5_038",
+    "word": "clock",
+    "meaning": "时钟",
+    "grade": 5,
+    "semester": "上册",
+    "phonetic": "/klɒk/",
+    "example": "There is a clock on the wall."
+  },
+  {
+    "id": "en_g5_039",
+    "word": "plant",
+    "meaning": "植物",
+    "grade": 5,
+    "semester": "上册",
+    "phonetic": "/plɑːnt/",
+    "example": "There is a plant near the door."
+  },
+  {
+    "id": "en_g5_040",
+    "word": "water bottle",
+    "meaning": "水瓶",
+    "grade": 5,
+    "semester": "上册",
+    "phonetic": "/ˈwɔːtər ˈbɒtl/",
+    "example": "This is my water bottle."
+  },
+  {
+    "id": "en_g5_041",
+    "word": "bike",
+    "meaning": "自行车",
+    "grade": 5,
+    "semester": "上册",
+    "phonetic": "/baɪk/",
+    "example": "I have a new bike."
+  },
+  {
+    "id": "en_g5_042",
+    "word": "photo",
+    "meaning": "照片",
+    "grade": 5,
+    "semester": "上册",
+    "phonetic": "/ˈfəʊtəʊ/",
+    "example": "This is a photo of my family."
+  },
+  {
+    "id": "en_g5_043",
+    "word": "front",
+    "meaning": "前面",
+    "grade": 5,
+    "semester": "上册",
+    "phonetic": "/frʌnt/",
+    "example": "There is a tree in front of the house."
+  },
+  {
+    "id": "en_g5_044",
+    "word": "beside",
+    "meaning": "在……旁边",
+    "grade": 5,
+    "semester": "上册",
+    "phonetic": "/bɪˈsaɪd/",
+    "example": "The ball is beside the desk."
+  },
+  {
+    "id": "en_g5_045",
+    "word": "behind",
+    "meaning": "在……后面",
+    "grade": 5,
+    "semester": "上册",
+    "phonetic": "/bɪˈhaɪnd/",
+    "example": "The cat is behind the sofa."
+  },
+  {
+    "id": "en_g5_046",
+    "word": "between",
+    "meaning": "在……之间",
+    "grade": 5,
+    "semester": "上册",
+    "phonetic": "/bɪˈtwiːn/",
+    "example": "The ball is between the two boxes."
+  },
+  {
+    "id": "en_g5_047",
+    "word": "above",
+    "meaning": "在……上面",
+    "grade": 5,
+    "semester": "上册",
+    "phonetic": "/əˈbʌv/",
+    "example": "The picture is above the bed."
+  },
+  {
+    "id": "en_g5_048",
+    "word": "forest",
+    "meaning": "森林",
+    "grade": 5,
+    "semester": "上册",
+    "phonetic": "/ˈfɒrɪst/",
+    "example": "There is a forest near the village."
+  },
+  {
+    "id": "en_g5_049",
+    "word": "river",
+    "meaning": "河流",
+    "grade": 5,
+    "semester": "上册",
+    "phonetic": "/ˈrɪvər/",
+    "example": "There is a river in the park."
+  },
+  {
+    "id": "en_g5_050",
+    "word": "lake",
+    "meaning": "湖泊",
+    "grade": 5,
+    "semester": "上册",
+    "phonetic": "/leɪk/",
+    "example": "The lake is very beautiful."
+  },
+  {
+    "id": "en_g5_051",
+    "word": "mountain",
+    "meaning": "高山",
+    "grade": 5,
+    "semester": "上册",
+    "phonetic": "/ˈmaʊntən/",
+    "example": "There is a mountain near our town."
+  },
+  {
+    "id": "en_g5_052",
+    "word": "hill",
+    "meaning": "小山",
+    "grade": 5,
+    "semester": "上册",
+    "phonetic": "/hɪl/",
+    "example": "There are some hills."
+  },
+  {
+    "id": "en_g5_053",
+    "word": "bridge",
+    "meaning": "桥",
+    "grade": 5,
+    "semester": "上册",
+    "phonetic": "/brɪdʒ/",
+    "example": "There is a bridge over the river."
+  },
+  {
+    "id": "en_g5_054",
+    "word": "building",
+    "meaning": "建筑物",
+    "grade": 5,
+    "semester": "上册",
+    "phonetic": "/ˈbɪldɪŋ/",
+    "example": "There are many tall buildings."
+  },
+  {
+    "id": "en_g5_055",
+    "word": "village",
+    "meaning": "村庄",
+    "grade": 5,
+    "semester": "上册",
+    "phonetic": "/ˈvɪlɪdʒ/",
+    "example": "The village is quiet."
+  },
+  {
+    "id": "en_g5_056",
+    "word": "nature park",
+    "meaning": "自然公园",
+    "grade": 5,
+    "semester": "上册",
+    "phonetic": "/ˈneɪtʃər pɑːrk/",
+    "example": "Let's go to the nature park."
+  },
+  {
+    "id": "en_g5_057",
+    "word": "do morning exercises",
+    "meaning": "做早操",
+    "grade": 5,
+    "semester": "下册",
+    "phonetic": "/duː ˈmɔːrnɪŋ ˈeksərsaɪzɪz/",
+    "example": "I do morning exercises at 7:00."
+  },
+  {
+    "id": "en_g5_058",
+    "word": "eat breakfast",
+    "meaning": "吃早饭",
+    "grade": 5,
+    "semester": "下册",
+    "phonetic": "/iːt ˈbrekfəst/",
+    "example": "I eat breakfast at 7:30."
+  },
+  {
+    "id": "en_g5_059",
+    "word": "eat dinner",
+    "meaning": "吃晚饭",
+    "grade": 5,
+    "semester": "下册",
+    "phonetic": "/iːt ˈdɪnər/",
+    "example": "I eat dinner at 6:00."
+  },
+  {
+    "id": "en_g5_060",
+    "word": "usually",
+    "meaning": "通常",
+    "grade": 5,
+    "semester": "下册",
+    "phonetic": "/ˈjuːʒuəli/",
+    "example": "I usually go to school by bus."
+  },
+  {
+    "id": "en_g5_061",
+    "word": "often",
+    "meaning": "经常",
+    "grade": 5,
+    "semester": "下册",
+    "phonetic": "/ˈɒfn/",
+    "example": "I often read books."
+  },
+  {
+    "id": "en_g5_062",
+    "word": "sometimes",
+    "meaning": "有时候",
+    "grade": 5,
+    "semester": "下册",
+    "phonetic": "/ˈsʌmtaɪmz/",
+    "example": "Sometimes I walk to school."
+  },
+  {
+    "id": "en_g5_063",
+    "word": "always",
+    "meaning": "总是",
+    "grade": 5,
+    "semester": "下册",
+    "phonetic": "/ˈɔːlweɪz/",
+    "example": "I always get up early."
+  },
+  {
+    "id": "en_g5_064",
+    "word": "never",
+    "meaning": "从不",
+    "grade": 5,
+    "semester": "下册",
+    "phonetic": "/ˈnevər/",
+    "example": "I never go to school late."
+  },
+  {
+    "id": "en_g5_065",
+    "word": "spring",
+    "meaning": "春天",
+    "grade": 5,
+    "semester": "下册",
+    "phonetic": "/sprɪŋ/",
+    "example": "I like spring best."
+  },
+  {
+    "id": "en_g5_066",
+    "word": "summer",
+    "meaning": "夏天",
+    "grade": 5,
+    "semester": "下册",
+    "phonetic": "/ˈsʌmər/",
+    "example": "Summer is hot."
+  },
+  {
+    "id": "en_g5_067",
+    "word": "autumn",
+    "meaning": "秋天",
+    "grade": 5,
+    "semester": "下册",
+    "phonetic": "/ˈɔːtəm/",
+    "example": "Autumn is cool."
+  },
+  {
+    "id": "en_g5_068",
+    "word": "winter",
+    "meaning": "冬天",
+    "grade": 5,
+    "semester": "下册",
+    "phonetic": "/ˈwɪntər/",
+    "example": "It snows in winter."
+  },
+  {
+    "id": "en_g5_069",
+    "word": "season",
+    "meaning": "季节",
+    "grade": 5,
+    "semester": "下册",
+    "phonetic": "/ˈsiːzn/",
+    "example": "Which season do you like best?"
+  },
+  {
+    "id": "en_g5_070",
+    "word": "go on a picnic",
+    "meaning": "去野餐",
+    "grade": 5,
+    "semester": "下册",
+    "phonetic": "/ɡəʊ ɒn ə ˈpɪknɪk/",
+    "example": "Let's go on a picnic."
+  },
+  {
+    "id": "en_g5_071",
+    "word": "make a snowman",
+    "meaning": "堆雪人",
+    "grade": 5,
+    "semester": "下册",
+    "phonetic": "/meɪk ə ˈsnəʊmæn/",
+    "example": "I like to make a snowman."
+  },
+  {
+    "id": "en_g5_072",
+    "word": "go swimming",
+    "meaning": "去游泳",
+    "grade": 5,
+    "semester": "下册",
+    "phonetic": "/ɡəʊ ˈswɪmɪŋ/",
+    "example": "Let's go swimming."
+  },
+  {
+    "id": "en_g5_073",
+    "word": "January",
+    "meaning": "一月",
+    "grade": 5,
+    "semester": "下册",
+    "phonetic": "/ˈdʒænjuəri/",
+    "example": "New Year is in January."
+  },
+  {
+    "id": "en_g5_074",
+    "word": "February",
+    "meaning": "二月",
+    "grade": 5,
+    "semester": "下册",
+    "phonetic": "/ˈfebruəri/",
+    "example": "Spring Festival is in February."
+  },
+  {
+    "id": "en_g5_075",
+    "word": "March",
+    "meaning": "三月",
+    "grade": 5,
+    "semester": "下册",
+    "phonetic": "/mɑːrtʃ/",
+    "example": "Tree Planting Day is in March."
+  },
+  {
+    "id": "en_g5_076",
+    "word": "April",
+    "meaning": "四月",
+    "grade": 5,
+    "semester": "下册",
+    "phonetic": "/ˈeɪprəl/",
+    "example": "Easter is in April."
+  },
+  {
+    "id": "en_g5_077",
+    "word": "May",
+    "meaning": "五月",
+    "grade": 5,
+    "semester": "下册",
+    "phonetic": "/meɪ/",
+    "example": "May Day is in May."
+  },
+  {
+    "id": "en_g5_078",
+    "word": "June",
+    "meaning": "六月",
+    "grade": 5,
+    "semester": "下册",
+    "phonetic": "/dʒuːn/",
+    "example": "Children's Day is in June."
+  },
+  {
+    "id": "en_g5_079",
+    "word": "July",
+    "meaning": "七月",
+    "grade": 5,
+    "semester": "下册",
+    "phonetic": "/dʒuˈlaɪ/",
+    "example": "Summer holiday starts in July."
+  },
+  {
+    "id": "en_g5_080",
+    "word": "August",
+    "meaning": "八月",
+    "grade": 5,
+    "semester": "下册",
+    "phonetic": "/ˈɔːɡəst/",
+    "example": "It's hot in August."
+  },
+  {
+    "id": "en_g5_081",
+    "word": "September",
+    "meaning": "九月",
+    "grade": 5,
+    "semester": "下册",
+    "phonetic": "/sepˈtembər/",
+    "example": "School starts in September."
+  },
+  {
+    "id": "en_g5_082",
+    "word": "October",
+    "meaning": "十月",
+    "grade": 5,
+    "semester": "下册",
+    "phonetic": "/ɒkˈtəʊbər/",
+    "example": "National Day is in October."
+  },
+  {
+    "id": "en_g5_083",
+    "word": "November",
+    "meaning": "十一月",
+    "grade": 5,
+    "semester": "下册",
+    "phonetic": "/nəʊˈvembər/",
+    "example": "Thanksgiving is in November."
+  },
+  {
+    "id": "en_g5_084",
+    "word": "December",
+    "meaning": "十二月",
+    "grade": 5,
+    "semester": "下册",
+    "phonetic": "/dɪˈsembər/",
+    "example": "Christmas is in December."
+  },
+  {
+    "id": "en_g5_085",
+    "word": "school trip",
+    "meaning": "学校旅行",
+    "grade": 5,
+    "semester": "下册",
+    "phonetic": "/skuːl trɪp/",
+    "example": "We have a school trip in April."
+  },
+  {
+    "id": "en_g5_086",
+    "word": "sports meet",
+    "meaning": "运动会",
+    "grade": 5,
+    "semester": "下册",
+    "phonetic": "/spɔːrts miːt/",
+    "example": "When is the sports meet?"
+  },
+  {
+    "id": "en_g5_087",
+    "word": "first",
+    "meaning": "第一",
+    "grade": 5,
+    "semester": "下册",
+    "phonetic": "/fɜːrst/",
+    "example": "January is the first month."
+  },
+  {
+    "id": "en_g5_088",
+    "word": "second",
+    "meaning": "第二",
+    "grade": 5,
+    "semester": "下册",
+    "phonetic": "/ˈsekənd/",
+    "example": "February is the second month."
+  },
+  {
+    "id": "en_g5_089",
+    "word": "third",
+    "meaning": "第三",
+    "grade": 5,
+    "semester": "下册",
+    "phonetic": "/θɜːrd/",
+    "example": "March is the third month."
+  },
+  {
+    "id": "en_g5_090",
+    "word": "fourth",
+    "meaning": "第四",
+    "grade": 5,
+    "semester": "下册",
+    "phonetic": "/fɔːrθ/",
+    "example": "My birthday is on April 4th."
+  },
+  {
+    "id": "en_g5_091",
+    "word": "fifth",
+    "meaning": "第五",
+    "grade": 5,
+    "semester": "下册",
+    "phonetic": "/fɪfθ/",
+    "example": "May is the fifth month."
+  },
+  {
+    "id": "en_g5_092",
+    "word": "twelfth",
+    "meaning": "第十二",
+    "grade": 5,
+    "semester": "下册",
+    "phonetic": "/twelfθ/",
+    "example": "December is the twelfth month."
+  },
+  {
+    "id": "en_g5_093",
+    "word": "birthday",
+    "meaning": "生日",
+    "grade": 5,
+    "semester": "下册",
+    "phonetic": "/ˈbɜːrθdeɪ/",
+    "example": "When is your birthday?"
+  },
+  {
+    "id": "en_g5_094",
+    "word": "special",
+    "meaning": "特别的",
+    "grade": 5,
+    "semester": "下册",
+    "phonetic": "/ˈspeʃl/",
+    "example": "Today is a special day."
+  },
+  {
+    "id": "en_g5_095",
+    "word": "mine",
+    "meaning": "我的",
+    "grade": 5,
+    "semester": "下册",
+    "phonetic": "/maɪn/",
+    "example": "This book is mine."
+  },
+  {
+    "id": "en_g5_096",
+    "word": "yours",
+    "meaning": "你的",
+    "grade": 5,
+    "semester": "下册",
+    "phonetic": "/jɔːrz/",
+    "example": "Is this pen yours?"
+  },
+  {
+    "id": "en_g5_097",
+    "word": "his",
+    "meaning": "他的",
+    "grade": 5,
+    "semester": "下册",
+    "phonetic": "/hɪz/",
+    "example": "The bag is his."
+  },
+  {
+    "id": "en_g5_098",
+    "word": "hers",
+    "meaning": "她的",
+    "grade": 5,
+    "semester": "下册",
+    "phonetic": "/hɜːrz/",
+    "example": "The cat is hers."
+  },
+  {
+    "id": "en_g5_099",
+    "word": "theirs",
+    "meaning": "他们的",
+    "grade": 5,
+    "semester": "下册",
+    "phonetic": "/ðerz/",
+    "example": "The house is theirs."
+  },
+  {
+    "id": "en_g5_100",
+    "word": "climbing",
+    "meaning": "正在爬",
+    "grade": 5,
+    "semester": "下册",
+    "phonetic": "/ˈklaɪmɪŋ/",
+    "example": "The cat is climbing the tree."
+  },
+  {
+    "id": "en_g5_101",
+    "word": "eating",
+    "meaning": "正在吃",
+    "grade": 5,
+    "semester": "下册",
+    "phonetic": "/ˈiːtɪŋ/",
+    "example": "The dog is eating."
+  },
+  {
+    "id": "en_g5_102",
+    "word": "drinking",
+    "meaning": "正在喝",
+    "grade": 5,
+    "semester": "下册",
+    "phonetic": "/ˈdrɪŋkɪŋ/",
+    "example": "The bird is drinking water."
+  },
+  {
+    "id": "en_g5_103",
+    "word": "sleeping",
+    "meaning": "正在睡觉",
+    "grade": 5,
+    "semester": "下册",
+    "phonetic": "/ˈsliːpɪŋ/",
+    "example": "The baby is sleeping."
+  },
+  {
+    "id": "en_g5_104",
+    "word": "jumping",
+    "meaning": "正在跳",
+    "grade": 5,
+    "semester": "下册",
+    "phonetic": "/ˈdʒʌmpɪŋ/",
+    "example": "The rabbit is jumping."
+  },
+  {
+    "id": "en_g5_105",
+    "word": "running",
+    "meaning": "正在跑",
+    "grade": 5,
+    "semester": "下册",
+    "phonetic": "/ˈrʌnɪŋ/",
+    "example": "The horse is running."
+  },
+  {
+    "id": "en_g5_106",
+    "word": "keep to the right",
+    "meaning": "靠右",
+    "grade": 5,
+    "semester": "下册",
+    "phonetic": "/kiːp tə ðə raɪt/",
+    "example": "Keep to the right in the hallway."
+  },
+  {
+    "id": "en_g5_107",
+    "word": "keep your desk clean",
+    "meaning": "保持课桌干净",
+    "grade": 5,
+    "semester": "下册",
+    "phonetic": "/kiːp jɔːr desk kliːn/",
+    "example": "Keep your desk clean."
+  },
+  {
+    "id": "en_g5_108",
+    "word": "talk quietly",
+    "meaning": "安静说话",
+    "grade": 5,
+    "semester": "下册",
+    "phonetic": "/tɔːk ˈkwaɪətli/",
+    "example": "Talk quietly in the library."
+  },
+  {
+    "id": "en_g5_109",
+    "word": "no eating",
+    "meaning": "禁止吃东西",
+    "grade": 5,
+    "semester": "下册",
+    "phonetic": "/nəʊ ˈiːtɪŋ/",
+    "example": "No eating in class."
+  },
+  {
+    "id": "en_g6_001",
+    "word": "science museum",
+    "meaning": "科学博物馆",
+    "grade": 6,
+    "semester": "上册",
+    "phonetic": "/ˈsaɪəns mjuːˈziːəm/",
+    "example": "Where is the science museum?"
+  },
+  {
+    "id": "en_g6_002",
+    "word": "bookstore",
+    "meaning": "书店",
+    "grade": 6,
+    "semester": "上册",
+    "phonetic": "/ˈbʊkstɔːr/",
+    "example": "I want to go to the bookstore."
+  },
+  {
+    "id": "en_g6_003",
+    "word": "hospital",
+    "meaning": "医院",
+    "grade": 6,
+    "semester": "上册",
+    "phonetic": "/ˈhɒspɪtl/",
+    "example": "The hospital is over there."
+  },
+  {
+    "id": "en_g6_004",
+    "word": "cinema",
+    "meaning": "电影院",
+    "grade": 6,
+    "semester": "上册",
+    "phonetic": "/ˈsɪnəmə/",
+    "example": "Let's go to the cinema."
+  },
+  {
+    "id": "en_g6_005",
+    "word": "post office",
+    "meaning": "邮局",
+    "grade": 6,
+    "semester": "上册",
+    "phonetic": "/pəʊst ˈɒfɪs/",
+    "example": "Where is the post office?"
+  },
+  {
+    "id": "en_g6_006",
+    "word": "go straight",
+    "meaning": "直走",
+    "grade": 6,
+    "semester": "上册",
+    "phonetic": "/ɡəʊ streɪt/",
+    "example": "Go straight for two minutes."
+  },
+  {
+    "id": "en_g6_007",
+    "word": "turn left",
+    "meaning": "左转",
+    "grade": 6,
+    "semester": "上册",
+    "phonetic": "/tɜːrn left/",
+    "example": "Turn left at the bookstore."
+  },
+  {
+    "id": "en_g6_008",
+    "word": "turn right",
+    "meaning": "右转",
+    "grade": 6,
+    "semester": "上册",
+    "phonetic": "/tɜːrn raɪt/",
+    "example": "Turn right at the hospital."
+  },
+  {
+    "id": "en_g6_009",
+    "word": "crossing",
+    "meaning": "十字路口",
+    "grade": 6,
+    "semester": "上册",
+    "phonetic": "/ˈkrɒsɪŋ/",
+    "example": "Turn left at the crossing."
+  },
+  {
+    "id": "en_g6_010",
+    "word": "by bus",
+    "meaning": "乘公交",
+    "grade": 6,
+    "semester": "上册",
+    "phonetic": "/baɪ bʌs/",
+    "example": "I come to school by bus."
+  },
+  {
+    "id": "en_g6_011",
+    "word": "on foot",
+    "meaning": "步行",
+    "grade": 6,
+    "semester": "上册",
+    "phonetic": "/ɒn fʊt/",
+    "example": "I go to school on foot."
+  },
+  {
+    "id": "en_g6_012",
+    "word": "by bike",
+    "meaning": "骑自行车",
+    "grade": 6,
+    "semester": "上册",
+    "phonetic": "/baɪ baɪk/",
+    "example": "He goes to work by bike."
+  },
+  {
+    "id": "en_g6_013",
+    "word": "by subway",
+    "meaning": "乘地铁",
+    "grade": 6,
+    "semester": "上册",
+    "phonetic": "/baɪ ˈsʌbweɪ/",
+    "example": "She goes to work by subway."
+  },
+  {
+    "id": "en_g6_014",
+    "word": "by train",
+    "meaning": "乘火车",
+    "grade": 6,
+    "semester": "上册",
+    "phonetic": "/baɪ treɪn/",
+    "example": "We go to Beijing by train."
+  },
+  {
+    "id": "en_g6_015",
+    "word": "by plane",
+    "meaning": "乘飞机",
+    "grade": 6,
+    "semester": "上册",
+    "phonetic": "/baɪ pleɪn/",
+    "example": "They go to Shanghai by plane."
+  },
+  {
+    "id": "en_g6_016",
+    "word": "slow down",
+    "meaning": "减速",
+    "grade": 6,
+    "semester": "上册",
+    "phonetic": "/sləʊ daʊn/",
+    "example": "Slow down and stop."
+  },
+  {
+    "id": "en_g6_017",
+    "word": "stop",
+    "meaning": "停下",
+    "grade": 6,
+    "semester": "上册",
+    "phonetic": "/stɒp/",
+    "example": "Stop at a red light."
+  },
+  {
+    "id": "en_g6_018",
+    "word": "wait",
+    "meaning": "等待",
+    "grade": 6,
+    "semester": "上册",
+    "phonetic": "/weɪt/",
+    "example": "Wait at a yellow light."
+  },
+  {
+    "id": "en_g6_019",
+    "word": "traffic lights",
+    "meaning": "交通灯",
+    "grade": 6,
+    "semester": "上册",
+    "phonetic": "/ˈtræfɪk laɪts/",
+    "example": "Look at the traffic lights."
+  },
+  {
+    "id": "en_g6_020",
+    "word": "visit my grandparents",
+    "meaning": "看望祖父母",
+    "grade": 6,
+    "semester": "上册",
+    "phonetic": "/ˈvɪzɪt maɪ ˈɡrænpeərənts/",
+    "example": "I'm going to visit my grandparents."
+  },
+  {
+    "id": "en_g6_021",
+    "word": "see a film",
+    "meaning": "看电影",
+    "grade": 6,
+    "semester": "上册",
+    "phonetic": "/siː ə fɪlm/",
+    "example": "We are going to see a film."
+  },
+  {
+    "id": "en_g6_022",
+    "word": "take a trip",
+    "meaning": "去旅行",
+    "grade": 6,
+    "semester": "上册",
+    "phonetic": "/teɪk ə trɪp/",
+    "example": "I'm going to take a trip."
+  },
+  {
+    "id": "en_g6_023",
+    "word": "go to the supermarket",
+    "meaning": "去超市",
+    "grade": 6,
+    "semester": "上册",
+    "phonetic": "/ɡəʊ tə ðə ˈsuːpərmɑːrkɪt/",
+    "example": "I'm going to the supermarket."
+  },
+  {
+    "id": "en_g6_024",
+    "word": "tonight",
+    "meaning": "今晚",
+    "grade": 6,
+    "semester": "上册",
+    "phonetic": "/təˈnaɪt/",
+    "example": "I'm going to read tonight."
+  },
+  {
+    "id": "en_g6_025",
+    "word": "tomorrow",
+    "meaning": "明天",
+    "grade": 6,
+    "semester": "上册",
+    "phonetic": "/təˈmɒrəʊ/",
+    "example": "What are you going to do tomorrow?"
+  },
+  {
+    "id": "en_g6_026",
+    "word": "next week",
+    "meaning": "下周",
+    "grade": 6,
+    "semester": "上册",
+    "phonetic": "/nekst wiːk/",
+    "example": "We are going camping next week."
+  },
+  {
+    "id": "en_g6_027",
+    "word": "dictionary",
+    "meaning": "词典",
+    "grade": 6,
+    "semester": "上册",
+    "phonetic": "/ˈdɪkʃəneri/",
+    "example": "I'm going to buy a dictionary."
+  },
+  {
+    "id": "en_g6_028",
+    "word": "comic book",
+    "meaning": "漫画书",
+    "grade": 6,
+    "semester": "上册",
+    "phonetic": "/ˈkɒmɪk bʊk/",
+    "example": "I'm going to buy a comic book."
+  },
+  {
+    "id": "en_g6_029",
+    "word": "word book",
+    "meaning": "单词本",
+    "grade": 6,
+    "semester": "上册",
+    "phonetic": "/wɜːrd bʊk/",
+    "example": "I need a new word book."
+  },
+  {
+    "id": "en_g6_030",
+    "word": "hobby",
+    "meaning": "爱好",
+    "grade": 6,
+    "semester": "上册",
+    "phonetic": "/ˈhɒbi/",
+    "example": "What's your hobby?"
+  },
+  {
+    "id": "en_g6_031",
+    "word": "puzzle",
+    "meaning": "字谜",
+    "grade": 6,
+    "semester": "上册",
+    "phonetic": "/ˈpʌzl/",
+    "example": "I like doing puzzles."
+  },
+  {
+    "id": "en_g6_032",
+    "word": "hiking",
+    "meaning": "远足",
+    "grade": 6,
+    "semester": "上册",
+    "phonetic": "/ˈhaɪkɪŋ/",
+    "example": "He likes hiking."
+  },
+  {
+    "id": "en_g6_033",
+    "word": "pen pal",
+    "meaning": "笔友",
+    "grade": 6,
+    "semester": "上册",
+    "phonetic": "/pen pæl/",
+    "example": "I have a pen pal in Australia."
+  },
+  {
+    "id": "en_g6_034",
+    "word": "jasmine",
+    "meaning": "茉莉花",
+    "grade": 6,
+    "semester": "上册",
+    "phonetic": "/ˈdʒæzmɪn/",
+    "example": "Jasmine is my favorite flower."
+  },
+  {
+    "id": "en_g6_035",
+    "word": "idea",
+    "meaning": "主意",
+    "grade": 6,
+    "semester": "上册",
+    "phonetic": "/aɪˈdɪə/",
+    "example": "That's a good idea."
+  },
+  {
+    "id": "en_g6_036",
+    "word": "dancing",
+    "meaning": "跳舞",
+    "grade": 6,
+    "semester": "上册",
+    "phonetic": "/ˈdɑːnsɪŋ/",
+    "example": "She likes dancing."
+  },
+  {
+    "id": "en_g6_037",
+    "word": "singing",
+    "meaning": "唱歌",
+    "grade": 6,
+    "semester": "上册",
+    "phonetic": "/ˈsɪŋɪŋ/",
+    "example": "He likes singing."
+  },
+  {
+    "id": "en_g6_038",
+    "word": "reading stories",
+    "meaning": "读故事",
+    "grade": 6,
+    "semester": "上册",
+    "phonetic": "/ˈriːdɪŋ ˈstɔːriz/",
+    "example": "I like reading stories."
+  },
+  {
+    "id": "en_g6_039",
+    "word": "cooking Chinese food",
+    "meaning": "做中餐",
+    "grade": 6,
+    "semester": "上册",
+    "phonetic": "/ˈkʊkɪŋ tʃaɪˈniːz fuːd/",
+    "example": "She likes cooking Chinese food."
+  },
+  {
+    "id": "en_g6_040",
+    "word": "studying Chinese",
+    "meaning": "学中文",
+    "grade": 6,
+    "semester": "上册",
+    "phonetic": "/ˈstʌdiɪŋ tʃaɪˈniːz/",
+    "example": "He is studying Chinese."
+  },
+  {
+    "id": "en_g6_041",
+    "word": "factory worker",
+    "meaning": "工厂工人",
+    "grade": 6,
+    "semester": "上册",
+    "phonetic": "/ˈfæktəri ˈwɜːrkər/",
+    "example": "My father is a factory worker."
+  },
+  {
+    "id": "en_g6_042",
+    "word": "postman",
+    "meaning": "邮递员",
+    "grade": 6,
+    "semester": "上册",
+    "phonetic": "/ˈpəʊstmən/",
+    "example": "The postman delivers letters."
+  },
+  {
+    "id": "en_g6_043",
+    "word": "police officer",
+    "meaning": "警察",
+    "grade": 6,
+    "semester": "上册",
+    "phonetic": "/pəˈliːs ˈɒfɪsər/",
+    "example": "He wants to be a police officer."
+  },
+  {
+    "id": "en_g6_044",
+    "word": "businessman",
+    "meaning": "商人",
+    "grade": 6,
+    "semester": "上册",
+    "phonetic": "/ˈbɪznəsmæn/",
+    "example": "He is a businessman."
+  },
+  {
+    "id": "en_g6_045",
+    "word": "scientist",
+    "meaning": "科学家",
+    "grade": 6,
+    "semester": "上册",
+    "phonetic": "/ˈsaɪəntɪst/",
+    "example": "She wants to be a scientist."
+  },
+  {
+    "id": "en_g6_046",
+    "word": "pilot",
+    "meaning": "飞行员",
+    "grade": 6,
+    "semester": "上册",
+    "phonetic": "/ˈpaɪlət/",
+    "example": "He is a pilot."
+  },
+  {
+    "id": "en_g6_047",
+    "word": "coach",
+    "meaning": "教练",
+    "grade": 6,
+    "semester": "上册",
+    "phonetic": "/kəʊtʃ/",
+    "example": "He is a football coach."
+  },
+  {
+    "id": "en_g6_048",
+    "word": "fisherman",
+    "meaning": "渔民",
+    "grade": 6,
+    "semester": "上册",
+    "phonetic": "/ˈfɪʃərmən/",
+    "example": "He works as a fisherman."
+  },
+  {
+    "id": "en_g6_049",
+    "word": "reporter",
+    "meaning": "记者",
+    "grade": 6,
+    "semester": "上册",
+    "phonetic": "/rɪˈpɔːrtər/",
+    "example": "She is a reporter."
+  },
+  {
+    "id": "en_g6_050",
+    "word": "country",
+    "meaning": "国家",
+    "grade": 6,
+    "semester": "上册",
+    "phonetic": "/ˈkʌntri/",
+    "example": "Which country does he live in?"
+  },
+  {
+    "id": "en_g6_051",
+    "word": "angry",
+    "meaning": "生气的",
+    "grade": 6,
+    "semester": "上册",
+    "phonetic": "/ˈæŋɡri/",
+    "example": "Don't be angry."
+  },
+  {
+    "id": "en_g6_052",
+    "word": "afraid",
+    "meaning": "害怕的",
+    "grade": 6,
+    "semester": "上册",
+    "phonetic": "/əˈfreɪd/",
+    "example": "I'm afraid of dogs."
+  },
+  {
+    "id": "en_g6_053",
+    "word": "worried",
+    "meaning": "担忧的",
+    "grade": 6,
+    "semester": "上册",
+    "phonetic": "/ˈwʌrid/",
+    "example": "I'm worried about the exam."
+  },
+  {
+    "id": "en_g6_054",
+    "word": "happy",
+    "meaning": "高兴的",
+    "grade": 6,
+    "semester": "上册",
+    "phonetic": "/ˈhæpi/",
+    "example": "I'm very happy today."
+  },
+  {
+    "id": "en_g6_055",
+    "word": "sad",
+    "meaning": "伤心的",
+    "grade": 6,
+    "semester": "上册",
+    "phonetic": "/sæd/",
+    "example": "She looks sad."
+  },
+  {
+    "id": "en_g6_056",
+    "word": "ill",
+    "meaning": "生病的",
+    "grade": 6,
+    "semester": "上册",
+    "phonetic": "/ɪl/",
+    "example": "He is ill today."
+  },
+  {
+    "id": "en_g6_057",
+    "word": "take a deep breath",
+    "meaning": "深吸一口气",
+    "grade": 6,
+    "semester": "上册",
+    "phonetic": "/teɪk ə diːp breθ/",
+    "example": "Take a deep breath."
+  },
+  {
+    "id": "en_g6_058",
+    "word": "count to ten",
+    "meaning": "数到十",
+    "grade": 6,
+    "semester": "上册",
+    "phonetic": "/kaʊnt tə ten/",
+    "example": "Count to ten when you are angry."
+  },
+  {
+    "id": "en_g6_059",
+    "word": "wear warm clothes",
+    "meaning": "穿暖和的衣服",
+    "grade": 6,
+    "semester": "上册",
+    "phonetic": "/wer wɔːrm kləʊðz/",
+    "example": "Wear warm clothes."
+  },
+  {
+    "id": "en_g6_060",
+    "word": "see a doctor",
+    "meaning": "看医生",
+    "grade": 6,
+    "semester": "上册",
+    "phonetic": "/siː ə ˈdɒktər/",
+    "example": "You should see a doctor."
+  },
+  {
+    "id": "en_g6_061",
+    "word": "taller",
+    "meaning": "更高的",
+    "grade": 6,
+    "semester": "下册",
+    "phonetic": "/ˈtɔːlər/",
+    "example": "I'm taller than you."
+  },
+  {
+    "id": "en_g6_062",
+    "word": "shorter",
+    "meaning": "更矮的",
+    "grade": 6,
+    "semester": "下册",
+    "phonetic": "/ˈʃɔːrtər/",
+    "example": "She is shorter than me."
+  },
+  {
+    "id": "en_g6_063",
+    "word": "heavier",
+    "meaning": "更重的",
+    "grade": 6,
+    "semester": "下册",
+    "phonetic": "/ˈheviər/",
+    "example": "He is heavier than his brother."
+  },
+  {
+    "id": "en_g6_064",
+    "word": "thinner",
+    "meaning": "更瘦的",
+    "grade": 6,
+    "semester": "下册",
+    "phonetic": "/ˈθɪnər/",
+    "example": "She is thinner than before."
+  },
+  {
+    "id": "en_g6_065",
+    "word": "longer",
+    "meaning": "更长的",
+    "grade": 6,
+    "semester": "下册",
+    "phonetic": "/ˈlɒŋɡər/",
+    "example": "This ruler is longer."
+  },
+  {
+    "id": "en_g6_066",
+    "word": "bigger",
+    "meaning": "更大的",
+    "grade": 6,
+    "semester": "下册",
+    "phonetic": "/ˈbɪɡər/",
+    "example": "The elephant is bigger."
+  },
+  {
+    "id": "en_g6_067",
+    "word": "smaller",
+    "meaning": "更小的",
+    "grade": 6,
+    "semester": "下册",
+    "phonetic": "/ˈsmɔːlər/",
+    "example": "The mouse is smaller."
+  },
+  {
+    "id": "en_g6_068",
+    "word": "stronger",
+    "meaning": "更强壮的",
+    "grade": 6,
+    "semester": "下册",
+    "phonetic": "/ˈstrɒŋɡər/",
+    "example": "He is stronger than me."
+  },
+  {
+    "id": "en_g6_069",
+    "word": "younger",
+    "meaning": "更年轻的",
+    "grade": 6,
+    "semester": "下册",
+    "phonetic": "/ˈjʌŋɡər/",
+    "example": "I'm younger than you."
+  },
+  {
+    "id": "en_g6_070",
+    "word": "older",
+    "meaning": "更年长的",
+    "grade": 6,
+    "semester": "下册",
+    "phonetic": "/ˈəʊldər/",
+    "example": "She is older than me."
+  },
+  {
+    "id": "en_g6_071",
+    "word": "than",
+    "meaning": "比",
+    "grade": 6,
+    "semester": "下册",
+    "phonetic": "/ðæn/",
+    "example": "I'm taller than you."
+  },
+  {
+    "id": "en_g6_072",
+    "word": "dinosaur",
+    "meaning": "恐龙",
+    "grade": 6,
+    "semester": "下册",
+    "phonetic": "/ˈdaɪnəsɔːr/",
+    "example": "The dinosaur is very big."
+  },
+  {
+    "id": "en_g6_073",
+    "word": "shadow",
+    "meaning": "影子",
+    "grade": 6,
+    "semester": "下册",
+    "phonetic": "/ˈʃædəʊ/",
+    "example": "My shadow is longer in the afternoon."
+  },
+  {
+    "id": "en_g6_074",
+    "word": "lower",
+    "meaning": "更低的",
+    "grade": 6,
+    "semester": "下册",
+    "phonetic": "/ˈləʊər/",
+    "example": "The sun is lower in the evening."
+  },
+  {
+    "id": "en_g6_075",
+    "word": "cleaned my room",
+    "meaning": "打扫房间",
+    "grade": 6,
+    "semester": "下册",
+    "phonetic": "/kliːnd maɪ ruːm/",
+    "example": "I cleaned my room yesterday."
+  },
+  {
+    "id": "en_g6_076",
+    "word": "stayed at home",
+    "meaning": "待在家里",
+    "grade": 6,
+    "semester": "下册",
+    "phonetic": "/steɪd ət həʊm/",
+    "example": "I stayed at home last weekend."
+  },
+  {
+    "id": "en_g6_077",
+    "word": "watched TV",
+    "meaning": "看电视",
+    "grade": 6,
+    "semester": "下册",
+    "phonetic": "/wɒtʃt tiː viː/",
+    "example": "He watched TV last night."
+  },
+  {
+    "id": "en_g6_078",
+    "word": "washed my clothes",
+    "meaning": "洗衣服",
+    "grade": 6,
+    "semester": "下册",
+    "phonetic": "/wɒʃt maɪ kləʊðz/",
+    "example": "I washed my clothes on Sunday."
+  },
+  {
+    "id": "en_g6_079",
+    "word": "yesterday",
+    "meaning": "昨天",
+    "grade": 6,
+    "semester": "下册",
+    "phonetic": "/ˈjestərdeɪ/",
+    "example": "What did you do yesterday?"
+  },
+  {
+    "id": "en_g6_080",
+    "word": "last weekend",
+    "meaning": "上周末",
+    "grade": 6,
+    "semester": "下册",
+    "phonetic": "/lɑːst ˌwiːkˈend/",
+    "example": "I went fishing last weekend."
+  },
+  {
+    "id": "en_g6_081",
+    "word": "last night",
+    "meaning": "昨晚",
+    "grade": 6,
+    "semester": "下册",
+    "phonetic": "/lɑːst naɪt/",
+    "example": "I read a book last night."
+  },
+  {
+    "id": "en_g6_082",
+    "word": "last Monday",
+    "meaning": "上周一",
+    "grade": 6,
+    "semester": "下册",
+    "phonetic": "/lɑːst ˈmʌndeɪ/",
+    "example": "We had a test last Monday."
+  },
+  {
+    "id": "en_g6_083",
+    "word": "before",
+    "meaning": "以前",
+    "grade": 6,
+    "semester": "下册",
+    "phonetic": "/bɪˈfɔːr/",
+    "example": "I was short before."
+  },
+  {
+    "id": "en_g6_084",
+    "word": "went camping",
+    "meaning": "去野营",
+    "grade": 6,
+    "semester": "下册",
+    "phonetic": "/went ˈkæmpɪŋ/",
+    "example": "We went camping last weekend."
+  },
+  {
+    "id": "en_g6_085",
+    "word": "rode a bike",
+    "meaning": "骑自行车",
+    "grade": 6,
+    "semester": "下册",
+    "phonetic": "/rəʊd ə baɪk/",
+    "example": "I rode a bike in the park."
+  },
+  {
+    "id": "en_g6_086",
+    "word": "ate fresh food",
+    "meaning": "吃新鲜食物",
+    "grade": 6,
+    "semester": "下册",
+    "phonetic": "/eɪt freʃ fuːd/",
+    "example": "We ate fresh food."
+  },
+  {
+    "id": "en_g6_087",
+    "word": "took pictures",
+    "meaning": "拍照",
+    "grade": 6,
+    "semester": "下册",
+    "phonetic": "/tʊk ˈpɪktʃərz/",
+    "example": "She took many pictures."
+  },
+  {
+    "id": "en_g6_088",
+    "word": "bought gifts",
+    "meaning": "买礼物",
+    "grade": 6,
+    "semester": "下册",
+    "phonetic": "/bɔːt ɡɪfts/",
+    "example": "I bought gifts for my friends."
+  },
+  {
+    "id": "en_g6_089",
+    "word": "went swimming",
+    "meaning": "去游泳",
+    "grade": 6,
+    "semester": "下册",
+    "phonetic": "/went ˈswɪmɪŋ/",
+    "example": "We went swimming in the lake."
+  },
+  {
+    "id": "en_g6_090",
+    "word": "went fishing",
+    "meaning": "去钓鱼",
+    "grade": 6,
+    "semester": "下册",
+    "phonetic": "/went ˈfɪʃɪŋ/",
+    "example": "He went fishing with his dad."
+  },
+  {
+    "id": "en_g6_091",
+    "word": "hurt",
+    "meaning": "受伤",
+    "grade": 6,
+    "semester": "下册",
+    "phonetic": "/hɜːrt/",
+    "example": "He hurt his foot."
+  },
+  {
+    "id": "en_g6_092",
+    "word": "fell off",
+    "meaning": "从……摔下来",
+    "grade": 6,
+    "semester": "下册",
+    "phonetic": "/fel ɒf/",
+    "example": "I fell off my bike."
+  },
+  {
+    "id": "en_g6_093",
+    "word": "gift",
+    "meaning": "礼物",
+    "grade": 6,
+    "semester": "下册",
+    "phonetic": "/ɡɪft/",
+    "example": "This is a birthday gift."
+  },
+  {
+    "id": "en_g6_094",
+    "word": "dining hall",
+    "meaning": "饭厅",
+    "grade": 6,
+    "semester": "下册",
+    "phonetic": "/ˈdaɪnɪŋ hɔːl/",
+    "example": "There is a new dining hall."
+  },
+  {
+    "id": "en_g6_095",
+    "word": "gym",
+    "meaning": "体育馆",
+    "grade": 6,
+    "semester": "下册",
+    "phonetic": "/dʒɪm/",
+    "example": "We have a big gym now."
+  },
+  {
+    "id": "en_g6_096",
+    "word": "ago",
+    "meaning": "以前",
+    "grade": 6,
+    "semester": "下册",
+    "phonetic": "/əˈɡəʊ/",
+    "example": "There was no gym five years ago."
+  },
+  {
+    "id": "en_g6_097",
+    "word": "grass",
+    "meaning": "草坪",
+    "grade": 6,
+    "semester": "下册",
+    "phonetic": "/ɡrɑːs/",
+    "example": "Don't walk on the grass."
+  },
+  {
+    "id": "en_g6_098",
+    "word": "star",
+    "meaning": "星星",
+    "grade": 6,
+    "semester": "下册",
+    "phonetic": "/stɑːr/",
+    "example": "I can see many stars."
+  },
+  {
+    "id": "en_g6_099",
+    "word": "easy",
+    "meaning": "容易的",
+    "grade": 6,
+    "semester": "下册",
+    "phonetic": "/ˈiːzi/",
+    "example": "This question is easy."
+  },
+  {
+    "id": "en_g6_100",
+    "word": "different",
+    "meaning": "不同的",
+    "grade": 6,
+    "semester": "下册",
+    "phonetic": "/ˈdɪfrənt/",
+    "example": "Things are different now."
+  },
+  {
+    "id": "en_g6_101",
+    "word": "active",
+    "meaning": "活跃的",
+    "grade": 6,
+    "semester": "下册",
+    "phonetic": "/ˈæktɪv/",
+    "example": "He is very active in class."
+  },
+  {
+    "id": "en_g6_102",
+    "word": "quiet",
+    "meaning": "安静的",
+    "grade": 6,
+    "semester": "下册",
+    "phonetic": "/ˈkwaɪət/",
+    "example": "She was quiet before."
+  },
+  {
+    "id": "en_g6_103",
+    "word": "look up",
+    "meaning": "查阅",
+    "grade": 6,
+    "semester": "下册",
+    "phonetic": "/lʊk ʌp/",
+    "example": "Look up the word in the dictionary."
+  },
+  {
+    "id": "en_g6_104",
+    "word": "Internet",
+    "meaning": "互联网",
+    "grade": 6,
+    "semester": "下册",
+    "phonetic": "/ˈɪntərnet/",
+    "example": "We can find information on the Internet."
+  }
+]

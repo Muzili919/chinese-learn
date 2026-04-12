@@ -8,9 +8,11 @@ const EN_PLANETS = [
   { id: 'en_grammar', label: '语法星球', emoji: '📐', color: 'from-green-400 to-teal-600',    desc: '时态·句型·主谓一致' },
   { id: 'en_reading', label: '阅读星球', emoji: '📚', color: 'from-orange-400 to-amber-500',  desc: '短文阅读·信息提取' },
   { id: 'en_writing', label: '写作星球', emoji: '✏️', color: 'from-pink-400 to-rose-600',    desc: 'AI批改·句子作文' },
+  { id: 'en_dictation', label: '听写星球', emoji: '✍️', color: 'from-cyan-400 to-blue-500', desc: 'TTS听写·拍照批改·词库管理', isDictation: true },
+  { id: 'en_self_test', label: '自测星球', emoji: '📝', color: 'from-blue-500 to-indigo-600', desc: 'AI出卷·小升初难度·查漏补缺', isSelfTest: true },
 ]
 
-export default function EnglishHomePage({ user, onStartQuiz, onBack }) {
+export default function EnglishHomePage({ user, grade = 'primary', onStartQuiz, onBack }) {
   const xp = storage.getXP(user.id)
   const level = calcLevel(xp)
   const levelProgress = calcLevelProgress(xp)
@@ -67,7 +69,7 @@ export default function EnglishHomePage({ user, onStartQuiz, onBack }) {
             ←
           </button>
           <div className="flex-1">
-            <h1 className="text-xl font-bold text-gray-800">英语 🌎</h1>
+            <h1 className="text-xl font-bold text-gray-800">{grade === 'junior2' ? '初中英语 📚' : '英语 🌎'}</h1>
             <p className="text-xs text-gray-400">
               {streak.count > 0 ? `已连续学习 ${streak.count} 天 🔥` : '今天开始第一天打卡吧！'}
             </p>
@@ -127,7 +129,11 @@ export default function EnglishHomePage({ user, onStartQuiz, onBack }) {
             return (
               <button
                 key={planet.id}
-                onClick={() => onStartQuiz({ englishTag: planet.id })}
+                onClick={() => {
+                  if (planet.isDictation) onStartQuiz({ dictation: true, dictationSubject: 'english' })
+                  else if (planet.isSelfTest) onStartQuiz({ selfTest: true, selfTestSubject: 'english' })
+                  else onStartQuiz({ englishTag: planet.id, grade })
+                }}
                 className={`w-full bg-gradient-to-r ${planet.color} text-white rounded-2xl p-4 flex items-center gap-4 shadow-sm active:scale-95 transition-transform`}
               >
                 <span className="text-4xl">{planet.emoji}</span>

@@ -19,9 +19,10 @@ import {
   initDailyTasks,
 } from '../utils/gamification';
 import { storage, calcLevel, calcLevelProgress } from '../utils/storage';
-import { fetchMV1State, upsertMV1State } from '../utils/mv1_cloud';
+import { fetchMV1State, upsertMV1State, fetchUserPetPreview, sendEncouragement } from '../utils/mv1_cloud';
 import ShopPanel from '../components/ShopPanel';
 import DailyTasksPanel from '../components/DailyTasksPanel';
+import PetSwitchPanel from '../components/PetSwitchPanel';
 
 // 从今日答题记录同步每日任务进度
 function syncTasksFromRecords(tasks, todayRecords) {
@@ -46,10 +47,321 @@ function syncTasksFromRecords(tasks, todayRecords) {
   });
 }
 
+// ====== 好友面板组件 ======
+function FriendsPanel({ state, userId, onStateChange }) {
+  const [friends, setFriends] = useState([]);
+  const [friendPreviews, setFriendPreviews] = useState({});
+  const [addInput, setAddInput] = useState('');
+  const [addStatus, setAddStatus] = useState('');
+  const [addLoading, setAddLoading] = useState(false);
+  const [encouraging, setEncouraging] = useState({});
+  const [showEncouragements, setShowEncouragements] = useState(false);
+  const [activeEncouragement, setActiveEncouragement] = useState(null);
+  const [confirmDelete, setConfirmDelete] = useState(null);
+
+  // 加载好友预览
+  useEffect(() => {
+    const list = state.friends || [];
+    setFriends(list);
+    if (list.length === 0) return;
+    Promise.all(
+      list.map(async (fid) => {
+        const preview = await fetchUserPetPreview(fid);
+        return { id: fid, ...preview };
+      })
+    ).then(results => {
+      const map = {};
+      results.forEach(r => { if (r.petEmoji) map[r.id] = r; });
+      setFriendPreviews(map);
+    });
+  }, [state.friends]);
+
+  // 未读鼓励
+  const pending = (state.pendingEncouragements || []).filter(
+    e => !e.read
+  );
+
+  // 添加好友
+  const handleAddFriend = async () => {
+    const fid = addInput.trim();
+    if (!fid) return;
+    if (fid === userId) { setAddStatus('不能添加自己'); return; }
+    if (friends.includes(fid)) { setAddStatus('已经是好友了'); return; }
+    setAddLoading(true);
+    setAddStatus('验证中...');
+    try {
+      const preview = await fetchUserPetPreview(fid);
+      if (!preview?.petEmoji) {
+        setAddStatus('未找到该用户，请检查好友码');
+        setAddLoading(false);
+        return;
+      }
+      // 通过验证，添加好友
+      const newFriends = [...friends, fid];
+      setFriends(newFriends);
+      setAddStatus('');
+      setAddInput('');
+      // 更新state（通过parent callback）
+      const fullState = { ...state, friends: newFriends };
+      await upsertMV1State(userId, fullState);
+      // 同时更新本地preview
+      setFriendPreviews(prev => ({ ...prev, [fid]: preview }));
+    } catch (e) {
+      setAddStatus('网络错误，请重试');
+    }
+    setAddLoading(false);
+  };
+
+  // 发送鼓励
+  const handleEncourage = async (friendId) => {
+    if (encouraging[friendId]) return;
+    setEncouraging(prev => ({ ...prev, [friendId]: true }));
+    const userName = storage.getUser()?.name || '匿名';
+    const ok = await sendEncouragement(userId, userName, friendId);
+    if (ok) {
+      setEncouraging(prev => ({ ...prev, [friendId]: 'done' }));
+    } else {
+      setEncouraging(prev => ({ ...prev, [friendId]: 'fail' }));
+    }
+    setTimeout(() => setEncouraging(prev => ({ ...prev, [friendId]: false })), 2000);
+  };
+
+  // 复制自己的好友码
+  const copyFriendCode = () => {
+    navigator.clipboard?.writeText(userId || '');
+    setAddStatus('好友码已复制!');
+    setTimeout(() => setAddStatus(''), 2000);
+  };
+
+  // 删除好友
+  const handleDeleteFriend = async (friendId) => {
+    const newFriends = friends.filter(f => f !== friendId);
+    setFriends(newFriends);
+    setConfirmDelete(null);
+    setFriendPreviews(prev => {
+      const next = { ...prev };
+      delete next[friendId];
+      return next;
+    });
+    const fullState = { ...state, friends: newFriends };
+    await upsertMV1State(userId, fullState);
+  };
+
+  return (
+    <div>
+      {/* 我的好友码 */}
+      <div style={{
+        background: 'linear-gradient(135deg, #f0f9ff, #e0f2fe)',
+        borderRadius: 16, padding: 16, marginBottom: 16, textAlign: 'center',
+        boxShadow: '0 2px 10px rgba(59,130,246,0.08)',
+      }}>
+        <p style={{ margin: '0 0 4px', fontSize: 12, color: '#6b7280' }}>我的好友码</p>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8 }}>
+          <code style={{
+            fontSize: 20, fontWeight: 800, color: '#1e40af',
+            background: 'white', padding: '6px 16px', borderRadius: 10,
+            letterSpacing: 2,
+          }}>{userId ? userId.slice(0, 8) : '...'}</code>
+          <button onClick={copyFriendCode} style={{
+            padding: '6px 12px', border: 'none', borderRadius: 8, cursor: 'pointer',
+            background: '#3b82f6', color: 'white', fontSize: 11, fontWeight: 600,
+          }}>复制</button>
+        </div>
+        <p style={{ margin: '6px 0 0', fontSize: 10, color: '#9ca3af' }}>把好友码分享给朋友，互相添加</p>
+      </div>
+
+      {/* 未读鼓励弹窗 */}
+      {pending.length > 0 && !showEncouragements && (
+        <div onClick={() => setShowEncouragements(true)} style={{
+          background: 'linear-gradient(135deg, #fef3c7, #fde68a)',
+          borderRadius: 14, padding: 14, marginBottom: 14, cursor: 'pointer',
+          boxShadow: '0 2px 10px rgba(245,158,11,0.15)',
+          display: 'flex', alignItems: 'center', gap: 10,
+        }}>
+          <span style={{ fontSize: 28 }}>🌟</span>
+          <div>
+            <p style={{ margin: 0, fontWeight: 700, color: '#92400e', fontSize: 14 }}>
+              收到 {pending.length} 条新鼓励!
+            </p>
+            <p style={{ margin: 0, fontSize: 11, color: '#b45309' }}>点击查看详情</p>
+          </div>
+        </div>
+      )}
+
+      {/* 鼓励详情 */}
+      {showEncouragements && pending.length > 0 && (
+        <div style={{
+          background: 'white', borderRadius: 16, padding: 16, marginBottom: 14,
+          boxShadow: '0 2px 10px rgba(0,0,0,0.05)',
+        }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 10 }}>
+            <span style={{ fontWeight: 700, fontSize: 14, color: '#374151' }}>🌟 鼓励墙</span>
+            <button onClick={() => setShowEncouragements(false)} style={{
+              padding: '4px 12px', border: 'none', borderRadius: 6, background: '#f3f4f6',
+              fontSize: 11, cursor: 'pointer', color: '#6b7280',
+            }}>关闭</button>
+          </div>
+          {pending.map((e, i) => (
+            <div key={i} style={{
+              padding: '10px 0', borderBottom: i < pending.length - 1 ? '1px solid #f3f4f6' : 'none',
+            }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+                <span style={{ fontSize: 18 }}>🌟</span>
+                <span style={{ fontWeight: 600, fontSize: 13, color: '#374151' }}>{e.name}</span>
+                <span style={{ fontSize: 10, color: '#9ca3af' }}>{new Date(e.time).toLocaleDateString()}</span>
+              </div>
+              <p style={{ margin: '4px 0 0', fontSize: 13, color: '#6366f1' }}>
+                为你加油打气! 宠物亲密度 +2 💕
+              </p>
+            </div>
+          ))}
+        </div>
+      )}
+
+      {/* 添加好友 */}
+      <div style={{
+        background: 'white', borderRadius: 14, padding: 14, marginBottom: 14,
+        boxShadow: '0 1px 6px rgba(0,0,0,0.04)',
+      }}>
+        <p style={{ margin: '0 0 8px', fontWeight: 600, fontSize: 13, color: '#374151' }}>➕ 添加好友</p>
+        <div style={{ display: 'flex', gap: 8 }}>
+          <input
+            value={addInput}
+            onChange={e => setAddInput(e.target.value)}
+            placeholder="输入好友码..."
+            style={{
+              flex: 1, padding: '8px 12px', border: '1px solid #e5e7eb', borderRadius: 8,
+              fontSize: 13, outline: 'none',
+            }}
+          />
+          <button onClick={handleAddFriend} disabled={addLoading} style={{
+            padding: '8px 16px', border: 'none', borderRadius: 8, cursor: 'pointer',
+            background: addLoading ? '#d1d5db' : 'linear-gradient(135deg,#6366f1,#8b5cf6)',
+            color: 'white', fontSize: 12, fontWeight: 600,
+          }}>{addLoading ? '...' : '添加'}</button>
+        </div>
+        {addStatus && (
+          <p style={{ margin: '6px 0 0', fontSize: 11, color: addStatus.includes('未找到') || addStatus.includes('自己') || addStatus.includes('已') ? '#ef4444' : '#6366f1' }}>
+            {addStatus}
+          </p>
+        )}
+      </div>
+
+      {/* 好友列表 */}
+      <p style={{ margin: '0 0 10px', fontWeight: 600, fontSize: 14, color: '#374151' }}>
+        👫 我的好友 ({friends.length})
+      </p>
+      {friends.length === 0 ? (
+        <div style={{
+          textAlign: 'center', padding: 30, color: '#9ca3af',
+          background: 'white', borderRadius: 14,
+        }}>
+          <div style={{ fontSize: 36, marginBottom: 8 }}>🤝</div>
+          <p style={{ margin: 0, fontSize: 13 }}>还没有好友</p>
+          <p style={{ margin: '4px 0 0', fontSize: 11 }}>分享好友码，添加第一个好友吧!</p>
+        </div>
+      ) : (
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+          {friends.map(fid => {
+            const p = friendPreviews[fid] || {};
+            const today = new Date().toISOString().slice(0, 10);
+            const alreadyEncouraged = encouraging[fid] === 'done';
+            const isConfirmingDelete = confirmDelete === fid;
+            return (
+              <div key={fid} style={{
+                background: 'white', borderRadius: 14, padding: 14,
+                boxShadow: '0 1px 6px rgba(0,0,0,0.04)',
+                display: 'flex', alignItems: 'center', gap: 12,
+                position: 'relative',
+              }}>
+                {/* 宠物头像 */}
+                <div style={{
+                  width: 50, height: 50, borderRadius: 50,
+                  background: 'linear-gradient(135deg, #ede9fe, #fce7f3)',
+                  display: 'flex', alignItems: 'center', justifyContent: 'center',
+                  fontSize: 28, flexShrink: 0,
+                }}>
+                  {p.petEmoji || '🥚'}
+                </div>
+                {/* 宠物信息 */}
+                <div style={{ flex: 1, minWidth: 0 }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+                    <span style={{ fontWeight: 700, fontSize: 14, color: '#1f2937' }}>{p.petName || '加载中...'}</span>
+                    <span style={{
+                      padding: '1px 6px', borderRadius: 4, fontSize: 9, fontWeight: 700,
+                      background: p.petRarity === 'SSR' ? '#fef3c7' : p.petRarity === 'SR' ? '#ede9fe' : '#f3f4f6',
+                      color: p.petRarity === 'SSR' ? '#92400e' : p.petRarity === 'SR' ? '#6d28d9' : '#6b7280',
+                    }}>{p.petRarity || 'N'}</span>
+                  </div>
+                  <p style={{ margin: 0, fontSize: 11, color: '#9ca3af' }}>
+                    {p.petStage || '?'} · Lv.{p.petLevel || 0} · 📝{p.totalLearnQuestions || 0}题 · 🔥{p.daysActive || 1}天
+                  </p>
+                </div>
+                {/* 操作按钮 */}
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 4, flexShrink: 0 }}>
+                  {!isConfirmingDelete && (
+                    <button
+                      onClick={() => handleEncourage(fid)}
+                      disabled={alreadyEncouraged}
+                      style={{
+                        padding: '6px 14px', border: 'none', borderRadius: 10, cursor: 'pointer',
+                        background: alreadyEncouraged
+                          ? '#f3f4f6'
+                          : 'linear-gradient(135deg,#fbbf24,#f59e0b)',
+                        color: alreadyEncouraged ? '#9ca3af' : 'white',
+                        fontSize: 11, fontWeight: 700,
+                        boxShadow: alreadyEncouraged ? 'none' : '0 2px 8px rgba(251,191,36,0.3)',
+                      }}>
+                      {alreadyEncouraged ? '✅ 已鼓励' : '🌟 鼓励'}
+                    </button>
+                  )}
+                  {!isConfirmingDelete && (
+                    <button
+                      onClick={() => setConfirmDelete(fid)}
+                      style={{
+                        padding: '4px 14px', border: 'none', borderRadius: 8,
+                        background: 'none', color: '#d1d5db', fontSize: 10,
+                        cursor: 'pointer',
+                      }}>
+                      删除
+                    </button>
+                  )}
+                  {isConfirmingDelete && (
+                    <div style={{ display: 'flex', gap: 4 }}>
+                      <button
+                        onClick={() => handleDeleteFriend(fid)}
+                        style={{
+                          padding: '4px 10px', border: 'none', borderRadius: 6,
+                          background: '#fee2e2', color: '#dc2626',
+                          fontSize: 10, fontWeight: 600, cursor: 'pointer',
+                        }}>确认</button>
+                      <button
+                        onClick={() => setConfirmDelete(null)}
+                        style={{
+                          padding: '4px 10px', border: 'none', borderRadius: 6,
+                          background: '#f3f4f6', color: '#6b7280',
+                          fontSize: 10, cursor: 'pointer',
+                        }}>取消</button>
+                    </div>
+                  )}
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      )}
+    </div>
+  );
+}
+
+// ====== 主组件 ======
 export default function MV1Demo({ onBack, initialState, onStateChange }) {
   const [state, setState] = useState(() => initialState || initGamificationState());
   const [activeTab, setActiveTab] = useState('interact');
   const [levelUpAnim, setLevelUpAnim] = useState(false);
+
+  const userId = useMemo(() => storage.getUser()?.id || '', []);
+  const userName = useMemo(() => storage.getUser()?.name || '', []);
 
   // 初始化：云端加载 + 同步 storage XP + 同步今日任务
   useEffect(() => {
@@ -90,10 +402,25 @@ export default function MV1Demo({ onBack, initialState, onStateChange }) {
         dailyTasks,
         dailyLastResetDate: today,
         taskCounters: cloud?.taskCounters || base.taskCounters,
+        friends: cloud?.friends || [],
+        pendingEncouragements: cloud?.pendingEncouragements || [],
+        weeklyQuestions: cloud?.weeklyQuestions || 0,
+        weeklyResetDate: cloud?.weeklyResetDate || todayStr,
       };
       setState(merged);
     });
   }, []);
+
+  // 处理未读鼓励（进入宠物页时弹提示，自动标记已读）
+  useEffect(() => {
+    const pending = (state.pendingEncouragements || []).filter(e => !e.read);
+    if (pending.length > 0) {
+      setState(s => ({
+        ...s,
+        pendingEncouragements: (s.pendingEncouragements || []).map(e => ({ ...e, read: true })),
+      }));
+    }
+  }, [state.pendingEncouragements?.length]);
 
   // 持久化
   useEffect(() => {
@@ -125,8 +452,8 @@ export default function MV1Demo({ onBack, initialState, onStateChange }) {
       const newPetLevel = petLevel + 1;
       return {
         ...s,
-        exp: totalXP, // 同步最新 XP（不消耗玩家 XP）
-        petExpConsumed: consumed + threshold, // 标记已消耗的经验量
+        exp: totalXP,
+        petExpConsumed: consumed + threshold,
         currentPet: {
           ...pet,
           level: newPetLevel,
@@ -137,7 +464,7 @@ export default function MV1Demo({ onBack, initialState, onStateChange }) {
     });
   }, []);
 
-  // 商店购买（spendable = 当前等级内经验，不能超）
+  // 商店购买
   const handleShopAction = useCallback((actionId) => {
     setState(s => {
       const lp = calcLevelProgress(s.exp || 0);
@@ -167,7 +494,7 @@ export default function MV1Demo({ onBack, initialState, onStateChange }) {
     setState(s => useItemOnPet(s, itemId));
   }, []);
 
-  // 互动（喂食/洗澡/休息/抚摸），同步任务进度
+  // 互动
   const handleInteract = useCallback((actionType) => {
     setState(s => {
       const inv = s.inventory || {};
@@ -204,7 +531,7 @@ export default function MV1Demo({ onBack, initialState, onStateChange }) {
     });
   }, []);
 
-  // 领取任务奖励（奖励 XP 同步到 storage）
+  // 领取任务奖励
   const handleClaimTask = useCallback((taskId) => {
     setState(s => {
       const task = s.dailyTasks?.find(t => t.id === taskId);
@@ -212,8 +539,44 @@ export default function MV1Demo({ onBack, initialState, onStateChange }) {
       const user = storage.getUser();
       if (user?.id && task.reward?.exp) storage.addXP(user.id, task.reward.exp);
       const newS = claimTaskReward(s, taskId);
-      // 同步 exp 字段
       return { ...newS, exp: storage.getXP(user?.id || '') };
+    });
+  }, []);
+
+  // 抽卡
+  const handleDrawCard = useCallback(() => {
+    setState(s => {
+      const totalXP = storage.getXP(storage.getUser()?.id || '') || s.exp || 0;
+      if (totalXP < 500) return s;
+      const newS = drawCard(s);
+      if (newS !== s && storage.getUser()?.id) {
+        storage.addXP(storage.getUser().id, -500);
+        return { ...newS, exp: Math.max(0, totalXP - 500) };
+      }
+      return s;
+    });
+  }, []);
+
+  // 切换宠物
+  const handleSwitchPet = useCallback((poolId) => {
+    setState(s => {
+      const owned = s.ownedPets || [];
+      if (!owned.includes(poolId)) return s;
+      const pet = s.currentPet || {};
+      return {
+        ...s,
+        currentPet: {
+          poolId,
+          level: pet.level || 1,
+          exp: pet.exp || 0,
+          mood: 'neutral',
+          tapCount: 0,
+          stats: pet.stats || { hunger: 80, cleanliness: 80, energy: 90, intimacy: 30 },
+          equippedAccessories: pet.equippedAccessories || {},
+          lastAction: 'switched',
+          lastFeedTime: Date.now(),
+        },
+      };
     });
   }, []);
 
@@ -222,12 +585,10 @@ export default function MV1Demo({ onBack, initialState, onStateChange }) {
   const petLevel = currentPet?.level || 1;
   const petThreshold = petLevel * 100;
 
-  // 用 storage 直接读取最新 XP，确保宠物经验池不依赖 state.exp 的时效性
   const totalXP = storage.getXP(storage.getUser()?.id || '') || state.exp || 0;
   const lp = calcLevelProgress(totalXP);
-  const spendableXP = lp.currentExp; // 当前等级内可消费经验（用于商店）
+  const spendableXP = lp.currentExp;
 
-  // 宠物经验 = 玩家总 XP - 已消耗在宠物升级上的 XP（持续累积，不随玩家升级重置）
   const petExpConsumed = state.petExpConsumed || 0;
   const petExp = Math.max(0, totalXP - petExpConsumed);
   const petExpPct = Math.min(100, (petExp / petThreshold) * 100);
@@ -243,6 +604,14 @@ export default function MV1Demo({ onBack, initialState, onStateChange }) {
 
   const poolInfo = (state.petPool || []).find(p => p.poolId === currentPet?.poolId)
     || { name: '无牙仔', emoji: '🐉', rarity: 'SR' };
+
+  const tabs = [
+    { key: 'interact', label: '🎮 互动' },
+    { key: 'tasks', label: '📋 任务' },
+    { key: 'shop', label: '🏪 商店' },
+    { key: 'friends', label: '👫 好友' },
+    { key: 'my', label: '🐾 我的' },
+  ];
 
   return (
     <div style={{
@@ -270,43 +639,73 @@ export default function MV1Demo({ onBack, initialState, onStateChange }) {
             {poolInfo?.name} · {petStage} · Lv.{petLevel}
           </p>
         </div>
-        {/* 玩家等级 */}
-        <div style={{
-          marginLeft: 'auto', display: 'flex', alignItems: 'center', gap: 6,
-          padding: '4px 10px', background: 'linear-gradient(135deg,#f3e8ff,#e0e7ff)',
-          borderRadius: 8, fontSize: 11,
-        }}>
-          <span style={{ fontWeight: 600, color: '#7c3aed' }}>⭐ Lv.{calcLevel(totalXP)}</span>
-          <div style={{ width: 60, height: 6, background: '#e5e7eb', borderRadius: 3, overflow: 'hidden' }}>
-            <div style={{
-              width: `${Math.min(100, (lp.currentExp / lp.requiredExp) * 100)}%`,
-              height: '100%', background: '#a78bfa', borderRadius: 3,
-            }} />
+        {/* 未读鼓励角标 */}
+        {activeTab !== 'friends' && (state.pendingEncouragements || []).some(e => !e.read) && (
+          <div
+            onClick={() => setActiveTab('friends')}
+            style={{
+              marginLeft: 'auto', width: 32, height: 32, borderRadius: 50,
+              background: '#fef3c7', display: 'flex', alignItems: 'center', justifyContent: 'center',
+              cursor: 'pointer', position: 'relative',
+            }}
+          >
+            <span style={{ fontSize: 16 }}>🌟</span>
+            <span style={{
+              position: 'absolute', top: -2, right: -2,
+              width: 14, height: 14, borderRadius: 50,
+              background: '#ef4444', color: 'white', fontSize: 8,
+              display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 700,
+            }}>
+              {(state.pendingEncouragements || []).filter(e => !e.read).length}
+            </span>
           </div>
-          <span style={{ color: '#6b7280', fontSize: 10 }}>{lp.currentExp}/{lp.requiredExp}</span>
-        </div>
+        )}
+        {/* 玩家等级 */}
+        {!activeTab || activeTab !== 'friends' || !(state.pendingEncouragements || []).some(e => !e.read) ? (
+          <div style={{
+            marginLeft: 'auto', display: 'flex', alignItems: 'center', gap: 6,
+            padding: '4px 10px', background: 'linear-gradient(135deg,#f3e8ff,#e0e7ff)',
+            borderRadius: 8, fontSize: 11,
+          }}>
+            <span style={{ fontWeight: 600, color: '#7c3aed' }}>⭐ Lv.{calcLevel(totalXP)}</span>
+            <div style={{ width: 60, height: 6, background: '#e5e7eb', borderRadius: 3, overflow: 'hidden' }}>
+              <div style={{
+                width: `${Math.min(100, (lp.currentExp / lp.requiredExp) * 100)}%`,
+                height: '100%', background: '#a78bfa', borderRadius: 3,
+              }} />
+            </div>
+            <span style={{ color: '#6b7280', fontSize: 10 }}>{lp.currentExp}/{lp.requiredExp}</span>
+          </div>
+        ) : null}
       </div>
 
       {/* Tab 栏 */}
       <div style={{ display: 'flex', padding: '0 16px', marginTop: 10, gap: 6 }}>
-        {[{ key: 'interact', label: '🎮 互动' }, { key: 'tasks', label: '📋 任务' }, { key: 'shop', label: '🏪 商店' }].map(tab => (
+        {tabs.map(tab => (
           <button key={tab.key} onClick={() => setActiveTab(tab.key)} style={{
             flex: 1, padding: '9px 0', border: 'none', borderRadius: 10,
             background: activeTab === tab.key ? 'linear-gradient(135deg,#6366f1,#8b5cf6)' : 'rgba(255,255,255,0.85)',
             color: activeTab === tab.key ? 'white' : '#6b7280',
-            fontWeight: activeTab === tab.key ? 600 : 500, fontSize: 11.5, cursor: 'pointer',
+            fontWeight: activeTab === tab.key ? 600 : 500, fontSize: tab.key === 'friends' ? 10.5 : 11.5, cursor: 'pointer',
             boxShadow: activeTab === tab.key ? '0 3px 12px rgba(99,102,241,0.32)' : '0 1px 3px rgba(0,0,0,0.05)',
-          }}>{tab.label}</button>
+            position: 'relative',
+          }}>
+            {tab.label}
+            {tab.key === 'friends' && (state.pendingEncouragements || []).some(e => !e.read) && (
+              <span style={{
+                position: 'absolute', top: 2, right: '20%',
+                width: 8, height: 8, borderRadius: 50, background: '#ef4444',
+              }} />
+            )}
+          </button>
         ))}
       </div>
 
       {/* 内容区 */}
       <div style={{ flex: 1, padding: 16, overflowY: 'auto', paddingBottom: 28 }}>
 
-        {/* 互动 Tab */}
         {activeTab === 'interact' && (
           <>
-            {/* 宠物展示 */}
             <div style={{ display: 'flex', justifyContent: 'center', marginBottom: 12 }}>
               <Pet
                 type="dragon" experience={petExp} level={petLevel} onGainExp={() => {}}
@@ -319,7 +718,6 @@ export default function MV1Demo({ onBack, initialState, onStateChange }) {
               />
             </div>
 
-            {/* 宠物经验 + 升级 */}
             <div style={{
               background: 'white', borderRadius: 16, padding: 14,
               boxShadow: '0 2px 12px rgba(0,0,0,0.05)', marginBottom: 12,
@@ -359,7 +757,6 @@ export default function MV1Demo({ onBack, initialState, onStateChange }) {
               </div>
             </div>
 
-            {/* 今日概览 */}
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 8 }}>
               {[
                 { label: '答题数', value: state.totalLearnQuestions || 0, icon: '📝', color: '#6366f1' },
@@ -382,6 +779,20 @@ export default function MV1Demo({ onBack, initialState, onStateChange }) {
 
         {activeTab === 'shop' && (
           <ShopPanel state={state} onBuy={handleShopAction} onUseItem={handleUseItem} spendableXP={spendableXP} />
+        )}
+
+        {activeTab === 'friends' && (
+          <FriendsPanel state={state} userId={userId} />
+        )}
+
+        {activeTab === 'my' && (
+          <PetSwitchPanel
+            state={state}
+            spendableXP={spendableXP}
+            onSwitchPet={handleSwitchPet}
+            onDrawCard={handleDrawCard}
+            totalXP={totalXP}
+          />
         )}
       </div>
 

@@ -1,0 +1,33 @@
+{
+  "name": "_auto_e5ba8fc41825400393bc9fb5fe0e7f67",
+  "leadAgentId": "e5ba8fc41825400393bc9fb5fe0e7f67",
+  "workspacePath": "/Volumes/ORICO/xinwen/claudecode/chinese-learn",
+  "createdAt": "2026-04-12T12:37:54.267Z",
+  "options": {
+    "workspacePath": "/Volumes/ORICO/xinwen/claudecode/chinese-learn",
+    "isAutoTeam": true
+  },
+  "members": [
+    {
+      "memberId": "team-lead@_auto_e5ba8fc41825400393bc9fb5fe0e7f67",
+      "name": "team-lead",
+      "role": "Team Lead - coordinates the team and interacts with the user"
+    },
+    {
+      "memberId": "gen-ddxl@_auto_e5ba8fc41825400393bc9fb5fe0e7f67",
+      "name": "gen-ddxl",
+      "role": "生成道德与心理30题JSON"
+    },
+    {
+      "memberId": "gen-gqgc@_auto_e5ba8fc41825400393bc9fb5fe0e7f67",
+      "name": "gen-gqgc",
+      "role": "生成国情国策24题JSON"
+    },
+    {
+      "memberId": "gen-shsh@_auto_e5ba8fc41825400393bc9fb5fe0e7f67",
+      "name": "gen-shsh",
+      "role": "生成社会生活18题JSON"
+    }
+  ],
+  "isAutoTeam": true
+}

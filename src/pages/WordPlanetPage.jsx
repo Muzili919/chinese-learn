@@ -1,5 +1,6 @@
 import { useState, useMemo, useRef } from 'react'
 import { storage } from '../utils/storage'
+import { speakEnglish as _speakEnglish } from '../utils/tts'
 import wordsNetwork from '../data/words_network.json'
 
 // ─── 常量 ───────────────────────────────────────────────────────────────
@@ -42,12 +43,8 @@ const CATEGORY_NAMES = {
 
 // ─── TTS ──────────────────────────────────────────────────────────────────
 function speakEnglish(text) {
-  if (!text || !window.speechSynthesis) return
-  window.speechSynthesis.cancel()
-  const utter = new SpeechSynthesisUtterance(text)
-  utter.lang = 'en-US'
-  utter.rate = 0.85
-  window.speechSynthesis.speak(utter)
+  if (!text) return
+  _speakEnglish(text)
 }
 
 // ─── 工具函数 ────────────────────────────────────────────────────────────

@@ -2,11 +2,17 @@ import { useState, useEffect, useRef, useMemo } from 'react'
 import { storage, updateStreak } from '../utils/storage'
 import { updateSRS, toQuality } from '../utils/srs'
 import { syncAfterSession } from '../utils/sync'
+import { speakEnglish as _speakEnglish, stop as stopTTS, initTTS } from '../utils/tts'
 import enVocabQ from '../data/questions_en_vocab.json'
 import enListenQ from '../data/questions_en_listen.json'
 import enGrammarQ from '../data/questions_en_grammar.json'
 import enReadingQ from '../data/questions_en_reading.json'
 import enWritingQ from '../data/questions_en_writing.json'
+import j2VocabQ from '../data/questions_en_j2_vocab.json'
+import j2GrammarQ from '../data/questions_en_j2_grammar.json'
+import j2ListenQ from '../data/questions_en_j2_listen.json'
+import j2ReadingQ from '../data/questions_en_j2_reading.json'
+import j2WritingQ from '../data/questions_en_j2_writing.json'
 
 const SESSION_SIZE = 15
 
@@ -18,6 +24,15 @@ const EN_QUESTION_MAP = {
   en_writing: enWritingQ,
 }
 
+// 初中二年级题库
+const J2_QUESTION_MAP = {
+  en_vocab:   j2VocabQ,
+  en_listen:  j2ListenQ,
+  en_grammar: j2GrammarQ,
+  en_reading: j2ReadingQ,
+  en_writing: j2WritingQ,
+}
+
 function shuffle(arr) {
   const a = [...arr]
   for (let i = a.length - 1; i > 0; i--) {
@@ -27,15 +42,10 @@ function shuffle(arr) {
   return a
 }
 
+// 使用统一 TTS 引擎（Edge TTS 优先 + Web Speech API 降级）
 function speakEnglish(text, onEnd) {
-  if (!text || !window.speechSynthesis) return null
-  window.speechSynthesis.cancel()
-  const utter = new SpeechSynthesisUtterance(text)
-  utter.lang = 'en-US'
-  utter.rate = 0.85
-  if (onEnd) { utter.onend = () => onEnd(); utter.onerror = () => onEnd() }
-  window.speechSynthesis.speak(utter)
-  return utter
+  if (!text) return
+  _speakEnglish(text, { onEnd })
 }
 
 // ─── 多子题解析 ────────────────────────────────────────────────────────────
@@ -520,15 +530,16 @@ function EnglishQuestion({ question: q, onSubmit }) {
 // ─── 主页面 ──────────────────────────────────────────────────────────────────
 
 export default function EnglishQuizPage({ user, options = {}, onFinish, onBack }) {
-  const { englishTag = 'en_vocab' } = options
+  const { englishTag = 'en_vocab', grade = 'primary' } = options
   const srsStates = useRef(storage.getSrsState(user.id))
   const startTime = useRef(Date.now())
   const questionStartTime = useRef(Date.now())
 
   const questions = useMemo(() => {
-    const pool = EN_QUESTION_MAP[englishTag] || enVocabQ
+    const questionMap = grade === 'junior2' ? J2_QUESTION_MAP : EN_QUESTION_MAP
+    const pool = questionMap[englishTag] || enVocabQ
     return shuffle(pool).slice(0, SESSION_SIZE)
-  }, [englishTag])
+  }, [englishTag, grade])
 
   const [index, setIndex] = useState(0)
   const [sessionRecords, setSessionRecords] = useState([])
@@ -546,7 +557,7 @@ export default function EnglishQuizPage({ user, options = {}, onFinish, onBack }
     } else {
       setIsPlayingAudio(false)
     }
-    return () => { window.speechSynthesis?.cancel(); setIsPlayingAudio(false) }
+    return () => { stopTTS(); setIsPlayingAudio(false) }
   }, [index, current?.id])
 
   function handleAnswerSubmit(chosenAnswer, correct) {

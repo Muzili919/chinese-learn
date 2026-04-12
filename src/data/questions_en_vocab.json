@@ -9,7 +9,7 @@
     "options": [],
     "answer": "C",
     "analysis": "【考点】本题考查元音字母a在闭音节和开音节中的发音。\n【解题思路】判断每个单词中a的发音。\n【总结】开音节中元音字母发字母本身音，闭音节中发短音。",
-    "difficulty": 0.5
+    "difficulty": 0.3
   },
   {
     "id": "en_vocab_002",
@@ -21,7 +21,7 @@
     "options": [],
     "answer": "（1）有趣的 （2）周末 （3）美味的 （4）祖父母",
     "analysis": "【考点】本题考查单词英译汉。\n【解题思路】根据课本词汇记忆。\n【总结】注意interesting和delicious是描述性形容词，常考。",
-    "difficulty": 0.5
+    "difficulty": 0.3
   },
   {
     "id": "en_vocab_003",
@@ -45,7 +45,7 @@
     "options": [],
     "answer": "（1）have （2）likes （3）go （4）are",
     "analysis": "【考点】本题考查主谓一致和动词形式。\n【解题思路】根据主语人称和数选择动词形式。\n【总结】I用have/am；第三人称单数用likes；Let's后跟动词原形；复数主语用are。",
-    "difficulty": 0.5
+    "difficulty": 0.3
   },
   {
     "id": "en_vocab_005",
@@ -57,7 +57,7 @@
     "options": [],
     "answer": "1-C  2-D  3-A  4-B",
     "analysis": "【考点】本题考查动词短语的英汉对应。\n【解题思路】回忆常见动词短语的意思。\n【总结】动词短语要整体记忆，不能逐字翻译。",
-    "difficulty": 0.5
+    "difficulty": 0.3
   },
   {
     "id": "en_vocab_006",
@@ -81,7 +81,7 @@
     "options": [],
     "answer": "（1）do morning exercises （2）go swimming （3）watch TV （4）play the piano",
     "analysis": "【考点】本题考查动词短语的汉译英。\n【解题思路】回忆课本中的固定搭配。\n【总结】注意乐器前加the：play the piano/violin；球类不加：play football。",
-    "difficulty": 0.5
+    "difficulty": 0.3
   },
   {
     "id": "en_vocab_008",
@@ -117,10 +117,10 @@
     "options": [],
     "answer": "（1）B （2）C （3）D （4）A",
     "analysis": "【考点】本题考查动词短语辨析。\n【解题思路】根据句意选择正确的短语。\n【总结】look at看；look for寻找；wait for等待；listen to听。",
-    "difficulty": 0.5
+    "difficulty": 0.3
   },
   {
-    "id": "en_vocab_001",
+    "id": "en_vocab_011",
     "subject": "english",
     "knowledge_tag": "英语词汇",
     "ability_tag": "语音辨析",
@@ -132,7 +132,7 @@
     "difficulty": 0.5
   },
   {
-    "id": "en_vocab_002",
+    "id": "en_vocab_012",
     "subject": "english",
     "knowledge_tag": "英语词汇",
     "ability_tag": "词汇翻译",
@@ -144,7 +144,7 @@
     "difficulty": 0.5
   },
   {
-    "id": "en_vocab_003",
+    "id": "en_vocab_013",
     "subject": "english",
     "knowledge_tag": "英语词汇",
     "ability_tag": "单词拼写",
@@ -156,7 +156,7 @@
     "difficulty": 0.5
   },
   {
-    "id": "en_vocab_004",
+    "id": "en_vocab_014",
     "subject": "english",
     "knowledge_tag": "英语词汇",
     "ability_tag": "词汇运用",
@@ -168,7 +168,7 @@
     "difficulty": 0.5
   },
   {
-    "id": "en_vocab_005",
+    "id": "en_vocab_015",
     "subject": "english",
     "knowledge_tag": "英语词汇",
     "ability_tag": "词组搭配",
@@ -180,7 +180,7 @@
     "difficulty": 0.5
   },
   {
-    "id": "en_vocab_006",
+    "id": "en_vocab_016",
     "subject": "english",
     "knowledge_tag": "英语词汇",
     "ability_tag": "语音辨析",
@@ -192,7 +192,7 @@
     "difficulty": 0.5
   },
   {
-    "id": "en_vocab_007",
+    "id": "en_vocab_017",
     "subject": "english",
     "knowledge_tag": "英语词汇",
     "ability_tag": "词汇翻译",
@@ -204,7 +204,7 @@
     "difficulty": 0.5
   },
   {
-    "id": "en_vocab_008",
+    "id": "en_vocab_018",
     "subject": "english",
     "knowledge_tag": "英语词汇",
     "ability_tag": "单词拼写",
@@ -213,10 +213,10 @@
     "options": [],
     "answer": "（1）China （2）friend （3）math （4）quiet",
     "analysis": "【考点】本题考查音标识别和语境拼写。\n【解题思路】根据音标拼读，根据句意和首字母推断。\n【总结】音标与字母的对应关系要熟练。",
-    "difficulty": 0.5
+    "difficulty": 0.7
   },
   {
-    "id": "en_vocab_009",
+    "id": "en_vocab_019",
     "subject": "english",
     "knowledge_tag": "英语词汇",
     "ability_tag": "词汇运用",
@@ -228,7 +228,7 @@
     "difficulty": 0.5
   },
   {
-    "id": "en_vocab_010",
+    "id": "en_vocab_020",
     "subject": "english",
     "knowledge_tag": "英语词汇",
     "ability_tag": "词组搭配",
@@ -240,7 +240,7 @@
     "difficulty": 0.5
   },
   {
-    "id": "en_vocab_011",
+    "id": "en_vocab_021",
     "subject": "english",
     "knowledge_tag": "英语词汇",
     "ability_tag": "语音辨析",
@@ -249,10 +249,10 @@
     "options": [],
     "answer": "C",
     "analysis": "【考点】本题考查字母组合oo的发音。\n【解题思路】A、B、D中oo发/ʊ/，C中oo发/uː/。\n【总结】oo在k前多读短音/ʊ/，但school例外。",
-    "difficulty": 0.5
+    "difficulty": 0.7
   },
   {
-    "id": "en_vocab_012",
+    "id": "en_vocab_022",
     "subject": "english",
     "knowledge_tag": "英语词汇",
     "ability_tag": "词汇翻译",
@@ -264,7 +264,7 @@
     "difficulty": 0.5
   },
   {
-    "id": "en_vocab_013",
+    "id": "en_vocab_023",
     "subject": "english",
     "knowledge_tag": "英语词汇",
     "ability_tag": "单词拼写",
@@ -273,10 +273,10 @@
     "options": [],
     "answer": "（1）hungry （2）famous （3）worry （4）September",
     "analysis": "【考点】本题考查词汇在语境中的运用。\n【解题思路】（1）饿了吃面条；（2）长城闻名；（3）别担心；（4）九月。\n【总结】结合常识和上下文。",
-    "difficulty": 0.5
+    "difficulty": 0.7
   },
   {
-    "id": "en_vocab_014",
+    "id": "en_vocab_024",
     "subject": "english",
     "knowledge_tag": "英语词汇",
     "ability_tag": "词汇运用",
@@ -285,10 +285,10 @@
     "options": [],
     "answer": "（1）my （2）does （3）are （4）an",
     "analysis": "【考点】本题考查形容词性物主代词、第三人称单数、现在进行时、冠词用法。\n【解题思路】（1）后面有名词book用my；（2）主语She三单；（3）主语They复数；（4）hour元音音素开头。\n【总结】形容词性物主代词后跟名词。",
-    "difficulty": 0.5
+    "difficulty": 0.7
   },
   {
-    "id": "en_vocab_015",
+    "id": "en_vocab_025",
     "subject": "english",
     "knowledge_tag": "英语词汇",
     "ability_tag": "词组搭配",
@@ -297,10 +297,10 @@
     "options": [],
     "answer": "（1）at （2）in （3）at （4）for",
     "analysis": "【考点】本题考查介词的用法。\n【解题思路】（1）具体时刻用at；（2）月份用in；（3）地点at；（4）thanks for。\n【总结】时间介词：at + 时刻，in + 月/年/季节，on + 具体日期。",
-    "difficulty": 0.5
+    "difficulty": 0.7
   },
   {
-    "id": "en_vocab_016",
+    "id": "en_vocab_026",
     "subject": "english",
     "knowledge_tag": "英语词汇",
     "ability_tag": "语音辨析",
@@ -309,10 +309,10 @@
     "options": [],
     "answer": "B",
     "analysis": "【考点】本题考查wh字母组合的发音。\n【解题思路】A、C、D中wh发/w/，B中wh发/h/。\n【总结】wh后接o时多读/h/，其余多读/w/。",
-    "difficulty": 0.5
+    "difficulty": 0.3
   },
   {
-    "id": "en_vocab_017",
+    "id": "en_vocab_027",
     "subject": "english",
     "knowledge_tag": "英语词汇",
     "ability_tag": "词汇翻译",
@@ -321,10 +321,10 @@
     "options": [],
     "answer": "（1）有趣的 （2）周末 （3）草莓 （4）昂贵的",
     "analysis": "【考点】本题考查形容词和名词词义。\n【解题思路】根据记忆写出。\n【总结】注意interesting与interested的区别。",
-    "difficulty": 0.5
+    "difficulty": 0.3
   },
   {
-    "id": "en_vocab_018",
+    "id": "en_vocab_028",
     "subject": "english",
     "knowledge_tag": "英语词汇",
     "ability_tag": "单词拼写",
@@ -336,7 +336,7 @@
     "difficulty": 0.5
   },
   {
-    "id": "en_vocab_019",
+    "id": "en_vocab_029",
     "subject": "english",
     "knowledge_tag": "英语词汇",
     "ability_tag": "词汇运用",
@@ -345,10 +345,10 @@
     "options": [],
     "answer": "（1）younger （2）swimming （3）doesn't （4）Does",
     "analysis": "【考点】本题考查比较级、固定搭配、否定句和疑问句。\n【解题思路】（1）than提示比较级；（2）go swimming；（3）主语He三单；（4）主语She三单。\n【总结】助动词do/does后接动词原形。",
-    "difficulty": 0.5
+    "difficulty": 0.3
   },
   {
-    "id": "en_vocab_020",
+    "id": "en_vocab_030",
     "subject": "english",
     "knowledge_tag": "英语词汇",
     "ability_tag": "词组搭配",
@@ -357,10 +357,10 @@
     "options": [],
     "answer": "（1）聚会、相聚 （2）穿上 （3）打开 （4）等待",
     "analysis": "【考点】本题考查动词短语。\n【解题思路】根据记忆写出意思。\n【总结】动词+介词/副词的短语要整体理解。",
-    "difficulty": 0.5
+    "difficulty": 0.3
   },
   {
-    "id": "en_vocab_021",
+    "id": "en_vocab_031",
     "subject": "english",
     "knowledge_tag": "英语词汇",
     "ability_tag": "语音辨析",
@@ -372,7 +372,7 @@
     "difficulty": 0.5
   },
   {
-    "id": "en_vocab_022",
+    "id": "en_vocab_032",
     "subject": "english",
     "knowledge_tag": "英语词汇",
     "ability_tag": "词汇翻译",
@@ -381,10 +381,10 @@
     "options": [],
     "answer": "（1）Wednesday （2）August （3）shy （4）dinner",
     "analysis": "【考点】本题考查课本核心词汇的拼写。\n【解题思路】根据汉语意思回忆。\n【总结】Wednesday的拼写较难，注意d不发音。August首字母大写。",
-    "difficulty": 0.5
+    "difficulty": 0.3
   },
   {
-    "id": "en_vocab_023",
+    "id": "en_vocab_033",
     "subject": "english",
     "knowledge_tag": "英语词汇",
     "ability_tag": "单词拼写",
@@ -396,7 +396,7 @@
     "difficulty": 0.5
   },
   {
-    "id": "en_vocab_024",
+    "id": "en_vocab_034",
     "subject": "english",
     "knowledge_tag": "英语词汇",
     "ability_tag": "词汇运用",
@@ -408,7 +408,7 @@
     "difficulty": 0.5
   },
   {
-    "id": "en_vocab_025",
+    "id": "en_vocab_035",
     "subject": "english",
     "knowledge_tag": "英语词汇",
     "ability_tag": "词组搭配",
@@ -417,10 +417,10 @@
     "options": [],
     "answer": "1—B  2—C  3—A  4—D",
     "analysis": "【考点】本题考查动词短语。\n【解题思路】根据记忆连线。\n【总结】look for强调寻找过程，find强调找到结果。",
-    "difficulty": 0.5
+    "difficulty": 0.3
   },
   {
-    "id": "en_vocab_026",
+    "id": "en_vocab_036",
     "subject": "english",
     "knowledge_tag": "英语词汇",
     "ability_tag": "语音辨析",
@@ -432,7 +432,7 @@
     "difficulty": 0.5
   },
   {
-    "id": "en_vocab_027",
+    "id": "en_vocab_037",
     "subject": "english",
     "knowledge_tag": "英语词汇",
     "ability_tag": "词汇翻译",
@@ -444,7 +444,7 @@
     "difficulty": 0.5
   },
   {
-    "id": "en_vocab_028",
+    "id": "en_vocab_038",
     "subject": "english",
     "knowledge_tag": "英语词汇",
     "ability_tag": "单词拼写",
@@ -452,11 +452,11 @@
     "question": "根据音标或句意写出单词。\n\n（1）/ˈkʌntri/ __________\n（2）/ˈbjuːtɪfl/ __________\n（3）I like to eat h______ for breakfast. It's made from wheat.\n（4）Be careful! The floor is w______ after cleaning.",
     "options": [],
     "answer": "（1）country （2）beautiful （3）bread （4）wet",
-    "analysis": "【考点】本题考查音标识别和语境拼写。\n【解题思路】（1）国家；（2）美丽的；（3）小麦做的早餐→面包；（4）拖地后地板湿。\n【总结】beautiful的拼写注意eau组合。",
+    "analysis": "【考点】本题考查音标与单词的对应。\n【解题思路】根据音标拼读。\n【总结】February的读音容易漏掉第一个r，Saturday注意tur的发音。",
     "difficulty": 0.5
   },
   {
-    "id": "en_vocab_029",
+    "id": "en_vocab_039",
     "subject": "english",
     "knowledge_tag": "英语词汇",
     "ability_tag": "词汇运用",
@@ -468,7 +468,7 @@
     "difficulty": 0.5
   },
   {
-    "id": "en_vocab_030",
+    "id": "en_vocab_040",
     "subject": "english",
     "knowledge_tag": "英语词汇",
     "ability_tag": "词组搭配",
@@ -480,7 +480,7 @@
     "difficulty": 0.5
   },
   {
-    "id": "en_vocab_031",
+    "id": "en_vocab_041",
     "subject": "english",
     "knowledge_tag": "英语词汇",
     "ability_tag": "语音辨析",
@@ -492,7 +492,7 @@
     "difficulty": 0.5
   },
   {
-    "id": "en_vocab_032",
+    "id": "en_vocab_042",
     "subject": "english",
     "knowledge_tag": "英语词汇",
     "ability_tag": "词汇翻译",
@@ -504,19 +504,19 @@
     "difficulty": 0.5
   },
   {
-    "id": "en_vocab_033",
+    "id": "en_vocab_043",
     "subject": "english",
     "knowledge_tag": "英语词汇",
     "ability_tag": "单词拼写",
     "type": "fill_blank",
     "question": "根据首字母和句意，补全单词。\n\n（1）The park is b______ the hospital and the school.\n（2）I'm s______. I ate too much.\n（3）Don't talk in the l______. Be quiet.\n（4）The dress is too e______. I can't afford it.",
     "options": [],
-    "answer": "（1）between （2）stuffed/full （3）library （4）expensive",
+    "answer": "（1）between （2）full （3）library （4）expensive",
     "analysis": "【考点】本题考查介词、形容词、名词。\n【解题思路】（1）在两者之间用between；（2）吃太多→饱；（3）安静的场所→图书馆；（4）买不起→昂贵。\n【总结】between和among的区别：between用于两者之间。",
-    "difficulty": 0.5
+    "difficulty": 0.7
   },
   {
-    "id": "en_vocab_034",
+    "id": "en_vocab_044",
     "subject": "english",
     "knowledge_tag": "英语词汇",
     "ability_tag": "词汇运用",
@@ -528,7 +528,7 @@
     "difficulty": 0.5
   },
   {
-    "id": "en_vocab_035",
+    "id": "en_vocab_045",
     "subject": "english",
     "knowledge_tag": "英语词汇",
     "ability_tag": "词组搭配",
@@ -540,7 +540,7 @@
     "difficulty": 0.5
   },
   {
-    "id": "en_vocab_036",
+    "id": "en_vocab_046",
     "subject": "english",
     "knowledge_tag": "英语词汇",
     "ability_tag": "语音辨析",
@@ -548,11 +548,11 @@
     "question": "找出下列单词中划线部分发音不同的一项。\n\nA. house\nB. mouse\nC. young\nD. cloud",
     "options": [],
     "answer": "C",
-    "analysis": "【考点】本题考查ou字母组合的发音。\n【解题思路】A、B、D中ou发/aʊ/，C中ou发/ʌ/。\n【总结】ou常发/aʊ/，但在young, country, double中发/ʌ/。",
-    "difficulty": 0.5
+    "analysis": "【考点】本题考查ea字母组合的发音。\n【解题思路】B、C、D中ea发/e/，A中read（原形）发/iː/。\n【总结】ea常发/iː/，但在head, bread, breakfast, heavy中发/e/。注意read过去式读/red/，与原形/riːd/不同。",
+    "difficulty": 0.7
   },
   {
-    "id": "en_vocab_037",
+    "id": "en_vocab_047",
     "subject": "english",
     "knowledge_tag": "英语词汇",
     "ability_tag": "词汇翻译",
@@ -564,19 +564,19 @@
     "difficulty": 0.5
   },
   {
-    "id": "en_vocab_038",
+    "id": "en_vocab_048",
     "subject": "english",
     "knowledge_tag": "英语词汇",
     "ability_tag": "单词拼写",
     "type": "fill_blank",
-    "question": "根据音标写出单词。\n\n（1）/ˈfebruəri/ __________\n（2）/ˈsætədeɪ/ __________\n（3）/ˈnjuːmərəs/ __________\n（4）/ɪkˈsaɪtɪd/ __________",
+    "question": "根据音标写出单词。\n\n（1）/ˈfebruəri/ __________\n（2）/ˈsætədeɪ/ __________\n（3）/ˈnʌmbə/ __________\n（4）/ɪkˈsaɪtɪd/ __________",
     "options": [],
-    "answer": "（1）February （2）Saturday （3）numerous （4）excited",
-    "analysis": "【考点】本题考查音标与单词的对应。\n【解题思路】根据音标拼读。\n【总结】February的读音容易漏掉第一个r，Saturday注意tur的发音。",
-    "difficulty": 0.5
+    "answer": "（1）February （2）Saturday （3）number （4）excited",
+    "analysis": "【考点】本题考查音标与单词的对应。\n【解题思路】根据音标拼读。\n【总结】February注意第一个r不发音，Saturday注意tur的发音，number注意b和m。",
+    "difficulty": 0.7
   },
   {
-    "id": "en_vocab_039",
+    "id": "en_vocab_049",
     "subject": "english",
     "knowledge_tag": "英语词汇",
     "ability_tag": "词汇运用",
@@ -585,10 +585,10 @@
     "options": [],
     "answer": "（1）my; yours （2）clean （3）is （4）watching",
     "analysis": "【考点】本题考查物主代词、let's句型、主谓一致、enjoy doing。\n【解题思路】（1）后跟名词用形容词性物主代词，不跟名词用名词性物主代词；（2）let's后动词原形；（3）主语She三单；（4）enjoy后接doing。\n【总结】名词性物主代词=形容词性物主代词+名词。",
-    "difficulty": 0.5
+    "difficulty": 0.7
   },
   {
-    "id": "en_vocab_040",
+    "id": "en_vocab_050",
     "subject": "english",
     "knowledge_tag": "英语词汇",
     "ability_tag": "词组搭配",
@@ -597,10 +597,10 @@
     "options": [],
     "answer": "（1）逃跑 （2）摔倒 （3）醒来 （4）属于",
     "analysis": "【考点】本题考查动词短语。\n【解题思路】根据记忆写出。\n【总结】belong to没有被动语态。",
-    "difficulty": 0.5
+    "difficulty": 0.7
   },
   {
-    "id": "en_vocab_041",
+    "id": "en_vocab_051",
     "subject": "english",
     "knowledge_tag": "英语词汇",
     "ability_tag": "语音辨析",
@@ -609,10 +609,10 @@
     "options": [],
     "answer": "B",
     "analysis": "【考点】本题考查ch字母组合的发音。\n【解题思路】A、C、D中ch发/tʃ/，B中ch发/k/。\n【总结】ch在大多数单词中发/tʃ/，但在school, Christmas, chemistry中发/k/。",
-    "difficulty": 0.5
+    "difficulty": 0.3
   },
   {
-    "id": "en_vocab_042",
+    "id": "en_vocab_052",
     "subject": "english",
     "knowledge_tag": "英语词汇",
     "ability_tag": "词汇翻译",
@@ -621,10 +621,10 @@
     "options": [],
     "answer": "（1）Friday （2）December （3）polite （4）breakfast",
     "analysis": "【考点】本题考查课本核心词汇的拼写。\n【解题思路】根据汉语意思回忆。\n【总结】Friday注意day的拼写，December注意c和ember，polite注意l和i的位置。",
-    "difficulty": 0.5
+    "difficulty": 0.3
   },
   {
-    "id": "en_vocab_043",
+    "id": "en_vocab_053",
     "subject": "english",
     "knowledge_tag": "英语词汇",
     "ability_tag": "单词拼写",
@@ -636,7 +636,7 @@
     "difficulty": 0.5
   },
   {
-    "id": "en_vocab_044",
+    "id": "en_vocab_054",
     "subject": "english",
     "knowledge_tag": "英语词汇",
     "ability_tag": "词汇运用",
@@ -645,10 +645,10 @@
     "options": [],
     "answer": "（1）Who （2）doesn't （3）are （4）go",
     "analysis": "【考点】本题考查疑问词、否定句、There be句型、let's句型。\n【解题思路】（1）提问主语用who；（2）主语She三单，否定用doesn't；（3）people是集合名词，复数概念用are；（4）let's后动词原形。\n【总结】people作“人们”解时是复数，作“民族”解时有单复数变化。",
-    "difficulty": 0.5
+    "difficulty": 0.3
   },
   {
-    "id": "en_vocab_045",
+    "id": "en_vocab_055",
     "subject": "english",
     "knowledge_tag": "英语词汇",
     "ability_tag": "词组搭配",
@@ -657,22 +657,22 @@
     "options": [],
     "answer": "1—B  2—D  3—C  4—A",
     "analysis": "【考点】本题考查动词短语。\n【解题思路】根据记忆连线。\n【总结】give up后接名词或动名词；look out相当于be careful。",
-    "difficulty": 0.5
+    "difficulty": 0.3
   },
   {
-    "id": "en_vocab_046",
+    "id": "en_vocab_056",
     "subject": "english",
     "knowledge_tag": "英语词汇",
     "ability_tag": "语音辨析",
     "type": "multiple_choice",
-    "question": "找出下列单词中划线部分发音不同的一项。\n\nA. read (过去式)\nB. head\nC. bread\nD. heavy",
+    "question": "找出下列单词中划线部分发音不同的一项。\n\nA. read（原形）\nB. head\nC. bread\nD. heavy",
     "options": [],
     "answer": "A",
-    "analysis": "【考点】本题考查ea字母组合的发音（注意read过去式读音）。\n【解题思路】B、C、D中ea发/e/，A中read过去式读/red/？实际read过去式和原形拼写相同但发音不同：原形/riːd/，过去式/red/。这里read（过去式）与head等发音相同？不，head是/hed/，read过去式是/red/，两者相同？实际上/red/与/hed/元音相同都是/e/。而原形read发/iː/不同。题干写的是“read (过去式)”，应读/red/，与head /hed/、bread /bred/、heavy /ˈhevi/中的/e/相同。所以A与B、C、D发音相同？那没有不同。需要调整。将A改为read（原形）/riːd/，则不同。我修改题干：A. read（原形）。则A发/iː/，B、C、D发/e/。\n【总结】ea常发/iː/，但也可发/e/，如head, bread, breakfast, heavy, weather。",
+    "analysis": "【考点】本题考查ea字母组合的发音。\n【解题思路】B、C、D中ea发/e/，A中read（原形）发/iː/。\n【总结】ea常发/iː/，但在head, bread, breakfast, heavy中发/e/。注意read过去式读/red/，与原形/riːd/发音不同。",
     "difficulty": 0.5
   },
   {
-    "id": "en_vocab_047",
+    "id": "en_vocab_057",
     "subject": "english",
     "knowledge_tag": "英语词汇",
     "ability_tag": "词汇翻译",
@@ -681,10 +681,10 @@
     "options": [],
     "answer": "（1）著名的 （2）不同的 （3）美味的 （4）重要的",
     "analysis": "【考点】本题考查形容词词义。\n【解题思路】根据记忆写出。\n【总结】famous后常接for，如be famous for（因…而著名）。",
-    "difficulty": 0.5
+    "difficulty": 0.3
   },
   {
-    "id": "en_vocab_048",
+    "id": "en_vocab_058",
     "subject": "english",
     "knowledge_tag": "英语词汇",
     "ability_tag": "单词拼写",
@@ -696,7 +696,7 @@
     "difficulty": 0.5
   },
   {
-    "id": "en_vocab_049",
+    "id": "en_vocab_059",
     "subject": "english",
     "knowledge_tag": "英语词汇",
     "ability_tag": "词汇运用",
@@ -708,7 +708,7 @@
     "difficulty": 0.5
   },
   {
-    "id": "en_vocab_050",
+    "id": "en_vocab_060",
     "subject": "english",
     "knowledge_tag": "英语词汇",
     "ability_tag": "词组搭配",
@@ -717,10 +717,10 @@
     "options": [],
     "answer": "（1）参加 （2）为…自豪 （3）在…前面 （4）一…就…",
     "analysis": "【考点】本题考查动词短语和连词短语。\n【解题思路】根据记忆写出。\n【总结】in front of与in the front of区别：前者在外部前面，后者在内部前面。",
-    "difficulty": 0.5
+    "difficulty": 0.3
   },
   {
-    "id": "en_vocab_051",
+    "id": "en_vocab_061",
     "subject": "english",
     "knowledge_tag": "英语词汇",
     "ability_tag": "语音辨析",
@@ -732,7 +732,7 @@
     "difficulty": 0.5
   },
   {
-    "id": "en_vocab_052",
+    "id": "en_vocab_062",
     "subject": "english",
     "knowledge_tag": "英语词汇",
     "ability_tag": "词汇翻译",
@@ -744,7 +744,7 @@
     "difficulty": 0.5
   },
   {
-    "id": "en_vocab_053",
+    "id": "en_vocab_063",
     "subject": "english",
     "knowledge_tag": "英语词汇",
     "ability_tag": "单词拼写",
@@ -756,7 +756,7 @@
     "difficulty": 0.5
   },
   {
-    "id": "en_vocab_054",
+    "id": "en_vocab_064",
     "subject": "english",
     "knowledge_tag": "英语词汇",
     "ability_tag": "词汇运用",
@@ -768,7 +768,7 @@
     "difficulty": 0.5
   },
   {
-    "id": "en_vocab_055",
+    "id": "en_vocab_065",
     "subject": "english",
     "knowledge_tag": "英语词汇",
     "ability_tag": "词组搭配",
@@ -780,19 +780,19 @@
     "difficulty": 0.5
   },
   {
-    "id": "en_vocab_056",
+    "id": "en_vocab_066",
     "subject": "english",
     "knowledge_tag": "英语词汇",
     "ability_tag": "语音辨析",
     "type": "multiple_choice",
     "question": "找出下列单词中划线部分发音不同的一项。\n\nA. play\nB. day\nC. says\nD. wait",
     "options": [],
-    "answer": "C",
-    "analysis": "【考点】本题考查ay/ai字母组合的发音。\n【解题思路】A、B、D中ay/ai发/eɪ/，C中says发/sez/，其中ay发/e/。\n【总结】say的第三人称单数says读音特殊，注意区分。",
+    "answer": "D",
+    "analysis": "【考点】本题考查s在词中的发音。\n【解题思路】A中news的s读/z/，B中newspaper的s读/z/，C中nose的s读/z/，D中nurse的s读/s/。\n【总结】s在元音后常读/z/（如news, nose），在辅音后常读/s/（如nurse, first）。",
     "difficulty": 0.5
   },
   {
-    "id": "en_vocab_057",
+    "id": "en_vocab_067",
     "subject": "english",
     "knowledge_tag": "英语词汇",
     "ability_tag": "词汇翻译",
@@ -804,7 +804,7 @@
     "difficulty": 0.5
   },
   {
-    "id": "en_vocab_058",
+    "id": "en_vocab_068",
     "subject": "english",
     "knowledge_tag": "英语词汇",
     "ability_tag": "单词拼写",
@@ -813,10 +813,10 @@
     "options": [],
     "answer": "（1）accident （2）excitement （3）usually （4）environment",
     "analysis": "【考点】本题考查较长单词的音标拼读。\n【解题思路】根据音标拼写。\n【总结】accident双写c，environment注意n和m的顺序。",
-    "difficulty": 0.5
+    "difficulty": 0.7
   },
   {
-    "id": "en_vocab_059",
+    "id": "en_vocab_069",
     "subject": "english",
     "knowledge_tag": "英语词汇",
     "ability_tag": "词汇运用",
@@ -828,7 +828,7 @@
     "difficulty": 0.5
   },
   {
-    "id": "en_vocab_060",
+    "id": "en_vocab_070",
     "subject": "english",
     "knowledge_tag": "英语词汇",
     "ability_tag": "词组搭配",
@@ -840,7 +840,7 @@
     "difficulty": 0.5
   },
   {
-    "id": "en_vocab_061",
+    "id": "en_vocab_071",
     "subject": "english",
     "knowledge_tag": "英语词汇",
     "ability_tag": "语音辨析",
@@ -849,10 +849,10 @@
     "options": [],
     "answer": "C",
     "analysis": "【考点】本题考查gh字母组合的发音。\n【解题思路】A、B、D中gh发/f/，C中gh不发音。\n【总结】gh在词尾常发/f/，但在though, through, thought中不发音。",
-    "difficulty": 0.5
+    "difficulty": 0.7
   },
   {
-    "id": "en_vocab_062",
+    "id": "en_vocab_072",
     "subject": "english",
     "knowledge_tag": "英语词汇",
     "ability_tag": "词汇翻译",
@@ -864,19 +864,19 @@
     "difficulty": 0.5
   },
   {
-    "id": "en_vocab_063",
+    "id": "en_vocab_073",
     "subject": "english",
     "knowledge_tag": "英语词汇",
     "ability_tag": "单词拼写",
     "type": "fill_blank",
     "question": "根据首字母和句意，补全单词。\n\n（1）The box is too h______. I can't carry it.\n（2）My father is a b______. He designs buildings.\n（3）I feel t______. Let's go to the dentist.\n（4）The bus is c______. There are many people inside.",
     "options": [],
-    "answer": "（1）heavy （2）builder/architect （3）toothache （4）crowded",
+    "answer": "（1）heavy （2）builder （3）toothache （4）crowded",
     "analysis": "【考点】本题考查形容词、职业、身体不适、状态描述。\n【解题思路】（1）拿不动→重；（2）设计建筑→建筑师/建筑工人；（3）看牙医→牙痛；（4）很多人→拥挤。\n【总结】toothache由tooth（牙）+ ache（痛）构成。",
-    "difficulty": 0.5
+    "difficulty": 0.7
   },
   {
-    "id": "en_vocab_064",
+    "id": "en_vocab_074",
     "subject": "english",
     "knowledge_tag": "英语词汇",
     "ability_tag": "词汇运用",
@@ -885,10 +885,10 @@
     "options": [],
     "answer": "（1）What （2）teaches （3）is （4）doesn't",
     "analysis": "【考点】本题考查感叹句、第三人称单数、There be句型、否定句。\n【解题思路】（1）What + a/an + 形容词 + 名词结构；（2）主语She三单；（3）water不可数用is；（4）主语He三单。\n【总结】感叹句：What修饰名词，How修饰形容词/副词。",
-    "difficulty": 0.5
+    "difficulty": 0.7
   },
   {
-    "id": "en_vocab_065",
+    "id": "en_vocab_075",
     "subject": "english",
     "knowledge_tag": "英语词汇",
     "ability_tag": "词组搭配",
@@ -897,22 +897,22 @@
     "options": [],
     "answer": "1—C  2—D  3—A  4—B",
     "analysis": "【考点】本题考查动词+out的短语。\n【解题思路】根据记忆连线。\n【总结】put out the fire，work out a problem，point out a mistake，find out the truth。",
-    "difficulty": 0.5
+    "difficulty": 0.7
   },
   {
-    "id": "en_vocab_066",
+    "id": "en_vocab_076",
     "subject": "english",
     "knowledge_tag": "英语词汇",
     "ability_tag": "语音辨析",
     "type": "multiple_choice",
     "question": "找出下列单词中划线部分发音不同的一项。\n\nA. news\nB. newspaper\nC. nose\nD. nurse",
     "options": [],
-    "answer": "C",
-    "analysis": "【考点】本题考查s在词中的发音。\n【解题思路】A、B、D中s读/z/，C中s读/z/？检查：news /z/，newspaper /z/，nose /z/，nurse /s/。nurse中s读/s/。\n【总结】s在元音后常读/z/，在清辅音后读/s/，nurse中r为浊辅音，但s读/s/属于特例。",
-    "difficulty": 0.5
+    "answer": "D",
+    "analysis": "【考点】本题考查s在词中的发音。\n【解题思路】A中news的s读/z/，B中newspaper的s读/z/，C中nose的s读/z/，D中nurse的s读/s/。\n【总结】s在元音后常读/z/（如news, nose），在辅音后常读/s/（如nurse, first）。",
+    "difficulty": 0.3
   },
   {
-    "id": "en_vocab_067",
+    "id": "en_vocab_077",
     "subject": "english",
     "knowledge_tag": "英语词汇",
     "ability_tag": "词汇翻译",
@@ -921,10 +921,10 @@
     "options": [],
     "answer": "（1）小心的 （2）有用的 （3）有帮助的 （4）美丽的",
     "analysis": "【考点】本题考查形容词后缀-ful。\n【解题思路】根据记忆写出。\n【总结】名词+ful构成形容词：care+ful，use+ful，help+ful，beauty变y为i+ful。",
-    "difficulty": 0.5
+    "difficulty": 0.3
   },
   {
-    "id": "en_vocab_068",
+    "id": "en_vocab_078",
     "subject": "english",
     "knowledge_tag": "英语词汇",
     "ability_tag": "单词拼写",
@@ -936,7 +936,7 @@
     "difficulty": 0.5
   },
   {
-    "id": "en_vocab_069",
+    "id": "en_vocab_079",
     "subject": "english",
     "knowledge_tag": "英语词汇",
     "ability_tag": "词汇运用",
@@ -945,10 +945,10 @@
     "options": [],
     "answer": "（1）best （2）some （3）is （4）sing",
     "analysis": "【考点】本题考查最高级、some/any用法、be going to、let's句型。\n【解题思路】（1）ever seen提示最高级用best；（2）疑问句期待肯定回答用some；（3）主语He用is；（4）let's后动词原形。\n【总结】最高级前加the，副词最高级the可省略。",
-    "difficulty": 0.5
+    "difficulty": 0.3
   },
   {
-    "id": "en_vocab_070",
+    "id": "en_vocab_080",
     "subject": "english",
     "knowledge_tag": "英语词汇",
     "ability_tag": "词组搭配",
@@ -957,10 +957,10 @@
     "options": [],
     "answer": "（1）闯入 （2）撞上/遇到 （3）偶然遇见 （4）克服",
     "analysis": "【考点】本题考查动词短语。\n【解题思路】根据记忆写出。\n【总结】come across与run into都可表示“偶然遇见”。",
-    "difficulty": 0.5
+    "difficulty": 0.3
   },
   {
-    "id": "en_vocab_071",
+    "id": "en_vocab_081",
     "subject": "english",
     "knowledge_tag": "英语词汇",
     "ability_tag": "语音辨析",
@@ -972,7 +972,7 @@
     "difficulty": 0.5
   },
   {
-    "id": "en_vocab_072",
+    "id": "en_vocab_082",
     "subject": "english",
     "knowledge_tag": "英语词汇",
     "ability_tag": "词汇翻译",
@@ -981,10 +981,10 @@
     "options": [],
     "answer": "（1）fly a kite （2）ride a bike （3）take photos （4）make a snowman",
     "analysis": "【考点】本题考查动词短语。\n【解题思路】根据汉语提示写出。\n【总结】take photos也可说take pictures，make a snowman是冬季活动。",
-    "difficulty": 0.5
+    "difficulty": 0.3
   },
   {
-    "id": "en_vocab_073",
+    "id": "en_vocab_083",
     "subject": "english",
     "knowledge_tag": "英语词汇",
     "ability_tag": "单词拼写",
@@ -996,7 +996,7 @@
     "difficulty": 0.5
   },
   {
-    "id": "en_vocab_074",
+    "id": "en_vocab_084",
     "subject": "english",
     "knowledge_tag": "英语词汇",
     "ability_tag": "词汇运用",
@@ -1008,7 +1008,7 @@
     "difficulty": 0.5
   },
   {
-    "id": "en_vocab_075",
+    "id": "en_vocab_085",
     "subject": "english",
     "knowledge_tag": "英语词汇",
     "ability_tag": "词组搭配",
@@ -1017,10 +1017,10 @@
     "options": [],
     "answer": "1—B  2—D  3—A  4—C",
     "analysis": "【考点】本题考查动词+up/away的短语。\n【解题思路】根据记忆连线。\n【总结】put away把…收好，give away捐赠，take up开始做（某活动）。",
-    "difficulty": 0.5
+    "difficulty": 0.3
   },
   {
-    "id": "en_vocab_076",
+    "id": "en_vocab_086",
     "subject": "english",
     "knowledge_tag": "英语词汇",
     "ability_tag": "语音辨析",
@@ -1032,7 +1032,7 @@
     "difficulty": 0.5
   },
   {
-    "id": "en_vocab_077",
+    "id": "en_vocab_087",
     "subject": "english",
     "knowledge_tag": "英语词汇",
     "ability_tag": "词汇翻译",
@@ -1044,7 +1044,7 @@
     "difficulty": 0.5
   },
   {
-    "id": "en_vocab_078",
+    "id": "en_vocab_088",
     "subject": "english",
     "knowledge_tag": "英语词汇",
     "ability_tag": "单词拼写",
@@ -1056,7 +1056,7 @@
     "difficulty": 0.5
   },
   {
-    "id": "en_vocab_079",
+    "id": "en_vocab_089",
     "subject": "english",
     "knowledge_tag": "英语词汇",
     "ability_tag": "词汇运用",
@@ -1068,7 +1068,7 @@
     "difficulty": 0.5
   },
   {
-    "id": "en_vocab_080",
+    "id": "en_vocab_090",
     "subject": "english",
     "knowledge_tag": "英语词汇",
     "ability_tag": "词组搭配",
@@ -1080,7 +1080,7 @@
     "difficulty": 0.5
   },
   {
-    "id": "en_vocab_081",
+    "id": "en_vocab_091",
     "subject": "english",
     "knowledge_tag": "英语词汇",
     "ability_tag": "语音辨析",
@@ -1092,7 +1092,7 @@
     "difficulty": 0.5
   },
   {
-    "id": "en_vocab_082",
+    "id": "en_vocab_092",
     "subject": "english",
     "knowledge_tag": "英语词汇",
     "ability_tag": "词汇翻译",
@@ -1104,7 +1104,7 @@
     "difficulty": 0.5
   },
   {
-    "id": "en_vocab_083",
+    "id": "en_vocab_093",
     "subject": "english",
     "knowledge_tag": "英语词汇",
     "ability_tag": "单词拼写",
@@ -1113,10 +1113,10 @@
     "options": [],
     "answer": "（1）large （2）nurse （3）careful （4）fever",
     "analysis": "【考点】本题考查形容词、职业、提醒、身体不适。\n【解题思路】（1）太大→large；（2）医院工作→护士；（3）刀锋利→小心；（4）体温高→发烧。\n【总结】fever发烧，temperature温度。",
-    "difficulty": 0.5
+    "difficulty": 0.7
   },
   {
-    "id": "en_vocab_084",
+    "id": "en_vocab_094",
     "subject": "english",
     "knowledge_tag": "英语词汇",
     "ability_tag": "词汇运用",
@@ -1128,7 +1128,7 @@
     "difficulty": 0.5
   },
   {
-    "id": "en_vocab_085",
+    "id": "en_vocab_095",
     "subject": "english",
     "knowledge_tag": "英语词汇",
     "ability_tag": "词组搭配",
@@ -1140,7 +1140,7 @@
     "difficulty": 0.5
   },
   {
-    "id": "en_vocab_086",
+    "id": "en_vocab_096",
     "subject": "english",
     "knowledge_tag": "英语词汇",
     "ability_tag": "语音辨析",
@@ -1149,10 +1149,10 @@
     "options": [],
     "answer": "A",
     "analysis": "【考点】本题考查ear字母组合的发音。\n【解题思路】B、C、D中ear发/ɪə/，A中wear发/eə/。\n【总结】ear常发/ɪə/，但在wear, bear, pear中发/eə/。",
-    "difficulty": 0.5
+    "difficulty": 0.7
   },
   {
-    "id": "en_vocab_087",
+    "id": "en_vocab_097",
     "subject": "english",
     "knowledge_tag": "英语词汇",
     "ability_tag": "词汇翻译",
@@ -1164,7 +1164,7 @@
     "difficulty": 0.5
   },
   {
-    "id": "en_vocab_088",
+    "id": "en_vocab_098",
     "subject": "english",
     "knowledge_tag": "英语词汇",
     "ability_tag": "单词拼写",
@@ -1173,10 +1173,10 @@
     "options": [],
     "answer": "（1）education （2）scientific （3）confidence （4）resolution",
     "analysis": "【考点】本题考查较长单词的音标拼读。\n【解题思路】根据音标拼写。\n【总结】education中cation读/keɪʃn/，scientific注意tifi，confidence注意con和dence。",
-    "difficulty": 0.5
+    "difficulty": 0.7
   },
   {
-    "id": "en_vocab_089",
+    "id": "en_vocab_099",
     "subject": "english",
     "knowledge_tag": "英语词汇",
     "ability_tag": "词汇运用",
@@ -1185,10 +1185,10 @@
     "options": [],
     "answer": "（1）an （2）is （3）has （4）good",
     "analysis": "【考点】本题考查冠词、There be就近原则、have to三单、be good at。\n【解题思路】（1）honest以元音音素开头用an；（2）与a pen就近用is；（3）主语She三单用has；（4）be good at固定搭配。\n【总结】honest首字母h不发音，读作/ˈɒnɪst/，元音音素开头。",
-    "difficulty": 0.5
+    "difficulty": 0.7
   },
   {
-    "id": "en_vocab_090",
+    "id": "en_vocab_100",
     "subject": "english",
     "knowledge_tag": "英语词汇",
     "ability_tag": "词组搭配",
@@ -1197,10 +1197,10 @@
     "options": [],
     "answer": "（1）编造/化妆 （2）开始从事 （3）放弃 （4）张贴",
     "analysis": "【考点】本题考查动词+up的短语。\n【解题思路】根据记忆写出。\n【总结】make up a story编故事，take up a hobby开始爱好，give up smoking戒烟，put up a poster贴海报。",
-    "difficulty": 0.5
+    "difficulty": 0.7
   },
   {
-    "id": "en_vocab_091",
+    "id": "en_vocab_101",
     "subject": "english",
     "knowledge_tag": "英语词汇",
     "ability_tag": "语音辨析",
@@ -1209,10 +1209,10 @@
     "options": [],
     "answer": "C",
     "analysis": "【考点】本题考查th字母组合的两种发音。\n【解题思路】A、B、D中th发/θ/，C中th发/ð/。\n【总结】they是代词，th发浊辅音/ð/；think、thank、three是动词/名词，th发清辅音/θ/。",
-    "difficulty": 0.5
+    "difficulty": 0.3
   },
   {
-    "id": "en_vocab_092",
+    "id": "en_vocab_102",
     "subject": "english",
     "knowledge_tag": "英语词汇",
     "ability_tag": "词汇翻译",
@@ -1221,10 +1221,10 @@
     "options": [],
     "answer": "（1）Tuesday （2）April （3）active （4）dinner",
     "analysis": "【考点】本题考查星期、月份、形容词、名词。\n【解题思路】根据汉语意思回忆。\n【总结】Tuesday注意u的发音，April首字母大写，active指活跃的，dinner常与supper互换。",
-    "difficulty": 0.5
+    "difficulty": 0.3
   },
   {
-    "id": "en_vocab_093",
+    "id": "en_vocab_103",
     "subject": "english",
     "knowledge_tag": "英语词汇",
     "ability_tag": "单词拼写",
@@ -1236,7 +1236,7 @@
     "difficulty": 0.5
   },
   {
-    "id": "en_vocab_094",
+    "id": "en_vocab_104",
     "subject": "english",
     "knowledge_tag": "英语词汇",
     "ability_tag": "词汇运用",
@@ -1245,10 +1245,10 @@
     "options": [],
     "answer": "（1）Whose （2）doesn't （3）is （4）meet",
     "analysis": "【考点】本题考查疑问词、否定句、There be句型、let's句型。\n【解题思路】（1）询问物主用Whose；（2）主语He三单用doesn't；（3）milk不可数用is；（4）let's后动词原形。\n【总结】Whose与Who's（=Who is）区别：Whose询问所属关系。",
-    "difficulty": 0.5
+    "difficulty": 0.3
   },
   {
-    "id": "en_vocab_095",
+    "id": "en_vocab_105",
     "subject": "english",
     "knowledge_tag": "英语词汇",
     "ability_tag": "词组搭配",
@@ -1257,10 +1257,10 @@
     "options": [],
     "answer": "1—B  2—A  3—D  4—C",
     "analysis": "【考点】本题考查动词+to的短语。\n【解题思路】根据记忆连线。\n【总结】belong to没有被动语态，listen to强调动作，talk to与talk with相近。",
-    "difficulty": 0.5
+    "difficulty": 0.3
   },
   {
-    "id": "en_vocab_096",
+    "id": "en_vocab_106",
     "subject": "english",
     "knowledge_tag": "英语词汇",
     "ability_tag": "语音辨析",
@@ -1272,7 +1272,7 @@
     "difficulty": 0.5
   },
   {
-    "id": "en_vocab_097",
+    "id": "en_vocab_107",
     "subject": "english",
     "knowledge_tag": "英语词汇",
     "ability_tag": "词汇翻译",
@@ -1281,10 +1281,10 @@
     "options": [],
     "answer": "（1）村庄 （2）山 （3）森林 （4）湖",
     "analysis": "【考点】本题考查自然景观名词。\n【解题思路】根据记忆写出。\n【总结】mountain与hill区别：mountain大山，hill小山。",
-    "difficulty": 0.5
+    "difficulty": 0.3
   },
   {
-    "id": "en_vocab_098",
+    "id": "en_vocab_108",
     "subject": "english",
     "knowledge_tag": "英语词汇",
     "ability_tag": "单词拼写",
@@ -1296,7 +1296,7 @@
     "difficulty": 0.5
   },
   {
-    "id": "en_vocab_099",
+    "id": "en_vocab_109",
     "subject": "english",
     "knowledge_tag": "英语词汇",
     "ability_tag": "词汇运用",
@@ -1308,7 +1308,7 @@
     "difficulty": 0.5
   },
   {
-    "id": "en_vocab_100",
+    "id": "en_vocab_110",
     "subject": "english",
     "knowledge_tag": "英语词汇",
     "ability_tag": "词组搭配",
@@ -1317,10 +1317,10 @@
     "options": [],
     "answer": "（1）实现 （2）入睡 （3）聚会 （4）做决定",
     "analysis": "【考点】本题考查动词短语。\n【解题思路】根据记忆写出。\n【总结】come true主语是梦想或愿望，fall asleep同义词go to sleep。",
-    "difficulty": 0.5
+    "difficulty": 0.3
   },
   {
-    "id": "en_vocab_091",
+    "id": "en_vocab_111",
     "subject": "english",
     "knowledge_tag": "英语词汇",
     "ability_tag": "语音辨析",
@@ -1332,7 +1332,7 @@
     "difficulty": 0.5
   },
   {
-    "id": "en_vocab_092",
+    "id": "en_vocab_112",
     "subject": "english",
     "knowledge_tag": "英语词汇",
     "ability_tag": "词汇翻译",
@@ -1344,7 +1344,7 @@
     "difficulty": 0.5
   },
   {
-    "id": "en_vocab_093",
+    "id": "en_vocab_113",
     "subject": "english",
     "knowledge_tag": "英语词汇",
     "ability_tag": "单词拼写",
@@ -1356,7 +1356,7 @@
     "difficulty": 0.5
   },
   {
-    "id": "en_vocab_094",
+    "id": "en_vocab_114",
     "subject": "english",
     "knowledge_tag": "英语词汇",
     "ability_tag": "词汇运用",
@@ -1368,7 +1368,7 @@
     "difficulty": 0.5
   },
   {
-    "id": "en_vocab_095",
+    "id": "en_vocab_115",
     "subject": "english",
     "knowledge_tag": "英语词汇",
     "ability_tag": "词组搭配",
@@ -1380,7 +1380,7 @@
     "difficulty": 0.5
   },
   {
-    "id": "en_vocab_096",
+    "id": "en_vocab_116",
     "subject": "english",
     "knowledge_tag": "英语词汇",
     "ability_tag": "语音辨析",
@@ -1392,7 +1392,7 @@
     "difficulty": 0.5
   },
   {
-    "id": "en_vocab_097",
+    "id": "en_vocab_117",
     "subject": "english",
     "knowledge_tag": "英语词汇",
     "ability_tag": "词汇翻译",
@@ -1404,7 +1404,7 @@
     "difficulty": 0.5
   },
   {
-    "id": "en_vocab_098",
+    "id": "en_vocab_118",
     "subject": "english",
     "knowledge_tag": "英语词汇",
     "ability_tag": "单词拼写",
@@ -1413,10 +1413,10 @@
     "options": [],
     "answer": "（1）confidence （2）excellent （3）possible （4）popular",
     "analysis": "【考点】本题考查形容词的音标拼读。\n【解题思路】根据音标拼写。\n【总结】confidence自信，excellent优秀的，possible可能的，popular受欢迎的。",
-    "difficulty": 0.5
+    "difficulty": 0.7
   },
   {
-    "id": "en_vocab_099",
+    "id": "en_vocab_119",
     "subject": "english",
     "knowledge_tag": "英语词汇",
     "ability_tag": "词汇运用",
@@ -1428,7 +1428,7 @@
     "difficulty": 0.5
   },
   {
-    "id": "en_vocab_100",
+    "id": "en_vocab_120",
     "subject": "english",
     "knowledge_tag": "英语词汇",
     "ability_tag": "词组搭配",

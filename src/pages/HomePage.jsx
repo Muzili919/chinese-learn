@@ -37,7 +37,6 @@ const ABILITY_TO_QUIZ = {
 }
 
 const PLANETS = [
-  { id: 'all',    label: '全部混合', emoji: '🌌', color: 'from-indigo-500 to-purple-600', desc: '综合筛查·查漏补缺' },
   { id: '字词',   label: '字词星球', emoji: '📚', color: 'from-blue-400 to-blue-600',    desc: '字音·字义·字形' },
   { id: '古诗词', label: '诗词星球', emoji: '🎋', color: 'from-green-400 to-teal-600',   desc: '古诗·填空·赏析' },
   { id: '成语',   label: '成语星球', emoji: '🏮', color: 'from-orange-400 to-red-500',   desc: '含义·用法·辨析' },
@@ -45,7 +44,9 @@ const PLANETS = [
   { id: 'reading',label: '阅读星球', emoji: '📖', color: 'from-emerald-400 to-teal-600', desc: 'AI评分·短文阅读理解', reading: true },
   { id: '文学常识',label: '文学星球', emoji: '🎭', color: 'from-rose-400 to-pink-600',   desc: '四大名著·标点·文体' },
   { id: 'sentence_practice', label: '造句星球', emoji: '✍️', color: 'from-amber-400 to-orange-500', desc: 'AI即时批改·学会用词' },
+  { id: 'dictation', label: '听写星球', emoji: '🎧', color: 'from-cyan-400 to-blue-500', desc: 'TTS听写·拍照批改·词库管理', dictation: true },
   { id: 'essay', label: '作文星球', emoji: '📝', color: 'from-pink-500 to-rose-600', desc: 'AI三维评分·提升写作' },
+  { id: 'self_test', label: '自测星球', emoji: '📝', color: 'from-amber-500 to-orange-600', desc: 'AI出卷·小升初难度·查漏补缺', isSelfTest: true },
 ]
 
 const QUIZ_PLANET_IDS = ['字词', '古诗词', '成语', '句子', '文学常识']
@@ -54,13 +55,15 @@ const QUIZ_PLANET_IDS = ['字词', '古诗词', '成语', '句子', '文学常�
 const SUBJECTS = [
   { id: 'chinese', label: '语文', emoji: '📖', available: true },
   { id: 'english', label: '英语', emoji: '🌎', available: true },
+  { id: 'politics', label: '道法', emoji: '⚖️', available: true },
   { id: 'math',    label: '数学', emoji: '🔢', available: false },
 ]
 
-export default function HomePage({ user, onStartQuiz, onReport, onLogout, onSubjectChange, activeSubject: activeSubjectProp }) {
+export default function HomePage({ user, onStartQuiz, onReport, onLogout, onSubjectChange, activeSubject: activeSubjectProp, grade, onGradeChange }) {
   const [showLogoutConfirm, setShowLogoutConfirm] = useState(false)
   const [activeSubject, setActiveSubject] = useState(activeSubjectProp || 'chinese')
   const [subjectToast, setSubjectToast] = useState(null)
+  const currentGrade = grade || 'primary'
 
   const xp = storage.getXP(user.id)
   const level = calcLevel(xp)
@@ -85,8 +88,8 @@ export default function HomePage({ user, onStartQuiz, onReport, onLogout, onSubj
   function handleSubjectClick(subject) {
     if (subject.available) {
       setActiveSubject(subject.id)
-      if (subject.id === 'english' && onSubjectChange) {
-        onSubjectChange('english')
+      if ((subject.id === 'english' || subject.id === 'politics') && onSubjectChange) {
+        onSubjectChange(subject.id)
       }
     } else {
       setSubjectToast(subject.label)
@@ -129,6 +132,30 @@ export default function HomePage({ user, onStartQuiz, onReport, onLogout, onSubj
     <div className="min-h-screen flex flex-col">
       {/* ===== 顶部栏 ===== */}
       <div className="bg-white shadow-sm" style={{ paddingTop: 'env(safe-area-inset-top, 36px)' }}>
+
+        {/* 学段切换 */}
+        <div className="px-4 pt-3 flex items-center justify-between">
+          <span style={{ fontSize: 12, color: '#6b7280', fontWeight: 600 }}>📚 学习阶段</span>
+          <div className="flex bg-gray-100 rounded-xl p-0.5">
+            {[
+              { id: 'primary', label: '小学', emoji: '🏫' },
+              { id: 'junior2', label: '初二', emoji: '🎓' },
+            ].map(g => (
+              <button
+                key={g.id}
+                onClick={() => onGradeChange && onGradeChange(g.id)}
+                className={`flex items-center gap-1 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ${
+                  currentGrade === g.id
+                    ? 'bg-indigo-600 text-white shadow-sm'
+                    : 'text-gray-500'
+                }`}
+              >
+                <span>{g.emoji}</span>
+                <span>{g.label}</span>
+              </button>
+            ))}
+          </div>
+        </div>
 
         {/* 科目切换 */}
         <div className="px-4 pt-3 pb-2 flex items-center gap-2">
@@ -282,7 +309,9 @@ export default function HomePage({ user, onStartQuiz, onReport, onLogout, onSubj
                   if (planet.reading) onStartQuiz({ reading: true })
                   else if (planet.id === 'essay') onStartQuiz({ essay: true })
                   else if (planet.id === 'sentence_practice') onStartQuiz({ sentencePractice: true })
-                  else onStartQuiz(planet.id === 'all' ? {} : { knowledgeTag: planet.id })
+                  else if (planet.id === 'dictation') onStartQuiz({ dictation: true, dictationSubject: 'chinese' })
+                  else if (planet.isSelfTest) onStartQuiz({ selfTest: true, selfTestSubject: 'chinese' })
+                  else onStartQuiz({ knowledgeTag: planet.id })
                 }}
                 className={`w-full bg-gradient-to-r ${planet.color} text-white rounded-2xl p-4 flex items-center gap-4 shadow-sm active:scale-95 transition-transform`}
               >

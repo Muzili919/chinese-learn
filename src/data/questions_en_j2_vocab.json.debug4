@@ -1,0 +1,2162 @@
+[
+  {
+    "id": "en_j2_vocab_001",
+    "subject": "english",
+    "grade": "junior2",
+    "knowledge_tag": "词汇辨析",
+    "ability_tag": "近义词辨析",
+    "type": "multiple_choice",
+    "question": "选出与划线单词意思最接近的选项。\n\nThe teacher asked us to discuss the problem in groups.\n\nA. talk about\nB. write down\nC. look up\nD. give up",
+    "options": [
+      "A. talk about",
+      "B. write down",
+      "C. look up",
+      "D. give up"
+    ],
+    "answer": "A",
+    "analysis": "【考点】近义词辨析：discuss = talk about（讨论）。\n【解题思路】discuss 意为「讨论」，与 talk about 同义。write down 意为「写下」，look up 意为「查阅」，give up 意为「放弃」，均不符。\n【总结】八年级常见近义词：discuss/talk about, decide/make up one's mind, explain/make clear。",
+    "difficulty": 0.3
+  },
+  {
+    "id": "en_j2_vocab_002",
+    "subject": "english",
+    "grade": "junior2",
+    "knowledge_tag": "词汇辨析",
+    "ability_tag": "近义词辨析",
+    "type": "multiple_choice",
+    "question": "选出与划线单词意思最接近的选项。\n\nPlease return the book to the library on time.\n\nA. give back\nB. take away\nC. put on\nD. throw away",
+    "options": [
+      "A. give back",
+      "B. take away",
+      "C. put on",
+      "D. throw away"
+    ],
+    "answer": "A",
+    "analysis": "【考点】近义词辨析：return = give back（归还）。\n【解题思路】return 在此处作动词，意为「归还」，give back 也是「归还」的意思。take away 意为「带走」，put on 意为「穿上」，throw away 意为「扔掉」。\n【总结】return 既是「归还」(give back) 也是「返回」(come back/go back)，注意根据语境判断。",
+    "difficulty": 0.3
+  },
+  {
+    "id": "en_j2_vocab_003",
+    "subject": "english",
+    "grade": "junior2",
+    "knowledge_tag": "词汇辨析",
+    "ability_tag": "近义词辨析",
+    "type": "multiple_choice",
+    "question": "选出与划线单词意思最接近的选项。\n\nThe movie was so boring that I almost fell asleep.\n\nA. not interesting\nB. not important\nC. not difficult\nD. not comfortable",
+    "options": [
+      "A. not interesting",
+      "B. not important",
+      "C. not difficult",
+      "D. not comfortable"
+    ],
+    "answer": "A",
+    "analysis": "【考点】反义词/近义短语辨析：boring = not interesting（无聊的/乏味的）。\n【解题思路】boring 意为「令人无聊的」，与 not interesting 同义。not important 意为「不重要的」，not difficult 意为「不难的」，not comfortable 意为「不舒服的」。\n【总结】注意区分 boring（令人无聊的）和 bored（感到无聊的）：The movie is boring. I am bored.",
+    "difficulty": 0.3
+  },
+  {
+    "id": "en_j2_vocab_004",
+    "subject": "english",
+    "grade": "junior2",
+    "knowledge_tag": "词汇辨析",
+    "ability_tag": "近义词辨析",
+    "type": "multiple_choice",
+    "question": "选出与划线单词意思最接近的选项。\n\nWe should protect the environment.\n\nA. make...clean\nB. keep...safe\nC. make...beautiful\nD. keep...warm",
+    "options": [
+      "A. make...clean",
+      "B. keep...safe",
+      "C. make...beautiful",
+      "D. keep...warm"
+    ],
+    "answer": "B",
+    "analysis": "【考点】近义词辨析：protect = keep safe（保护）。\n【解题思路】protect 意为「保护」，与 keep safe 同义。make clean 意为「使干净」，make beautiful 意为「使美丽」，keep warm 意为「保暖」。\n【总结】八年级环保主题高频词：protect, environment, pollution, recycle, reduce, reuse。",
+    "difficulty": 0.3
+  },
+  {
+    "id": "en_j2_vocab_005",
+    "subject": "english",
+    "grade": "junior2",
+    "knowledge_tag": "词汇辨析",
+    "ability_tag": "近义词辨析",
+    "type": "multiple_choice",
+    "question": "选出与划线单词意思最接近的选项。\n\nHe refused to tell me the truth.\n\nA. agreed\nB. decided not to\nC. wanted to\nD. forgot to",
+    "options": [
+      "A. agreed",
+      "B. decided not to",
+      "C. wanted to",
+      "D. forgot to"
+    ],
+    "answer": "B",
+    "analysis": "【考点】近义词辨析：refuse = decide not to（拒绝）。\n【解题思路】refuse 意为「拒绝」，即 decide not to do sth.。agreed 意为「同意」，wanted to 意为「想要」，forgot to 意为「忘记」。\n【总结】refuse to do sth. 意为「拒绝做某事」，其反义表达是 agree to do sth.。",
+    "difficulty": 0.3
+  },
+  {
+    "id": "en_j2_vocab_006",
+    "subject": "english",
+    "grade": "junior2",
+    "knowledge_tag": "词汇辨析",
+    "ability_tag": "近义词辨析",
+    "type": "multiple_choice",
+    "question": "选出与划线单词意思最接近的选项。\n\nThe doctor advised him to give up smoking.\n\nA. stop\nB. keep\nC. enjoy\nD. start",
+    "options": [
+      "A. stop",
+      "B. keep",
+      "C. enjoy",
+      "D. start"
+    ],
+    "answer": "A",
+    "analysis": "【考点】近义词辨析：give up = stop（放弃/停止）。\n【解题思路】give up doing sth. 意为「放弃做某事」，与 stop doing sth. 同义。keep doing 意为「继续做」，enjoy doing 意为「喜欢做」，start doing 意为「开始做」。\n【总结】give up/stop/quit 都可以表示「停止做某事」，但 give up 更强调「放弃已经坚持的事物」。",
+    "difficulty": 0.3
+  },
+  {
+    "id": "en_j2_vocab_007",
+    "subject": "english",
+    "grade": "junior2",
+    "knowledge_tag": "词汇辨析",
+    "ability_tag": "近义词辨析",
+    "type": "multiple_choice",
+    "question": "选出与划线单词意思最接近的选项。\n\nThe building is about 200 meters tall.\n\nA. over\nB. more than\nC. almost\nD. around",
+    "options": [
+      "A. over",
+      "B. more than",
+      "C. almost",
+      "D. around"
+    ],
+    "answer": "C",
+    "analysis": "【考点】近义词辨析：about = almost/around（大约）。\n【解题思路】about 在此处意为「大约」，与 almost（几乎）同义。注意 about 也可以表示「关于」，需根据语境判断。over 和 more than 都表示「超过」，around 也有「大约」之意，但 about 更偏向「差不多、几乎」。\n【总结】表示「大约」的词：about, almost, around, nearly, approximately（八年级掌握前四个）。",
+    "difficulty": 0.3
+  },
+  {
+    "id": "en_j2_vocab_008",
+    "subject": "english",
+    "grade": "junior2",
+    "knowledge_tag": "词汇辨析",
+    "ability_tag": "近义词辨析",
+    "type": "multiple_choice",
+    "question": "选出与划线单词意思最接近的选项。\n\nShe realized she had left her bag at home.\n\nA. knew\nB. guessed\nC. noticed\nD. remembered",
+    "options": [
+      "A. knew",
+      "B. guessed",
+      "C. noticed",
+      "D. remembered"
+    ],
+    "answer": "A",
+    "analysis": "【考点】近义词辨析：realize = know/understand（意识到）。\n【解题思路】realize 意为「意识到，认识到」，与 know 在此处语境最接近。guessed 意为「猜测」，noticed 意为「注意到」，remembered 意为「记得」。\n【总结】realize 强调「突然意识到」某事，与 suddenly know/understand 意思最接近。",
+    "difficulty": 0.4
+  },
+  {
+    "id": "en_j2_vocab_009",
+    "subject": "english",
+    "grade": "junior2",
+    "knowledge_tag": "词汇辨析",
+    "ability_tag": "近义词辨析",
+    "type": "multiple_choice",
+    "question": "选出与划线单词意思最接近的选项。\n\nHe has been absent from school for three days.\n\nA. late for\nB. away from\nC. interested in\nD. good at",
+    "options": [
+      "A. late for",
+      "B. away from",
+      "C. interested in",
+      "D. good at"
+    ],
+    "answer": "B",
+    "analysis": "【考点】近义词辨析：absent from = away from（缺席，不在）。\n【解题思路】be absent from 意为「缺席，不在」，与 be away from 同义。be late for 意为「迟到」，be interested in 意为「对……感兴趣」，be good at 意为「擅长」。\n【总结】absent 的反义词是 present（出席）。absent-minded 意为「心不在焉的」。",
+    "difficulty": 0.4
+  },
+  {
+    "id": "en_j2_vocab_010",
+    "subject": "english",
+    "grade": "junior2",
+    "knowledge_tag": "词汇辨析",
+    "ability_tag": "近义词辨析",
+    "type": "multiple_choice",
+    "question": "选出与划线单词意思最接近的选项。\n\nPlease repeat what I just said.\n\nA. say again\nB. write down\nC. think about\nD. look for",
+    "options": [
+      "A. say again",
+      "B. write down",
+      "C. think about",
+      "D. look for"
+    ],
+    "answer": "A",
+    "analysis": "【考点】近义词辨析：repeat = say again（重复）。\n【解题思路】repeat 意为「重复」，即 say again。write down 意为「写下」，think about 意为「思考」，look for 意为「寻找」。\n【总结】re- 前缀常表示「再次」：repeat(重复), rewrite(重写), rebuild(重建), reuse(再利用)。",
+    "difficulty": 0.3
+  },
+  {
+    "id": "en_j2_vocab_011",
+    "subject": "english",
+    "grade": "junior2",
+    "knowledge_tag": "词汇辨析",
+    "ability_tag": "近义词辨析",
+    "type": "multiple_choice",
+    "question": "选出与划线单词意思最接近的选项。\n\nThey provided us with food and water.\n\nA. gave\nB. showed\nC. sold\nD. lent",
+    "options": [
+      "A. gave",
+      "B. showed",
+      "C. sold",
+      "D. lent"
+    ],
+    "answer": "A",
+    "analysis": "【考点】近义词辨析：provide = give（提供）。\n【解题思路】provide sb. with sth. 意为「给某人提供某物」，与 give sb. sth. 意思接近。showed 意为「展示」，sold 意为「卖」，lent 意为「借出」。\n【总结】provide 的常见搭配：provide sb. with sth. = provide sth. for sb.（为某人提供某物）。",
+    "difficulty": 0.4
+  },
+  {
+    "id": "en_j2_vocab_012",
+    "subject": "english",
+    "grade": "junior2",
+    "knowledge_tag": "词汇辨析",
+    "ability_tag": "近义词辨析",
+    "type": "multiple_choice",
+    "question": "选出与划线单词意思最接近的选项。\n\nShe was nervous before the exam.\n\nA. excited\nB. worried\nC. happy\nD. angry",
+    "options": [
+      "A. excited",
+      "B. worried",
+      "C. happy",
+      "D. angry"
+    ],
+    "answer": "B",
+    "analysis": "【考点】近义词辨析：nervous = worried（紧张的/担忧的）。\n【解题思路】nervous 意为「紧张的」，与 worried 语义最接近。excited 意为「兴奋的」，happy 意为「开心的」，angry 意为「生气的」。\n【总结】nervous 的名词形式为 nerve（神经），常见搭配：be nervous about sth.（对……感到紧张）。",
+    "difficulty": 0.3
+  },
+  {
+    "id": "en_j2_vocab_013",
+    "subject": "english",
+    "grade": "junior2",
+    "knowledge_tag": "词汇辨析",
+    "ability_tag": "近义词辨析",
+    "type": "multiple_choice",
+    "question": "选出与划线单词意思最接近的选项。\n\nThe man was very brave and saved the child.\n\nA. clever\nB. strong\nC. not afraid\nD. careful",
+    "options": [
+      "A. clever",
+      "B. strong",
+      "C. not afraid",
+      "D. careful"
+    ],
+    "answer": "C",
+    "analysis": "【考点】近义词辨析：brave = not afraid（勇敢的）。\n【解题思路】brave 意为「勇敢的」，即 not afraid（不害怕的）。clever 意为「聪明的」，strong 意为「强壮的」，careful 意为「小心的」。\n【总结】brave 的名词形式是 bravery（勇气）。常见搭配：be brave enough to do sth.（足够勇敢去做某事）。",
+    "difficulty": 0.3
+  },
+  {
+    "id": "en_j2_vocab_014",
+    "subject": "english",
+    "grade": "junior2",
+    "knowledge_tag": "词汇辨析",
+    "ability_tag": "近义词辨析",
+    "type": "multiple_choice",
+    "question": "选出与划线单词意思最接近的选项。\n\nWe need to find a solution to this problem.\n\nA. a way to solve\nB. a reason for\nC. a question about\nD. a story about",
+    "options": [
+      "A. a way to solve",
+      "B. a reason for",
+      "C. a question about",
+      "D. a story about"
+    ],
+    "answer": "A",
+    "analysis": "【考点】近义词辨析：solution = a way to solve（解决办法）。\n【解题思路】solution 意为「解决方案」，与 a way to solve（解决方法）同义。a reason for 意为「……的原因」，a question about 意为「关于……的问题」。\n【总结】solve（动词，解决）→ solution（名词，解决方案）。注意拼写：solution 中是 -lu-，不是 -lo-。",
+    "difficulty": 0.4
+  },
+  {
+    "id": "en_j2_vocab_015",
+    "subject": "english",
+    "grade": "junior2",
+    "knowledge_tag": "词汇辨析",
+    "ability_tag": "近义词辨析",
+    "type": "multiple_choice",
+    "question": "选出与划线单词意思最接近的选项。\n\nThe teacher praised him for his hard work.\n\nA. was angry with\nB. spoke highly of\nC. was strict with\nD. was worried about",
+    "options": [
+      "A. was angry with",
+      "B. spoke highly of",
+      "C. was strict with",
+      "D. was worried about"
+    ],
+    "answer": "B",
+    "analysis": "【考点】近义词辨析：praise = speak highly of（表扬）。\n【解题思路】praise 意为「表扬，赞扬」，与 speak highly of（高度评价）同义。was angry with 意为「生……的气」，was strict with 意为「对……严格」，was worried about 意为「担心」。\n【总结】praise sb. for sth.（因某事表扬某人）是八年级常见句型。其反义词组是 criticize sb. for sth.。",
+    "difficulty": 0.4
+  },
+  {
+    "id": "en_j2_vocab_016",
+    "subject": "english",
+    "grade": "junior2",
+    "knowledge_tag": "词汇辨析",
+    "ability_tag": "近义词辨析",
+    "type": "multiple_choice",
+    "question": "选出与划线单词意思最接近的选项。\n\nPlease complete the form with your personal information.\n\nA. fill in\nB. look at\nC. read through\nD. hand in",
+    "options": [
+      "A. fill in",
+      "B. look at",
+      "C. read through",
+      "D. hand in"
+    ],
+    "answer": "A",
+    "analysis": "【考点】近义词辨析：complete = fill in（填写，完成）。\n【解题思路】complete the form 意为「填写表格」，与 fill in the form 同义。look at 意为「看」，read through 意为「通读」，hand in 意为「上交」。\n【总结】表示「填写表格」的表达：fill in the form / fill out the form / complete the form。",
+    "difficulty": 0.3
+  },
+  {
+    "id": "en_j2_vocab_017",
+    "subject": "english",
+    "grade": "junior2",
+    "knowledge_tag": "词汇辨析",
+    "ability_tag": "近义词辨析",
+    "type": "multiple_choice",
+    "question": "选出与划线单词意思最接近的选项。\n\nShe is looking forward to hearing from you.\n\nA. waiting for\nB. worrying about\nC. thinking of\nD. dreaming of",
+    "options": [
+      "A. waiting for",
+      "B. worrying about",
+      "C. thinking of",
+      "D. dreaming of"
+    ],
+    "answer": "A",
+    "analysis": "【考点】近义词辨析：look forward to = wait for eagerly（期待）。\n【解题思路】look forward to 意为「期待，盼望」，与 wait for（等待）语义接近，但语气更强。worrying about 意为「担心」，thinking of 意为「考虑」，dreaming of 意为「梦想」。\n【总结】注意 look forward to 中的 to 是介词，后接名词或动名词（doing），不接动词原形。",
+    "difficulty": 0.4
+  },
+  {
+    "id": "en_j2_vocab_018",
+    "subject": "english",
+    "grade": "junior2",
+    "knowledge_tag": "词汇辨析",
+    "ability_tag": "近义词辨析",
+    "type": "multiple_choice",
+    "question": "选出与划线单词意思最接近的选项。\n\nThe population of this city has increased rapidly.\n\nA. gone up\nB. gone down\nC. stayed the same\nD. changed a lot",
+    "options": [
+      "A. gone up",
+      "B. gone down",
+      "C. stayed the same",
+      "D. changed a lot"
+    ],
+    "answer": "A",
+    "analysis": "【考点】近义词辨析：increase = go up（增加）。\n【解题思路】increase 意为「增加，增长」，与 go up 同义。go down 意为「下降」，stay the same 意为「保持不变」，change a lot 意为「变化很大」。\n【总结】increase 的反义词是 decrease（减少）。increase 也可作名词，如 a rapid increase（快速增长）。",
+    "difficulty": 0.4
+  },
+  {
+    "id": "en_j2_vocab_019",
+    "subject": "english",
+    "grade": "junior2",
+    "knowledge_tag": "词汇辨析",
+    "ability_tag": "近义词辨析",
+    "type": "multiple_choice",
+    "question": "选出与划线单词意思最接近的选项。\n\nHe couldn't sleep last night because the noise kept him awake.\n\nA. asleep\nB. not sleeping\nC. tired\nD. sick",
+    "options": [
+      "A. asleep",
+      "B. not sleeping",
+      "C. tired",
+      "D. sick"
+    ],
+    "answer": "B",
+    "analysis": "【考点】近义词辨析：awake = not sleeping（醒着的）。\n【解题思路】awake 意为「醒着的」，与 not sleeping 同义。asleep 意为「睡着的」（awake 的反义词），tired 意为「疲倦的」，sick 意为「生病的」。\n【总结】awake/asleep 是一对反义词。常见搭配：keep sb. awake（使某人保持清醒），fall asleep（入睡）。",
+    "difficulty": 0.3
+  },
+  {
+    "id": "en_j2_vocab_020",
+    "subject": "english",
+    "grade": "junior2",
+    "knowledge_tag": "词汇辨析",
+    "ability_tag": "近义词辨析",
+    "type": "multiple_choice",
+    "question": "选出与划线单词意思最接近的选项。\n\nThe students took part in the sports meeting yesterday.\n\nA. joined in\nB. watched\nC. organized\nD. won",
+    "options": [
+      "A. joined in",
+      "B. watched",
+      "C. organized",
+      "D. won"
+    ],
+    "answer": "A",
+    "analysis": "【考点】近义词辨析：take part in = join in（参加）。\n【解题思路】take part in 意为「参加」，与 join in 同义。watched 意为「观看」，organized 意为「组织」，won 意为「赢得」。\n【总结】join 通常接某个组织（join the club/army），join in/take part in 通常接活动（take part in the game/competition）。",
+    "difficulty": 0.3
+  },
+  {
+    "id": "en_j2_vocab_021",
+    "subject": "english",
+    "grade": "junior2",
+    "knowledge_tag": "语境选词",
+    "ability_tag": "词汇运用",
+    "type": "multiple_choice",
+    "question": "选择正确的单词填空。\n\nHe was very _____ when he heard the good news.\n\nA. sad\nB. excited\nC. angry\nD. bored",
+    "options": [
+      "A. sad",
+      "B. excited",
+      "C. angry",
+      "D. bored"
+    ],
+    "answer": "B",
+    "analysis": "【考点】语境选词：根据「good news」（好消息）判断心情。\n【解题思路】听到好消息应该感到 excited（兴奋），而不是 sad（难过）、angry（生气）或 bored（无聊）。\n【总结】做语境选词题的关键：找到上下文线索。本题线索是 good news，对应 excited。",
+    "difficulty": 0.3
+  },
+  {
+    "id": "en_j2_vocab_022",
+    "subject": "english",
+    "grade": "junior2",
+    "knowledge_tag": "语境选词",
+    "ability_tag": "词汇运用",
+    "type": "multiple_choice",
+    "question": "选择正确的单词填空。\n\nYou should _____ your hands before eating.\n\nA. wash\nB. shake\nC. hold\nD. raise",
+    "options": [
+      "A. wash",
+      "B. shake",
+      "C. hold",
+      "D. raise"
+    ],
+    "answer": "A",
+    "analysis": "【考点】语境选词：根据「before eating」（饭前）判断动作。\n【解题思路】饭前应该 wash hands（洗手）。shake hands 意为「握手」，hold hands 意为「牵手」，raise hands 意为「举手」。\n【总结】wash 是日常卫生用语的核心词汇：wash hands, wash face, wash clothes, wash dishes。",
+    "difficulty": 0.2
+  },
+  {
+    "id": "en_j2_vocab_023",
+    "subject": "english",
+    "grade": "junior2",
+    "knowledge_tag": "语境选词",
+    "ability_tag": "词汇运用",
+    "type": "multiple_choice",
+    "question": "选择正确的单词填空。\n\nThe old man lives _____, but he doesn't feel lonely.\n\nA. alone\nB. along\nC. already\nD. awake",
+    "options": [
+      "A. alone",
+      "B. along",
+      "C. already",
+      "D. awake"
+    ],
+    "answer": "A",
+    "analysis": "【考点】语境选词：lives alone（独自生活）+ doesn't feel lonely（不觉得孤独）。\n【解题思路】lives alone 意为「独自生活」，与后面的 doesn't feel lonely 形成对比。along 意为「沿着」，already 意为「已经」，awake 意为「醒着的」。\n【总结】alone（独自的）≠ lonely（孤独的）。alone 是客观状态，lonely 是主观感受。He lives alone, but he doesn't feel lonely.（他独自生活，但不觉得孤独。）",
+    "difficulty": 0.4
+  },
+  {
+    "id": "en_j2_vocab_024",
+    "subject": "english",
+    "grade": "junior2",
+    "knowledge_tag": "语境选词",
+    "ability_tag": "词汇运用",
+    "type": "multiple_choice",
+    "question": "选择正确的单词填空。\n\nThe students are busy _____ for the coming exam.\n\nA. prepare\nB. preparing\nC. prepared\nD. to prepare",
+    "options": [
+      "A. prepare",
+      "B. preparing",
+      "C. prepared",
+      "D. to prepare"
+    ],
+    "answer": "B",
+    "analysis": "【考点】语境选词：be busy doing sth.（忙于做某事）。\n【解题思路】be busy 后接动名词（doing）形式，表示「忙于做某事」。所以应选 preparing。\n【总结】八年级核心句型：be busy doing sth.（忙于做某事）。注意区分：be busy with sth.（忙于某事，后接名词）。",
+    "difficulty": 0.4
+  },
+  {
+    "id": "en_j2_vocab_025",
+    "subject": "english",
+    "grade": "junior2",
+    "knowledge_tag": "语境选词",
+    "ability_tag": "词汇运用",
+    "type": "multiple_choice",
+    "question": "选择正确的单词填空。\n\nThe boy _____ his wallet on the bus yesterday.\n\nA. forgot\nB. left\nC. lost\nD. missed",
+    "options": [
+      "A. forgot",
+      "B. left",
+      "C. lost",
+      "D. missed"
+    ],
+    "answer": "B",
+    "analysis": "【考点】语境选词：leave sth. somewhere（把某物落在某处）。\n【解题思路】leave sth. + 地点 表示「把某物落在某处」。forgot 意为「忘记」但不接地点，lost 意为「丢失」，missed 意为「想念/错过」。\n【总结】leave sth. somewhere（把某物忘在某处）是八年级高频考点。注意：不能说 forgot my wallet on the bus，应该说 left my wallet on the bus。",
+    "difficulty": 0.4
+  },
+  {
+    "id": "en_j2_vocab_026",
+    "subject": "english",
+    "grade": "junior2",
+    "knowledge_tag": "语境选词",
+    "ability_tag": "词汇运用",
+    "type": "multiple_choice",
+    "question": "选择正确的单词填空。\n\nWe should _____ our classroom clean and tidy.\n\nA. keep\nB. make\nC. let\nD. take",
+    "options": [
+      "A. keep",
+      "B. make",
+      "C. let",
+      "D. take"
+    ],
+    "answer": "A",
+    "analysis": "【考点】语境选词：keep sth. + 形容词（保持某物……）。\n【解题思路】keep 意为「保持」，keep sth. clean 意为「保持某物干净」。make 也有使役用法（make sth. adj.），但侧重于「使变成」，keep 侧重于「维持」。此处「保持」比「使变成」更恰当。\n【总结】keep + 宾语 + 形容词：keep the room clean, keep your eyes open, keep healthy。",
+    "difficulty": 0.3
+  },
+  {
+    "id": "en_j2_vocab_027",
+    "subject": "english",
+    "grade": "junior2",
+    "knowledge_tag": "语境选词",
+    "ability_tag": "词汇运用",
+    "type": "multiple_choice",
+    "question": "选择正确的单词填空。\n\nMy parents often _____ me not to play computer games too much.\n\nA. hope\nB. wish\nC. advise\nD. let",
+    "options": [
+      "A. hope",
+      "B. wish",
+      "C. advise",
+      "D. let"
+    ],
+    "answer": "C",
+    "analysis": "【考点】语境选词：advise sb. not to do sth.（建议某人不要做某事）。\n【解题思路】四个动词中，只有 advise 可以直接接 sb. not to do sth. 的结构。hope 不能接 sb. to do，wish 虽然可以接 sb. to do 但语义不符（祝愿），let 后接不带 to 的不定式。\n【总结】hope 不接 sb. to do sth.（只能用 hope that...）。advise/tell/want/invite 都可接 sb. (not) to do sth.",
+    "difficulty": 0.5
+  },
+  {
+    "id": "en_j2_vocab_028",
+    "subject": "english",
+    "grade": "junior2",
+    "knowledge_tag": "语境选词",
+    "ability_tag": "词汇运用",
+    "type": "multiple_choice",
+    "question": "选择正确的单词填空。\n\nIt's raining heavily outside. You'd better _____ at home.\n\nA. to stay\nB. staying\nC. stay\nD. stayed",
+    "options": [
+      "A. to stay",
+      "B. staying",
+      "C. stay",
+      "D. stayed"
+    ],
+    "answer": "C",
+    "analysis": "【考点】语境选词：had better do sth.（最好做某事）。\n【解题思路】had better 后接动词原形（不带 to），所以选 stay。否定形式是 had better not do sth.。\n【总结】had better (not) do sth. 是八年级重要句型。类似的还有：would rather do sth.（宁愿做某事）。",
+    "difficulty": 0.4
+  },
+  {
+    "id": "en_j2_vocab_029",
+    "subject": "english",
+    "grade": "junior2",
+    "knowledge_tag": "语境选词",
+    "ability_tag": "词汇运用",
+    "type": "multiple_choice",
+    "question": "选择正确的单词填空。\n\nThe doctor _____ me to drink more water and have a good rest.\n\nA. advised\nB. allowed\nC. asked\nD. agreed",
+    "options": [
+      "A. advised",
+      "B. allowed",
+      "C. asked",
+      "D. agreed"
+    ],
+    "answer": "A",
+    "analysis": "【考点】语境选词：根据医生和病人的语境选择合适动词。\n【解题思路】医生给病人建议用 advise（建议）。allowed（允许）语义偏弱，asked（要求/让）语气偏强，agreed（同意）语义不符。\n【总结】医生场景常见搭配：advise sb. to do sth., tell sb. to do sth., suggest doing sth.",
+    "difficulty": 0.4
+  },
+  {
+    "id": "en_j2_vocab_030",
+    "subject": "english",
+    "grade": "junior2",
+    "knowledge_tag": "语境选词",
+    "ability_tag": "词汇运用",
+    "type": "multiple_choice",
+    "question": "选择正确的单词填空。\n\nThe girl is _____ young _____ go to school.\n\nA. so; that\nB. too; to\nC. enough; to\nD. very; that",
+    "options": [
+      "A. so; that",
+      "B. too; to",
+      "C. enough; to",
+      "D. very; that"
+    ],
+    "answer": "B",
+    "analysis": "【考点】语境选词：too...to...（太……以至于不能……）。\n【解题思路】句意为「这个女孩太小了，不能去上学」。too + adj. + to do sth. 表示「太……以至于不能做某事」。so...that... 需接从句，enough...to... 表示「足够……可以做某事」。\n【总结】too...to... = so...that...can't... 如：She is too young to go to school. = She is so young that she can't go to school.",
+    "difficulty": 0.4
+  },
+  {
+    "id": "en_j2_vocab_031",
+    "subject": "english",
+    "grade": "junior2",
+    "knowledge_tag": "语境选词",
+    "ability_tag": "词汇运用",
+    "type": "multiple_choice",
+    "question": "选择正确的单词填空。\n\nPlease _____ the TV. The baby is sleeping.\n\nA. turn on\nB. turn off\nC. turn up\nD. turn down",
+    "options": [
+      "A. turn on",
+      "B. turn off",
+      "C. turn up",
+      "C. turn down"
+    ],
+    "answer": "B",
+    "analysis": "【考点】语境选词：turn off（关掉）vs turn on（打开）。\n【解题思路】宝宝在睡觉，应该关掉电视，选 turn off。turn on（打开），turn up（调大音量），turn down（调小音量）。\n【总结】turn 短语：turn on（打开）/turn off（关掉）/turn up（调大）/turn down（调小）。音量调小也可用 turn down，但关电视更彻底。",
+    "difficulty": 0.3
+  },
+  {
+    "id": "en_j2_vocab_032",
+    "subject": "english",
+    "grade": "junior2",
+    "knowledge_tag": "语境选词",
+    "ability_tag": "词汇运用",
+    "type": "multiple_choice",
+    "question": "选择正确的单词填空。\n\nHe has _____ been to Beijing three times.\n\nA. yet\nB. already\nC. ever\nD. never",
+    "options": [
+      "A. yet",
+      "B. already",
+      "C. ever",
+      "D. never"
+    ],
+    "answer": "B",
+    "analysis": "【考点】语境选词：already vs yet vs ever vs never 的用法区别。\n【解题思路】句意为「他已经去过北京三次」。already 用于肯定句，意为「已经」。yet 用于否定句和疑问句末尾，ever 用于疑问句，never 用于否定含义。\n【总结】现在完成时标志词：already（已经，肯定句）/yet（还没，否定疑问句）/ever（曾经，疑问句）/never（从不）。",
+    "difficulty": 0.4
+  },
+  {
+    "id": "en_j2_vocab_033",
+    "subject": "english",
+    "grade": "junior2",
+    "knowledge_tag": "语境选词",
+    "ability_tag": "词汇运用",
+    "type": "multiple_choice",
+    "question": "选择正确的单词填空。\n\nIt's very kind _____ you to help me with my English.\n\nA. for\nB. of\nC. to\nD. with",
+    "options": [
+      "A. for",
+      "B. of",
+      "C. to",
+      "D. with"
+    ],
+    "answer": "B",
+    "analysis": "【考点】语境选词：It's kind of sb. to do sth.（某人做某事真好/真善良）。\n【解题思路】当形容词描述的是人的品质（kind, nice, clever, foolish 等）时，用 It's + adj. + of sb. to do sth.。当形容词描述的是事物的特征（important, necessary, difficult 等）时，用 It's + adj. + for sb. to do sth.\n【总结】of：描述人的品质（kind, nice, good, clever, foolish, cruel 等）。for：描述动作的特征（important, necessary, hard, easy 等）。",
+    "difficulty": 0.5
+  },
+  {
+    "id": "en_j2_vocab_034",
+    "subject": "english",
+    "grade": "junior2",
+    "knowledge_tag": "语境选词",
+    "ability_tag": "词汇运用",
+    "type": "multiple_choice",
+    "question": "选择正确的单词填空。\n\nThe teacher asked us to _____ attention to our pronunciation.\n\nA. pay\nB. give\nC. take\nD. put",
+    "options": [
+      "A. pay",
+      "B. give",
+      "C. take",
+      "D. put"
+    ],
+    "answer": "A",
+    "analysis": "【考点】固定搭配：pay attention to（注意）。\n【解题思路】pay attention to 是固定搭配，意为「注意」。give attention 无此用法，take attention 不正确，put attention to 不正确。\n【总结】pay 的常见搭配：pay attention to（注意）/ pay for（付款）/ pay a visit to（拜访）。",
+    "difficulty": 0.3
+  },
+  {
+    "id": "en_j2_vocab_035",
+    "subject": "english",
+    "grade": "junior2",
+    "knowledge_tag": "语境选词",
+    "ability_tag": "词汇运用",
+    "type": "multiple_choice",
+    "question": "选择正确的单词填空。\n\nI'm not sure. It _____ be true, but I'm not certain.\n\nA. must\nB. can't\nC. might\nD. should",
+    "options": [
+      "A. must",
+      "B. can't",
+      "C. might",
+      "D. should"
+    ],
+    "answer": "C",
+    "analysis": "【考点】语境选词：情态动词表示推测。\n【解题思路】「I'm not sure」和「I'm not certain」表明不确定，所以用 might（可能）。must 表示肯定推测，can't 表示否定推测，should 表示应该。\n【总结】情态动词推测语气：must（一定）> should/ought to（应该）> may/might（可能）> can't（不可能）。",
+    "difficulty": 0.5
+  },
+  {
+    "id": "en_j2_vocab_036",
+    "subject": "english",
+    "grade": "junior2",
+    "knowledge_tag": "语境选词",
+    "ability_tag": "词汇运用",
+    "type": "multiple_choice",
+    "question": "选择正确的单词填空。\n\nHe ran so fast that he _____ the first bus.\n\nA. caught\nB. missed\nC. took\nD. got",
+    "options": [
+      "A. caught",
+      "B. missed",
+      "C. took",
+      "D. got"
+    ],
+    "answer": "A",
+    "analysis": "【考点】语境选词：catch a bus（赶上公交车）。\n【解题思路】「ran so fast」（跑得很快）表明赶上了公交车，用 caught。missed（错过）与句意矛盾，took（乘坐）不如 caught 体现「赶上」的含义。\n【总结】catch 的常见搭配：catch a bus/train（赶上公交/火车）/ catch a cold（感冒）/ catch one's eye（吸引某人的注意）。",
+    "difficulty": 0.4
+  },
+  {
+    "id": "en_j2_vocab_037",
+    "subject": "english",
+    "grade": "junior2",
+    "knowledge_tag": "语境选词",
+    "ability_tag": "词汇运用",
+    "type": "multiple_choice",
+    "question": "选择正确的单词填空。\n\nWe should eat _____ food and do more exercise to stay healthy.\n\nA. healthy\nB. health\nC. healthily\nD. unhealthy",
+    "options": [
+      "A. healthy",
+      "B. health",
+      "C. healthily",
+      "D. unhealthy"
+    ],
+    "answer": "A",
+    "analysis": "【考点】语境选词：healthy food（健康的食物）。\n【解题思路】food 是名词，前面需要形容词修饰。healthy 意为「健康的」符合语境。health 是名词，healthily 是副词，unhealthy 意为「不健康的」与「stay healthy」矛盾。\n【总结】healthy（形容词，健康的）/ health（名词，健康）/ healthily（副词，健康地）。Keep healthy = stay healthy = keep in good health。",
+    "difficulty": 0.3
+  },
+  {
+    "id": "en_j2_vocab_038",
+    "subject": "english",
+    "grade": "junior2",
+    "knowledge_tag": "语境选词",
+    "ability_tag": "词汇运用",
+    "type": "multiple_choice",
+    "question": "选择正确的单词填空。\n\n_____ the bad weather, we still had a wonderful trip.\n\nA. Because of\nB. Because\nC. Although\nD. So",
+    "options": [
+      "A. Because of",
+      "B. Because",
+      "C. Although",
+      "D. So"
+    ],
+    "answer": "C",
+    "analysis": "【考点】语境选词：Although（尽管）表让步。\n【解题思路】「天气不好但旅行很棒」是转折让步关系，用 Although（尽管）。Because of/Because 表原因（虽然天气不好所以旅行好？逻辑不通），So 表结果。\n【总结】Although/Though + 从句（尽管……），Despite/In spite of + 名词/短语（尽管……）。Although 不能和 but 同时使用。",
+    "difficulty": 0.4
+  },
+  {
+    "id": "en_j2_vocab_039",
+    "subject": "english",
+    "grade": "junior2",
+    "knowledge_tag": "语境选词",
+    "ability_tag": "词汇运用",
+    "type": "multiple_choice",
+    "question": "选择正确的单词填空。\n\nThe old woman has _____ her teeth. She has to eat soft food.\n\nA. lost\nB. broken\nC. hurt\nD. hit",
+    "options": [
+      "A. lost",
+      "B. broken",
+      "C. hurt",
+      "D. hit"
+    ],
+    "answer": "A",
+    "analysis": "【考点】语境选词：lose one's teeth（掉牙）。\n【解题思路】「只能吃软食」暗示牙齿没了，用 lost（丢失/掉了）。broken 意为「弄碎」，hurt 意为「受伤」，hit 意为「打/击」。\n【总结】lose 的过去式是 lost（过去分词同为 lost），注意与 loose（松的）区分拼写。",
+    "difficulty": 0.4
+  },
+  {
+    "id": "en_j2_vocab_040",
+    "subject": "english",
+    "grade": "junior2",
+    "knowledge_tag": "语境选词",
+    "ability_tag": "词汇运用",
+    "type": "multiple_choice",
+    "question": "选择正确的单词填空。\n\nYou don't need to take a taxi. The hotel is _____ from here.\n\nA. far\nB. near\nC. close\nD. nearby",
+    "options": [
+      "A. far",
+      "B. near",
+      "C. close",
+      "D. nearby"
+    ],
+    "answer": "C",
+    "analysis": "【考点】语境选词：close to（离……近）。\n【解题思路】「不需要打车」说明酒店很近。close from 不对，应为 close to。near 也是「近」的意思但搭配不对，nearby 是副词，不能用于 close from 结构。\n【总结】严格来说，标准表达是 The hotel is close to here. 或 The hotel is near here. 但 close from 是错误搭配。此题考查搭配意识。",
+    "difficulty": 0.4
+  },
+  {
+    "id": "en_j2_vocab_041",
+    "subject": "english",
+    "grade": "junior2",
+    "knowledge_tag": "构词法",
+    "ability_tag": "词缀变换",
+    "type": "multiple_choice",
+    "question": "选择正确的词形填空。\n\nThe book is very _____. I'm _____ in reading it. (interest)\n\nA. interesting; interested\nB. interested; interesting\nC. interesting; interesting\nD. interested; interested",
+    "options": [
+      "A. interesting; interested",
+      "B. interested; interesting",
+      "C. interesting; interesting",
+      "D. interested; interested"
+    ],
+    "answer": "A",
+    "analysis": "【考点】构词法：-ing（令人……的）vs -ed（感到……的）。\n【解题思路】interesting 描述事物特征（这本书很有趣），interested 描述人的感受（我对……感兴趣）。\n【总结】-ing 形容事物：interesting, boring, exciting, relaxing, surprising。\n-ed 形容人：interested, bored, excited, relaxed, surprised。",
+    "difficulty": 0.3
+  },
+  {
+    "id": "en_j2_vocab_042",
+    "subject": "english",
+    "grade": "junior2",
+    "knowledge_tag": "构词法",
+    "ability_tag": "词缀变换",
+    "type": "multiple_choice",
+    "question": "选择正确的词形填空。\n\nShe is one of the best _____ in our school. (sing)\n\nA. sing\nB. sings\nC. singers\nD. singing",
+    "options": [
+      "A. sing",
+      "B. sings",
+      "C. singers",
+      "D. singing"
+    ],
+    "answer": "C",
+    "analysis": "【考点】构词法：-er 后缀表人（做某事的人）。\n【解题思路】sing + er = singer（歌手）。「one of the best singers」 意为「最好的歌手之一」。\n【总结】-er/-or/-ist 后缀表示人：teach→teacher, act→actor, art→artist, science→scientist, visit→visitor。",
+    "difficulty": 0.3
+  },
+  {
+    "id": "en_j2_vocab_043",
+    "subject": "english",
+    "grade": "junior2",
+    "knowledge_tag": "构词法",
+    "ability_tag": "词缀变换",
+    "type": "multiple_choice",
+    "question": "选择正确的词形填空。\n\nIt's very _____ outside. You'd better take an umbrella. (rain)\n\nA. rain\nB. raining\nC. rainy\nD. rained",
+    "options": [
+      "A. rain",
+      "B. raining",
+      "C. rainy",
+      "D. rained"
+    ],
+    "answer": "C",
+    "analysis": "【考点】构词法：-y 后缀构成形容词。\n【解题思路】rain + y = rainy（下雨的），作表语描述天气。raining 是现在分词，不能直接作形容词表语。\n【总结】-y 后缀构成形容词：sun→sunny, wind→windy, cloud→cloudy, snow→snowy, fog→foggy, noise→noisy, health→healthy。",
+    "difficulty": 0.3
+  },
+  {
+    "id": "en_j2_vocab_044",
+    "subject": "english",
+    "grade": "junior2",
+    "knowledge_tag": "构词法",
+    "ability_tag": "词缀变换",
+    "type": "multiple_choice",
+    "question": "选择正确的词形填空。\n\nWe should eat _____ food and exercise more to stay fit. (health)\n\nA. health\nB. healthy\nC. healthily\nD. unhealthy",
+    "options": [
+      "A. health",
+      "B. healthy",
+      "C. healthily",
+      "D. unhealthy"
+    ],
+    "answer": "B",
+    "analysis": "【考点】构词法：-th 后缀构成名词 → 去掉-th 加 -thy 构成形容词。\n【解题思路】health（名词，健康）→ healthy（形容词，健康的）。food 是名词，需要形容词修饰。\n【总结】名词→形容词变化：health→healthy, use→useful, care→careful, help→helpful, thank→thankful, wonder→wonderful。",
+    "difficulty": 0.3
+  },
+  {
+    "id": "en_j2_vocab_045",
+    "subject": "english",
+    "grade": "junior2",
+    "knowledge_tag": "构词法",
+    "ability_tag": "词缀变换",
+    "type": "multiple_choice",
+    "question": "选择正确的词形填空。\n\nHis grandfather has been _____ for two years. (die)\n\nA. die\nB. died\nC. dead\nD. death",
+    "options": [
+      "A. die",
+      "B. died",
+      "C. dead",
+      "D. death"
+    ],
+    "answer": "C",
+    "analysis": "【考点】构词法：die/died/dead/death 的区别。\n【解题思路】die（动词），died（过去式/过去分词，表示动作），dead（形容词，表示状态），death（名词）。「for two years」是持续时间段，需要用形容词 dead 表示状态。\n【总结】die（动词，瞬间动词）不能与 for 连用。要表示「去世多久了」：has been dead for... / died...ago。",
+    "difficulty": 0.5
+  },
+  {
+    "id": "en_j2_vocab_046",
+    "subject": "english",
+    "grade": "junior2",
+    "knowledge_tag": "构词法",
+    "ability_tag": "词缀变换",
+    "type": "multiple_choice",
+    "question": "选择正确的词形填空。\n\nThe boy was too _____ to move. He just stood there. (frighten)\n\nA. frighten\nB. frightened\nC. frightening\nD. frightens",
+    "options": [
+      "A. frighten",
+      "B. frightened",
+      "C. frightening",
+      "D. frightens"
+    ],
+    "answer": "B",
+    "analysis": "【考点】构词法：frightened（感到害怕的）vs frightening（令人害怕的）。\n【解题思路】描述人的感受用 frightened（害怕的）， frightening 描述事物特征（令人害怕的）。\n【总结】类似 -ed/-ing 区分：frightened/frightening, tired/tiring, amazed/amazing, disappointed/disappointing。",
+    "difficulty": 0.4
+  },
+  {
+    "id": "en_j2_vocab_047",
+    "subject": "english",
+    "grade": "junior2",
+    "knowledge_tag": "构词法",
+    "ability_tag": "词缀变换",
+    "type": "multiple_choice",
+    "question": "选择正确的词形填空。\n\nThe _____ of the restaurant made everyone feel welcome. (own)\n\nA. own\nB. owner\nC. owns\nD. ownership",
+    "options": [
+      "A. own",
+      "B. owner",
+      "C. owns",
+      "D. ownership"
+    ],
+    "answer": "B",
+    "analysis": "【考点】构词法：-er 后缀表人（所有者/主人）。\n【解题思路】own + er = owner（主人/所有者）。此处需要名词表示「餐厅老板」。\n【总结】own 的常见用法：my own book（我自己的书）/ on one's own（独自）/ owner（所有者）/ ownership（所有权）。",
+    "difficulty": 0.3
+  },
+  {
+    "id": "en_j2_vocab_048",
+    "subject": "english",
+    "grade": "junior2",
+    "knowledge_tag": "构词法",
+    "ability_tag": "词缀变换",
+    "type": "multiple_choice",
+    "question": "选择正确的词形填空。\n\nTom did his homework very _____. He made few mistakes. (careful)\n\nA. careful\nB. carefully\nC. careless\nD. carelessly",
+    "options": [
+      "A. careful",
+      "B. carefully",
+      "C. careless",
+      "D. carelessly"
+    ],
+    "answer": "B",
+    "analysis": "【考点】构词法：-ly 后缀构成副词。\n【解题思路】修饰动词 did 需要用副词 carefully（仔细地）。careful 是形容词不能修饰动词，careless/carelessly 意思相反。\n【总结】形容词 + ly = 副词：careful→carefully, happy→happily, quick→quickly, slow→slowly, easy→easily。注意：true→truly, possible→possibly 特殊变化。",
+    "difficulty": 0.3
+  },
+  {
+    "id": "en_j2_vocab_049",
+    "subject": "english",
+    "grade": "junior2",
+    "knowledge_tag": "构词法",
+    "ability_tag": "词缀变换",
+    "type": "multiple_choice",
+    "question": "选择正确的词形填空。\n\nThe boy was so _____ that he couldn't say a word. (surprise)\n\nA. surprising\nB. surprised\nC. surprise\nD. surprisingly",
+    "options": [
+      "A. surprising",
+      "B. surprised",
+      "C. surprise",
+      "D. surprisingly"
+    ],
+    "answer": "B",
+    "analysis": "【考点】构词法：surprised（感到惊讶的）vs surprising（令人惊讶的）。\n【解题思路】描述人（the boy）的感受用 surprised。surprising 描述事物，surprise 是名词/动词，surprisingly 是副词。\n【总结】be surprised at/by（对……感到惊讶）/ to one's surprise（令人惊讶的是）/ surprisingly（令人惊讶地）。",
+    "difficulty": 0.3
+  },
+  {
+    "id": "en_j2_vocab_050",
+    "subject": "english",
+    "grade": "junior2",
+    "knowledge_tag": "构词法",
+    "ability_tag": "词缀变换",
+    "type": "multiple_choice",
+    "question": "选择正确的词形填空。\n\nHe felt very _____ after running 1,000 meters. (tire)\n\nA. tiring\nB. tired\nC. tiredly\nD. tire",
+    "options": [
+      "A. tiring",
+      "B. tired",
+      "C. tiredly",
+      "D. tire"
+    ],
+    "answer": "B",
+    "analysis": "【考点】构词法：tired（感到疲倦的）vs tiring（令人疲倦的）。\n【解题思路】跑完1000米后感到疲倦，用 tired 描述人的感受。tiring 描述事物特征（令人疲倦的）。\n【总结】be tired from/after（因……而疲倦）/ be tired of（对……厌倦）。区分 tired（人）和 tiring（物）。",
+    "difficulty": 0.3
+  },
+  {
+    "id": "en_j2_vocab_051",
+    "subject": "english",
+    "grade": "junior2",
+    "knowledge_tag": "构词法",
+    "ability_tag": "词缀变换",
+    "type": "multiple_choice",
+    "question": "选择正确的词形填空。\n\nThank you for your _____. You really helped me a lot. (kind)\n\nA. kind\nB. kindly\nC. kindness\nD. kinder",
+    "options": [
+      "A. kind",
+      "B. kindly",
+      "C. kindness",
+      "D. kinder"
+    ],
+    "answer": "C",
+    "analysis": "【考点】构词法：-ness 后缀构成名词。\n【解题思路】介词 for 后接名词，kind + ness = kindness（善良/好意）。kind 是形容词，kindly 是副词，kinder 是比较级。\n【总结】-ness 后缀构成名词：happy→happiness, sad→sadness, ill→illness, dark→darkness, weak→weakness。注意 happy 变 happiness 要去 y 加 iess。",
+    "difficulty": 0.3
+  },
+  {
+    "id": "en_j2_vocab_052",
+    "subject": "english",
+    "grade": "junior2",
+    "knowledge_tag": "构词法",
+    "ability_tag": "词缀变换",
+    "type": "multiple_choice",
+    "question": "选择正确的词形填空。\n\nWe should protect the environment and reduce _____. (pollute)\n\nA. pollute\nB. polluted\nC. pollution\nD. polluting",
+    "options": [
+      "A. pollute",
+      "B. polluted",
+      "C. pollution",
+      "D. polluting"
+    ],
+    "answer": "C",
+    "analysis": "【考点】构词法：-tion 后缀构成名词。\n【解题思路】reduce 是动词，后接名词作宾语。pollute + tion = pollution（污染）。\n【总结】-tion/-sion 后缀构成名词：pollute→pollution, protect→protection, educate→education, decide→decision, invite→invitation。",
+    "difficulty": 0.3
+  },
+  {
+    "id": "en_j2_vocab_053",
+    "subject": "english",
+    "grade": "junior2",
+    "knowledge_tag": "构词法",
+    "ability_tag": "词缀变换",
+    "type": "multiple_choice",
+    "question": "选择正确的词形填空。\n\nHis _____ made it possible for the team to win. (lead)\n\nA. lead\nB. leader\nC. leadership\nD. leading",
+    "options": [
+      "A. lead",
+      "B. leader",
+      "C. leadership",
+      "D. leading"
+    ],
+    "answer": "C",
+    "analysis": "【考点】构词法：-ship 后缀构成抽象名词。\n【解题思路】lead + ship = leadership（领导力）。此处指「他的领导力使团队获胜」。leader 意为「领导者（人）」，语意不够准确。\n【总结】-ship 后缀构成抽象名词：friend→friendship, leader→leadership, relation→relationship, hard→hardship。",
+    "difficulty": 0.5
+  },
+  {
+    "id": "en_j2_vocab_054",
+    "subject": "english",
+    "grade": "junior2",
+    "knowledge_tag": "构词法",
+    "ability_tag": "词缀变换",
+    "type": "multiple_choice",
+    "question": "选择正确的词形填空。\n\nShe has a great _____ for music. She can play several instruments. (gift)\n\nA. gift\nB. gifted\nC. gifting\nD. gift's",
+    "options": [
+      "A. gift",
+      "B. gifted",
+      "C. gifting",
+      "D. gift's"
+    ],
+    "answer": "A",
+    "analysis": "【考点】构词法：gift 作名词表示「天赋/才能」。\n【解题思路】have a gift for... 意为「有……的天赋」。gifted 是形容词（有天赋的），不能直接跟在 a great 后面。\n【总结】gift 的两种含义：①礼物（present） ②天赋/才能（talent）。have a gift for = have a talent for（有……的天赋）。",
+    "difficulty": 0.4
+  },
+  {
+    "id": "en_j2_vocab_055",
+    "subject": "english",
+    "grade": "junior2",
+    "knowledge_tag": "构词法",
+    "ability_tag": "词缀变换",
+    "type": "multiple_choice",
+    "question": "选择正确的词形填空。\n\nThe food in this restaurant is _____, but the service is terrible.\n\nA. delicious\nB. deliciously\nC. deliciousness\nD. deliciouser",
+    "options": [
+      "A. delicious",
+      "B. deliciously",
+      "C. deliciousness",
+      "D. deliciouser"
+    ],
+    "answer": "A",
+    "analysis": "【考点】构词法：is 后接形容词作表语。\n【解题思路】The food is + 形容词，需要 delicious（美味的）。deliciously 是副词，deliciousness 是名词，deliciouser 不是正确比较级形式（delicious 的比较级是 more delicious）。\n【总结】多音节形容词比较级用 more：delicious→more delicious, beautiful→more beautiful, important→more important。",
+    "difficulty": 0.3
+  },
+  {
+    "id": "en_j2_vocab_056",
+    "subject": "english",
+    "grade": "junior2",
+    "knowledge_tag": "构词法",
+    "ability_tag": "词缀变换",
+    "type": "multiple_choice",
+    "question": "选择正确的词形填空。\n\nShe _____ to school every day because she lives near the school. (walk)\n\nA. walks\nB. walked\nC. is walking\nD. has walked",
+    "options": [
+      "A. walks",
+      "B. walked",
+      "C. is walking",
+      "D. has walked"
+    ],
+    "answer": "A",
+    "analysis": "【考点】构词法：动词第三人称单数。\n【解题思路】「every day」表示一般现在时，主语 She 是第三人称单数，动词加 -s：walk→walks。\n【总结】一般现在时第三人称单数规则：大多数动词加 -s（walks, plays）；以 s/x/sh/ch/o 结尾加 -es（goes, watches, washes）；辅音+y 结尾变 y 为 i 加 -es（studies, carries）。",
+    "difficulty": 0.2
+  },
+  {
+    "id": "en_j2_vocab_057",
+    "subject": "english",
+    "grade": "junior2",
+    "knowledge_tag": "构词法",
+    "ability_tag": "词缀变换",
+    "type": "multiple_choice",
+    "question": "选择正确的词形填空。\n\nThe _____ between the two countries has improved a lot. (communicate)\n\nA. communicate\nB. communication\nC. communicator\nD. communicated",
+    "options": [
+      "A. communicate",
+      "B. communication",
+      "C. communicator",
+      "D. communicated"
+    ],
+    "answer": "B",
+    "analysis": "【考点】构词法：-tion 后缀构成名词。\n【解题思路】主语需要名词，communicate + tion = communication（交流/沟通）。\n【总结】communication 的形容词形式是 communicative（善于交流的）。常见搭配：communicate with sb.（与某人交流）。",
+    "difficulty": 0.4
+  },
+  {
+    "id": "en_j2_vocab_058",
+    "subject": "english",
+    "grade": "junior2",
+    "knowledge_tag": "构词法",
+    "ability_tag": "词缀变换",
+    "type": "multiple_choice",
+    "question": "选择正确的词形填空。\n\nEnglish is _____ used all over the world. (wide)\n\nA. wide\nB. widely\nC. widen\nD. width",
+    "options": [
+      "A. wide",
+      "B. widely",
+      "C. widen",
+      "D. width"
+    ],
+    "answer": "B",
+    "analysis": "【考点】构词法：形容词 + ly → 副词。\n【解题思路】修饰动词 used 需要副词 widely（广泛地）。wide 是形容词，widen 是动词，width 是名词。\n【总结】widely used（广泛使用的）是八年级常见搭配。类似的有：widely known（广为人知的），widely spread（广泛传播的）。",
+    "difficulty": 0.4
+  },
+  {
+    "id": "en_j2_vocab_059",
+    "subject": "english",
+    "grade": "junior2",
+    "knowledge_tag": "构词法",
+    "ability_tag": "词缀变换",
+    "type": "multiple_choice",
+    "question": "选择正确的词形填空。\n\nHe made a _____ to work harder this term. (decide)\n\nA. decide\nB. decided\nC. decision\nD. deciding",
+    "options": [
+      "A. decide",
+      "B. decided",
+      "C. decision",
+      "D. deciding"
+    ],
+    "answer": "C",
+    "analysis": "【考点】构词法：decide → decision（名词）。\n【解题思路】make a decision 意为「做决定」，是固定搭配。decide 是动词，decided 是过去式/形容词。\n【总结】decide → decision（变 de 为 si，加 -sion）。类似变化：divide→division, include→inclusion, conclude→conclusion。",
+    "difficulty": 0.3
+  },
+  {
+    "id": "en_j2_vocab_060",
+    "subject": "english",
+    "grade": "junior2",
+    "knowledge_tag": "构词法",
+    "ability_tag": "词缀变换",
+    "type": "multiple_choice",
+    "question": "选择正确的词形填空。\n\nThe teacher encouraged us to be more _____ in class. (act)\n\nA. act\nB. action\nC. active\nD. actively",
+    "options": [
+      "A. act",
+      "B. action",
+      "C. active",
+      "D. actively"
+    ],
+    "answer": "C",
+    "analysis": "【考点】构词法：act → active（积极的）。\n【解题思路】be 动词后接形容词作表语，act + ive = active（积极的）。\n【总结】act 的派生词：act（动词，行动）→ active（形容词，积极的）→ actively（副词，积极地）→ action（名词，行动）→ activity（名词，活动）。",
+    "difficulty": 0.3
+  },
+  {
+    "id": "en_j2_vocab_061",
+    "subject": "english",
+    "grade": "junior2",
+    "knowledge_tag": "词汇辨析",
+    "ability_tag": "近义词辨析",
+    "type": "multiple_choice",
+    "question": "选择正确的单词填空。\n\nHe has _____ the book for two weeks. (borrow/keep)\n\nA. borrowed\nB. kept\nC. lent\nD. taken",
+    "options": [
+      "A. borrowed",
+      "B. kept",
+      "C. lent",
+      "D. taken"
+    ],
+    "answer": "B",
+    "analysis": "【考点】延续性动词 vs 非延续性动词。\n【解题思路】「for two weeks」 是持续时间段，需要延续性动词 keep（保留）。borrow（借）是瞬间动词，不能与 for 连用。\n【总结】瞬间动词→延续性动词：borrow→keep, buy→have, die→be dead, leave→be away, join→be in/be a member, open→be open。",
+    "difficulty": 0.5
+  },
+  {
+    "id": "en_j2_vocab_062",
+    "subject": "english",
+    "grade": "junior2",
+    "knowledge_tag": "词汇辨析",
+    "ability_tag": "近义词辨析",
+    "type": "multiple_choice",
+    "question": "选择正确的单词填空。\n\nThe price of the house is too _____ for us to afford.\n\nA. high\nB. expensive\nC. cheap\nD. low",
+    "options": [
+      "A. high",
+      "B. expensive",
+      "C. cheap",
+      "D. low"
+    ],
+    "answer": "A",
+    "analysis": "【考点】price 的搭配：high/low（价格高/低）。\n【解题思路】修饰 price 用 high/low，不用 expensive/cheap。expensive/cheap 直接修饰物品：The house is too expensive.\n【总结】price → high/low; 物品 → expensive/cheap。这两个常常混淆：The price is high. = The house is expensive.",
+    "difficulty": 0.4
+  },
+  {
+    "id": "en_j2_vocab_063",
+    "subject": "english",
+    "grade": "junior2",
+    "knowledge_tag": "词汇辨析",
+    "ability_tag": "近义词辨析",
+    "type": "multiple_choice",
+    "question": "选择正确的单词填空。\n\nThere are _____ students in our school, about 2,000 in total.\n\nA. a number of\nB. the number of\nC. a lot\nD. much",
+    "options": [
+      "A. a number of",
+      "B. the number of",
+      "C. a lot",
+      "D. much"
+    ],
+    "answer": "A",
+    "analysis": "【考点】a number of vs the number of。\n【解题思路】a number of 意为「许多」，后接复数名词，谓语动词用复数。the number of 意为「……的数量」，谓语动词用单数。此处「about 2,000」表示数量多，用 a number of。\n【总结】a number of = many（许多，谓语复数）/ the number of = ...的数量（谓语单数）。",
+    "difficulty": 0.5
+  },
+  {
+    "id": "en_j2_vocab_064",
+    "subject": "english",
+    "grade": "junior2",
+    "knowledge_tag": "词汇辨析",
+    "ability_tag": "近义词辨析",
+    "type": "multiple_choice",
+    "question": "选择正确的单词填空。\n\nHe _____ the factory since 2010. He knows everything about it.\n\nA. has been in\nB. has been to\nC. has gone to\nD. went to",
+    "options": [
+      "A. has been in",
+      "B. has been to",
+      "C. has gone to",
+      "D. went to"
+    ],
+    "answer": "A",
+    "analysis": "【考点】have been in / have been to / have gone to 的区别。\n【解题思路】has been in 意为「在某地待了多久」（持续状态），与 since 2010 搭配。has been to 意为「去过某地（已回）」，has gone to 意为「去了某地（未回）」。\n【总结】have been in + 地点 + for/since（在某地待了多久）/ have been to + 地点（去过某地）/ have gone to + 地点（去了某地还没回来）。",
+    "difficulty": 0.5
+  },
+  {
+    "id": "en_j2_vocab_065",
+    "subject": "english",
+    "grade": "junior2",
+    "knowledge_tag": "词汇辨析",
+    "ability_tag": "近义词辨析",
+    "type": "multiple_choice",
+    "question": "选择正确的单词填空。\n\n—Where is your father?\n—He _____ Shanghai on business.\n\nA. has been to\nB. has gone to\nC. went\nD. goes to",
+    "options": [
+      "A. has been to",
+      "B. has gone to",
+      "C. went",
+      "D. goes to"
+    ],
+    "answer": "B",
+    "analysis": "【考点】have gone to（去了某地还没回来）。\n【解题思路】问「你爸爸在哪」，回答「他去了上海」，说明人在上海还没回来，用 has gone to。has been to 意为「去过（已回）」，went 是过去时（与现在无关）。\n【总结】经典考点：问「某人在哪」→ has gone to。问「某人是否去过某地」→ has been to。",
+    "difficulty": 0.4
+  },
+  {
+    "id": "en_j2_vocab_066",
+    "subject": "english",
+    "grade": "junior2",
+    "knowledge_tag": "词汇辨析",
+    "ability_tag": "近义词辨析",
+    "type": "multiple_choice",
+    "question": "选择正确的单词填空。\n\nThe two brothers look very _____. They are twins.\n\nA. same\nB. different\nC. similar\nD. like",
+    "options": [
+      "A. same",
+      "B. different",
+      "C. similar",
+      "D. like"
+    ],
+    "answer": "C",
+    "analysis": "【考点】similar（相似的）vs same（相同的）vs like（像）。\n【解题思路】双胞胎长得像，用 similar（相似的）。same 前需要 the（look the same），like 是介词不是形容词（look like...）。\n【总结】look the same（看起来一样）/ look similar（看起来相似）/ look like + 名词（看起来像……）。",
+    "difficulty": 0.4
+  },
+  {
+    "id": "en_j2_vocab_067",
+    "subject": "english",
+    "grade": "junior2",
+    "knowledge_tag": "词汇辨析",
+    "ability_tag": "近义词辨析",
+    "type": "multiple_choice",
+    "question": "选择正确的单词填空。\n\nPlease speak _____. I can't hear you clearly.\n\nA. loud\nB. loudly\nC. aloud\nD. louder",
+    "options": [
+      "A. loud",
+      "B. loudly",
+      "C. aloud",
+      "D. louder"
+    ],
+    "answer": "B",
+    "analysis": "【考点】loud vs loudly vs aloud 的区别。\n【解题思路】修饰动词 speak 用副词 loudly（大声地）。loud 也可作副词但多用于 talk/shout 后面（speak loud 较少用），aloud 意为「出声地」（区别于默读）。\n【总结】loud（形容词+副词，指声音大）/ loudly（副词，修饰动词）/ aloud（副词，出声地，如 read aloud 读出声）。",
+    "difficulty": 0.5
+  },
+  {
+    "id": "en_j2_vocab_068",
+    "subject": "english",
+    "grade": "junior2",
+    "knowledge_tag": "词汇辨析",
+    "ability_tag": "近义词辨析",
+    "type": "multiple_choice",
+    "question": "选择正确的单词填空。\n\nHe didn't go to bed _____ he finished his homework.\n\nA. if\nB. until\nC. when\nD. because",
+    "options": [
+      "A. if",
+      "B. until",
+      "C. when",
+      "D. because"
+    ],
+    "answer": "B",
+    "analysis": "【考点】not...until...（直到……才……）。\n【解题思路】「直到做完作业才去睡觉」，用 not...until...。if 意为「如果」，when 意为「当……时」，because 意为「因为」。\n【总结】not...until... 是八年级高频考点：I didn't leave until the rain stopped.（雨停了我才离开。）",
+    "difficulty": 0.4
+  },
+  {
+    "id": "en_j2_vocab_069",
+    "subject": "english",
+    "grade": "junior2",
+    "knowledge_tag": "词汇辨析",
+    "ability_tag": "近义词辨析",
+    "type": "multiple_choice",
+    "question": "选择正确的单词填空。\n\nShe _____ her bag everywhere but couldn't find it.\n\nA. looked for\nB. found\nC. looked at\nD. looked after",
+    "options": [
+      "A. looked for",
+      "B. found",
+      "C. looked at",
+      "D. looked after"
+    ],
+    "answer": "A",
+    "analysis": "【考点】look for（寻找）vs find（找到）。\n【解题思路】「到处找但没找到」用 look for（寻找的过程）。found 意为「找到了」与 couldn't find 矛盾。\n【总结】look for（寻找过程）/ find（找到结果）/ look at（看）/ look after（照顾）/ look up（查阅）/ look like（看起来像）。",
+    "difficulty": 0.3
+  },
+  {
+    "id": "en_j2_vocab_070",
+    "subject": "english",
+    "grade": "junior2",
+    "knowledge_tag": "词汇辨析",
+    "ability_tag": "近义词辨析",
+    "type": "multiple_choice",
+    "question": "选择正确的单词填空。\n\nHe _____ his bike, so he had to walk to school.\n\nA. lost\nB. missed\nC. forgot\nD. left",
+    "options": [
+      "A. lost",
+      "B. missed",
+      "C. forgot",
+      "D. left"
+    ],
+    "answer": "A",
+    "analysis": "【考点】lose（丢失）vs miss（错过/想念）vs forget（忘记）vs leave（留下）。\n【解题思路】「只能走路去学校」暗示自行车丢了，用 lost。missed（错过），forgot（忘记）语义不符。\n【总结】lose 意为「丢失」，其过去式/过去分词是 lost。lose/lost/loss 是一组词：lose（动词）→ lost（过去式/形容词）→ loss（名词）。",
+    "difficulty": 0.3
+  },
+  {
+    "id": "en_j2_vocab_071",
+    "subject": "english",
+    "grade": "junior2",
+    "knowledge_tag": "语境选词",
+    "ability_tag": "词汇运用",
+    "type": "multiple_choice",
+    "question": "选择正确的单词填空。\n\nI can _____ hear what you're saying. Please speak louder.\n\nA. hard\nB. hardly\nC. harder\nD. hardest",
+    "options": [
+      "A. hard",
+      "B. hardly",
+      "C. harder",
+      "D. hardest"
+    ],
+    "answer": "B",
+    "analysis": "【考点】hardly（几乎不）≠ hard（努力地/困难的）。\n【解题思路】「请大声点」暗示听不清，用 hardly（几乎不）表示否定含义。\n【总结】hard 既是形容词（困难的）也是副词（努力地），但 hardly 意思完全不同——「几乎不」，相当于 almost not。",
+    "difficulty": 0.4
+  },
+  {
+    "id": "en_j2_vocab_072",
+    "subject": "english",
+    "grade": "junior2",
+    "knowledge_tag": "语境选词",
+    "ability_tag": "词汇运用",
+    "type": "multiple_choice",
+    "question": "选择正确的单词填空。\n\nHe _____ his wallet at home this morning.\n\nA. forgot\nB. left\nC. put\nD. took",
+    "options": [
+      "A. forgot",
+      "B. left",
+      "C. put",
+      "D. took"
+    ],
+    "answer": "B",
+    "analysis": "【考点】leave sth. at + 地点（把某物落在某处）。\n【解题思路】leave sth. + 地点 表示「把某物落在/忘在某处」。forgot 不能接具体地点（不说 forgot wallet at home）。\n【总结】经典易错点：leave sth. somewhere（正确）/ forget sth. somewhere（错误，应说 leave sth. somewhere 或 forget to bring sth.）。",
+    "difficulty": 0.4
+  },
+  {
+    "id": "en_j2_vocab_073",
+    "subject": "english",
+    "grade": "junior2",
+    "knowledge_tag": "语境选词",
+    "ability_tag": "词汇运用",
+    "type": "multiple_choice",
+    "question": "选择正确的单词填空。\n\n—Would you mind _____ the window?\n—_____. It's too hot in here.\n\nA. opening; Of course\nB. to open; Of course not\nC. opening; Of course not\nD. to open; Certainly",
+    "options": [
+      "A. opening; Of course",
+      "B. to open; Of course not",
+      "C. opening; Of course not",
+      "D. to open; Certainly"
+    ],
+    "answer": "C",
+    "analysis": "【考点】Would you mind doing sth.?（你介意做某事吗？）\n【解题思路】mind 后接动名词 doing。回答「不介意」用 Of course not / Not at all / Certainly not。「Of course」等于「当然介意」，与语境矛盾。\n【总结】Would you mind doing...? 回答应注意：不介意 = 同意。Of course not = Not at all = Certainly not = No, not at all. 千万不要答 Of course（那等于介意）。",
+    "difficulty": 0.5
+  },
+  {
+    "id": "en_j2_vocab_074",
+    "subject": "english",
+    "grade": "junior2",
+    "knowledge_tag": "语境选词",
+    "ability_tag": "词汇运用",
+    "type": "multiple_choice",
+    "question": "选择正确的单词填空。\n\n_____ great fun it is to swim in summer!\n\nA. What\nB. What a\nC. How\nD. How a",
+    "options": [
+      "A. What",
+      "B. What a",
+      "C. How",
+      "D. How a"
+    ],
+    "answer": "C",
+    "analysis": "【考点】感叹句：How + adj./adv. + 主语 + 谓语!\n【解题思路】fun 是不可数名词但也是形容词，此处 great fun 是形容词短语作表语，感叹部分是 great，所以用 How。What + (a/an) + adj. + n.，但 fun 在此作形容词用。\n【总结】感叹句判断方法：去掉修饰语看主语前面的词性。形容词用 How，名词用 What。It is great fun. → How great!",
+    "difficulty": 0.5
+  },
+  {
+    "id": "en_j2_vocab_075",
+    "subject": "english",
+    "grade": "junior2",
+    "knowledge_tag": "语境选词",
+    "ability_tag": "词汇运用",
+    "type": "multiple_choice",
+    "question": "选择正确的单词填空。\n\nHe stopped _____ and went on working.\n\nA. to smoke\nB. smoking\nC. smoke\nD. smoked",
+    "options": [
+      "A. to smoke",
+      "B. smoking",
+      "C. smoke",
+      "D. smoked"
+    ],
+    "answer": "B",
+    "analysis": "【考点】stop doing sth.（停止做某事）vs stop to do sth.（停下来去做另一件事）。\n【解题思路】「停止（正在做的）然后继续工作」，用 stop doing sth.。stop to do 意为「停下来去做某事」。\n【总结】stop doing（停止正在做的事）/ stop to do（停下手头的事去做另一件事）。He stopped talking.（他停止说话。）He stopped to talk.（他停下来开始说话。）",
+    "difficulty": 0.5
+  },
+  {
+    "id": "en_j2_vocab_076",
+    "subject": "english",
+    "grade": "junior2",
+    "knowledge_tag": "语境选词",
+    "ability_tag": "词汇运用",
+    "type": "multiple_choice",
+    "question": "选择正确的单词填空。\n\nI remember _____ the door when I left, but now it's open.\n\nA. to close\nB. closing\nC. close\nD. closed",
+    "options": [
+      "A. to close",
+      "B. closing",
+      "C. close",
+      "D. closed"
+    ],
+    "answer": "B",
+    "analysis": "【考点】remember doing sth.（记得做过某事）vs remember to do sth.（记得要做某事）。\n【解题思路】「记得已经关过门了」，动作已经发生，用 remember doing sth.\n【总结】remember doing（记得做过，动作已发生）/ remember to do（记得要做，动作未发生）。类似：forget doing（忘记已做过）/ forget to do（忘记要去做）。",
+    "difficulty": 0.5
+  },
+  {
+    "id": "en_j2_vocab_077",
+    "subject": "english",
+    "grade": "junior2",
+    "knowledge_tag": "语境选词",
+    "ability_tag": "词汇运用",
+    "type": "multiple_choice",
+    "question": "选择正确的单词填空。\n\nThe book is _____ interesting _____ everyone wants to read it.\n\nA. so; that\nB. such; that\nC. too; to\nD. enough; that",
+    "options": [
+      "A. so; that",
+      "B. such; that",
+      "C. too; to",
+      "D. enough; that"
+    ],
+    "answer": "A",
+    "analysis": "【考点】so...that...（如此……以至于……）\n【解题思路】so + adj./adv. + that 从句。interesting 是形容词，用 so...that。such + (a/an) + adj. + n.。\n【总结】so + adj./adv. + that... / such + (a/an) + adj. + n. + that...。so 修饰形容词/副词，such 修饰名词。",
+    "difficulty": 0.4
+  },
+  {
+    "id": "en_j2_vocab_078",
+    "subject": "english",
+    "grade": "junior2",
+    "knowledge_tag": "语境选词",
+    "ability_tag": "词汇运用",
+    "type": "multiple_choice",
+    "question": "选择正确的单词填空。\n\nHe is _____ tall _____ reach the apple on the tree.\n\nA. so; that\nB. too; to\nC. enough; to\nD. such; that",
+    "options": [
+      "A. so; that",
+      "B. too; to",
+      "C. enough; to",
+      "D. such; that"
+    ],
+    "answer": "C",
+    "analysis": "【考点】enough to do sth.（足够……可以做某事）。\n【解题思路】「他足够高能够到苹果」，用 enough + adj. + to do sth.。too...to 表示「太……以至于不能」，与句意相反。\n【总结】enough to do sth.（足够做某事）/ too...to do sth.（太……不能做某事）/ so...that...can/can't do sth.（如此……以至于能/不能做某事）。",
+    "difficulty": 0.4
+  },
+  {
+    "id": "en_j2_vocab_079",
+    "subject": "english",
+    "grade": "junior2",
+    "knowledge_tag": "语境选词",
+    "ability_tag": "词汇运用",
+    "type": "multiple_choice",
+    "question": "选择正确的单词填空。\n\nHe was _____ tired _____ he fell asleep at his desk.\n\nA. too; to\nB. so; that\nC. enough; to\nD. very; that",
+    "options": [
+      "A. too; to",
+      "B. so; that",
+      "C. enough; to",
+      "D. very; that"
+    ],
+    "answer": "B",
+    "analysis": "【考点】so...that... + 结果从句。\n【解题思路】「他太累了以至于在桌上睡着了」，后面是完整从句（fell asleep），用 so...that。too...to 后接不定式，不接从句。\n【总结】so + adj./adv. + that + 从句（如此……以至于）。注意和 too...to... 的转换：He was so tired that he fell asleep. = He was too tired to stay awake.",
+    "difficulty": 0.4
+  },
+  {
+    "id": "en_j2_vocab_080",
+    "subject": "english",
+    "grade": "junior2",
+    "knowledge_tag": "语境选词",
+    "ability_tag": "词汇运用",
+    "type": "multiple_choice",
+    "question": "选择正确的单词填空。\n\nThe teacher told us that the earth _____ around the sun.\n\nA. moves\nB. moved\nC. has moved\nD. is moving",
+    "options": [
+      "A. moves",
+      "B. moved",
+      "C. has moved",
+      "D. is moving"
+    ],
+    "answer": "A",
+    "analysis": "【考点】宾语从句中的时态：客观真理用一般现在时。\n【解题思路】「地球绕太阳转」是客观真理，即使主句用过去时（told），从句仍用一般现在时（moves）。\n【总结】宾语从句时态规则：主句现在时→从句任意时态；主句过去时→从句相应过去时态。但客观真理例外，永远用一般现在时。",
+    "difficulty": 0.5
+  },
+  {
+    "id": "en_j2_vocab_081",
+    "subject": "english",
+    "grade": "junior2",
+    "knowledge_tag": "构词法",
+    "ability_tag": "前缀变换",
+    "type": "multiple_choice",
+    "question": "选择正确的单词填空。\n\nIf you don't know the word, you can _____ in the dictionary.\n\nA. look it up\nB. look up it\nC. look for it\nD. look it for",
+    "options": [
+      "A. look it up",
+      "B. look up it",
+      "C. look for it",
+      "D. look it for"
+    ],
+    "answer": "A",
+    "analysis": "【考点】动词短语 + 代词的位置。\n【解题思路】look up 是「动副词组」，代词必须放在中间：look it up。look up it 是错误的。look for it 意为「寻找它」，语义不符。\n【总结】动副词组 + 代词：代词放中间。look it up, put it on, take it off, turn it on, give it up, try it on。但名词可放中间也可放后面：look up the word = look the word up。",
+    "difficulty": 0.5
+  },
+  {
+    "id": "en_j2_vocab_082",
+    "subject": "english",
+    "grade": "junior2",
+    "knowledge_tag": "构词法",
+    "ability_tag": "前缀变换",
+    "type": "multiple_choice",
+    "question": "选择正确的单词填空。\n\nThe box is too heavy. I can't _____ it.\n\nA. carry\nB. take\nC. bring\nD. fetch",
+    "options": [
+      "A. carry",
+      "B. take",
+      "C. bring",
+      "D. fetch"
+    ],
+    "answer": "A",
+    "analysis": "【考点】carry（搬运）vs take（带走）vs bring（带来）vs fetch（去取）。\n【解题思路】「太重搬不动」用 carry（搬运，无方向性）。take（从说话人处带走），bring（朝说话人方向带来），fetch（去某处取回）。\n【总结】carry（随身携带/搬运）/ take（带去）/ bring（带来）/ fetch（去取回）= go and bring back。",
+    "difficulty": 0.4
+  },
+  {
+    "id": "en_j2_vocab_083",
+    "subject": "english",
+    "grade": "junior2",
+    "knowledge_tag": "构词法",
+    "ability_tag": "前缀变换",
+    "type": "multiple_choice",
+    "question": "选择正确的单词填空。\n\nHe is _____ about his exam results. He thinks he didn't do well.\n\nA. happy\nB. excited\nC. worried\nD. surprised",
+    "options": [
+      "A. happy",
+      "B. excited",
+      "C. worried",
+      "D. surprised"
+    ],
+    "answer": "C",
+    "analysis": "【考点】语境选词：worried（担心的）。\n【解题思路】「觉得自己没考好」暗示心情是担心的，用 worried。happy 和 excited 是积极的，surprised 是惊讶的。\n【总结】be worried about（对……感到担心）/ worry about（担心）。类似词汇：anxious（焦虑的），nervous（紧张的）。",
+    "difficulty": 0.3
+  },
+  {
+    "id": "en_j2_vocab_084",
+    "subject": "english",
+    "grade": "junior2",
+    "knowledge_tag": "构词法",
+    "ability_tag": "前缀变换",
+    "type": "multiple_choice",
+    "question": "选择正确的单词填空。\n\nPlease _____ the lights when you leave the room.\n\nA. turn on\nB. turn off\nC. turn down\nD. turn up",
+    "options": [
+      "A. turn on",
+      "B. turn off",
+      "C. turn down",
+      "D. turn up"
+    ],
+    "answer": "B",
+    "analysis": "【考点】turn off（关掉）的用法。\n【解题思路】离开房间时应该关灯，用 turn off（关掉）。turn on（打开），turn down（调小），turn up（调大）。\n【总结】离开时「关灯」用 turn off the lights/lights off。「开灯」用 turn on the lights/lights on。节约用电是环保主题常见考题。",
+    "difficulty": 0.2
+  },
+  {
+    "id": "en_j2_vocab_085",
+    "subject": "english",
+    "grade": "junior2",
+    "knowledge_tag": "构词法",
+    "ability_tag": "前缀变换",
+    "type": "multiple_choice",
+    "question": "选择正确的单词填空。\n\nShe _____ in this city since she was born.\n\nA. lived\nB. has lived\nC. lives\nD. is living",
+    "options": [
+      "A. lived",
+      "B. has lived",
+      "C. lives",
+      "D. is living"
+    ],
+    "answer": "B",
+    "analysis": "【考点】现在完成时 + since（自从）。\n【解题思路】「since she was born」表示从过去到现在的时间段，需要现在完成时 has lived。\n【总结】现在完成时标志词：since + 过去时间点/过去时从句, for + 时间段, already, yet, ever, never, just, recently, so far, in the past/last few years。",
+    "difficulty": 0.4
+  },
+  {
+    "id": "en_j2_vocab_086",
+    "subject": "english",
+    "grade": "junior2",
+    "knowledge_tag": "构词法",
+    "ability_tag": "前缀变换",
+    "type": "multiple_choice",
+    "question": "选择正确的单词填空。\n\nHe _____ to the Great Wall twice.\n\nA. has been\nB. has gone\nC. went\nD. goes",
+    "options": [
+      "A. has been",
+      "B. has gone",
+      "C. went",
+      "D. goes"
+    ],
+    "answer": "A",
+    "analysis": "【考点】have been to（去过某地）+ twice（两次）。\n【解题思路】「去了两次」说明已经回来了，用 has been to。has gone to 表示去了还没回来。\n【总结】has been to + 地点（去过，已回）/ has gone to + 地点（去了，未回）。twice, three times 等频度副词常与 has been to 连用。",
+    "difficulty": 0.4
+  },
+  {
+    "id": "en_j2_vocab_087",
+    "subject": "english",
+    "grade": "junior2",
+    "knowledge_tag": "构词法",
+    "ability_tag": "词根词缀",
+    "type": "multiple_choice",
+    "question": "选择正确的单词填空。\n\n_____ children there are in a family, _____ their life will be.\n\nA. The fewer; the happier\nB. The less; the happier\nC. The fewer; the more happy\nD. The less; the more happy",
+    "options": [
+      "A. The fewer; the happier",
+      "B. The less; the happier",
+      "C. The fewer; the more happy",
+      "D. The less; the more happy"
+    ],
+    "answer": "A",
+    "analysis": "【考点】the + 比较级, the + 比较级（越……越……）\n【解题思路】children 是可数名词复数，用 fewer（更少）。happier 是 happy 的比较级（单音节词加 -er）。\n【总结】the + 比较级, the + 比较级 结构。可数名词用 fewer/more，不可数名词用 less/more。happy→happier（双写辅音字母加 -er 的特例：y 变 i）。",
+    "difficulty": 0.5
+  },
+  {
+    "id": "en_j2_vocab_088",
+    "subject": "english",
+    "grade": "junior2",
+    "knowledge_tag": "构词法",
+    "ability_tag": "词根词缀",
+    "type": "multiple_choice",
+    "question": "选择正确的单词填空。\n\nOf the two boys, Tom is _____.\n\nA. tall\nB. taller\nC. the taller\nD. the tallest",
+    "options": [
+      "A. tall",
+      "B. taller",
+      "C. the taller",
+      "D. the tallest"
+    ],
+    "answer": "C",
+    "analysis": "【考点】两者之中的较……个用「the + 比较级」。\n【解题思路】「两个男孩中」是明确的两方比较，用 the taller（较高的那个）。不能用最高级，因为只有两个。\n【总结】两者比较用比较级 + the：the taller of the two（两者中较高的）。三者及以上用最高级：the tallest of the three。",
+    "difficulty": 0.4
+  },
+  {
+    "id": "en_j2_vocab_089",
+    "subject": "english",
+    "grade": "junior2",
+    "knowledge_tag": "构词法",
+    "ability_tag": "词根词缀",
+    "type": "multiple_choice",
+    "question": "选择正确的单词填空。\n\nShanghai is one of _____ cities in China.\n\nA. the biggest\nB. biggest\nC. the bigger\nD. bigger",
+    "options": [
+      "A. the biggest",
+      "B. biggest",
+      "C. the bigger",
+      "D. bigger"
+    ],
+    "answer": "A",
+    "analysis": "【考点】one of the + 最高级 + 复数名词。\n【解题思路】「最……之一」用 one of the + 最高级。最高级前必须加 the。\n【总结】one of the + 最高级 + 复数名词（最……之一）。注意：名词必须用复数形式。One of the best students（最好的学生之一）。",
+    "difficulty": 0.4
+  },
+  {
+    "id": "en_j2_vocab_090",
+    "subject": "english",
+    "grade": "junior2",
+    "knowledge_tag": "构词法",
+    "ability_tag": "词根词缀",
+    "type": "multiple_choice",
+    "question": "选择正确的单词填空。\n\nHe is _____ than any other student in his class. He is the tallest.\n\nA. tall\nB. taller\nC. the tallest\nD. tallest",
+    "options": [
+      "A. tall",
+      "B. taller",
+      "C. the tallest",
+      "D. tallest"
+    ],
+    "answer": "B",
+    "analysis": "【考点】比较级 + than any other + 单数名词（比其他任何……都……）\n【解题思路】「比班里任何其他同学都高」，用比较级 taller。any other 表示排除自身进行比较。\n【总结】比较级句型：比较级 + than + any other + 单数名词。注意必须用 any other（其他任何），不能用 any（那包括了自己）。",
+    "difficulty": 0.5
+  },
+  {
+    "id": "en_j2_vocab_091",
+    "subject": "english",
+    "grade": "junior2",
+    "knowledge_tag": "构词法",
+    "ability_tag": "反义词前缀",
+    "type": "multiple_choice",
+    "question": "选出含有正确反义前缀的单词。\n\nThe boy was _____ because he didn't prepare for the exam.\n\nA. happy\nB. comfortable\nC. nervous\nD. polite",
+    "options": [
+      "A. happy",
+      "B. comfortable",
+      "C. nervous",
+      "D. polite"
+    ],
+    "answer": "C",
+    "analysis": "【考点】根据语境选择合乎逻辑的形容词。\n【解题思路】「没准备考试」应该感到紧张（nervous），不是开心、舒服或礼貌。\n【总结】nervous 的名词形式是 nerve（神经），副词形式是 nervously。常见搭配：be nervous about sth.（对某事紧张）。",
+    "difficulty": 0.2
+  },
+  {
+    "id": "en_j2_vocab_092",
+    "subject": "english",
+    "grade": "junior2",
+    "knowledge_tag": "构词法",
+    "ability_tag": "反义词前缀",
+    "type": "multiple_choice",
+    "question": "选择正确的单词填空。\n\nYou should _____ your promise. Don't lie to others.\n\nA. break\nB. keep\nC. make\nD. forget",
+    "options": [
+      "A. break",
+      "B. keep",
+      "C. make",
+      "D. forget"
+    ],
+    "answer": "B",
+    "analysis": "【考点】keep one's promise（信守承诺）。\n【解题思路】「不要对别人说谎」说明应该信守承诺，用 keep one's promise。break a promise 意为「违背承诺」。\n【总结】keep 的常见搭配：keep a promise（信守承诺）/ keep a secret（保密）/ keep one's word（守信用）/ keep in touch（保持联系）。",
+    "difficulty": 0.3
+  },
+  {
+    "id": "en_j2_vocab_093",
+    "subject": "english",
+    "grade": "junior2",
+    "knowledge_tag": "构词法",
+    "ability_tag": "反义词前缀",
+    "type": "multiple_choice",
+    "question": "选择正确的单词填空。\n\nThe movie is so _____ that we all enjoyed it.\n\nA. boring\nB. bored\nC. interesting\nD. interested",
+    "options": [
+      "A. boring",
+      "B. bored",
+      "C. interesting",
+      "D. interested"
+    ],
+    "answer": "C",
+    "analysis": "【考点】-ing vs -ed 形容词的用法。\n【解题思路】描述事物（the movie）用 -ing 形容词。「we all enjoyed it」说明电影很有趣，用 interesting。boring 描述电影但不合语境。\n【总结】主语是物（电影/书/课）用 -ing（interesting, boring, exciting）/ 主语是人用 -ed（interested, bored, excited）。",
+    "difficulty": 0.3
+  },
+  {
+    "id": "en_j2_vocab_094",
+    "subject": "english",
+    "grade": "junior2",
+    "knowledge_tag": "构词法",
+    "ability_tag": "反义词前缀",
+    "type": "multiple_choice",
+    "question": "选择正确的单词填空。\n\nHe is old enough to _____ himself. He doesn't need his mother's help.\n\nA. look after\nB. look at\nC. look for\nD. look up",
+    "options": [
+      "A. look after",
+      "B. look at",
+      "C. look for",
+      "D. look up"
+    ],
+    "answer": "A",
+    "analysis": "【考点】look after（照顾）的用法。\n【解题思路】「不需要妈妈帮忙」说明能照顾自己，用 look after oneself（照顾自己）。\n【总结】take care of = look after = care for（照顾）。look after oneself = take care of oneself = care for oneself。",
+    "difficulty": 0.3
+  },
+  {
+    "id": "en_j2_vocab_095",
+    "subject": "english",
+    "grade": "junior2",
+    "knowledge_tag": "构词法",
+    "ability_tag": "反义词前缀",
+    "type": "multiple_choice",
+    "question": "选择正确的单词填空。\n\nShe _____ half an hour _____ English every morning.\n\nA. spends; reading\nB. takes; to read\nC. costs; reading\nD. pays; reading",
+    "options": [
+      "A. spends; reading",
+      "B. takes; to read",
+      "C. costs; reading",
+      "D. pays; reading"
+    ],
+    "answer": "A",
+    "analysis": "【考点】spend time doing sth.（花时间做某事）。\n【解题思路】spend time (in) doing sth. 是固定搭配。take 的句型是 It takes sb. time to do sth.。cost 和 pay 不用于描述花费时间。\n【总结】三个「花费」的区别：① sb. spends time/money on sth. / (in) doing sth. ② It takes sb. time to do sth. ③ sth. costs sb. money.",
+    "difficulty": 0.5
+  },
+  {
+    "id": "en_j2_vocab_096",
+    "subject": "english",
+    "grade": "junior2",
+    "knowledge_tag": "构词法",
+    "ability_tag": "反义词前缀",
+    "type": "multiple_choice",
+    "question": "选择正确的单词填空。\n\nMy mother often tells me _____ in the street. It's too dangerous.\n\nA. not play\nB. not to play\nC. don't play\nD. to not play",
+    "options": [
+      "A. not play",
+      "B. not to play",
+      "C. don't play",
+      "D. to not play"
+    ],
+    "answer": "B",
+    "analysis": "【考点】tell sb. not to do sth.（告诉某人不要做某事）。\n【解题思路】tell sb. (not) to do sth. 的否定形式是在 to 前加 not，即 not to do sth.\n【总结】类似结构：ask sb. (not) to do sth. / advise sb. (not) to do sth. / want sb. (not) to do sth. / allow sb. (not) to do sth.",
+    "difficulty": 0.4
+  },
+  {
+    "id": "en_j2_vocab_097",
+    "subject": "english",
+    "grade": "junior2",
+    "knowledge_tag": "构词法",
+    "ability_tag": "反义词前缀",
+    "type": "multiple_choice",
+    "question": "选择正确的单词填空。\n\nHe _____ me that he would come to my birthday party.\n\nA. said\nB. told\nC. spoke\nD. talked",
+    "options": [
+      "A. said",
+      "B. told",
+      "C. spoke",
+      "D. talked"
+    ],
+    "answer": "B",
+    "analysis": "【考点】tell sb. sth.（告诉某人某事）vs say sth.（说某话）。\n【解题思路】tell 后接双宾语（tell sb. sth.），said 后接从句或直接引语，spoke/talked 不接双宾语。\n【总结】tell sb. sth.（告诉某人某事）/ tell sb. (not) to do sth.（告诉某人做/不做某事）/ say + that 从句 / say to sb.（对某人说）。",
+    "difficulty": 0.4
+  },
+  {
+    "id": "en_j2_vocab_098",
+    "subject": "english",
+    "grade": "junior2",
+    "knowledge_tag": "构词法",
+    "ability_tag": "反义词前缀",
+    "type": "multiple_choice",
+    "question": "选择正确的单词填空。\n\nHe _____ up early and _____ breakfast at 7:00 every day.\n\nA. gets; has\nB. get; have\nC. gets; have\nD. get; has",
+    "options": [
+      "A. gets; has",
+      "B. get; have",
+      "C. gets; have",
+      "D. get; has"
+    ],
+    "answer": "A",
+    "analysis": "【考点】第三人称单数动词形式。\n【解题思路】主语 He 是第三人称单数，every day 表示一般现在时，动词用第三人称单数形式：gets, has。\n【总结】一般现在时中第三人称单数动词要加 -s/-es：get→gets, have→has, go→goes, do→does, study→studies。",
+    "difficulty": 0.2
+  },
+  {
+    "id": "en_j2_vocab_099",
+    "subject": "english",
+    "grade": "junior2",
+    "knowledge_tag": "构词法",
+    "ability_tag": "反义词前缀",
+    "type": "multiple_choice",
+    "question": "选择正确的单词填空。\n\nHe is used to _____ up early in the morning.\n\nA. get\nB. getting\nC. got\nD. gets",
+    "options": [
+      "A. get",
+      "B. getting",
+      "C. got",
+      "D. gets"
+    ],
+    "answer": "B",
+    "analysis": "【考点】be used to doing sth.（习惯于做某事）vs used to do sth.（过去常常做某事）。\n【解题思路】be used to doing sth. 中 to 是介词，后接动名词。如果表示「过去常常做某事」，则是 used to do sth.（to 是不定式）。\n【总结】① be used to doing sth.（习惯于做某事）→ to 是介词，接 doing ② used to do sth.（过去常常做某事）→ to 是不定式，接 do ③ be used to do sth.（被用来做某事）→ 被动语态",
+    "difficulty": 0.6
+  },
+  {
+    "id": "en_j2_vocab_100",
+    "subject": "english",
+    "grade": "junior2",
+    "knowledge_tag": "构词法",
+    "ability_tag": "反义词前缀",
+    "type": "multiple_choice",
+    "question": "选择正确的单词填空。\n\nThe teacher asked us to _____ the new words in the text.\n\nA. look up\nB. look at\nC. look after\nD. look for",
+    "options": [
+      "A. look up",
+      "B. look at",
+      "C. look after",
+      "D. look for"
+    ],
+    "answer": "A",
+    "analysis": "【考点】look up（查阅）vs look for（寻找）vs look at（看）vs look after（照顾）。\n【解题思路】「在课文中查阅生词」用 look up（在字典/课文中查寻）。\n【总结】look up = 查阅（字典/资料）/ look for = 寻找（寻找过程）/ look at = 看（看的动作）/ look after = 照顾（照顾某人）。",
+    "difficulty": 0.3
+  },
+  {
+    "id": "en_j2_vocab_101",
+    "subject": "english",
+    "grade": "junior2",
+    "knowledge_tag": "词汇辨析",
+    "ability_tag": "近义词辨析",
+    "type": "multiple_choice",
+    "question": "选择正确的单词填空。\n\nHe has been _____ from school for a week because of illness.\n\nA. present\nB. absent\nC. away\nD. left",
+    "options": [
+      "A. present",
+      "B. absent",
+      "C. away",
+      "D. left"
+    ],
+    "answer": "B",
+    "analysis": "【考点】be absent from（缺席）。\n【解题思路】因为生病没上学，用 be absent from school（缺课）。present 意为「出席的」（反义词），away 单独用不搭配 from school，left 不能用于此结构。\n【总结】absent 意为「缺席的」，反义词 present（出席的）。absent-minded 意为「心不在焉的」。",
+    "difficulty": 0.3
+  },
+  {
+    "id": "en_j2_vocab_102",
+    "subject": "english",
+    "grade": "junior2",
+    "knowledge_tag": "词汇辨析",
+    "ability_tag": "近义词辨析",
+    "type": "multiple_choice",
+    "question": "选择正确的单词填空。\n\nShe _____ some flowers for her mother on Mother's Day.\n\nA. bought\nB. sold\nC. grew\nD. picked",
+    "options": [
+      "A. bought",
+      "B. sold",
+      "C. grew",
+      "D. picked"
+    ],
+    "answer": "A",
+    "analysis": "【考点】语境选词：buy sth. for sb.（给某人买某物）。\n【解题思路】母亲节给妈妈送花，通常是买花，用 bought。sold（卖）方向相反，grew（种）和 picked（摘）不太合乎母亲节语境。\n【总结】母亲节/节日送礼物常见动词：buy（买）/ give（给）/ make（制作）。buy sth. for sb. = buy sb. sth.",
+    "difficulty": 0.2
+  },
+  {
+    "id": "en_j2_vocab_103",
+    "subject": "english",
+    "grade": "junior2",
+    "knowledge_tag": "词汇辨析",
+    "ability_tag": "近义词辨析",
+    "type": "multiple_choice",
+    "question": "选择正确的单词填空。\n\nIt's getting dark. You'd better _____ home now.\n\nA. go\nB. to go\nC. going\nD. went",
+    "options": [
+      "A. go",
+      "B. to go",
+      "C. going",
+      "D. went"
+    ],
+    "answer": "A",
+    "analysis": "【考点】had better do sth.（最好做某事）。\n【解题思路】had better 后接动词原形（不带 to）。否定形式：had better not do sth.\n【总结】had better (not) do sth. 没有人称和时态变化。注意：had better 不是 have better，也不是 had good better。",
+    "difficulty": 0.4
+  },
+  {
+    "id": "en_j2_vocab_104",
+    "subject": "english",
+    "grade": "junior2",
+    "knowledge_tag": "词汇辨析",
+    "ability_tag": "近义词辨析",
+    "type": "multiple_choice",
+    "question": "选择正确的单词填空。\n\nHe couldn't help _____ when he heard the funny story.\n\nA. laugh\nB. laughing\nC. to laugh\nD. laughed",
+    "options": [
+      "A. laugh",
+      "B. laughing",
+      "C. to laugh",
+      "D. laughed"
+    ],
+    "answer": "B",
+    "analysis": "【考点】can't help doing sth.（忍不住做某事）。\n【解题思路】can't help 后接动名词 doing，表示「忍不住/情不自禁做某事」。\n【总结】can't help doing sth.（忍不住做某事）/ can't help but do sth.（忍不住做某事，美式用法）。八年级主要掌握 can't help doing sth.",
+    "difficulty": 0.5
+  },
+  {
+    "id": "en_j2_vocab_105",
+    "subject": "english",
+    "grade": "junior2",
+    "knowledge_tag": "词汇辨析",
+    "ability_tag": "近义词辨析",
+    "type": "multiple_choice",
+    "question": "选择正确的单词填空。\n\nThe teacher asked the students to _____ the dialogue in pairs.\n\nA. make up\nB. act out\nC. put on\nD. set up",
+    "options": [
+      "A. make up",
+      "B. act out",
+      "C. put on",
+      "D. set up"
+    ],
+    "answer": "B",
+    "analysis": "【考点】act out（表演出来）。\n【解题思路】「分组表演对话」用 act out the dialogue。make up 意为「编造」，put on 意为「穿上/上演」，set up 意为「建立」。\n【总结】act out = 把……表演出来。常见搭配：act out a story/dialogue/role-play。make up 也有「编造/组成」的意思。",
+    "difficulty": 0.4
+  },
+  {
+    "id": "en_j2_vocab_106",
+    "subject": "english",
+    "grade": "junior2",
+    "knowledge_tag": "词汇辨析",
+    "ability_tag": "近义词辨析",
+    "type": "multiple_choice",
+    "question": "选择正确的单词填空。\n\nThe old woman lives by herself, but she doesn't feel _____.\n\nA. alone\nB. lonely\nC. happy\nD. sad",
+    "options": [
+      "A. alone",
+      "B. lonely",
+      "C. happy",
+      "D. sad"
+    ],
+    "answer": "B",
+    "analysis": "【考点】alone（独自的）vs lonely（孤独的）。\n【解题思路】doesn't feel 表示主观感受，用 lonely（感到孤独的）。alone 是客观状态（独自一人），不符合 feel 的搭配。\n【总结】alone = 独自的（状态）/ lonely = 孤独的（感受）。I live alone, but I don't feel lonely.（我独居，但不觉得孤独。）",
+    "difficulty": 0.4
+  },
+  {
+    "id": "en_j2_vocab_107",
+    "subject": "english",
+    "grade": "junior2",
+    "knowledge_tag": "词汇辨析",
+    "ability_tag": "近义词辨析",
+    "type": "multiple_choice",
+    "question": "选择正确的单词填空。\n\nHe was _____ tired _____ he went to bed without eating dinner.\n\nA. too; to\nB. so; that\nC. enough; to\nD. such; that",
+    "options": [
+      "A. too; to",
+      "B. so; that",
+      "C. enough; to",
+      "D. such; that"
+    ],
+    "answer": "B",
+    "analysis": "【考点】so...that... + 结果从句。\n【解题思路】后面是完整句子（he went to bed without eating dinner），用 so...that。too...to 后接不定式短语，不接从句。\n【总结】so + adj./adv. + that + 从句 / such + (a/an) + adj. + n. + that + 从句。too + adj. + to do sth. = so + adj. + that sb. can't do sth.",
+    "difficulty": 0.4
+  },
+  {
+    "id": "en_j2_vocab_108",
+    "subject": "english",
+    "grade": "junior2",
+    "knowledge_tag": "词汇辨析",
+    "ability_tag": "近义词辨析",
+    "type": "multiple_choice",
+    "question": "选择正确的单词填空。\n\nHe _____ me to wait for him at the school gate.\n\nA. hoped\nB. let\nC. made\nD. told",
+    "options": [
+      "A. hoped",
+      "B. let",
+      "C. made",
+      "D. told"
+    ],
+    "answer": "D",
+    "analysis": "【考点】tell sb. to do sth.（告诉某人做某事）。\n【解题思路】hope 不能接 sb. to do sth.（要用 hope + that 从句）。let/make 后接不带 to 的不定式。tell sb. to do sth. 是正确结构。\n【总结】可以接 sb. to do sth. 的动词：tell, ask, want, would like, invite, advise, allow, encourage。不能接 sb. to do 的：hope, suggest。",
+    "difficulty": 0.4
+  },
+  {
+    "id": "en_j2_vocab_109",
+    "subject": "english",
+    "grade": "junior2",
+    "knowledge_tag": "词汇辨析",
+    "ability_tag": "近义词辨析",
+    "type": "multiple_choice",
+    "question": "选择正确的单词填空。\n\nThe news made all of us _____.\n\nA. exciting\nB. excited\nC. to excite\nD. excite",
+    "options": [
+      "A. exciting",
+      "B. excited",
+      "C. to excite",
+      "D. excite"
+    ],
+    "answer": "B",
+    "analysis": "【考点】make sb. + adj.（使某人……）。\n【解题思路】make 后接形容词作宾补。描述人的感受用 excited（兴奋的）。exciting 描述事物特征。\n【总结】make sb. + adj.（使某人感到……）：make me happy/sad/angry/excited。也用 make sb. do sth.（使某人做某事，不带 to）。",
+    "difficulty": 0.4
+  },
+  {
+    "id": "en_j2_vocab_110",
+    "subject": "english",
+    "grade": "junior2",
+    "knowledge_tag": "词汇辨析",
+    "ability_tag": "近义词辨析",
+    "type": "multiple_choice",
+    "question": "选择正确的单词填空。\n\nHe failed the exam, but he didn't _____ hope. He decided to try again.\n\nA. give up\nB. give away\nC. give out\nD. give back",
+    "options": [
+      "A. give up",
+      "B. give away",
+      "C. give out",
+      "D. give back"
+    ],
+    "answer": "A",
+    "analysis": "【考点】give up（放弃）。\n【解题思路】「决定再试一次」暗示没有放弃，用 give up hope（放弃希望）。give away（赠送/泄露），give out（分发），give back（归还）。\n【总结】give 短语：give up（放弃）/ give away（赠送）/ give out（分发/耗尽）/ give back（归还）/ give in（屈服）。",
+    "difficulty": 0.4
+  },
+  {
+    "id": "en_j2_vocab_111",
+    "subject": "english",
+    "grade": "junior2",
+    "knowledge_tag": "词汇辨析",
+    "ability_tag": "近义词辨析",
+    "type": "multiple_choice",
+    "question": "选择正确的单词填空。\n\nPlease _____ me your dictionary. I need to look up some words.\n\nA. lend\nB. borrow\nC. keep\nD. take",
+    "options": [
+      "A. lend",
+      "B. borrow",
+      "C. keep",
+      "D. take"
+    ],
+    "answer": "A",
+    "analysis": "【考点】lend（借出）vs borrow（借入）。\n【解题思路】对方借出，「我」借入。lend sb. sth. = lend sth. to sb.（借出）。borrow 是「借入」。方向相反。\n【总结】lend（借出）：Can you lend me your book? / borrow（借入）：Can I borrow your book? 注意方向性。",
+    "difficulty": 0.3
+  },
+  {
+    "id": "en_j2_vocab_112",
+    "subject": "english",
+    "grade": "junior2",
+    "knowledge_tag": "词汇辨析",
+    "ability_tag": "近义词辨析",
+    "type": "multiple_choice",
+    "question": "选择正确的单词填空。\n\nThe old man has _____ for two years.\n\nA. died\nB. been dead\nC. been dying\nD. death",
+    "options": [
+      "A. died",
+      "B. been dead",
+      "C. been dying",
+      "D. death"
+    ],
+    "answer": "B",
+    "analysis": "【考点】延续性动词与 for 搭配。\n【解题思路】「for two years」表示持续状态。die 是瞬间动词，不能与 for 连用。需要用 be dead（死亡的持续状态）。\n【总结】瞬间动词→延续性动词替换：die→be dead, buy→have, borrow→keep, leave→be away, join→be a member of, open→be open, close→be closed。",
+    "difficulty": 0.5
+  },
+  {
+    "id": "en_j2_vocab_113",
+    "subject": "english",
+    "grade": "junior2",
+    "knowledge_tag": "词汇辨析",
+    "ability_tag": "近义词辨析",
+    "type": "multiple_choice",
+    "question": "选择正确的单词填空。\n\nThis problem is _____ difficult for me _____ solve.\n\nA. too; to\nB. so; that\nC. enough; to\nD. very; to",
+    "options": [
+      "A. too; to",
+      "B. so; that",
+      "C. enough; to",
+      "D. very; to"
+    ],
+    "answer": "A",
+    "analysis": "【考点】too...to...（太……以至于不能……）\n【解题思路】「对我来说太难解决不了」，用 too + adj. + to do sth.\n【总结】too...to... = so...that...can't...：This problem is too difficult for me to solve. = This problem is so difficult that I can't solve it.",
+    "difficulty": 0.4
+  },
+  {
+    "id": "en_j2_vocab_114",
+    "subject": "english",
+    "grade": "junior2",
+    "knowledge_tag": "词汇辨析",
+    "ability_tag": "近义词辨析",
+    "type": "multiple_choice",
+    "question": "选择正确的单词填空。\n\nHe _____ his bike, so he had to walk to school this morning.\n\nA. lost\nB. found\nC. bought\nD. repaired",
+    "options": [
+      "A. lost",
+      "B. found",
+      "C. bought",
+      "D. repaired"
+    ],
+    "answer": "A",
+    "analysis": "【考点】语境选词：lose（丢失）。\n【解题思路】「只能走路去学校」说明自行车丢了，用 lost。found（找到）矛盾，bought（买）和 repaired（修）不合语境。\n【总结】lose 的过去式是 lost，过去分词也是 lost。lose one's way（迷路），lose one's temper（发脾气），lose one's job（失业）。",
+    "difficulty": 0.3
+  },
+  {
+    "id": "en_j2_vocab_115",
+    "subject": "english",
+    "grade": "junior2",
+    "knowledge_tag": "词汇辨析",
+    "ability_tag": "近义词辨析",
+    "type": "multiple_choice",
+    "question": "选择正确的单词填空。\n\n—_____ do you go to the library?\n—Twice a week.\n\nA. How long\nB. How soon\nC. How often\nD. How far",
+    "options": [
+      "A. How long",
+      "B. How soon",
+      "C. How often",
+      "D. How far"
+    ],
+    "answer": "C",
+    "analysis": "【考点】How often（多久一次）的用法。\n【解题思路】回答 「Twice a week」（每周两次）表示频率，提问用 How often。How long 提问时间段，How soon 提问「多久以后」，How far 提问距离。\n【总结】How often → 频率（once a week, twice a month）/ How long → 时间段（for two hours）/ How soon → 多久以后（in two days）/ How far → 距离（5 kilometers）。",
+    "difficulty": 0.3
+  },
+  {
+    "id": "en_j2_vocab_116",
+    "subject": "english",
+    "grade": "junior2",
+    "knowledge_tag": "词汇辨析",
+    "ability_tag": "近义词辨析",
+    "type": "multiple_choice",
+    "question": "选择正确的单词填空。\n\n—_____ will you come back?\n—In two days.\n\nA. How long\nB. How soon\nC. How often\nD. How many",
+    "options": [
+      "A. How long",
+      "B. How soon",
+      "C. How often",
+      "D. How many"
+    ],
+    "answer": "B",
+    "analysis": "【考点】How soon（多久以后）的用法。\n【解题思路】回答 「In two days」（两天后），用 How soon 提问。How long 回答时间段，How often 回答频率。\n【总结】回答 「in + 时间段」 → 用 How soon 提问。回答 「for + 时间段」 → 用 How long 提问。这是易混淆点。",
+    "difficulty": 0.4
+  },
+  {
+    "id": "en_j2_vocab_117",
+    "subject": "english",
+    "grade": "junior2",
+    "knowledge_tag": "词汇辨析",
+    "ability_tag": "近义词辨析",
+    "type": "multiple_choice",
+    "question": "选择正确的单词填空。\n\nThe teacher asked us to _____ attention to our handwriting.\n\nA. pay\nB. give\nC. take\nD. make",
+    "options": [
+      "A. pay",
+      "B. give",
+      "C. take",
+      "D. make"
+    ],
+    "answer": "A",
+    "analysis": "【考点】pay attention to（注意）固定搭配。\n【解题思路】pay attention to 是固定搭配。give/take/make attention to 都不正确。\n【总结】pay 的常见搭配：pay attention to（注意）/ pay for（付款）/ pay a visit to（拜访）/ pay off（还清/取得成功）。",
+    "difficulty": 0.3
+  },
+  {
+    "id": "en_j2_vocab_118",
+    "subject": "english",
+    "grade": "junior2",
+    "knowledge_tag": "词汇辨析",
+    "ability_tag": "近义词辨析",
+    "type": "multiple_choice",
+    "question": "选择正确的单词填空。\n\nHe ran _____ fast _____ we couldn't catch up with him.\n\nA. so; that\nB. such; that\nC. too; to\nD. enough; to",
+    "options": [
+      "A. so; that",
+      "B. such; that",
+      "C. too; to",
+      "D. enough; to"
+    ],
+    "answer": "A",
+    "analysis": "【考点】so...that...（如此……以至于……）\n【解题思路】so + adv. (fast) + that + 从句。fast 是副词，用 so 修饰。\n【总结】so + adj./adv. + that... / such + (a/an) + adj. + n. + that...。副词 fast 前用 so，不用 such。",
+    "difficulty": 0.4
+  },
+  {
+    "id": "en_j2_vocab_119",
+    "subject": "english",
+    "grade": "junior2",
+    "knowledge_tag": "词汇辨析",
+    "ability_tag": "近义词辨析",
+    "type": "multiple_choice",
+    "question": "选择正确的单词填空。\n\nHe _____ that he had finished his homework.\n\nA. said\nB. told\nC. spoke\nD. talked",
+    "options": [
+      "A. said",
+      "B. told",
+      "C. spoke",
+      "D. talked"
+    ],
+    "answer": "A",
+    "analysis": "【考点】say + that 从句（说……）。\n【解题思路】后接 that 从句用 said。told 需要接双宾语（told sb. sth.），spoke/talked 不接从句。\n【总结】say 后接从句或直接引语：He said that... / He said, \「...\」。tell 后接双宾语：He told me that...。speak/talk 不能直接接从句。",
+    "difficulty": 0.3
+  },
+  {
+    "id": "en_j2_vocab_120",
+    "subject": "english",
+    "grade": "junior2",
+    "knowledge_tag": "词汇辨析",
+    "ability_tag": "近义词辨析",
+    "type": "multiple_choice",
+    "question": "选择正确的单词填空。\n\nHe _____ to sleep until his mother came back.\n\nA. went\nB. didn't go\nC. doesn't go\nD. goes",
+    "options": [
+      "A. went",
+      "B. didn't go",
+      "C. doesn't go",
+      "D. goes"
+    ],
+    "answer": "B",
+    "analysis": "【考点】not...until...（直到……才……）\n【解题思路】「直到妈妈回来才去睡觉」，用 didn't...until... 结构。主句否定 + until 从句 = 直到……才……。\n【总结】not...until...（直到……才……）是八年级高频句型：He didn't go to bed until 11:00 last night.（他昨晚直到11点才去睡觉。）",
+    "difficulty": 0.4
+  }
+]

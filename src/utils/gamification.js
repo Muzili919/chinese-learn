@@ -520,6 +520,11 @@ export function initGamificationState() {
     totalCorrectAnswers: 0,
     daysActive: 1,
     lastActiveDate: new Date().toDateString(),
+    // 好友系统
+    friends: [],
+    pendingEncouragements: [],
+    weeklyQuestions: 0,
+    weeklyResetDate: new Date().toISOString().slice(0, 10),
   };
 }
 

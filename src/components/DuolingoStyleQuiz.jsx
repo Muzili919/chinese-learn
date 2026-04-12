@@ -473,10 +473,10 @@ function TypoQuestion({ question, onDone }) {
   const expected = corrections[current.num]
   const isOk = expected === '__ok__'
   const thisResult = results[subIndex]
-  const canSubmit = isOk || input.trim() !== ''
+  const canSubmit = isOk ? input.trim() === '正确' : input.trim() !== ''
 
   function handleSubmit() {
-    const isCorrect = isOk ? true : (input.trim() === expected)
+    const isCorrect = isOk ? (input.trim() === '正确') : (input.trim() === expected)
     const newResults = [...resultsRef.current, { correct: isCorrect }]
     resultsRef.current = newResults
     setResults(newResults)
@@ -543,8 +543,8 @@ function TypoQuestion({ question, onDone }) {
       {/* 输入区 */}
       {phase === 'input' && (
         isOk ? (
-          <div className="bg-blue-50 rounded-2xl px-4 py-3 border border-blue-200 text-center text-blue-600 text-sm font-medium">
-            此项无错别字，直接点"确认"
+          <div className="text-center text-gray-500 text-sm py-2">
+            如认为此项无错别字，请输入"正确"后确认
           </div>
         ) : (
           <input
