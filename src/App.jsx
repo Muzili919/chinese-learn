@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { storage, calcLevel, calcLevelProgress } from './utils/storage'
 import OnboardingPage from './pages/OnboardingPage'
 import HomePage from './pages/HomePage'
@@ -106,7 +106,7 @@ export default function App() {
   const [overdueCount, setOverdueCount] = useState(0)
   const [englishQuizOptions, setEnglishQuizOptions] = useState({})
   const [activeSubject, setActiveSubject] = useState('chinese')
-  const [grade, setGrade] = useState('primary') // 'primary' | 'junior2'
+  const [grade, setGrade] = useState(() => storage.getGrade()) // 从 storage 恢复
   const [variantQuestion, setVariantQuestion] = useState(null)
 
   // 学段切换时自动切到对应第一个科目
@@ -117,6 +117,12 @@ export default function App() {
       setActiveSubject('english')
     }
   }, [grade])
+
+  // 包装 setGrade，同时持久化
+  const handleGradeChange = useCallback((newGrade) => {
+    setGrade(newGrade)
+    storage.setGrade(newGrade)
+  }, [])
 
   // 加载宠物游戏状态
   useEffect(() => {
@@ -303,7 +309,7 @@ export default function App() {
             onSubjectChange={setActiveSubject}
             activeSubject={activeSubject}
             grade={grade}
-            onGradeChange={setGrade}
+            onGradeChange={handleGradeChange}
           />
         )
       }

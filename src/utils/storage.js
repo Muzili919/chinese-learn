@@ -16,6 +16,10 @@ export const storage = {
   },
   setUser: (user) => localStorage.setItem(P + 'user', JSON.stringify(user)),
 
+  // Grade preference
+  getGrade: () => localStorage.getItem(P + 'grade') || 'primary',
+  setGrade: (grade) => localStorage.setItem(P + 'grade', grade),
+
   // SRS state: { [cardId]: { interval, easeFactor, reviewCount, nextReview } }
   getSrsState: (userId) =>
     JSON.parse(localStorage.getItem(P + 'srs_' + userId) || '{}'),

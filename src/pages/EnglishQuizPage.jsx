@@ -3,6 +3,7 @@ import { storage, updateStreak } from '../utils/storage'
 import { updateSRS, toQuality } from '../utils/srs'
 import { syncAfterSession } from '../utils/sync'
 import { speakEnglish as _speakEnglish, stop as stopTTS, initTTS } from '../utils/tts'
+import { evaluateEnglishReading, evaluateEnglishWriting } from '../utils/ai'
 import enVocabQ from '../data/questions_en_vocab.json'
 import enListenQ from '../data/questions_en_listen.json'
 import enGrammarQ from '../data/questions_en_grammar.json'
@@ -127,7 +128,7 @@ function parseSubParts(q) {
 
 // ─── 多子题分页组件 ──────────────────────────────────────────────────────────
 
-function MultiSubQuiz({ question: q, onSubmit }) {
+function MultiSubQuiz({ question: q, onSubmit, englishTag }) {
   const { passage, subQuestions } = useMemo(() => parseSubParts(q), [q])
   const [step, setStep] = useState(0)
   const [results, setResults] = useState([])        // { correct, answer }[]
@@ -140,7 +141,7 @@ function MultiSubQuiz({ question: q, onSubmit }) {
 
   // 若解析出0个子题，降级为写作题
   if (subQuestions.length === 0) {
-    return <SimpleWritingInput q={q} onSubmit={onSubmit} />
+    return <SimpleWritingInput q={q} onSubmit={onSubmit} englishTag={englishTag} passage={passage} />
   }
 
   function mark(correct) { setCurrentCorrect(correct); setSubmitted(true) }
@@ -341,27 +342,66 @@ function MultiSubQuiz({ question: q, onSubmit }) {
   )
 }
 
-// ─── 写作题（简单开放） ────────────────────────────────────────────────────────
+// ─── 写作/阅读题（AI评分版） ─────────────────────────────────────────────────
 
-function SimpleWritingInput({ q, onSubmit }) {
+function SimpleWritingInput({ q, onSubmit, englishTag, passage }) {
   const [input, setInput] = useState('')
   const [submitted, setSubmitted] = useState(false)
+  const [aiEvaluating, setAiEvaluating] = useState(false)
+  const [aiResult, setAiResult] = useState(null)
+  const isReading = englishTag === 'en_reading'
+  const isWriting = englishTag === 'en_writing'
+
+  async function handleSubmit() {
+    if (!input.trim()) return
+    setSubmitted(true)
+    // 阅读和写作题调用AI评分
+    if ((isReading || isWriting) && input.trim().length > 5) {
+      setAiEvaluating(true)
+      try {
+        let result
+        if (isReading) {
+          result = await evaluateEnglishReading(passage || q.question, q.question, input, q.answer)
+        } else {
+          result = await evaluateEnglishWriting(q.question, input, q.answer)
+        }
+        setAiResult(result)
+      } catch (e) {
+        console.warn('AI评分失败:', e)
+      }
+      setAiEvaluating(false)
+    }
+  }
+
   return (
     <div className="flex flex-col gap-4">
       <div className="bg-white rounded-2xl p-4 shadow-sm">
-        <span className="text-xs font-semibold px-2 py-0.5 rounded-full bg-purple-100 text-purple-700 mb-3 inline-block">写作题</span>
-        <p className="text-gray-800 text-sm leading-relaxed whitespace-pre-wrap mt-2">{q.question}</p>
+        <div className="flex items-center gap-2 mb-3">
+          <span className="text-xs font-semibold px-2 py-0.5 rounded-full bg-purple-100 text-purple-700">
+            {isReading ? '阅读理解' : '写作题'}
+          </span>
+          {(isReading || isWriting) && (
+            <span className="text-xs text-amber-600 bg-amber-50 px-2 py-0.5 rounded-full">AI 评分</span>
+          )}
+        </div>
+        {passage && isReading && (
+          <div className="bg-sky-50 rounded-xl p-3 mb-3 border border-sky-100">
+            <div className="text-[10px] text-sky-500 font-semibold mb-1">阅读材料</div>
+            <p className="text-xs text-gray-700 leading-relaxed whitespace-pre-wrap">{passage}</p>
+          </div>
+        )}
+        <p className="text-gray-800 text-sm leading-relaxed whitespace-pre-wrap">{q.question}</p>
       </div>
       {!submitted ? (
         <>
           <textarea
             value={input}
             onChange={e => setInput(e.target.value)}
-            placeholder="请在这里写下你的答案..."
+            placeholder={isReading ? "请在这里写下你的答案..." : "Please write your answer here..."}
             className="w-full h-28 rounded-2xl border border-gray-200 p-4 text-sm resize-none focus:outline-none focus:ring-2 focus:ring-sky-300 bg-white"
           />
           <button
-            onClick={() => setSubmitted(true)}
+            onClick={handleSubmit}
             disabled={!input.trim()}
             className={`w-full py-3 rounded-2xl font-bold text-white ${input.trim() ? 'bg-gradient-to-r from-sky-400 to-blue-500 active:scale-95' : 'bg-gray-200 text-gray-400 cursor-not-allowed'}`}
           >
@@ -370,6 +410,74 @@ function SimpleWritingInput({ q, onSubmit }) {
         </>
       ) : (
         <>
+          {/* AI评分结果 */}
+          {aiEvaluating && (
+            <div className="bg-sky-50 border border-sky-200 rounded-2xl p-4 text-center">
+              <div className="text-2xl mb-2 animate-bounce">🤖</div>
+              <div className="text-sm text-sky-600 font-medium">AI 正在评分中...</div>
+            </div>
+          )}
+          {aiResult && !aiEvaluating && (
+            <div className="bg-gradient-to-br from-sky-50 to-indigo-50 border border-sky-200 rounded-2xl p-4">
+              <div className="flex items-center justify-between mb-3">
+                <span className="text-sm font-bold text-sky-700">🤖 AI 评分</span>
+                <span className={`text-lg font-extrabold ${aiResult.score >= 70 ? 'text-green-600' : aiResult.score >= 50 ? 'text-amber-600' : 'text-red-500'}`}>
+                  {aiResult.score} 分
+                </span>
+              </div>
+              {/* 写作题：三项分 */}
+              {isWriting && aiResult.grammar !== undefined && (
+                <div className="grid grid-cols-3 gap-2 mb-3">
+                  {[
+                    { label: '语法', score: aiResult.grammar, feedback: aiResult.grammarFeedback, color: 'from-violet-400 to-purple-500' },
+                    { label: '词汇', score: aiResult.vocabulary, feedback: aiResult.vocabFeedback, color: 'from-sky-400 to-blue-500' },
+                    { label: '结构', score: aiResult.structure, feedback: aiResult.structureFeedback, color: 'from-emerald-400 to-teal-500' },
+                  ].map(item => (
+                    <div key={item.label} className="bg-white rounded-xl p-2 text-center">
+                      <div className="text-[10px] text-gray-500">{item.label}</div>
+                      <div className={`text-base font-bold bg-gradient-to-r ${item.color} bg-clip-text text-transparent`}>{item.score}</div>
+                      <div className="text-[9px] text-gray-400 mt-0.5">{item.feedback}</div>
+                    </div>
+                  ))}
+                </div>
+              )}
+              {/* 阅读题：要点分析 */}
+              {isReading && (
+                <div className="mb-3">
+                  {aiResult.hitPoints?.length > 0 && (
+                    <div className="mb-2">
+                      <div className="text-xs font-semibold text-green-600 mb-1">答对的要点</div>
+                      {aiResult.hitPoints.map((p, i) => (
+                        <div key={i} className="text-xs text-gray-600 pl-3">✅ {p}</div>
+                      ))}
+                    </div>
+                  )}
+                  {aiResult.missedPoints?.length > 0 && (
+                    <div className="mb-2">
+                      <div className="text-xs font-semibold text-amber-600 mb-1">遗漏的要点</div>
+                      {aiResult.missedPoints.map((p, i) => (
+                        <div key={i} className="text-xs text-gray-600 pl-3">⚠️ {p}</div>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              )}
+              {/* 总评 */}
+              {aiResult.teacherComment && (
+                <div className="bg-white rounded-xl p-3 mb-2">
+                  <div className="text-xs font-semibold text-gray-500 mb-1">老师评语</div>
+                  <div className="text-xs text-gray-700">{aiResult.teacherComment}</div>
+                </div>
+              )}
+              {aiResult.suggestion && (
+                <div className="bg-white rounded-xl p-3">
+                  <div className="text-xs font-semibold text-amber-600 mb-1">改进建议</div>
+                  <div className="text-xs text-gray-700">{aiResult.suggestion}</div>
+                </div>
+              )}
+            </div>
+          )}
+          {/* 参考答案 */}
           <div className="bg-sky-50 border border-sky-200 rounded-2xl p-4">
             <div className="text-sm font-semibold text-sky-700 mb-1">📖 参考答案</div>
             <div className="text-sm text-gray-700 whitespace-pre-wrap leading-relaxed">{q.answer}</div>
@@ -381,7 +489,7 @@ function SimpleWritingInput({ q, onSubmit }) {
             )}
           </div>
           <button
-            onClick={() => onSubmit(input, true)}
+            onClick={() => onSubmit(input, aiResult ? aiResult.score >= 60 : true)}
             className="w-full py-3 rounded-2xl bg-gradient-to-r from-sky-400 to-blue-500 text-white font-bold active:scale-95 shadow-md"
           >
             继续下一题 →
@@ -421,13 +529,13 @@ const TYPE_COLOR = {
   open_ended:      { bg: '#fdf4ff', text: '#7e22ce' },
 }
 
-function EnglishQuestion({ question: q, onSubmit }) {
+function EnglishQuestion({ question: q, onSubmit, englishTag }) {
   const mode = detectMode(q)
 
   // 多子题分页 → 独立组件
-  if (mode === 'multi_sub') return <MultiSubQuiz question={q} onSubmit={onSubmit} />
+  if (mode === 'multi_sub') return <MultiSubQuiz question={q} onSubmit={onSubmit} englishTag={englishTag} />
   // 写作 → 独立组件
-  if (mode === 'writing') return <SimpleWritingInput q={q} onSubmit={onSubmit} />
+  if (mode === 'writing') return <SimpleWritingInput q={q} onSubmit={onSubmit} englishTag={englishTag} />
 
   // ── 选择题 / 填空题 ──
   const [selected, setSelected] = useState(null)
@@ -652,6 +760,7 @@ export default function EnglishQuizPage({ user, options = {}, onFinish, onBack }
           key={current.id}
           question={current}
           onSubmit={handleAnswerSubmit}
+          englishTag={englishTag}
         />
       </div>
     </div>

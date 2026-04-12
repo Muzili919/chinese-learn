@@ -198,3 +198,65 @@ export async function evaluateReadingAnswer(questionText, userAnswer, correctAns
 
   return callDeepSeek(system, user)
 }
+
+/**
+ * AI批改英语阅读理解答案
+ * @param {string} passageText - 阅读材料
+ * @param {string} questionText - 题目
+ * @param {string} userAnswer - 学生答案
+ * @param {string} correctAnswer - 参考答案
+ * @returns {{ score, correct, hitPoints, missedPoints, teacherComment, improvement }}
+ */
+export async function evaluateEnglishReading(passageText, questionText, userAnswer, correctAnswer) {
+  const system = `你是一位初中英语老师，正在批改学生的英语阅读理解答案。
+请用JSON格式返回批改结果，包含以下字段：
+- score: 得分（0-100的整数）
+- correct: 布尔值（score>=60为true）
+- hitPoints: 数组，学生答案中正确的要点（每项不超过20字，最多3项，没有则为空数组）
+- missedPoints: 数组，学生遗漏的要点（每项不超过20字，最多3项，没有则为空数组）
+- teacherComment: 字符串，英文老师的批改评语，先肯定再指出不足（50字以内）
+- improvement: 字符串，最重要的改进方向（25字以内）
+
+评分标准：答出核心意思60分起，要点越全分越高，语言通顺加分。
+针对初二学生水平，鼓励为主。`
+
+  const user = `阅读材料：${passageText || '（见题目中的文章）'}
+题目：${questionText}
+参考答案：${correctAnswer}
+学生答案：${userAnswer}
+请批改并返回JSON。`
+
+  return callDeepSeek(system, user)
+}
+
+/**
+ * AI批改英语写作
+ * @param {string} writingPrompt - 写作题目
+ * @param {string} studentEssay - 学生写的英语作文
+ * @param {string} referenceAnswer - 参考答案/范文
+ * @returns {{ score, grammar, vocabulary, structure, grammarFeedback, vocabFeedback, structureFeedback, summary, suggestion }}
+ */
+export async function evaluateEnglishWriting(writingPrompt, studentEssay, referenceAnswer) {
+  const system = `你是一位初中英语老师，正在批改初二学生的英语写作。
+请用JSON格式返回批改结果，包含以下字段：
+- score: 总分（0-100的整数）
+- grammar: 语法分（0-30），评判时态、句型、主谓一致等
+- vocabulary: 词汇分（0-30），评判用词是否准确、丰富
+- structure: 结构分（0-40），评判是否扣题、段落清晰、内容充实
+- grammarFeedback: 语法评语（30字以内）
+- vocabFeedback: 词汇评语（30字以内）
+- structureFeedback: 结构评语（30字以内）
+- summary: 总体评价（50字以内，鼓励为主）
+- suggestion: 最重要的一条改进建议（40字以内）
+
+评分标准：初二水平，时态正确、句型丰富、词汇准确、扣题充实是高分关键。
+针对初二学生水平，不要太苛刻，多鼓励。`
+
+  const user = `写作题目：${writingPrompt}
+学生作文：
+${studentEssay}
+${referenceAnswer ? `参考范文：${referenceAnswer}` : ''}
+请批改并返回JSON。`
+
+  return callDeepSeek(system, user)
+}
