@@ -7,7 +7,13 @@ import polChoiceQ from '../data/questions_politics_choice.json'
 import polAnswerQ from '../data/questions_politics_answer.json'
 import polAnalysisQ from '../data/questions_politics_analysis.json'
 
-const SESSION_SIZE = 15
+// 不同星球每次答题数
+const SESSION_SIZES = {
+  pol_choice: 15,
+  pol_answer: 5,
+  pol_analysis: 5,
+  pol_explore: 3,
+}
 
 const POL_QUESTION_MAP = {
   pol_choice:   polChoiceQ,
@@ -411,16 +417,19 @@ export default function PoliticsQuizPage({ user, options = {}, onFinish, onBack 
   const startTime = useRef(Date.now())
   const questionStartTime = useRef(Date.now())
 
-  // 过滤实践探究题
+  // 过滤实践探究题：按 task_type 值区分
+  const sessionSize = SESSION_SIZES[politicsTag] || 15
+  const EXPLORE_TYPES = ['倡议书', '辩论稿', '活动方案']
   const questions = useMemo(() => {
     let pool = POL_QUESTION_MAP[politicsTag] || polChoiceQ
     if (politicsTag === 'pol_explore') {
-      pool = pool.filter(q => q.task_type)
+      pool = pool.filter(q => EXPLORE_TYPES.includes(q.task_type))
     } else if (politicsTag === 'pol_answer') {
-      pool = pool.filter(q => !q.task_type)
+      // 简答题 = 有 task_type 但不是实践探究类型（为什么/怎么做/区别联系/启示）
+      pool = pool.filter(q => q.task_type && !EXPLORE_TYPES.includes(q.task_type))
     }
-    return shuffle(pool).slice(0, SESSION_SIZE)
-  }, [politicsTag])
+    return shuffle(pool).slice(0, sessionSize)
+  }, [politicsTag, sessionSize])
 
   const [index, setIndex] = useState(0)
   const [sessionRecords, setSessionRecords] = useState([])
