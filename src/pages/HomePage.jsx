@@ -51,20 +51,32 @@ const PLANETS = [
 
 const QUIZ_PLANET_IDS = ['字词', '古诗词', '成语', '句子', '文学常识']
 
-// 科目配置
-const SUBJECTS = [
-  { id: 'chinese', label: '语文', emoji: '📖', available: true },
-  { id: 'english', label: '英语', emoji: '🌎', available: true },
-  { id: 'politics', label: '道法', emoji: '⚖️', available: true },
-  { id: 'math',    label: '数学', emoji: '🔢', available: false },
-]
+// 科目配置（按学段）
+const SUBJECTS_BY_GRADE = {
+  primary: [
+    { id: 'chinese', label: '语文', emoji: '📖', available: true },
+    { id: 'english', label: '英语', emoji: '🌎', available: true },
+  ],
+  junior2: [
+    { id: 'english', label: '英语', emoji: '🌎', available: true },
+    { id: 'politics', label: '道法', emoji: '⚖️', available: true },
+    { id: 'math',    label: '数学', emoji: '🔢', available: false },
+  ],
+}
 
 export default function HomePage({ user, onStartQuiz, onReport, onLogout, onSubjectChange, activeSubject: activeSubjectProp, grade, onGradeChange }) {
   const [showLogoutConfirm, setShowLogoutConfirm] = useState(false)
-  const [activeSubject, setActiveSubject] = useState(activeSubjectProp || 'chinese')
-  const [subjectToast, setSubjectToast] = useState(null)
   const currentGrade = grade || 'primary'
+  const SUBJECTS = SUBJECTS_BY_GRADE[currentGrade] || SUBJECTS_BY_GRADE.primary
 
+  // 学段变化时自动切换到该学段的第一个可用科目
+  const [activeSubject, setActiveSubject] = useState(() => {
+    const available = (SUBJECTS_BY_GRADE[currentGrade] || SUBJECTS_BY_GRADE.primary).filter(s => s.available)
+    return activeSubjectProp && available.find(s => s.id === activeSubjectProp)
+      ? activeSubjectProp
+      : available[0]?.id || 'chinese'
+  })
+  const [subjectToast, setSubjectToast] = useState(null)
   const xp = storage.getXP(user.id)
   const level = calcLevel(xp)
   const levelProgress = calcLevelProgress(xp)

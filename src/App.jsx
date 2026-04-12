@@ -109,6 +109,15 @@ export default function App() {
   const [grade, setGrade] = useState('primary') // 'primary' | 'junior2'
   const [variantQuestion, setVariantQuestion] = useState(null)
 
+  // 学段切换时自动切到对应第一个科目
+  useEffect(() => {
+    if (grade === 'primary') {
+      setActiveSubject('chinese')
+    } else if (grade === 'junior2') {
+      setActiveSubject('english')
+    }
+  }, [grade])
+
   // 加载宠物游戏状态
   useEffect(() => {
     if (user?.id) {
