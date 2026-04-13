@@ -607,15 +607,50 @@ function isChoiceCorrect(selected, q) {
 // ─── 排序题组件（听录音排序 A→B→C→D） ─────────────────────────────────────────
 function OrderingQuestion({ q, onSubmit }) {
   const correctItems = (q.answer || '').split('→').map(s => s.trim()).filter(Boolean)
-  const [submitted, setSubmitted] = useState(false)
-  const [isCorrect, setIsCorrect] = useState(false)
-  const allOptions = Array.isArray(q.options) && q.options.length > 0
-    ? q.options.map(o => o.replace(/^[A-D]\.\s*/i, '').replace(/的图片描述$/, ''))
-    : ['选项一', '选项二', '选项三', '选项四']
+
+  // 从 listening_text 提取选项列表（"A. school  B. park  ..."）
+  function extractListeningOptions() {
+    const lt = q.listening_text || ''
+    // 匹配 "A. xxx  B. xxx" 格式
+    const m = lt.match(/([A-D])\.\s*(.+?)(?=\s+[A-D]\.\s|$)/g)
+    if (m && m.length >= 2) {
+      return m.map(item => {
+        const parts = item.match(/([A-D])\.\s*(.+)/)
+        return parts ? { letter: parts[1].toUpperCase(), text: parts[2].trim() } : null
+      }).filter(Boolean)
+    }
+    // 匹配 "First, xxx. Then, xxx. After that, xxx." 格式
+    const sentences = lt.split(/\.\s+(?=Then|After|Next|Finally|First)/i)
+    if (sentences.length >= 2) {
+      return sentences.map((s, i) => {
+        const clean = s.replace(/^(First|Then|After that|Next|Finally)[,]?\s*/i, '').trim().replace(/\.$/, '')
+        return { letter: ['A','B','C','D'][i], text: clean || `第${i+1}项` }
+      }).filter(x => x.text && x.text !== `第${0}项`)
+    }
+    return null
+  }
+
+  const listeningOpts = extractListeningOptions()
+
+  // 选项来源优先级：q.options > listening_text提取 > fallback
+  let allOptions
+  if (Array.isArray(q.options) && q.options.length > 0) {
+    allOptions = q.options.map((o, i) => ({
+      letter: ['A','B','C','D'][i],
+      text: o.replace(/^[A-D]\.\s*/i, '').replace(/的图片描述$/, ''),
+    }))
+  } else if (listeningOpts && listeningOpts.length === correctItems.length) {
+    allOptions = listeningOpts
+  } else {
+    allOptions = correctItems.map((item, i) => {
+      const idx = ['A','B','C','D','a','b','c','d'].indexOf(item)
+      return { letter: (idx >= 0 ? item : ['A','B','C','D'][i]).toUpperCase(), text: `选项 ${['A','B','C','D'][i]}` }
+    })
+  }
+
   const correctLabels = correctItems.map(item => {
-    const idx = ['A','B','C','D','a','b','c','d'].indexOf(item)
-    if (idx >= 0 && idx < allOptions.length) return { label: item.toUpperCase(), text: allOptions[idx] }
-    return { label: item, text: item }
+    const found = allOptions.find(o => o.letter === item.toUpperCase())
+    return found ? found : { label: item.toUpperCase(), text: item }
   })
   const [order, setOrder] = useState([])
 
@@ -630,13 +665,16 @@ function OrderingQuestion({ q, onSubmit }) {
   }
 
   function getLabelText(label) {
-    const item = correctLabels.find(c => c.label === label)
-    return item ? item.text : label
+    const item = correctLabels.find(c => (c.letter || c.label) === label)
+    return item ? (item.text || item.label) : label
   }
+
+  // 统一使用 letter 字段
+  const allLabels = allOptions.map(o => o.letter)
 
   function handleSubmit() {
     if (order.length !== correctLabels.length) return
-    const correct = order.every((label, i) => label === correctLabels[i].label)
+    const correct = order.every((label, i) => label === (correctLabels[i].letter || correctLabels[i].label))
     setIsCorrect(correct)
     setSubmitted(true)
   }
@@ -669,14 +707,17 @@ function OrderingQuestion({ q, onSubmit }) {
         <div className="bg-white rounded-2xl p-4 shadow-sm">
           <div className="text-xs font-semibold text-gray-500 mb-2">请按听到的顺序选择：</div>
           <div className="grid grid-cols-2 gap-2">
-            {correctLabels.map(item => (
-              <button key={item.label} onClick={() => handleSelectLabel(item.label)}
-                disabled={order.includes(item.label)}
+            {allOptions.map(item => {
+              const lbl = item.letter || item.label
+              return (
+              <button key={lbl} onClick={() => handleSelectLabel(lbl)}
+                disabled={order.includes(lbl)}
                 className={`py-3 px-3 rounded-xl border-2 text-sm font-medium text-left transition-all active:scale-95
-                  ${order.includes(item.label) ? 'bg-gray-100 border-gray-200 text-gray-400 line-through' : 'bg-white border-gray-200 text-gray-700'}`}>
-                {item.label}. {item.text}
+                  ${order.includes(lbl) ? 'bg-gray-100 border-gray-200 text-gray-400 line-through' : 'bg-white border-gray-200 text-gray-700'}`}>
+                {lbl}. {item.text}
               </button>
-            ))}
+              )
+            })}
           </div>
         </div>
       )}
@@ -691,12 +732,12 @@ function OrderingQuestion({ q, onSubmit }) {
       {submitted && (
         <div className={`rounded-2xl p-4 border ${isCorrect ? 'bg-green-50 border-green-200' : 'bg-red-50 border-red-200'}`}>
           <div className={`font-bold text-base mb-2 ${isCorrect ? 'text-green-700' : 'text-red-600'}`}>
-            {isCorrect ? '✅ 排序正确！' : `❌ 正确顺序：${correctLabels.map(c => c.label).join(' → ')}`}
+            {isCorrect ? '✅ 排序正确！' : `❌ 正确顺序：${correctLabels.map(c => c.letter || c.label).join(' → ')}`}
           </div>
           <div className="text-xs text-gray-600 mt-1">
-            正确顺序：{correctLabels.map((c, i) => <span key={c.label} className="inline-flex items-center gap-1 mr-2">
+            正确顺序：{correctLabels.map((c, i) => <span key={c.letter || c.label} className="inline-flex items-center gap-1 mr-2">
               <span className="bg-violet-100 text-violet-700 px-1.5 py-0.5 rounded font-bold">{i + 1}</span>
-              {c.label}. {c.text}
+              {c.letter || c.label}. {c.text}
               {i < correctLabels.length - 1 && <span className="text-gray-400 ml-1">→</span>}
             </span>)}
           </div>
@@ -801,9 +842,19 @@ function EnglishQuestion({ question: q, onSubmit, englishTag }) {
       {/* 填空题 */}
       {mode === 'text_fill' && !submitted && (
         <div className="flex flex-col gap-3">
+          {/* 如果有 listening_text 且含 ______，显示上下文提示 */}
+          {(q.listening_text || '').includes('______') && (
+            <div className="bg-amber-50 border border-amber-200 rounded-xl p-3 text-xs text-amber-800 leading-relaxed">
+              <div className="font-semibold text-amber-700 mb-1">📖 听力原文（听录音后填写空格）：</div>
+              <div className="whitespace-pre-wrap font-mono" dangerouslySetInnerHTML={{
+                __html: (q.listening_text || '')
+                  .replace(/_{3,}/g, '<span class="inline-block min-w-[60px] border-b-2 border-dashed border-amber-400 mx-1 text-center text-amber-500 font-bold">______</span>')
+              }}></div>
+            </div>
+          )}
           <input type="text" value={textInput} onChange={e => setTextInput(e.target.value)}
             onKeyDown={e => e.key === 'Enter' && textInput.trim() && handleTextSubmit()}
-            placeholder="在此输入答案..."
+            placeholder={q.analysis ? '在此输入答案...' : '听录音后在此输入答案...'}
             className="border-2 border-gray-200 rounded-xl px-4 py-3 text-base font-mono focus:border-sky-400 outline-none bg-white"
             autoFocus autoComplete="off" autoCorrect="off" spellCheck="false" />
           <button onClick={handleTextSubmit} disabled={!textInput.trim()}
