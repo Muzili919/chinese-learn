@@ -513,12 +513,212 @@ function SimpleWritingInput({ q, onSubmit, englishTag, passage }) {
   )
 }
 
+// ─── 连线题组件（左点→右点配对） ──────────────────────────────────────────────
+function MatchingQuestion({ q, onSubmit }) {
+  const [submitted, setSubmitted] = useState(false)
+  const [isCorrect, setIsCorrect] = useState(false)
+  const [selectedLeft, setSelectedLeft] = useState(null)  // 当前选中的左侧序号
+  const [connections, setConnections] = useState({})      // { leftNum: rightLetter }
+
+  // 解析左列（1. xxx  2. xxx）
+  const leftItems = useMemo(() => {
+    const m = (q.question || '').match(/左列[：:]\s*\n([\s\S]*?)(?=\n右列|$)/)
+    if (!m) return []
+    return m[1].split('\n')
+      .map(l => l.trim())
+      .filter(l => /^\d/.test(l))
+      .map(l => {
+        const idx = l.indexOf('.')
+        return { num: l.slice(0, idx).trim(), text: l.slice(idx + 1).trim() }
+      })
+  }, [q.question])
+
+  // 解析右列（A. xxx  B. xxx）
+  const rightItems = useMemo(() => {
+    const m = (q.question || '').match(/右列[：:]\s*\n([\s\S]*?)$/)
+    if (!m) return []
+    return m[1].split('\n')
+      .map(l => l.trim())
+      .filter(l => /^[A-D]\./.test(l))
+      .map(l => {
+        const idx = l.indexOf('.')
+        return { letter: l.slice(0, idx).trim(), text: l.slice(idx + 1).trim() }
+      })
+  }, [q.question])
+
+  // 解析正确答案 { '1': 'C', '2': 'D', ... }
+  const correctMap = useMemo(() => {
+    const map = {}
+    const pairs = (q.answer || '').split(/\s+/)
+    pairs.forEach(pair => {
+      const m = pair.match(/(\d)\s*[-—→]\s*([A-D])/i)
+      if (m) map[m[1]] = m[2].toUpperCase()
+    })
+    return map
+  }, [q.answer])
+
+  function handleLeftClick(num) {
+    if (submitted) return
+    setSelectedLeft(prev => prev === num ? null : num)
+  }
+
+  function handleRightClick(letter) {
+    if (submitted || !selectedLeft) return
+    if (Object.values(connections).includes(letter)) return  // 右项已被占用
+    const newConn = { ...connections, [selectedLeft]: letter }
+    setConnections(newConn)
+    setSelectedLeft(null)
+  }
+
+  function handleRemoveConn(num) {
+    if (submitted) return
+    const newConn = { ...connections }
+    delete newConn[num]
+    setConnections(newConn)
+  }
+
+  function handleSubmit() {
+    if (Object.keys(connections).length !== leftItems.length) return
+    const correct = leftItems.every(item => connections[item.num] === correctMap[item.num])
+    setIsCorrect(correct)
+    setSubmitted(true)
+  }
+
+  const isConnected = (letter) => Object.values(connections).includes(letter)
+  const allConnected = Object.keys(connections).length === leftItems.length
+
+  return (
+    <div className="flex flex-col gap-4">
+      {/* 题目 */}
+      <div className="bg-white rounded-2xl p-4 shadow-sm">
+        <div className="flex items-center gap-2 mb-2">
+          <span className="text-xs font-semibold px-2 py-0.5 rounded-full"
+            style={{ background: '#fef3c7', color: '#92400e' }}>连线题</span>
+          <button onClick={() => speakEnglish(q.question)}
+            className="ml-auto w-7 h-7 flex items-center justify-center bg-sky-100 text-sky-500 rounded-full text-sm">🔊</button>
+        </div>
+        <p className="text-gray-800 text-sm">将左边词组与右边中文意思连线</p>
+      </div>
+
+      {/* 连线区域：左列 | 空白 | 右列 */}
+      <div className="flex items-stretch gap-3">
+        {/* 左列 */}
+        <div className="flex-1 flex flex-col gap-2">
+          {leftItems.map((item) => {
+            const isSelected = selectedLeft === item.num
+            const isDone = !!connections[item.num]
+            const isRight = submitted && connections[item.num] === correctMap[item.num]
+            const isWrong = submitted && connections[item.num] && connections[item.num] !== correctMap[item.num]
+            let cls = 'bg-white border-2 border-gray-200 text-gray-700'
+            if (isRight) cls = 'bg-green-50 border-2 border-green-400 text-green-700'
+            else if (isWrong) cls = 'bg-red-50 border-2 border-red-400 text-red-600'
+            else if (isSelected) cls = 'bg-sky-50 border-2 border-sky-400 text-sky-700'
+            else if (isDone) cls = 'bg-indigo-50 border-2 border-indigo-300 text-indigo-700'
+            return (
+              <button key={item.num} onClick={() => isDone ? handleRemoveConn(item.num) : handleLeftClick(item.num)}
+                className={`rounded-xl px-3 py-2.5 text-sm font-medium text-left transition-all active:scale-95 ${cls}`}>
+                <span className="font-bold mr-2">{item.num}.</span>{item.text}
+                {isDone && <span className="ml-2 text-xs opacity-60">→ {connections[item.num]}</span>}
+              </button>
+            )
+          })}
+        </div>
+
+        {/* 中间连接区域 */}
+        <div className="w-16 flex flex-col items-center justify-center gap-1 flex-shrink-0">
+          {leftItems.map((item) => {
+            if (!connections[item.num]) return <div key={item.num} className="h-10 w-4" />
+            const rightIdx = rightItems.findIndex(r => r.letter === connections[item.num])
+            const leftIdx = leftItems.findIndex(r => r.num === item.num)
+            const isRight = submitted && connections[item.num] === correctMap[item.num]
+            const isWrong = submitted && connections[item.num] && connections[item.num] !== correctMap[item.num]
+            return (
+              <div key={item.num} className="h-10 flex items-center">
+                <div className={`w-16 h-0.5 ${isWrong ? 'bg-red-400' : isRight ? 'bg-green-400' : 'bg-indigo-300'}`} />
+              </div>
+            )
+          })}
+        </div>
+
+        {/* 右列 */}
+        <div className="flex-1 flex flex-col gap-2">
+          {rightItems.map((item) => {
+            const connected = isConnected(item.letter)
+            const connectedLeft = Object.entries(connections).find(([,l]) => l === item.letter)?.[0]
+            const isRight = submitted && connected && connections[connectedLeft] === correctMap[connectedLeft]
+            const isWrong = submitted && connected && connections[connectedLeft] !== correctMap[connectedLeft]
+            let cls = 'bg-white border-2 border-gray-200 text-gray-700'
+            if (isRight) cls = 'bg-green-50 border-2 border-green-400 text-green-700'
+            else if (isWrong) cls = 'bg-red-50 border-2 border-red-400 text-red-600'
+            else if (connected) cls = 'bg-indigo-50 border-2 border-indigo-300 text-indigo-700'
+            return (
+              <button key={item.letter} onClick={() => !submitted && !selectedLeft ? null : selectedLeft ? handleRightClick(item.letter) : null}
+                disabled={submitted || (connected && !submitted)}
+                className={`rounded-xl px-3 py-2.5 text-sm font-medium text-left transition-all ${connected && !submitted ? 'opacity-60 cursor-not-allowed' : submitted ? 'cursor-default' : 'active:scale-95 cursor-pointer'} ${cls}`}>
+                <span className="font-bold mr-2">{item.letter}.</span>{item.text}
+                {connected && !submitted && <span className="ml-2 text-xs opacity-60">← {connectedLeft}</span>}
+              </button>
+            )
+          })}
+        </div>
+      </div>
+
+      {/* 提示 */}
+      {!submitted && (
+        <div className="text-xs text-gray-400 text-center">
+          {selectedLeft ? `已选 ${selectedLeft}，请点击右边对应答案` : '请先点击左边词组，再点击右边中文意思配对'}
+        </div>
+      )}
+
+      {/* 反馈 */}
+      {submitted && (
+        <div className={`rounded-2xl p-4 border ${isCorrect ? 'bg-green-50 border-green-200' : 'bg-amber-50 border-amber-200'}`}>
+          <div className={`font-bold text-base mb-2 ${isCorrect ? 'text-green-700' : 'text-amber-700'}`}>
+            {isCorrect ? '✅ 连线全部正确！' : `❌ 连线有误，正确答案已标出`}
+          </div>
+          {!isCorrect && (
+            <div className="space-y-1 mt-2">
+              {leftItems.map(item => (
+                <div key={item.num} className="text-xs text-gray-600 flex items-center gap-2">
+                  <span className="font-semibold">{item.num}. {item.text}</span>
+                  <span className="text-gray-400">→</span>
+                  <span className={`font-semibold ${connections[item.num] === correctMap[item.num] ? 'text-green-600' : 'text-red-500'}`}>
+                    {correctMap[item.num]}. {rightItems.find(r => r.letter === correctMap[item.num])?.text}
+                  </span>
+                  {connections[item.num] !== correctMap[item.num] && (
+                    <span className="text-gray-400">（你的：{connections[item.num]}）</span>
+                  )}
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+      )}
+
+      {!submitted && (
+        <button onClick={handleSubmit} disabled={!allConnected}
+          className={`w-full py-3 rounded-2xl font-bold text-white ${allConnected ? 'bg-gradient-to-r from-indigo-400 to-purple-500 active:scale-95 shadow-md' : 'bg-gray-200 text-gray-400 cursor-not-allowed'}`}>
+          {allConnected ? '提交答案' : `还需连 ${leftItems.length - Object.keys(connections).length} 条`}
+        </button>
+      )}
+
+      {submitted && (
+        <button onClick={() => onSubmit('matching', isCorrect)}
+          className="w-full py-3 rounded-2xl bg-gradient-to-r from-sky-400 to-blue-500 text-white font-bold active:scale-95 shadow-md">
+          继续下一题 →
+        </button>
+      )}
+    </div>
+  )
+}
+
 // ─── 模式检测 ──────────────────────────────────────────────────────────────
 
 function detectMode(q) {
   if (q.type === 'open_ended') return 'writing'
   if (isMultiPartAnswer(q)) return 'multi_sub'
   if (q.type === 'true_false') return 'true_false'
+  if (/^1-?[A-D]/.test((q.answer || '').replace(/\s/g, ''))) return 'matching'
   if (/^[A-D]\s*→\s*[A-D]/.test(q.answer || '')) return 'ordering'
   if (Array.isArray(q.options) && q.options.length >= 2) return 'choice'
   if (q.type === 'fill_blank' && (q.answer || '').length < 40) return 'text_fill'
@@ -606,6 +806,8 @@ function isChoiceCorrect(selected, q) {
 
 // ─── 排序题组件（听录音排序 A→B→C→D） ─────────────────────────────────────────
 function OrderingQuestion({ q, onSubmit }) {
+  const [submitted, setSubmitted] = useState(false)
+  const [isCorrect, setIsCorrect] = useState(false)
   const correctItems = (q.answer || '').split('→').map(s => s.trim()).filter(Boolean)
 
   // 从 listening_text 提取选项列表（"A. school  B. park  ..."）
@@ -769,6 +971,8 @@ function EnglishQuestion({ question: q, onSubmit, englishTag }) {
 
   // 多子题分页 → 独立组件
   if (mode === 'multi_sub') return <MultiSubQuiz question={q} onSubmit={onSubmit} englishTag={englishTag} />
+  // 连线题 → 独立组件
+  if (mode === 'matching') return <MatchingQuestion q={q} onSubmit={onSubmit} />
   // 写作 → 独立组件
   if (mode === 'writing') return <SimpleWritingInput q={q} onSubmit={onSubmit} englishTag={englishTag} />
   // 排序题 → 独立组件

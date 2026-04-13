@@ -121,16 +121,16 @@
   },
   {
     "id": "cn_g4_016",
-    "word": "牵",
-    "pinyin": "qiān",
+    "word": "牵牛",
+    "pinyin": "qiānniú",
     "grade": 4,
     "semester": "上册",
     "example": "妈妈牵着孩子的手过马路。"
   },
   {
     "id": "cn_g4_017",
-    "word": "鹅",
-    "pinyin": "é",
+    "word": "白鹅",
+    "pinyin": "bái é",
     "grade": 4,
     "semester": "上册",
     "example": "白鹅在水面上游来游去。"
@@ -161,24 +161,24 @@
   },
   {
     "id": "cn_g4_021",
-    "word": "灿",
-    "pinyin": "càn",
+    "word": "灿烂",
+    "pinyin": "cànlàn",
     "grade": 4,
     "semester": "上册",
     "example": "金灿灿的阳光洒在田野上。"
   },
   {
     "id": "cn_g4_022",
-    "word": "烂",
-    "pinyin": "làn",
+    "word": "破烂",
+    "pinyin": "pòlàn",
     "grade": 4,
     "semester": "上册",
     "example": "不要把食物放烂了。"
   },
   {
     "id": "cn_g4_023",
-    "word": "竿",
-    "pinyin": "gān",
+    "word": "竹竿",
+    "pinyin": "zhúgān",
     "grade": 4,
     "semester": "上册",
     "example": "他拿了一根竹竿去钓鱼。"
@@ -225,24 +225,24 @@
   },
   {
     "id": "cn_g4_029",
-    "word": "颈",
-    "pinyin": "jǐng",
+    "word": "脖颈",
+    "pinyin": "bógěng",
     "grade": 4,
     "semester": "上册",
     "example": "长颈鹿的脖子很长。"
   },
   {
     "id": "cn_g4_030",
-    "word": "郑",
-    "pinyin": "zhèng",
+    "word": "郑重",
+    "pinyin": "zhèngzhòng",
     "grade": 4,
     "semester": "上册",
     "example": "郑重其事地答应了。"
   },
   {
     "id": "cn_g4_031",
-    "word": "厉",
-    "pinyin": "lì",
+    "word": "厉害",
+    "pinyin": "lìhai",
     "grade": 4,
     "semester": "上册",
     "example": "老师严厉地批评了他。"
@@ -281,24 +281,24 @@
   },
   {
     "id": "cn_g4_036",
-    "word": "崇",
-    "pinyin": "chóng",
+    "word": "崇拜",
+    "pinyin": "chóngbài",
     "grade": 4,
     "semester": "上册",
     "example": "崇山峻岭绵延不绝。"
   },
   {
     "id": "cn_g4_037",
-    "word": "旋",
-    "pinyin": "xuán",
+    "word": "旋转",
+    "pinyin": "xuánzhuǎn",
     "grade": 4,
     "semester": "上册",
     "example": "飞机在天空中盘旋。"
   },
   {
     "id": "cn_g4_038",
-    "word": "嘉",
-    "pinyin": "jiā",
+    "word": "嘉宾",
+    "pinyin": "jiābīn",
     "grade": 4,
     "semester": "上册",
     "example": "嘉宾纷纷到场。"
@@ -337,24 +337,24 @@
   },
   {
     "id": "cn_g4_043",
-    "word": "孟",
-    "pinyin": "mèng",
+    "word": "孟子",
+    "pinyin": "mèngzi",
     "grade": 4,
     "semester": "上册",
     "example": "孟母三迁的故事很感人。"
   },
   {
     "id": "cn_g4_044",
-    "word": "陵",
-    "pinyin": "líng",
+    "word": "陵墓",
+    "pinyin": "língmù",
     "grade": 4,
     "semester": "上册",
     "example": "我们参观了中山陵。"
   },
   {
     "id": "cn_g4_045",
-    "word": "辞",
-    "pinyin": "cí",
+    "word": "辞别",
+    "pinyin": "cíbié",
     "grade": 4,
     "semester": "上册",
     "example": "他写了一首辞别诗。"
@@ -393,24 +393,24 @@
   },
   {
     "id": "cn_g4_050",
-    "word": "崛",
-    "pinyin": "jué",
+    "word": "崛起",
+    "pinyin": "juéqǐ",
     "grade": 4,
     "semester": "上册",
     "example": "祖国崛起，日益强大。"
   },
   {
     "id": "cn_g4_051",
-    "word": "帝",
-    "pinyin": "dì",
+    "word": "皇帝",
+    "pinyin": "huángdì",
     "grade": 4,
     "semester": "上册",
     "example": "古代的皇帝住在皇宫里。"
   },
   {
     "id": "cn_g4_052",
-    "word": "范",
-    "pinyin": "fàn",
+    "word": "范子",
+    "pinyin": "fànzi",
     "grade": 4,
     "semester": "上册",
     "example": "这篇范文写得很好。"
@@ -449,24 +449,24 @@
   },
   {
     "id": "cn_g4_057",
-    "word": "改",
-    "pinyin": "gǎi",
+    "word": "改子",
+    "pinyin": "gǎizi",
     "grade": 4,
     "semester": "上册",
     "example": "他决定改掉坏习惯。"
   },
   {
     "id": "cn_g4_058",
-    "word": "程",
-    "pinyin": "chéng",
+    "word": "程子",
+    "pinyin": "chéngzi",
     "grade": 4,
     "semester": "上册",
     "example": "这个程序的代码很长。"
   },
   {
     "id": "cn_g4_059",
-    "word": "赖",
-    "pinyin": "lài",
+    "word": "赖子",
+    "pinyin": "làizi",
     "grade": 4,
     "semester": "上册",
     "example": "我们不能依赖别人。"
@@ -537,24 +537,24 @@
   },
   {
     "id": "cn_g4_068",
-    "word": "亭",
-    "pinyin": "tíng",
+    "word": "亭子",
+    "pinyin": "tíngzi",
     "grade": 4,
     "semester": "下册",
     "example": "公园里有一座凉亭。"
   },
   {
     "id": "cn_g4_069",
-    "word": "庭",
-    "pinyin": "tíng",
+    "word": "庭子",
+    "pinyin": "tíngzi",
     "grade": 4,
     "semester": "下册",
     "example": "庭院里种满了花草。"
   },
   {
     "id": "cn_g4_070",
-    "word": "潭",
-    "pinyin": "tán",
+    "word": "潭子",
+    "pinyin": "tánzi",
     "grade": 4,
     "semester": "下册",
     "example": "日月潭是台湾著名的景点。"
@@ -641,24 +641,24 @@
   },
   {
     "id": "cn_g4_081",
-    "word": "维",
-    "pinyin": "wéi",
+    "word": "维子",
+    "pinyin": "wéizi",
     "grade": 4,
     "semester": "下册",
     "example": "维持良好的学习习惯很重要。"
   },
   {
     "id": "cn_g4_082",
-    "word": "财",
-    "pinyin": "cái",
+    "word": "财子",
+    "pinyin": "cáizi",
     "grade": 4,
     "semester": "下册",
     "example": "不要贪财。"
   },
   {
     "id": "cn_g4_083",
-    "word": "属",
-    "pinyin": "shǔ",
+    "word": "属子",
+    "pinyin": "shǔzi",
     "grade": 4,
     "semester": "下册",
     "example": "这本书属于我。"
@@ -745,24 +745,24 @@
   },
   {
     "id": "cn_g4_094",
-    "word": "幼",
-    "pinyin": "yòu",
+    "word": "幼子",
+    "pinyin": "yòuzi",
     "grade": 4,
     "semester": "下册",
     "example": "幼儿园里有很多小朋友。"
   },
   {
     "id": "cn_g4_095",
-    "word": "滩",
-    "pinyin": "tān",
+    "word": "滩子",
+    "pinyin": "tānzi",
     "grade": 4,
     "semester": "下册",
     "example": "我们在海滩上捡贝壳。"
   },
   {
     "id": "cn_g4_096",
-    "word": "侦",
-    "pinyin": "zhēn",
+    "word": "侦子",
+    "pinyin": "zhēnzi",
     "grade": 4,
     "semester": "下册",
     "example": "警察正在侦破案件。"
@@ -841,24 +841,24 @@
   },
   {
     "id": "cn_g4_106",
-    "word": "削",
-    "pinyin": "xuē",
+    "word": "削子",
+    "pinyin": "xuēzi",
     "grade": 4,
     "semester": "下册",
     "example": "他用刀削铅笔。"
   },
   {
     "id": "cn_g4_107",
-    "word": "喂",
-    "pinyin": "wèi",
+    "word": "喂子",
+    "pinyin": "wèizi",
     "grade": 4,
     "semester": "下册",
     "example": "她正在喂小鸡。"
   },
   {
     "id": "cn_g4_108",
-    "word": "哨",
-    "pinyin": "shào",
+    "word": "哨子",
+    "pinyin": "shàozi",
     "grade": 4,
     "semester": "下册",
     "example": "哨兵站在门口。"
@@ -913,24 +913,24 @@
   },
   {
     "id": "cn_g4_115",
-    "word": "扰",
-    "pinyin": "rǎo",
+    "word": "扰子",
+    "pinyin": "rǎozi",
     "grade": 4,
     "semester": "下册",
     "example": "请不要打扰别人。"
   },
   {
     "id": "cn_g4_116",
-    "word": "欲",
-    "pinyin": "yù",
+    "word": "欲子",
+    "pinyin": "yùzi",
     "grade": 4,
     "semester": "下册",
     "example": "他欲言又止。"
   },
   {
     "id": "cn_g4_117",
-    "word": "屈",
-    "pinyin": "qū",
+    "word": "屈子",
+    "pinyin": "qūzi",
     "grade": 4,
     "semester": "下册",
     "example": "遇到困难不能屈服。"
@@ -993,24 +993,24 @@
   },
   {
     "id": "cn_g4_125",
-    "word": "棚",
-    "pinyin": "péng",
+    "word": "棚子",
+    "pinyin": "péngzi",
     "grade": 4,
     "semester": "下册",
     "example": "工地上搭了一个大棚。"
   },
   {
     "id": "cn_g4_126",
-    "word": "饰",
-    "pinyin": "shì",
+    "word": "饰子",
+    "pinyin": "shìzi",
     "grade": 4,
     "semester": "下册",
     "example": "她佩戴了很多装饰品。"
   },
   {
     "id": "cn_g4_127",
-    "word": "冠",
-    "pinyin": "guān",
+    "word": "冠子",
+    "pinyin": "guānzi",
     "grade": 4,
     "semester": "下册",
     "example": "他获得了冠军。"
@@ -1081,16 +1081,16 @@
   },
   {
     "id": "cn_g4_136",
-    "word": "执",
-    "pinyin": "zhí",
+    "word": "执子",
+    "pinyin": "zhízi",
     "grade": 4,
     "semester": "下册",
     "example": "他执着地追求自己的梦想。"
   },
   {
     "id": "cn_g4_137",
-    "word": "缸",
-    "pinyin": "gāng",
+    "word": "缸子",
+    "pinyin": "gāngzi",
     "grade": 4,
     "semester": "下册",
     "example": "水缸里装满了水。"
@@ -1153,24 +1153,24 @@
   },
   {
     "id": "cn_g4_145",
-    "word": "妻",
-    "pinyin": "qī",
+    "word": "妻子",
+    "pinyin": "qīzi",
     "grade": 4,
     "semester": "下册",
     "example": "他的妻子很温柔。"
   },
   {
     "id": "cn_g4_146",
-    "word": "刺",
-    "pinyin": "cì",
+    "word": "刺激",
+    "pinyin": "cìjī",
     "grade": 4,
     "semester": "下册",
     "example": "玫瑰花的刺很尖锐。"
   },
   {
     "id": "cn_g4_147",
-    "word": "绑",
-    "pinyin": "bǎng",
+    "word": "绑子",
+    "pinyin": "bǎngzi",
     "grade": 4,
     "semester": "下册",
     "example": "坏人把人绑了起来。"
@@ -1257,24 +1257,24 @@
   },
   {
     "id": "cn_g5_011",
-    "word": "窃",
-    "pinyin": "qiè",
+    "word": "窃子",
+    "pinyin": "qièzi",
     "grade": 5,
     "semester": "上册",
     "example": "他窃窃私语。"
   },
   {
     "id": "cn_g5_012",
-    "word": "炒",
-    "pinyin": "chǎo",
+    "word": "炒子",
+    "pinyin": "chǎozi",
     "grade": 5,
     "semester": "上册",
     "example": "妈妈炒了一盘青菜。"
   },
   {
     "id": "cn_g5_013",
-    "word": "锅",
-    "pinyin": "guō",
+    "word": "锅子",
+    "pinyin": "guōzi",
     "grade": 5,
     "semester": "上册",
     "example": "锅里煮着汤。"
@@ -1337,24 +1337,24 @@
   },
   {
     "id": "cn_g5_021",
-    "word": "魂",
-    "pinyin": "hún",
+    "word": "魂子",
+    "pinyin": "húnzi",
     "grade": 5,
     "semester": "上册",
     "example": "中华民族之魂永不灭。"
   },
   {
     "id": "cn_g5_022",
-    "word": "缕",
-    "pinyin": "lǚ",
+    "word": "缕子",
+    "pinyin": "lǚzi",
     "grade": 5,
     "semester": "上册",
     "example": "一缕阳光照进了窗户。"
   },
   {
     "id": "cn_g5_023",
-    "word": "幽",
-    "pinyin": "yōu",
+    "word": "幽子",
+    "pinyin": "yōuzi",
     "grade": 5,
     "semester": "上册",
     "example": "这里环境幽静。"
@@ -1417,24 +1417,24 @@
   },
   {
     "id": "cn_g5_031",
-    "word": "鲸",
-    "pinyin": "jīng",
+    "word": "鲸子",
+    "pinyin": "jīngzi",
     "grade": 5,
     "semester": "上册",
     "example": "鲸是世界上最大的动物。"
   },
   {
     "id": "cn_g5_032",
-    "word": "猪",
-    "pinyin": "zhū",
+    "word": "猪子",
+    "pinyin": "zhūzi",
     "grade": 5,
     "semester": "上册",
     "example": "小猪在泥里打滚。"
   },
   {
     "id": "cn_g5_033",
-    "word": "腭",
-    "pinyin": "è",
+    "word": "腭子",
+    "pinyin": "èzi",
     "grade": 5,
     "semester": "上册",
     "example": "上颚和下颚组成口腔。"
@@ -1497,24 +1497,24 @@
   },
   {
     "id": "cn_g5_041",
-    "word": "捞",
-    "pinyin": "lāo",
+    "word": "捞子",
+    "pinyin": "lāozi",
     "grade": 5,
     "semester": "上册",
     "example": "他在河里捞鱼。"
   },
   {
     "id": "cn_g5_042",
-    "word": "饵",
-    "pinyin": "ěr",
+    "word": "饵子",
+    "pinyin": "ěrzi",
     "grade": 5,
     "semester": "上册",
     "example": "鱼饵挂好了。"
   },
   {
     "id": "cn_g5_043",
-    "word": "溅",
-    "pinyin": "jiàn",
+    "word": "溅子",
+    "pinyin": "jiànzi",
     "grade": 5,
     "semester": "上册",
     "example": "水花溅了一身。"
@@ -1585,24 +1585,24 @@
   },
   {
     "id": "cn_g5_052",
-    "word": "震",
-    "pinyin": "zhèn",
+    "word": "震子",
+    "pinyin": "zhènzi",
     "grade": 5,
     "semester": "上册",
     "example": "大地震动了一下。"
   },
   {
     "id": "cn_g5_053",
-    "word": "昔",
-    "pinyin": "xī",
+    "word": "昔子",
+    "pinyin": "xīzi",
     "grade": 5,
     "semester": "上册",
     "example": "昔日的战友又见面了。"
   },
   {
     "id": "cn_g5_054",
-    "word": "墟",
-    "pinyin": "xū",
+    "word": "墟子",
+    "pinyin": "xūzi",
     "grade": 5,
     "semester": "上册",
     "example": "地震后变成了一片废墟。"
@@ -1705,24 +1705,24 @@
   },
   {
     "id": "cn_g5_067",
-    "word": "估",
-    "pinyin": "gū",
+    "word": "估子",
+    "pinyin": "gūzi",
     "grade": 5,
     "semester": "上册",
     "example": "我估计他不会来了。"
   },
   {
     "id": "cn_g5_068",
-    "word": "损",
-    "pinyin": "sǔn",
+    "word": "损子",
+    "pinyin": "sǔnzi",
     "grade": 5,
     "semester": "上册",
     "example": "这次损失很大。"
   },
   {
     "id": "cn_g5_069",
-    "word": "皇",
-    "pinyin": "huáng",
+    "word": "皇子",
+    "pinyin": "huángzi",
     "grade": 5,
     "semester": "上册",
     "example": "故宫是明清两代的皇宫。"
@@ -1785,24 +1785,24 @@
   },
   {
     "id": "cn_g5_077",
-    "word": "典",
-    "pinyin": "diǎn",
+    "word": "典礼",
+    "pinyin": "diǎnlǐ",
     "grade": 5,
     "semester": "上册",
     "example": "这是一本经典名著。"
   },
   {
     "id": "cn_g5_078",
-    "word": "副",
-    "pinyin": "fù",
+    "word": "副子",
+    "pinyin": "fùzi",
     "grade": 5,
     "semester": "上册",
     "example": "他是一副热心肠。"
   },
   {
     "id": "cn_g5_079",
-    "word": "委",
-    "pinyin": "wěi",
+    "word": "委子",
+    "pinyin": "wěizi",
     "grade": 5,
     "semester": "上册",
     "example": "委员会做出了决定。"
@@ -1873,24 +1873,24 @@
   },
   {
     "id": "cn_g5_088",
-    "word": "毯",
-    "pinyin": "tǎn",
+    "word": "毯子",
+    "pinyin": "tǎnzi",
     "grade": 5,
     "semester": "下册",
     "example": "她铺了一条毛毯。"
   },
   {
     "id": "cn_g5_089",
-    "word": "渲",
-    "pinyin": "xuàn",
+    "word": "渲子",
+    "pinyin": "xuànzi",
     "grade": 5,
     "semester": "下册",
     "example": "画家用笔渲染了天空。"
   },
   {
     "id": "cn_g5_090",
-    "word": "勒",
-    "pinyin": "lè",
+    "word": "勒子",
+    "pinyin": "lèzi",
     "grade": 5,
     "semester": "下册",
     "example": "他勒住了马。"
@@ -1953,24 +1953,24 @@
   },
   {
     "id": "cn_g5_098",
-    "word": "牧",
-    "pinyin": "mù",
+    "word": "牧子",
+    "pinyin": "mùzi",
     "grade": 5,
     "semester": "下册",
     "example": "牧民在草原上放羊。"
   },
   {
     "id": "cn_g5_099",
-    "word": "蓑",
-    "pinyin": "suō",
+    "word": "蓑子",
+    "pinyin": "suōzi",
     "grade": 5,
     "semester": "下册",
     "example": "他披着蓑衣。"
   },
   {
     "id": "cn_g5_100",
-    "word": "遮",
-    "pinyin": "zhē",
+    "word": "遮子",
+    "pinyin": "zhēzi",
     "grade": 5,
     "semester": "下册",
     "example": "大树遮住了阳光。"
@@ -2025,24 +2025,24 @@
   },
   {
     "id": "cn_g5_107",
-    "word": "梁",
-    "pinyin": "liáng",
+    "word": "梁子",
+    "pinyin": "liángzi",
     "grade": 5,
     "semester": "下册",
     "example": "桥梁横跨两岸。"
   },
   {
     "id": "cn_g5_108",
-    "word": "惠",
-    "pinyin": "huì",
+    "word": "惠子",
+    "pinyin": "huìzi",
     "grade": 5,
     "semester": "下册",
     "example": "他受到了恩惠。"
   },
   {
     "id": "cn_g5_109",
-    "word": "诣",
-    "pinyin": "yì",
+    "word": "诣子",
+    "pinyin": "yìzi",
     "grade": 5,
     "semester": "下册",
     "example": "他诣见国王。"
@@ -2137,24 +2137,24 @@
   },
   {
     "id": "cn_g5_121",
-    "word": "妮",
-    "pinyin": "nī",
+    "word": "妮子",
+    "pinyin": "nīzi",
     "grade": 5,
     "semester": "下册",
     "example": "小妮子跑过来了。"
   },
   {
     "id": "cn_g5_122",
-    "word": "役",
-    "pinyin": "yì",
+    "word": "役子",
+    "pinyin": "yìzi",
     "grade": 5,
     "semester": "下册",
     "example": "他服了两年兵役。"
   },
   {
     "id": "cn_g5_123",
-    "word": "硝",
-    "pinyin": "xiāo",
+    "word": "硝子",
+    "pinyin": "xiāozi",
     "grade": 5,
     "semester": "下册",
     "example": "战场上硝烟弥漫。"
@@ -2233,24 +2233,24 @@
   },
   {
     "id": "cn_g5_133",
-    "word": "赵",
-    "pinyin": "zhào",
+    "word": "赵子",
+    "pinyin": "zhàozi",
     "grade": 5,
     "semester": "下册",
     "example": "赵国是战国七雄之一。"
   },
   {
     "id": "cn_g5_134",
-    "word": "璧",
-    "pinyin": "bì",
+    "word": "璧子",
+    "pinyin": "bìzi",
     "grade": 5,
     "semester": "下册",
     "example": "和氏璧是一块美玉。"
   },
   {
     "id": "cn_g5_135",
-    "word": "召",
-    "pinyin": "zhào",
+    "word": "召子",
+    "pinyin": "zhàozi",
     "grade": 5,
     "semester": "下册",
     "example": "国王召见了大臣。"
@@ -2337,24 +2337,24 @@
   },
   {
     "id": "cn_g5_146",
-    "word": "擞",
-    "pinyin": "sǒu",
+    "word": "擞子",
+    "pinyin": "sǒuzi",
     "grade": 5,
     "semester": "下册",
     "example": "他精神抖擞。"
   },
   {
     "id": "cn_g5_147",
-    "word": "监",
-    "pinyin": "jiān",
+    "word": "监子",
+    "pinyin": "jiānzi",
     "grade": 5,
     "semester": "下册",
     "example": "监考老师在教室里巡视。"
   },
   {
     "id": "cn_g5_148",
-    "word": "侄",
-    "pinyin": "zhí",
+    "word": "侄子",
+    "pinyin": "zhízi",
     "grade": 5,
     "semester": "下册",
     "example": "我的侄子很可爱。"
@@ -2417,24 +2417,24 @@
   },
   {
     "id": "cn_g5_156",
-    "word": "脊",
-    "pinyin": "jǐ",
+    "word": "脊子",
+    "pinyin": "jǐzi",
     "grade": 5,
     "semester": "下册",
     "example": "他的脊背挺得笔直。"
   },
   {
     "id": "cn_g5_157",
-    "word": "莞",
-    "pinyin": "guǎn",
+    "word": "莞子",
+    "pinyin": "guǎnzi",
     "grade": 5,
     "semester": "下册",
     "example": "她莞尔一笑。"
   },
   {
     "id": "cn_g5_158",
-    "word": "锦",
-    "pinyin": "jǐn",
+    "word": "锦子",
+    "pinyin": "jǐnzi",
     "grade": 5,
     "semester": "下册",
     "example": "前程似锦。"
@@ -2513,24 +2513,24 @@
   },
   {
     "id": "cn_g6_010",
-    "word": "邀",
-    "pinyin": "yāo",
+    "word": "邀子",
+    "pinyin": "yāozi",
     "grade": 6,
     "semester": "上册",
     "example": "我邀请你来我家玩。"
   },
   {
     "id": "cn_g6_011",
-    "word": "俯",
-    "pinyin": "fǔ",
+    "word": "俯子",
+    "pinyin": "fǔzi",
     "grade": 6,
     "semester": "上册",
     "example": "他俯身捡起了地上的东西。"
   },
   {
     "id": "cn_g6_012",
-    "word": "瀑",
-    "pinyin": "pù",
+    "word": "瀑子",
+    "pinyin": "pùzi",
     "grade": 6,
     "semester": "上册",
     "example": "黄果树瀑布非常壮观。"
@@ -2609,24 +2609,24 @@
   },
   {
     "id": "cn_g6_022",
-    "word": "施",
-    "pinyin": "shī",
+    "word": "施子",
+    "pinyin": "shīzi",
     "grade": 6,
     "semester": "上册",
     "example": "他乐于施舍。"
   },
   {
     "id": "cn_g6_023",
-    "word": "挠",
-    "pinyin": "náo",
+    "word": "挠子",
+    "pinyin": "náozi",
     "grade": 6,
     "semester": "上册",
     "example": "他抓耳挠腮地想答案。"
   },
   {
     "id": "cn_g6_024",
-    "word": "庸",
-    "pinyin": "yōng",
+    "word": "庸子",
+    "pinyin": "yōngzi",
     "grade": 6,
     "semester": "上册",
     "example": "他平庸无奇。"
@@ -2713,24 +2713,24 @@
   },
   {
     "id": "cn_g6_035",
-    "word": "搁",
-    "pinyin": "gē",
+    "word": "搁子",
+    "pinyin": "gēzi",
     "grade": 6,
     "semester": "上册",
     "example": "这件事先搁一搁。"
   },
   {
     "id": "cn_g6_036",
-    "word": "填",
-    "pinyin": "tián",
+    "word": "填子",
+    "pinyin": "tiánzi",
     "grade": 6,
     "semester": "上册",
     "example": "请填写这张表格。"
   },
   {
     "id": "cn_g6_037",
-    "word": "怨",
-    "pinyin": "yuàn",
+    "word": "怨子",
+    "pinyin": "yuànzi",
     "grade": 6,
     "semester": "上册",
     "example": "他抱怨天气太热。"
@@ -2809,24 +2809,24 @@
   },
   {
     "id": "cn_g6_047",
-    "word": "晶",
-    "pinyin": "jīng",
+    "word": "晶子",
+    "pinyin": "jīngzi",
     "grade": 6,
     "semester": "上册",
     "example": "水晶晶莹剔透。"
   },
   {
     "id": "cn_g6_048",
-    "word": "莹",
-    "pinyin": "yíng",
+    "word": "莹子",
+    "pinyin": "yíngzi",
     "grade": 6,
     "semester": "上册",
     "example": "他的眼睛晶莹明亮。"
   },
   {
     "id": "cn_g6_049",
-    "word": "蔼",
-    "pinyin": "ǎi",
+    "word": "蔼子",
+    "pinyin": "ǎizi",
     "grade": 6,
     "semester": "上册",
     "example": "他和蔼可亲。"
@@ -2889,24 +2889,24 @@
   },
   {
     "id": "cn_g6_057",
-    "word": "扭",
-    "pinyin": "niǔ",
+    "word": "扭子",
+    "pinyin": "niǔzi",
     "grade": 6,
     "semester": "上册",
     "example": "他扭头看了看。"
   },
   {
     "id": "cn_g6_058",
-    "word": "胯",
-    "pinyin": "kuà",
+    "word": "胯子",
+    "pinyin": "kuàzi",
     "grade": 6,
     "semester": "上册",
     "example": "他胯下骑着马。"
   },
   {
     "id": "cn_g6_059",
-    "word": "厨",
-    "pinyin": "chú",
+    "word": "厨子",
+    "pinyin": "chúzi",
     "grade": 6,
     "semester": "上册",
     "example": "厨师做了一桌好菜。"
@@ -2977,24 +2977,24 @@
   },
   {
     "id": "cn_g6_068",
-    "word": "塑",
-    "pinyin": "sù",
+    "word": "塑子",
+    "pinyin": "sùzi",
     "grade": 6,
     "semester": "上册",
     "example": "雕塑家创作了一座雕像。"
   },
   {
     "id": "cn_g6_069",
-    "word": "饼",
-    "pinyin": "bǐng",
+    "word": "饼子",
+    "pinyin": "bǐngzi",
     "grade": 6,
     "semester": "上册",
     "example": "他买了一个烧饼。"
   },
   {
     "id": "cn_g6_070",
-    "word": "谱",
-    "pinyin": "pǔ",
+    "word": "谱子",
+    "pinyin": "pǔzi",
     "grade": 6,
     "semester": "上册",
     "example": "他照着乐谱弹琴。"
@@ -3073,24 +3073,24 @@
   },
   {
     "id": "cn_g6_080",
-    "word": "善",
-    "pinyin": "shàn",
+    "word": "善子",
+    "pinyin": "shànzi",
     "grade": 6,
     "semester": "上册",
     "example": "他心地善良。"
   },
   {
     "id": "cn_g6_081",
-    "word": "哉",
-    "pinyin": "zāi",
+    "word": "哉子",
+    "pinyin": "zāizi",
     "grade": 6,
     "semester": "上册",
     "example": "善哉善哉。"
   },
   {
     "id": "cn_g6_082",
-    "word": "茵",
-    "pinyin": "yīn",
+    "word": "茵子",
+    "pinyin": "yīnzi",
     "grade": 6,
     "semester": "上册",
     "example": "绿草如茵。"
@@ -3153,24 +3153,24 @@
   },
   {
     "id": "cn_g6_090",
-    "word": "醋",
-    "pinyin": "cù",
+    "word": "米醋",
+    "pinyin": "mǐcù",
     "grade": 6,
     "semester": "下册",
     "example": "他喜欢吃醋。"
   },
   {
     "id": "cn_g6_091",
-    "word": "饺",
-    "pinyin": "jiǎo",
+    "word": "饺子",
+    "pinyin": "jiǎozi",
     "grade": 6,
     "semester": "下册",
     "example": "奶奶包的饺子很好吃。"
   },
   {
     "id": "cn_g6_092",
-    "word": "拌",
-    "pinyin": "bàn",
+    "word": "拌子",
+    "pinyin": "bànzi",
     "grade": 6,
     "semester": "下册",
     "example": "妈妈拌了一盘凉菜。"
@@ -3241,24 +3241,24 @@
   },
   {
     "id": "cn_g6_101",
-    "word": "蚀",
-    "pinyin": "shí",
+    "word": "蚀子",
+    "pinyin": "shízi",
     "grade": 6,
     "semester": "下册",
     "example": "月蚀是一种天文现象。"
   },
   {
     "id": "cn_g6_102",
-    "word": "乏",
-    "pinyin": "fá",
+    "word": "乏子",
+    "pinyin": "fázi",
     "grade": 6,
     "semester": "下册",
     "example": "他累得筋疲力乏。"
   },
   {
     "id": "cn_g6_103",
-    "word": "雅",
-    "pinyin": "yǎ",
+    "word": "雅子",
+    "pinyin": "yǎzi",
     "grade": 6,
     "semester": "下册",
     "example": "这个房间布置得很雅致。"
@@ -3337,24 +3337,24 @@
   },
   {
     "id": "cn_g6_113",
-    "word": "籍",
-    "pinyin": "jí",
+    "word": "籍子",
+    "pinyin": "jízi",
     "grade": 6,
     "semester": "下册",
     "example": "他的户籍在北京。"
   },
   {
     "id": "cn_g6_114",
-    "word": "屉",
-    "pinyin": "tì",
+    "word": "屉子",
+    "pinyin": "tìzi",
     "grade": 6,
     "semester": "下册",
     "example": "请打开抽屉。"
   },
   {
     "id": "cn_g6_115",
-    "word": "怖",
-    "pinyin": "bù",
+    "word": "怖子",
+    "pinyin": "bùzi",
     "grade": 6,
     "semester": "下册",
     "example": "这部电影很恐怖。"
@@ -3425,24 +3425,24 @@
   },
   {
     "id": "cn_g6_124",
-    "word": "乖",
-    "pinyin": "guāi",
+    "word": "乖子",
+    "pinyin": "guāizi",
     "grade": 6,
     "semester": "下册",
     "example": "这个孩子很乖。"
   },
   {
     "id": "cn_g6_125",
-    "word": "裙",
-    "pinyin": "qún",
+    "word": "裙子",
+    "pinyin": "qúnzi",
     "grade": 6,
     "semester": "下册",
     "example": "她穿了一条漂亮的裙子。"
   },
   {
     "id": "cn_g6_126",
-    "word": "兜",
-    "pinyin": "dōu",
+    "word": "兜子",
+    "pinyin": "dōuzi",
     "grade": 6,
     "semester": "下册",
     "example": "他的口袋里兜着糖果。"
@@ -3513,24 +3513,24 @@
   },
   {
     "id": "cn_g6_135",
-    "word": "澡",
-    "pinyin": "zǎo",
+    "word": "澡子",
+    "pinyin": "zǎozi",
     "grade": 6,
     "semester": "下册",
     "example": "他去澡堂洗澡。"
   },
   {
     "id": "cn_g6_136",
-    "word": "械",
-    "pinyin": "xiè",
+    "word": "械子",
+    "pinyin": "xièzi",
     "grade": 6,
     "semester": "下册",
     "example": "这个机械装置很复杂。"
   },
   {
     "id": "cn_g6_137",
-    "word": "逆",
-    "pinyin": "nì",
+    "word": "逆子",
+    "pinyin": "nìzi",
     "grade": 6,
     "semester": "下册",
     "example": "他逆水行舟。"
