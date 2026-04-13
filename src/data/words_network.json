@@ -600,7 +600,7 @@
       "word": "envelope",
       "meaning": "信封",
       "category": "stationery",
-      "tier": 3,
+      "tier": 2,
       "frequency": "low",
       "associations": [
         "letter",
@@ -618,7 +618,7 @@
       "word": "stamp",
       "meaning": "邮票",
       "category": "stationery",
-      "tier": 3,
+      "tier": 2,
       "frequency": "low",
       "associations": [
         "envelope",
@@ -1536,7 +1536,7 @@
       "word": "nephew",
       "meaning": "侄子",
       "category": "family",
-      "tier": 3,
+      "tier": 2,
       "frequency": "low",
       "associations": [
         "niece",
@@ -1554,7 +1554,7 @@
       "word": "niece",
       "meaning": "侄女",
       "category": "family",
-      "tier": 3,
+      "tier": 2,
       "frequency": "low",
       "associations": [
         "nephew",
@@ -2202,7 +2202,7 @@
       "word": "bathtub",
       "meaning": "浴缸",
       "category": "home",
-      "tier": 3,
+      "tier": 2,
       "frequency": "low",
       "associations": [
         "bathroom",
@@ -2220,7 +2220,7 @@
       "word": "ceiling",
       "meaning": "天花板",
       "category": "home",
-      "tier": 3,
+      "tier": 2,
       "frequency": "low",
       "associations": [
         "above",
@@ -2274,7 +2274,7 @@
       "word": "sink",
       "meaning": "洗涤槽",
       "category": "home",
-      "tier": 3,
+      "tier": 2,
       "frequency": "low",
       "associations": [
         "water",
@@ -2292,7 +2292,7 @@
       "word": "stove",
       "meaning": "炉灶",
       "category": "home",
-      "tier": 3,
+      "tier": 2,
       "frequency": "low",
       "associations": [
         "hot",
@@ -2364,7 +2364,7 @@
       "word": "closet",
       "meaning": "橱柜",
       "category": "home",
-      "tier": 3,
+      "tier": 2,
       "frequency": "low",
       "associations": [
         "clothes",
@@ -2382,7 +2382,7 @@
       "word": "dresser",
       "meaning": "化妆台",
       "category": "home",
-      "tier": 3,
+      "tier": 2,
       "frequency": "low",
       "associations": [
         "clothes",
@@ -2418,7 +2418,7 @@
       "word": "couch",
       "meaning": "长沙发",
       "category": "home",
-      "tier": 3,
+      "tier": 2,
       "frequency": "low",
       "associations": [
         "sit",
@@ -2454,7 +2454,7 @@
       "word": "blouse",
       "meaning": "女衬衫",
       "category": "clothes",
-      "tier": 3,
+      "tier": 2,
       "frequency": "low",
       "associations": [
         "clothes",
@@ -2760,7 +2760,7 @@
       "word": "mittens",
       "meaning": "连指手套",
       "category": "clothes",
-      "tier": 3,
+      "tier": 2,
       "frequency": "low",
       "associations": [
         "hand",
@@ -3964,7 +3964,7 @@
       "word": "flour",
       "meaning": "面粉",
       "category": "food",
-      "tier": 3,
+      "tier": 2,
       "frequency": "low",
       "associations": [
         "cookies",
@@ -4030,7 +4030,7 @@
       "word": "oil",
       "meaning": "油",
       "category": "food",
-      "tier": 3,
+      "tier": 2,
       "frequency": "low",
       "associations": [
         "cook",
@@ -4047,7 +4047,7 @@
       "word": "salt",
       "meaning": "盐",
       "category": "food",
-      "tier": 3,
+      "tier": 2,
       "frequency": "low",
       "associations": [
         "food",
@@ -4335,7 +4335,7 @@
       "word": "mud",
       "meaning": "泥",
       "category": "nature",
-      "tier": 3,
+      "tier": 2,
       "frequency": "low",
       "associations": [
         "wet",
@@ -4353,7 +4353,7 @@
       "word": "pond",
       "meaning": "池塘",
       "category": "nature",
-      "tier": 3,
+      "tier": 2,
       "frequency": "low",
       "associations": [
         "water",
@@ -4965,7 +4965,7 @@
       "word": "postcard",
       "meaning": "明信片",
       "category": "misc",
-      "tier": 3,
+      "tier": 2,
       "frequency": "low",
       "associations": [
         "gift",
@@ -9241,7 +9241,7 @@
       "word": "garlic",
       "meaning": "大蒜",
       "category": "food",
-      "tier": 3,
+      "tier": 2,
       "frequency": "low",
       "associations": [
         "onion",
@@ -9529,7 +9529,7 @@
       "word": "coconut",
       "meaning": "椰子",
       "category": "fruit",
-      "tier": 3,
+      "tier": 2,
       "frequency": "low",
       "associations": [
         "brown",
@@ -11123,7 +11123,7 @@
       "word": "valley",
       "meaning": "山谷",
       "category": "nature",
-      "tier": 3,
+      "tier": 2,
       "frequency": "low",
       "associations": [
         "mountain",
@@ -11681,7 +11681,7 @@
       "word": "harbour",
       "meaning": "港口",
       "category": "place",
-      "tier": 3,
+      "tier": 2,
       "frequency": "low",
       "associations": [
         "boat",
@@ -11753,7 +11753,7 @@
       "word": "church",
       "meaning": "教堂",
       "category": "place",
-      "tier": 3,
+      "tier": 2,
       "frequency": "low",
       "associations": [
         "Sunday",
@@ -13820,7 +13820,7 @@
       "word": "program",
       "meaning": "程序",
       "category": "technology",
-      "tier": 3,
+      "tier": 2,
       "frequency": "low",
       "associations": [
         "computer",
@@ -13867,7 +13867,7 @@
       "word": "download",
       "meaning": "下载",
       "category": "technology",
-      "tier": 3,
+      "tier": 2,
       "frequency": "low",
       "associations": [
         "computer",
@@ -14339,7 +14339,7 @@
       "word": "paragraph",
       "meaning": "段落",
       "category": "misc",
-      "tier": 3,
+      "tier": 2,
       "frequency": "low",
       "associations": [
         "book",
@@ -14372,7 +14372,7 @@
       "word": "chapter",
       "meaning": "章节",
       "category": "misc",
-      "tier": 3,
+      "tier": 2,
       "frequency": "low",
       "associations": [
         "book",
@@ -15077,7 +15077,7 @@
       "word": "librarian",
       "meaning": "图书管理员",
       "category": "people",
-      "tier": 3,
+      "tier": 2,
       "frequency": "low",
       "associations": [
         "book",
@@ -15149,7 +15149,7 @@
       "word": "Easter",
       "meaning": "复活节",
       "category": "culture",
-      "tier": 3,
+      "tier": 2,
       "frequency": "low",
       "associations": [
         "April",
@@ -15167,7 +15167,7 @@
       "word": "Thanksgiving",
       "meaning": "感恩节",
       "category": "culture",
-      "tier": 3,
+      "tier": 2,
       "frequency": "low",
       "associations": [
         "November",
@@ -15203,7 +15203,7 @@
       "word": "tradition",
       "meaning": "传统",
       "category": "culture",
-      "tier": 3,
+      "tier": 2,
       "frequency": "low",
       "associations": [
         "old",
@@ -15437,7 +15437,7 @@
       "word": "average",
       "meaning": "平均",
       "category": "math",
-      "tier": 3,
+      "tier": 2,
       "frequency": "low",
       "associations": [
         "middle",
@@ -15527,7 +15527,7 @@
       "word": "volume",
       "meaning": "体积",
       "category": "math",
-      "tier": 3,
+      "tier": 2,
       "frequency": "low",
       "associations": [
         "space",
@@ -15617,7 +15617,7 @@
       "word": "cylinder",
       "meaning": "圆柱",
       "category": "shapes",
-      "tier": 3,
+      "tier": 2,
       "frequency": "low",
       "associations": [
         "can",
@@ -15707,7 +15707,7 @@
       "word": "trumpet",
       "meaning": "小号",
       "category": "music",
-      "tier": 3,
+      "tier": 2,
       "frequency": "low",
       "associations": [
         "music",
