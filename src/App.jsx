@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useEffect, useCallback, useMemo } from 'react'
 import { storage, calcLevel, calcLevelProgress } from './utils/storage'
 import OnboardingPage from './pages/OnboardingPage'
 import HomePage from './pages/HomePage'
@@ -23,13 +23,26 @@ import { fetchMV1State, upsertMV1State } from './utils/mv1_cloud'
 import LeaderboardPage from './pages/LeaderboardPage'
 import GlobalPetDock from './components/GlobalPetDock'
 
+// 科目配置（按学段）
+const SUBJECTS_BY_GRADE = {
+  primary: [
+    { id: 'chinese', label: '语文', emoji: '📖', available: true },
+    { id: 'english',  label: '英语', emoji: '🌎', available: true },
+  ],
+  junior2: [
+    { id: 'english',  label: '英语', emoji: '🌎', available: true },
+    { id: 'politics', label: '道法', emoji: '⚖️', available: true },
+    { id: 'math',     label: '数学', emoji: '🔢', available: false },
+  ],
+}
+
 // 底部导航栏（仅主界面可见）
 function BottomNav({ activeTab, onTabChange, overdueCount }) {
   const tabs = [
-    { key: 'home',   icon: '📚', label: '学习' },
-    { key: 'pet',    icon: '🐉', label: '宠物' },
-    { key: 'rank',   icon: '🏆', label: '排行' },
-    { key: 'wrong',  icon: '💥', label: '错题' },
+    { key: 'home',  icon: '📚', label: '学习' },
+    { key: 'pet',   icon: '🐉', label: '宠物' },
+    { key: 'rank',  icon: '🏆', label: '排行' },
+    { key: 'wrong', icon: '💥', label: '错题' },
   ]
   return (
     <div style={{
@@ -67,7 +80,6 @@ function BottomNav({ activeTab, onTabChange, overdueCount }) {
               fontSize: 10, marginTop: 2, fontWeight: isActive ? 700 : 400,
               color: isActive ? '#6366f1' : '#9ca3af',
             }}>{tab.label}</span>
-            {/* 激活指示点 */}
             {isActive && (
               <div style={{
                 position: 'absolute', bottom: 0, left: '50%',
@@ -76,7 +88,6 @@ function BottomNav({ activeTab, onTabChange, overdueCount }) {
                 background: 'linear-gradient(90deg, #6366f1, #8b5cf6)',
               }} />
             )}
-            {/* 错题红点 */}
             {tab.key === 'wrong' && overdueCount > 0 && (
               <div style={{
                 position: 'absolute', top: 6, right: '22%',
@@ -95,7 +106,196 @@ function BottomNav({ activeTab, onTabChange, overdueCount }) {
   )
 }
 
-// 排行榜
+// ===== 主页顶部栏（科目切换区）=====
+// 独立组件，切换科目时不卸载，只切换下方星球内容区
+function HomeHeader({ user, grade, activeSubject, onSubjectChange, onGradeChange, onReport, onLogout }) {
+  const [showLogoutConfirm, setShowLogoutConfirm] = useState(false)
+  const [subjectToast, setSubjectToast] = useState(null)
+
+  const SUBJECTS = SUBJECTS_BY_GRADE[grade] || SUBJECTS_BY_GRADE.primary
+  const xp = storage.getXP(user.id)
+  const level = calcLevel(xp)
+  const levelProgress = calcLevelProgress(xp)
+  const streak = storage.getStreak(user.id)
+  const records = storage.getRecords(user.id)
+
+  const todayCorrect = useMemo(() => {
+    const today = new Date().toISOString().slice(0, 10)
+    const todayR = records.filter(r => r.timestamp?.startsWith(today))
+    if (todayR.length === 0) return null
+    return Math.round(todayR.filter(r => r.correct).length / todayR.length * 100)
+  }, [records])
+
+  const totalAccuracy = records.length > 0
+    ? Math.round(records.filter(r => r.correct).length / records.length * 100)
+    : 0
+
+  const xpPct = Math.min(100, (levelProgress.currentExp / levelProgress.requiredExp) * 100)
+
+  const handleSubjectClick = useCallback((subject) => {
+    if (subject.available) {
+      onSubjectChange(subject.id)
+    } else {
+      setSubjectToast(subject.label)
+      setTimeout(() => setSubjectToast(null), 2500)
+    }
+  }, [onSubjectChange])
+
+  const handleExport = useCallback(() => {
+    const { exportAll } = require('./utils/storage')
+    const data = exportAll(user.id)
+    const json = JSON.stringify(data, null, 2)
+    const blob = new Blob([json], { type: 'application/json' })
+    const url = URL.createObjectURL(blob)
+    const a = document.createElement('a')
+    a.href = url
+    a.download = `chinese-learn-export-${user.name}-${Date.now()}.json`
+    document.body.appendChild(a)
+    a.click()
+    a.remove()
+    URL.revokeObjectURL(url)
+  }, [user])
+
+  return (
+    <div className="bg-white shadow-sm" style={{ paddingTop: 'env(safe-area-inset-top, 36px)' }}>
+      {/* 学段切换 */}
+      <div className="px-4 pt-3 flex items-center justify-between">
+        <span style={{ fontSize: 12, color: '#6b7280', fontWeight: 600 }}>📚 学习阶段</span>
+        <div className="flex bg-gray-100 rounded-xl p-0.5">
+          {[
+            { id: 'primary', label: '小学', emoji: '🏫' },
+            { id: 'junior2', label: '初二', emoji: '🎓' },
+          ].map(g => (
+            <button
+              key={g.id}
+              onClick={() => onGradeChange(g.id)}
+              className={`flex items-center gap-1 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ${
+                grade === g.id
+                  ? 'bg-indigo-600 text-white shadow-sm'
+                  : 'text-gray-500'
+              }`}
+            >
+              <span>{g.emoji}</span>
+              <span>{g.label}</span>
+            </button>
+          ))}
+        </div>
+      </div>
+
+      {/* 科目切换 */}
+      <div className="px-4 pt-3 pb-2 flex items-center gap-2">
+        <div className="flex gap-2 flex-1">
+          {SUBJECTS.map(s => (
+            <button
+              key={s.id}
+              onClick={() => handleSubjectClick(s)}
+              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-sm font-semibold transition-all ${
+                activeSubject === s.id
+                  ? 'bg-indigo-600 text-white shadow-sm'
+                  : s.available
+                    ? 'bg-gray-100 text-gray-600'
+                    : 'bg-gray-50 text-gray-300'
+              }`}
+            >
+              <span>{s.emoji}</span>
+              <span>{s.label}</span>
+              {!s.available && <span className="text-[10px] opacity-60">🔒</span>}
+            </button>
+          ))}
+        </div>
+        <div className="flex items-center gap-1.5">
+          <button
+            onClick={onReport}
+            className="w-8 h-8 flex items-center justify-center bg-indigo-50 rounded-xl text-base"
+          >📊</button>
+          <button
+            onClick={() => setShowLogoutConfirm(true)}
+            className="w-8 h-8 flex items-center justify-center bg-gray-50 rounded-xl text-base"
+          >👤</button>
+          <button
+            onClick={handleExport}
+            className="w-8 h-8 flex items-center justify-center bg-gray-50 rounded-xl text-base"
+          >💾</button>
+        </div>
+      </div>
+
+      {/* 用户打招呼 */}
+      <div className="px-4 pb-1">
+        <h1 className="text-xl font-bold text-gray-800">
+          {user.name} 同学，加油！👋
+        </h1>
+        <p className="text-xs text-gray-400 mt-0.5">
+          {streak.count > 0 ? `已连续学习 ${streak.count} 天 🔥` : '今天开始第一天打卡吧！'}
+        </p>
+      </div>
+
+      {/* 三个核心数据卡 */}
+      <div className="flex gap-2 px-4 pb-3 mt-2">
+        <div className="flex-1 rounded-2xl p-3 text-center"
+          style={{ background: 'linear-gradient(135deg, #fff7ed, #fed7aa)' }}>
+          <div className="text-2xl font-extrabold text-orange-500">{streak.count}</div>
+          <div className="text-[10px] text-orange-400 font-medium mt-0.5">连续天数 🔥</div>
+        </div>
+        <div className="flex-1 rounded-2xl p-3"
+          style={{ background: 'linear-gradient(135deg, #f5f3ff, #ddd6fe)' }}>
+          <div className="flex items-baseline gap-1 justify-center">
+            <span className="text-2xl font-extrabold text-indigo-600">Lv.{level}</span>
+          </div>
+          <div className="w-full bg-indigo-100 rounded-full h-1.5 mt-1.5">
+            <div className="bg-gradient-to-r from-indigo-400 to-purple-500 h-1.5 rounded-full transition-all"
+              style={{ width: `${xpPct}%` }} />
+          </div>
+          <div className="text-[9px] text-indigo-400 text-center mt-0.5">
+            {levelProgress.currentExp}/{levelProgress.requiredExp} XP
+          </div>
+        </div>
+        <div className="flex-1 rounded-2xl p-3 text-center"
+          style={{ background: 'linear-gradient(135deg, #f0fdf4, #bbf7d0)' }}>
+          <div className="text-2xl font-extrabold text-green-600">
+            {todayCorrect !== null ? `${todayCorrect}%` : `${totalAccuracy}%`}
+          </div>
+          <div className="text-[10px] text-green-500 font-medium mt-0.5">
+            {todayCorrect !== null ? '今日正确率' : '总正确率'} ✅
+          </div>
+        </div>
+      </div>
+
+      {/* 科目锁定Toast */}
+      {subjectToast && (
+        <div className="fixed top-24 left-1/2 -translate-x-1/2 z-50 bg-gray-800 text-white text-sm px-5 py-2.5 rounded-2xl shadow-xl"
+          style={{ animation: 'fadeInDown 0.3s ease-out' }}>
+          {subjectToast}即将开放，敬请期待 🚀
+        </div>
+      )}
+
+      {/* 退出确认弹窗 */}
+      {showLogoutConfirm && (
+        <div className="fixed inset-0 bg-black/40 z-50 flex items-center justify-center px-6">
+          <div className="bg-white rounded-2xl p-6 w-full max-w-xs shadow-xl">
+            <h2 className="text-lg font-bold text-gray-800 mb-2">切换账号？</h2>
+            <p className="text-sm text-gray-500 mb-5">退出后可以重新输入昵称登录，本机数据不会丢失。</p>
+            <button
+              onClick={() => { onLogout(); setShowLogoutConfirm(false) }}
+              className="w-full bg-red-500 text-white font-semibold py-3 rounded-xl mb-2"
+            >确认退出</button>
+            <button
+              onClick={() => setShowLogoutConfirm(false)}
+              className="w-full text-gray-400 py-2 text-sm"
+            >取消</button>
+          </div>
+        </div>
+      )}
+
+      <style>{`
+        @keyframes fadeInDown {
+          from { opacity: 0; transform: translate(-50%, -8px); }
+          to { opacity: 1; transform: translate(-50%, 0); }
+        }
+      `}</style>
+    </div>
+  )
+}
+
 export default function App() {
   const [user, setUser] = useState(() => storage.getUser())
   const [page, setPage] = useState(() => storage.getUser() ? 'home' : 'onboarding')
@@ -105,23 +305,28 @@ export default function App() {
   const [gameState, setGameState] = useState(() => initGamificationState())
   const [overdueCount, setOverdueCount] = useState(0)
   const [englishQuizOptions, setEnglishQuizOptions] = useState({})
-  const [activeSubject, setActiveSubject] = useState('chinese')
-  const [grade, setGrade] = useState(() => storage.getGrade()) // 从 storage 恢复
+  const [grade, setGrade] = useState(() => storage.getGrade())
   const [variantQuestion, setVariantQuestion] = useState(null)
 
-  // 学段切换时自动切到对应第一个科目
+  // 科目状态（切换时只更新内容区，HomeHeader 不卸载）
+  const [activeSubject, setActiveSubject] = useState(() => {
+    const available = (SUBJECTS_BY_GRADE[grade] || SUBJECTS_BY_GRADE.primary).filter(s => s.available)
+    return available[0]?.id || 'chinese'
+  })
+
+  // 学段变化时自动切到该学段的第一个可用科目
   useEffect(() => {
-    if (grade === 'primary') {
-      setActiveSubject('chinese')
-    } else if (grade === 'junior2') {
-      setActiveSubject('english')
-    }
+    const available = (SUBJECTS_BY_GRADE[grade] || SUBJECTS_BY_GRADE.primary).filter(s => s.available)
+    setActiveSubject(available[0]?.id || 'chinese')
   }, [grade])
 
-  // 包装 setGrade，同时持久化
   const handleGradeChange = useCallback((newGrade) => {
     setGrade(newGrade)
     storage.setGrade(newGrade)
+  }, [])
+
+  const handleSubjectChange = useCallback((subjectId) => {
+    setActiveSubject(subjectId)
   }, [])
 
   // 加载宠物游戏状态
@@ -203,7 +408,7 @@ export default function App() {
 
   function handleTabChange(tab) {
     setActiveTab(tab)
-    setPage('home') // 确保回到主页模式
+    setPage('home')
   }
 
   function startVariantTraining(question) {
@@ -280,38 +485,48 @@ export default function App() {
       />
     )
 
-    // 主页模式：根据 activeTab 渲染
+    // 主页模式
     if (page === 'home') {
-      if (activeTab === 'home') {
-        // 英语主页
-        if (activeSubject === 'english') return (
-          <EnglishHomePage
-            user={user}
-            grade={grade}
-            onStartQuiz={startQuiz}
-            onBack={() => setActiveSubject('chinese')}
-          />
-        )
-        // 政治主页
-        if (activeSubject === 'politics') return (
-          <PoliticsHomePage
-            user={user}
-            onStartQuiz={startQuiz}
-            onBack={() => setActiveSubject('chinese')}
-          />
-        )
-        // 语文主页（默认）
+      if (activeTab === 'home' && user) {
         return (
-          <HomePage
-            user={user}
-            onStartQuiz={startQuiz}
-            onReport={() => setPage('report')}
-            onLogout={handleLogout}
-            onSubjectChange={setActiveSubject}
-            activeSubject={activeSubject}
-            grade={grade}
-            onGradeChange={handleGradeChange}
-          />
+          <>
+            {/* 顶部栏：固定不动，只切换下方星球内容 */}
+            <HomeHeader
+              user={user}
+              grade={grade}
+              activeSubject={activeSubject}
+              onSubjectChange={handleSubjectChange}
+              onGradeChange={handleGradeChange}
+              onReport={() => setPage('report')}
+              onLogout={handleLogout}
+            />
+
+            {/* 星球内容区：按科目条件渲染，切换时只有这里变化 */}
+            <div className="bg-gradient-to-b from-indigo-50 to-purple-50">
+              {activeSubject === 'chinese' && (
+                <HomePage
+                  user={user}
+                  onStartQuiz={startQuiz}
+                  hideHeader
+                  activeSubject={activeSubject}
+                  grade={grade}
+                />
+              )}
+              {activeSubject === 'english' && (
+                <EnglishHomePage
+                  user={user}
+                  grade={grade}
+                  onStartQuiz={startQuiz}
+                />
+              )}
+              {activeSubject === 'politics' && (
+                <PoliticsHomePage
+                  user={user}
+                  onStartQuiz={startQuiz}
+                />
+              )}
+            </div>
+          </>
         )
       }
       if (activeTab === 'pet') return (
@@ -349,7 +564,6 @@ export default function App() {
           overdueCount={overdueCount}
         />
       )}
-      {/* 全局悬浮宠物（仅主页且非宠物标签时显示） */}
       {showBottomNav && activeTab !== 'pet' && (
         <GlobalPetDock gameState={gameState} />
       )}

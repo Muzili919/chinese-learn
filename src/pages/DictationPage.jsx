@@ -30,8 +30,10 @@ function updateWordStatus(wordId, correct) {
   prev.correctCount = (prev.correctCount || 0) + (correct ? 1 : 0)
   prev.wrongCount = (prev.wrongCount || 0) + (correct ? 0 : 1)
   prev.lastPractice = new Date().toISOString().slice(0, 10)
-  // 连续3次正确 = 已掌握
+  // 连续3次正确且无错误 = 已掌握
   if (prev.correctCount >= 3 && prev.wrongCount === 0) prev.status = 'mastered'
+  // 有错误记录 = 需加强（优先级高于普通学习中）
+  else if (prev.wrongCount > 0) prev.status = 'weak'
   else if (prev.correctCount > 0 || prev.wrongCount > 0) prev.status = 'learning'
   m[wordId] = prev
   saveMastery(m)
@@ -58,11 +60,11 @@ function pickWords(subject, grade, semester, count) {
   const pool = subject === 'english' ? enWords : cnWords
   let filtered = pool.filter(w => w.grade === grade)
   if (semester && semester !== 'all') filtered = filtered.filter(w => w.semester === semester)
-  // 未掌握优先排序
+  // 优先级：需加强 > 未学 > 学习中 > 已掌握
   filtered.sort((a, b) => {
     const sa = getWordStatus(a.id).status
     const sb = getWordStatus(b.id).status
-    const order = { learning: 0, new: 1, mastered: 2 }
+    const order = { weak: 0, new: 1, learning: 2, mastered: 3 }
     return (order[sa] ?? 1) - (order[sb] ?? 1)
   })
   return shuffle(filtered).slice(0, count)
@@ -277,13 +279,18 @@ function DictatingMode({ words, speed, subject, onFinish }) {
           style={{ animation: 'fadeIn 0.3s ease' }}>
           <div className="text-3xl font-extrabold text-gray-800 mb-1">{word.word}</div>
           {subject === 'english' && word.phonetic && (
-            <div className="text-sm text-gray-400 mb-1">{word.phonetic}</div>
+            <div className="text-sm text-gray-400 mb-1">/{word.phonetic}/</div>
           )}
           {subject === 'english' && word.meaning && (
             <div className="text-base text-amber-700">{word.meaning}</div>
           )}
           {subject === 'chinese' && word.pinyin && (
-            <div className="text-base text-amber-700">{word.pinyin}</div>
+            <div className="text-sm text-amber-600">{word.pinyin}</div>
+          )}
+          {word.example && (
+            <div className="text-xs text-gray-400 mt-2 italic bg-white/70 rounded-xl px-3 py-2 leading-relaxed">
+              「{word.example}」
+            </div>
           )}
         </div>
       )}
@@ -611,6 +618,7 @@ function WordBankMode({ subject, setSubject }) {
       total: words.length,
       new: words.filter(w => getWordStatus(w.id).status === 'new').length,
       learning: words.filter(w => getWordStatus(w.id).status === 'learning').length,
+      weak: words.filter(w => getWordStatus(w.id).status === 'weak').length,
       mastered: words.filter(w => getWordStatus(w.id).status === 'mastered').length,
     }
   }, [pool, grade])
@@ -650,48 +658,64 @@ function WordBankMode({ subject, setSubject }) {
         ))}
       </div>
 
-      {/* 统计 */}
-      <div className="grid grid-cols-4 gap-2">
+      {/* 统计 - 5列：全部 / 未学 / 学习中 / 需加强 / 已掌握 */}
+      <div className="grid grid-cols-5 gap-1.5">
         {[
           { key: 'all', label: '全部', count: stats.total, color: 'bg-gray-50 text-gray-700' },
           { key: 'new', label: '未学', count: stats.new, color: 'bg-blue-50 text-blue-700' },
           { key: 'learning', label: '学习中', count: stats.learning, color: 'bg-amber-50 text-amber-700' },
+          { key: 'weak', label: '需加强', count: stats.weak, color: 'bg-red-50 text-red-600', badge: stats.weak > 0 ? '🔴' : null },
           { key: 'mastered', label: '已掌握', count: stats.mastered, color: 'bg-green-50 text-green-700' },
         ].map(s => (
           <button key={s.key} onClick={() => setFilter(s.key)}
-            className={`rounded-xl p-2.5 text-center transition-all active:scale-95 ${filter === s.key ? `${s.color} border-2 border-indigo-300 shadow-sm` : 'bg-white border border-gray-100'}`}>
-            <div className="text-lg font-extrabold">{s.count}</div>
-            <div className="text-[10px] font-medium">{s.label}</div>
+            className={`rounded-xl p-2 text-center transition-all active:scale-95 ${filter === s.key ? `${s.color} border-2 border-indigo-300 shadow-sm` : 'bg-white border border-gray-100'}`}>
+            <div className="text-base font-extrabold leading-tight">{s.count}</div>
+            <div className="text-[9px] font-medium mt-0.5">{s.label}</div>
           </button>
         ))}
       </div>
 
-      {/* 掌握率 */}
+      {/* 进度条 */}
       {stats.total > 0 && (
-        <div className="bg-gray-50 rounded-xl px-4 py-2.5">
-          <div className="flex items-center justify-between mb-1">
-            <span className="text-xs text-gray-500">掌握率</span>
-            <span className="text-xs font-bold text-green-600">{Math.round(stats.mastered / stats.total * 100)}%</span>
+        <div className="bg-gray-50 rounded-xl px-4 py-3 space-y-2">
+          <div className="flex items-center justify-between">
+            <span className="text-xs text-gray-500">掌握进度</span>
+            <span className="text-xs font-bold text-green-600">
+              {stats.mastered}/{stats.total} 已掌握
+              {stats.weak > 0 && <span className="text-red-500 ml-1">· {stats.weak}需加强</span>}
+            </span>
           </div>
-          <div className="w-full bg-gray-200 rounded-full h-2">
-            <div className="h-2 rounded-full bg-gradient-to-r from-green-400 to-emerald-500 transition-all"
-              style={{ width: `${(stats.mastered / stats.total) * 100}%` }} />
+          <div className="flex gap-1 h-2.5 rounded-full overflow-hidden">
+            {stats.new > 0 && <div className="bg-blue-300 rounded-l-full" style={{ width: `${(stats.new / stats.total) * 100}%` }} />}
+            {stats.learning > 0 && <div className="bg-amber-400" style={{ width: `${(stats.learning / stats.total) * 100}%` }} />}
+            {stats.weak > 0 && <div className="bg-red-400" style={{ width: `${(stats.weak / stats.total) * 100}%` }} />}
+            {stats.mastered > 0 && <div className="bg-green-500 rounded-r-full" style={{ width: `${(stats.mastered / stats.total) * 100}%` }} />}
+          </div>
+          <div className="flex gap-4 text-[9px] text-gray-400">
+            <span>🔵未学 {stats.new}</span>
+            <span>🟡学中 {stats.learning}</span>
+            <span>🔴加强 {stats.weak}</span>
+            <span>🟢掌握 {stats.mastered}</span>
           </div>
         </div>
       )}
 
       {/* 词语列表 */}
-      <div className="flex flex-col gap-3 max-h-[40vh] overflow-y-auto pb-4">
+      <div className="flex flex-col gap-3 max-h-[38vh] overflow-y-auto pb-4">
         {grouped.map(([semester, words]) => (
           <div key={semester}>
             <div className="text-xs font-semibold text-gray-400 mb-1.5">{semester}（{words.length}词）</div>
             <div className="flex flex-wrap gap-1.5">
               {words.map(w => {
-                const st = getWordStatus(w.id).status
-                const bg = st === 'mastered' ? 'bg-green-100 text-green-700' : st === 'learning' ? 'bg-amber-100 text-amber-700' : 'bg-gray-100 text-gray-600'
+                const st = getWordStatus(w.id)
+                const bg = st.status === 'mastered' ? 'bg-green-100 text-green-700 ring-1 ring-green-300'
+                  : st.status === 'weak' ? 'bg-red-100 text-red-700 ring-1 ring-red-300'
+                  : st.status === 'learning' ? 'bg-amber-100 text-amber-700'
+                  : 'bg-gray-100 text-gray-600'
+                const badge = st.status === 'weak' ? '!' : st.status === 'mastered' ? '✓' : ''
                 return (
-                  <span key={w.id} className={`text-xs px-2.5 py-1 rounded-full font-medium ${bg}`}>
-                    {w.word}
+                  <span key={w.id} title={w.pinyin || w.meaning || ''} className={`relative text-xs px-2.5 py-1 rounded-full font-medium ${bg}`}>
+                    {w.word}{badge && <sup className="text-[9px] ml-0.5">{badge}</sup>}
                   </span>
                 )
               })}
@@ -699,7 +723,9 @@ function WordBankMode({ subject, setSubject }) {
           </div>
         ))}
         {grouped.length === 0 && (
-          <div className="text-center text-gray-400 py-8 text-sm">暂无词语</div>
+          <div className="text-center text-gray-400 py-8 text-sm">
+            {filter === 'weak' ? '🎉 没有需要加强的词，继续保持！' : '暂无词语'}
+          </div>
         )}
       </div>
     </div>
@@ -711,8 +737,8 @@ function WordBankMode({ subject, setSubject }) {
 // ═══════════════════════════════════════════════════════════════
 export default function DictationPage({ user, subject: subjectProp, onBack }) {
   const [mode, setMode] = useState('setup') // setup / dictating / grading / result / wordbank
-  // subject 由外部传入，固定不再切换
-  const subject = subjectProp || 'chinese'
+  // subject 支持本地切换（词库浏览时可切换语文/英语）
+  const [subject, setSubject] = useState(subjectProp || 'chinese')
   const [sessionConfig, setSessionConfig] = useState(null)
   const [sessionWords, setSessionWords] = useState([])
   const [gradingResults, setGradingResults] = useState(null)

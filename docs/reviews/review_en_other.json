@@ -1,0 +1,432 @@
+[
+  {
+    "question_id": "en_reading_001",
+    "source_file": "reading",
+    "severity": "design_issue",
+    "category": "format_issue",
+    "field": "answer",
+    "current_value": "(1) F (2) T (3) T (4) F (5) T",
+    "description": "答案格式为 (1) F (2) T 的复合形式，但 options 只有 A/B 两个选项。前端需要判断5道子题各自的答案，但 answer 字段将所有答案合为一个字符串，不利于程序自动判分。",
+    "suggestion": "将答案改为数组格式或逐题对应格式，如 [\"F\",\"T\",\"T\",\"F\",\"T\"]，方便前端逐题判分。"
+  },
+  {
+    "question_id": "en_reading_002",
+    "source_file": "reading",
+    "severity": "design_issue",
+    "category": "format_issue",
+    "field": "options",
+    "current_value": "[]",
+    "description": "题目内含4道选择题，每题有ABCD四个选项，但 options 字段为空数组。选项全部写在 question 文本中，前端无法以标准选择题方式呈现和判分。",
+    "suggestion": "建议将此类题目改为嵌套子题结构，或将选项提取到 options 字段中（至少提取第一题的选项作为主选项）。"
+  },
+  {
+    "question_id": "en_reading_003",
+    "source_file": "reading",
+    "severity": "design_issue",
+    "category": "format_issue",
+    "field": "type",
+    "current_value": "multiple_choice",
+    "description": "题目类型标记为 multiple_choice，但实际是开放式问答题（用完整句子回答）。类型不匹配会导致前端渲染错误。",
+    "suggestion": "将 type 改为 open_ended 或 subjective。"
+  },
+  {
+    "question_id": "en_reading_004",
+    "source_file": "reading",
+    "severity": "design_issue",
+    "category": "format_issue",
+    "field": "type",
+    "current_value": "multiple_choice",
+    "description": "题目类型标记为 multiple_choice，但实际是排序题。类型不匹配。",
+    "suggestion": "将 type 改为 sort_order 或 fill_blank（排序类）。"
+  },
+  {
+    "question_id": "en_reading_005",
+    "source_file": "reading",
+    "severity": "design_issue",
+    "category": "format_issue",
+    "field": "options",
+    "current_value": "[\"A. T（正确）\", \"B. F（错误）\"]",
+    "description": "这是一道混合型题目（前2题选择题 + 后2题判断题），但 options 只提供 T/F 选项。前2道选择题的ABCD选项嵌在 question 文本中，与 options 字段不一致，前端无法正确渲染。",
+    "suggestion": "统一题型结构，不要在同一个大题中混合选择题和判断题；或将整题拆分为独立子题。"
+  },
+  {
+    "question_id": "en_reading_005",
+    "source_file": "reading",
+    "severity": "design_issue",
+    "category": "format_issue",
+    "field": "answer",
+    "current_value": "(1) D (2) A (3) T (4) F",
+    "description": "答案混合了选择题字母(D, A)和判断题字母(T, F)，但 options 只有 A.T/B.F。选择题答案 D 和 A 无法与 options 对应，前端判分会出问题。",
+    "suggestion": "拆分为独立子题，每题有独立的 options 和 answer。"
+  },
+  {
+    "question_id": "en_reading_007",
+    "source_file": "reading",
+    "severity": "design_issue",
+    "category": "format_issue",
+    "field": "answer",
+    "current_value": "(1) F (2) T (3) T (4) F (5) F",
+    "description": "与 en_reading_001 相同的问题：5道判断子题答案合为一个字符串，options 只有 A/B 两个选项。",
+    "suggestion": "将答案改为数组格式 [\"F\",\"T\",\"T\",\"F\",\"F\"]。"
+  },
+  {
+    "question_id": "en_reading_008",
+    "source_file": "reading",
+    "severity": "design_issue",
+    "category": "format_issue",
+    "field": "type",
+    "current_value": "multiple_choice",
+    "description": "实际是开放式问答题，但 type 标记为 multiple_choice。",
+    "suggestion": "将 type 改为 open_ended 或 subjective。"
+  },
+  {
+    "question_id": "en_reading_009",
+    "source_file": "reading",
+    "severity": "design_issue",
+    "category": "format_issue",
+    "field": "type",
+    "current_value": "multiple_choice",
+    "description": "实际是排序题，但 type 标记为 multiple_choice。",
+    "suggestion": "将 type 改为 sort_order 或 fill_blank。"
+  },
+  {
+    "question_id": "en_reading_011",
+    "source_file": "reading",
+    "severity": "design_issue",
+    "category": "format_issue",
+    "field": "answer",
+    "current_value": "(1) F (2) T (3) F (4) F (5) T",
+    "description": "与 en_reading_001 相同的问题：5道判断子题答案合为一个字符串。",
+    "suggestion": "将答案改为数组格式 [\"F\",\"T\",\"F\",\"F\",\"T\"]。"
+  },
+  {
+    "question_id": "en_reading_013",
+    "source_file": "reading",
+    "severity": "design_issue",
+    "category": "format_issue",
+    "field": "type",
+    "current_value": "multiple_choice",
+    "description": "实际是开放式问答题，但 type 标记为 multiple_choice。",
+    "suggestion": "将 type 改为 open_ended。"
+  },
+  {
+    "question_id": "en_reading_014",
+    "source_file": "reading",
+    "severity": "design_issue",
+    "category": "format_issue",
+    "field": "type",
+    "current_value": "multiple_choice",
+    "description": "实际是排序题，但 type 标记为 multiple_choice。",
+    "suggestion": "将 type 改为 sort_order 或 fill_blank。"
+  },
+  {
+    "question_id": "en_reading_016",
+    "source_file": "reading",
+    "severity": "design_issue",
+    "category": "format_issue",
+    "field": "answer",
+    "current_value": "(1) T (2) F (3) F (4) T (5) F",
+    "description": "与 en_reading_001 相同的问题：5道判断子题答案合为一个字符串。",
+    "suggestion": "将答案改为数组格式 [\"T\",\"F\",\"F\",\"T\",\"F\"]。"
+  },
+  {
+    "question_id": "en_reading_018",
+    "source_file": "reading",
+    "severity": "design_issue",
+    "category": "format_issue",
+    "field": "type",
+    "current_value": "multiple_choice",
+    "description": "实际是开放式问答题，但 type 标记为 multiple_choice。",
+    "suggestion": "将 type 改为 open_ended。"
+  },
+  {
+    "question_id": "en_reading_019",
+    "source_file": "reading",
+    "severity": "design_issue",
+    "category": "format_issue",
+    "field": "type",
+    "current_value": "multiple_choice",
+    "description": "实际是排序题，但 type 标记为 multiple_choice。",
+    "suggestion": "将 type 改为 sort_order 或 fill_blank。"
+  },
+  {
+    "question_id": "en_reading_020",
+    "source_file": "reading",
+    "severity": "design_issue",
+    "category": "format_issue",
+    "field": "options",
+    "current_value": "[\"A. T（正确）\", \"B. F（错误）\"]",
+    "description": "这是一道选择题（5道子题），但 options 只提供 T/F 判断选项。选择题答案如 (1) B 无法与 T/F 选项对应。实际上这道题的选项全部嵌在 question 文本中，options 字段应该为空，或者不应是 T/F。",
+    "suggestion": "移除 options 中的 T/F 选项（因为这是选择题不是判断题），将所有选项放在 question 中；或重构为标准结构。"
+  },
+  {
+    "question_id": "en_listen_001",
+    "source_file": "listen",
+    "severity": "design_issue",
+    "category": "digital_unfriendly",
+    "field": "question",
+    "current_value": "听录音，选择与所听内容相符的图片。",
+    "description": "题目要求'听录音选图'，但选项中只有文字描述（如'一个蓝白相间书包的图片描述'），没有真实图片。在数字化环境中，学生无法看到图片，只能通过文字描述选择，这已变成阅读理解题而非听力选图题。",
+    "suggestion": "将题型说明从'选择与所听内容相符的图片'改为'根据听力内容选择正确的描述'；或补充对应的图片资源。此问题在所有'听录音选图'类题目中普遍存在（en_listen_001/006/011/016/021/026/031/036/041/046）。"
+  },
+  {
+    "question_id": "en_listen_006",
+    "source_file": "listen",
+    "severity": "design_issue",
+    "category": "digital_unfriendly",
+    "field": "question",
+    "current_value": "听录音，选择与所听内容相符的图片。",
+    "description": "同 en_listen_001，'听录音选图'但选项仅有文字描述，无真实图片。",
+    "suggestion": "将题型说明改为'根据听力内容选择正确的描述'。"
+  },
+  {
+    "question_id": "en_listen_011",
+    "source_file": "listen",
+    "severity": "design_issue",
+    "category": "digital_unfriendly",
+    "field": "question",
+    "current_value": "听录音，选择与所听内容相符的图片。",
+    "description": "同 en_listen_001，'听录音选图'但选项仅有文字描述，无真实图片。",
+    "suggestion": "将题型说明改为'根据听力内容选择正确的描述'。"
+  },
+  {
+    "question_id": "en_listen_016",
+    "source_file": "listen",
+    "severity": "design_issue",
+    "category": "digital_unfriendly",
+    "field": "question",
+    "current_value": "听录音，选择与所听内容相符的图片。",
+    "description": "同 en_listen_001，'听录音选图'但选项仅有文字描述，无真实图片。",
+    "suggestion": "将题型说明改为'根据听力内容选择正确的描述'。"
+  },
+  {
+    "question_id": "en_listen_021",
+    "source_file": "listen",
+    "severity": "design_issue",
+    "category": "digital_unfriendly",
+    "field": "question",
+    "current_value": "听录音，选择与所听内容相符的图片。",
+    "description": "同 en_listen_001，'听录音选图'但选项仅有文字描述，无真实图片。",
+    "suggestion": "将题型说明改为'根据听力内容选择正确的描述'。"
+  },
+  {
+    "question_id": "en_listen_026",
+    "source_file": "listen",
+    "severity": "design_issue",
+    "category": "digital_unfriendly",
+    "field": "question",
+    "current_value": "听录音，选择与所听内容相符的图片。",
+    "description": "同 en_listen_001，'听录音选图'但选项仅有文字描述，无真实图片。",
+    "suggestion": "将题型说明改为'根据听力内容选择正确的描述'。"
+  },
+  {
+    "question_id": "en_listen_031",
+    "source_file": "listen",
+    "severity": "design_issue",
+    "category": "digital_unfriendly",
+    "field": "question",
+    "current_value": "听录音，选择与所听内容相符的图片。",
+    "description": "同 en_listen_001，'听录音选图'但选项仅有文字描述，无真实图片。",
+    "suggestion": "将题型说明改为'根据听力内容选择正确的描述'。"
+  },
+  {
+    "question_id": "en_listen_036",
+    "source_file": "listen",
+    "severity": "design_issue",
+    "category": "digital_unfriendly",
+    "field": "question",
+    "current_value": "听录音，选择与所听内容相符的图片。",
+    "description": "同 en_listen_001，'听录音选图'但选项仅有文字描述，无真实图片。",
+    "suggestion": "将题型说明改为'根据听力内容选择正确的描述'。"
+  },
+  {
+    "question_id": "en_listen_041",
+    "source_file": "listen",
+    "severity": "design_issue",
+    "category": "digital_unfriendly",
+    "field": "question",
+    "current_value": "听录音，选择与所听内容相符的图片。",
+    "description": "同 en_listen_001，'听录音选图'但选项仅有文字描述，无真实图片。",
+    "suggestion": "将题型说明改为'根据听力内容选择正确的描述'。"
+  },
+  {
+    "question_id": "en_listen_046",
+    "source_file": "listen",
+    "severity": "design_issue",
+    "category": "digital_unfriendly",
+    "field": "question",
+    "current_value": "听录音，选择与所听内容相符的图片。",
+    "description": "同 en_listen_001，'听录音选图'但选项仅有文字描述，无真实图片。",
+    "suggestion": "将题型说明改为'根据听力内容选择正确的描述'。"
+  },
+  {
+    "question_id": "en_listen_003",
+    "source_file": "listen",
+    "severity": "suggestion",
+    "category": "design_issue",
+    "field": "question",
+    "current_value": "听对话，判断下列说法是否正确，正确的选T，错误的选F。",
+    "description": "判断的句子信息嵌在 listening_text 末尾（'句子：They have art class on Wednesdays.'），而非独立字段。前端渲染时可能无法区分听力文本和待判断句子。",
+    "suggestion": "将待判断句子从 listening_text 中提取出来，放入 question 或新增 judge_statement 字段中。此问题在 en_listen_008/013/018/023/028/033/038/043/048 中同样存在。"
+  },
+  {
+    "question_id": "en_listen_005",
+    "source_file": "listen",
+    "severity": "suggestion",
+    "category": "design_issue",
+    "field": "type",
+    "current_value": "fill_blank",
+    "description": "题目描述为'听短文，填入所缺的单词'，listening_text 中有下划线空白处 '______'。但 options 为空数组，如果学生需要在多个选项中选择答案，应提供选项。目前是开放式填空。",
+    "suggestion": "明确题型是开放式填空还是选择题。如果是选择题，应在 options 中提供备选单词。"
+  },
+  {
+    "question_id": "en_listen_009",
+    "source_file": "listen",
+    "severity": "suggestion",
+    "category": "design_issue",
+    "field": "options",
+    "current_value": "[]",
+    "description": "题目要求'选择正确的单词填空'，但 options 字段为空。选项（A. read B. reads C. reading D. to read）嵌在 listening_text 末尾，前端无法以标准方式呈现选项。",
+    "suggestion": "将选项从 listening_text 中提取到 options 字段。此问题在 en_listen_019/029/039/049 中同样存在。"
+  },
+  {
+    "question_id": "en_listen_015",
+    "source_file": "listen",
+    "severity": "suggestion",
+    "category": "design_issue",
+    "field": "answer",
+    "current_value": "black",
+    "description": "答案为 'black'，但 listening_text 中只给出线索 'It is white and ______'。正确答案 black 并非唯一解——灰色(gray)、棕色(brown)等颜色在语法上同样合理。答案缺乏唯一性。",
+    "suggestion": "增加更明确的限定线索，使答案唯一。例如 'It is white and ______, like a panda.' 或改为选择题提供备选颜色。"
+  },
+  {
+    "question_id": "en_listen_025",
+    "source_file": "listen",
+    "severity": "suggestion",
+    "category": "design_issue",
+    "field": "answer",
+    "current_value": "bookshelf",
+    "description": "答案为 'bookshelf'（书柜），但 listening_text 中线索为 'I put my books and toys in it. It is big and tall.'。'bookshelf' 通常指书架（放书的），但文本提到还放 'toys'，且描述 'big and tall' 更像 'bookcase' 或 'cabinet'（柜子）。此外，此单词对小学生来说可能偏难。",
+    "suggestion": "将答案改为更常见的 'bookcase' 或 'toy box'，或增加更多限定线索使答案更确定。"
+  },
+  {
+    "question_id": "en_listen_045",
+    "source_file": "listen",
+    "severity": "suggestion",
+    "category": "difficulty_mismatch",
+    "field": "answer",
+    "current_value": "village",
+    "description": "答案为 'village'（村庄），但 listening_text 中线索仅为 'I live in a small ______. There are many trees and flowers around it.'。'town'（小镇）同样完全符合条件。答案缺乏唯一性。同时 'village' 虽是小学词汇，但需确认在目标年级已学过。",
+    "suggestion": "增加限定线索，如 'There are many trees and flowers around it, but there are no tall buildings.' 以排除 town。"
+  },
+  {
+    "question_id": "en_writing_001",
+    "source_file": "writing",
+    "severity": "suggestion",
+    "category": "design_issue",
+    "field": "answer",
+    "current_value": "My mother is a teacher.",
+    "description": "连词成句题的答案唯一性没有问题，但系统目前 type 为 open_ended。对于连词成句题，如果前端要自动判分，需要匹配规则（忽略大小写和标点差异）。",
+    "suggestion": "将 type 改为 reorder 或增加判分逻辑提示。"
+  },
+  {
+    "question_id": "en_writing_003",
+    "source_file": "writing",
+    "severity": "suggestion",
+    "category": "other",
+    "field": "answer",
+    "current_value": "He does not like playing basketball.",
+    "description": "答案使用了 'does not' 而非缩写 'doesn't'。两种形式都正确，但小学阶段通常教授缩写形式 'doesn't'。建议参考答案中同时标注两种形式。",
+    "suggestion": "答案改为 'He does not like playing basketball. (或 He doesn't like playing basketball.)'"
+  },
+  {
+    "question_id": "en_writing_005",
+    "source_file": "writing",
+    "severity": "suggestion",
+    "category": "other",
+    "field": "question",
+    "current_value": "a, there, is, park, near, here",
+    "description": "连词成句的答案 'There is a park near here.' 语法正确，但 'near here' 对小学生来说可能略显口语化。不过作为小学阶段已学句型可以接受。本题无大问题。",
+    "suggestion": "无需修改，仅作记录。"
+  },
+  {
+    "question_id": "en_writing_006",
+    "source_file": "writing",
+    "severity": "design_issue",
+    "category": "digital_unfriendly",
+    "field": "question",
+    "current_value": "根据图片信息，用3-5句话写一段短文。\n\n图片描述：一个高个子男孩，戴着眼镜，穿着蓝色T恤和黑色裤子，手里拿着一本书，脸上带着微笑。",
+    "description": "题目要求'根据图片信息'写作，但没有真实图片，只有文字描述。学生在数字化环境中看不到图片，只能根据文字描述来写，这已不是'看图写话'而是'根据描述写话'。",
+    "suggestion": "将'根据图片信息'改为'根据以下描述'，或补充对应的图片资源。此问题在 en_writing_006/007/008/013 中普遍存在。"
+  },
+  {
+    "question_id": "en_writing_007",
+    "source_file": "writing",
+    "severity": "design_issue",
+    "category": "digital_unfriendly",
+    "field": "question",
+    "current_value": "根据图片信息，用3-5句话写一段短文。\n\n图片描述：公园里，一个小女孩在放风筝，一个小男孩在踢足球，天空中飘着几朵白云，太阳在微笑。",
+    "description": "同 en_writing_006，'看图写话'但无真实图片。且'太阳在微笑'是拟人化描述，对于看图写话来说可能产生误导。",
+    "suggestion": "将'根据图片信息'改为'根据以下描述'，并将'太阳在微笑'改为'太阳很明亮'。"
+  },
+  {
+    "question_id": "en_writing_008",
+    "source_file": "writing",
+    "severity": "design_issue",
+    "category": "digital_unfriendly",
+    "field": "question",
+    "current_value": "根据图片信息，用3-5句话写一段短文。\n\n图片描述：一只大熊猫，黑白相间，正在吃竹子，旁边有几棵竹子，看起来很开心。",
+    "description": "同 en_writing_006，'看图写话'但无真实图片。",
+    "suggestion": "将'根据图片信息'改为'根据以下描述'。"
+  },
+  {
+    "question_id": "en_writing_013",
+    "source_file": "writing",
+    "severity": "design_issue",
+    "category": "digital_unfriendly",
+    "field": "question",
+    "current_value": "根据图片信息，用3-5句话写一段短文。\n\n图片描述：一张书桌，上面有一盏台灯、一本书和一个铅笔盒。台灯在左边，书在中间，铅笔盒在右边。椅子在桌子下面。",
+    "description": "同 en_writing_006，'看图写话'但无真实图片。",
+    "suggestion": "将'根据图片信息'改为'根据以下描述'。"
+  },
+  {
+    "question_id": "en_writing_009",
+    "source_file": "writing",
+    "severity": "suggestion",
+    "category": "other",
+    "field": "answer",
+    "current_value": "My Friend\nI have a good friend. His name is Zhang Wei. He is eleven years old. He is tall and thin. He has big eyes and short hair. He likes playing basketball. We often play basketball together after school. He is very kind. I like him very much.",
+    "description": "参考答案语法正确、拼写无误，内容完整。字数约60词，符合40-60词要求。无问题。",
+    "suggestion": "无需修改。"
+  },
+  {
+    "question_id": "en_writing_010",
+    "source_file": "writing",
+    "severity": "suggestion",
+    "category": "other",
+    "field": "answer",
+    "current_value": "My Weekend\nLast weekend, I was very happy. On Saturday morning, I did my homework. In the afternoon, I played football with my friends. On Sunday, I visited my grandparents. We had a big dinner together. I love my weekend very much.",
+    "description": "参考答案最后一句 'I love my weekend very much' 用的是一般现在时，但全文描述的是上周末（一般过去时），时态不一致。应改为 'I loved my weekend very much' 或 'I had a great weekend.'",
+    "suggestion": "将 'I love my weekend very much.' 改为 'I loved my weekend very much.' 或 'I had a wonderful weekend.'"
+  },
+  {
+    "question_id": "en_writing_017",
+    "source_file": "writing",
+    "severity": "suggestion",
+    "category": "other",
+    "field": "answer",
+    "current_value": "June 1st  Sunny\nToday is Children's Day. I went to the zoo with my parents. We saw many animals. The pandas were cute. The monkeys were funny. The elephants were big. I took many photos. I was very happy. I will never forget this day.",
+    "description": "日记日期格式 'June 1st  Sunny' 中缺少换行符说明。如果前端渲染时直接显示，日期和天气之间可能显示为一行。此外答案整体质量良好，无语法错误。",
+    "suggestion": "确认前端能正确处理日期和天气的换行显示。答案本身无需修改。"
+  },
+  {
+    "question_id": "en_writing_018",
+    "source_file": "writing",
+    "severity": "suggestion",
+    "category": "other",
+    "field": "answer",
+    "current_value": "Dear Miss Zhang,\nI am sorry to tell you that I have a cold today. I have a headache. I cannot go to school. Could you please give me one day off? Thank you.\nYours,\nZhang Ming",
+    "description": "请假条内容完整，格式正确。但请假条通常需要日期信息（写请假条的日期），参考答案中缺少日期。",
+    "suggestion": "在称呼上方添加日期行，如 'Monday, April 13th'。"
+  }
+]

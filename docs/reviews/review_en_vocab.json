@@ -1,0 +1,319 @@
+[
+  {
+    "question_id": "en_vocab_001",
+    "severity": "design_issue",
+    "category": "digital_unfriendly",
+    "field": "question",
+    "current_value": "找出下列单词中划线部分发音不同的一项。",
+    "description": "题目中出现'划线部分'这一纸质用语，在数字化界面中用户无法看到划线效果，无法判断应该关注哪个字母。学生无法知道需要比较的是元音字母a的发音。",
+    "suggestion": "改为'找出下列单词中元音字母a发音不同的一项。'或'下列单词中，哪个单词画线字母的读音与其他三个不同？A. c**a**t B. b**a**g C. n**a**me D. m**a**p'（用粗体标注目标字母）"
+  },
+  {
+    "question_id": "en_vocab_003",
+    "severity": "suggestion",
+    "category": "difficulty_mismatch",
+    "field": "difficulty",
+    "current_value": 0.5,
+    "description": "本题要求根据首字母补全Wednesday、February、heavier、clever。Wednesday是小学最常考的拼写难点，难度标注0.5（提升）偏低。尤其是Wednesday中d不发音、February的拼写复杂度，对学生挑战较大。",
+    "suggestion": "建议提升至0.7。Wednesday和February的拼写属于小学高年级重点难点。"
+  },
+  {
+    "question_id": "en_vocab_006",
+    "severity": "design_issue",
+    "category": "digital_unfriendly",
+    "field": "question",
+    "current_value": "找出下列单词中划线部分发音不同的一项。",
+    "description": "'划线部分'在数字化界面中不可见，学生无法判断应关注ea字母组合还是其他部分。bread中ea发/e/而其他三个发/iː/，但无划线标注导致考点不明确。",
+    "suggestion": "改为'找出下列单词中字母组合ea发音不同的一项。'或用粗体标注'找出下列单词中**ea**发音不同的一项。'"
+  },
+  {
+    "question_id": "en_vocab_011",
+    "severity": "suggestion",
+    "category": "difficulty_mismatch",
+    "field": "difficulty",
+    "current_value": 0.5,
+    "description": "本题与en_vocab_001几乎完全相同（都是考查元音字母a在开闭音节的发音），仅选项略有不同（001用name做不同项，011用cake做不同项）。重复度极高，作为两道独立题目价值不大。且难度相同都是0.5。",
+    "suggestion": "建议删除其中一道或合并。若保留，应至少更换考查的字母或语音点。"
+  },
+  {
+    "question_id": "en_vocab_016",
+    "severity": "design_issue",
+    "category": "digital_unfriendly",
+    "field": "question",
+    "current_value": "找出下列单词中划线部分发音不同的一项。",
+    "description": "'划线部分'不可见，学生无法判断应关注th字母组合。",
+    "suggestion": "改为'找出下列单词中字母组合th发音不同的一项。'"
+  },
+  {
+    "question_id": "en_vocab_021",
+    "severity": "design_issue",
+    "category": "digital_unfriendly",
+    "field": "question",
+    "current_value": "找出下列单词中划线部分发音不同的一项。",
+    "description": "'划线部分'不可见，学生无法判断应关注oo字母组合。",
+    "suggestion": "改为'找出下列单词中字母组合oo发音不同的一项。'"
+  },
+  {
+    "question_id": "en_vocab_021",
+    "severity": "suggestion",
+    "category": "difficulty_mismatch",
+    "field": "difficulty",
+    "current_value": 0.7,
+    "description": "oo发音的规则在小学已经系统学习，book/good/look发/ʊ/是常见规律。school发/uː/虽然有例外性质，但整体考查难度不高。0.7偏高。",
+    "suggestion": "建议降为0.5。"
+  },
+  {
+    "question_id": "en_vocab_026",
+    "severity": "design_issue",
+    "category": "digital_unfriendly",
+    "field": "question",
+    "current_value": "找出下列单词中划线部分发音不同的一项。",
+    "description": "'划线部分'不可见，学生无法判断应关注wh字母组合。",
+    "suggestion": "改为'找出下列单词中字母组合wh发音不同的一项。'"
+  },
+  {
+    "question_id": "en_vocab_028",
+    "severity": "suggestion",
+    "category": "difficulty_mismatch",
+    "field": "difficulty",
+    "current_value": 0.5,
+    "description": "第（3）题音标/ˈeksəsaɪz/对应exercise，但exercise的标准英式音标应为/ˈeksəsaɪz/（末尾/saɪz/而非/saɪs/）。美式发音可发/ˈeksərsaɪz/。所给音标缺少末尾的浊辅音/z/，可能导致学生拼写困惑。第（4）题/ˈmʌn.deɪ/中.deɪ部分多余，Monday标准音标是/ˈmʌndeɪ/。",
+    "suggestion": "修正音标：（3）/ˈeksəsaɪz/（英式）或/ˈeksərsaɪz/（美式）；（4）/ˈmʌndeɪ/"
+  },
+  {
+    "question_id": "en_vocab_031",
+    "severity": "design_issue",
+    "category": "digital_unfriendly",
+    "field": "question",
+    "current_value": "找出下列单词中划线部分发音不同的一项。",
+    "description": "'划线部分'不可见，学生无法判断应关注ow字母组合。",
+    "suggestion": "改为'找出下列单词中字母组合ow发音不同的一项。'"
+  },
+  {
+    "question_id": "en_vocab_036",
+    "severity": "design_issue",
+    "category": "digital_unfriendly",
+    "field": "question",
+    "current_value": "找出下列单词中划线部分发音不同的一项。",
+    "description": "'划线部分'不可见，学生无法判断应关注ea字母组合。且本题与en_vocab_006完全重复考查ea发音（006选项tea/bread/meat/sea，036选项bread/eat/tea/meat），仅选项排列不同。",
+    "suggestion": "改为'找出下列单词中字母组合ea发音不同的一项。'同时建议删除其中一道，因为与006高度重复。"
+  },
+  {
+    "question_id": "en_vocab_038",
+    "severity": "suggestion",
+    "category": "other",
+    "field": "analysis",
+    "current_value": "February的读音容易漏掉第一个r，Saturday注意tur的发音。",
+    "description": "解析提到了February和Saturday，但这道题考的是country、beautiful、bread、wet，完全不涉及February或Saturday。解析与题目不匹配，属于模板残留。",
+    "suggestion": "解析应改为与本题相关的内容，如'country注意/tʃ/和/ri/，beautiful注意/juː/和/ə/，bread注意ea发/e/'。"
+  },
+  {
+    "question_id": "en_vocab_041",
+    "severity": "design_issue",
+    "category": "digital_unfriendly",
+    "field": "question",
+    "current_value": "找出下列单词中划线部分发音不同的一项。",
+    "description": "'划线部分'不可见，学生无法判断应关注元音字母i。",
+    "suggestion": "改为'找出下列单词中元音字母i发音不同的一项。'"
+  },
+  {
+    "question_id": "en_vocab_042",
+    "severity": "suggestion",
+    "category": "difficulty_mismatch",
+    "field": "difficulty",
+    "current_value": 0.5,
+    "description": "hard-working（勤劳的）作为'生气勃勃的'的翻译不准确。'hard-working'意为'勤奋的、努力工作的'，而'生气勃勃的'更对应'energetic'或'lively'。这是词义翻译错误。",
+    "suggestion": "将'有礼貌的'改为对应polite，或修改中文提示。如果第（3）题想考'勤劳的'，应将中文改为'勤劳的'（polite是有礼貌的，不是勤劳的）。"
+  },
+  {
+    "question_id": "en_vocab_046",
+    "severity": "error",
+    "category": "wrong_answer",
+    "field": "analysis",
+    "current_value": "本题考查ea字母组合的发音。",
+    "description": "严重错误：analysis完全与题目不匹配。本题考查的是ou字母组合的发音（house/mouse/young/cloud），但解析写的是'考查ea字母组合的发音'，提到B、C、D中ea发/e/、A中read发/iː/，完全不相关。这属于AI生成时的模板复制错误，学生看到会完全困惑。答案C（young中ou发/ʌ/，其他三个发/aʊ/）本身正确，但解析完全错误。",
+    "suggestion": "修正解析为：'本题考查字母组合ou的发音。A、B、D中ou发/aʊ/，C中young的ou发/ʌ/。注意young、touch、enough中ou发特殊音。'"
+  },
+  {
+    "question_id": "en_vocab_046",
+    "severity": "design_issue",
+    "category": "digital_unfriendly",
+    "field": "question",
+    "current_value": "找出下列单词中划线部分发音不同的一项。",
+    "description": "'划线部分'不可见。",
+    "suggestion": "改为'找出下列单词中字母组合ou发音不同的一项。'"
+  },
+  {
+    "question_id": "en_vocab_051",
+    "severity": "design_issue",
+    "category": "digital_unfriendly",
+    "field": "question",
+    "current_value": "找出下列单词中划线部分发音不同的一项。",
+    "description": "'划线部分'不可见，学生无法判断应关注ch字母组合。",
+    "suggestion": "改为'找出下列单词中字母组合ch发音不同的一项。'"
+  },
+  {
+    "question_id": "en_vocab_056",
+    "severity": "design_issue",
+    "category": "digital_unfriendly",
+    "field": "question",
+    "current_value": "找出下列单词中划线部分发音不同的一项。",
+    "description": "'划线部分'不可见，且本题与en_vocab_036和en_vocab_006第三次重复考查ea字母组合的发音。三道题（006、036、056）都是考ea发/iː/和/e/的区别，严重重复。",
+    "suggestion": "改为'找出下列单词中字母组合ea发音不同的一项。'且强烈建议合并三题为一题，释放空间给其他语音点。"
+  },
+  {
+    "question_id": "en_vocab_061",
+    "severity": "design_issue",
+    "category": "digital_unfriendly",
+    "field": "question",
+    "current_value": "找出下列单词中划线部分发音不同的一项。",
+    "description": "'划线部分'不可见，且本题与en_vocab_051重复考查ch字母组合的发音（051选项chair/school/watch/much，061选项teacher/Chinese/school/chair）。两题的核心考点完全相同。",
+    "suggestion": "改为'找出下列单词中字母组合ch发音不同的一项。'且建议合并或删除其中一道。"
+  },
+  {
+    "question_id": "en_vocab_066",
+    "severity": "error",
+    "category": "wrong_answer",
+    "field": "analysis",
+    "current_value": "本题考查s在词中的发音。",
+    "description": "严重错误：analysis与题目完全不匹配。题目考查的是ay/ai元音发音（play/day/says/wait），正确答案D（wait中ai发/eɪ/，而says中ay发/e/）。但解析写的是'考查s在词中的发音'，提到news、newspaper、nose、nurse，与题目完全无关。这属于AI生成时严重的内容错乱。",
+    "suggestion": "修正答案和解析：本题考查ay字母组合的发音。A、B中ay发/eɪ/，C中says的ay发/e/（特殊发音），D中ai发/eɪ/。正确答案应为C而非D。says是say的第三人称单数，ay发/e/，这是常见的特殊发音考点。"
+  },
+  {
+    "question_id": "en_vocab_066",
+    "severity": "error",
+    "category": "wrong_answer",
+    "field": "answer",
+    "current_value": "D",
+    "description": "答案错误。A.play中ay发/eɪ/，B.day中ay发/eɪ/，C.says中ay发/ez/（特殊发音，不发/eɪ/），D.wait中ai发/eɪ/。因此发音不同的一项应为C，而非D。当前答案D(wait)与A、B中的ay/ai发音相同，都是/eɪ/。",
+    "suggestion": "将答案从D改为C。"
+  },
+  {
+    "question_id": "en_vocab_066",
+    "severity": "design_issue",
+    "category": "digital_unfriendly",
+    "field": "question",
+    "current_value": "找出下列单词中划线部分发音不同的一项。",
+    "description": "'划线部分'不可见。",
+    "suggestion": "改为'找出下列单词中画线字母组合发音不同的一项。'或'下列哪个单词中加粗字母的读音与其他三个不同？'并用粗体标注says中的ay。"
+  },
+  {
+    "question_id": "en_vocab_071",
+    "severity": "design_issue",
+    "category": "digital_unfriendly",
+    "field": "question",
+    "current_value": "找出下列单词中划线部分发音不同的一项。",
+    "description": "'划线部分'不可见，学生无法判断应关注gh字母组合。",
+    "suggestion": "改为'找出下列单词中字母组合gh发音不同的一项。'"
+  },
+  {
+    "question_id": "en_vocab_076",
+    "severity": "error",
+    "category": "wrong_answer",
+    "field": "analysis",
+    "current_value": "本题考查s在词中的发音。",
+    "description": "analysis与题目完全重复——和en_vocab_076自己的analysis一模一样（都提到news/newspaper/nose/nurse），这是自我复制。实际上这个解析对应的题目应该是'找出news、newspaper、nose、nurse中s发音不同的一项'。当前题目（076）确实是这个内容，所以答案D(nurse)正确，analysis内容也正确，只是格式上像是模板残留。",
+    "description_corrected": "本题的analysis内容与题目实际匹配，答案D正确。但analysis看起来像是模板复制，格式上需要优化。",
+    "suggestion": "analysis内容正确但表述可以更精炼。"
+  },
+  {
+    "question_id": "en_vocab_076",
+    "severity": "design_issue",
+    "category": "digital_unfriendly",
+    "field": "question",
+    "current_value": "找出下列单词中划线部分发音不同的一项。",
+    "description": "'划线部分'不可见，学生无法判断应关注字母s。",
+    "suggestion": "改为'找出下列单词中字母s发音不同的一项。'"
+  },
+  {
+    "question_id": "en_vocab_078",
+    "severity": "error",
+    "category": "wrong_answer",
+    "field": "answer",
+    "current_value": "（1）vegetable （2）carrot （3）chocolate （4）vacation",
+    "description": "第（4）题音标/ˈveɪkəʃn/对应vacation（美式度假），但英式应为holiday。虽然vacation在小学也有接触，但对于中国小学英语教材（主要使用英式英语）来说，holiday更为常见。更关键的是，/ˈveɪkəʃn/这个音标中/kə/对应的是ca而非任何其他拼写，vacation的拼写与小学水平匹配度存疑。不过严格来说音标与单词匹配是正确的。",
+    "description_corrected": "经复核，vacation与音标/ˈveɪkəʃn/匹配正确。此条撤回。",
+    "suggestion": "撤回此条，答案正确。"
+  },
+  {
+    "question_id": "en_vocab_081",
+    "severity": "design_issue",
+    "category": "digital_unfriendly",
+    "field": "question",
+    "current_value": "找出下列单词中划线部分发音不同的一项。",
+    "description": "'划线部分'不可见，且本题与en_vocab_016和en_vocab_101第三次重复考查th字母组合的清浊辅音区别（016/081/101都是考th发/θ/和/ð/的区别）。",
+    "suggestion": "改为'找出下列单词中字母组合th发音不同的一项。'且强烈建议合并三题为一题（保留区分度最好的一道），用释放的空间考查其他语音点。"
+  },
+  {
+    "question_id": "en_vocab_086",
+    "severity": "design_issue",
+    "category": "digital_unfriendly",
+    "field": "question",
+    "current_value": "找出下列单词中划线部分发音不同的一项。",
+    "description": "'划线部分'不可见。",
+    "suggestion": "改为'找出下列单词中字母组合ere/are发音不同的一项。'或更具体描述。"
+  },
+  {
+    "question_id": "en_vocab_091",
+    "severity": "design_issue",
+    "category": "digital_unfriendly",
+    "field": "question",
+    "current_value": "找出下列单词中划线部分发音不同的一项。",
+    "description": "'划线部分'不可见，且本题与en_vocab_021重复考查oo字母组合的发音（021选项book/good/school/look，091选项good/food/cool/school）。两道题核心考点完全相同（school中oo发/uː/，其余发/ʊ/或反过来）。",
+    "suggestion": "改为'找出下列单词中字母组合oo发音不同的一项。'且建议合并或删除其中一道。"
+  },
+  {
+    "question_id": "en_vocab_096",
+    "severity": "design_issue",
+    "category": "digital_unfriendly",
+    "field": "question",
+    "current_value": "找出下列单词中划线部分发音不同的一项。",
+    "description": "'划线部分'不可见。",
+    "suggestion": "改为'找出下列单词中字母组合ear发音不同的一项。'"
+  },
+  {
+    "question_id": "en_vocab_101",
+    "severity": "design_issue",
+    "category": "digital_unfriendly",
+    "field": "question",
+    "current_value": "找出下列单词中划线部分发音不同的一项。",
+    "description": "'划线部分'不可见，且与016、081构成th发音题第三次重复。",
+    "suggestion": "改为'找出下列单词中字母组合th发音不同的一项。'建议合并。"
+  },
+  {
+    "question_id": "en_vocab_106",
+    "severity": "design_issue",
+    "category": "digital_unfriendly",
+    "field": "question",
+    "current_value": "找出下列单词中划线部分发音不同的一项。",
+    "description": "'划线部分'不可见。",
+    "suggestion": "改为'找出下列单词中字母组合th发音不同的一项。'注意这也是th的第四次重复考查，建议合并。"
+  },
+  {
+    "question_id": "en_vocab_111",
+    "severity": "design_issue",
+    "category": "digital_unfriendly",
+    "field": "question",
+    "current_value": "找出下列单词中划线部分发音不同的一项。",
+    "description": "'划线部分'不可见，且本题与en_vocab_001、en_vocab_011第三次重复考查元音字母a在开闭音节的发音。三道题都是考a在CVC（闭音节发/æ/）和CVE（开音节发/eɪ/）中的区别。",
+    "suggestion": "改为'找出下列单词中元音字母a发音不同的一项。'且强烈建议三题合并为一题。"
+  },
+  {
+    "question_id": "en_vocab_116",
+    "severity": "design_issue",
+    "category": "digital_unfriendly",
+    "field": "question",
+    "current_value": "找出下列单词中划线部分发音不同的一项。",
+    "description": "'划线部分'不可见。",
+    "suggestion": "改为'找出下列单词中元音字母u发音不同的一项。'"
+  },
+  {
+    "question_id": "en_vocab_042",
+    "severity": "error",
+    "category": "wrong_answer",
+    "field": "answer",
+    "current_value": "（3）hard-working",
+    "description": "中文提示'有礼貌的'对应的英语是polite，而不是hard-working。hard-working意为'勤奋的、努力工作的'。这是词义匹配错误。",
+    "suggestion": "将第（3）项中文提示从'有礼貌的'改为'勤劳的'（对应hard-working），或者将答案从hard-working改为polite。"
+  }
+]

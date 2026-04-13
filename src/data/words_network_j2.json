@@ -144,7 +144,7 @@
       "word": "become",
       "meaning": "变成；成为",
       "category": "verb",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "turn into",
@@ -158,7 +158,8 @@
         "come"
       ],
       "example": "She wants to become a doctor.",
-      "memory_tip": "be+come→成为"
+      "memory_tip": "be+come→成为",
+      "overlap": "primary"
     },
     "begin": {
       "word": "begin",
@@ -242,7 +243,7 @@
       "word": "break",
       "meaning": "打破；休息",
       "category": "verb",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "fix",
@@ -256,13 +257,14 @@
         "breakfast"
       ],
       "example": "Be careful not to break the cup.",
-      "memory_tip": "break打破，休息"
+      "memory_tip": "break打破，休息",
+      "overlap": "primary"
     },
     "bring": {
       "word": "bring",
       "meaning": "带来；拿来",
       "category": "verb",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "take",
@@ -276,13 +278,14 @@
         "ring"
       ],
       "example": "Please bring your textbook.",
-      "memory_tip": "bring带来"
+      "memory_tip": "bring带来",
+      "overlap": "primary"
     },
     "build": {
       "word": "build",
       "meaning": "建造；建设",
       "category": "verb",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "construct",
@@ -296,7 +299,8 @@
         "guild"
       ],
       "example": "They are building a new school.",
-      "memory_tip": "build建造"
+      "memory_tip": "build建造",
+      "overlap": "primary"
     },
     "burn": {
       "word": "burn",
@@ -322,7 +326,7 @@
       "word": "buy",
       "meaning": "买；购买",
       "category": "verb",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "sell",
@@ -336,13 +340,14 @@
         "boy"
       ],
       "example": "I want to buy a new phone.",
-      "memory_tip": "buy买，和by/bye同音区分"
+      "memory_tip": "buy买，和by/bye同音区分",
+      "overlap": "primary"
     },
     "call": {
       "word": "call",
       "meaning": "叫；打电话",
       "category": "verb",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "phone",
@@ -357,13 +362,14 @@
         "wall"
       ],
       "example": "Please call me when you get home.",
-      "memory_tip": "call→叫；打电话"
+      "memory_tip": "call→叫；打电话",
+      "overlap": "primary"
     },
     "carry": {
       "word": "carry",
       "meaning": "携带；搬运",
       "category": "verb",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "bring",
@@ -377,13 +383,14 @@
         "marry"
       ],
       "example": "Can you help me carry these bags?",
-      "memory_tip": "carry搬运"
+      "memory_tip": "carry搬运",
+      "overlap": "primary"
     },
     "catch": {
       "word": "catch",
       "meaning": "抓住；赶上",
       "category": "verb",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "grab",
@@ -397,7 +404,8 @@
         "scratch"
       ],
       "example": "Hurry up, or you will miss the bus.",
-      "memory_tip": "catch抓住"
+      "memory_tip": "catch抓住",
+      "overlap": "primary"
     },
     "cause": {
       "word": "cause",
@@ -423,7 +431,7 @@
       "word": "change",
       "meaning": "零钱；变化",
       "category": "noun",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "money",
@@ -437,7 +445,8 @@
         "range"
       ],
       "example": "Keep the change.",
-      "memory_tip": "change→零钱"
+      "memory_tip": "change→零钱",
+      "overlap": "primary"
     },
     "check": {
       "word": "check",
@@ -463,7 +472,7 @@
       "word": "choose",
       "meaning": "选择",
       "category": "verb",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "pick",
@@ -477,7 +486,8 @@
         "lose"
       ],
       "example": "You can choose any color.",
-      "memory_tip": "choose→选择"
+      "memory_tip": "choose→选择",
+      "overlap": "primary"
     },
     "climb": {
       "word": "climb",
@@ -542,7 +552,7 @@
       "word": "come",
       "meaning": "来；来到",
       "category": "verb",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "go",
@@ -556,7 +566,8 @@
         "welcome"
       ],
       "example": "Come here, please.",
-      "memory_tip": "come来"
+      "memory_tip": "come来",
+      "overlap": "primary"
     },
     "compare": {
       "word": "compare",
@@ -641,7 +652,7 @@
       "word": "cook",
       "meaning": "做饭",
       "category": "verb",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "food",
@@ -656,7 +667,8 @@
         "hook"
       ],
       "example": "My mother cooks dinner.",
-      "memory_tip": "cook做饭，名词是厨师"
+      "memory_tip": "cook做饭，名词是厨师",
+      "overlap": "primary"
     },
     "copy": {
       "word": "copy",
@@ -681,7 +693,7 @@
       "word": "correct",
       "meaning": "正确的",
       "category": "adjective",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "right",
@@ -695,7 +707,8 @@
         "direct"
       ],
       "example": "Your answer is correct.",
-      "memory_tip": "correct→正确的"
+      "memory_tip": "correct→正确的",
+      "overlap": "primary"
     },
     "cost": {
       "word": "cost",
@@ -721,7 +734,7 @@
       "word": "count",
       "meaning": "数数；计算",
       "category": "verb",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "number",
@@ -734,7 +747,8 @@
         "could"
       ],
       "example": "Can you count from one to ten?",
-      "memory_tip": "count→数数"
+      "memory_tip": "count→数数",
+      "overlap": "primary"
     },
     "cover": {
       "word": "cover",
@@ -800,7 +814,7 @@
       "word": "cry",
       "meaning": "哭；叫喊",
       "category": "verb",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "tears",
@@ -815,13 +829,14 @@
         "fry"
       ],
       "example": "The baby is crying.",
-      "memory_tip": "cry哭"
+      "memory_tip": "cry哭",
+      "overlap": "primary"
     },
     "cut": {
       "word": "cut",
       "meaning": "切；割；剪",
       "category": "verb",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "knife",
@@ -835,13 +850,14 @@
         "put"
       ],
       "example": "Please cut the cake into pieces.",
-      "memory_tip": "cut切(过去式cut)"
+      "memory_tip": "cut切(过去式cut)",
+      "overlap": "primary"
     },
     "dance": {
       "word": "dance",
       "meaning": "跳舞",
       "category": "verb",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "music",
@@ -855,7 +871,8 @@
         "dense"
       ],
       "example": "She loves dancing.",
-      "memory_tip": "dance跳舞"
+      "memory_tip": "dance跳舞",
+      "overlap": "primary"
     },
     "decide": {
       "word": "decide",
@@ -1016,7 +1033,8 @@
         "device"
       ],
       "example": "The teacher divided the class.",
-      "memory_tip": "di+vide(分开)→分开"
+      "memory_tip": "di+vide(分开)→分开",
+      "overlap": "primary"
     },
     "do": {
       "word": "do",
@@ -1042,7 +1060,7 @@
       "word": "draw",
       "meaning": "画；拉",
       "category": "verb",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "paint",
@@ -1056,13 +1074,14 @@
         "drew"
       ],
       "example": "She is good at drawing.",
-      "memory_tip": "draw画画/拉"
+      "memory_tip": "draw画画/拉",
+      "overlap": "primary"
     },
     "dream": {
       "word": "dream",
       "meaning": "梦想",
       "category": "noun",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "hope",
@@ -1077,7 +1096,8 @@
         "dram"
       ],
       "example": "My dream is to travel the world.",
-      "memory_tip": "dream梦想/做梦"
+      "memory_tip": "dream梦想/做梦",
+      "overlap": "primary"
     },
     "drink": {
       "word": "drink",
@@ -1125,7 +1145,7 @@
       "word": "drop",
       "meaning": "落下；掉落",
       "category": "verb",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "fall",
@@ -1138,7 +1158,8 @@
         "stop"
       ],
       "example": "Be careful not to drop the glass.",
-      "memory_tip": "drop落下/滴"
+      "memory_tip": "drop落下/滴",
+      "overlap": "primary"
     },
     "earn": {
       "word": "earn",
@@ -1165,7 +1186,7 @@
       "word": "eat",
       "meaning": "吃",
       "category": "verb",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "food",
@@ -1180,7 +1201,8 @@
         "seat"
       ],
       "example": "We usually eat lunch at school.",
-      "memory_tip": "eat吃"
+      "memory_tip": "eat吃",
+      "overlap": "primary"
     },
     "encourage": {
       "word": "encourage",
@@ -1206,7 +1228,7 @@
       "word": "enjoy",
       "meaning": "享受；喜欢",
       "category": "verb",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "like",
@@ -1220,7 +1242,8 @@
         "employ"
       ],
       "example": "I enjoy reading books.",
-      "memory_tip": "en+joy(高兴)→享受"
+      "memory_tip": "en+joy(高兴)→享受",
+      "overlap": "primary"
     },
     "enter": {
       "word": "enter",
@@ -1306,7 +1329,7 @@
       "word": "fall",
       "meaning": "跌倒；秋天",
       "category": "verb",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "drop",
@@ -1321,7 +1344,8 @@
         "tall"
       ],
       "example": "Be careful not to fall down.",
-      "memory_tip": "fall跌落/秋天"
+      "memory_tip": "fall跌落/秋天",
+      "overlap": "primary"
     },
     "feed": {
       "word": "feed",
@@ -1410,7 +1434,7 @@
       "word": "find",
       "meaning": "找到；发现",
       "category": "verb",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "look for",
@@ -1425,13 +1449,14 @@
         "bind"
       ],
       "example": "I found my lost wallet.",
-      "memory_tip": "find找到"
+      "memory_tip": "find找到",
+      "overlap": "primary"
     },
     "finish": {
       "word": "finish",
       "meaning": "完成；结束",
       "category": "verb",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "end",
@@ -1445,13 +1470,14 @@
         "furnish"
       ],
       "example": "I finished my homework.",
-      "memory_tip": "finish完成"
+      "memory_tip": "finish完成",
+      "overlap": "primary"
     },
     "fix": {
       "word": "fix",
       "meaning": "修理；固定",
       "category": "verb",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "repair",
@@ -1465,13 +1491,14 @@
         "fox"
       ],
       "example": "Can you fix my bike?",
-      "memory_tip": "fix→修理"
+      "memory_tip": "fix→修理",
+      "overlap": "primary"
     },
     "fly": {
       "word": "fly",
       "meaning": "飞；飞行",
       "category": "verb",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "bird",
@@ -1486,13 +1513,14 @@
         "sky"
       ],
       "example": "Birds can fly in the sky.",
-      "memory_tip": "fly飞/苍蝇"
+      "memory_tip": "fly飞/苍蝇",
+      "overlap": "primary"
     },
     "follow": {
       "word": "follow",
       "meaning": "跟随；遵循",
       "category": "verb",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "lead",
@@ -1507,13 +1535,14 @@
         "yellow"
       ],
       "example": "Please follow me.",
-      "memory_tip": "follow跟随"
+      "memory_tip": "follow跟随",
+      "overlap": "primary"
     },
     "forget": {
       "word": "forget",
       "meaning": "忘记",
       "category": "verb",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "remember",
@@ -1527,7 +1556,8 @@
         "forgetful"
       ],
       "example": "Don't forget to bring your homework.",
-      "memory_tip": "for+get→忘记"
+      "memory_tip": "for+get→忘记",
+      "overlap": "primary"
     },
     "form": {
       "word": "form",
@@ -1554,7 +1584,7 @@
       "word": "get",
       "meaning": "得到；变得",
       "category": "verb",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "receive",
@@ -1569,13 +1599,14 @@
         "gift"
       ],
       "example": "I got a letter from my pen pal.",
-      "memory_tip": "get得到/变得"
+      "memory_tip": "get得到/变得",
+      "overlap": "primary"
     },
     "give": {
       "word": "give",
       "meaning": "给；给予",
       "category": "verb",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "take",
@@ -1590,13 +1621,14 @@
         "drive"
       ],
       "example": "Please give me a hand.",
-      "memory_tip": "give给"
+      "memory_tip": "give给",
+      "overlap": "primary"
     },
     "go": {
       "word": "go",
       "meaning": "去",
       "category": "verb",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "come",
@@ -1611,13 +1643,14 @@
         "to"
       ],
       "example": "Let's go to school.",
-      "memory_tip": "go去"
+      "memory_tip": "go去",
+      "overlap": "primary"
     },
     "grow": {
       "word": "grow",
       "meaning": "生长；增长",
       "category": "verb",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "plant",
@@ -1632,7 +1665,8 @@
         "know"
       ],
       "example": "Trees grow taller every year.",
-      "memory_tip": "grow生长"
+      "memory_tip": "grow生长",
+      "overlap": "primary"
     },
     "guess": {
       "word": "guess",
@@ -1699,7 +1733,7 @@
       "word": "have",
       "meaning": "有；拥有",
       "category": "verb",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "own",
@@ -1714,13 +1748,14 @@
         "gave"
       ],
       "example": "I have a beautiful bike.",
-      "memory_tip": "have有"
+      "memory_tip": "have有",
+      "overlap": "primary"
     },
     "hear": {
       "word": "hear",
       "meaning": "听见",
       "category": "verb",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "listen",
@@ -1735,13 +1770,14 @@
         "dear"
       ],
       "example": "I can hear someone singing.",
-      "memory_tip": "hear听见"
+      "memory_tip": "hear听见",
+      "overlap": "primary"
     },
     "help": {
       "word": "help",
       "meaning": "帮助",
       "category": "verb",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "assist",
@@ -1756,7 +1792,8 @@
         "hope"
       ],
       "example": "Can you help me?",
-      "memory_tip": "help帮助"
+      "memory_tip": "help帮助",
+      "overlap": "primary"
     },
     "hide": {
       "word": "hide",
@@ -1798,13 +1835,14 @@
         "bit"
       ],
       "example": "The ball hit the window.",
-      "memory_tip": "hit打/击中"
+      "memory_tip": "hit打/击中",
+      "overlap": "primary"
     },
     "hold": {
       "word": "hold",
       "meaning": "拿着；举行",
       "category": "verb",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "keep",
@@ -1819,13 +1857,14 @@
         "fold"
       ],
       "example": "Please hold this for me.",
-      "memory_tip": "hold拿/举行"
+      "memory_tip": "hold拿/举行",
+      "overlap": "primary"
     },
     "hope": {
       "word": "hope",
       "meaning": "希望；期望",
       "category": "verb",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "wish",
@@ -1840,7 +1879,8 @@
         "rope"
       ],
       "example": "I hope you have a good time.",
-      "memory_tip": "hope希望"
+      "memory_tip": "hope希望",
+      "overlap": "primary"
     },
     "hurry": {
       "word": "hurry",
@@ -1867,7 +1907,7 @@
       "word": "hurt",
       "meaning": "伤害；疼痛",
       "category": "verb",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "pain",
@@ -1881,7 +1921,8 @@
         "shirt"
       ],
       "example": "My legs hurt after running.",
-      "memory_tip": "hurt受伤/疼"
+      "memory_tip": "hurt受伤/疼",
+      "overlap": "primary"
     },
     "imagine": {
       "word": "imagine",
@@ -2028,7 +2069,7 @@
       "word": "invite",
       "meaning": "邀请",
       "category": "verb",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "ask",
@@ -2041,13 +2082,14 @@
         "revise"
       ],
       "example": "She invited me to her birthday party.",
-      "memory_tip": "in+vite(来)→邀请"
+      "memory_tip": "in+vite(来)→邀请",
+      "overlap": "primary"
     },
     "join": {
       "word": "join",
       "meaning": "参加；加入",
       "category": "verb",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "enter",
@@ -2062,13 +2104,14 @@
         "point"
       ],
       "example": "I want to join the English club.",
-      "memory_tip": "join参加/加入"
+      "memory_tip": "join参加/加入",
+      "overlap": "primary"
     },
     "jump": {
       "word": "jump",
       "meaning": "跳；跳跃",
       "category": "verb",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "leap",
@@ -2083,7 +2126,8 @@
         "bump"
       ],
       "example": "The cat jumped onto the table.",
-      "memory_tip": "jump跳"
+      "memory_tip": "jump跳",
+      "overlap": "primary"
     },
     "keep": {
       "word": "keep",
@@ -2125,13 +2169,14 @@
         "quick"
       ],
       "example": "He kicked the ball into the goal.",
-      "memory_tip": "kick→踢"
+      "memory_tip": "kick→踢",
+      "overlap": "primary"
     },
     "know": {
       "word": "know",
       "meaning": "知道；了解",
       "category": "verb",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "understand",
@@ -2146,13 +2191,14 @@
         "snow"
       ],
       "example": "I know the answer.",
-      "memory_tip": "know知道(过去式knew)"
+      "memory_tip": "know知道(过去式knew)",
+      "overlap": "primary"
     },
     "laugh": {
       "word": "laugh",
       "meaning": "笑；大笑",
       "category": "verb",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "smile",
@@ -2167,13 +2213,14 @@
         "enough"
       ],
       "example": "They laughed at the funny joke.",
-      "memory_tip": "laugh大笑"
+      "memory_tip": "laugh大笑",
+      "overlap": "primary"
     },
     "learn": {
       "word": "learn",
       "meaning": "学习",
       "category": "verb",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "study",
@@ -2188,13 +2235,14 @@
         "burn"
       ],
       "example": "I learn English every day.",
-      "memory_tip": "learn学习"
+      "memory_tip": "learn学习",
+      "overlap": "primary"
     },
     "leave": {
       "word": "leave",
       "meaning": "离开；留下",
       "category": "verb",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "arrive",
@@ -2209,7 +2257,8 @@
         "league"
       ],
       "example": "He left home at seven.",
-      "memory_tip": "leave离开"
+      "memory_tip": "leave离开",
+      "overlap": "primary"
     },
     "lend": {
       "word": "lend",
@@ -2255,7 +2304,7 @@
       "word": "lie",
       "meaning": "躺；撒谎",
       "category": "verb",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "rest",
@@ -2270,13 +2319,14 @@
         "tie"
       ],
       "example": "Don't lie to me.",
-      "memory_tip": "lie躺/撒谎"
+      "memory_tip": "lie躺/撒谎",
+      "overlap": "primary"
     },
     "like": {
       "word": "like",
       "meaning": "喜欢",
       "category": "verb",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "love",
@@ -2291,13 +2341,14 @@
         "life"
       ],
       "example": "I like playing basketball.",
-      "memory_tip": "like喜欢/像"
+      "memory_tip": "like喜欢/像",
+      "overlap": "primary"
     },
     "listen": {
       "word": "listen",
       "meaning": "听",
       "category": "verb",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "hear",
@@ -2311,7 +2362,8 @@
         "often"
       ],
       "example": "Please listen to the teacher.",
-      "memory_tip": "listen听(强调动作)"
+      "memory_tip": "listen听(强调动作)",
+      "overlap": "primary"
     },
     "live": {
       "word": "live",
@@ -2338,7 +2390,7 @@
       "word": "look",
       "meaning": "看",
       "category": "verb",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "see",
@@ -2353,13 +2405,14 @@
         "good"
       ],
       "example": "Look at the blackboard.",
-      "memory_tip": "look看(强调动作)"
+      "memory_tip": "look看(强调动作)",
+      "overlap": "primary"
     },
     "lose": {
       "word": "lose",
       "meaning": "丢失；输",
       "category": "verb",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "find",
@@ -2374,13 +2427,14 @@
         "nose"
       ],
       "example": "I lost my keys yesterday.",
-      "memory_tip": "lose丢失/输(过去式lost)"
+      "memory_tip": "lose丢失/输(过去式lost)",
+      "overlap": "primary"
     },
     "love": {
       "word": "love",
       "meaning": "爱；喜爱",
       "category": "verb",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "like",
@@ -2395,13 +2449,14 @@
         "dove"
       ],
       "example": "I love my family.",
-      "memory_tip": "love爱"
+      "memory_tip": "love爱",
+      "overlap": "primary"
     },
     "make": {
       "word": "make",
       "meaning": "制作；使",
       "category": "verb",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "create",
@@ -2416,7 +2471,8 @@
         "cake"
       ],
       "example": "She made a cake for me.",
-      "memory_tip": "make制作/使"
+      "memory_tip": "make制作/使",
+      "overlap": "primary"
     },
     "matter": {
       "word": "matter",
@@ -2463,7 +2519,7 @@
       "word": "meet",
       "meaning": "遇见；见面",
       "category": "verb",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "see",
@@ -2477,7 +2533,8 @@
         "seat"
       ],
       "example": "Nice to meet you.",
-      "memory_tip": "meet遇见"
+      "memory_tip": "meet遇见",
+      "overlap": "primary"
     },
     "mind": {
       "word": "mind",
@@ -2504,7 +2561,7 @@
       "word": "miss",
       "meaning": "想念；错过",
       "category": "verb",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "lose",
@@ -2518,7 +2575,8 @@
         "mess"
       ],
       "example": "I missed the bus this morning.",
-      "memory_tip": "miss想念/错过"
+      "memory_tip": "miss想念/错过",
+      "overlap": "primary"
     },
     "move": {
       "word": "move",
@@ -2545,7 +2603,7 @@
       "word": "need",
       "meaning": "需要",
       "category": "verb",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "want",
@@ -2560,7 +2618,8 @@
         "speed"
       ],
       "example": "I need to buy a new pen.",
-      "memory_tip": "need需要"
+      "memory_tip": "need需要",
+      "overlap": "primary"
     },
     "notice": {
       "word": "notice",
@@ -2608,7 +2667,7 @@
       "word": "open",
       "meaning": "打开；开放的",
       "category": "verb",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "close",
@@ -2622,7 +2681,8 @@
         "opinion"
       ],
       "example": "Please open the door.",
-      "memory_tip": "open打开"
+      "memory_tip": "open打开",
+      "overlap": "primary"
     },
     "order": {
       "word": "order",
@@ -2668,7 +2728,7 @@
       "word": "pass",
       "meaning": "通过；传递",
       "category": "verb",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "fail",
@@ -2683,7 +2743,8 @@
         "grass"
       ],
       "example": "Please pass me the salt.",
-      "memory_tip": "pass通过/传递"
+      "memory_tip": "pass通过/传递",
+      "overlap": "primary"
     },
     "pay": {
       "word": "pay",
@@ -2710,7 +2771,7 @@
       "word": "pick",
       "meaning": "挑选；采摘",
       "category": "verb",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "choose",
@@ -2724,7 +2785,8 @@
         "quick"
       ],
       "example": "She picked a beautiful flower.",
-      "memory_tip": "pick挑选/采摘"
+      "memory_tip": "pick挑选/采摘",
+      "overlap": "primary"
     },
     "place": {
       "word": "place",
@@ -2751,7 +2813,7 @@
       "word": "plan",
       "meaning": "计划",
       "category": "verb",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "idea",
@@ -2766,13 +2828,14 @@
         "place"
       ],
       "example": "We are planning a trip.",
-      "memory_tip": "plan计划"
+      "memory_tip": "plan计划",
+      "overlap": "primary"
     },
     "play": {
       "word": "play",
       "meaning": "玩；播放",
       "category": "verb",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "game",
@@ -2787,13 +2850,14 @@
         "player"
       ],
       "example": "Let's play soccer.",
-      "memory_tip": "play玩/播放"
+      "memory_tip": "play玩/播放",
+      "overlap": "primary"
     },
     "please": {
       "word": "please",
       "meaning": "请；使高兴",
       "category": "verb",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "glad",
@@ -2807,7 +2871,8 @@
         "pleasure"
       ],
       "example": "Please sit down.",
-      "memory_tip": "please请"
+      "memory_tip": "please请",
+      "overlap": "primary"
     },
     "point": {
       "word": "point",
@@ -2834,7 +2899,7 @@
       "word": "practice",
       "meaning": "练习",
       "category": "verb",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "exercise",
@@ -2849,7 +2914,8 @@
         "patient"
       ],
       "example": "You need to practice English every day.",
-      "memory_tip": "practice→练习"
+      "memory_tip": "practice→练习",
+      "overlap": "primary"
     },
     "prefer": {
       "word": "prefer",
@@ -3001,7 +3067,7 @@
       "word": "pull",
       "meaning": "拉",
       "category": "verb",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "push",
@@ -3016,13 +3082,14 @@
         "bull"
       ],
       "example": "Pull the door open.",
-      "memory_tip": "pull拉"
+      "memory_tip": "pull拉",
+      "overlap": "primary"
     },
     "push": {
       "word": "push",
       "meaning": "推",
       "category": "verb",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "pull",
@@ -3036,13 +3103,14 @@
         "brush"
       ],
       "example": "Push the door, please.",
-      "memory_tip": "push推"
+      "memory_tip": "push推",
+      "overlap": "primary"
     },
     "put": {
       "word": "put",
       "meaning": "放；放置",
       "category": "verb",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "place",
@@ -3056,7 +3124,8 @@
         "shut"
       ],
       "example": "Put your books on the desk.",
-      "memory_tip": "put放"
+      "memory_tip": "put放",
+      "overlap": "primary"
     },
     "raise": {
       "word": "raise",
@@ -3104,7 +3173,7 @@
       "word": "read",
       "meaning": "读；阅读",
       "category": "verb",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "book",
@@ -3119,7 +3188,8 @@
         "lead"
       ],
       "example": "I read a story every night.",
-      "memory_tip": "read读(过去式还是read)"
+      "memory_tip": "read读(过去式还是read)",
+      "overlap": "primary"
     },
     "realize": {
       "word": "realize",
@@ -3207,7 +3277,7 @@
       "word": "remember",
       "meaning": "记住",
       "category": "verb",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "forget",
@@ -3221,7 +3291,8 @@
         "repair"
       ],
       "example": "Please remember to bring your homework.",
-      "memory_tip": "re+member(成员)→记住"
+      "memory_tip": "re+member(成员)→记住",
+      "overlap": "primary"
     },
     "repair": {
       "word": "repair",
@@ -3348,7 +3419,7 @@
       "word": "rest",
       "meaning": "休息",
       "category": "verb",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "relax",
@@ -3363,13 +3434,14 @@
         "guest"
       ],
       "example": "You should take a good rest.",
-      "memory_tip": "rest休息"
+      "memory_tip": "rest休息",
+      "overlap": "primary"
     },
     "result": {
       "word": "result",
       "meaning": "结果",
       "category": "noun",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "outcome",
@@ -3384,13 +3456,14 @@
         "halt"
       ],
       "example": "The result will come out tomorrow.",
-      "memory_tip": "re+sult(跳)→结果"
+      "memory_tip": "re+sult(跳)→结果",
+      "overlap": "primary"
     },
     "return": {
       "word": "return",
       "meaning": "归还；返回",
       "category": "verb",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "come back",
@@ -3404,7 +3477,8 @@
         "earn"
       ],
       "example": "I will return the book next week.",
-      "memory_tip": "re+turn(转)→返回"
+      "memory_tip": "re+turn(转)→返回",
+      "overlap": "primary"
     },
     "review": {
       "word": "review",
@@ -3493,7 +3567,7 @@
       "word": "rule",
       "meaning": "统治；规则",
       "category": "verb",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "govern",
@@ -3508,13 +3582,14 @@
         "fuel"
       ],
       "example": "The king ruled the country.",
-      "memory_tip": "rule规则/统治"
+      "memory_tip": "rule规则/统治",
+      "overlap": "primary"
     },
     "run": {
       "word": "run",
       "meaning": "跑",
       "category": "verb",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "walk",
@@ -3529,13 +3604,14 @@
         "sun"
       ],
       "example": "He runs very fast.",
-      "memory_tip": "run跑"
+      "memory_tip": "run跑",
+      "overlap": "primary"
     },
     "save": {
       "word": "save",
       "meaning": "节省；救",
       "category": "verb",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "money",
@@ -3550,13 +3626,14 @@
         "cave"
       ],
       "example": "We should save water.",
-      "memory_tip": "save节省/救"
+      "memory_tip": "save节省/救",
+      "overlap": "primary"
     },
     "say": {
       "word": "say",
       "meaning": "说",
       "category": "verb",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "tell",
@@ -3570,13 +3647,14 @@
         "pay"
       ],
       "example": "What did you say?",
-      "memory_tip": "say说"
+      "memory_tip": "say说",
+      "overlap": "primary"
     },
     "score": {
       "word": "score",
       "meaning": "得分；比分",
       "category": "noun",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "point",
@@ -3591,7 +3669,8 @@
         "snore"
       ],
       "example": "What was the final score?",
-      "memory_tip": "score→得分"
+      "memory_tip": "score→得分",
+      "overlap": "primary"
     },
     "search": {
       "word": "search",
@@ -3617,7 +3696,7 @@
       "word": "see",
       "meaning": "看见",
       "category": "verb",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "look",
@@ -3632,7 +3711,8 @@
         "been"
       ],
       "example": "I saw a beautiful bird.",
-      "memory_tip": "see看见(强调结果)"
+      "memory_tip": "see看见(强调结果)",
+      "overlap": "primary"
     },
     "seem": {
       "word": "seem",
@@ -3679,7 +3759,7 @@
       "word": "send",
       "meaning": "发送；寄",
       "category": "verb",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "receive",
@@ -3694,7 +3774,8 @@
         "bend"
       ],
       "example": "I sent an email to my friend.",
-      "memory_tip": "send发送"
+      "memory_tip": "send发送",
+      "overlap": "primary"
     },
     "serve": {
       "word": "serve",
@@ -3755,13 +3836,14 @@
         "shade"
       ],
       "example": "Shake the bottle before opening.",
-      "memory_tip": "shake→摇动"
+      "memory_tip": "shake→摇动",
+      "overlap": "primary"
     },
     "share": {
       "word": "share",
       "meaning": "分享",
       "category": "verb",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "divide",
@@ -3776,13 +3858,14 @@
         "sharp"
       ],
       "example": "We should share our food.",
-      "memory_tip": "share分享"
+      "memory_tip": "share分享",
+      "overlap": "primary"
     },
     "shout": {
       "word": "shout",
       "meaning": "喊叫",
       "category": "verb",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "cry",
@@ -3797,13 +3880,14 @@
         "should"
       ],
       "example": "Don't shout at me!",
-      "memory_tip": "shout→喊叫"
+      "memory_tip": "shout→喊叫",
+      "overlap": "primary"
     },
     "show": {
       "word": "show",
       "meaning": "展示；给……看",
       "category": "verb",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "display",
@@ -3818,7 +3902,8 @@
         "shadow"
       ],
       "example": "Can you show me the way?",
-      "memory_tip": "show展示/给...看"
+      "memory_tip": "show展示/给...看",
+      "overlap": "primary"
     },
     "shut": {
       "word": "shut",
@@ -3865,7 +3950,7 @@
       "word": "sing",
       "meaning": "唱歌",
       "category": "verb",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "song",
@@ -3880,13 +3965,14 @@
         "ring"
       ],
       "example": "She sings beautifully.",
-      "memory_tip": "sing唱歌"
+      "memory_tip": "sing唱歌",
+      "overlap": "primary"
     },
     "sit": {
       "word": "sit",
       "meaning": "坐",
       "category": "verb",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "seat",
@@ -3900,13 +3986,14 @@
         "sat"
       ],
       "example": "Please sit down.",
-      "memory_tip": "sit坐"
+      "memory_tip": "sit坐",
+      "overlap": "primary"
     },
     "sleep": {
       "word": "sleep",
       "meaning": "睡觉",
       "category": "verb",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "rest",
@@ -3921,13 +4008,14 @@
         "steep"
       ],
       "example": "I usually sleep at ten o'clock.",
-      "memory_tip": "sleep睡觉"
+      "memory_tip": "sleep睡觉",
+      "overlap": "primary"
     },
     "smell": {
       "word": "smell",
       "meaning": "闻；气味",
       "category": "verb",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "nose",
@@ -3941,13 +4029,14 @@
         "shell"
       ],
       "example": "The flowers smell wonderful.",
-      "memory_tip": "smell闻/气味"
+      "memory_tip": "smell闻/气味",
+      "overlap": "primary"
     },
     "smile": {
       "word": "smile",
       "meaning": "微笑",
       "category": "verb",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "laugh",
@@ -3961,7 +4050,8 @@
         "while"
       ],
       "example": "She gave me a warm smile.",
-      "memory_tip": "smile微笑"
+      "memory_tip": "smile微笑",
+      "overlap": "primary"
     },
     "solve": {
       "word": "solve",
@@ -3988,7 +4078,7 @@
       "word": "sound",
       "meaning": "听起来；声音",
       "category": "verb",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "noise",
@@ -4003,13 +4093,14 @@
         "ground"
       ],
       "example": "That sounds like a great idea!",
-      "memory_tip": "sound声音/听起来"
+      "memory_tip": "sound声音/听起来",
+      "overlap": "primary"
     },
     "speak": {
       "word": "speak",
       "meaning": "说（语言）",
       "category": "verb",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "talk",
@@ -4024,7 +4115,8 @@
         "weak"
       ],
       "example": "Can you speak English?",
-      "memory_tip": "speak说(语言)"
+      "memory_tip": "speak说(语言)",
+      "overlap": "primary"
     },
     "spend": {
       "word": "spend",
@@ -4051,7 +4143,7 @@
       "word": "stand",
       "meaning": "站；忍受",
       "category": "verb",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "sit",
@@ -4066,13 +4158,14 @@
         "stare"
       ],
       "example": "Please stand up.",
-      "memory_tip": "stand站/忍受"
+      "memory_tip": "stand站/忍受",
+      "overlap": "primary"
     },
     "start": {
       "word": "start",
       "meaning": "开始",
       "category": "verb",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "begin",
@@ -4087,13 +4180,14 @@
         "smart"
       ],
       "example": "School starts at eight o'clock.",
-      "memory_tip": "start开始"
+      "memory_tip": "start开始",
+      "overlap": "primary"
     },
     "stay": {
       "word": "stay",
       "meaning": "停留；保持",
       "category": "verb",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "remain",
@@ -4108,7 +4202,8 @@
         "story"
       ],
       "example": "I stayed at home all day.",
-      "memory_tip": "stay停留"
+      "memory_tip": "stay停留",
+      "overlap": "primary"
     },
     "step": {
       "word": "step",
@@ -4135,7 +4230,7 @@
       "word": "stop",
       "meaning": "停止",
       "category": "verb",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "start",
@@ -4150,7 +4245,8 @@
         "storm"
       ],
       "example": "The bus stopped in front of the school.",
-      "memory_tip": "stop停止"
+      "memory_tip": "stop停止",
+      "overlap": "primary"
     },
     "store": {
       "word": "store",
@@ -4177,7 +4273,7 @@
       "word": "study",
       "meaning": "学习",
       "category": "verb",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "learn",
@@ -4192,7 +4288,8 @@
         "story"
       ],
       "example": "I study English every day.",
-      "memory_tip": "study学习"
+      "memory_tip": "study学习",
+      "overlap": "primary"
     },
     "succeed": {
       "word": "succeed",
@@ -4282,7 +4379,7 @@
       "word": "surprise",
       "meaning": "使惊奇",
       "category": "verb",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "shock",
@@ -4296,13 +4393,14 @@
         "surface"
       ],
       "example": "The news surprised everyone.",
-      "memory_tip": "sur+prise(抓)→惊奇"
+      "memory_tip": "sur+prise(抓)→惊奇",
+      "overlap": "primary"
     },
     "swim": {
       "word": "swim",
       "meaning": "游泳",
       "category": "verb",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "water",
@@ -4317,13 +4415,14 @@
         "skin"
       ],
       "example": "I like swimming in summer.",
-      "memory_tip": "swim游泳"
+      "memory_tip": "swim游泳",
+      "overlap": "primary"
     },
     "take": {
       "word": "take",
       "meaning": "拿；带",
       "category": "verb",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "bring",
@@ -4338,13 +4437,14 @@
         "wake"
       ],
       "example": "Take your umbrella with you.",
-      "memory_tip": "take拿/带"
+      "memory_tip": "take拿/带",
+      "overlap": "primary"
     },
     "talk": {
       "word": "talk",
       "meaning": "谈话",
       "category": "verb",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "speak",
@@ -4359,13 +4459,14 @@
         "tank"
       ],
       "example": "Let's talk about the plan.",
-      "memory_tip": "talk谈话"
+      "memory_tip": "talk谈话",
+      "overlap": "primary"
     },
     "teach": {
       "word": "teach",
       "meaning": "教",
       "category": "verb",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "learn",
@@ -4380,13 +4481,14 @@
         "beach"
       ],
       "example": "She teaches English.",
-      "memory_tip": "teach教"
+      "memory_tip": "teach教",
+      "overlap": "primary"
     },
     "tell": {
       "word": "tell",
       "meaning": "告诉",
       "category": "verb",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "say",
@@ -4401,13 +4503,14 @@
         "till"
       ],
       "example": "Tell me the truth.",
-      "memory_tip": "tell告诉"
+      "memory_tip": "tell告诉",
+      "overlap": "primary"
     },
     "test": {
       "word": "test",
       "meaning": "测试；考试",
       "category": "verb",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "exam",
@@ -4421,7 +4524,8 @@
         "rest"
       ],
       "example": "We will have a math test.",
-      "memory_tip": "test测试/考试"
+      "memory_tip": "test测试/考试",
+      "overlap": "primary"
     },
     "thank": {
       "word": "thank",
@@ -4447,7 +4551,7 @@
       "word": "think",
       "meaning": "想；认为",
       "category": "verb",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "believe",
@@ -4462,13 +4566,14 @@
         "drink"
       ],
       "example": "I think you are right.",
-      "memory_tip": "think想/认为"
+      "memory_tip": "think想/认为",
+      "overlap": "primary"
     },
     "throw": {
       "word": "throw",
       "meaning": "扔；投",
       "category": "verb",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "catch",
@@ -4483,13 +4588,14 @@
         "throat"
       ],
       "example": "Don't throw rubbish on the ground.",
-      "memory_tip": "throw扔"
+      "memory_tip": "throw扔",
+      "overlap": "primary"
     },
     "touch": {
       "word": "touch",
       "meaning": "触摸",
       "category": "verb",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "feel",
@@ -4504,13 +4610,14 @@
         "rough"
       ],
       "example": "Please don't touch the painting.",
-      "memory_tip": "touch触摸"
+      "memory_tip": "touch触摸",
+      "overlap": "primary"
     },
     "train": {
       "word": "train",
       "meaning": "训练；火车",
       "category": "verb",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "practice",
@@ -4524,7 +4631,8 @@
         "transport"
       ],
       "example": "He trains hard every day.",
-      "memory_tip": "train火车/训练"
+      "memory_tip": "train火车/训练",
+      "overlap": "primary"
     },
     "travel": {
       "word": "travel",
@@ -4551,7 +4659,7 @@
       "word": "try",
       "meaning": "尝试；努力",
       "category": "verb",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "attempt",
@@ -4565,13 +4673,14 @@
         "tray"
       ],
       "example": "I will try my best.",
-      "memory_tip": "try尝试"
+      "memory_tip": "try尝试",
+      "overlap": "primary"
     },
     "turn": {
       "word": "turn",
       "meaning": "转；翻转",
       "category": "verb",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "rotate",
@@ -4586,13 +4695,14 @@
         "tire"
       ],
       "example": "Turn left at the corner.",
-      "memory_tip": "turn转/翻转"
+      "memory_tip": "turn转/翻转",
+      "overlap": "primary"
     },
     "understand": {
       "word": "understand",
       "meaning": "理解",
       "category": "verb",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "know",
@@ -4605,13 +4715,14 @@
         "stand"
       ],
       "example": "I understand what you mean.",
-      "memory_tip": "under+stand→理解"
+      "memory_tip": "under+stand→理解",
+      "overlap": "primary"
     },
     "use": {
       "word": "use",
       "meaning": "使用",
       "category": "verb",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "utilize",
@@ -4625,13 +4736,14 @@
         "used"
       ],
       "example": "Can I use your pen?",
-      "memory_tip": "use使用"
+      "memory_tip": "use使用",
+      "overlap": "primary"
     },
     "visit": {
       "word": "visit",
       "meaning": "参观；拜访",
       "category": "verb",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "tour",
@@ -4646,13 +4758,14 @@
         "exist"
       ],
       "example": "We visited the museum.",
-      "memory_tip": "visit参观/拜访"
+      "memory_tip": "visit参观/拜访",
+      "overlap": "primary"
     },
     "wait": {
       "word": "wait",
       "meaning": "等待",
       "category": "verb",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "stay",
@@ -4666,13 +4779,14 @@
         "weight"
       ],
       "example": "Wait for me at the school gate.",
-      "memory_tip": "wait等待"
+      "memory_tip": "wait等待",
+      "overlap": "primary"
     },
     "wake": {
       "word": "wake",
       "meaning": "醒来",
       "category": "verb",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "sleep",
@@ -4686,13 +4800,14 @@
         "lake"
       ],
       "example": "I woke up at six this morning.",
-      "memory_tip": "wake醒来"
+      "memory_tip": "wake醒来",
+      "overlap": "primary"
     },
     "walk": {
       "word": "walk",
       "meaning": "步行",
       "category": "verb",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "run",
@@ -4707,13 +4822,14 @@
         "weak"
       ],
       "example": "I walk to school every day.",
-      "memory_tip": "walk步行"
+      "memory_tip": "walk步行",
+      "overlap": "primary"
     },
     "want": {
       "word": "want",
       "meaning": "想要",
       "category": "verb",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "need",
@@ -4728,13 +4844,14 @@
         "wand"
       ],
       "example": "I want a cup of tea.",
-      "memory_tip": "want想要"
+      "memory_tip": "want想要",
+      "overlap": "primary"
     },
     "wash": {
       "word": "wash",
       "meaning": "洗",
       "category": "verb",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "clean",
@@ -4748,7 +4865,8 @@
         "wage"
       ],
       "example": "Please wash your hands.",
-      "memory_tip": "wash洗"
+      "memory_tip": "wash洗",
+      "overlap": "primary"
     },
     "waste": {
       "word": "waste",
@@ -4774,7 +4892,7 @@
       "word": "watch",
       "meaning": "观看；手表",
       "category": "verb",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "see",
@@ -4789,13 +4907,14 @@
         "match"
       ],
       "example": "I watched a movie last night.",
-      "memory_tip": "watch观看/手表"
+      "memory_tip": "watch观看/手表",
+      "overlap": "primary"
     },
     "wear": {
       "word": "wear",
       "meaning": "穿；戴",
       "category": "verb",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "put on",
@@ -4810,7 +4929,8 @@
         "weird"
       ],
       "example": "She is wearing a red dress.",
-      "memory_tip": "wear穿/戴"
+      "memory_tip": "wear穿/戴",
+      "overlap": "primary"
     },
     "welcome": {
       "word": "welcome",
@@ -4836,7 +4956,7 @@
       "word": "win",
       "meaning": "赢；获胜",
       "category": "verb",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "lose",
@@ -4851,13 +4971,14 @@
         "wing"
       ],
       "example": "Our team won the game.",
-      "memory_tip": "win赢"
+      "memory_tip": "win赢",
+      "overlap": "primary"
     },
     "wish": {
       "word": "wish",
       "meaning": "祝愿；希望",
       "category": "verb",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "hope",
@@ -4872,13 +4993,14 @@
         "dish"
       ],
       "example": "I wish you a happy birthday.",
-      "memory_tip": "wish希望/祝愿"
+      "memory_tip": "wish希望/祝愿",
+      "overlap": "primary"
     },
     "wonder": {
       "word": "wonder",
       "meaning": "想知道；惊奇",
       "category": "verb",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "think",
@@ -4892,7 +5014,8 @@
         "under"
       ],
       "example": "I wonder what will happen next.",
-      "memory_tip": "wonder→想知道"
+      "memory_tip": "wonder→想知道",
+      "overlap": "primary"
     },
     "work": {
       "word": "work",
@@ -4938,7 +5061,7 @@
       "word": "write",
       "meaning": "写",
       "category": "verb",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "read",
@@ -4953,13 +5076,14 @@
         "wrong"
       ],
       "example": "I write in my diary every day.",
-      "memory_tip": "write写"
+      "memory_tip": "write写",
+      "overlap": "primary"
     },
     "wrong": {
       "word": "wrong",
       "meaning": "错误的",
       "category": "adjective",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "right",
@@ -4973,7 +5097,8 @@
         "strong"
       ],
       "example": "You are wrong.",
-      "memory_tip": "wrong错误的"
+      "memory_tip": "wrong错误的",
+      "overlap": "primary"
     },
     "able": {
       "word": "able",
@@ -5094,7 +5219,7 @@
       "word": "angry",
       "meaning": "生气的",
       "category": "adjective",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "mad",
@@ -5107,7 +5232,8 @@
         "angle"
       ],
       "example": "He was very angry.",
-      "memory_tip": "angry→生气的"
+      "memory_tip": "angry→生气的",
+      "overlap": "primary"
     },
     "another": {
       "word": "another",
@@ -5151,7 +5277,7 @@
       "word": "bad",
       "meaning": "坏的；糟糕的",
       "category": "adjective",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "good",
@@ -5164,13 +5290,14 @@
         "bag"
       ],
       "example": "The weather was bad yesterday.",
-      "memory_tip": "bad坏的，不好的"
+      "memory_tip": "bad坏的，不好的",
+      "overlap": "primary"
     },
     "beautiful": {
       "word": "beautiful",
       "meaning": "美丽的",
       "category": "adjective",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "pretty",
@@ -5183,13 +5310,14 @@
         "beast"
       ],
       "example": "The garden is beautiful.",
-      "memory_tip": "beautiful→美丽的"
+      "memory_tip": "beautiful→美丽的",
+      "overlap": "primary"
     },
     "big": {
       "word": "big",
       "meaning": "大的",
       "category": "adjective",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "large",
@@ -5202,7 +5330,8 @@
         "dig"
       ],
       "example": "Beijing is a very big city.",
-      "memory_tip": "big大的"
+      "memory_tip": "big大的",
+      "overlap": "primary"
     },
     "boring": {
       "word": "boring",
@@ -5227,7 +5356,7 @@
       "word": "brave",
       "meaning": "勇敢的",
       "category": "adjective",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "courageous",
@@ -5240,13 +5369,14 @@
         "break"
       ],
       "example": "She is a brave girl.",
-      "memory_tip": "brave→勇敢的"
+      "memory_tip": "brave→勇敢的",
+      "overlap": "primary"
     },
     "bright": {
       "word": "bright",
       "meaning": "明亮的；聪明的",
       "category": "adjective",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "dark",
@@ -5259,13 +5389,14 @@
         "right"
       ],
       "example": "She is a bright student.",
-      "memory_tip": "bright→明亮的"
+      "memory_tip": "bright→明亮的",
+      "overlap": "primary"
     },
     "busy": {
       "word": "busy",
       "meaning": "忙碌的",
       "category": "adjective",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "free",
@@ -5278,13 +5409,14 @@
         "buy"
       ],
       "example": "My mother is always busy.",
-      "memory_tip": "busy忙碌的"
+      "memory_tip": "busy忙碌的",
+      "overlap": "primary"
     },
     "calm": {
       "word": "calm",
       "meaning": "平静的",
       "category": "adjective",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "peaceful",
@@ -5297,7 +5429,8 @@
         "came"
       ],
       "example": "Keep calm.",
-      "memory_tip": "calm→平静的"
+      "memory_tip": "calm→平静的",
+      "overlap": "primary"
     },
     "careful": {
       "word": "careful",
@@ -5340,7 +5473,7 @@
       "word": "cheap",
       "meaning": "便宜的",
       "category": "adjective",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "expensive",
@@ -5352,7 +5485,8 @@
         "chair"
       ],
       "example": "This shirt is very cheap.",
-      "memory_tip": "cheap便宜的"
+      "memory_tip": "cheap便宜的",
+      "overlap": "primary"
     },
     "clear": {
       "word": "clear",
@@ -5377,7 +5511,7 @@
       "word": "clever",
       "meaning": "聪明的",
       "category": "adjective",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "smart",
@@ -5390,13 +5524,14 @@
         "climb"
       ],
       "example": "She is a clever girl.",
-      "memory_tip": "clever→聪明的"
+      "memory_tip": "clever→聪明的",
+      "overlap": "primary"
     },
     "cold": {
       "word": "cold",
       "meaning": "冷的",
       "category": "adjective",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "hot",
@@ -5409,7 +5544,8 @@
         "hold"
       ],
       "example": "It is very cold in winter.",
-      "memory_tip": "cold冷的/感冒"
+      "memory_tip": "cold冷的/感冒",
+      "overlap": "primary"
     },
     "comfortable": {
       "word": "comfortable",
@@ -5472,7 +5608,7 @@
       "word": "cool",
       "meaning": "凉爽的；酷的",
       "category": "adjective",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "cold",
@@ -5487,13 +5623,14 @@
         "school"
       ],
       "example": "It is cool in autumn.",
-      "memory_tip": "cool凉爽的/酷的"
+      "memory_tip": "cool凉爽的/酷的",
+      "overlap": "primary"
     },
     "dangerous": {
       "word": "dangerous",
       "meaning": "危险的",
       "category": "adjective",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "safe",
@@ -5506,7 +5643,8 @@
         "delicious"
       ],
       "example": "Swimming in the river is dangerous.",
-      "memory_tip": "dangerous→危险的"
+      "memory_tip": "dangerous→危险的",
+      "overlap": "primary"
     },
     "dead": {
       "word": "dead",
@@ -5531,7 +5669,7 @@
       "word": "deep",
       "meaning": "深的",
       "category": "adjective",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "shallow",
@@ -5543,18 +5681,18 @@
         "keep"
       ],
       "example": "The river is very deep.",
-      "memory_tip": "deep深的"
+      "memory_tip": "deep深的",
+      "overlap": "primary"
     },
     "delicious": {
       "word": "delicious",
       "meaning": "美味的",
       "category": "adjective",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "tasty",
         "yummy",
-        "delicious",
         "awful"
       ],
       "confusables": [
@@ -5562,13 +5700,14 @@
         "serious"
       ],
       "example": "The food tastes delicious.",
-      "memory_tip": "delicious→美味的"
+      "memory_tip": "delicious→美味的",
+      "overlap": "primary"
     },
     "different": {
       "word": "different",
       "meaning": "不同的",
       "category": "adjective",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "same",
@@ -5581,7 +5720,8 @@
         "difficult"
       ],
       "example": "We have different opinions.",
-      "memory_tip": "different→不同的"
+      "memory_tip": "different→不同的",
+      "overlap": "primary"
     },
     "difficult": {
       "word": "difficult",
@@ -5606,7 +5746,7 @@
       "word": "dirty",
       "meaning": "脏的",
       "category": "adjective",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "clean",
@@ -5618,13 +5758,14 @@
         "dinner"
       ],
       "example": "Your hands are dirty.",
-      "memory_tip": "dirty脏的"
+      "memory_tip": "dirty脏的",
+      "overlap": "primary"
     },
     "dry": {
       "word": "dry",
       "meaning": "干的",
       "category": "adjective",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "wet",
@@ -5638,13 +5779,14 @@
         "dye"
       ],
       "example": "The ground is dry.",
-      "memory_tip": "dry干的"
+      "memory_tip": "dry干的",
+      "overlap": "primary"
     },
     "early": {
       "word": "early",
       "meaning": "早的",
       "category": "adjective",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "late",
@@ -5656,13 +5798,14 @@
         "easy"
       ],
       "example": "I get up early every day.",
-      "memory_tip": "early早的"
+      "memory_tip": "early早的",
+      "overlap": "primary"
     },
     "easy": {
       "word": "easy",
       "meaning": "容易的",
       "category": "adjective",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "difficult",
@@ -5677,13 +5820,14 @@
         "crazy"
       ],
       "example": "This test is easy.",
-      "memory_tip": "easy容易的"
+      "memory_tip": "easy容易的",
+      "overlap": "primary"
     },
     "empty": {
       "word": "empty",
       "meaning": "空的",
       "category": "adjective",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "full",
@@ -5695,7 +5839,8 @@
         "enemy"
       ],
       "example": "The box is empty.",
-      "memory_tip": "empty空的"
+      "memory_tip": "empty空的",
+      "overlap": "primary"
     },
     "enough": {
       "word": "enough",
@@ -5779,7 +5924,7 @@
       "word": "expensive",
       "meaning": "昂贵的",
       "category": "adjective",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "cheap",
@@ -5792,7 +5937,8 @@
         "explain"
       ],
       "example": "This phone is too expensive.",
-      "memory_tip": "expensive→昂贵的"
+      "memory_tip": "expensive→昂贵的",
+      "overlap": "primary"
     },
     "experience": {
       "word": "experience",
@@ -5854,7 +6000,7 @@
       "word": "fast",
       "meaning": "快的；快速的",
       "category": "adjective",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "quick",
@@ -5867,13 +6013,14 @@
         "past"
       ],
       "example": "He runs very fast.",
-      "memory_tip": "fast快的/禁食"
+      "memory_tip": "fast快的/禁食",
+      "overlap": "primary"
     },
     "fat": {
       "word": "fat",
       "meaning": "胖的",
       "category": "adjective",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "thin",
@@ -5885,7 +6032,8 @@
         "hat"
       ],
       "example": "The cat is very fat.",
-      "memory_tip": "fat胖的/脂肪"
+      "memory_tip": "fat胖的/脂肪",
+      "overlap": "primary"
     },
     "favorite": {
       "word": "favorite",
@@ -5966,7 +6114,7 @@
       "word": "flat",
       "meaning": "平坦的；公寓",
       "category": "adjective",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "smooth",
@@ -5978,7 +6126,8 @@
         "float"
       ],
       "example": "The road is flat.",
-      "memory_tip": "flat→平坦的"
+      "memory_tip": "flat→平坦的",
+      "overlap": "primary"
     },
     "foreign": {
       "word": "foreign",
@@ -6003,7 +6152,7 @@
       "word": "free",
       "meaning": "自由的；免费的",
       "category": "adjective",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "busy",
@@ -6016,13 +6165,14 @@
         "three"
       ],
       "example": "The tickets are free.",
-      "memory_tip": "free自由的/免费的"
+      "memory_tip": "free自由的/免费的",
+      "overlap": "primary"
     },
     "fresh": {
       "word": "fresh",
       "meaning": "新鲜的",
       "category": "adjective",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "new",
@@ -6035,13 +6185,14 @@
         "front"
       ],
       "example": "These vegetables are fresh.",
-      "memory_tip": "fresh新鲜的"
+      "memory_tip": "fresh新鲜的",
+      "overlap": "primary"
     },
     "friendly": {
       "word": "friendly",
       "meaning": "友好的",
       "category": "adjective",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "kind",
@@ -6054,13 +6205,14 @@
         "friendship"
       ],
       "example": "She is very friendly.",
-      "memory_tip": "friendly→友好的"
+      "memory_tip": "friendly→友好的",
+      "overlap": "primary"
     },
     "full": {
       "word": "full",
       "meaning": "满的；完整的",
       "category": "adjective",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "empty",
@@ -6072,13 +6224,14 @@
         "fall"
       ],
       "example": "The glass is full.",
-      "memory_tip": "full满的"
+      "memory_tip": "full满的",
+      "overlap": "primary"
     },
     "funny": {
       "word": "funny",
       "meaning": "有趣的；好笑的",
       "category": "adjective",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "interesting",
@@ -6091,7 +6244,8 @@
         "fine"
       ],
       "example": "The joke was very funny.",
-      "memory_tip": "funny好笑的"
+      "memory_tip": "funny好笑的",
+      "overlap": "primary"
     },
     "glad": {
       "word": "glad",
@@ -6118,7 +6272,7 @@
       "word": "good",
       "meaning": "好的",
       "category": "adjective",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "bad",
@@ -6132,13 +6286,14 @@
         "stood"
       ],
       "example": "She is good at math.",
-      "memory_tip": "good好的"
+      "memory_tip": "good好的",
+      "overlap": "primary"
     },
     "great": {
       "word": "great",
       "meaning": "伟大的；极好的",
       "category": "adjective",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "big",
@@ -6151,13 +6306,14 @@
         "grow"
       ],
       "example": "Great idea!",
-      "memory_tip": "great伟大的/很棒的"
+      "memory_tip": "great伟大的/很棒的",
+      "overlap": "primary"
     },
     "happy": {
       "word": "happy",
       "meaning": "快乐的",
       "category": "adjective",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "sad",
@@ -6170,13 +6326,14 @@
         "hard"
       ],
       "example": "She looks very happy.",
-      "memory_tip": "happy高兴的"
+      "memory_tip": "happy高兴的",
+      "overlap": "primary"
     },
     "hard": {
       "word": "hard",
       "meaning": "困难的；硬的",
       "category": "adjective",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "difficult",
@@ -6191,13 +6348,14 @@
         "warm"
       ],
       "example": "This test is hard.",
-      "memory_tip": "hard困难的/硬的"
+      "memory_tip": "hard困难的/硬的",
+      "overlap": "primary"
     },
     "healthy": {
       "word": "healthy",
       "meaning": "健康的",
       "category": "adjective",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "health",
@@ -6210,13 +6368,14 @@
         "heavy"
       ],
       "example": "We should eat healthy food.",
-      "memory_tip": "healthy→健康的"
+      "memory_tip": "healthy→健康的",
+      "overlap": "primary"
     },
     "heavy": {
       "word": "heavy",
       "meaning": "重的",
       "category": "adjective",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "light",
@@ -6229,13 +6388,14 @@
         "heart"
       ],
       "example": "This box is too heavy.",
-      "memory_tip": "heavy重的"
+      "memory_tip": "heavy重的",
+      "overlap": "primary"
     },
     "helpful": {
       "word": "helpful",
       "meaning": "有帮助的",
       "category": "adjective",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "useful",
@@ -6248,13 +6408,14 @@
         "hope"
       ],
       "example": "Thank you for being so helpful.",
-      "memory_tip": "helpful→有帮助的"
+      "memory_tip": "helpful→有帮助的",
+      "overlap": "primary"
     },
     "honest": {
       "word": "honest",
       "meaning": "诚实的",
       "category": "adjective",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "truthful",
@@ -6267,7 +6428,8 @@
         "honey"
       ],
       "example": "He is an honest person.",
-      "memory_tip": "honest→诚实的"
+      "memory_tip": "honest→诚实的",
+      "overlap": "primary"
     },
     "huge": {
       "word": "huge",
@@ -6293,7 +6455,7 @@
       "word": "hungry",
       "meaning": "饥饿的",
       "category": "adjective",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "thirsty",
@@ -6306,7 +6468,8 @@
         "hunt"
       ],
       "example": "I am very hungry.",
-      "memory_tip": "hungry→饥饿的"
+      "memory_tip": "hungry→饥饿的",
+      "overlap": "primary"
     },
     "ill": {
       "word": "ill",
@@ -6333,7 +6496,7 @@
       "word": "important",
       "meaning": "重要的",
       "category": "adjective",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "significant",
@@ -6346,7 +6509,8 @@
         "interest"
       ],
       "example": "This is an important meeting.",
-      "memory_tip": "important→重要的"
+      "memory_tip": "important→重要的",
+      "overlap": "primary"
     },
     "impossible": {
       "word": "impossible",
@@ -6392,7 +6556,7 @@
       "word": "interesting",
       "meaning": "有趣的",
       "category": "adjective",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "boring",
@@ -6405,7 +6569,8 @@
         "internet"
       ],
       "example": "This book is very interesting.",
-      "memory_tip": "interesting→有趣的"
+      "memory_tip": "interesting→有趣的",
+      "overlap": "primary"
     },
     "international": {
       "word": "international",
@@ -6430,7 +6595,7 @@
       "word": "kind",
       "meaning": "善良的；种类",
       "category": "adjective",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "nice",
@@ -6445,7 +6610,8 @@
         "mind"
       ],
       "example": "She is a kind person.",
-      "memory_tip": "kind善良的/种类"
+      "memory_tip": "kind善良的/种类",
+      "overlap": "primary"
     },
     "large": {
       "word": "large",
@@ -6470,7 +6636,7 @@
       "word": "last",
       "meaning": "最后的",
       "category": "adjective",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "first",
@@ -6483,17 +6649,17 @@
         "least"
       ],
       "example": "This is my last chance.",
-      "memory_tip": "last最后的/持续"
+      "memory_tip": "last最后的/持续",
+      "overlap": "primary"
     },
     "late": {
       "word": "late",
       "meaning": "迟的；晚的",
       "category": "adjective",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "early",
-        "late",
         "behind",
         "slow"
       ],
@@ -6502,13 +6668,14 @@
         "later"
       ],
       "example": "Sorry, I am late.",
-      "memory_tip": "late迟的/晚的"
+      "memory_tip": "late迟的/晚的",
+      "overlap": "primary"
     },
     "lazy": {
       "word": "lazy",
       "meaning": "懒惰的",
       "category": "adjective",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "hard-working",
@@ -6523,7 +6690,8 @@
         "hazy"
       ],
       "example": "Don't be so lazy.",
-      "memory_tip": "lazy懒惰的"
+      "memory_tip": "lazy懒惰的",
+      "overlap": "primary"
     },
     "level": {
       "word": "level",
@@ -6548,7 +6716,7 @@
       "word": "little",
       "meaning": "小的；少的",
       "category": "adjective",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "small",
@@ -6563,7 +6731,8 @@
         "litter"
       ],
       "example": "There is little water left.",
-      "memory_tip": "little小的/少的"
+      "memory_tip": "little小的/少的",
+      "overlap": "primary"
     },
     "lonely": {
       "word": "lonely",
@@ -6588,7 +6757,7 @@
       "word": "loud",
       "meaning": "大声的",
       "category": "adjective",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "quiet",
@@ -6603,13 +6772,14 @@
         "sound"
       ],
       "example": "Don't be so loud.",
-      "memory_tip": "loud大声的"
+      "memory_tip": "loud大声的",
+      "overlap": "primary"
     },
     "lovely": {
       "word": "lovely",
       "meaning": "可爱的；美丽的",
       "category": "adjective",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "beautiful",
@@ -6622,13 +6792,14 @@
         "lively"
       ],
       "example": "What a lovely day!",
-      "memory_tip": "lovely→可爱的"
+      "memory_tip": "lovely→可爱的",
+      "overlap": "primary"
     },
     "low": {
       "word": "low",
       "meaning": "低的",
       "category": "adjective",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "high",
@@ -6643,13 +6814,14 @@
         "grow"
       ],
       "example": "The temperature is very low.",
-      "memory_tip": "low低的"
+      "memory_tip": "low低的",
+      "overlap": "primary"
     },
     "lucky": {
       "word": "lucky",
       "meaning": "幸运的",
       "category": "adjective",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "unlucky",
@@ -6664,7 +6836,8 @@
         "duck"
       ],
       "example": "You are so lucky!",
-      "memory_tip": "lucky幸运的"
+      "memory_tip": "lucky幸运的",
+      "overlap": "primary"
     },
     "main": {
       "word": "main",
@@ -6749,7 +6922,7 @@
       "word": "nervous",
       "meaning": "紧张的",
       "category": "adjective",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "calm",
@@ -6762,13 +6935,14 @@
         "nice"
       ],
       "example": "She felt nervous before the exam.",
-      "memory_tip": "nervous→紧张的"
+      "memory_tip": "nervous→紧张的",
+      "overlap": "primary"
     },
     "new": {
       "word": "new",
       "meaning": "新的",
       "category": "adjective",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "old",
@@ -6783,13 +6957,14 @@
         "knew"
       ],
       "example": "I bought a new bike.",
-      "memory_tip": "new新的"
+      "memory_tip": "new新的",
+      "overlap": "primary"
     },
     "nice": {
       "word": "nice",
       "meaning": "好的；令人愉快的",
       "category": "adjective",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "kind",
@@ -6802,7 +6977,8 @@
         "night"
       ],
       "example": "It is nice to meet you.",
-      "memory_tip": "nice好的/友好的"
+      "memory_tip": "nice好的/友好的",
+      "overlap": "primary"
     },
     "normal": {
       "word": "normal",
@@ -6827,7 +7003,7 @@
       "word": "old",
       "meaning": "老的；旧的",
       "category": "adjective",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "new",
@@ -6842,13 +7018,14 @@
         "sold"
       ],
       "example": "My grandfather is old.",
-      "memory_tip": "old老的/旧的"
+      "memory_tip": "old老的/旧的",
+      "overlap": "primary"
     },
     "only": {
       "word": "only",
       "meaning": "唯一的；只",
       "category": "adjective",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "single",
@@ -6860,7 +7037,8 @@
         "open"
       ],
       "example": "She is my only friend.",
-      "memory_tip": "only只有/唯一的"
+      "memory_tip": "only只有/唯一的",
+      "overlap": "primary"
     },
     "ordinary": {
       "word": "ordinary",
@@ -6942,7 +7120,7 @@
       "word": "perhaps",
       "meaning": "也许",
       "category": "adverb",
-      "tier": 3,
+      "tier": 2,
       "frequency": "medium",
       "associations": [
         "maybe",
@@ -6963,7 +7141,7 @@
       "word": "polite",
       "meaning": "有礼貌的",
       "category": "adjective",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "rude",
@@ -6978,7 +7156,8 @@
         "political"
       ],
       "example": "He is a polite boy.",
-      "memory_tip": "polite→有礼貌的"
+      "memory_tip": "polite→有礼貌的",
+      "overlap": "primary"
     },
     "poor": {
       "word": "poor",
@@ -7003,7 +7182,7 @@
       "word": "popular",
       "meaning": "受欢迎的",
       "category": "adjective",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "famous",
@@ -7017,7 +7196,8 @@
         "possible"
       ],
       "example": "This song is very popular.",
-      "memory_tip": "popular→受欢迎的"
+      "memory_tip": "popular→受欢迎的",
+      "overlap": "primary"
     },
     "possible": {
       "word": "possible",
@@ -7042,7 +7222,7 @@
       "word": "pretty",
       "meaning": "漂亮的；相当",
       "category": "adjective",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "beautiful",
@@ -7057,7 +7237,8 @@
         "prevent"
       ],
       "example": "The dress is pretty.",
-      "memory_tip": "pretty→漂亮的"
+      "memory_tip": "pretty→漂亮的",
+      "overlap": "primary"
     },
     "probably": {
       "word": "probably",
@@ -7078,13 +7259,14 @@
         "problem"
       ],
       "example": "It will probably rain tomorrow.",
-      "memory_tip": "probable+ly→很可能"
+      "memory_tip": "probable+ly→很可能",
+      "overlap": "primary"
     },
     "proud": {
       "word": "proud",
       "meaning": "骄傲的；自豪的",
       "category": "adjective",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "pride",
@@ -7097,7 +7279,8 @@
         "produce"
       ],
       "example": "I am proud of you.",
-      "memory_tip": "proud骄傲的"
+      "memory_tip": "proud骄傲的",
+      "overlap": "primary"
     },
     "public": {
       "word": "public",
@@ -7121,7 +7304,7 @@
       "word": "quick",
       "meaning": "快的；迅速的",
       "category": "adjective",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "fast",
@@ -7134,13 +7317,14 @@
         "quite"
       ],
       "example": "Be quick!",
-      "memory_tip": "quick快的"
+      "memory_tip": "quick快的",
+      "overlap": "primary"
     },
     "quiet": {
       "word": "quiet",
       "meaning": "安静的",
       "category": "adjective",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "loud",
@@ -7155,7 +7339,8 @@
         "queen"
       ],
       "example": "Please keep quiet.",
-      "memory_tip": "quiet安静的"
+      "memory_tip": "quiet安静的",
+      "overlap": "primary"
     },
     "ready": {
       "word": "ready",
@@ -7235,7 +7420,7 @@
       "word": "right",
       "meaning": "正确的；右边的",
       "category": "adjective",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "wrong",
@@ -7248,13 +7433,14 @@
         "bright"
       ],
       "example": "You are right.",
-      "memory_tip": "right对的/右边的"
+      "memory_tip": "right对的/右边的",
+      "overlap": "primary"
     },
     "sad": {
       "word": "sad",
       "meaning": "伤心的",
       "category": "adjective",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "happy",
@@ -7267,13 +7453,14 @@
         "said"
       ],
       "example": "She looks sad.",
-      "memory_tip": "sad悲伤的"
+      "memory_tip": "sad悲伤的",
+      "overlap": "primary"
     },
     "safe": {
       "word": "safe",
       "meaning": "安全的",
       "category": "adjective",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "dangerous",
@@ -7287,13 +7474,14 @@
         "same"
       ],
       "example": "It is safe to cross here.",
-      "memory_tip": "safe安全的"
+      "memory_tip": "safe安全的",
+      "overlap": "primary"
     },
     "same": {
       "word": "same",
       "meaning": "相同的",
       "category": "adjective",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "different",
@@ -7305,13 +7493,14 @@
         "name"
       ],
       "example": "We are in the same class.",
-      "memory_tip": "same相同的"
+      "memory_tip": "same相同的",
+      "overlap": "primary"
     },
     "scared": {
       "word": "scared",
       "meaning": "害怕的",
       "category": "adjective",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "afraid",
@@ -7324,13 +7513,14 @@
         "scale"
       ],
       "example": "The child was scared of dogs.",
-      "memory_tip": "scared→害怕的"
+      "memory_tip": "scared→害怕的",
+      "overlap": "primary"
     },
     "serious": {
       "word": "serious",
       "meaning": "严肃的；严重的",
       "category": "adjective",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "silly",
@@ -7344,7 +7534,8 @@
         "various"
       ],
       "example": "This is a serious problem.",
-      "memory_tip": "serious→严肃的"
+      "memory_tip": "serious→严肃的",
+      "overlap": "primary"
     },
     "several": {
       "word": "several",
@@ -7370,7 +7561,7 @@
       "word": "shy",
       "meaning": "害羞的",
       "category": "adjective",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "timid",
@@ -7384,13 +7575,14 @@
         "she"
       ],
       "example": "She is too shy to speak.",
-      "memory_tip": "shy→害羞的"
+      "memory_tip": "shy→害羞的",
+      "overlap": "primary"
     },
     "sick": {
       "word": "sick",
       "meaning": "生病的",
       "category": "adjective",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "ill",
@@ -7404,7 +7596,8 @@
         "quick"
       ],
       "example": "She is sick today.",
-      "memory_tip": "sick生病的"
+      "memory_tip": "sick生病的",
+      "overlap": "primary"
     },
     "similar": {
       "word": "similar",
@@ -7489,7 +7682,7 @@
       "word": "slow",
       "meaning": "慢的",
       "category": "adjective",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "fast",
@@ -7504,13 +7697,14 @@
         "flow"
       ],
       "example": "He walks very slowly.",
-      "memory_tip": "slow慢的"
+      "memory_tip": "slow慢的",
+      "overlap": "primary"
     },
     "small": {
       "word": "small",
       "meaning": "小的",
       "category": "adjective",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "big",
@@ -7523,7 +7717,8 @@
         "smile"
       ],
       "example": "The room is small.",
-      "memory_tip": "small小的"
+      "memory_tip": "small小的",
+      "overlap": "primary"
     },
     "smart": {
       "word": "smart",
@@ -7550,7 +7745,7 @@
       "word": "soft",
       "meaning": "柔软的",
       "category": "adjective",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "hard",
@@ -7565,13 +7760,14 @@
         "shift"
       ],
       "example": "The pillow is soft.",
-      "memory_tip": "soft柔软的"
+      "memory_tip": "soft柔软的",
+      "overlap": "primary"
     },
     "sorry": {
       "word": "sorry",
       "meaning": "对不起",
       "category": "adjective",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "apologize",
@@ -7583,13 +7779,14 @@
         "soul"
       ],
       "example": "I am sorry for being late.",
-      "memory_tip": "sorry对不起"
+      "memory_tip": "sorry对不起",
+      "overlap": "primary"
     },
     "special": {
       "word": "special",
       "meaning": "特别的；特殊的",
       "category": "adjective",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "ordinary",
@@ -7602,13 +7799,14 @@
         "especial"
       ],
       "example": "Today is a special day.",
-      "memory_tip": "special→特别的"
+      "memory_tip": "special→特别的",
+      "overlap": "primary"
     },
     "strange": {
       "word": "strange",
       "meaning": "奇怪的；陌生的",
       "category": "adjective",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "odd",
@@ -7621,13 +7819,14 @@
         "straight"
       ],
       "example": "I heard a strange noise.",
-      "memory_tip": "strange→奇怪的"
+      "memory_tip": "strange→奇怪的",
+      "overlap": "primary"
     },
     "strict": {
       "word": "strict",
       "meaning": "严格的",
       "category": "adjective",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "tough",
@@ -7640,13 +7839,14 @@
         "string"
       ],
       "example": "My father is very strict.",
-      "memory_tip": "strict→严格的"
+      "memory_tip": "strict→严格的",
+      "overlap": "primary"
     },
     "strong": {
       "word": "strong",
       "meaning": "强壮的；坚强的",
       "category": "adjective",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "weak",
@@ -7661,7 +7861,8 @@
         "strength"
       ],
       "example": "He has strong arms.",
-      "memory_tip": "strong→强壮的"
+      "memory_tip": "strong→强壮的",
+      "overlap": "primary"
     },
     "sure": {
       "word": "sure",
@@ -7686,7 +7887,7 @@
       "word": "surprised",
       "meaning": "吃惊的",
       "category": "adjective",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "amazed",
@@ -7698,13 +7899,14 @@
         "supply"
       ],
       "example": "I was surprised by the news.",
-      "memory_tip": "surprised→吃惊的"
+      "memory_tip": "surprised→吃惊的",
+      "overlap": "primary"
     },
     "sweet": {
       "word": "sweet",
       "meaning": "甜的",
       "category": "adjective",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "sour",
@@ -7719,13 +7921,14 @@
         "steep"
       ],
       "example": "The cake is sweet.",
-      "memory_tip": "sweet甜的/糖果"
+      "memory_tip": "sweet甜的/糖果",
+      "overlap": "primary"
     },
     "tall": {
       "word": "tall",
       "meaning": "高的",
       "category": "adjective",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "short",
@@ -7739,7 +7942,8 @@
         "fall"
       ],
       "example": "He is very tall.",
-      "memory_tip": "tall高的"
+      "memory_tip": "tall高的",
+      "overlap": "primary"
     },
     "terrible": {
       "word": "terrible",
@@ -7763,7 +7967,7 @@
       "word": "thick",
       "meaning": "厚的；浓的",
       "category": "adjective",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "thin",
@@ -7775,13 +7979,14 @@
         "thing"
       ],
       "example": "This book is very thick.",
-      "memory_tip": "thick→厚的"
+      "memory_tip": "thick→厚的",
+      "overlap": "primary"
     },
     "thin": {
       "word": "thin",
       "meaning": "薄的；瘦的",
       "category": "adjective",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "thick",
@@ -7794,13 +7999,14 @@
         "think"
       ],
       "example": "The ice is too thin.",
-      "memory_tip": "thin瘦的/薄的"
+      "memory_tip": "thin瘦的/薄的",
+      "overlap": "primary"
     },
     "tired": {
       "word": "tired",
       "meaning": "疲倦的",
       "category": "adjective",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "exhausted",
@@ -7813,7 +8019,8 @@
         "fire"
       ],
       "example": "I am so tired today.",
-      "memory_tip": "tired累的"
+      "memory_tip": "tired累的",
+      "overlap": "primary"
     },
     "true": {
       "word": "true",
@@ -7938,7 +8145,7 @@
       "word": "useful",
       "meaning": "有用的",
       "category": "adjective",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "helpful",
@@ -7950,7 +8157,8 @@
         "usual"
       ],
       "example": "This is a useful tool.",
-      "memory_tip": "useful→有用的"
+      "memory_tip": "useful→有用的",
+      "overlap": "primary"
     },
     "useless": {
       "word": "useless",
@@ -8000,7 +8208,6 @@
       "associations": [
         "precious",
         "worthless",
-        "valuable",
         "important"
       ],
       "confusables": [
@@ -8034,7 +8241,7 @@
       "word": "warm",
       "meaning": "温暖的；热情的",
       "category": "adjective",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "cold",
@@ -8049,13 +8256,14 @@
         "farm"
       ],
       "example": "The weather is warm today.",
-      "memory_tip": "warm温暖的"
+      "memory_tip": "warm温暖的",
+      "overlap": "primary"
     },
     "weak": {
       "word": "weak",
       "meaning": "弱的",
       "category": "adjective",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "strong",
@@ -8070,7 +8278,8 @@
         "speak"
       ],
       "example": "She felt weak after illness.",
-      "memory_tip": "weak弱的"
+      "memory_tip": "weak弱的",
+      "overlap": "primary"
     },
     "wealthy": {
       "word": "wealthy",
@@ -8095,7 +8304,7 @@
       "word": "wet",
       "meaning": "湿的",
       "category": "adjective",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "dry",
@@ -8109,7 +8318,8 @@
         "met"
       ],
       "example": "My clothes got wet.",
-      "memory_tip": "wet湿的"
+      "memory_tip": "wet湿的",
+      "overlap": "primary"
     },
     "whole": {
       "word": "whole",
@@ -8134,19 +8344,19 @@
       "word": "wide",
       "meaning": "宽的；广泛的",
       "category": "adjective",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "narrow",
-        "broad",
-        "wide"
+        "broad"
       ],
       "confusables": [
         "wife",
         "will"
       ],
       "example": "The road is very wide.",
-      "memory_tip": "wide宽的"
+      "memory_tip": "wide宽的",
+      "overlap": "primary"
     },
     "wild": {
       "word": "wild",
@@ -8209,7 +8419,7 @@
       "word": "worried",
       "meaning": "担心的",
       "category": "adjective",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "anxious",
@@ -8222,7 +8432,8 @@
         "worse"
       ],
       "example": "She is worried about her son.",
-      "memory_tip": "worried→担心的"
+      "memory_tip": "worried→担心的",
+      "overlap": "primary"
     },
     "worth": {
       "word": "worth",
@@ -8247,7 +8458,7 @@
       "word": "young",
       "meaning": "年轻的",
       "category": "adjective",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "old",
@@ -8261,7 +8472,8 @@
         "song"
       ],
       "example": "She is very young.",
-      "memory_tip": "young年轻的"
+      "memory_tip": "young年轻的",
+      "overlap": "primary"
     },
     "ability": {
       "word": "ability",
@@ -8327,7 +8539,7 @@
       "word": "age",
       "meaning": "年龄；时代",
       "category": "noun",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "old",
@@ -8341,13 +8553,14 @@
         "agree"
       ],
       "example": "What is your age?",
-      "memory_tip": "age年龄，时代"
+      "memory_tip": "age年龄，时代",
+      "overlap": "primary"
     },
     "air": {
       "word": "air",
       "meaning": "空气",
       "category": "noun",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "sky",
@@ -8362,7 +8575,8 @@
         "chair"
       ],
       "example": "The air is fresh in the morning.",
-      "memory_tip": "air→空气"
+      "memory_tip": "air→空气",
+      "overlap": "primary"
     },
     "animal": {
       "word": "animal",
@@ -8389,7 +8603,7 @@
       "word": "answer",
       "meaning": "回答；答案",
       "category": "noun",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "question",
@@ -8401,13 +8615,14 @@
         "another"
       ],
       "example": "Do you know the answer?",
-      "memory_tip": "answer→回答"
+      "memory_tip": "answer→回答",
+      "overlap": "primary"
     },
     "area": {
       "word": "area",
       "meaning": "地区；区域",
       "category": "noun",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "region",
@@ -8422,13 +8637,14 @@
         "aunt"
       ],
       "example": "This area is very quiet.",
-      "memory_tip": "area→地区"
+      "memory_tip": "area→地区",
+      "overlap": "primary"
     },
     "arm": {
       "word": "arm",
       "meaning": "手臂",
       "category": "noun",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "hand",
@@ -8440,7 +8656,8 @@
         "art"
       ],
       "example": "He broke his arm.",
-      "memory_tip": "arm→手臂"
+      "memory_tip": "arm→手臂",
+      "overlap": "primary"
     },
     "attention": {
       "word": "attention",
@@ -8479,7 +8696,8 @@
         "autumn"
       ],
       "example": "My aunt lives in Shanghai.",
-      "memory_tip": "aunt→阿姨"
+      "memory_tip": "aunt→阿姨",
+      "overlap": "primary"
     },
     "back": {
       "word": "back",
@@ -8503,11 +8721,10 @@
       "word": "bag",
       "meaning": "包；袋子",
       "category": "noun",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "pack",
-        "bag",
         "carry",
         "luggage"
       ],
@@ -8515,13 +8732,14 @@
         "bad"
       ],
       "example": "Put your books in the bag.",
-      "memory_tip": "bag包，袋子"
+      "memory_tip": "bag包，袋子",
+      "overlap": "primary"
     },
     "ball": {
       "word": "ball",
       "meaning": "球",
       "category": "noun",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "play",
@@ -8533,13 +8751,14 @@
         "call"
       ],
       "example": "Let's play with the ball.",
-      "memory_tip": "ball球"
+      "memory_tip": "ball球",
+      "overlap": "primary"
     },
     "bank": {
       "word": "bank",
       "meaning": "银行；河岸",
       "category": "noun",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "money",
@@ -8551,7 +8770,8 @@
         "bath"
       ],
       "example": "I went to the bank.",
-      "memory_tip": "bank银行，河岸"
+      "memory_tip": "bank银行，河岸",
+      "overlap": "primary"
     },
     "bath": {
       "word": "bath",
@@ -8575,7 +8795,7 @@
       "word": "beach",
       "meaning": "海滩",
       "category": "noun",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "sea",
@@ -8587,13 +8807,14 @@
         "bear"
       ],
       "example": "We played on the beach.",
-      "memory_tip": "beach海滩"
+      "memory_tip": "beach海滩",
+      "overlap": "primary"
     },
     "bed": {
       "word": "bed",
       "meaning": "床",
       "category": "noun",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "sleep",
@@ -8605,13 +8826,14 @@
         "bad"
       ],
       "example": "Go to bed early.",
-      "memory_tip": "bed床"
+      "memory_tip": "bed床",
+      "overlap": "primary"
     },
     "bird": {
       "word": "bird",
       "meaning": "鸟",
       "category": "noun",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "fly",
@@ -8623,7 +8845,8 @@
         "birth"
       ],
       "example": "The bird is singing.",
-      "memory_tip": "bird鸟"
+      "memory_tip": "bird鸟",
+      "overlap": "primary"
     },
     "birth": {
       "word": "birth",
@@ -8659,13 +8882,14 @@
         "blow"
       ],
       "example": "He gave blood at the hospital.",
-      "memory_tip": "blood→血"
+      "memory_tip": "blood→血",
+      "overlap": "primary"
     },
     "body": {
       "word": "body",
       "meaning": "身体",
       "category": "noun",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "health",
@@ -8677,13 +8901,14 @@
         "boy"
       ],
       "example": "Exercise is good for your body.",
-      "memory_tip": "body身体"
+      "memory_tip": "body身体",
+      "overlap": "primary"
     },
     "book": {
       "word": "book",
       "meaning": "书；预订",
       "category": "noun",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "read",
@@ -8695,7 +8920,8 @@
         "boot"
       ],
       "example": "I am reading a book.",
-      "memory_tip": "book书"
+      "memory_tip": "book书",
+      "overlap": "primary"
     },
     "bottle": {
       "word": "bottle",
@@ -8713,7 +8939,8 @@
         "bottom"
       ],
       "example": "Give me a bottle of water.",
-      "memory_tip": "bottle瓶子，bo(波)+ttle(容器)"
+      "memory_tip": "bottle瓶子，bo(波)+ttle(容器)",
+      "overlap": "primary"
     },
     "bottom": {
       "word": "bottom",
@@ -8737,7 +8964,7 @@
       "word": "box",
       "meaning": "盒子",
       "category": "noun",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "container",
@@ -8749,7 +8976,8 @@
         "boy"
       ],
       "example": "Put it in the box.",
-      "memory_tip": "box盒子"
+      "memory_tip": "box盒子",
+      "overlap": "primary"
     },
     "brain": {
       "word": "brain",
@@ -8773,7 +9001,7 @@
       "word": "bread",
       "meaning": "面包",
       "category": "noun",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "food",
@@ -8785,13 +9013,14 @@
         "break"
       ],
       "example": "I had bread for breakfast.",
-      "memory_tip": "bread面包"
+      "memory_tip": "bread面包",
+      "overlap": "primary"
     },
     "breakfast": {
       "word": "breakfast",
       "meaning": "早餐",
       "category": "noun",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "meal",
@@ -8804,7 +9033,8 @@
         "fast"
       ],
       "example": "What did you have for breakfast?",
-      "memory_tip": "break+fast→早餐"
+      "memory_tip": "break+fast→早餐",
+      "overlap": "primary"
     },
     "breath": {
       "word": "breath",
@@ -8822,13 +9052,14 @@
         "bread"
       ],
       "example": "Take a deep breath.",
-      "memory_tip": "breath→呼吸"
+      "memory_tip": "breath→呼吸",
+      "overlap": "primary"
     },
     "bridge": {
       "word": "bridge",
       "meaning": "桥",
       "category": "noun",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "river",
@@ -8840,13 +9071,14 @@
         "bright"
       ],
       "example": "We walked across the bridge.",
-      "memory_tip": "bridge桥，b+ridge(山脊)=连接两边"
+      "memory_tip": "bridge桥，b+ridge(山脊)=连接两边",
+      "overlap": "primary"
     },
     "brother": {
       "word": "brother",
       "meaning": "兄弟",
       "category": "noun",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "sister",
@@ -8858,13 +9090,14 @@
         "both"
       ],
       "example": "I have an older brother.",
-      "memory_tip": "brother→兄弟"
+      "memory_tip": "brother→兄弟",
+      "overlap": "primary"
     },
     "building": {
       "word": "building",
       "meaning": "建筑物",
       "category": "noun",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "house",
@@ -8876,13 +9109,14 @@
         "build"
       ],
       "example": "That is a tall building.",
-      "memory_tip": "building→建筑物"
+      "memory_tip": "building→建筑物",
+      "overlap": "primary"
     },
     "bus": {
       "word": "bus",
       "meaning": "公共汽车",
       "category": "noun",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "car",
@@ -8894,7 +9128,8 @@
         "busy"
       ],
       "example": "I take the bus to school.",
-      "memory_tip": "bus公共汽车"
+      "memory_tip": "bus公共汽车",
+      "overlap": "primary"
     },
     "business": {
       "word": "business",
@@ -8918,7 +9153,7 @@
       "word": "cake",
       "meaning": "蛋糕",
       "category": "noun",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "birthday",
@@ -8930,7 +9165,8 @@
         "cage"
       ],
       "example": "She made a chocolate cake.",
-      "memory_tip": "cake蛋糕"
+      "memory_tip": "cake蛋糕",
+      "overlap": "primary"
     },
     "camp": {
       "word": "camp",
@@ -8966,7 +9202,8 @@
         "caped"
       ],
       "example": "He is wearing a cap.",
-      "memory_tip": "cap→帽子"
+      "memory_tip": "cap→帽子",
+      "overlap": "primary"
     },
     "capital": {
       "word": "capital",
@@ -8990,7 +9227,7 @@
       "word": "car",
       "meaning": "汽车",
       "category": "noun",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "drive",
@@ -9002,13 +9239,14 @@
         "cat"
       ],
       "example": "My father has a car.",
-      "memory_tip": "car汽车"
+      "memory_tip": "car汽车",
+      "overlap": "primary"
     },
     "card": {
       "word": "card",
       "meaning": "卡片",
       "category": "noun",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "paper",
@@ -9021,7 +9259,8 @@
         "care"
       ],
       "example": "Send me a birthday card.",
-      "memory_tip": "card卡片"
+      "memory_tip": "card卡片",
+      "overlap": "primary"
     },
     "care": {
       "word": "care",
@@ -9045,7 +9284,7 @@
       "word": "cat",
       "meaning": "猫",
       "category": "noun",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "pet",
@@ -9057,7 +9296,8 @@
         "car"
       ],
       "example": "I have a cute cat.",
-      "memory_tip": "cat→猫"
+      "memory_tip": "cat→猫",
+      "overlap": "primary"
     },
     "celebration": {
       "word": "celebration",
@@ -9119,7 +9359,7 @@
       "word": "chair",
       "meaning": "椅子",
       "category": "noun",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "sit",
@@ -9131,7 +9371,8 @@
         "chain"
       ],
       "example": "Please take a chair.",
-      "memory_tip": "chair椅子"
+      "memory_tip": "chair椅子",
+      "overlap": "primary"
     },
     "chance": {
       "word": "chance",
@@ -9186,7 +9427,8 @@
         "channel"
       ],
       "example": "Read chapter three for homework.",
-      "memory_tip": "chapter→章节"
+      "memory_tip": "chapter→章节",
+      "overlap": "primary"
     },
     "chess": {
       "word": "chess",
@@ -9210,7 +9452,7 @@
       "word": "child",
       "meaning": "孩子",
       "category": "noun",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "children",
@@ -9222,13 +9464,14 @@
         "chill"
       ],
       "example": "Every child needs education.",
-      "memory_tip": "child孩子(复数children)"
+      "memory_tip": "child孩子(复数children)",
+      "overlap": "primary"
     },
     "chocolate": {
       "word": "chocolate",
       "meaning": "巧克力",
       "category": "noun",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "candy",
@@ -9240,7 +9483,8 @@
         "choice"
       ],
       "example": "I love chocolate.",
-      "memory_tip": "chocolate→巧克力"
+      "memory_tip": "chocolate→巧克力",
+      "overlap": "primary"
     },
     "church": {
       "word": "church",
@@ -9258,7 +9502,8 @@
         "choose"
       ],
       "example": "They go to church every Sunday.",
-      "memory_tip": "church→教堂"
+      "memory_tip": "church→教堂",
+      "overlap": "primary"
     },
     "circle": {
       "word": "circle",
@@ -9276,7 +9521,8 @@
         "certain"
       ],
       "example": "Stand in a circle.",
-      "memory_tip": "circle→圆"
+      "memory_tip": "circle→圆",
+      "overlap": "primary"
     },
     "citizen": {
       "word": "citizen",
@@ -9300,7 +9546,7 @@
       "word": "city",
       "meaning": "城市",
       "category": "noun",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "town",
@@ -9312,13 +9558,14 @@
         "citizen"
       ],
       "example": "Beijing is a big city.",
-      "memory_tip": "city→城市"
+      "memory_tip": "city→城市",
+      "overlap": "primary"
     },
     "class": {
       "word": "class",
       "meaning": "班级；课",
       "category": "noun",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "student",
@@ -9330,13 +9577,14 @@
         "glass"
       ],
       "example": "We have English class today.",
-      "memory_tip": "class→班级"
+      "memory_tip": "class→班级",
+      "overlap": "primary"
     },
     "classroom": {
       "word": "classroom",
       "meaning": "教室",
       "category": "noun",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "class",
@@ -9349,13 +9597,14 @@
         "room"
       ],
       "example": "The classroom is very clean.",
-      "memory_tip": "classroom→教室"
+      "memory_tip": "classroom→教室",
+      "overlap": "primary"
     },
     "clothes": {
       "word": "clothes",
       "meaning": "衣服",
       "category": "noun",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "wear",
@@ -9368,13 +9617,14 @@
         "close"
       ],
       "example": "She bought new clothes.",
-      "memory_tip": "clothes→衣服"
+      "memory_tip": "clothes→衣服",
+      "overlap": "primary"
     },
     "cloud": {
       "word": "cloud",
       "meaning": "云",
       "category": "noun",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "sky",
@@ -9386,7 +9636,8 @@
         "could"
       ],
       "example": "There are many clouds today.",
-      "memory_tip": "cloud云"
+      "memory_tip": "cloud云",
+      "overlap": "primary"
     },
     "club": {
       "word": "club",
@@ -9410,7 +9661,7 @@
       "word": "coat",
       "meaning": "外套",
       "category": "noun",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "wear",
@@ -9422,13 +9673,14 @@
         "boat"
       ],
       "example": "Put on your coat.",
-      "memory_tip": "coat→外套"
+      "memory_tip": "coat→外套",
+      "overlap": "primary"
     },
     "coffee": {
       "word": "coffee",
       "meaning": "咖啡",
       "category": "noun",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "drink",
@@ -9440,7 +9692,8 @@
         "copy"
       ],
       "example": "Would you like some coffee?",
-      "memory_tip": "coffee咖啡"
+      "memory_tip": "coffee咖啡",
+      "overlap": "primary"
     },
     "coin": {
       "word": "coin",
@@ -9518,7 +9771,7 @@
       "word": "computer",
       "meaning": "电脑",
       "category": "noun",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "internet",
@@ -9530,7 +9783,8 @@
         "complete"
       ],
       "example": "I use the computer every day.",
-      "memory_tip": "computer→电脑"
+      "memory_tip": "computer→电脑",
+      "overlap": "primary"
     },
     "congratulation": {
       "word": "congratulation",
@@ -9591,7 +9845,7 @@
       "word": "corner",
       "meaning": "角落；拐角",
       "category": "noun",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "turn",
@@ -9603,13 +9857,14 @@
         "correct"
       ],
       "example": "Turn left at the corner.",
-      "memory_tip": "corner角落"
+      "memory_tip": "corner角落",
+      "overlap": "primary"
     },
     "country": {
       "word": "country",
       "meaning": "国家；乡村",
       "category": "noun",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "nation",
@@ -9621,7 +9876,8 @@
         "count"
       ],
       "example": "China is a large country.",
-      "memory_tip": "country→国家"
+      "memory_tip": "country→国家",
+      "overlap": "primary"
     },
     "courage": {
       "word": "courage",
@@ -9677,7 +9933,8 @@
         "council"
       ],
       "example": "My cousin is two years older.",
-      "memory_tip": "cousin→堂兄弟"
+      "memory_tip": "cousin→堂兄弟",
+      "overlap": "primary"
     },
     "cow": {
       "word": "cow",
@@ -9695,7 +9952,8 @@
         "how"
       ],
       "example": "The cow gives us milk.",
-      "memory_tip": "cow→奶牛"
+      "memory_tip": "cow→奶牛",
+      "overlap": "primary"
     },
     "crossing": {
       "word": "crossing",
@@ -9742,7 +10000,6 @@
       "associations": [
         "kind",
         "mean",
-        "cruel",
         "heartless"
       ],
       "confusables": [
@@ -9755,7 +10012,7 @@
       "word": "culture",
       "meaning": "文化",
       "category": "noun",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "tradition",
@@ -9767,13 +10024,14 @@
         "courage"
       ],
       "example": "Chinese culture is very rich.",
-      "memory_tip": "culture→文化"
+      "memory_tip": "culture→文化",
+      "overlap": "primary"
     },
     "cup": {
       "word": "cup",
       "meaning": "杯子",
       "category": "noun",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "glass",
@@ -9785,7 +10043,8 @@
         "cut"
       ],
       "example": "Give me a cup of tea.",
-      "memory_tip": "cup杯子"
+      "memory_tip": "cup杯子",
+      "overlap": "primary"
     },
     "customer": {
       "word": "customer",
@@ -9827,7 +10086,7 @@
       "word": "daughter",
       "meaning": "女儿",
       "category": "noun",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "son",
@@ -9840,13 +10099,14 @@
         "daughte"
       ],
       "example": "They have two daughters.",
-      "memory_tip": "daughter→女儿"
+      "memory_tip": "daughter→女儿",
+      "overlap": "primary"
     },
     "day": {
       "word": "day",
       "meaning": "天；白天",
       "category": "noun",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "night",
@@ -9858,7 +10118,8 @@
         "say"
       ],
       "example": "What day is it today?",
-      "memory_tip": "day天，日子"
+      "memory_tip": "day天，日子",
+      "overlap": "primary"
     },
     "death": {
       "word": "death",
@@ -9929,7 +10190,8 @@
         "deserve"
       ],
       "example": "Camels live in the desert.",
-      "memory_tip": "desert→沙漠"
+      "memory_tip": "desert→沙漠",
+      "overlap": "primary"
     },
     "design": {
       "word": "design",
@@ -9953,7 +10215,7 @@
       "word": "desk",
       "meaning": "书桌",
       "category": "noun",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "table",
@@ -9965,13 +10227,14 @@
         "discuss"
       ],
       "example": "There are many books on the desk.",
-      "memory_tip": "desk书桌"
+      "memory_tip": "desk书桌",
+      "overlap": "primary"
     },
     "dictionary": {
       "word": "dictionary",
       "meaning": "字典",
       "category": "noun",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "word",
@@ -9983,7 +10246,8 @@
         "direction"
       ],
       "example": "Look it up in the dictionary.",
-      "memory_tip": "dictionary→字典"
+      "memory_tip": "dictionary→字典",
+      "overlap": "primary"
     },
     "dinner": {
       "word": "dinner",
@@ -10098,7 +10362,7 @@
       "word": "doctor",
       "meaning": "医生",
       "category": "noun",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "hospital",
@@ -10110,7 +10374,8 @@
         "document"
       ],
       "example": "The doctor said I need rest.",
-      "memory_tip": "doctor医生"
+      "memory_tip": "doctor医生",
+      "overlap": "primary"
     },
     "document": {
       "word": "document",
@@ -10134,7 +10399,7 @@
       "word": "door",
       "meaning": "门",
       "category": "noun",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "open",
@@ -10146,13 +10411,14 @@
         "floor"
       ],
       "example": "Close the door, please.",
-      "memory_tip": "door门"
+      "memory_tip": "door门",
+      "overlap": "primary"
     },
     "dress": {
       "word": "dress",
       "meaning": "连衣裙；衣服",
       "category": "noun",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "clothes",
@@ -10164,7 +10430,8 @@
         "dream"
       ],
       "example": "She wore a beautiful dress.",
-      "memory_tip": "dress连衣裙/穿衣服"
+      "memory_tip": "dress连衣裙/穿衣服",
+      "overlap": "primary"
     },
     "duty": {
       "word": "duty",
@@ -10188,7 +10455,7 @@
       "word": "earth",
       "meaning": "地球；土地",
       "category": "noun",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "world",
@@ -10200,7 +10467,8 @@
         "early"
       ],
       "example": "The earth goes around the sun.",
-      "memory_tip": "earth→地球"
+      "memory_tip": "earth→地球",
+      "overlap": "primary"
     },
     "email": {
       "word": "email",
@@ -10315,7 +10583,7 @@
       "word": "exam",
       "meaning": "考试",
       "category": "noun",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "test",
@@ -10327,13 +10595,14 @@
         "example"
       ],
       "example": "I have a math exam tomorrow.",
-      "memory_tip": "exam→考试"
+      "memory_tip": "exam→考试",
+      "overlap": "primary"
     },
     "example": {
       "word": "example",
       "meaning": "例子",
       "category": "noun",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "sample",
@@ -10346,13 +10615,14 @@
         "except"
       ],
       "example": "Can you give me an example?",
-      "memory_tip": "example→例子"
+      "memory_tip": "example→例子",
+      "overlap": "primary"
     },
     "exercise": {
       "word": "exercise",
       "meaning": "锻炼；练习",
       "category": "noun",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "sport",
@@ -10364,7 +10634,8 @@
         "excellent"
       ],
       "example": "Exercise is good for you.",
-      "memory_tip": "exercise→锻炼"
+      "memory_tip": "exercise→锻炼",
+      "overlap": "primary"
     },
     "exit": {
       "word": "exit",
@@ -10444,7 +10715,7 @@
       "word": "eye",
       "meaning": "眼睛",
       "category": "noun",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "see",
@@ -10456,13 +10727,14 @@
         "ear"
       ],
       "example": "She has beautiful eyes.",
-      "memory_tip": "eye眼睛"
+      "memory_tip": "eye眼睛",
+      "overlap": "primary"
     },
     "face": {
       "word": "face",
       "meaning": "脸；面对",
       "category": "noun",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "look",
@@ -10474,7 +10746,8 @@
         "fact"
       ],
       "example": "She has a round face.",
-      "memory_tip": "face脸"
+      "memory_tip": "face脸",
+      "overlap": "primary"
     },
     "fact": {
       "word": "fact",
@@ -10499,7 +10772,7 @@
       "word": "factory",
       "meaning": "工厂",
       "category": "noun",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "worker",
@@ -10511,7 +10784,8 @@
         "fact"
       ],
       "example": "My father works in a factory.",
-      "memory_tip": "factory→工厂"
+      "memory_tip": "factory→工厂",
+      "overlap": "primary"
     },
     "failure": {
       "word": "failure",
@@ -10554,7 +10828,7 @@
       "word": "family",
       "meaning": "家庭",
       "category": "noun",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "parent",
@@ -10566,13 +10840,14 @@
         "famous"
       ],
       "example": "I love my family.",
-      "memory_tip": "family家庭"
+      "memory_tip": "family家庭",
+      "overlap": "primary"
     },
     "fan": {
       "word": "fan",
       "meaning": "风扇；粉丝",
       "category": "noun",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "cool",
@@ -10584,13 +10859,14 @@
         "fun"
       ],
       "example": "I am a big fan of basketball.",
-      "memory_tip": "fan→粉丝"
+      "memory_tip": "fan→粉丝",
+      "overlap": "primary"
     },
     "farm": {
       "word": "farm",
       "meaning": "农场",
       "category": "noun",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "farmer",
@@ -10602,7 +10878,8 @@
         "form"
       ],
       "example": "My uncle has a farm.",
-      "memory_tip": "farm农场"
+      "memory_tip": "farm农场",
+      "overlap": "primary"
     },
     "fear": {
       "word": "fear",
@@ -10645,7 +10922,7 @@
       "word": "festival",
       "meaning": "节日",
       "category": "noun",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "holiday",
@@ -10657,13 +10934,14 @@
         "final"
       ],
       "example": "Spring Festival is important in China.",
-      "memory_tip": "festival→节日"
+      "memory_tip": "festival→节日",
+      "overlap": "primary"
     },
     "field": {
       "word": "field",
       "meaning": "田野；领域",
       "category": "noun",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "farm",
@@ -10675,13 +10953,14 @@
         "fill"
       ],
       "example": "They are working in the field.",
-      "memory_tip": "field→田野"
+      "memory_tip": "field→田野",
+      "overlap": "primary"
     },
     "finger": {
       "word": "finger",
       "meaning": "手指",
       "category": "noun",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "hand",
@@ -10693,13 +10972,14 @@
         "figure"
       ],
       "example": "She pointed her finger at me.",
-      "memory_tip": "finger→手指"
+      "memory_tip": "finger→手指",
+      "overlap": "primary"
     },
     "fire": {
       "word": "fire",
       "meaning": "火",
       "category": "noun",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "burn",
@@ -10712,13 +10992,14 @@
         "fir"
       ],
       "example": "Don't play with fire.",
-      "memory_tip": "fire→火"
+      "memory_tip": "fire→火",
+      "overlap": "primary"
     },
     "fish": {
       "word": "fish",
       "meaning": "鱼",
       "category": "noun",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "water",
@@ -10730,7 +11011,8 @@
         "dish"
       ],
       "example": "I caught a big fish.",
-      "memory_tip": "fish鱼"
+      "memory_tip": "fish鱼",
+      "overlap": "primary"
     },
     "flag": {
       "word": "flag",
@@ -10748,13 +11030,14 @@
         "flat"
       ],
       "example": "The national flag is red.",
-      "memory_tip": "flag→旗"
+      "memory_tip": "flag→旗",
+      "overlap": "primary"
     },
     "floor": {
       "word": "floor",
       "meaning": "地板；楼层",
       "category": "noun",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "ground",
@@ -10766,13 +11049,14 @@
         "door"
       ],
       "example": "The floor is very clean.",
-      "memory_tip": "floor地板/楼层"
+      "memory_tip": "floor地板/楼层",
+      "overlap": "primary"
     },
     "flower": {
       "word": "flower",
       "meaning": "花",
       "category": "noun",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "plant",
@@ -10784,7 +11068,8 @@
         "floor"
       ],
       "example": "The flowers are beautiful.",
-      "memory_tip": "flower→花"
+      "memory_tip": "flower→花",
+      "overlap": "primary"
     },
     "food": {
       "word": "food",
@@ -10808,7 +11093,7 @@
       "word": "foot",
       "meaning": "脚",
       "category": "noun",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "leg",
@@ -10820,13 +11105,14 @@
         "food"
       ],
       "example": "He hurt his foot.",
-      "memory_tip": "foot脚(复数feet)"
+      "memory_tip": "foot脚(复数feet)",
+      "overlap": "primary"
     },
     "football": {
       "word": "football",
       "meaning": "足球",
       "category": "noun",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "sport",
@@ -10839,7 +11125,8 @@
         "food"
       ],
       "example": "I like playing football.",
-      "memory_tip": "football→足球"
+      "memory_tip": "football→足球",
+      "overlap": "primary"
     },
     "force": {
       "word": "force",
@@ -10882,7 +11169,7 @@
       "word": "forest",
       "meaning": "森林",
       "category": "noun",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "tree",
@@ -10894,7 +11181,8 @@
         "foreign"
       ],
       "example": "There is a big forest near our town.",
-      "memory_tip": "forest→森林"
+      "memory_tip": "forest→森林",
+      "overlap": "primary"
     },
     "fork": {
       "word": "fork",
@@ -10912,7 +11200,8 @@
         "form"
       ],
       "example": "Use a fork to eat the salad.",
-      "memory_tip": "fork叉子"
+      "memory_tip": "fork叉子",
+      "overlap": "primary"
     },
     "freedom": {
       "word": "freedom",
@@ -10937,7 +11226,7 @@
       "word": "friend",
       "meaning": "朋友",
       "category": "noun",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "friendly",
@@ -10949,13 +11238,14 @@
         "free"
       ],
       "example": "She is my best friend.",
-      "memory_tip": "friend朋友"
+      "memory_tip": "friend朋友",
+      "overlap": "primary"
     },
     "fruit": {
       "word": "fruit",
       "meaning": "水果",
       "category": "noun",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "apple",
@@ -10967,7 +11257,8 @@
         "front"
       ],
       "example": "Eat more fruit.",
-      "memory_tip": "fruit水果"
+      "memory_tip": "fruit水果",
+      "overlap": "primary"
     },
     "function": {
       "word": "function",
@@ -11009,7 +11300,7 @@
       "word": "game",
       "meaning": "游戏；比赛",
       "category": "noun",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "play",
@@ -11021,13 +11312,14 @@
         "name"
       ],
       "example": "Let's play a game.",
-      "memory_tip": "game游戏/比赛"
+      "memory_tip": "game游戏/比赛",
+      "overlap": "primary"
     },
     "garden": {
       "word": "garden",
       "meaning": "花园",
       "category": "noun",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "flower",
@@ -11039,7 +11331,8 @@
         "guarden"
       ],
       "example": "She is working in the garden.",
-      "memory_tip": "garden花园"
+      "memory_tip": "garden花园",
+      "overlap": "primary"
     },
     "gate": {
       "word": "gate",
@@ -11063,7 +11356,7 @@
       "word": "gift",
       "meaning": "礼物",
       "category": "noun",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "present",
@@ -11075,13 +11368,14 @@
         "give"
       ],
       "example": "Thank you for the gift.",
-      "memory_tip": "gift礼物"
+      "memory_tip": "gift礼物",
+      "overlap": "primary"
     },
     "girl": {
       "word": "girl",
       "meaning": "女孩",
       "category": "noun",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "boy",
@@ -11093,13 +11387,14 @@
         "give"
       ],
       "example": "She is a lovely girl.",
-      "memory_tip": "girl女孩"
+      "memory_tip": "girl女孩",
+      "overlap": "primary"
     },
     "goal": {
       "word": "goal",
       "meaning": "目标；球门",
       "category": "noun",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "aim",
@@ -11111,7 +11406,8 @@
         "gold"
       ],
       "example": "My goal is to study hard.",
-      "memory_tip": "goal→目标"
+      "memory_tip": "goal→目标",
+      "overlap": "primary"
     },
     "gold": {
       "word": "gold",
@@ -11153,7 +11449,7 @@
       "word": "grade",
       "meaning": "年级；成绩",
       "category": "noun",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "class",
@@ -11166,7 +11462,8 @@
         "grad"
       ],
       "example": "She is in Grade 8.",
-      "memory_tip": "grade→年级"
+      "memory_tip": "grade→年级",
+      "overlap": "primary"
     },
     "grandparent": {
       "word": "grandparent",
@@ -11191,7 +11488,7 @@
       "word": "grass",
       "meaning": "草",
       "category": "noun",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "green",
@@ -11203,13 +11500,14 @@
         "glass"
       ],
       "example": "The grass is green.",
-      "memory_tip": "grass草"
+      "memory_tip": "grass草",
+      "overlap": "primary"
     },
     "ground": {
       "word": "ground",
       "meaning": "地面",
       "category": "noun",
-      "tier": 1,
+      "tier": 2,
       "frequency": "high",
       "associations": [
         "floor",
@@ -11221,7 +11519,8 @@
         "group"
       ],
       "example": "The book fell on the ground.",
-      "memory_tip": "ground地面"
+      "memory_tip": "ground地面",
+      "overlap": "primary"
     },
     "group": {
       "word": "group",
@@ -11312,7 +11611,8 @@
         "guard"
       ],
       "example": "She plays the guitar well.",
-      "memory_tip": "guitar吉他"
+      "memory_tip": "guitar吉他",
+      "overlap": "primary"
     },
     "actually": {
       "word": "actually",
@@ -11323,8 +11623,7 @@
       "associations": [
         "really",
         "in fact",
-        "truly",
-        "actually"
+        "truly"
       ],
       "confusables": [
         "actual"
@@ -11372,7 +11671,8 @@
         "alive"
       ],
       "example": "She has already finished.",
-      "memory_tip": "already→已经"
+      "memory_tip": "already→已经",
+      "overlap": "primary"
     },
     "also": {
       "word": "also",
@@ -11390,7 +11690,8 @@
         "although"
       ],
       "example": "I also like swimming.",
-      "memory_tip": "also→也"
+      "memory_tip": "also→也",
+      "overlap": "primary"
     },
     "although": {
       "word": "although",
@@ -11432,7 +11733,8 @@
         "along"
       ],
       "example": "She always gets up early.",
-      "memory_tip": "always→总是"
+      "memory_tip": "always→总是",
+      "overlap": "primary"
     },
     "ancient": {
       "word": "ancient",
@@ -11459,10 +11761,9 @@
       "word": "anyway",
       "meaning": "无论如何",
       "category": "adverb",
-      "tier": 3,
+      "tier": 2,
       "frequency": "medium",
       "associations": [
-        "anyway",
         "regardless",
         "anyhow",
         "besides"
@@ -11513,7 +11814,7 @@
       "word": "badly",
       "meaning": "糟糕地；严重地",
       "category": "adverb",
-      "tier": 3,
+      "tier": 2,
       "frequency": "medium",
       "associations": [
         "seriously",
@@ -11531,7 +11832,7 @@
       "word": "besides",
       "meaning": "此外；除了",
       "category": "preposition",
-      "tier": 3,
+      "tier": 2,
       "frequency": "medium",
       "associations": [
         "also",
@@ -11570,7 +11871,7 @@
       "word": "completely",
       "meaning": "完全地",
       "category": "adverb",
-      "tier": 3,
+      "tier": 2,
       "frequency": "medium",
       "associations": [
         "totally",
@@ -11591,7 +11892,7 @@
       "word": "deeply",
       "meaning": "深深地",
       "category": "adverb",
-      "tier": 3,
+      "tier": 2,
       "frequency": "medium",
       "associations": [
         "deep",
@@ -11608,7 +11909,7 @@
       "word": "directly",
       "meaning": "直接地",
       "category": "adverb",
-      "tier": 3,
+      "tier": 2,
       "frequency": "medium",
       "associations": [
         "indirectly",
@@ -11647,7 +11948,7 @@
       "word": "exactly",
       "meaning": "确切地",
       "category": "adverb",
-      "tier": 3,
+      "tier": 2,
       "frequency": "medium",
       "associations": [
         "precisely",
@@ -11673,7 +11974,6 @@
       "associations": [
         "at last",
         "in the end",
-        "finally",
         "lastly"
       ],
       "confusables": [
@@ -11683,13 +11983,14 @@
         "finish"
       ],
       "example": "We finally arrived.",
-      "memory_tip": "finally→最后"
+      "memory_tip": "finally→最后",
+      "overlap": "primary"
     },
     "fortunately": {
       "word": "fortunately",
       "meaning": "幸运地",
       "category": "adverb",
-      "tier": 3,
+      "tier": 2,
       "frequency": "medium",
       "associations": [
         "luckily",
@@ -11707,7 +12008,7 @@
       "word": "generally",
       "meaning": "通常；一般地",
       "category": "adverb",
-      "tier": 3,
+      "tier": 2,
       "frequency": "medium",
       "associations": [
         "usually",
@@ -11728,7 +12029,7 @@
       "word": "gradually",
       "meaning": "逐渐地",
       "category": "adverb",
-      "tier": 3,
+      "tier": 2,
       "frequency": "medium",
       "associations": [
         "slowly",
@@ -11804,13 +12105,12 @@
       "word": "mainly",
       "meaning": "主要地",
       "category": "adverb",
-      "tier": 3,
+      "tier": 2,
       "frequency": "medium",
       "associations": [
         "mostly",
         "chiefly",
-        "primarily",
-        "mainly"
+        "primarily"
       ],
       "confusables": [
         "main",
@@ -11830,7 +12130,6 @@
       "associations": [
         "almost",
         "about",
-        "nearly",
         "close to"
       ],
       "confusables": [
@@ -11857,19 +12156,19 @@
         "ever"
       ],
       "example": "I have never been to Japan.",
-      "memory_tip": "never从不"
+      "memory_tip": "never从不",
+      "overlap": "primary"
     },
     "normally": {
       "word": "normally",
       "meaning": "通常",
       "category": "adverb",
-      "tier": 3,
+      "tier": 2,
       "frequency": "medium",
       "associations": [
         "usually",
         "generally",
-        "regularly",
-        "normally"
+        "regularly"
       ],
       "confusables": [
         "normal",
@@ -11901,7 +12200,7 @@
       "word": "obviously",
       "meaning": "显然地",
       "category": "adverb",
-      "tier": 3,
+      "tier": 2,
       "frequency": "medium",
       "associations": [
         "clearly",
@@ -11919,13 +12218,12 @@
       "word": "possibly",
       "meaning": "可能地",
       "category": "adverb",
-      "tier": 3,
+      "tier": 2,
       "frequency": "medium",
       "associations": [
         "maybe",
         "perhaps",
-        "probably",
-        "possibly"
+        "probably"
       ],
       "confusables": [
         "possible"
@@ -11960,8 +12258,7 @@
       "associations": [
         "truly",
         "actually",
-        "very",
-        "really"
+        "very"
       ],
       "confusables": [
         "real",
@@ -11970,13 +12267,14 @@
         "reason"
       ],
       "example": "I really like this song.",
-      "memory_tip": "real+ly→真正地"
+      "memory_tip": "real+ly→真正地",
+      "overlap": "primary"
     },
     "recently": {
       "word": "recently",
       "meaning": "最近",
       "category": "adverb",
-      "tier": 3,
+      "tier": 2,
       "frequency": "medium",
       "associations": [
         "lately",
@@ -11997,7 +12295,7 @@
       "word": "regularly",
       "meaning": "定期地",
       "category": "adverb",
-      "tier": 3,
+      "tier": 2,
       "frequency": "medium",
       "associations": [
         "often",
@@ -12038,13 +12336,12 @@
       "word": "truly",
       "meaning": "真正地",
       "category": "adverb",
-      "tier": 3,
+      "tier": 2,
       "frequency": "medium",
       "associations": [
         "really",
         "actually",
-        "genuinely",
-        "truly"
+        "genuinely"
       ],
       "confusables": [
         "true"
@@ -12089,7 +12386,8 @@
         "yes"
       ],
       "example": "I haven't finished yet.",
-      "memory_tip": "yet然而/还"
+      "memory_tip": "yet然而/还",
+      "overlap": "primary"
     },
     "above": {
       "word": "above",
@@ -12107,7 +12405,8 @@
         "about"
       ],
       "example": "The bird flew above the tree.",
-      "memory_tip": "above→在上方"
+      "memory_tip": "above→在上方",
+      "overlap": "primary"
     },
     "across": {
       "word": "across",
@@ -12156,7 +12455,6 @@
       "frequency": "high",
       "associations": [
         "between",
-        "among",
         "within",
         "amidst"
       ],
@@ -12185,7 +12483,8 @@
         "believe"
       ],
       "example": "The cat is behind the door.",
-      "memory_tip": "behind→在后面"
+      "memory_tip": "behind→在后面",
+      "overlap": "primary"
     },
     "below": {
       "word": "below",
@@ -12203,7 +12502,8 @@
         "blow"
       ],
       "example": "The temperature is below zero.",
-      "memory_tip": "below→在下面"
+      "memory_tip": "below→在下面",
+      "overlap": "primary"
     },
     "beside": {
       "word": "beside",
@@ -12221,7 +12521,8 @@
         "besides"
       ],
       "example": "Come and sit beside me.",
-      "memory_tip": "beside→在旁边"
+      "memory_tip": "beside→在旁边",
+      "overlap": "primary"
     },
     "between": {
       "word": "between",
@@ -12231,7 +12532,6 @@
       "frequency": "high",
       "associations": [
         "among",
-        "between",
         "within",
         "middle"
       ],
@@ -12257,7 +12557,8 @@
         "duty"
       ],
       "example": "He fell asleep during class.",
-      "memory_tip": "during→在期间"
+      "memory_tip": "during→在期间",
+      "overlap": "primary"
     },
     "except": {
       "word": "except",
@@ -12299,7 +12600,8 @@
         "island"
       ],
       "example": "The cat is inside the box.",
-      "memory_tip": "inside→在里面"
+      "memory_tip": "inside→在里面",
+      "overlap": "primary"
     },
     "into": {
       "word": "into",
@@ -12338,13 +12640,14 @@
         "neat"
       ],
       "example": "The school is near my home.",
-      "memory_tip": "near近的"
+      "memory_tip": "near近的",
+      "overlap": "primary"
     },
     "onto": {
       "word": "onto",
       "meaning": "到……上面",
       "category": "preposition",
-      "tier": 3,
+      "tier": 2,
       "frequency": "medium",
       "associations": [
         "on",
@@ -12376,7 +12679,8 @@
         "outline"
       ],
       "example": "It is cold outside.",
-      "memory_tip": "outside→在外面"
+      "memory_tip": "outside→在外面",
+      "overlap": "primary"
     },
     "through": {
       "word": "through",
@@ -12403,7 +12707,7 @@
       "word": "throughout",
       "meaning": "遍及",
       "category": "preposition",
-      "tier": 3,
+      "tier": 2,
       "frequency": "medium",
       "associations": [
         "everywhere",
@@ -12597,8 +12901,7 @@
       "associations": [
         "therefore",
         "because",
-        "thus",
-        "so"
+        "thus"
       ],
       "confusables": [
         "do",
@@ -12633,7 +12936,7 @@
       "word": "unless",
       "meaning": "除非",
       "category": "conjunction",
-      "tier": 3,
+      "tier": 2,
       "frequency": "medium",
       "associations": [
         "if not",
@@ -12659,8 +12962,7 @@
       "associations": [
         "during",
         "when",
-        "as",
-        "while"
+        "as"
       ],
       "confusables": [
         "whole",
@@ -12675,13 +12977,12 @@
       "word": "whether",
       "meaning": "是否",
       "category": "conjunction",
-      "tier": 3,
+      "tier": 2,
       "frequency": "medium",
       "associations": [
         "if",
         "either",
-        "or",
-        "whether"
+        "or"
       ],
       "confusables": [
         "weather",
@@ -12884,7 +13185,7 @@
       "word": "by the way",
       "meaning": "顺便说一下",
       "category": "expression",
-      "tier": 3,
+      "tier": 2,
       "frequency": "medium",
       "associations": [
         "anyway",
@@ -12902,7 +13203,7 @@
       "word": "in fact",
       "meaning": "事实上",
       "category": "expression",
-      "tier": 3,
+      "tier": 2,
       "frequency": "medium",
       "associations": [
         "actually",
@@ -12940,7 +13241,7 @@
       "word": "at least",
       "meaning": "至少",
       "category": "expression",
-      "tier": 3,
+      "tier": 2,
       "frequency": "medium",
       "associations": [
         "at most",
@@ -12958,7 +13259,7 @@
       "word": "as long as",
       "meaning": "只要",
       "category": "expression",
-      "tier": 3,
+      "tier": 2,
       "frequency": "medium",
       "associations": [
         "if",
@@ -12977,7 +13278,7 @@
       "word": "as soon as",
       "meaning": "一……就",
       "category": "expression",
-      "tier": 3,
+      "tier": 2,
       "frequency": "medium",
       "associations": [
         "when",
@@ -13016,7 +13317,7 @@
       "word": "be used to",
       "meaning": "习惯于",
       "category": "expression",
-      "tier": 3,
+      "tier": 2,
       "frequency": "medium",
       "associations": [
         "get used to",
@@ -13035,7 +13336,7 @@
       "word": "deal with",
       "meaning": "处理；对付",
       "category": "expression",
-      "tier": 3,
+      "tier": 2,
       "frequency": "medium",
       "associations": [
         "handle",
@@ -13111,7 +13412,7 @@
       "word": "instead of",
       "meaning": "代替",
       "category": "expression",
-      "tier": 3,
+      "tier": 2,
       "frequency": "medium",
       "associations": [
         "rather than",
@@ -13130,7 +13431,7 @@
       "word": "look forward to",
       "meaning": "期待",
       "category": "expression",
-      "tier": 3,
+      "tier": 2,
       "frequency": "medium",
       "associations": [
         "expect",
@@ -13149,7 +13450,7 @@
       "word": "make up",
       "meaning": "编造；组成",
       "category": "expression",
-      "tier": 3,
+      "tier": 2,
       "frequency": "medium",
       "associations": [
         "invent",
@@ -13168,7 +13469,7 @@
       "word": "pay attention to",
       "meaning": "注意",
       "category": "expression",
-      "tier": 3,
+      "tier": 2,
       "frequency": "medium",
       "associations": [
         "notice",
@@ -13187,7 +13488,7 @@
       "word": "pick up",
       "meaning": "捡起；接",
       "category": "expression",
-      "tier": 3,
+      "tier": 2,
       "frequency": "medium",
       "associations": [
         "lift",
@@ -13206,7 +13507,7 @@
       "word": "put off",
       "meaning": "推迟",
       "category": "expression",
-      "tier": 3,
+      "tier": 2,
       "frequency": "medium",
       "associations": [
         "delay",
@@ -13225,7 +13526,7 @@
       "word": "set up",
       "meaning": "建立；设置",
       "category": "expression",
-      "tier": 3,
+      "tier": 2,
       "frequency": "medium",
       "associations": [
         "establish",
@@ -13318,7 +13619,8 @@
         "add"
       ],
       "example": "What is your address?",
-      "memory_tip": "address→地址"
+      "memory_tip": "address→地址",
+      "overlap": "primary"
     },
     "admit": {
       "word": "admit",
@@ -13401,7 +13703,8 @@
         "anybody"
       ],
       "example": "I traveled by airplane.",
-      "memory_tip": "air+plane→飞机"
+      "memory_tip": "air+plane→飞机",
+      "overlap": "primary"
     },
     "apartment": {
       "word": "apartment",
@@ -13756,7 +14059,8 @@
       ],
       "confusables": "inland",
       "example": "Taiwan is a beautiful island.",
-      "memory_tip": "is+land=岛(被水包围的陆地)"
+      "memory_tip": "is+land=岛(被水包围的陆地)",
+      "overlap": "primary"
     },
     "journey": {
       "word": "journey",
@@ -13879,7 +14183,8 @@
         "medium"
       ],
       "example": "Take this medicine three times a day.",
-      "memory_tip": "medicine=药"
+      "memory_tip": "medicine=药",
+      "overlap": "primary"
     },
     "memory": {
       "word": "memory",
@@ -13917,7 +14222,8 @@
         "massage"
       ],
       "example": "I sent her a text message.",
-      "memory_tip": "message=消息"
+      "memory_tip": "message=消息",
+      "overlap": "primary"
     },
     "method": {
       "word": "method",
@@ -13955,7 +14261,8 @@
         "network"
       ],
       "example": "My neighbor is very friendly.",
-      "memory_tip": "neighbor=邻居"
+      "memory_tip": "neighbor=邻居",
+      "overlap": "primary"
     },
     "object": {
       "word": "object",
@@ -14126,7 +14433,8 @@
         "result"
       ],
       "example": "What is the reason for your absence?",
-      "memory_tip": "reason原因"
+      "memory_tip": "reason原因",
+      "overlap": "primary"
     },
     "recent": {
       "word": "recent",
@@ -14275,7 +14583,8 @@
         "silence"
       ],
       "example": "I like science class.",
-      "memory_tip": "science=科学"
+      "memory_tip": "science=科学",
+      "overlap": "primary"
     },
     "sentence": {
       "word": "sentence",
@@ -14294,7 +14603,8 @@
         "secretary"
       ],
       "example": "Please write five sentences.",
-      "memory_tip": "sentence=句子"
+      "memory_tip": "sentence=句子",
+      "overlap": "primary"
     },
     "separate": {
       "word": "separate",
@@ -14484,7 +14794,8 @@
         "attempt"
       ],
       "example": "The temperature dropped last night.",
-      "memory_tip": "temperature=温度"
+      "memory_tip": "temperature=温度",
+      "overlap": "primary"
     },
     "thought": {
       "word": "thought",
@@ -14522,7 +14833,8 @@
         "traffic"
       ],
       "example": "It is a Chinese tradition.",
-      "memory_tip": "tradition=传统"
+      "memory_tip": "tradition=传统",
+      "overlap": "primary"
     },
     "traffic": {
       "word": "traffic",
@@ -14541,7 +14853,8 @@
         "trouble"
       ],
       "example": "The traffic is very heavy today.",
-      "memory_tip": "traffic=交通"
+      "memory_tip": "traffic=交通",
+      "overlap": "primary"
     },
     "trouble": {
       "word": "trouble",
@@ -14585,7 +14898,7 @@
       "word": "vacation",
       "meaning": "假期",
       "category": "noun",
-      "tier": 3,
+      "tier": 2,
       "frequency": "medium",
       "associations": [
         "holiday",
@@ -14604,7 +14917,7 @@
       "word": "victory",
       "meaning": "胜利",
       "category": "noun",
-      "tier": 3,
+      "tier": 2,
       "frequency": "medium",
       "associations": [
         "win",
@@ -14623,7 +14936,7 @@
       "word": "vocabulary",
       "meaning": "词汇；词汇量",
       "category": "noun",
-      "tier": 3,
+      "tier": 2,
       "frequency": "medium",
       "associations": [
         "word",
@@ -14642,7 +14955,7 @@
       "word": "volunteer",
       "meaning": "志愿者；自愿做",
       "category": "noun",
-      "tier": 3,
+      "tier": 2,
       "frequency": "medium",
       "associations": [
         "help",
@@ -14680,7 +14993,7 @@
       "word": "affect",
       "meaning": "影响；感动",
       "category": "verb",
-      "tier": 3,
+      "tier": 2,
       "frequency": "medium",
       "associations": [
         "effect",
@@ -14737,7 +15050,7 @@
       "word": "addition",
       "meaning": "增加；附加",
       "category": "noun",
-      "tier": 3,
+      "tier": 2,
       "frequency": "medium",
       "associations": [
         "add",
@@ -14756,7 +15069,7 @@
       "word": "agreement",
       "meaning": "同意；协议",
       "category": "noun",
-      "tier": 3,
+      "tier": 2,
       "frequency": "medium",
       "associations": [
         "agree",
@@ -14791,7 +15104,7 @@
       "word": "discovery",
       "meaning": "发现",
       "category": "noun",
-      "tier": 3,
+      "tier": 2,
       "frequency": "medium",
       "associations": [
         "discover",
@@ -14810,7 +15123,7 @@
       "word": "feature",
       "meaning": "特征；特点",
       "category": "noun",
-      "tier": 3,
+      "tier": 2,
       "frequency": "medium",
       "associations": [
         "characteristic",
@@ -14829,7 +15142,7 @@
       "word": "general",
       "meaning": "一般的；总的",
       "category": "adjective",
-      "tier": 3,
+      "tier": 2,
       "frequency": "medium",
       "associations": [
         "usual",
@@ -14886,7 +15199,7 @@
       "word": "height",
       "meaning": "高度；身高",
       "category": "noun",
-      "tier": 3,
+      "tier": 2,
       "frequency": "medium",
       "associations": [
         "high",
@@ -14899,13 +15212,14 @@
         "eight"
       ],
       "example": "What is the height of the mountain?",
-      "memory_tip": "height=高度"
+      "memory_tip": "height=高度",
+      "overlap": "primary"
     },
     "humor": {
       "word": "humor",
       "meaning": "幽默",
       "category": "noun",
-      "tier": 3,
+      "tier": 2,
       "frequency": "medium",
       "associations": [
         "funny",
@@ -14924,7 +15238,7 @@
       "word": "introduction",
       "meaning": "介绍；引言",
       "category": "noun",
-      "tier": 3,
+      "tier": 2,
       "frequency": "medium",
       "associations": [
         "introduce",
@@ -14943,7 +15257,7 @@
       "word": "invention",
       "meaning": "发明",
       "category": "noun",
-      "tier": 3,
+      "tier": 2,
       "frequency": "medium",
       "associations": [
         "invent",
@@ -14959,7 +15273,7 @@
       "word": "lifestyle",
       "meaning": "生活方式",
       "category": "noun",
-      "tier": 3,
+      "tier": 2,
       "frequency": "medium",
       "associations": [
         "life",
@@ -15004,13 +15318,14 @@
       ],
       "confusables": "misunderstand",
       "example": "I made a mistake in the test.",
-      "memory_tip": "mis+take(拿)=拿错了=错误"
+      "memory_tip": "mis+take(拿)=拿错了=错误",
+      "overlap": "primary"
     },
     "native": {
       "word": "native",
       "meaning": "本地的；本族的",
       "category": "adjective",
-      "tier": 3,
+      "tier": 2,
       "frequency": "medium",
       "associations": [
         "local",
@@ -15026,7 +15341,7 @@
       "word": "notebook",
       "meaning": "笔记本",
       "category": "noun",
-      "tier": 3,
+      "tier": 2,
       "frequency": "medium",
       "associations": [
         "book",
@@ -15036,13 +15351,14 @@
       ],
       "confusables": "nobody",
       "example": "Please bring your notebook.",
-      "memory_tip": "note+book=笔记本"
+      "memory_tip": "note+book=笔记本",
+      "overlap": "primary"
     },
     "organized": {
       "word": "organized",
       "meaning": "有组织的",
       "category": "adjective",
-      "tier": 3,
+      "tier": 2,
       "frequency": "medium",
       "associations": [
         "order",
@@ -15058,7 +15374,7 @@
       "word": "passenger",
       "meaning": "乘客",
       "category": "noun",
-      "tier": 3,
+      "tier": 2,
       "frequency": "medium",
       "associations": [
         "travel",
@@ -15071,13 +15387,14 @@
         "past"
       ],
       "example": "There are many passengers on the bus.",
-      "memory_tip": "passenger=乘客"
+      "memory_tip": "passenger=乘客",
+      "overlap": "primary"
     },
     "positive": {
       "word": "positive",
       "meaning": "积极的；肯定的",
       "category": "adjective",
-      "tier": 3,
+      "tier": 2,
       "frequency": "medium",
       "associations": [
         "negative",
@@ -15093,7 +15410,7 @@
       "word": "praise",
       "meaning": "表扬；赞扬",
       "category": "verb",
-      "tier": 3,
+      "tier": 2,
       "frequency": "medium",
       "associations": [
         "encourage",
@@ -15109,7 +15426,7 @@
       "word": "pressure",
       "meaning": "压力",
       "category": "noun",
-      "tier": 3,
+      "tier": 2,
       "frequency": "medium",
       "associations": [
         "stress",
@@ -15128,7 +15445,7 @@
       "word": "process",
       "meaning": "过程；程序",
       "category": "noun",
-      "tier": 3,
+      "tier": 2,
       "frequency": "medium",
       "associations": [
         "step",
@@ -15147,7 +15464,7 @@
       "word": "product",
       "meaning": "产品",
       "category": "noun",
-      "tier": 3,
+      "tier": 2,
       "frequency": "medium",
       "associations": [
         "goods",
@@ -15166,7 +15483,7 @@
       "word": "program",
       "meaning": "节目；程序",
       "category": "noun",
-      "tier": 3,
+      "tier": 2,
       "frequency": "medium",
       "associations": [
         "show",
@@ -15179,13 +15496,14 @@
         "progress"
       ],
       "example": "I watched a TV program.",
-      "memory_tip": "program=节目"
+      "memory_tip": "program=节目",
+      "overlap": "primary"
     },
     "project": {
       "word": "project",
       "meaning": "项目；工程",
       "category": "noun",
-      "tier": 3,
+      "tier": 2,
       "frequency": "medium",
       "associations": [
         "plan",
@@ -15198,13 +15516,14 @@
         "protect"
       ],
       "example": "We are working on a science project.",
-      "memory_tip": "project=项目"
+      "memory_tip": "project=项目",
+      "overlap": "primary"
     },
     "publish": {
       "word": "publish",
       "meaning": "出版；发表",
       "category": "verb",
-      "tier": 3,
+      "tier": 2,
       "frequency": "medium",
       "associations": [
         "print",
@@ -15223,7 +15542,7 @@
       "word": "punish",
       "meaning": "惩罚",
       "category": "verb",
-      "tier": 3,
+      "tier": 2,
       "frequency": "medium",
       "associations": [
         "reward",
@@ -15242,7 +15561,7 @@
       "word": "quarter",
       "meaning": "四分之一；一刻钟",
       "category": "noun",
-      "tier": 3,
+      "tier": 2,
       "frequency": "medium",
       "associations": [
         "fourth",
@@ -15255,13 +15574,14 @@
         "queen"
       ],
       "example": "A quarter of the students passed.",
-      "memory_tip": "quarter=四分之一"
+      "memory_tip": "quarter=四分之一",
+      "overlap": "primary"
     },
     "request": {
       "word": "request",
       "meaning": "请求；要求",
       "category": "noun",
-      "tier": 3,
+      "tier": 2,
       "frequency": "medium",
       "associations": [
         "ask",
@@ -15280,7 +15600,7 @@
       "word": "responsibility",
       "meaning": "责任",
       "category": "noun",
-      "tier": 3,
+      "tier": 2,
       "frequency": "medium",
       "associations": [
         "duty",
@@ -15299,7 +15619,7 @@
       "word": "reward",
       "meaning": "奖励；回报",
       "category": "noun",
-      "tier": 3,
+      "tier": 2,
       "frequency": "medium",
       "associations": [
         "prize",
@@ -15318,7 +15638,7 @@
       "word": "safety",
       "meaning": "安全",
       "category": "noun",
-      "tier": 3,
+      "tier": 2,
       "frequency": "medium",
       "associations": [
         "safe",
@@ -15334,7 +15654,7 @@
       "word": "service",
       "meaning": "服务",
       "category": "noun",
-      "tier": 3,
+      "tier": 2,
       "frequency": "medium",
       "associations": [
         "serve",
@@ -15350,7 +15670,7 @@
       "word": "silence",
       "meaning": "沉默；安静",
       "category": "noun",
-      "tier": 3,
+      "tier": 2,
       "frequency": "medium",
       "associations": [
         "quiet",
@@ -15366,7 +15686,7 @@
       "word": "smoke",
       "meaning": "吸烟；烟",
       "category": "verb",
-      "tier": 3,
+      "tier": 2,
       "frequency": "medium",
       "associations": [
         "cigarette",
@@ -15379,13 +15699,14 @@
         "snake"
       ],
       "example": "Smoking is bad for your health.",
-      "memory_tip": "smoke=吸烟"
+      "memory_tip": "smoke=吸烟",
+      "overlap": "primary"
     },
     "stomach": {
       "word": "stomach",
       "meaning": "胃；肚子",
       "category": "noun",
-      "tier": 3,
+      "tier": 2,
       "frequency": "medium",
       "associations": [
         "food",
@@ -15398,13 +15719,14 @@
         "store"
       ],
       "example": "My stomach hurts.",
-      "memory_tip": "stomach胃"
+      "memory_tip": "stomach胃",
+      "overlap": "primary"
     },
     "system": {
       "word": "system",
       "meaning": "系统；制度",
       "category": "noun",
-      "tier": 3,
+      "tier": 2,
       "frequency": "medium",
       "associations": [
         "method",
@@ -15420,7 +15742,7 @@
       "word": "topic",
       "meaning": "话题；主题",
       "category": "noun",
-      "tier": 3,
+      "tier": 2,
       "frequency": "medium",
       "associations": [
         "subject",
@@ -15436,7 +15758,7 @@
       "word": "value",
       "meaning": "价值",
       "category": "noun",
-      "tier": 3,
+      "tier": 2,
       "frequency": "medium",
       "associations": [
         "price",
@@ -15452,7 +15774,7 @@
       "word": "view",
       "meaning": "风景；观点",
       "category": "noun",
-      "tier": 3,
+      "tier": 2,
       "frequency": "medium",
       "associations": [
         "opinion",
@@ -15468,7 +15790,7 @@
       "word": "wealth",
       "meaning": "财富",
       "category": "noun",
-      "tier": 3,
+      "tier": 2,
       "frequency": "medium",
       "associations": [
         "money",
@@ -15484,7 +15806,7 @@
       "word": "weight",
       "meaning": "重量；体重",
       "category": "noun",
-      "tier": 3,
+      "tier": 2,
       "frequency": "medium",
       "associations": [
         "heavy",
@@ -15494,13 +15816,14 @@
       ],
       "confusables": "height",
       "example": "What is your weight?",
-      "memory_tip": "weight=重量"
+      "memory_tip": "weight=重量",
+      "overlap": "primary"
     },
     "wood": {
       "word": "wood",
       "meaning": "木头；树木",
       "category": "noun",
-      "tier": 3,
+      "tier": 2,
       "frequency": "medium",
       "associations": [
         "tree",

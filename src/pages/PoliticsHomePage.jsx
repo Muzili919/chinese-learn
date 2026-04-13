@@ -1,5 +1,6 @@
 import { useMemo } from 'react'
 import { storage, calcLevel, calcLevelProgress } from '../utils/storage'
+import { diagnose, getWeakPoints } from '../utils/diagnosis'
 
 const POLITICS_PLANETS = [
   { id: 'pol_choice',   label: '基石星球', emoji: '🏛️', color: 'from-blue-400 to-blue-600',    desc: '选择题·基础概念·法律条文' },
@@ -8,6 +9,14 @@ const POLITICS_PLANETS = [
   { id: 'pol_explore',  label: '行动星球', emoji: '🔬', color: 'from-emerald-400 to-teal-600',  desc: '实践探究·倡议书·辩论稿' },
   { id: 'pol_self_test',label: '模拟考场', emoji: '🎯', color: 'from-red-500 to-rose-600',       desc: 'AI组卷·中考比例·能力诊断', isSelfTest: true },
 ]
+
+// 弱项标签 → politicsTag 映射
+const WEAK_TAG_MAP = {
+  '选择题': 'pol_choice',
+  '简答题': 'pol_answer',
+  '材料分析题': 'pol_analysis',
+  '实践探究题': 'pol_explore',
+}
 
 export default function PoliticsHomePage({ user, onStartQuiz, onBack }) {
   const xp = storage.getXP(user.id)
@@ -18,6 +27,7 @@ export default function PoliticsHomePage({ user, onStartQuiz, onBack }) {
 
   const xpPct = Math.min(100, (levelProgress.currentExp / levelProgress.requiredExp) * 100)
 
+  // 今日正确率
   const todayCorrect = useMemo(() => {
     const today = new Date().toISOString().slice(0, 10)
     const todayR = records.filter(r => r.timestamp?.startsWith(today) && r.subject === 'politics')
@@ -25,6 +35,7 @@ export default function PoliticsHomePage({ user, onStartQuiz, onBack }) {
     return Math.round(todayR.filter(r => r.correct).length / todayR.length * 100)
   }, [records])
 
+  // 总正确率
   const totalAccuracy = useMemo(() => {
     const polR = records.filter(r => r.subject === 'politics')
     return polR.length > 0 ? Math.round(polR.filter(r => r.correct).length / polR.length * 100) : 0
@@ -40,6 +51,14 @@ export default function PoliticsHomePage({ user, onStartQuiz, onBack }) {
     return set
   }, [records])
 
+  // 道法弱项诊断
+  const polWeakPoints = useMemo(() => {
+    const polRecords = records.filter(r => r.subject === 'politics')
+    if (polRecords.length < 3) return []
+    const diagResult = diagnose(polRecords)
+    return getWeakPoints(diagResult).filter(wp => wp.tag && WEAK_TAG_MAP[wp.tag])
+  }, [records])
+
   const TAG_TO_PLANET = {
     '选择题': 'pol_choice', '简答题': 'pol_answer',
     '材料分析题': 'pol_analysis', '实践探究题': 'pol_explore',
@@ -49,60 +68,75 @@ export default function PoliticsHomePage({ user, onStartQuiz, onBack }) {
     return [...practicedToday].some(tag => TAG_TO_PLANET[tag] === planet.id)
   }
 
+  function handleWeakTagClick(tag) {
+    const mapped = WEAK_TAG_MAP[tag]
+    if (mapped) onStartQuiz({ politicsTag: mapped })
+  }
+
   return (
-    <div className="min-h-screen flex flex-col">
-      {/* 顶部栏 */}
+    <div className="min-h-screen flex flex-col bg-gray-50">
+      {/* ====== 顶部栏（与语文统一） ====== */}
       <div className="bg-white shadow-sm" style={{ paddingTop: 'env(safe-area-inset-top, 36px)' }}>
-        <div className="flex items-center gap-3 px-4 pt-3 pb-2">
-          <button
-            onClick={onBack}
-            className="w-9 h-9 flex items-center justify-center bg-gray-100 rounded-xl text-lg font-bold text-gray-500 active:bg-gray-200 transition-colors"
-          >←</button>
+        {/* 返回 + 标题 */}
+        <div className="px-4 pt-3 pb-2 flex items-center gap-3">
+          <button onClick={onBack} className="w-9 h-9 flex items-center justify-center bg-gray-100 rounded-xl text-lg font-bold text-gray-500 active:bg-gray-200 transition-colors">←</button>
           <div className="flex-1">
             <h1 className="text-xl font-bold text-gray-800">道德与法治 ⚖️</h1>
-            <p className="text-xs text-gray-400">
+            <p className="text-xs text-gray-400 mt-0.5">
               {streak.count > 0 ? `已连续学习 ${streak.count} 天 🔥` : '今天开始第一天打卡吧！'}
             </p>
           </div>
         </div>
 
-        {/* 数据卡片 */}
-        <div className="flex gap-2 px-4 pb-3 mt-1">
-          <div className="flex-1 rounded-2xl p-3"
-            style={{ background: 'linear-gradient(135deg, #f5f3ff, #ddd6fe)' }}>
-            <div className="flex items-baseline gap-1 justify-center">
-              <span className="text-2xl font-extrabold text-violet-600">Lv.{level}</span>
-            </div>
-            <div className="w-full bg-violet-100 rounded-full h-1.5 mt-1.5">
-              <div
-                className="bg-gradient-to-r from-violet-400 to-purple-500 h-1.5 rounded-full transition-all"
-                style={{ width: `${xpPct}%` }}
-              />
-            </div>
-            <div className="text-[9px] text-violet-400 text-center mt-0.5">
-              {levelProgress.currentExp}/{levelProgress.requiredExp} XP
-            </div>
-          </div>
-
-          <div className="flex-1 rounded-2xl p-3 text-center"
-            style={{ background: 'linear-gradient(135deg, #fff7ed, #fed7aa)' }}>
+        {/* 三张数据卡 - 统一配色（橙/靛/绿） */}
+        <div className="flex gap-2 px-4 pb-3 mt-2">
+          {/* 连胜 - 橙色 */}
+          <div className="flex-1 rounded-2xl p-3 text-center" style={{ background: 'linear-gradient(135deg, #fff7ed, #fed7aa)' }}>
             <div className="text-2xl font-extrabold text-orange-500">{streak.count}</div>
             <div className="text-[10px] text-orange-400 font-medium mt-0.5">连续天数 🔥</div>
           </div>
-
-          <div className="flex-1 rounded-2xl p-3 text-center"
-            style={{ background: 'linear-gradient(135deg, #f0fdf4, #bbf7d0)' }}>
-            <div className="text-2xl font-extrabold text-green-600">
-              {todayCorrect !== null ? `${todayCorrect}%` : `${totalAccuracy}%`}
+          {/* 等级 - 靛蓝 */}
+          <div className="flex-1 rounded-2xl p-3" style={{ background: 'linear-gradient(135deg, #f5f3ff, #ddd6fe)' }}>
+            <div className="flex items-baseline gap-1 justify-center">
+              <span className="text-2xl font-extrabold text-indigo-600">Lv.{level}</span>
             </div>
-            <div className="text-[10px] text-green-500 font-medium mt-0.5">
-              {todayCorrect !== null ? '今日正确率' : '总正确率'} ✅
+            <div className="w-full bg-indigo-100 rounded-full h-1.5 mt-1.5">
+              <div className="bg-gradient-to-r from-indigo-400 to-purple-500 h-1.5 rounded-full transition-all" style={{ width: `${xpPct}%` }} />
             </div>
+            <div className="text-[9px] text-indigo-400 text-center mt-0.5">{levelProgress.currentExp}/{levelProgress.requiredExp} XP</div>
+          </div>
+          {/* 正确率 - 绿色 */}
+          <div className="flex-1 rounded-2xl p-3 text-center" style={{ background: 'linear-gradient(135deg, #f0fdf4, #bbf7d0)' }}>
+            <div className="text-2xl font-extrabold text-green-600">{todayCorrect !== null ? `${todayCorrect}%` : `${totalAccuracy}%`}</div>
+            <div className="text-[10px] text-green-500 font-medium mt-0.5">{todayCorrect !== null ? '今日正确率 ✅' : '总正确率 ✅'}</div>
           </div>
         </div>
       </div>
 
-      {/* 知识模块分布 */}
+      {/* ====== 弱项建议区域（紫罗兰色调） ====== */}
+      {polWeakPoints.length > 0 && (
+        <div className="mx-4 mt-3 p-3 bg-violet-50 border border-violet-100 rounded-xl">
+          <div className="text-xs font-semibold text-violet-700 mb-2 flex items-center gap-1">
+            💡 道法弱项建议
+          </div>
+          <div className="flex flex-wrap gap-1.5">
+            {polWeakPoints.map((wp) => (
+              <button
+                key={wp.tag}
+                onClick={() => handleWeakTagClick(wp.tag)}
+                className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-medium
+                  bg-gradient-to-r from-violet-100 to-violet-200 text-violet-800
+                  hover:from-violet-200 hover:to-violet-300 active:scale-95 transition-all"
+              >
+                {wp.tag}
+                <span className="text-violet-500 font-bold">{wp.accuracy}%</span>
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* ====== 知识模块分布（保留道法特有功能） ====== */}
       <div className="px-4 pt-3 pb-1">
         <div className="flex gap-2 flex-wrap">
           {[
@@ -120,15 +154,16 @@ export default function PoliticsHomePage({ user, onStartQuiz, onBack }) {
         </div>
       </div>
 
-      {/* 星球卡片列表 */}
+      {/* ====== 星球区 - 网格布局 ====== */}
       <div className="flex-1 px-4 pt-3 pb-8">
         <div className="flex items-center justify-between mb-3">
-          <h2 className="text-base font-semibold text-gray-600">选择星球开始闯关</h2>
+          <h2 className="text-base font-semibold text-gray-700">⚖️ 道法学习星球</h2>
           <span className="text-xs text-gray-400">
-            今日已练 {POLITICS_PLANETS.filter(p => isPracticed(p)).length}/{POLITICS_PLANETS.length} 个星球
+            今日已练 {POLITICS_PLANETS.filter(p => isPracticed(p)).length}/{POLITICS_PLANETS.length}
           </span>
         </div>
-        <div className="flex flex-col gap-3">
+        {/* grid-cols-3：前4个占满两行，第5个模拟考场在第三行居中 */}
+        <div className="grid grid-cols-3 gap-2.5 justify-items-center">
           {POLITICS_PLANETS.map((planet) => {
             const done = isPracticed(planet)
             return (
@@ -138,21 +173,11 @@ export default function PoliticsHomePage({ user, onStartQuiz, onBack }) {
                   if (planet.isSelfTest) onStartQuiz({ selfTest: true, selfTestSubject: 'politics' })
                   else onStartQuiz({ politicsTag: planet.id })
                 }}
-                className={`w-full bg-gradient-to-r ${planet.color} text-white rounded-2xl p-4 flex items-center gap-4 shadow-sm active:scale-95 transition-transform`}
+                className={`bg-gradient-to-br ${planet.color} text-white rounded-xl p-3 flex flex-col items-center justify-center gap-1 shadow-sm active:scale-95 transition-transform w-full min-w-0 ${done ? 'ring-2 ring-green-300 opacity-80' : ''}`}
               >
-                <span className="text-4xl">{planet.emoji}</span>
-                <div className="text-left flex-1">
-                  <div className="font-bold text-base flex items-center gap-2">
-                    {planet.label}
-                    {done && (
-                      <span className="text-xs bg-white/30 text-white font-semibold px-2 py-0.5 rounded-full">
-                        ✓今日已练
-                      </span>
-                    )}
-                  </div>
-                  <div className="text-sm opacity-80">{planet.desc}</div>
-                </div>
-                <span className="text-2xl opacity-60">→</span>
+                <span className="text-3xl">{planet.emoji}</span>
+                <span className="text-xs font-bold text-center leading-tight truncate w-full px-1">{planet.label.replace('星球', '')}</span>
+                {done && <span className="text-[9px] bg-white/30 px-1.5 py-0.5 rounded-full">✓</span>}
               </button>
             )
           })}

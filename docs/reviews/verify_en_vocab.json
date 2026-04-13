@@ -1,0 +1,245 @@
+{
+  "reviewer": "fix-en-vocab (资深中考英语出题老师)",
+  "timestamp": "2026-04-13T10:45:00+08:00",
+  "total_questions": 120,
+  "summary": {
+    "total_changes": 45,
+    "errors_fixed": 3,
+    "design_issues_fixed": 24,
+    "duplicates_replaced": 10,
+    "template_residue_fixed": 2,
+    "difficulty_adjusted": 2,
+    "answer_balance_fixed": 4
+  },
+  "checks": [
+    {
+      "check": "无纸质用语",
+      "passed": true,
+      "issues": []
+    },
+    {
+      "check": "选择题答案格式（单字母ABCD）",
+      "passed": true,
+      "issues": []
+    },
+    {
+      "check": "选择题答案分布均衡",
+      "passed": true,
+      "issues": [],
+      "distribution": {
+        "C": 6,
+        "B": 6,
+        "A": 6,
+        "D": 6
+      }
+    },
+    {
+      "check": "发音题粗体标注目标字母",
+      "passed": true,
+      "issues": []
+    },
+    {
+      "check": "无模板残留",
+      "passed": true,
+      "issues": []
+    },
+    {
+      "check": "发音题答案正确性",
+      "passed": true,
+      "issues": [],
+      "verified_count": 24
+    },
+    {
+      "check": "发音题无重复语音点",
+      "passed": true,
+      "issues": [],
+      "unique_phonemes": [
+        "a",
+        "al",
+        "ay",
+        "c",
+        "ch",
+        "ea",
+        "ear",
+        "ee",
+        "ere",
+        "gh",
+        "i",
+        "ie",
+        "ng",
+        "o",
+        "oo",
+        "or",
+        "ou",
+        "ow",
+        "s",
+        "th",
+        "tion",
+        "u",
+        "w",
+        "wh"
+      ],
+      "phoneme_count": 24
+    },
+    {
+      "check": "en_vocab_042 词汇匹配正确（勤劳的->hard-working）",
+      "passed": true,
+      "issues": []
+    },
+    {
+      "check": "en_vocab_066 答案正确（C/says）",
+      "passed": true,
+      "issues": []
+    },
+    {
+      "check": "en_vocab_046 解析与题目匹配（ou发音）",
+      "passed": true,
+      "issues": []
+    },
+    {
+      "check": "en_vocab_028 音标注音正确",
+      "passed": true,
+      "issues": []
+    },
+    {
+      "check": "移动端友好题干",
+      "passed": true,
+      "issues": []
+    }
+  ],
+  "all_pass": true,
+  "difficulty_distribution": {
+    "基础(0.3)": 29,
+    "提升(0.5)": 66,
+    "拓展(0.7)": 25
+  },
+  "mc_answer_distribution": {
+    "C": 6,
+    "B": 6,
+    "A": 6,
+    "D": 6
+  },
+  "changes_made": [
+    {
+      "id": "en_vocab_042",
+      "type": "error_fix",
+      "detail": "中文提示'有礼貌的'改为'勤劳的'（hard-working）"
+    },
+    {
+      "id": "en_vocab_066",
+      "type": "error_fix",
+      "detail": "答案D->C（says的ay发/e/特殊发音），重写analysis"
+    },
+    {
+      "id": "en_vocab_046",
+      "type": "error_fix",
+      "detail": "重写analysis（ou发音，移除错误的ea模板）"
+    },
+    {
+      "id": "en_vocab_038",
+      "type": "template_fix",
+      "detail": "移除analysis中February/Saturday模板残留"
+    },
+    {
+      "id": "en_vocab_048",
+      "type": "template_fix",
+      "detail": "优化analysis，移除模板化表述"
+    },
+    {
+      "id": "en_vocab_028",
+      "type": "phonetic_fix",
+      "detail": "修正音标exercise /eksəsaɪz/、Monday /mʌndeɪ/"
+    },
+    {
+      "id": "24道发音题",
+      "type": "design_fix",
+      "detail": "移除'划线部分'纸质用语，改为移动端友好的题干并用粗体标注目标字母"
+    },
+    {
+      "id": "en_vocab_011",
+      "type": "duplicate_replace",
+      "detail": "a发音->or发音（work中or发/ɜː/）"
+    },
+    {
+      "id": "en_vocab_036",
+      "type": "duplicate_replace",
+      "detail": "ea发音->ie发音（tie中ie发/aɪ/）"
+    },
+    {
+      "id": "en_vocab_056",
+      "type": "duplicate_replace",
+      "detail": "ea发音->al发音（half中al发/ɑː/）"
+    },
+    {
+      "id": "en_vocab_061",
+      "type": "duplicate_replace",
+      "detail": "ch发音->ng发音（angry中ng发/ŋɡ/）"
+    },
+    {
+      "id": "en_vocab_081",
+      "type": "duplicate_replace",
+      "detail": "th发音->w发音（wr词中w不发音）"
+    },
+    {
+      "id": "en_vocab_091",
+      "type": "duplicate_replace",
+      "detail": "oo发音->ee发音（coffee中ee发/i/）"
+    },
+    {
+      "id": "en_vocab_101",
+      "type": "duplicate_replace",
+      "detail": "th发音->tion发音（question中tion发/tʃn/）"
+    },
+    {
+      "id": "en_vocab_106",
+      "type": "duplicate_replace",
+      "detail": "th发音->c发音（city中c发/s/）"
+    },
+    {
+      "id": "en_vocab_111",
+      "type": "duplicate_replace",
+      "detail": "a发音->o发音（nose中o发/əʊ/）"
+    },
+    {
+      "id": "en_vocab_021",
+      "type": "difficulty_adjust",
+      "detail": "难度0.7->0.5"
+    },
+    {
+      "id": "en_vocab_003",
+      "type": "difficulty_adjust",
+      "detail": "难度0.5->0.7"
+    },
+    {
+      "id": "4道发音题",
+      "type": "balance_fix",
+      "detail": "调整选项顺序，MC答案分布: A:6 B:6 C:6 D:6"
+    }
+  ],
+  "phoneme_coverage": [
+    "a",
+    "al",
+    "ay",
+    "c",
+    "ch",
+    "ea",
+    "ear",
+    "ee",
+    "ere",
+    "gh",
+    "i",
+    "ie",
+    "ng",
+    "o",
+    "oo",
+    "or",
+    "ou",
+    "ow",
+    "s",
+    "th",
+    "tion",
+    "u",
+    "w",
+    "wh"
+  ]
+}

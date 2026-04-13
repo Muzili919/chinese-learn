@@ -1,0 +1,11 @@
+[
+  {
+    "id": "shutdown-1776048311114",
+    "from": "team-lead",
+    "to": "review-en-grammar",
+    "type": "shutdown_request",
+    "content": "{\"type\":\"shutdown_request\",\"request_id\":\"shutdown-1776048311114\",\"reason\":\"任务完成，请关闭\",\"from\":\"team-lead\",\"timestamp\":\"2026-04-13T02:45:11.114Z\"}",
+    "timestamp": "2026-04-13T02:45:11.114Z",
+    "read": true
+  }
+]

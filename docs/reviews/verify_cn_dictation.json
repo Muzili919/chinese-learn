@@ -1,0 +1,207 @@
+{
+  "module": "cn_dictation",
+  "verify_time": "2026-04-13T10:42:00+08:00",
+  "verifier": "fix-cn-dictation (资深中考语文出题老师)",
+  "original_count": 442,
+  "final_count": 439,
+  "grade_distribution": {
+    "grade_4": 147,
+    "grade_5": 158,
+    "grade_6": 134
+  },
+  "fixes_applied": {
+    "pinyin_errors": [
+      {
+        "id": "cn_g4_106",
+        "word": "削",
+        "field": "pinyin",
+        "old_value": "xuē",
+        "new_value": "xiāo",
+        "reason": "削是多音字，削铅笔语境中应读xiāo（一声），xuē用于剥削等书面语"
+      },
+      {
+        "id": "cn_g4_127",
+        "word": "冠",
+        "field": "pinyin",
+        "old_value": "guān",
+        "new_value": "guàn",
+        "reason": "冠是多音字，冠军中应读guàn（四声），guān用于衣冠等名词义"
+      },
+      {
+        "id": "cn_g5_055",
+        "word": "估量",
+        "field": "pinyin",
+        "old_value": "gū liáng",
+        "new_value": "gū liàng",
+        "reason": "量是多音字，估量中应读liàng（四声），liáng仅用于测量等度量义"
+      },
+      {
+        "id": "cn_g5_090",
+        "word": "勒",
+        "field": "pinyin",
+        "old_value": "lè",
+        "new_value": "lēi",
+        "reason": "勒是多音字，勒住马口语义应读lēi（一声），lè用于勒索等书面语"
+      }
+    ],
+    "polyphone_annotations": [
+      {
+        "id": "cn_g4_037",
+        "word": "旋",
+        "field": "pinyin",
+        "old_value": "xuán",
+        "new_value": "xuán/xuàn",
+        "reason": "旋是多音字，盘旋读xuán，旋风读xuàn，标注多音字读音"
+      }
+    ],
+    "light_tone_standardization": [
+      {
+        "id": "cn_g5_138",
+        "word": "侄子",
+        "field": "pinyin",
+        "old_value": "zhí zi",
+        "new_value": "zhí zǐ",
+        "reason": "统一轻声标注规范，词典标准读音用三声zǐ"
+      }
+    ],
+    "bad_examples_improved": [
+      {
+        "id": "cn_g4_026",
+        "word": "滋味",
+        "old_example": "这道菜的滋味真好。",
+        "new_example": "妈妈做的红烧肉滋味鲜美，让人回味无穷。",
+        "reason": "原例句过于简单平淡，缺少情境感"
+      },
+      {
+        "id": "cn_g4_055",
+        "word": "腾云驾雾",
+        "old_example": "孙悟空能腾云驾雾。",
+        "new_example": "神话故事中，神仙腾云驾雾，自由飞翔。",
+        "reason": "原例句缺少上下文语境"
+      },
+      {
+        "id": "cn_g4_077",
+        "word": "面呈菜色",
+        "old_example": "他面呈菜色，显然很久没吃东西了。",
+        "new_example": "旧社会里，很多穷苦百姓面呈菜色，形容他们长期营养不良。",
+        "reason": "原例句用\"他\"作主语突兀，场景偏消极"
+      },
+      {
+        "id": "cn_g4_082",
+        "word": "财",
+        "old_example": "不要贪财。",
+        "new_example": "君子爱财，取之有道，不能贪财。",
+        "reason": "原例句过于简单生硬，缺少语境"
+      },
+      {
+        "id": "cn_g4_089",
+        "word": "鱼贯而出",
+        "old_example": "学生们鱼贯而出地走出教室。",
+        "new_example": "下课铃响了，同学们鱼贯而出，奔向操场。",
+        "reason": "原例句\"而出\"和\"走出\"语意重复，搭配生硬"
+      },
+      {
+        "id": "cn_g4_091",
+        "word": "气喘吁吁",
+        "old_example": "他跑得上气不接下气，气喘吁吁。",
+        "new_example": "他跑了一千米后，累得气喘吁吁。",
+        "reason": "原例句\"上气不接下气\"和\"气喘吁吁\"意思重复"
+      },
+      {
+        "id": "cn_g4_147",
+        "word": "绑",
+        "old_example": "坏人把人绑了起来。",
+        "new_example": "他用绳子把包裹绑在自行车上。",
+        "reason": "原例句情境偏负面"
+      },
+      {
+        "id": "cn_g5_059",
+        "word": "众星拱月",
+        "old_example": "群星环绕月亮，众星拱月。",
+        "new_example": "无数行星环绕着太阳，宛如众星拱月。",
+        "reason": "原例句语意完全重复，冗余"
+      },
+      {
+        "id": "cn_g6_052",
+        "word": "畜生",
+        "old_example": "那个坏蛋简直是畜生。",
+        "new_example": "闰土的父亲在旧社会里像畜生一样被人使唤，生活十分艰辛。",
+        "reason": "原例句用语偏激烈，不适合小学生；改为贴合课文语境"
+      },
+      {
+        "id": "cn_g6_101",
+        "word": "蚀",
+        "old_example": "月蚀是一种天文现象。",
+        "new_example": "流水侵蚀岩石，是大自然的一种力量。",
+        "reason": "现代汉语推荐\"月食\"非\"月蚀\"，改用侵蚀造句"
+      },
+      {
+        "id": "cn_g6_102",
+        "word": "乏",
+        "old_example": "他累得筋疲力乏。",
+        "new_example": "他忙了一整天，累得浑身乏力。",
+        "reason": "筋疲力乏不是规范成语，改为规范用语"
+      }
+    ],
+    "duplicates_removed": [
+      {
+        "id": "cn_g6_053",
+        "word": "囫囵吞枣",
+        "kept_in": "cn_g5_008（五年级上册，更早学习更合适）",
+        "reason": "跨年级重复，保留较早出现版本"
+      },
+      {
+        "id": "cn_g6_066",
+        "word": "震耳欲聋",
+        "kept_in": "cn_g5_048（五年级上册，更早学习更合适）",
+        "reason": "跨年级重复，保留较早出现版本"
+      },
+      {
+        "id": "cn_g6_109",
+        "word": "聚精会神",
+        "kept_in": "cn_g4_143（四年级下册，更早学习更合适）",
+        "reason": "跨年级重复，保留较早出现版本"
+      }
+    ]
+  },
+  "retained_as_is": [
+    {
+      "id": "cn_g4_046",
+      "word": "帝国主义",
+      "reason": "出自课文《圆明园的毁灭》，课文明确要求听写则保留"
+    },
+    {
+      "id": "cn_g4_049",
+      "word": "得意扬扬",
+      "reason": "人教版课文中使用\"得意扬扬\"，与课文保持一致"
+    },
+    {
+      "id": "cn_g4_056",
+      "word": "程控电话",
+      "reason": "出自课文《呼风唤雨的世纪》，保留课文要求词条"
+    },
+    {
+      "id": "cn_g5_064",
+      "word": "前仆后继",
+      "reason": "经核实拼音qián pū hòu jì标注正确（pū一声），无需修改"
+    }
+  ],
+  "mobile_compatibility": {
+    "max_example_length": 38,
+    "examples_over_40_chars": 0,
+    "all_examples_reasonable_length": true,
+    "note": "所有例句长度适中，适合手机屏幕显示"
+  },
+  "quality_verification": {
+    "json_valid": true,
+    "no_duplicates": true,
+    "all_pinyin_present": true,
+    "all_examples_present": true,
+    "polyphone_check_passed": true,
+    "fix_cn_g4_106_verified": "xiāo ✅",
+    "fix_cn_g4_127_verified": "guàn ✅",
+    "fix_cn_g5_055_verified": "gū liàng ✅",
+    "fix_cn_g5_090_verified": "lēi ✅"
+  },
+  "summary": "修复了4处拼音错误（多音字误标）、1处多音字标注补充、1处轻声规范统一、11条例句质量改进、3条跨年级重复删除。所有修改已验证，JSON格式正确，无重复词条，例句长度适合移动端显示。"
+}

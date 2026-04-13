@@ -1,0 +1,60 @@
+{
+  "task_info": {
+    "task": "句子题库扩充至120题",
+    "original_count": 91,
+    "added_count": 29,
+    "final_count": 120,
+    "date": "2026-04-13",
+    "generator": "gen-cn-sentence"
+  },
+  "new_questions_id_range": "sentence_099 ~ sentence_127",
+  "distribution": {
+    "by_type": {
+      "single_choice": 23,
+      "judgment": 1,
+      "fill_blank": 5
+    },
+    "by_difficulty": {
+      "2": 18,
+      "3": 2,
+      "1": 9
+    },
+    "by_grade": {
+      "6": 5,
+      "5": 15,
+      "4": 9
+    },
+    "choice_answer_distribution": {
+      "A": 5,
+      "B": 8,
+      "C": 6,
+      "D": 4
+    }
+  },
+  "category_coverage": {
+    "病句辨析与修改": 10,
+    "修辞手法判断": 5,
+    "标点符号使用": 4,
+    "关联词填空与使用": 4,
+    "句式转换理解": 3,
+    "语句排序与衔接": 3
+  },
+  "quality_checks": {
+    "no_paper_terms": true,
+    "answers_verified": true,
+    "mobile_friendly": true,
+    "difficulty_layered": true,
+    "id_continuous": true,
+    "abcd_balanced": "approximate",
+    "analysis_quality": true,
+    "grade_field_filled": true
+  },
+  "notes": [
+    "病句题全部为single_choice格式",
+    "修辞判断确保唯一最佳答案",
+    "标点覆盖对话/书名号/省略号/问号",
+    "关联词覆盖五种逻辑关系",
+    "排序涵盖说明文和议论文",
+    "难度：基础10题/提升16题/拓展3题"
+  ]
+}

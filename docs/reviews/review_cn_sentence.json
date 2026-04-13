@@ -1,0 +1,182 @@
+[
+  {
+    "question_id": "sentence_012",
+    "severity": "error",
+    "category": "wrong_answer",
+    "field": "answer",
+    "current_value": "（1）√ （2）√ （3）√ （4）√",
+    "description": "第（1）小题的关联词搭配有误。'不仅'应放在主语'他'之后，即'他不仅学习好，而且还乐于助人'。根据关联词位置规则，前后分句主语相同时，关联词应放在主语后面。原句中'不仅'出现在句首，虽然口语中可接受，但在标准语法教学中属于关联词位置不当的语病。如果答案是√，则与sentence_056、sentence_066的答案相矛盾（那两题将同类情况标记为错误）。教学标准应保持一致。",
+    "suggestion": "建议统一教学标准：如果是严格的语法教学，将第（1）题答案改为×，并解释关联词位置规则；如果是小学宽松标准，则需同时修改sentence_056和sentence_066的答案。建议采用严格标准，将第（1）题答案改为×，并在analysis中说明关联词位置规则。"
+  },
+  {
+    "question_id": "sentence_019",
+    "severity": "error",
+    "category": "wrong_answer",
+    "field": "answer",
+    "current_value": "（1）他不是没有克服困难。（2）他不可能不克服困难。",
+    "description": "答案字段中混入了AI的思考过程（'不对，意思不变应改为……更简单……为了准确……'），不应出现在最终答案中。另外，题目要求改为'否定句（意思不变）'，这在语法教学中是一个不清晰的要求——否定句通常本身就改变了句子的肯定/否定性质，'意思不变'只有在双重否定时才能实现。答案给出的是双重否定句，与第（2）小题的'改为双重否定句'要求重复。",
+    "suggestion": "方案一（推荐）：将第（1）题改为'改为反问句（意思不变）'，答案为'他不是没有克服困难吗？'。方案二：将第（1）题改为'改为双重否定句'，但这样与第（2）题重复。无论哪种方案，都必须清除answer字段中的AI思考文本。"
+  },
+  {
+    "question_id": "sentence_033",
+    "severity": "design_issue",
+    "category": "distractor_quality",
+    "field": "options",
+    "current_value": "A. 他宁可自己受苦，也要帮助别人。",
+    "description": "选项A'他宁可自己受苦，也要帮助别人。'本身没有语病，关联词'宁可……也……'搭配正确，逻辑合理（表达舍己为人的精神）。作为干扰项（错误的选项），该句缺乏明确的语法错误。在小学教学中，学生很难判断为何该句是错误的。",
+    "suggestion": "将选项A改为一个有明显关联词错误的句子，如'他宁可自己受苦，却帮助别人。'（关联词搭配不当）或'他只要刻苦学习，才能取得好成绩。'（'只要'与'才'搭配不当）。"
+  },
+  {
+    "question_id": "sentence_038",
+    "severity": "error",
+    "category": "wrong_answer",
+    "field": "answer",
+    "current_value": "（1）×",
+    "description": "答案标记为×（修改不正确），但analysis中明确说明'原句中全校师生已经包括校长，所以和校长是重复。修改后去掉了和校长，正确'，结论是'这个修改是正确的'。analysis内部还出现'我判断为√'和'因此答案为√'的AI自言自语。答案与分析结论完全矛盾。正确答案应为√。",
+    "suggestion": "将answer改为'（1）√'，并删除analysis中的AI思考过程文本。"
+  },
+  {
+    "question_id": "sentence_042",
+    "severity": "design_issue",
+    "category": "distractor_quality",
+    "field": "options",
+    "current_value": "（1）他虽然学习好，但是体育也很棒。",
+    "description": "第（1）小题被判为×，但原句'他虽然学习好，但是体育也很棒。'用'虽然……但是……'表示转折关系，语法上没有错误。从语义上看，'学习好'与'体育也很棒'确实构成轻微的递进或并列而非典型转折，但称其为'关联词使用错误'较为牵强。小学阶段此题容易引起争议。",
+    "suggestion": "将第（1）题改为更典型的关联词错误，如'他虽然学习好，而且体育也很棒。'（'虽然'应与'但是'搭配，不能与'而且'搭配），或'他不但学习好，但是体育也很棒。'（'不但'应与'而且'搭配）。"
+  },
+  {
+    "question_id": "sentence_050",
+    "severity": "error",
+    "category": "wrong_answer",
+    "field": "answer",
+    "current_value": "B. 他这个人很机灵，像猴子一样。",
+    "description": "答案认为B项'像猴子一样'是比较而非比喻，但标准小学语文教学中，将人比作动物是典型的明喻。人和猴子虽然都是动物，但属于不同种类，核心特征完全不同（人是高级智慧生物，猴子是非人灵长类），'像猴子一样'描述机灵敏捷的特征，是典型的比喻。应选A项'月亮越升越高，穿过一缕一缕轻纱似的微云'——'轻纱似的'修饰微云，描绘云的形态，属于比喻修辞（将微云比作轻纱），但这不属于'没有使用修辞手法'的选项。题目四个选项都使用了修辞手法，答案B存在争议。",
+    "suggestion": "建议修改选项，确保有一个明确不含修辞手法的选项。例如将B改为'他今天穿了蓝色的衣服'（纯陈述，无修辞），同时确认其他三个选项确实使用了修辞手法。"
+  },
+  {
+    "question_id": "sentence_052",
+    "severity": "design_issue",
+    "category": "format_issue",
+    "field": "answer",
+    "current_value": "√",
+    "description": "其他所有判断正误的fill_blank题（如sentence_007、018、022、032等）都采用'（1）√ （2）× （3）√ （4）×'的编号格式，但本题只有一个判断项却直接写'√'，缺少编号'（1）'前缀，与题库其他同类题目的格式不统一。",
+    "suggestion": "将answer改为'（1）√'，保持与题库中其他判断题的格式一致。"
+  },
+  {
+    "question_id": "sentence_056",
+    "severity": "design_issue",
+    "category": "distractor_quality",
+    "field": "options",
+    "current_value": "B. 不但他学习好，而且体育也很棒。",
+    "description": "选项B被判为错误，原因是关联词'不但'放在了主语'他'之前。但题目语境是前后分句主语相同（都是'他'），按严格语法规则，关联词应放在主语后面。然而在小学语文教学中，这一点的标准并不统一。如果sentence_012的第（1）题答案是√（'不仅学习好'，关联词在前），则本题答案与之矛盾。",
+    "suggestion": "与sentence_012统一教学标准。建议将选项B改为一个更明显的关联词搭配错误，如'他不但学习好，反而体育也很棒。'（'不但'不能与'反而'搭配）或'他不但学习好，所以体育也很棒。'（关联词搭配混乱）。"
+  },
+  {
+    "question_id": "sentence_066",
+    "severity": "design_issue",
+    "category": "distractor_quality",
+    "field": "options",
+    "current_value": "A. 他不但学习好，而且体育也很棒。",
+    "description": "选项A被判为错误（仅关联词位置问题），选项B、C、D语法上都正确。这意味着本题有一个正确答案和三个关联词正确的选项被标记为错误。但如果根据关联词位置规则（前后主语相同，关联词应在主语后），A项确实有语病。问题在于C项和D项也完全正确，学生需要排除两个'看起来正确但某处有细微问题'的选项，而C和D事实上没有问题。本题实际只有A和B的区别：A是位置问题，D是完美正确。",
+    "suggestion": "需要确认本题是否应该有多个正确选项。如果答案是唯一的D，需要给B和C也制造明确的错误。建议将C改为'如果明天不下雨，我们才去公园。'（'如果'应与'就'搭配，不能与'才'），将B保留或改为一个有更明显错误的选项。"
+  },
+  {
+    "question_id": "sentence_071",
+    "severity": "design_issue",
+    "category": "distractor_quality",
+    "field": "options",
+    "current_value": "（1）你写完作业了吗？妈妈问。写完就去吃饭。",
+    "description": "第（1）小题被判为√（标点正确），但标点存在问题：'妈妈问'后面的句号不正确。当提示语在两句引语中间时，应该用逗号，格式应为：'你写完作业了吗？'妈妈问，'写完就去吃饭。'或者直接分两个独立的对话段。虽然原格式'妈妈问。'在低年级可接受，但与sentence_017（答案C）和sentence_043（答案A）的判定标准不一致——那两题将提示语在中间用句号的格式判为错误。",
+    "suggestion": "与sentence_017、sentence_043保持一致的标准。建议将第（1）题的标点改为有问题的版本（用逗号替代句号的地方），或将答案改为×并在analysis中说明提示语后的标点应为逗号。也可以修改题目本身，让提示语后的标点为逗号，答案为√。"
+  },
+  {
+    "question_id": "sentence_077",
+    "severity": "design_issue",
+    "category": "distractor_quality",
+    "field": "answer",
+    "current_value": "（1）√",
+    "description": "第（1）小题答案为√，即认为'桃花潭水深千尺，不及汪伦送我情'同时运用了夸张和比喻。'深千尺'确实是夸张，但整句是运用了'夸张'和'比较/衬托'，而非比喻。诗句没有将'送我情'比作某种具体事物，而是用潭水之深来衬托友情之深，这是'衬托'手法而非'比喻'。标准教学资料中该句主要修辞为'夸张'和'衬托'。",
+    "suggestion": "将第（1）题的描述改为'运用了夸张和衬托'，答案改为×（原题说'夸张和比喻'是错误的）。或者在analysis中明确说明：该句主要修辞为夸张和衬托，不含比喻。"
+  },
+  {
+    "question_id": "sentence_082",
+    "severity": "error",
+    "category": "wrong_answer",
+    "field": "options",
+    "current_value": "C. 《红楼梦》、《水浒传》、《西游记》是中国的四大名著。",
+    "description": "选项C被判为错误（因书名号间有顿号），但其还有另一个更严重的语病：只列举了三部名著却说是'四大名著'，前后矛盾（缺少《三国演义》）。应同时指出两个问题。",
+    "suggestion": "在analysis中同时指出标点和逻辑两个问题：①书名号之间不应加顿号；②只列举三部却说'四大名著'，应改为'三大名著'或补齐第四部。也可以将选项C修改为只有标点问题的版本，如'《红楼梦》、《水浒传》是中国的古典名著。'"
+  },
+  {
+    "question_id": "sentence_097",
+    "severity": "error",
+    "category": "wrong_answer",
+    "field": "answer",
+    "current_value": "（2）×",
+    "description": "第（2）小题'你明天会来吗？我想你一定会来的。'被判为×（不是设问），但该句完全符合设问的定义：先提出问题'你明天会来吗？'，紧接着给出回答'我想你一定会来的'。有问有答、自问自答，是标准的设问句。答案应为√。",
+    "suggestion": "将第（2）题答案改为√，并在analysis中说明：该句先提出问题，接着给出回答，是典型的设问。"
+  },
+  {
+    "question_id": "sentence_092",
+    "severity": "design_issue",
+    "category": "distractor_quality",
+    "field": "options",
+    "current_value": "C. 他不但学习好，而且体育也很棒。",
+    "description": "选项C被判为错误，但'他不但学习好，而且体育也很棒。'关联词搭配正确（不但……而且……），递进关系合理。唯一的争议点是关联词位置（前后主语相同应放在主语后），但这一标准在题库中不一致（sentence_012同类情况判为√）。如果答案是A，则B、C、D都需要有明确错误，但C和D事实上语法正确。",
+    "suggestion": "建议将C改为有明显错误的选项，如'他不但学习好，而且他很棒。'（缺少后半句内容，表达不完整）或'不但他学习好，而且体育也很棒。'（与A项的'即使……也……'形成对比）。注意与sentence_012保持关联词位置标准的一致。"
+  },
+  {
+    "question_id": "整体",
+    "severity": "suggestion",
+    "category": "difficulty_mismatch",
+    "field": "difficulty",
+    "current_value": "全部91题difficulty均为2",
+    "description": "全部91道题的difficulty字段都设为2，但题目实际难度差异明显。例如：缩句题（保留双重否定、保留可能等词）明显比简单的'把'字句/被'字句转换更难；综合修辞辨析题比单一修辞判断更难；病句修改中的'前后矛盾'比'搭配不当'更难。建议至少区分2-3个难度等级。",
+    "suggestion": "建议将题库难度分层：基础题（difficulty: 1）：把/被字句互换、简单的陈述句改反问句、单一修辞判断等；中等题（difficulty: 2）：病句修改、缩句（不涉及保留否定词）、关联词搭配等；较难题（difficulty: 3）：缩句需保留否定/双重否定词、综合修辞辨析、间接引语的人称转换等。"
+  },
+  {
+    "question_id": "整体",
+    "severity": "suggestion",
+    "category": "other",
+    "field": "ability_tag",
+    "current_value": "大量标点符号题标注为'句式转换'",
+    "description": "标点符号相关的题目（如sentence_017、022、032、043、053、061、071、082、091）的ability_tag全部标注为'句式转换'，但标点符号考查的能力与句式转换无关。应标注为'标点符号'或新增相应标签。",
+    "suggestion": "将所有标点符号相关题目的ability_tag改为'标点符号'，与knowledge_tag保持一致或新增一个对应的ability_tag。"
+  },
+  {
+    "question_id": "整体",
+    "severity": "suggestion",
+    "category": "other",
+    "field": "grade",
+    "current_value": "全部91题grade均为5",
+    "description": "全部91道题的grade字段都设为5（五年级），但部分题目内容更适合四年级或六年级。例如：基础的反问句/陈述句互换适合四年级；'通过……使……'句式杂糅、双重否定缩句等更适合六年级。建议根据知识点实际所属年级调整。",
+    "suggestion": "建议按人教版教材知识点分布调整年级标注。四年级：反问句/陈述句互换、把/被字句、简单标点、比喻/拟人/夸张的基本判断；五年级：病句修改（前后矛盾、搭配不当、语序不当）、关联词搭配、缩句基础；六年级：间接引语人称转换、缩句保留否定词、句式杂糅、综合修辞辨析、设问与反问区分。"
+  },
+  {
+    "question_id": "整体",
+    "severity": "suggestion",
+    "category": "other",
+    "field": "question",
+    "current_value": "多处使用纸质考试用语",
+    "description": "题库中多处使用纸质考试用语，如'写在横线上'（sentence_009、014、024、034、044、063、073、083、093）、'打√'和'打×'（sentence_007、018等判断题）。这些表述在数字化答题界面中不够友好，学生可能困惑'横线在哪里'。",
+    "suggestion": "将'写在横线上'统一改为'写出修改后的句子'或'请修改下列病句'；将'正确的打√，错误的打×'改为'正确的填T，错误的填F'或在选项中提供√和×供选择。"
+  },
+  {
+    "question_id": "sentence_019",
+    "severity": "error",
+    "category": "format_issue",
+    "field": "analysis",
+    "current_value": "考点：本题考查否定句和双重否定句的转换。……",
+    "description": "analysis字段虽然表面上看起来是正常的教学分析，但结合answer字段中的思考过程，说明该题在生成时AI没有正确区分'思考过程'和'最终输出'，answer字段暴露了生成过程。",
+    "suggestion": "重写sentence_019的answer字段，只保留最终答案：'（1）他不是没有克服困难。（2）他不可能不克服困难。'"
+  },
+  {
+    "question_id": "sentence_038",
+    "severity": "error",
+    "category": "format_issue",
+    "field": "analysis",
+    "current_value": "考点：本题考查病句修改的正确性。…我判断为√。但常见考题中…因此答案为√。",
+    "description": "analysis字段中包含AI的自我对话过程：'我判断为√''因此答案为√'等，不应出现在面向学生的解析中。且analysis结论（√）与answer字段（×）矛盾。",
+    "suggestion": "重写analysis，删除AI思考过程，统一答案和分析的结论。"
+  }
+]

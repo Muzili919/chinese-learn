@@ -1,0 +1,81 @@
+{
+  "report_type": "post_fix_verification",
+  "module": "成语",
+  "verified_at": "2026-04-13",
+  "verifier": "fix-cn-idiom (资深出题老师视角)",
+  "original_count": 75,
+  "final_count": 63,
+  "validation_passed": true,
+  "summary": {
+    "deleted_duplicates": 12,
+    "fixed_answers": 10,
+    "fixed_distractors": 6,
+    "fixed_analysis": 5,
+    "fixed_digital_language": 8,
+    "renumbered_ids": true,
+    "balanced_answer_distribution": true
+  },
+  "deletions": [
+    {"id": "idiom_028", "reason": "与idiom_015重复（形容声音非常大的成语）"},
+    {"id": "idiom_030", "reason": "与idiom_004重复（理直气壮近义词）"},
+    {"id": "idiom_036", "reason": "与idiom_026重复（AABC/ABCC结构辨析）"},
+    {"id": "idiom_040", "reason": "与idiom_020完全重复"},
+    {"id": "idiom_043", "reason": "与idiom_013完全重复"},
+    {"id": "idiom_049", "reason": "与idiom_003高度重复且答案矛盾"},
+    {"id": "idiom_066", "reason": "与idiom_026重复（结构辨析）"},
+    {"id": "idiom_071", "reason": "与idiom_009重复（同一组选项）"},
+    {"id": "idiom_073", "reason": "与idiom_013第三次重复"},
+    {"id": "idiom_076", "reason": "与idiom_006完全重复（感情色彩）"},
+    {"id": "idiom_077", "reason": "与idiom_037完全重复（书写题）"},
+    {"id": "idiom_079", "reason": "与idiom_020第三次重复"}
+  ],
+  "key_fixes": [
+    {"id": "idiom_009", "fix": "D选项从'锦上添花误用'改为'赞不绝口'（正确用法），确保A为唯一错误答案"},
+    {"id": "idiom_012", "fix": "B项语法修正为'给祖国文化造成了不可估量的损失'，答案改为D"},
+    {"id": "idiom_028_new", "fix": "原idiom_031重写为'使用不恰当'题，D为唯一错误答案"},
+    {"id": "idiom_030_new", "fix": "原idiom_033的B项修正为语意矛盾的用法"},
+    {"id": "idiom_052", "fix": "原idiom_061的B项绰标注为zhuō（错误读音），消除双正确答案"},
+    {"id": "idiom_054", "fix": "原idiom_063的B项保留但analysis明确D为最典型正确答案"},
+    {"id": "idiom_048", "fix": "原题与idiom_013高度重复（理直气壮反义），改为完璧归赵反义题"},
+    {"id": "idiom_036_new", "fix": "原idiom_041的C项'痴：痴呆'有争议，替换为'举一反三（反：类推）'"},
+    {"id": "idiom_043", "fix": "原D项不含成语，改为含'关怀备至'的正确用法句"},
+    {"id": "idiom_047", "fix": "原C项'兴高采烈做体操'有争议，改为'参加运动会'"},
+    {"id": "idiom_049_new", "fix": "原idiom_059的analysis混入其他题目内容，完全重写"},
+    {"id": "idiom_022", "fix": "原C项畏首畏尾用法不够明确，改为明显的褒贬误用"},
+    {"id": "idiom_027", "fix": "原B项错误改为D项矛盾搭配（络绎不绝+鸦雀无声）"},
+    {"id": "idiom_050", "fix": "原B项错误改为D项大词小用（举世闻名用于公园）"},
+    {"id": "idiom_001", "fix": "C项改为明显语境错误（不及格还兴高采烈），D改为正确用法"}
+  ],
+  "quality_metrics": {
+    "total_questions": 63,
+    "answer_distribution": {"A": 16, "B": 16, "C": 16, "D": 15},
+    "difficulty_distribution": {"level_2": 63},
+    "grade_coverage": {"grade_5": 63},
+    "question_type_distribution": {
+      "usage_correct_inappropriate": 18,
+      "writing_correct": 15,
+      "meaning_synonym_antonym": 8,
+      "feeling_color": 4,
+      "pronunciation": 4,
+      "character_meaning": 3,
+      "structure": 1,
+      "source": 1,
+      "ordering": 1,
+      "fill_blank": 1,
+      "history_figure": 1,
+      "definition": 1,
+      "general_meaning": 1,
+      "opposite": 3
+    },
+    "no_duplicates": true,
+    "no_digital_unfriendly_language": true,
+    "all_answers_unique_per_question": true,
+    "all_answers_match_options": true,
+    "all_options_mobile_readable": true,
+    "all_required_fields_present": true
+  },
+  "remaining_suggestions": [
+    {"category": "diversity", "description": "大量题目集中在理直气壮/完璧归赵/负荆请罪等高频成语，建议后续扩充更多成语考点", "priority": "low"},
+    {"category": "difficulty", "description": "所有题目难度均为2，建议增加部分难度3题目以提升梯度", "priority": "low"}
+  ]
+}

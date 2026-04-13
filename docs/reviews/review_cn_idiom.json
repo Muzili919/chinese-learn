@@ -1,0 +1,362 @@
+[
+  {
+    "question_id": "idiom_009",
+    "severity": "error",
+    "category": "wrong_answer",
+    "field": "answer",
+    "current_value": "A. 看到抢险队员平安归来，大家忍俊不禁地笑了。",
+    "description": "本题问的是'使用不恰当'的一项，A和D都存在使用错误。A项'忍俊不禁'本身已含'笑'的意思，后面再加'地笑了'属于语义重复，确实是错用。但D项'锦上添花'意思是'好上加好'，用于'有很多错别字的作文'完全是反义误用，错误程度更严重。答案选A不够准确，标准答案应为D。另外analysis中说'本题A和D都有问题，但A的语义重复是最常见的错误'，这种说法自相矛盾，如果A和D都有问题，说明题目设计本身就有缺陷。",
+    "suggestion": "修改D项使只有A有错误，或将答案改为D。建议修改D项为不含错误用法的句子，如'D. 这篇作文语言优美，老师看了赞不绝口。'，这样唯一错误就是A的语义重复。"
+  },
+  {
+    "question_id": "idiom_013",
+    "severity": "error",
+    "category": "wrong_answer",
+    "field": "answer",
+    "current_value": "B. 圆明园的毁灭是祖国文化史上不可估量的损失。",
+    "description": "B项中'祖国文化史上不可估量的损失'搭配不当。'不可估量'通常搭配'损失'（如'造成不可估量的损失'），但'祖国文化史上不可估量的损失'这个表述本身在语法上是'主语+谓语'形式，缺乏谓语动词。正确的说法是'圆明园的毁灭给祖国文化造成了不可估量的损失'或'圆明园的毁灭是不可估量的损失'。B项的表述在语法上存在瑕疵，作为'正确答案'不够严谨。同时D项'这场演出精彩绝伦，观众们赞不绝口'中成语使用完全正确，应当是更好的正确答案。",
+    "suggestion": "将答案改为D，或将B项修改为语法正确的表述：'圆明园的毁灭是不可估量的损失。'"
+  },
+  {
+    "question_id": "idiom_023",
+    "severity": "design_issue",
+    "category": "ambiguous",
+    "field": "analysis",
+    "current_value": "'得意忘形'含贬义不适合正面场合。D正确。",
+    "description": "A项'小明考试得了第一名，他得意忘形地跳了起来'——这里用'得意忘形'来描述考试得了第一名后的反应，虽然该成语含贬义，但'跳了起来'的情绪反应本身确实可以是'得意忘形'的表现，即'高兴得失去常态'。实际上这个句子的成语使用并不算严格意义上的'错误'，因为它描述的就是一个人得意过头的状态。B项'神机妙算'用于'八路军战士'不够恰当，因为'神机妙算'多用于军师、谋士等出谋划策的角色，而不是普通战士。本题存在多个选项都可能被认为有瑕疵的问题，但答案只解释了A的问题，对B的瑕疵只字不提。",
+    "suggestion": "明确说明A错误的具体原因——在正面语境中用贬义词表达正面情感不恰当。同时可在analysis中提及B项'神机妙算'的适用对象问题。"
+  },
+  {
+    "question_id": "idiom_028",
+    "severity": "error",
+    "category": "format_issue",
+    "field": "question",
+    "current_value": "形容声音非常大的成语是（　）。",
+    "description": "本题与idiom_015完全重复。idiom_015问'形容声音非常大，快要震破耳朵的成语是'，本题问'形容声音非常大的成语是'，两者答案、选项几乎一致（仅选项顺序和干扰项有微小差异）。在同一题库中出现高度重复的题目会降低题库质量。",
+    "suggestion": "删除idiom_028，或将其改为考查其他成语的题目。"
+  },
+  {
+    "question_id": "idiom_030",
+    "severity": "error",
+    "category": "format_issue",
+    "field": "question",
+    "current_value": "下列成语中，与\"理直气壮\"意思最相近的一项是（　）。",
+    "description": "本题与idiom_004完全重复。idiom_004问'下列成语中，与\"理直气壮\"意思最相近的一项是'，选项完全一致（仅顺序不同：ABCD vs ACBD）。在同一题库中出现完全相同的题目。",
+    "suggestion": "删除idiom_030，或将其改为考查其他成语。"
+  },
+  {
+    "question_id": "idiom_031",
+    "severity": "error",
+    "category": "wrong_answer",
+    "field": "answer",
+    "current_value": "D. 他做错了事，还理直气壮地辩解，真不应该。",
+    "description": "本题问'使用正确'的一项，答案选D，理由是D中'理直气壮'用于贬义语境是常见用法。但'理直气壮'是中性偏褒的成语（形容理由充分，说话有气势），在D句中用于'做错了事还理直气壮'，实际是一种讽刺性/反语用法，严格来说这不叫'使用正确'，而是'故意反用'。更关键的是，A项'这篇作文构思精巧，可谓是锦上添花'确实是错用——'锦上添花'用于已有的好东西上再加好东西，但这里'可谓是'暗示这是唯一的评价，'锦上添花'用于此不恰当。B项'迫不及待地举起手来'使用正确。C项'敌军负隅顽抗'也使用正确。因此B和C都是正确的用法，本题有多个正确答案。",
+    "suggestion": "重新设计题目，确保只有一个正确答案。如果保留'理直气壮'考点，建议修改为'使用不恰当'的题目形式。"
+  },
+  {
+    "question_id": "idiom_033",
+    "severity": "error",
+    "category": "wrong_answer",
+    "field": "answer",
+    "current_value": "D. 这部电影情节曲折，引人入胜。",
+    "description": "A项'小明学习非常刻苦，真是呕心沥血'——analysis说'呕心沥血不可滥用'。但'呕心沥血'本身形容费尽心思，用于形容学习刻苦虽然程度较重，但在语境上是恰当的，并不是严格意义上的'错误'。B项'这幅画虽然不完美，但也算是美中不足'——analysis说'美中不足本身表示有缺点不能说算是'。这个分析不正确。'虽然是……但也算是美中不足'这个句式是合理的，意思是'虽然不完美，但可以说其中的不足之处就是……'。实际上B的主要问题是'美中不足'通常需要指出具体是什么不足，而不是笼统地说'算是美中不足'。但更关键的是，C项'他足智多谋，诡计多端，大家都佩服他'——将褒义词'足智多谋'和贬义词'诡计多端'并列描述同一个人，且说'大家都佩服他'，这在逻辑上是矛盾的，是明显的错用。C的错误比D的正确性更为典型。建议重新考虑答案。",
+    "suggestion": "答案可以保持D，但analysis需要更准确地解释A和B的错误原因。A的错误是'呕心沥血'多用于创作、教书等费尽心血的工作，用于一般学习程度过重。B的错误是'美中不足'后应指出具体不足，而不是笼统使用。"
+  },
+  {
+    "question_id": "idiom_036",
+    "severity": "error",
+    "category": "wrong_answer",
+    "field": "answer",
+    "current_value": "D. 兴致勃勃",
+    "description": "题目问'与\"津津有味\"结构不同'的一项。'津津有味'是AABC式，'依依不舍'是AABC式，'斤斤计较'是AABC式，'井井有条'是AABC式，'兴致勃勃'是ABCC式。因此D确实是结构不同的。但此题与idiom_026是高度重复的题目——idiom_026考查'滔滔不绝'与各选项的结构对比，选项和答案模式完全相同（都是ABCC式为不同项）。",
+    "suggestion": "删除idiom_036，因为与idiom_026高度重复。或改为考查其他结构类型（如ABAC式、AABB式等）。"
+  },
+  {
+    "question_id": "idiom_040",
+    "severity": "error",
+    "category": "format_issue",
+    "field": "question",
+    "current_value": "下列句子中，加点成语使用恰当的一项是（　）。",
+    "description": "本题与idiom_020完全重复。两者题目相同，四个选项完全一致，答案相同，分析也基本一致。这是直接复制粘贴的重复题。",
+    "suggestion": "删除idiom_040，避免重复。"
+  },
+  {
+    "question_id": "idiom_041",
+    "severity": "design_issue",
+    "category": "ambiguous",
+    "field": "answer",
+    "current_value": "D. 心安理得（得：得到）",
+    "description": "本题问'加点字解释有误的一项'。analysis说'得'是'适合'的意思。但这个说法值得商榷。'心安理得'中'得'可以理解为'得当、合适'，也可以理解为'得到（心安的结果）'。在多数权威词典中，'心安理得'的'得'解释为'得当、适合'（心安于理，自以为得当）。然而，对于小学五年级学生来说，这个考点的区分度不够——'得到'和'得当'的含义差异过于微妙，容易引起争议。A项'不求甚解（甚：很，极）'解释是正确的。B项'津津有味（津：唾液，口水）'也是正确的。C项'如醉如痴（痴：痴呆）'中'痴'解释为'痴呆'也不够准确，'痴'在'如醉如痴'中更偏向'沉迷、入迷'的意思。",
+    "suggestion": "如果考查D项，建议在analysis中更明确地解释'得'在成语中的特殊含义。同时C项'痴：痴呆'的解释也有争议，建议一并检查。"
+  },
+  {
+    "question_id": "idiom_043",
+    "severity": "error",
+    "category": "format_issue",
+    "field": "question",
+    "current_value": "下列句子中，成语使用正确的一项是（　）。",
+    "description": "本题与idiom_013完全重复。两者题目相同，四个选项完全一致，答案相同。这是直接复制粘贴的重复题。",
+    "suggestion": "删除idiom_043，避免重复。"
+  },
+  {
+    "question_id": "idiom_049",
+    "severity": "error",
+    "category": "format_issue",
+    "field": "question",
+    "current_value": "下列句子中，加点成语使用正确的一项是（　）。",
+    "description": "本题与idiom_003完全重复。两者题目相同，选项完全一致（仅D项不同：idiom_003的D是'听得津津有味'，idiom_049的D是'迫不及待地安静下来'）。但idiom_003中D'迫不及待地安静下来'是错用（迫不及待后面应跟积极行为），idiom_049中同样D也有问题。然而idiom_049的答案是C'敌人负隅顽抗'，而idiom_003的答案是D。对于相同的A、B、C项，两题给出了不同的判断标准，存在自相矛盾。",
+    "suggestion": "删除idiom_049，避免重复和自相矛盾。"
+  },
+  {
+    "question_id": "idiom_057",
+    "severity": "design_issue",
+    "category": "distractor_quality",
+    "field": "options",
+    "current_value": "C. 同学们正在兴高采烈地做广播体操。",
+    "description": "本题问'使用不恰当'的一项，答案是B'简直是锦上添花'。但C项'兴高采烈地做广播体操'也存在使用不当的问题——'兴高采烈'形容非常高兴、兴致高昂，但做广播体操是常规行为，用'兴高采烈'来形容有些过度。更准确地说，C并非严格意义上的错用，但作为干扰项，它的区分度不够高，学生可能也会选C。建议完善C项使其毫无争议地正确。",
+    "suggestion": "将C项改为更无争议的正确用法，如'C. 同学们兴高采烈地参加了运动会。'"
+  },
+  {
+    "question_id": "idiom_059",
+    "severity": "error",
+    "category": "wrong_answer",
+    "field": "answer",
+    "current_value": "C. 听到这个好消息，他忍俊不禁。",
+    "description": "本题问'使用正确'的一项。A项'他做的坏事真是美不胜收'确实是错用（'美不胜收'是褒义词）。B项'掌声络绎不绝'是错用（'络绎不绝'形容人或车马连续不断，不能形容掌声）。C项'听到这个好消息，他忍俊不禁'——'忍俊不禁'指忍不住笑，听到好消息笑是合理的，使用正确。D项'田野里生机勃勃，栩栩如生'是错用（'栩栩如生'用于艺术品）。但analysis中说'忍俊不禁本身已含笑，后面不能再加地笑了'，这是针对其他题目（idiom_001、idiom_009）的错误，不是本题C项的问题。本题C项本身没有加'地笑了'，分析有误导性。同时B项中'络绎不绝'修饰'掌声'也是明确错误。",
+    "suggestion": "修改analysis，去掉关于'忍俊不禁后面不能加地笑了'的不相关内容，聚焦于解释为什么A、B、D都是错用。"
+  },
+  {
+    "question_id": "idiom_061",
+    "severity": "design_issue",
+    "category": "distractor_quality",
+    "field": "analysis",
+    "current_value": "'荆'读jīng，'呕'读ǒu，'绰'读chuò，'丧'读sàng。注意积累易错字音。",
+    "description": "答案选D'津津（jīn）有味  垂头丧（sàng）气'。但B项'心旷（kuàng）神怡  人影绰绰（chuò）'的读音也是全部正确的。这意味着本题有两个正确答案（B和D），题目设计有缺陷。A项'负荆（jīn）请罪'中'荆'标注为jīn是错误的（应为jīng），C项'呕（ōu）心沥血'中'呕'标注为ōu是错误的（应为ǒu），所以A和C可以排除。但B项两个读音标注都正确，D项也是两个都正确。",
+    "suggestion": "修改B项使其有一个读音标注错误，如将B改为'心旷（kuàng）神怡  人影绰绰（zhuō）'，或将D项修改为只有一个正确读音。"
+  },
+  {
+    "question_id": "idiom_066",
+    "severity": "error",
+    "category": "format_issue",
+    "field": "question",
+    "current_value": "下列成语中，与\"津津有味\"结构不同的一项是（　）。",
+    "description": "本题与idiom_036和idiom_026高度重复。三道题都考查AABC式与ABCC式的区分，答案模式完全相同。idiom_026用'滔滔不绝'作参照，idiom_036和idiom_066都用'津津有味'作参照，且ABCC式的答案也类似（得意洋洋/兴致勃勃/喜气洋洋）。",
+    "suggestion": "只保留idiom_026，删除idiom_036和idiom_066。"
+  },
+  {
+    "question_id": "idiom_071",
+    "severity": "error",
+    "category": "format_issue",
+    "field": "question",
+    "current_value": "下列句子中，加点成语使用正确的一项是（　）。",
+    "description": "本题与idiom_009完全重复。两者题目相同（idiom_009问'使用不恰当'，idiom_071问'使用正确'），选项完全一致，但答案不同：idiom_009答A，idiom_071答B。然而如果A、C、D都有问题（忍俊不禁语义重复、针锋相对误用、锦上添花误用），那么'使用正确'的答案确实应该是B。但idiom_009说A是'最常见错误'，答案却选A，这与idiom_071的逻辑矛盾。同一组选项在两道题中出现，一道说A有错，另一道说B正确，虽然不矛盾但增加了学生困惑。",
+    "suggestion": "删除idiom_071，保留idiom_009。同一组选项不应在题库中出现两次。"
+  },
+  {
+    "question_id": "idiom_073",
+    "severity": "error",
+    "category": "format_issue",
+    "field": "question",
+    "current_value": "下列句子中，成语使用正确的一项是（　）。",
+    "description": "本题与idiom_013和idiom_043第三次重复。同一道题出现了三次（idiom_013、idiom_043、idiom_073），选项、答案完全一致。严重的重复问题。",
+    "suggestion": "删除idiom_073，只保留idiom_013。"
+  },
+  {
+    "question_id": "idiom_076",
+    "severity": "error",
+    "category": "format_issue",
+    "field": "question",
+    "current_value": "下列成语中，感情色彩与其他三项不同的一项是（　）。",
+    "description": "本题与idiom_006完全重复。两者题目相同，选项完全一致（仅顺序略有不同：idiom_006为ABCD，idiom_076为ABCD），答案相同，分析几乎一致。同一题库中出现完全相同的感情色彩辨析题。",
+    "suggestion": "删除idiom_076，只保留idiom_006。"
+  },
+  {
+    "question_id": "idiom_077",
+    "severity": "error",
+    "category": "format_issue",
+    "field": "question",
+    "current_value": "下列成语书写完全正确的一项是（　）。",
+    "description": "本题与idiom_037完全重复。两者题目相同，选项完全一致（四个选项完全相同），答案相同（都选A），分析也完全一致。直接复制粘贴的重复题。",
+    "suggestion": "删除idiom_077，只保留idiom_037。"
+  },
+  {
+    "question_id": "idiom_079",
+    "severity": "error",
+    "category": "format_issue",
+    "field": "question",
+    "current_value": "下列句子中，加点成语使用恰当的一项是（　）。",
+    "description": "本题与idiom_020和idiom_040第三次重复。同一道题在题库中出现了三次，选项、答案、分析几乎完全一致。严重的重复问题。",
+    "suggestion": "删除idiom_079，只保留idiom_020。"
+  },
+  {
+    "question_id": "idiom_020",
+    "severity": "design_issue",
+    "category": "distractor_quality",
+    "field": "options",
+    "current_value": "A. 这部小说情节引人入胜，让人津津乐道地谈论个不停。",
+    "description": "A项'引人入胜'和'津津乐道'连用。'引人入胜'形容吸引人，'津津乐道'形容很有兴趣地说个不停。这两个成语在此句中的使用实际上是可以的——小说引人入胜，让人津津乐道，逻辑通顺。但答案没选A，说明出题者认为A有问题。如果A有问题，analysis中应明确指出A的错误原因（可能认为'津津乐道地谈论'存在语义重复，因为'乐道'已含'谈论'之意），但当前analysis未提及此点。",
+    "suggestion": "在analysis中明确指出A项可能存在的语义重复问题（'津津乐道'中的'道'即'谈论'，与后面'谈论个不停'语义重复），或修改A项使其错误更加明确。"
+  },
+  {
+    "question_id": "idiom_053",
+    "severity": "design_issue",
+    "category": "distractor_quality",
+    "field": "options",
+    "current_value": "D. 这份礼物虽然不贵重，但代表了我的一片真心。",
+    "description": "D项中不含任何成语，但它作为一个选项出现在'成语使用正确'的题目中。学生可能会困惑：D没有用成语，算不算'成语使用正确'？严格来说，'不用成语'和'用错成语'是不同概念。建议将D项改为包含一个正确使用成语的句子。",
+    "suggestion": "将D项改为包含成语的句子，如'D. 老师对我们关怀备至，我们都很感激他。'"
+  },
+  {
+    "question_id": "idiom_069",
+    "severity": "design_issue",
+    "category": "distractor_quality",
+    "field": "options",
+    "current_value": "B. 他这个人贪得无厌，总想占便宜。",
+    "description": "B项'贪得无厌'是贬义词，用于'总想占便宜'这个负面语境中，使用是完全正确的。这意味着本题有两个正确答案（A'聚精会神'和B'贪得无厌'都正确使用）。题目设计有缺陷，应确保只有一个选项是正确的。",
+    "suggestion": "将B项改为成语使用有误的句子，如'B. 他学习很刻苦，真是贪得无厌。'（贬义褒用）"
+  },
+  {
+    "question_id": "idiom_001",
+    "severity": "design_issue",
+    "category": "digital_unfriendly",
+    "field": "question",
+    "current_value": "下列句子中，加点成语使用正确的一项是（　）。",
+    "description": "题目中出现'加点成语'这一纸质考试的用语。在数字化端（手机/电脑）答题时，没有'加点'的概念，学生会困惑'哪个字被加点了？'。应将题目改为更数字化的表述。",
+    "suggestion": "将'加点成语使用正确'改为'成语使用正确的一项是'。"
+  },
+  {
+    "question_id": "idiom_007",
+    "severity": "design_issue",
+    "category": "digital_unfriendly",
+    "field": "question",
+    "current_value": "下列成语中，加点字解释正确的一项是（　）。",
+    "description": "同idiom_001，'加点字'是纸质考试用语，不适用于数字化答题界面。",
+    "suggestion": "将'加点字解释正确'改为'画线字解释正确'或直接改为'下列成语中，解释正确的一项是'。"
+  },
+  {
+    "question_id": "idiom_017",
+    "severity": "design_issue",
+    "category": "digital_unfriendly",
+    "field": "question",
+    "current_value": "下列成语中，加点字的读音完全正确的一项是（　）。",
+    "description": "同上，'加点字'是纸质考试用语。",
+    "suggestion": "改为'下列成语中，注音完全正确的一项是（　）。'"
+  },
+  {
+    "question_id": "idiom_038",
+    "severity": "design_issue",
+    "category": "digital_unfriendly",
+    "field": "question",
+    "current_value": "下列成语中，加点字的读音完全正确的一项是（　）。",
+    "description": "'加点字'纸质用语问题。另外，本题选项中A项'负荆（jīn）请罪'的'荆'注音jīn有误（应为jīng），但analysis说'荆读jīng'，说明出题者知道正确读音，但选项中已标注为jīn，所以A可以排除。B项'人影绰绰（chuò）'正确。答案选B是正确的。",
+    "suggestion": "改为数字化友好的表述。"
+  },
+  {
+    "question_id": "idiom_048",
+    "severity": "design_issue",
+    "category": "digital_unfriendly",
+    "field": "question",
+    "current_value": "下列成语中，加点字的读音完全正确的一项是（　）。",
+    "description": "'加点字'纸质用语问题。",
+    "suggestion": "改为'下列成语中，注音完全正确的一项是（　）。'"
+  },
+  {
+    "question_id": "idiom_061",
+    "severity": "design_issue",
+    "category": "digital_unfriendly",
+    "field": "question",
+    "current_value": "下列成语中，加点字读音全部正确的一组是（　）。",
+    "description": "'加点字'纸质用语问题。同时本题存在两个正确答案（B和D），已在前述issue中记录。",
+    "suggestion": "改为数字化友好的表述，并修复双正确答案问题。"
+  },
+  {
+    "question_id": "idiom_068",
+    "severity": "design_issue",
+    "category": "digital_unfriendly",
+    "field": "question",
+    "current_value": "下列成语中，加点字解释正确的一项是（　）。",
+    "description": "'加点字'纸质用语问题。",
+    "suggestion": "改为'下列成语中，加点字解释正确的一项'→'下列成语中，字义解释正确的一项'。"
+  },
+  {
+    "question_id": "idiom_078",
+    "severity": "design_issue",
+    "category": "digital_unfriendly",
+    "field": "question",
+    "current_value": "下列成语中，加点字的读音完全正确的一项是（　）。",
+    "description": "'加点字'纸质用语问题。",
+    "suggestion": "改为数字化友好的表述。"
+  },
+  {
+    "question_id": "idiom_004",
+    "severity": "suggestion",
+    "category": "distractor_quality",
+    "field": "options",
+    "current_value": "A. 齐心协力  B. 物归原主  C. 义正词严  D. 登门谢罪",
+    "description": "本题选项中B'物归原主'和D'登门谢罪'与'理直气壮'在语义上差距很大，干扰性较弱。学生很容易排除这两个选项，实际变成了A和C的二选一。建议增加语义相近的干扰项，如'气壮山河'（含'气壮'但意思不同）或'理直气壮'的近义词'振振有词'。",
+    "suggestion": "将干扰项改为语义更接近的成语，增加区分度。"
+  },
+  {
+    "question_id": "idiom_009",
+    "severity": "suggestion",
+    "category": "distractor_quality",
+    "field": "analysis",
+    "current_value": "本题A和D都有问题，但A的语义重复是最常见的错误。",
+    "description": "analysis中承认'A和D都有问题'，说明出题者知道题目设计有缺陷。在一道单选题中，不应该有多个选项存在错误，否则学生无法准确判断应该选哪一个。这是一个设计质量问题。",
+    "suggestion": "如前述，修改D项使其没有错误，确保唯一正确答案。"
+  },
+  {
+    "question_id": "idiom_010",
+    "severity": "error",
+    "category": "other",
+    "field": "id",
+    "current_value": null,
+    "description": "题库ID序列中缺少idiom_010。ID从idiom_009直接跳到idiom_011。同样缺失的还有idiom_050、idiom_060、idiom_070。虽然不影响功能，但ID不连续可能导致管理混乱。",
+    "suggestion": "重新编号所有题目，确保ID连续。"
+  },
+  {
+    "question_id": "idiom_050",
+    "severity": "error",
+    "category": "other",
+    "field": "id",
+    "current_value": null,
+    "description": "ID序列缺少idiom_050。",
+    "suggestion": "统一重新编号。"
+  },
+  {
+    "question_id": "idiom_060",
+    "severity": "error",
+    "category": "other",
+    "field": "id",
+    "current_value": null,
+    "description": "ID序列缺少idiom_060。",
+    "suggestion": "统一重新编号。"
+  },
+  {
+    "question_id": "idiom_070",
+    "severity": "error",
+    "category": "other",
+    "field": "id",
+    "current_value": null,
+    "description": "ID序列缺少idiom_070。",
+    "suggestion": "统一重新编号。"
+  },
+  {
+    "question_id": "idiom_063",
+    "severity": "suggestion",
+    "category": "difficulty_mismatch",
+    "field": "difficulty",
+    "current_value": 2,
+    "description": "本题考查'理直气壮'的适用场合和'诡计多端'的感情色彩，都是基础考点，难度标注为2（中等偏易）是合适的。但D项'引人入胜'作为正确答案的干扰项不够——C项'玲珑剔透的亭台楼阁'也是正确用法（'玲珑剔透'形容建筑物精致，出自《圆明园的毁灭》原文），这意味着本题可能有两个正确答案（B和C）。'玲珑剔透'在《圆明园的毁灭》中确实用于形容亭台楼阁，使用正确。",
+    "suggestion": "将C项修改为含成语误用的句子，或确认'玲珑剔透'是否可以形容亭台楼阁。根据人教版五年级上册《圆明园的毁灭》原文，'玲珑剔透'确实用于形容亭台楼阁，因此C也是正确的，需要修改。"
+  },
+  {
+    "question_id": "idiom_046",
+    "severity": "suggestion",
+    "category": "distractor_quality",
+    "field": "options",
+    "current_value": "A. 神机妙算  B. 足智多谋  C. 诡计多端  D. 智勇双全",
+    "description": "本题选项中的四个成语区分度很好。但与idiom_042（书写题，选项为'足智多谋、神机妙算、诡计多端、老奸巨猾'）存在较大重叠。连续出现'诡计多端''足智多谋''神机妙算'这些相同成语，学生可能产生审美疲劳。",
+    "suggestion": "考虑替换一些选项中的成语，增加题库的多样性。"
+  }
+]

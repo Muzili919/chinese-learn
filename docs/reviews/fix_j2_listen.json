@@ -1,0 +1,24 @@
+{
+  "module": "初中英语听力（初二）—— 适配后为阅读理解模式",
+  "total_questions": 60,
+  "changes_made": "全部题目从听力模式改为阅读模式，listening_text保留作为阅读材料",
+  "type_1_count": 10,
+  "type_2_count": 20,
+  "type_3_count": 10,
+  "type_4_count": 10,
+  "type_5_count": 10,
+  "verification": {
+    "no_listening_language": true,
+    "all_answers_correct": true,
+    "mobile_friendly": true,
+    "grade_preserved": true,
+    "listening_text_preserved": true
+  },
+  "details": {
+    "type_1_desc": "听句子选答语 → 情景交际/阅读辨析（10题）",
+    "type_2_desc": "听对话选答案 → 情景交际/阅读对话理解（20题）",
+    "type_3_desc": "听短文判断正误 → 阅读理解/阅读短文判断（10题）",
+    "type_4_desc": "听短文回答问题 → 阅读理解/阅读短文问答（10题）",
+    "type_5_desc": "听力填空 → 词汇运用/词汇语法选择（10题）"
+  }
+}

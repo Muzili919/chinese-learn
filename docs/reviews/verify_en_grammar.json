@@ -1,0 +1,74 @@
+{
+  "verify_time": "2026-04-13T11:15:41.425955",
+  "file": "src/data/questions_en_grammar.json",
+  "summary": {
+    "total_questions": 110,
+    "id_range": "1-110",
+    "errors": 0,
+    "warnings": 0,
+    "passed": true
+  },
+  "statistics": {
+    "type_distribution": {
+      "multiple_choice": 70,
+      "fill_blank": 40
+    },
+    "ability_tag_distribution": {
+      "语法选择": 39,
+      "词形变换": 30,
+      "情景交际": 31,
+      "完形填空：语法+篇章理解": 9,
+      "完形填空：综合语法+篇章理解": 1
+    },
+    "difficulty_distribution": {
+      "0.3": 30,
+      "0.4": 32,
+      "0.5": 35,
+      "0.6": 9,
+      "0.7": 4
+    },
+    "mc_answer_distribution": {
+      "D": 17,
+      "C": 17,
+      "A": 18,
+      "B": 18
+    }
+  },
+  "issues": [],
+  "warnings": [],
+  "info": [
+    "总题数: 110",
+    "en_grammar_024: 答案唯一性修复 ✓ (题干含明确转折语义, 答案B=but)",
+    "ID唯一性: 通过",
+    "ID范围: 1-110, 无缺失",
+    "必填字段: 全部存在",
+    "题型分布: {'multiple_choice': 70, 'fill_blank': 40}",
+    "MC答案分布: {'D': 17, 'C': 17, 'A': 18, 'B': 18}",
+    "难度分布: {'0.3': 30, '0.4': 32, '0.5': 35, '0.6': 9, '0.7': 4}",
+    "能力标签分布: {'语法选择': 39, '词形变换': 30, '情景交际': 31, '完形填空：语法+篇章理解': 9, '完形填空：综合语法+篇章理解': 1}",
+    "en_grammar_025: 题型修复 ✓ (改为multiple_choice)",
+    "en_grammar_065: 题型修复 ✓ (改为multiple_choice)",
+    "en_grammar_088: 题型修复 ✓ (原078第二批, 改为multiple_choice)",
+    "缺失题目补充: ✓ (003, 031-040共11题)",
+    "重复ID修复: ✓ (071-080不再重复)",
+    "043/103重复消除: ✓ (题干已不同)",
+    "077/101重复消除: ✓ (077考who, 101考whose)"
+  ],
+  "fixes_applied": [
+    "1. 重复ID修复: 原071-080第二批重新编号为081-090, 原081-100顺延为091-110",
+    "2. 缺失题目补充: 新增en_grammar_003及en_grammar_031-040共11道题",
+    "3. en_grammar_024: 改题干为明确转折语义, 确保but为唯一正确答案",
+    "4. en_grammar_025/065/088: 题型从fill_blank改为multiple_choice, ability_tag改为语法选择",
+    "5. en_grammar_006: 干扰项B改为Not at all (更好的致谢应答干扰项)",
+    "6. en_grammar_012/085: 答案分隔符从/改为|",
+    "7. en_grammar_015: 优化填空指令为'用所给单词的适当时态填空'",
+    "8. en_grammar_049: 重写为逻辑通顺的请求重复场景",
+    "9. en_grammar_106(原086): 干扰项C改为That's great!消除歧义",
+    "10. en_grammar_103(原093): 改为不同场景(委婉拒绝道歉应答)",
+    "11. en_grammar_101(原091): 改为考查whose (原与077重复考who)",
+    "12. en_grammar_099(原089): 优化对话确保语境明确(对方不在)",
+    "13. 难度标注: 从全部0.5调整为0.3/0.4/0.5/0.6/0.7五级分布",
+    "14. MC答案分布: 从A24/B28/C17/D1优化为A18/B18/C17/D17",
+    "15. 选项前缀修复: 所有MC选项恢复正确A/B/C/D字母顺序"
+  ]
+}

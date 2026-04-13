@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react'
+import { useMemo, useState, useEffect } from 'react'
 import { storage, calcLevel, calcLevelProgress, exportAll } from '../utils/storage'
 import { diagnose, getWeakPoints } from '../utils/diagnosis'
 
@@ -64,14 +64,13 @@ const SUBJECTS_BY_GRADE = {
   ],
 }
 
-export default function HomePage({ user, onStartQuiz, onReport, onLogout, onSubjectChange, activeSubject: activeSubjectProp, grade, onGradeChange }) {
+export default function HomePage({ user, onStartQuiz, hideHeader, activeSubject: activeSubjectProp, grade }) {
   const [showLogoutConfirm, setShowLogoutConfirm] = useState(false)
   const currentGrade = grade || 'primary'
-  const SUBJECTS = SUBJECTS_BY_GRADE[currentGrade] || SUBJECTS_BY_GRADE.primary
 
-  // 学段变化时自动切换到该学段的第一个可用科目
+  const SUBJECTS = SUBJECTS_BY_GRADE[currentGrade] || SUBJECTS_BY_GRADE.primary
   const [activeSubject, setActiveSubject] = useState(() => {
-    const available = (SUBJECTS_BY_GRADE[currentGrade] || SUBJECTS_BY_GRADE.primary).filter(s => s.available)
+    const available = SUBJECTS_BY_GRADE[currentGrade].filter(s => s.available)
     return activeSubjectProp && available.find(s => s.id === activeSubjectProp)
       ? activeSubjectProp
       : available[0]?.id || 'chinese'
@@ -83,31 +82,21 @@ export default function HomePage({ user, onStartQuiz, onReport, onLogout, onSubj
   const streak = storage.getStreak(user.id)
   const records = storage.getRecords(user.id)
 
-  const handleExport = () => {
-    const data = exportAll(user.id)
-    const json = JSON.stringify(data, null, 2)
-    const blob = new Blob([json], { type: 'application/json' })
-    const url = URL.createObjectURL(blob)
-    const a = document.createElement('a')
-    a.href = url
-    a.download = `chinese-learn-export-${user.name}-${Date.now()}.json`
-    document.body.appendChild(a)
-    a.click()
-    a.remove()
-    URL.revokeObjectURL(url)
-  }
-
-  function handleSubjectClick(subject) {
+  const handleSubjectClick = (subject) => {
     if (subject.available) {
       setActiveSubject(subject.id)
-      if ((subject.id === 'english' || subject.id === 'politics') && onSubjectChange) {
-        onSubjectChange(subject.id)
-      }
     } else {
       setSubjectToast(subject.label)
       setTimeout(() => setSubjectToast(null), 2500)
     }
   }
+
+  // 同步外部 activeSubject 变化（hideHeader 模式下由 App 管理）
+  useEffect(() => {
+    if (hideHeader && activeSubjectProp) {
+      setActiveSubject(activeSubjectProp)
+    }
+  }, [activeSubjectProp, hideHeader])
 
   const practicedToday = useMemo(() => {
     const today = new Date().toISOString().slice(0, 10)
@@ -141,83 +130,73 @@ export default function HomePage({ user, onStartQuiz, onReport, onLogout, onSubj
   const xpPct = Math.min(100, (levelProgress.currentExp / levelProgress.requiredExp) * 100)
 
   return (
-    <div className="min-h-screen flex flex-col">
-      {/* ===== 顶部栏 ===== */}
-      <div className="bg-white shadow-sm" style={{ paddingTop: 'env(safe-area-inset-top, 36px)' }}>
+    <div className="flex flex-col">
+      {/* ===== 顶部栏（hideHeader 模式由 App 层 HomeHeader 渲染，这里跳过）===== */}
+      {!hideHeader && (
+        <div className="bg-white shadow-sm" style={{ paddingTop: 'env(safe-area-inset-top, 36px)' }}>
 
-        {/* 学段切换 */}
-        <div className="px-4 pt-3 flex items-center justify-between">
-          <span style={{ fontSize: 12, color: '#6b7280', fontWeight: 600 }}>📚 学习阶段</span>
-          <div className="flex bg-gray-100 rounded-xl p-0.5">
-            {[
-              { id: 'primary', label: '小学', emoji: '🏫' },
-              { id: 'junior2', label: '初二', emoji: '🎓' },
-            ].map(g => (
-              <button
-                key={g.id}
-                onClick={() => onGradeChange && onGradeChange(g.id)}
-                className={`flex items-center gap-1 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ${
-                  currentGrade === g.id
-                    ? 'bg-indigo-600 text-white shadow-sm'
-                    : 'text-gray-500'
-                }`}
-              >
-                <span>{g.emoji}</span>
-                <span>{g.label}</span>
-              </button>
-            ))}
+          {/* 学段切换 */}
+          <div className="px-4 pt-3 flex items-center justify-between">
+            <span style={{ fontSize: 12, color: '#6b7280', fontWeight: 600 }}>📚 学习阶段</span>
+            <div className="flex bg-gray-100 rounded-xl p-0.5">
+              {[
+                { id: 'primary', label: '小学', emoji: '🏫' },
+                { id: 'junior2', label: '初二', emoji: '🎓' },
+              ].map(g => (
+                <button
+                  key={g.id}
+                  className={`flex items-center gap-1 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ${
+                    currentGrade === g.id
+                      ? 'bg-indigo-600 text-white shadow-sm'
+                      : 'text-gray-500'
+                  }`}
+                >
+                  <span>{g.emoji}</span>
+                  <span>{g.label}</span>
+                </button>
+              ))}
+            </div>
           </div>
-        </div>
 
-        {/* 科目切换 */}
-        <div className="px-4 pt-3 pb-2 flex items-center gap-2">
-          <div className="flex gap-2 flex-1">
-            {SUBJECTS.map(s => (
-              <button
-                key={s.id}
-                onClick={() => handleSubjectClick(s)}
-                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-sm font-semibold transition-all ${
-                  activeSubject === s.id
-                    ? 'bg-indigo-600 text-white shadow-sm'
-                    : s.available
-                      ? 'bg-gray-100 text-gray-600'
-                      : 'bg-gray-50 text-gray-300'
-                }`}
-              >
-                <span>{s.emoji}</span>
-                <span>{s.label}</span>
-                {!s.available && <span className="text-[10px] opacity-60">🔒</span>}
-              </button>
-            ))}
+          {/* 科目切换 */}
+          <div className="px-4 pt-3 pb-2 flex items-center gap-2">
+            <div className="flex gap-2 flex-1">
+              {SUBJECTS.map(s => (
+                <button
+                  key={s.id}
+                  onClick={() => handleSubjectClick(s)}
+                  className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-sm font-semibold transition-all ${
+                    activeSubject === s.id
+                      ? 'bg-indigo-600 text-white shadow-sm'
+                      : s.available
+                        ? 'bg-gray-100 text-gray-600'
+                        : 'bg-gray-50 text-gray-300'
+                  }`}
+                >
+                  <span>{s.emoji}</span>
+                  <span>{s.label}</span>
+                  {!s.available && <span className="text-[10px] opacity-60">🔒</span>}
+                </button>
+              ))}
+            </div>
+            <div className="flex items-center gap-1.5">
+              <button className="w-8 h-8 flex items-center justify-center bg-indigo-50 rounded-xl text-base">📊</button>
+              <button onClick={() => setShowLogoutConfirm(true)} className="w-8 h-8 flex items-center justify-center bg-gray-50 rounded-xl text-base">👤</button>
+            </div>
           </div>
-          <div className="flex items-center gap-1.5">
-            <button
-              onClick={onReport}
-              className="w-8 h-8 flex items-center justify-center bg-indigo-50 rounded-xl text-base"
-            >📊</button>
-            <button
-              onClick={() => setShowLogoutConfirm(true)}
-              className="w-8 h-8 flex items-center justify-center bg-gray-50 rounded-xl text-base"
-            >👤</button>
-            <button
-              onClick={handleExport}
-              className="w-8 h-8 flex items-center justify-center bg-gray-50 rounded-xl text-base"
-            >💾</button>
+
+          {/* 用户打招呼 */}
+          <div className="px-4 pb-1">
+            <h1 className="text-xl font-bold text-gray-800">
+              {user.name} 同学，加油！👋
+            </h1>
+            <p className="text-xs text-gray-400 mt-0.5">
+              {streak.count > 0 ? `已连续学习 ${streak.count} 天 🔥` : '今天开始第一天打卡吧！'}
+            </p>
           </div>
-        </div>
 
-        {/* 用户打招呼 */}
-        <div className="px-4 pb-1">
-          <h1 className="text-xl font-bold text-gray-800">
-            {user.name} 同学，加油！👋
-          </h1>
-          <p className="text-xs text-gray-400 mt-0.5">
-            {streak.count > 0 ? `已连续学习 ${streak.count} 天 🔥` : '今天开始第一天打卡吧！'}
-          </p>
-        </div>
-
-        {/* 三个核心数据卡 */}
-        <div className="flex gap-2 px-4 pb-3 mt-2">
+          {/* 三个核心数据卡 */}
+          <div className="flex gap-2 px-4 pb-3 mt-2">
           {/* 连胜卡 */}
           <div className="flex-1 rounded-2xl p-3 text-center"
             style={{ background: 'linear-gradient(135deg, #fff7ed, #fed7aa)' }}>
@@ -254,23 +233,24 @@ export default function HomePage({ user, onStartQuiz, onReport, onLogout, onSubj
           </div>
         </div>
       </div>
+      )}
 
-      {/* 科目切换Toast */}
-      {subjectToast && (
+      {/* 科目切换Toast（hideHeader 模式下不显示） */}
+      {!hideHeader && subjectToast && (
         <div className="fixed top-24 left-1/2 -translate-x-1/2 z-50 bg-gray-800 text-white text-sm px-5 py-2.5 rounded-2xl shadow-xl"
           style={{ animation: 'fadeInDown 0.3s ease-out' }}>
           {subjectToast}即将开放，敬请期待 🚀
         </div>
       )}
 
-      {/* 退出确认弹窗 */}
-      {showLogoutConfirm && (
+      {/* 退出确认弹窗（hideHeader 模式下不显示） */}
+      {!hideHeader && showLogoutConfirm && (
         <div className="fixed inset-0 bg-black/40 z-50 flex items-center justify-center px-6">
           <div className="bg-white rounded-2xl p-6 w-full max-w-xs shadow-xl">
             <h2 className="text-lg font-bold text-gray-800 mb-2">切换账号？</h2>
             <p className="text-sm text-gray-500 mb-5">退出后可以重新输入昵称登录，本机数据不会丢失。</p>
             <button
-              onClick={() => { onLogout(); setShowLogoutConfirm(false) }}
+              onClick={() => setShowLogoutConfirm(false)}
               className="w-full bg-red-500 text-white font-semibold py-3 rounded-xl mb-2"
             >确认退出</button>
             <button
@@ -281,8 +261,8 @@ export default function HomePage({ user, onStartQuiz, onReport, onLogout, onSubj
         </div>
       )}
 
-      {/* 弱项建议 */}
-      {weakPoints.length > 0 && (
+      {/* 弱项建议（语文科目） */}
+      {weakPoints.length > 0 ? (
         <div className="mx-4 mt-4 bg-amber-50 border border-amber-200 rounded-2xl p-4">
           <p className="text-sm font-semibold text-amber-700 mb-2">💡 建议重点练习（点击直接进入）</p>
           <div className="flex flex-wrap gap-2">
@@ -300,50 +280,94 @@ export default function HomePage({ user, onStartQuiz, onReport, onLogout, onSubj
             })}
           </div>
         </div>
-      )}
+      ) : records.length === 0 ? (
+        <div className="mx-4 mt-4 bg-amber-50 border border-amber-200 rounded-2xl p-4">
+          <p className="text-sm font-semibold text-amber-700 mb-1">💡 还没有练习数据</p>
+          <p className="text-xs text-amber-500">先做几道题，我会分析你的弱项哦！</p>
+        </div>
+      ) : null}
 
-      {/* 星球卡片 */}
+      {/* 星球卡片 - 网格布局 */}
       <div className="flex-1 px-4 pt-4 pb-4">
-        <div className="flex items-center justify-between mb-3">
-          <h2 className="text-base font-semibold text-gray-600">选择星球开始闯关</h2>
+        <div className="flex items-center justify-between mb-2">
+          <div className="flex items-center gap-1.5">
+            <h2 className="text-base font-semibold text-gray-600">选择星球开始闯关</h2>
+            <span className="text-[10px] bg-indigo-100 text-indigo-600 px-1.5 py-0.5 rounded-md font-medium">👆 核心闯关</span>
+          </div>
           <span className="text-xs text-gray-400">
             今日已练 {QUIZ_PLANET_IDS.filter(id => practicedToday.has(id)).length + (practicedToday.has('reading') ? 1 : 0)}/{QUIZ_PLANET_IDS.length + 1} 个星球
           </span>
         </div>
-        <div className="flex flex-col gap-3">
-          {PLANETS.map((planet) => {
-            const tagId = planet.reading ? 'reading' : planet.id
-            const donedToday = practicedToday.has(tagId)
-            return (
-              <button
-                key={planet.id}
-                onClick={() => {
-                  if (planet.reading) onStartQuiz({ reading: true })
-                  else if (planet.id === 'essay') onStartQuiz({ essay: true })
-                  else if (planet.id === 'sentence_practice') onStartQuiz({ sentencePractice: true })
-                  else if (planet.id === 'dictation') onStartQuiz({ dictation: true, dictationSubject: 'chinese' })
-                  else if (planet.isSelfTest) onStartQuiz({ selfTest: true, selfTestSubject: 'chinese' })
-                  else onStartQuiz({ knowledgeTag: planet.id })
-                }}
-                className={`w-full bg-gradient-to-r ${planet.color} text-white rounded-2xl p-4 flex items-center gap-4 shadow-sm active:scale-95 transition-transform`}
-              >
-                <span className="text-4xl">{planet.emoji}</span>
-                <div className="text-left flex-1">
-                  <div className="font-bold text-base flex items-center gap-2">
-                    {planet.label}
-                    {donedToday && (
-                      <span className="text-xs bg-white/30 text-white font-semibold px-2 py-0.5 rounded-full">
-                        ✓今日已练
-                      </span>
-                    )}
-                  </div>
-                  <div className="text-sm opacity-80">{planet.desc}</div>
+
+        {(() => {
+          // 核心闯关星球（前8个：6个基础 + 造句 + 作文）
+          const corePlanets = PLANETS.slice(0, 8)
+          // 工具星球（听写 + 自测，放横向滚动）
+          const toolPlanets = PLANETS.slice(8)
+
+          const handlePlanetClick = (planet) => {
+            if (planet.reading) onStartQuiz({ reading: true })
+            else if (planet.id === 'essay') onStartQuiz({ essay: true })
+            else if (planet.id === 'sentence_practice') onStartQuiz({ sentencePractice: true })
+            else if (planet.id === 'dictation') onStartQuiz({ dictation: true, dictationSubject: 'chinese' })
+            else if (planet.isSelfTest) onStartQuiz({ selfTest: true, selfTestSubject: 'chinese' })
+            else onStartQuiz({ knowledgeTag: planet.id })
+          }
+
+          return (
+            <>
+              {/* 核心星球区 - 3列网格（前8个，排3行，最后2个居中占位） */}
+              <div className="grid grid-cols-3 gap-2 mb-3">
+                {corePlanets.map((planet) => {
+                  const tagId = planet.reading ? 'reading' : planet.id
+                  const donedToday = practicedToday.has(tagId)
+                  return (
+                    <button
+                      key={planet.id}
+                      onClick={() => handlePlanetClick(planet)}
+                      className={`bg-gradient-to-br ${planet.color} text-white rounded-xl p-3 flex flex-col justify-center items-center text-center gap-0.5 shadow-sm active:scale-95 transition-transform relative ${donedToday ? 'ring-2 ring-green-300 ring-offset-1' : ''}`}
+                    >
+                      <span className="text-2xl leading-none">{planet.emoji}</span>
+                      <span className="text-xs font-bold leading-tight">{planet.label}</span>
+                      {donedToday && (
+                        <span className="absolute top-1 right-1 text-[8px] bg-white/30 text-white font-semibold px-1 py-0.5 rounded-full">
+                          ✓
+                        </span>
+                      )}
+                    </button>
+                  )
+                })}
+                {/* 填充第9格空白，让最后2个居中 */}
+                <div />
+              </div>
+
+              {/* 听写 + 自测 - 横向滚动 */}
+              <div className="mb-1">
+                <p className="text-[11px] text-gray-400 mb-1.5 font-medium">✨ 工具星球</p>
+                <div className="flex gap-2.5 overflow-x-auto pb-2 scrollbar-hide">
+                  {toolPlanets.map((planet) => {
+                    const donedToday = practicedToday.has(planet.id)
+                    return (
+                      <button
+                        key={planet.id}
+                        onClick={() => handlePlanetClick(planet)}
+                        className={`flex-shrink-0 w-28 bg-gradient-to-br ${planet.color} text-white rounded-xl p-2.5 flex flex-col items-center text-center gap-1 shadow-sm active:scale-95 transition-transform relative ${donedToday ? 'ring-2 ring-green-300 ring-offset-1' : ''}`}
+                      >
+                        <span className="text-2xl leading-none">{planet.emoji}</span>
+                        <span className="text-xs font-bold leading-tight">{planet.label}</span>
+                        {donedToday && (
+                          <span className="absolute top-1 right-1 text-[8px] bg-white/30 text-white font-semibold px-1 py-0.5 rounded-full">
+                            ✓
+                          </span>
+                        )}
+                      </button>
+                    )
+                  })}
                 </div>
-                <span className="text-2xl opacity-60">→</span>
-              </button>
-            )
-          })}
-        </div>
+              </div>
+            </>
+          )
+        })()}
       </div>
 
       <style>{`
@@ -351,6 +375,8 @@ export default function HomePage({ user, onStartQuiz, onReport, onLogout, onSubj
           from { opacity: 0; transform: translate(-50%, -8px); }
           to { opacity: 1; transform: translate(-50%, 0); }
         }
+        .scrollbar-hide::-webkit-scrollbar { display: none; }
+        .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
       `}</style>
     </div>
   )

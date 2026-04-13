@@ -1,0 +1,158 @@
+{
+  "name": "review-primary",
+  "leadAgentId": "50a5732112bf4b9d881154e7d45727cb",
+  "workspacePath": "/Volumes/ORICO/xinwen/claudecode/chinese-learn",
+  "createdAt": "2026-04-13T02:24:06.973Z",
+  "options": {
+    "workspacePath": "/Volumes/ORICO/xinwen/claudecode/chinese-learn",
+    "isAutoTeam": false
+  },
+  "members": [
+    {
+      "memberId": "team-lead@review-primary",
+      "name": "team-lead",
+      "role": "Team Lead - coordinates the team and interacts with the user"
+    },
+    {
+      "memberId": "fix-cn-words@review-primary",
+      "name": "fix-cn-words",
+      "role": "修复语文字词86题"
+    },
+    {
+      "memberId": "fix-cn-poetry@review-primary",
+      "name": "fix-cn-poetry",
+      "role": "修复语文诗词96题"
+    },
+    {
+      "memberId": "fix-cn-idiom@review-primary",
+      "name": "fix-cn-idiom",
+      "role": "修复语文成语75题"
+    },
+    {
+      "memberId": "fix-cn-lit@review-primary",
+      "name": "fix-cn-lit",
+      "role": "修复语文文学常识78题"
+    },
+    {
+      "memberId": "fix-cn-sentence@review-primary",
+      "name": "fix-cn-sentence",
+      "role": "修复语文句子91题"
+    },
+    {
+      "memberId": "fix-cn-reading@review-primary",
+      "name": "fix-cn-reading",
+      "role": "修复语文阅读40题"
+    },
+    {
+      "memberId": "fix-cn-dictation@review-primary",
+      "name": "fix-cn-dictation",
+      "role": "修复语文听写442词"
+    },
+    {
+      "memberId": "fix-en-vocab@review-primary",
+      "name": "fix-en-vocab",
+      "role": "修复英语词汇120题"
+    },
+    {
+      "memberId": "fix-en-grammar@review-primary",
+      "name": "fix-en-grammar",
+      "role": "修复英语语法99题"
+    },
+    {
+      "memberId": "fix-en-other@review-primary",
+      "name": "fix-en-other",
+      "role": "修复英语阅读+听力+写作90题"
+    },
+    {
+      "memberId": "verify2-cn-words@review-primary",
+      "name": "verify2-cn-words",
+      "role": "二轮验证语文字词86题"
+    },
+    {
+      "memberId": "verify2-cn-poetry@review-primary",
+      "name": "verify2-cn-poetry",
+      "role": "二轮验证语文诗词87题"
+    },
+    {
+      "memberId": "verify2-cn-others@review-primary",
+      "name": "verify2-cn-others",
+      "role": "二轮验证语文成语+文学+句子+阅读+听写"
+    },
+    {
+      "memberId": "verify2-en-main@review-primary",
+      "name": "verify2-en-main",
+      "role": "二轮验证英语词汇+语法"
+    },
+    {
+      "memberId": "verify2-en-other@review-primary",
+      "name": "verify2-en-other",
+      "role": "二轮验证英语阅听写90题"
+    },
+    {
+      "memberId": "gen-cn-vocab@review-primary",
+      "name": "gen-cn-vocab",
+      "role": "扩充语文字词至120题"
+    },
+    {
+      "memberId": "gen-cn-poetry@review-primary",
+      "name": "gen-cn-poetry",
+      "role": "扩充语文诗词至120题"
+    },
+    {
+      "memberId": "gen-cn-idiom@review-primary",
+      "name": "gen-cn-idiom",
+      "role": "扩充语文成语至120题"
+    },
+    {
+      "memberId": "gen-cn-lit@review-primary",
+      "name": "gen-cn-lit",
+      "role": "扩充语文文学常识至120题"
+    },
+    {
+      "memberId": "gen-cn-sentence@review-primary",
+      "name": "gen-cn-sentence",
+      "role": "扩充语文句子至120题"
+    },
+    {
+      "memberId": "fix-cn-paper@review-primary",
+      "name": "fix-cn-paper",
+      "role": "修复语文26题纸质用语残留"
+    },
+    {
+      "memberId": "fix-j2-listen@review-primary",
+      "name": "fix-j2-listen",
+      "role": "修复初中英语听力60题"
+    },
+    {
+      "memberId": "ui-cn-home@review-primary",
+      "name": "ui-cn-home",
+      "role": "重构语文首页为网格布局"
+    },
+    {
+      "memberId": "ui-en-home@review-primary",
+      "name": "ui-en-home",
+      "role": "重构英语首页为网格布局"
+    },
+    {
+      "memberId": "ui-politics-home@review-primary",
+      "name": "ui-politics-home",
+      "role": "重构道法首页为网格布局"
+    },
+    {
+      "memberId": "j2-data-fix@review-primary",
+      "name": "j2-data-fix",
+      "role": "修复初二词库数据质量"
+    },
+    {
+      "memberId": "j2-vocab-expand@review-primary",
+      "name": "j2-vocab-expand",
+      "role": "扩充初二词库至1200+词"
+    },
+    {
+      "memberId": "j2-srs-integration@review-primary",
+      "name": "j2-srs-integration",
+      "role": "WordPlanetPage.jsx SRS集成"
+    }
+  ],
+  "isAutoTeam": false
+}

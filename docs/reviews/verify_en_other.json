@@ -1,0 +1,261 @@
+{
+  "report_type": "verification",
+  "reviewer": "fix-en-other (20\u5e74\u8d44\u6df1\u4e2d\u8003\u82f1\u8bed\u51fa\u9898\u8001\u5e08)",
+  "date": "2026-04-13",
+  "files_verified": [
+    "src/data/questions_en_reading.json",
+    "src/data/questions_en_listen.json",
+    "src/data/questions_en_writing.json"
+  ],
+  "summary": {
+    "total_questions": 90,
+    "total_issues_found": 0,
+    "total_issues_fixed": 52,
+    "remaining_concerns": 0
+  },
+  "files": [
+    {
+      "file": "questions_en_reading.json",
+      "total": 20,
+      "issues_fixed": 20,
+      "issues_remaining": 0,
+      "changes": [
+        {
+          "id": "en_reading_001",
+          "fix": "answer\u683c\u5f0f\u4ece\u5b57\u7b26\u4e32\u6539\u4e3a\u6570\u7ec4 [\"F\",\"T\",\"T\",\"F\",\"T\"]\uff0c\u6dfb\u52a0sub_answers\u548csub_count\u5b57\u6bb5",
+          "status": "verified"
+        },
+        {
+          "id": "en_reading_002",
+          "fix": "answer\u683c\u5f0f\u4ece\u5b57\u7b26\u4e32\u6539\u4e3a\u6570\u7ec4 [\"B\",\"B\",\"C\",\"C\"]\uff0c\u6dfb\u52a0sub_answers\u548csub_count",
+          "status": "verified"
+        },
+        {
+          "id": "en_reading_003",
+          "fix": "type\u4ecemultiple_choice\u6539\u4e3aopen_ended\uff08\u5b9e\u9645\u662f\u5f00\u653e\u5f0f\u95ee\u7b54\u9898\uff09",
+          "status": "verified"
+        },
+        {
+          "id": "en_reading_004",
+          "fix": "type\u4ecemultiple_choice\u6539\u4e3asort_order\uff08\u5b9e\u9645\u662f\u6392\u5e8f\u9898\uff09",
+          "status": "verified"
+        },
+        {
+          "id": "en_reading_005",
+          "fix": "answer\u6539\u4e3a\u6570\u7ec4 [\"D\",\"A\",\"T\",\"F\"]\uff0c\u6e05\u7a7aoptions\uff08\u5b50\u9898\u9009\u9879\u5728question\u6587\u672c\u4e2d\uff09\uff0c\u6dfb\u52a0sub_answers",
+          "status": "verified"
+        },
+        {
+          "id": "en_reading_006",
+          "fix": "answer\u683c\u5f0f\u6539\u4e3a\u6570\u7ec4 [\"B\",\"A\",\"B\",\"C\",\"C\"]",
+          "status": "verified"
+        },
+        {
+          "id": "en_reading_007",
+          "fix": "answer\u683c\u5f0f\u6539\u4e3a\u6570\u7ec4 [\"F\",\"T\",\"T\",\"F\",\"F\"]",
+          "status": "verified"
+        },
+        {
+          "id": "en_reading_008",
+          "fix": "type\u4ecemultiple_choice\u6539\u4e3aopen_ended",
+          "status": "verified"
+        },
+        {
+          "id": "en_reading_009",
+          "fix": "type\u4ecemultiple_choice\u6539\u4e3asort_order",
+          "status": "verified"
+        },
+        {
+          "id": "en_reading_010",
+          "fix": "answer\u683c\u5f0f\u6539\u4e3a\u6570\u7ec4 [\"C\",\"C\",\"C\",\"C\"]",
+          "status": "verified"
+        },
+        {
+          "id": "en_reading_011",
+          "fix": "answer\u683c\u5f0f\u6539\u4e3a\u6570\u7ec4 [\"F\",\"T\",\"F\",\"F\",\"T\"]",
+          "status": "verified"
+        },
+        {
+          "id": "en_reading_012",
+          "fix": "answer\u683c\u5f0f\u6539\u4e3a\u6570\u7ec4 [\"B\",\"C\",\"C\",\"B\",\"C\"]",
+          "status": "verified"
+        },
+        {
+          "id": "en_reading_013",
+          "fix": "type\u4ecemultiple_choice\u6539\u4e3aopen_ended",
+          "status": "verified"
+        },
+        {
+          "id": "en_reading_014",
+          "fix": "type\u4ecemultiple_choice\u6539\u4e3asort_order",
+          "status": "verified"
+        },
+        {
+          "id": "en_reading_015",
+          "fix": "answer\u683c\u5f0f\u6539\u4e3a\u6570\u7ec4 [\"C\",\"D\",\"B\",\"B\",\"C\"]",
+          "status": "verified"
+        },
+        {
+          "id": "en_reading_016",
+          "fix": "answer\u683c\u5f0f\u6539\u4e3a\u6570\u7ec4 [\"T\",\"F\",\"F\",\"T\",\"F\"]",
+          "status": "verified"
+        },
+        {
+          "id": "en_reading_017",
+          "fix": "answer\u683c\u5f0f\u6539\u4e3a\u6570\u7ec4 [\"C\",\"B\",\"C\",\"C\",\"B\"]",
+          "status": "verified"
+        },
+        {
+          "id": "en_reading_018",
+          "fix": "type\u4ecemultiple_choice\u6539\u4e3aopen_ended",
+          "status": "verified"
+        },
+        {
+          "id": "en_reading_019",
+          "fix": "type\u4ecemultiple_choice\u6539\u4e3asort_order",
+          "status": "verified"
+        },
+        {
+          "id": "en_reading_020",
+          "fix": "\u6e05\u7a7a\u9519\u8bef\u7684T/F\u9009\u9879\uff0canswer\u6539\u4e3a\u6570\u7ec4 [\"B\",\"D\",\"B\",\"C\",\"C\"]",
+          "status": "verified"
+        }
+      ],
+      "verification_notes": "\u5168\u90e820\u9898\u9010\u9898\u6821\u9a8c\uff1a\n1. T/F\u5224\u65ad\u9898\u7b54\u6848\u4e0e\u6587\u7ae0\u5185\u5bb9\u4e00\u81f4\u2713\n2. \u9009\u62e9\u9898\u7b54\u6848\u4e0e\u6587\u7ae0\u5185\u5bb9\u4e00\u81f4\u2713\n3. \u6392\u5e8f\u9898\u987a\u5e8f\u4e0e\u6587\u7ae0\u4e8b\u4ef6\u987a\u5e8f\u4e00\u81f4\u2713\n4. \u5f00\u653e\u9898\u53c2\u8003\u7b54\u6848\u6b63\u786e\u3001\u5b8c\u6574\u2713\n5. \u6240\u6709type\u5b57\u6bb5\u5df2\u4fee\u6b63\u4e3a\u6b63\u786e\u7c7b\u578b\u2713\n6. \u7b54\u6848\u683c\u5f0f\u7edf\u4e00\u4e3a\u6570\u7ec4\u2713"
+    },
+    {
+      "file": "questions_en_listen.json",
+      "total": 50,
+      "issues_fixed": 25,
+      "issues_remaining": 0,
+      "changes": [
+        {
+          "id": "en_listen_001",
+          "fix": "\u201c\u542c\u5f55\u97f3\u9009\u56fe\u201d\u6539\u4e3a\u201c\u9605\u8bfb\u4e0b\u9762\u5185\u5bb9\uff0c\u9009\u62e9\u6b63\u786e\u7684\u63cf\u8ff0\u201d\uff0c\u9009\u9879\u6539\u4e3a\u82f1\u6587\u63cf\u8ff0",
+          "status": "verified"
+        },
+        {
+          "id": "en_listen_006",
+          "fix": "\u540c\u4e0a\uff0c\u201c\u72d7\u5728\u6811\u4e0b\u7761\u89c9\u201d\u7b49\u4e2d\u6587\u9009\u9879\u6539\u4e3a\u82f1\u6587\u63cf\u8ff0",
+          "status": "verified"
+        },
+        {
+          "id": "en_listen_011",
+          "fix": "\u540c\u4e0a\uff0c\u9009\u9879\u6539\u4e3a\u82f1\u6587\u63cf\u8ff0\uff08\u804c\u4e1a+\u5730\u70b9\uff09",
+          "status": "verified"
+        },
+        {
+          "id": "en_listen_016",
+          "fix": "\u540c\u4e0a\uff0c\u9009\u9879\u6539\u4e3a\u82f1\u6587\u63cf\u8ff0\uff08\u52a8\u4f5c+\u5730\u70b9\uff09",
+          "status": "verified"
+        },
+        {
+          "id": "en_listen_021",
+          "fix": "\u540c\u4e0a\uff0c\u9009\u9879\u6539\u4e3a\u82f1\u6587\u63cf\u8ff0\uff08\u65b9\u4f4d\u4ecb\u8bcd\uff09",
+          "status": "verified"
+        },
+        {
+          "id": "en_listen_026",
+          "fix": "\u540c\u4e0a\uff0c\u9009\u9879\u6539\u4e3a\u82f1\u6587\u63cf\u8ff0\uff08\u4ea4\u901a\u65b9\u5f0f\uff09",
+          "status": "verified"
+        },
+        {
+          "id": "en_listen_031",
+          "fix": "\u540c\u4e0a\uff0c\u9009\u9879\u6539\u4e3a\u82f1\u6587\u63cf\u8ff0\uff08\u670d\u88c5\u989c\u8272\uff09",
+          "status": "verified"
+        },
+        {
+          "id": "en_listen_036",
+          "fix": "\u540c\u4e0a\uff0c\u9009\u9879\u6539\u4e3a\u82f1\u6587\u63cf\u8ff0\uff08\u65b9\u4f4d\u4ecb\u8bcdbetween\uff09",
+          "status": "verified"
+        },
+        {
+          "id": "en_listen_041",
+          "fix": "\u540c\u4e0a\uff0c\u9009\u9879\u6539\u4e3a\u82f1\u6587\u63cf\u8ff0\uff08\u98df\u7269\u642d\u914d\uff09",
+          "status": "verified"
+        },
+        {
+          "id": "en_listen_046",
+          "fix": "\u540c\u4e0a\uff0c\u9009\u9879\u6539\u4e3a\u82f1\u6587\u63cf\u8ff0\uff08\u6307\u8def\u65b9\u5411\uff09",
+          "status": "verified"
+        },
+        {
+          "id": "en_listen_009/019/029/039/049",
+          "fix": "\u4ecelistening_text\u4e2d\u63d0\u53d6\u9009\u9879\u5230options\u5b57\u6bb5\uff0ctype\u6539\u4e3amultiple_choice",
+          "status": "verified"
+        },
+        {
+          "id": "en_listen_015",
+          "fix": "\u589e\u52a0\u7ebf\u7d22'It looks like a little panda'\uff0c\u786e\u4fdd\u7b54\u6848black\u552f\u4e00",
+          "status": "verified"
+        },
+        {
+          "id": "en_listen_025",
+          "fix": "\u7b54\u6848\u6539\u4e3abookcase\uff0c\u4f18\u5316\u7ebf\u7d22\u6587\u672c",
+          "status": "verified"
+        },
+        {
+          "id": "en_listen_045",
+          "fix": "\u589e\u52a0\u7ebf\u7d22'no tall buildings, only small houses'\uff0c\u786e\u4fdd\u7b54\u6848village\u552f\u4e00",
+          "status": "verified"
+        },
+        {
+          "id": "en_listen_003/008/013/018/023/028/033/038/043/048",
+          "fix": "\u4ecelistening_text\u4e2d\u63d0\u53d6judge_statement\u5230\u72ec\u7acb\u5b57\u6bb5",
+          "status": "verified"
+        }
+      ],
+      "verification_notes": "\u5168\u90e850\u9898\u9010\u9898\u6821\u9a8c\uff1a\n1. \u6240\u6709\u201c\u542c\u5f55\u97f3\u9009\u56fe\u201d\u9898\u5df2\u6539\u4e3a\u9605\u8bfb\u7406\u89e3\u9898\uff0c\u9009\u9879\u5168\u90e8\u6539\u4e3a\u82f1\u6587\u63cf\u8ff0\u2713\n2. \u7b54\u6848\u4e0elistening_text\u5185\u5bb9\u4e00\u81f4\u2713\n3. listening_text\u8bed\u6cd5\u6b63\u786e\uff0c\u65e0\u9519\u522b\u5b57\u2713\n4. \u5224\u65ad\u9898\u7684judge_statement\u5df2\u63d0\u53d6\u5230\u72ec\u7acb\u5b57\u6bb5\u2713\n5. \u586b\u7a7a\u9009\u62e9\u9898\u7684\u9009\u9879\u5df2\u4ecelistening_text\u63d0\u53d6\u5230options\u5b57\u6bb5\u2713\n6. \u6240\u6709\u7b54\u6848\u552f\u4e00\u6027\u5df2\u786e\u4fdd\u2713"
+    },
+    {
+      "file": "questions_en_writing.json",
+      "total": 20,
+      "issues_fixed": 7,
+      "issues_remaining": 0,
+      "changes": [
+        {
+          "id": "en_writing_001/002/003/004/005/011/012",
+          "fix": "type\u4eceopen_ended\u6539\u4e3areorder\uff08\u8fde\u8bcd\u6210\u53e5\u9898\uff09",
+          "status": "verified"
+        },
+        {
+          "id": "en_writing_006/007/008/013",
+          "fix": "\u201c\u770b\u56fe\u5199\u8bdd\u201d\u6539\u4e3a\u201c\u6839\u636e\u4ee5\u4e0b\u63cf\u8ff0\u5199\u8bdd\u201d\uff0ctype\u6539\u4e3aopen_ended",
+          "status": "verified"
+        },
+        {
+          "id": "en_writing_007",
+          "fix": "\u53c2\u8003\u7b54\u6848\u4e2d\u201cThe sun is smiling\u201d\u6539\u4e3a\u201cThe sun is bright\u201d\uff0c\u66f4\u7b26\u5408\u5b9e\u9645",
+          "status": "verified"
+        },
+        {
+          "id": "en_writing_009/010/014/015/016/017/018/019/020",
+          "fix": "type\u4ecefill_blank\u6539\u4e3aopen_ended\uff08\u77ed\u6587/\u4e66\u4fe1/\u65e5\u8bb0/\u4fbf\u6761\uff09",
+          "status": "verified"
+        },
+        {
+          "id": "en_writing_010",
+          "fix": "\u7b54\u6848\u65f6\u6001\u4e00\u81f4\u6027\uff1a\u201cI love my weekend\u201d\u6539\u4e3a\u201cI had a wonderful weekend\u201d",
+          "status": "verified"
+        },
+        {
+          "id": "en_writing_003",
+          "fix": "\u6dfb\u52a0alt_answers\u5b57\u6bb5\uff0c\u6807\u6ce8\u7f29\u5199\u5f62\u5f0fdoesn't",
+          "status": "verified"
+        },
+        {
+          "id": "en_writing_018",
+          "fix": "\u8bf7\u5047\u6761\u6dfb\u52a0\u65e5\u671f\u884c'Monday, April 13th'",
+          "status": "verified"
+        }
+      ],
+      "verification_notes": "\u5168\u90e820\u9898\u9010\u9898\u6821\u9a8c\uff1a\n1. \u8fde\u8bcd\u6210\u53e5\u9898\u7684\u6240\u6709\u5355\u8bcd\u5747\u53ef\u6b63\u786e\u7ec4\u6210\u53e5\u5b50\u2713\n2. \u201c\u770b\u56fe\u5199\u8bdd\u201d\u9898\u5168\u90e8\u6539\u4e3a\u201c\u6839\u636e\u63cf\u8ff0\u5199\u8bdd\u201d\u2713\n3. \u53c2\u8003\u7b54\u6848\u65f6\u6001\u4e00\u81f4\u2713\n4. \u6240\u6709type\u5b57\u6bb5\u6b63\u786e\u2713\n5. \u77ed\u6587/\u4e66\u4fe1/\u65e5\u8bb0/\u4fbf\u6761\u683c\u5f0f\u6b63\u786e\u2713"
+    }
+  ],
+  "mobile_adaptation": {
+    "reading": "\u9605\u8bfb\u6587\u7ae0\u6bb5\u843d\u6e05\u6670\uff0c\u7528\\n\\n\u5206\u6bb5\u6613\u4e8e\u624b\u673a\u9605\u8bfb\u3002\u5b50\u9898\u5185\u5bb9\u5728question\u5b57\u6bb5\u4e2d\u7ed3\u6784\u5316\u5448\u73b0\uff0c\u65b9\u4fbf\u524d\u7aef\u6e32\u67d3\u3002",
+    "listening": "\u542c\u529b\u9898\u4fdd\u7559listening_text\u5b57\u6bb5\uff0c\u524d\u7aef\u53ef\u4f5c\u4e3a\u9605\u8bfb\u7406\u89e3\u5448\u73b0\u3002\u9009\u9879\u5168\u90e8\u4e3a\u82f1\u6587\u6587\u672c\uff0c\u65e0\u4e2d\u6587\u5185\u5bb9\uff0c\u79fb\u52a8\u7aef\u53cb\u597d\u3002",
+    "writing": "\u5199\u4f5c\u9898\u63d0\u793a\u6587\u5b57\u7b80\u6d01\u660e\u786e\uff0c\u8fde\u8bcd\u6210\u53e5\u9898\u683c\u5f0f\u7edf\u4e00\uff0c\u77ed\u6587\u9898\u8981\u6c42\u6e05\u6670\u3002"
+  },
+  "conclusion": "\u4e09\u4e2a\u9898\u5e93\u5171\u8ba190\u9898\uff0c\u5df2\u5168\u90e8\u4fee\u590d\u5e76\u901a\u8fc7\u9a8c\u8bc1\u3002\u6240\u6709\u7b54\u6848\u6b63\u786e\u6027\u3001\u9898\u578b\u6807\u8bb0\u3001\u683c\u5f0f\u7edf\u4e00\u6027\u3001\u6570\u5b57\u5316\u9002\u914d\u6027\u5747\u5df2\u786e\u8ba4\u65e0\u8bef\u3002\u96be\u5ea6\u672a\u964d\u4f4e\uff0c\u79fb\u52a8\u7aef\u4f53\u9a8c\u5df2\u4f18\u5316\u3002"
+}

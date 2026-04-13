@@ -1,0 +1,218 @@
+[
+  {
+    "word_id": "cn_g4_026",
+    "severity": "suggestion",
+    "category": "bad_example",
+    "field": "example",
+    "current_value": "这道菜的滋味真好。",
+    "description": "例句过于简单平淡，缺少情境感，作为四年级听写词可以更丰富",
+    "suggestion": "妈妈做的红烧肉滋味鲜美，让人回味无穷。"
+  },
+  {
+    "word_id": "cn_g4_037",
+    "severity": "error",
+    "category": "wrong_pinyin",
+    "field": "pinyin",
+    "current_value": "xuán",
+    "description": ""旋"是多音字。在"盘旋"中读xuán（二声）标注正确，但在课文"旋风"中应读xuàn（四声）。作为单字听写词条，应注明多音字或根据课文语境标注正确读音。四年级上册语文园地中该字主要出现在"盘旋"语境，xuán标注可接受，但建议标注多音字。",
+    "suggestion": "建议在词条中注明多音字，如 pinyin: "xuán/xuàn""
+  },
+  {
+    "word_id": "cn_g4_046",
+    "severity": "design_issue",
+    "category": "other",
+    "field": "word",
+    "current_value": "帝国主义",
+    "description": ""帝国主义"出自课文《圆明园的毁灭》，但该词政治概念较深，小学生作为听写词理解有困难。四年级学生可能只会机械记忆字形而无法理解含义。",
+    "suggestion": "如课文明确要求听写则保留，但建议确认是否为必考听写词"
+  },
+  {
+    "word_id": "cn_g4_049",
+    "severity": "suggestion",
+    "category": "other",
+    "field": "word",
+    "current_value": "得意扬扬",
+    "description": "现代汉语更常见写法为"得意洋洋"，"得意扬扬"虽正确但较少使用。人教版课文中使用"得意扬扬"，与课文一致无误。",
+    "suggestion": "无修改，与课文保持一致即可"
+  },
+  {
+    "word_id": "cn_g4_055",
+    "severity": "suggestion",
+    "category": "bad_example",
+    "field": "example",
+    "current_value": "孙悟空能腾云驾雾。",
+    "description": "例句过于简单，缺少上下文语境",
+    "suggestion": "神话故事中，神仙腾云驾雾，自由飞翔。"
+  },
+  {
+    "word_id": "cn_g4_056",
+    "severity": "design_issue",
+    "category": "other",
+    "field": "word",
+    "current_value": "程控电话",
+    "description": ""程控电话"是过时词汇，现代小学生缺乏生活体验。虽然出自课文《呼风唤雨的世纪》，但作为听写词可能影响学习体验。",
+    "suggestion": "可保留但注意例句需帮助学生理解；或考虑替换"
+  },
+  {
+    "word_id": "cn_g4_077",
+    "severity": "design_issue",
+    "category": "bad_example",
+    "field": "example",
+    "current_value": "他面呈菜色，显然很久没吃东西了。",
+    "description": ""面呈菜色"例句场景偏消极，且用"他"作为主语显得突兀，建议调整语境",
+    "suggestion": "旧社会里，很多穷苦百姓面呈菜色，形容他们长期营养不良。"
+  },
+  {
+    "word_id": "cn_g4_082",
+    "severity": "suggestion",
+    "category": "bad_example",
+    "field": "example",
+    "current_value": "不要贪财。",
+    "description": "例句过于简单生硬，缺少语境",
+    "suggestion": "君子爱财，取之有道，不能贪财。"
+  },
+  {
+    "word_id": "cn_g4_089",
+    "severity": "design_issue",
+    "category": "bad_example",
+    "field": "example",
+    "current_value": "学生们鱼贯而出地走出教室。",
+    "description": ""鱼贯而出地走出教室"中"而出"和"走出"语意重复，搭配生硬",
+    "suggestion": "下课铃响了，同学们鱼贯而出，奔向操场。"
+  },
+  {
+    "word_id": "cn_g4_091",
+    "severity": "design_issue",
+    "category": "bad_example",
+    "field": "example",
+    "current_value": "他跑得上气不接下气，气喘吁吁。",
+    "description": ""上气不接下气"和"气喘吁吁"意思重复，例句不简洁",
+    "suggestion": "他跑了一千米后，累得气喘吁吁。"
+  },
+  {
+    "word_id": "cn_g4_106",
+    "severity": "error",
+    "category": "wrong_pinyin",
+    "field": "pinyin",
+    "current_value": "xuē",
+    "description": ""削"是多音字。在"削铅笔"的语境中应读xiāo（一声），而非xuē（一声）。xuē用于"剥削""削足适履"等书面语词。词条例句是"他用刀削铅笔"，对应读音应为xiāo。",
+    "suggestion": "将pinyin改为"xiāo""
+  },
+  {
+    "word_id": "cn_g4_127",
+    "severity": "error",
+    "category": "wrong_pinyin",
+    "field": "pinyin",
+    "current_value": "guān",
+    "description": ""冠"是多音字。在"冠军"中应读guàn（四声），而非guān（一声）。guān用于"衣冠""皇冠"等名词义。词条例句"他获得了冠军"中的"冠"应读guàn。",
+    "suggestion": "将pinyin改为"guàn""
+  },
+  {
+    "word_id": "cn_g4_147",
+    "severity": "design_issue",
+    "category": "bad_example",
+    "field": "example",
+    "current_value": "坏人把人绑了起来。",
+    "description": "例句情境偏负面，建议改为更中性的表达",
+    "suggestion": "他用绳子把包裹绑在自行车上。"
+  },
+  {
+    "word_id": "cn_g5_055",
+    "severity": "error",
+    "category": "wrong_pinyin",
+    "field": "pinyin",
+    "current_value": "gū liáng",
+    "description": ""量"是多音字。在"估量"中表示"估计、衡量"义时，应读liàng（四声），而非liáng（二声）。liáng仅用于"测量""量杯"等具体度量义。",
+    "suggestion": "将pinyin改为"gū liàng""
+  },
+  {
+    "word_id": "cn_g5_060",
+    "severity": "suggestion",
+    "category": "bad_example",
+    "field": "example",
+    "current_value": "群星环绕月亮，众星拱月。",
+    "description": ""群星环绕月亮"和"众星拱月"语意完全重复，例句冗余",
+    "suggestion": "无数行星环绕着太阳，宛如众星拱月。"
+  },
+  {
+    "word_id": "cn_g5_064",
+    "severity": "error",
+    "category": "wrong_pinyin",
+    "field": "pinyin",
+    "current_value": "qián pū hòu jì",
+    "description": ""仆"是多音字。在"前仆后继"中表示"向前倒下"义时，应读pū（一声），而非pú（二声）。当前标注正确为pū，但需确认文件中实际值。经核实，文件中pinyin为"qián pū hòu jì"，pū（一声）标注正确。",
+    "suggestion": "无修改，拼音标注正确"
+  },
+  {
+    "word_id": "cn_g5_090",
+    "severity": "error",
+    "category": "wrong_pinyin",
+    "field": "pinyin",
+    "current_value": "lè",
+    "description": ""勒"是多音字。词条例句"他勒住了马"中"勒"表示口语中的"拉紧、套住"义，应读lēi（一声），而非lè（四声）。lè用于书面语如"勒索""勒令""悬崖勒马"。",
+    "suggestion": "将pinyin改为"lēi""
+  },
+  {
+    "word_id": "cn_g5_138",
+    "severity": "suggestion",
+    "category": "other",
+    "field": "pinyin",
+    "current_value": "zhí zi",
+    "description": ""侄子"的"子"标注为轻声zi。词典标准标注为"zhí zǐ"（三声），但口语中"子"确实常读轻声。建议统一全词库的轻声标注规范。",
+    "suggestion": "建议统一轻声标注规范：词典标准读音用三声zǐ，口语轻声用zi，全库保持一致"
+  },
+  {
+    "word_id": "cn_g6_052",
+    "severity": "design_issue",
+    "category": "bad_example",
+    "field": "example",
+    "current_value": "那个坏蛋简直是畜生。",
+    "description": "例句用语偏激烈，不适合小学生语境。该词出自鲁迅《故乡》，建议结合课文语境给出更合适的例句。",
+    "suggestion": "在课文中，闰土的父亲被称为长工，而非畜生。建议改为更贴合课文或更温和的表达。"
+  },
+  {
+    "word_id": "cn_g6_053",
+    "severity": "design_issue",
+    "category": "duplicate",
+    "field": "word",
+    "current_value": "囫囵吞枣",
+    "description": ""囫囵吞枣"在cn_g5_008（五年级上册）和cn_g6_053（六年级上册）中重复出现。同一个成语不应在两个年级的听写词库中重复。",
+    "suggestion": "删除其中一条，建议保留五年级的cn_g5_008（更早学习更合适）"
+  },
+  {
+    "word_id": "cn_g6_066",
+    "severity": "design_issue",
+    "category": "duplicate",
+    "field": "word",
+    "current_value": "震耳欲聋",
+    "description": ""震耳欲聋"在cn_g5_048（五年级上册）和cn_g6_066（六年级上册）中重复出现。同一个成语不应在两个年级的听写词库中重复。",
+    "suggestion": "删除其中一条，建议保留五年级的cn_g5_048"
+  },
+  {
+    "word_id": "cn_g6_101",
+    "severity": "suggestion",
+    "category": "bad_example",
+    "field": "example",
+    "current_value": "月蚀是一种天文现象。",
+    "description": "现代汉语规范推荐写法为"月食"而非"月蚀"，二者同音但"月食"更规范常用",
+    "suggestion": "将例句改为"月食是一种天文现象。"如词条字为"蚀"，可改为"侵蚀是一种自然现象。""
+  },
+  {
+    "word_id": "cn_g6_102",
+    "severity": "design_issue",
+    "category": "bad_example",
+    "field": "example",
+    "current_value": "他累得筋疲力乏。",
+    "description": ""筋疲力乏"不是标准成语，规范说法为"筋疲力尽"或"疲惫不堪"。例句应使用规范用语。",
+    "suggestion": "他忙了一整天，累得浑身乏力。"
+  },
+  {
+    "word_id": "cn_g6_109",
+    "severity": "design_issue",
+    "category": "duplicate",
+    "field": "word",
+    "current_value": "聚精会神",
+    "description": ""聚精会神"在cn_g4_143（四年级下册）和cn_g6_109（六年级下册）中重复出现。同一个成语不应在两个年级的听写词库中重复。",
+    "suggestion": "删除其中一条，建议保留四年级的cn_g4_143（更早学习更合适）"
+  }
+]

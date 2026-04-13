@@ -1,0 +1,479 @@
+[
+  {
+    "question_id": "vocab_001",
+    "severity": "design_issue",
+    "category": "digital_unfriendly",
+    "field": "question",
+    "current_value": "下列词语中，加点字的读音全部正确的一组是（ ）。\n（加点字：榨、眸、喙、匣）",
+    "description": "题目使用了'加点字'这一纸质考试用语，但数字化界面中用户根本看不到加点效果。虽然在括号中补充了加点字的列表，但这仍然是不规范的出题方式。",
+    "suggestion": "将题干改为'下列词语中，注音全部正确的一组是'，或直接在每个选项中将目标字用加粗/下划线标注。"
+  },
+  {
+    "question_id": "vocab_003",
+    "severity": "design_issue",
+    "category": "digital_unfriendly",
+    "field": "question",
+    "current_value": "下列句子中，加点词语解释有误的一项是（ ）。\n（加点词：负荆请罪、理直气壮、完璧归赵、同心协力）",
+    "description": "使用'加点词语'用语，数字化界面中用户看不到加点效果。",
+    "suggestion": "将题干改为'下列句子中，成语解释有误的一项是'，或在选项中将目标词语加粗标注。"
+  },
+  {
+    "question_id": "vocab_003",
+    "severity": "error",
+    "category": "format_issue",
+    "field": "answer",
+    "current_value": "D. 只要我们**同心协力**，就没有克服不了的困难。（同心协力：指为了同一个目标，各自为政，互不干扰）",
+    "description": "answer字段中包含了'**'加粗标记语法，但选项原文（options数组中D选项）并没有使用'**'标记。answer与options中对应选项的文本格式不一致，可能导致自动判题时匹配失败。",
+    "suggestion": "统一格式：要么options中D选项也使用'**'标记，要么answer中去掉'**'标记。"
+  },
+  {
+    "question_id": "vocab_004",
+    "severity": "error",
+    "category": "wrong_answer",
+    "field": "answer",
+    "current_value": "A. 间隔 间接 黑白相间",
+    "description": "答案标注A为'读音相同'，但实际上：间隔(jiàn)和间接(jiàn)读音相同，但黑白相间的'间'读音为jiàn，看似相同。然而'间接'的'间'在标准读音中应读jiān（间接jiān jiē），而'间隔'的'间'读jiàn。因此A项中'间接'的'间'读jiān，'间隔'的'间'读jiàn，读音并不相同。实际上四个选项中都有不同读音的情况，此题答案可能有误。经核实：间接(jiān jiē)，间隔(jiàn gé)，黑白相间(hēi bái xiāng jiàn)。A项三个'间'字有两个读jiàn、一个读jiān，不完全相同。D选项：削弱(xuē)、剥削(bō xuē/xuē)、削苹果(xiāo)，也不完全相同。本题所有选项中各字读音都不完全相同，答案设置有误。",
+    "suggestion": "重新审视本题选项设计。如需考查多音字'间'，建议改为：A. 间接 间谍（都是jiān）或 B. 间隔 黑白相间（都是jiàn）作为正确答案。需要确保正确选项中所有字的读音确实相同。"
+  },
+  {
+    "question_id": "vocab_006",
+    "severity": "design_issue",
+    "category": "digital_unfriendly",
+    "field": "question",
+    "current_value": "下列句子中，加点词语使用正确的一项是（ ）。",
+    "description": "使用'加点词语'用语，选项中也没有标注哪些是被考查的词语。",
+    "suggestion": "将选项中目标词语加粗标注，如'看到抢险队员平安归来，大家**忍俊不禁**地笑了。'"
+  },
+  {
+    "question_id": "vocab_007",
+    "severity": "error",
+    "category": "wrong_answer",
+    "field": "answer",
+    "current_value": "C. 脊背（脊柱） 心旷神怡（愉快） 震耳欲聋（将要）",
+    "description": "C选项中'应接不瑕'的'瑕'是错字，正确应为'暇'（空闲），但题目要求'字形、字义全部正确'，C选项中'应接不瑕'这个词语本身就写错了（瑕是玉瑕，暇才是空闲），字形不正确，因此C不应该是正确答案。实际上A、B、C、D四个选项中均有不同程度的错误：A中'应接不瑕'应为'暇'；B中'难以置信'的'置信'解释为'放置'有误；D中'津津有味'的'津'解释为'河流'过于片面（应为口水、涎水）。此题选项设计有严重问题，可能没有完全正确的选项。",
+    "suggestion": "重新设计选项，确保正确答案的每个字词的字形和字义解释都完全正确。建议每个选项只考查1-2个字义，降低出错概率。"
+  },
+  {
+    "question_id": "vocab_007",
+    "severity": "suggestion",
+    "category": "distractor_quality",
+    "field": "options",
+    "current_value": "A. 烦琐（细小而杂） 应接不瑕（空闲） 相依为命（依靠）",
+    "description": "A选项中'应接不瑕'的'瑕'是错别字（应为'暇'），且字义解释（空闲）对应的是'暇'，字形和字义已经不匹配了。题目要求'字形、字义全部正确'，混淆了字形辨析和字义解释两个考点。",
+    "suggestion": "将A选项改为使用正确字形'应接不暇（空闲）'，然后通过其他字的字义解释来设置干扰项。"
+  },
+  {
+    "question_id": "vocab_008",
+    "severity": "design_issue",
+    "category": "digital_unfriendly",
+    "field": "question",
+    "current_value": "下列句子中，加点词语与其他三项不属于同一类的一项是（ ）。",
+    "description": "使用'加点词语'用语。此外，'严谨'通常归类为中性偏褒义词，与D选项'救死扶伤'（明显褒义）可能存在分类争议。",
+    "suggestion": "将选项中目标词语加粗标注。同时确认'严谨'的分类标准是否一致。"
+  },
+  {
+    "question_id": "vocab_012",
+    "severity": "error",
+    "category": "wrong_answer",
+    "field": "answer",
+    "current_value": "（1）√ （2）× （3）× （4）×",
+    "description": "第（4）小题答案有误：'龟裂'中的'龟'读jūn（不是guī），题目标注'龟（guī）'确实是错的，所以答案标×是正确的。但仔细看：答案说第（4）题错了（标×），但理由是'龟'应读jūn不是guī，这一点是对的。然而第（4）小题说'意思是乌龟'，而'龟裂'的'龟'在这里并不指'乌龟'，意思是'裂开'。所以×的判定是正确的。但问题在于：这个判断题同时考查读音和字义，但答案解释只说了读音错误，字义错误也应指出。",
+    "suggestion": "analysis中应补充说明第（4）题的'龟'不仅读音有误（应为jūn），字义解释也有误（龟裂中'龟'表示裂开貌，不是乌龟）。"
+  },
+  {
+    "question_id": "vocab_013",
+    "severity": "error",
+    "category": "wrong_answer",
+    "field": "answer",
+    "current_value": "A. ①③",
+    "description": "答案标注为A. ①③，但analysis中却说'本题中正确项为①③④，选项C恰好是①③④'，这与答案A. ①③自相矛盾。需要核实正确读音：①脊背(jǐ)正确；②木匣(xiá)正确；③人影绰绰(chuò)正确；④步履(lǚ)正确。因此①②③④全部正确，答案应为C. ①③④。当前答案A. ①③是错误的。",
+    "suggestion": "将答案修正为C. ①③④，并删除analysis中的矛盾内容。"
+  },
+  {
+    "question_id": "vocab_013",
+    "severity": "design_issue",
+    "category": "digital_unfriendly",
+    "field": "question",
+    "current_value": "下列词语中，加点字的读音全部正确的一组是（　）（多选，每题至少有两个正确答案）。\n（加点字：脊、匣、绰、履）",
+    "description": "使用'加点字'用语。",
+    "suggestion": "将题干改为'下列注音中，全部正确的一组是'。"
+  },
+  {
+    "question_id": "vocab_013",
+    "severity": "error",
+    "category": "ambiguous",
+    "field": "answer",
+    "current_value": "A. ①③",
+    "description": "题目标注为'多选，每题至少有两个正确答案'，type字段却是'single_choice'。题型标注与实际要求矛盾，在数字化界面中会影响答题交互逻辑。",
+    "suggestion": "如果确实是单选题，删除'多选，每题至少有两个正确答案'的说明；如果是多选题，将type改为'multiple_choice'。"
+  },
+  {
+    "question_id": "vocab_028",
+    "severity": "error",
+    "category": "wrong_answer",
+    "field": "answer",
+    "current_value": "（1）园→圆 （2）壁→璧 （3）捆→困 （4）烈热→热烈",
+    "description": "第（1）小题答案有误：句子'圆明园是一座举世闻名的皇家园林'中'园'字是正确的（圆明园），并没有错别字。这个句子本身没有错别字，不应当被列为有错字的题目。",
+    "suggestion": "将第（1）小题改为确实有错别字的句子，例如'圆明园是一座举世闻明的皇家园林'（闻明→闻名），或者去掉第（1）小题改为其他题目。"
+  },
+  {
+    "question_id": "vocab_028",
+    "severity": "error",
+    "category": "wrong_answer",
+    "field": "answer",
+    "current_value": "（3）捆→困",
+    "description": "第（3）小题句子'我们要同心协力，战胜困难'中没有错别字，'困'字使用正确。答案说'捆→困'毫无依据。",
+    "suggestion": "将第（3）小题改为确实有错字的句子，例如'我们要同心协力，战胜困男'（男→难），或其他合理的错误设计。"
+  },
+  {
+    "question_id": "vocab_029",
+    "severity": "suggestion",
+    "category": "distractor_quality",
+    "field": "answer",
+    "current_value": "①沥 ②采 ③虑 ④忘\n（1）①② （2）③④",
+    "description": "答案将'兴高采烈'归为褒义词，但'兴高采烈'实际上是中性偏褒义的词语，表示非常高兴的状态，不带明显的褒贬倾向。在严格的词语分类中，它通常被认为是中性词或褒义词。这不算错误但可能引起争议。",
+    "suggestion": "可以考虑将'兴高采烈'替换为更典型的褒义词如'鞠躬尽瘁'，使分类更清晰明确。"
+  },
+  {
+    "question_id": "vocab_033",
+    "severity": "design_issue",
+    "category": "digital_unfriendly",
+    "field": "question",
+    "current_value": "判断下列句子中加点词语使用是否正确，正确的打"√"，错误的打"×"。",
+    "description": "使用'加点词语'用语，但选项中没有标注具体哪些词语是考查对象。",
+    "suggestion": "将句子中的目标词语加粗标注。"
+  },
+  {
+    "question_id": "vocab_034",
+    "severity": "error",
+    "category": "wrong_answer",
+    "field": "answer",
+    "current_value": "A. 崩塌 商议 同心协力 理所当然",
+    "description": "题目标注为'多选'，但只给出了A一个答案。实际检查选项：A全对，C中'懒惰 平衡 无价之宝 诗情画意'也全部正确。因此C也应该入选。当前答案不完整。",
+    "suggestion": "将答案补充为A和C。同时在题目中明确'多选'说明（当前只在题干中有提到但不够显眼）。"
+  },
+  {
+    "question_id": "vocab_034",
+    "severity": "error",
+    "category": "ambiguous",
+    "field": "type",
+    "current_value": "single_choice",
+    "description": "题目标注'多选'，但type字段为'single_choice'，存在矛盾。数字化界面会按单选题处理，用户只能选一个选项。",
+    "suggestion": "将type改为'multiple_choice'，或在系统逻辑中支持单选题的多选答案。"
+  },
+  {
+    "question_id": "vocab_039",
+    "severity": "error",
+    "category": "wrong_answer",
+    "field": "answer",
+    "current_value": "（1）壁→璧 （2）刻→克 （3）刑→荆",
+    "description": "题目说有'四个'错别字，但答案只给出了三个改正。缺少第（4）个错别字。经检查原文段：'他光凭一张嘴就爬到我头上去了'——此处'爬'一般用'爬'字，没有错误。'保卫赵国'也没有问题。实际上这段话中只有三个错别字（壁→璧、刻→克、刑→荆），题目说'有四个错别字'是错误的。",
+    "suggestion": "将题目'有四个错别字'改为'有三个错别字'，或者增加一个错别字到段落中（例如'从此'→'从次'）。"
+  },
+  {
+    "question_id": "vocab_039",
+    "severity": "error",
+    "category": "wrong_answer",
+    "field": "answer",
+    "current_value": "（3）刑→荆",
+    "description": "原文是'负刑请罪'，'刑'和'荆'读音都是xíng/jīng，但'负荆请罪'的'荆'读jīng，'刑'读xíng。严格来说这是形近字混淆导致的错别字，答案正确但analysis需要解释清楚。",
+    "suggestion": "analysis中补充说明'刑'（刑罚）和'荆'（荆条）的区别。"
+  },
+  {
+    "question_id": "vocab_040",
+    "severity": "error",
+    "category": "wrong_answer",
+    "field": "answer",
+    "current_value": "B. 完璧归赵　/　归根结底",
+    "description": "答案称B为正确答案（'归'字意思相同），但实际上'完璧归赵'中'归'的意思是'返回、归还'，'归根结底'中'归'的意思是'归结于'。两者意思并不相同。此题实际上四个选项中'归'字意思都不同：A.举世闻名/举头望明月中'举'分别是'全'和'抬起'；C.负荆请罪/如释重负中'负'分别是'背'和'负担'；D.理直气壮/心直口快中'直'分别是'公正有理'和'直率'。如果所有选项都不对，那这道题就没有正确答案。",
+    "suggestion": "重新设计选项。建议用一个确实有两个相同字义的例子作为正确选项，例如'攻无不克'/'克勤克俭'中的'克'都是'能够、克服'的意思。"
+  },
+  {
+    "question_id": "vocab_043",
+    "severity": "error",
+    "category": "wrong_answer",
+    "field": "answer",
+    "current_value": "B. 间隔　间接　黑白相间",
+    "description": "答案标注B为正确答案，但实际上'间接'的'间'读jiān，而'间隔'和'黑白相间'的'间'都读jiàn。B项三个'间'字的读音并不完全相同。此题没有正确答案。",
+    "suggestion": "将B选项改为'间接 间谍 间或'（都读jiān），或将'间接'替换为'间距'（jiàn jù）等读jiàn的词语。"
+  },
+  {
+    "question_id": "vocab_043",
+    "severity": "error",
+    "category": "ambiguous",
+    "field": "type",
+    "current_value": "single_choice",
+    "description": "题干说'（多选）'，但type为'single_choice'，矛盾。",
+    "suggestion": "统一题型标注。"
+  },
+  {
+    "question_id": "vocab_045",
+    "severity": "error",
+    "category": "wrong_answer",
+    "field": "answer",
+    "current_value": "1—A  2—B  3—C  4—D",
+    "description": "答案存在多处错误：1. '津津有味'是AABC式，匹配A正确。2. '小心翼翼'是AABC式（小-小-翼翼），不是ABCC式，匹配A而非B。3. '出生入死'含反义词（出/入、生/死），匹配C正确。4. '前俯后仰'含反义词（前/后、俯/仰），匹配C而非D。正确答案应为1—A  2—A  3—C  4—C。但这样2和4都匹配了A和C，说明选项设计有问题。",
+    "suggestion": "重新设计词语和选项，确保四个词语分别对应不同的结构类型。例如将'小心翼翼'换为'白发苍苍'（ABCC式），将'前俯后仰'换为'手舞足蹈'（含近义词）。"
+  },
+  {
+    "question_id": "vocab_049",
+    "severity": "error",
+    "category": "wrong_answer",
+    "field": "answer",
+    "current_value": "D. 长大　成长",
+    "description": "题干问'读音相同的有'（多选），但只给了D一个答案。实际检查：D中'长大'(zhǎng dà)和'成长'(chéng zhǎng)的'长'都读zhǎng，读音相同，D正确。但A中'方便'(fāng biàn)和'便宜'(pián yi)的'便'分别读biàn和pián，不同。B中'行动'(xíng dòng)和'银行'(yín háng)的'行'分别读xíng和háng，不同。C中'音乐'(yīn yuè)和'快乐'(kuài lè)的'乐'分别读yuè和lè，不同。所以只有D正确，作为单选是正确的。但题目标注为多选且type为single_choice，存在矛盾。",
+    "suggestion": "如果只有D正确，删除'（多选）'说明。如果确实想考多选，增加一个正确的选项（如'E. 沉重　重视'中'重'都读zhòng）。"
+  },
+  {
+    "question_id": "vocab_049",
+    "severity": "error",
+    "category": "ambiguous",
+    "field": "type",
+    "current_value": "single_choice",
+    "description": "题干说'（多选）'但type为single_choice。",
+    "suggestion": "统一题型标注。"
+  },
+  {
+    "question_id": "vocab_053",
+    "severity": "error",
+    "category": "wrong_answer",
+    "field": "answer",
+    "current_value": "（1）× （2）√ （3）√ （4）√",
+    "description": "第（1）题答案标×，但实际'无穷无尽'的'穷'是'尽、完'的意思，'山穷水尽'的'穷'也是'尽、完'的意思，两者意思相同，应为√。第（3）题答案标√，但'完璧归赵'的'归'是'归还、返回'的意思，'归根结底'的'归'是'归结于'的意思，两者意思不同，应为×。此题多个答案有误。analysis中也承认了第（1）题应该是√但以'保持题目有不同答案'为由不予修改，这是不合理的。",
+    "suggestion": "重新核实每组词语中目标字的意思。建议答案为（1）√ （2）√ （3）× （4）√。"
+  },
+  {
+    "question_id": "vocab_056",
+    "severity": "error",
+    "category": "wrong_answer",
+    "field": "answer",
+    "current_value": "B. 迟延 爱慕 诗情画意 金碧辉煌",
+    "description": "答案标B为正确答案，但检查B选项词语：'迟延'应为'迟延/迟延'（迟延是正确的词语，不过常见用法为'迟延'）；'诗情画意'正确；'金碧辉煌'正确。B看起来确实没有错别字。但再检查：A中'山洪爆发'应为'山洪暴发'（暴发指突然发生）；D中'完壁归赵'的'壁'应为'璧'，'震天动地'正确。但如果只有B全对，答案B正确。然而，'迟延'一词在小学阶段较少使用，通常用'拖延'或'延迟'，但'迟延'本身不是错别字。答案可接受但建议考虑替换为更常见的词语。",
+    "suggestion": "答案基本正确，但建议将'迟延'替换为'迟延'的常见写法或改为其他更常用的词语以提高题目的适切性。"
+  },
+  {
+    "question_id": "vocab_058",
+    "severity": "error",
+    "category": "wrong_answer",
+    "field": "answer",
+    "current_value": "（1）美不胜收→罄竹难书（或：数不胜数）",
+    "description": "第（1）小题'他做的坏事真是美不胜收'的错误在于'美不胜收'是褒义词，不能用于形容坏事。建议的改正'罄竹难书'虽然可以形容坏事多，但'罄竹难书'是贬义词且语义侧重不同（指罪行多到写不完）。更恰当的修改应该是直接删除'美不胜收'改为'罄竹难书'或'不计其数'。但'罄竹难书'对五年级学生可能偏难。",
+    "suggestion": "将第（1）题的改正建议改为'不计其数'或'数不胜数'，更适合五年级学生水平。"
+  },
+  {
+    "question_id": "vocab_058",
+    "severity": "design_issue",
+    "category": "ambiguous",
+    "field": "question",
+    "current_value": "（3）听到这个好消息，他忍俊不禁地笑了。",
+    "description": "题目说'忍俊不禁地笑了'使用不当（语义重复），要求改正。但analysis中给出的改正是'忍俊不禁（删除'地笑了'）'，这实际上不是改正词语，而是修改句式。对于五年级学生来说，区分'语义重复'和'用词不当'可能造成困惑。",
+    "suggestion": "将第（3）题改为更明确的词语使用错误，例如'他忍俊不禁地落泪了'（忍俊不禁含笑意，与落泪矛盾），使改正方向更明确。"
+  },
+  {
+    "question_id": "vocab_059",
+    "severity": "error",
+    "category": "wrong_answer",
+    "field": "answer",
+    "current_value": "② → ③ → ④ → ①",
+    "description": "答案存在笔画数计算错误。正确笔画数：①鼎(12画)正确；②凹(5画)正确——竖、横折、竖、横折、横；③凸(5画)正确——竖、横、竖、横折、横；④母(5画)正确——竖折、横折钩、点、横、点。凹、凸、母都是5画，无法按笔画数从少到多排列，题目本身设计有缺陷。analysis中也承认了这个问题但仍然给出了一个确定的顺序，这是不合理的。",
+    "suggestion": "重新设计此题。替换部分汉字以确保笔画数各不相同，例如将'凸'替换为'日'(4画)，或将'母'替换为'矛'(5画)——不对，也是5画。建议改为：①凹(5画) ②日(4画) ③月(4画) ④鼎(12画)等笔画数明确的字。"
+  },
+  {
+    "question_id": "vocab_060",
+    "severity": "error",
+    "category": "wrong_answer",
+    "field": "answer",
+    "current_value": "A. 阴晴圆缺",
+    "description": "答案标A为'与悲欢离合结构完全相同'。分析'悲欢离合'结构：悲(形容词)对欢(形容词)——反义；离(动词)对合(动词)——反义。即'形反+动反'。再看A'阴晴圆缺'：阴(名词/形容词)对晴(名词/形容词)——反义；圆(形容词)对缺(形容词)——反义。即'形反+形反'。结构类型相同（两对反义词），可以认为结构相同。但B'喜怒哀乐'也是两对反义词（喜对怒、哀对乐），同样结构相同。如果A和B都符合条件，答案不唯一。题目说'完全相同的一项'暗示只有一个答案，这在设计上不严谨。",
+    "suggestion": "重新设计干扰项，确保只有一个选项结构完全匹配。可以将B'喜怒哀乐'替换为非两对反义词结构的词语，如'花红柳绿'（形+名+形+名）。"
+  },
+  {
+    "question_id": "vocab_063",
+    "severity": "suggestion",
+    "category": "ambiguous",
+    "field": "question",
+    "current_value": "落（luò）在家里",
+    "description": "'落(là)在家里'这个表述有歧义。'落在家里'在'落在家里'表示'遗漏在家里'时读là，但'落在家里'也可以表示'降落在家里'，此时读luò。这个用法不够典型，建议使用更明确的语境。",
+    "suggestion": "将'落在家里'改为更典型的用法，例如'丢三落四'中的'落(là)'，或'落(là)在后面'。"
+  },
+  {
+    "question_id": "vocab_074",
+    "severity": "error",
+    "category": "wrong_answer",
+    "field": "answer",
+    "current_value": "C. 开天辟地",
+    "description": "答案称'开天辟地'与'惊天动地'结构相同。分析'惊天动地'：惊(动)+天(名)+动(动)+地(名)，惊和动是近义动词，天和地是反义名词。而'开天辟地'：开(动)+天(名)+辟(动)+地(名)，开和辟是近义动词，天和地是反义名词。结构确实相同。但analysis中说'翻山越岭'中'山/岭'是近义——这个判断正确，山和岭确实是近义名词。然而analysis说'欢天喜地'中'天/地'是反义、'花言巧语'中名词近义——这个分析是正确的。所以答案C是合理的。",
+    "suggestion": "答案正确，但analysis可以更简洁。此条记录可忽略。"
+  },
+  {
+    "question_id": "vocab_077",
+    "severity": "error",
+    "category": "wrong_answer",
+    "field": "answer",
+    "current_value": "（1）皇→煌 （2）踢→剔 （3）缆→览 （4）至→置",
+    "description": "第（4）项'至身在幻想的境界里'，标准课文原文为'置身在幻想的境界里'，'至'→'置'是正确的。但检查原文段：'仿佛至身在幻想的境界里'——'至身'确实应为'置身'，答案正确。但需要注意'至身'并不是一个常见的错别字，通常是'置身'被误写为'至身'，这在学生作文中较为少见。",
+    "suggestion": "答案正确，无需修改。"
+  },
+  {
+    "question_id": "vocab_078",
+    "severity": "error",
+    "category": "wrong_answer",
+    "field": "answer",
+    "current_value": "D. 榨油（zhà）　 爱慕（mù）　 吩咐（fēn fu）",
+    "description": "答案标D为全部正确。检查D选项：'榨油(zhà)'正确；'爱慕(mù)'正确；'吩咐(fēn fu)'正确。但检查B选项：'垂蔓(màn)'——'蔓'在'垂蔓'中应读màn（名词，藤蔓），标注正确；'雏儿(chú)'正确；'蓬松(péng)'正确。B选项也全部正确。再看C选项：'画框(kuàng)'正确；'熟悉(shóu)'——'熟'字有shú和shóu两个读音，'熟悉'在口语中可以读shóu，但标准读音应为shú。C选项中'熟悉'标注shóu不严谨。再看A选项：'眼睑(liǎn)'——'睑'应读jiǎn，标注liǎn是错误的。因此A有误，B和D都全对，答案不唯一。",
+    "suggestion": "重新设计B选项使其包含一个明显错误（例如将'雏儿'标注为'cú'），确保只有一个正确选项。"
+  },
+  {
+    "question_id": "vocab_080",
+    "severity": "error",
+    "category": "wrong_answer",
+    "field": "answer",
+    "current_value": "D. 文质彬彬",
+    "description": "答案标D为'结构不同'的一项。但仔细分析：'津津有味'确实不是AABC式——它是ABCC式（有味是后两个字不同，津是前两个字相同，即AABC——不对。'津津有味'是AABC式，'津'重复在前，'有味'不重复。'滔滔不绝'是AABC式，'滔滔'重复。'井井有条'是AABC式，'井井'重复。'斤斤计较'是AABC式，'斤斤'重复。'文质彬彬'是ABCC式，'彬彬'重复在后。因此D确实与其他三项结构不同，答案正确。",
+    "suggestion": "答案正确，无需修改。"
+  },
+  {
+    "question_id": "vocab_081",
+    "severity": "error",
+    "category": "wrong_answer",
+    "field": "answer",
+    "current_value": "C. 协调 平衡 理所当然 负荆请罪",
+    "description": "这道题与vocab_002完全相同（选项和答案一样）。题目重复，建议删除或修改。",
+    "suggestion": "删除vocab_081（与vocab_002重复），或修改其选项和答案使其成为不同的题目。"
+  },
+  {
+    "question_id": "vocab_084",
+    "severity": "suggestion",
+    "category": "distractor_quality",
+    "field": "options",
+    "current_value": "右列：\nA. 忄（竖心旁）\nB. 土（提土旁）\nC. 心（心字底）\nD. 忄（竖心旁）",
+    "description": "右列选项中A和D都是'忄（竖心旁）'，选项重复。虽然'懒惰'和'胆怯'确实都对应竖心旁，但在选择题中两个选项完全相同会让学生困惑，也降低了干扰效果。",
+    "suggestion": "将D选项改为'女（女字旁）'或'氵（三点水旁）'等其他部首，并将对应的词语也做相应调整。或者将题目改为填空题而非选择题。"
+  },
+  {
+    "question_id": "vocab_085",
+    "severity": "error",
+    "category": "wrong_answer",
+    "field": "answer",
+    "current_value": "A. 绰绰（chuò chuò）　漾漾（yàng yàng）　壮（zhuàng）　协（xié）",
+    "description": "答案标A为正确答案。检查：'人影绰绰'中'绰'读chuò，正确。'清波漾漾'中'漾'读yàng，正确。'理直气壮'中'壮'读zhuàng，正确。'同心协力'中'协'读xié，正确。但D选项中'荡漾(dàng yàng)'不对应'清波__'（应填'漾漾'），所以D明显错误。A答案正确，但此题同时考查了填字和读音，题干要求'所填字的读音完全正确'，这是合理的。",
+    "suggestion": "答案正确，无需修改。"
+  },
+  {
+    "question_id": "vocab_086",
+    "severity": "error",
+    "category": "wrong_answer",
+    "field": "answer",
+    "current_value": "D. 时间",
+    "description": "答案标D为'读音与其他三项不同'的一项。检查：A.间隔(jiàn)、B.间接(jiān)、C.黑白相间(jiàn)、D.时间(jiān)。A、C读jiàn，B、D读jiān。因此D与B的读音相同，并不只有D与其他三项不同。实际上B和D都是jiān，A和C都是jiàn，所以有两组读音，不是'一个不同三个相同'的情况。题目表述'与其他三项不同的一项'在数学上不成立。",
+    "suggestion": "将题目改为'下列加点字读音与其他三项不同的一项是'，并将B选项'间接'改为'间距'或'间壁'等读jiàn的词语，这样A、B、C都读jiàn，只有D读jiān，答案就唯一了。"
+  },
+  {
+    "question_id": "vocab_089",
+    "severity": "error",
+    "category": "wrong_answer",
+    "field": "answer",
+    "current_value": "（3）衣→依",
+    "description": "第（3）小题'衣衣不舍'（洗衣粉广告），还原为成语应为'依依不舍'，'衣'→'依'是正确的。第（4）小题'百衣百顺'（电熨斗广告），还原为成语应为'百依百顺'，'衣'→'依'也是正确的。答案正确。",
+    "suggestion": "答案正确，无需修改。"
+  },
+  {
+    "question_id": "vocab_011",
+    "severity": "suggestion",
+    "category": "distractor_quality",
+    "field": "options",
+    "current_value": "D. 奋怒、爱慕、懒散、叮咛",
+    "description": "D选项中'奋怒'明显是'愤怒'的谐音/形近错误，但'奋'和'愤'读音不同(fèn/fèn)，对于拼音选字题来说，这个干扰项过于容易排除。建议使用更接近的干扰字。",
+    "suggestion": "将D选项的'奋怒'改为'忿怒'（与愤怒读音更接近），增加干扰难度。"
+  },
+  {
+    "question_id": "vocab_017",
+    "severity": "error",
+    "category": "other",
+    "field": "id",
+    "current_value": "vocab_017",
+    "description": "题库中缺少vocab_017编号，从vocab_016直接跳到vocab_018，存在编号断层。",
+    "suggestion": "将vocab_018及之后的题目编号依次前移，或在vocab_016和vocab_018之间补充vocab_017。建议统一重编。"
+  },
+  {
+    "question_id": "vocab_022",
+    "severity": "error",
+    "category": "other",
+    "field": "id",
+    "current_value": "vocab_022",
+    "description": "题库中缺少vocab_022编号，从vocab_021直接跳到vocab_023。",
+    "suggestion": "补充vocab_022或统一重编号。"
+  },
+  {
+    "question_id": "vocab_027",
+    "severity": "error",
+    "category": "other",
+    "field": "id",
+    "current_value": "vocab_027",
+    "description": "题库中缺少vocab_027编号，从vocab_026直接跳到vocab_028。",
+    "suggestion": "补充vocab_027或统一重编号。"
+  },
+  {
+    "question_id": "vocab_057",
+    "severity": "error",
+    "category": "other",
+    "field": "id",
+    "current_value": "vocab_057",
+    "description": "题库中缺少vocab_057编号，从vocab_056直接跳到vocab_058。",
+    "suggestion": "补充vocab_057或统一重编号。"
+  },
+  {
+    "question_id": "vocab_002",
+    "severity": "error",
+    "category": "other",
+    "field": "id",
+    "current_value": "vocab_002 和 vocab_081",
+    "description": "vocab_002和vocab_081是完全相同的题目（选项、答案、题型均相同），属于重复题目。",
+    "suggestion": "删除vocab_081，用新的题目替代。"
+  },
+  {
+    "question_id": "vocab_001",
+    "severity": "suggestion",
+    "category": "difficulty_mismatch",
+    "field": "difficulty",
+    "current_value": 2,
+    "description": "全部86道题的difficulty都是2，没有区分度。实际上不同题型的难度差异很大：简单的四选一字音题和复杂的段落改错题、程度排序题难度明显不同。缺乏难度梯度会影响分层练习的效果。",
+    "suggestion": "根据题型和考查深度重新设定难度等级：基础字音字形题设为1-2，语境理解和综合运用题设为2-3，段落改错和程度排序题设为3。"
+  },
+  {
+    "question_id": "vocab_001",
+    "severity": "suggestion",
+    "category": "difficulty_mismatch",
+    "field": "grade",
+    "current_value": 5,
+    "description": "全部86道题的grade都是5（五年级），但题目内容涵盖了大量四年级和六年级的知识点（如'卧薪尝胆''三顾茅庐'是六年级内容，'生灵涂炭''民不聊生'也是高年级内容）。",
+    "suggestion": "根据实际知识点归属调整年级标注，或统一标注为'4-6年级'以反映跨年级的综合题库定位。"
+  },
+  {
+    "question_id": "vocab_078",
+    "severity": "design_issue",
+    "category": "digital_unfriendly",
+    "field": "question",
+    "current_value": "下列加点字读音全部正确的一组是（　）。",
+    "description": "使用'加点字'用语，选项中没有标注哪些是考查的字。",
+    "suggestion": "在选项中将考查的字加粗或用其他方式标注。"
+  },
+  {
+    "question_id": "vocab_086",
+    "severity": "design_issue",
+    "category": "digital_unfriendly",
+    "field": "question",
+    "current_value": "下列加点字读音与其他三项不同的一项是（　）。",
+    "description": "使用'加点字'用语。",
+    "suggestion": "在选项中将考查的字加粗标注。"
+  },
+  {
+    "question_id": "vocab_090",
+    "severity": "design_issue",
+    "category": "digital_unfriendly",
+    "field": "question",
+    "current_value": "下列词语中，与\"神机妙算\"感情色彩相同的一项是（　）。",
+    "description": "题干中使用了中文引号\"\"而不是标准中文引号\"\"，格式不规范。",
+    "suggestion": "将\"神机妙算\"改为'神机妙算'，使用标准中文引号。"
+  }
+]

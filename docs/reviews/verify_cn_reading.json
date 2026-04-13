@@ -1,0 +1,437 @@
+{
+  "module": "语文阅读理解",
+  "total_questions": 40,
+  "fix_date": "2026-04-13",
+  "type_distribution": {
+    "single_choice": 27,
+    "open_ended": 12,
+    "ordering": 1
+  },
+  "difficulty_distribution": {
+    "2": 34,
+    "1": 3,
+    "3": 3
+  },
+  "issues_found": 0,
+  "issues": [],
+  "fixes_applied": [
+    "reading_001~010: open_ended -> single_choice",
+    "reading_011/014/017/020/021: method mnemonics -> single_choice",
+    "reading_023: info extraction -> single_choice, difficulty 2->1",
+    "reading_024/032: judge fill_blank -> single_choice",
+    "reading_025: answer fixed (2 traits -> 3 traits)",
+    "reading_027: mind map -> single_choice",
+    "reading_028: matching -> single_choice, removed 直线连起来",
+    "reading_029: fill_blank -> ordering, answer format 2,3,4,1",
+    "reading_031/033: open_ended -> single_choice",
+    "reading_035: central idea -> single_choice",
+    "reading_037: mixed type -> pure single_choice (phonetics)",
+    "reading_013/016/019/022/026/030/034/036/038/039/040: 加点字 -> <u>underline</u>",
+    "reading_030/038/040: difficulty 2->3 (超纲标注)",
+    "reading_003/009/023: difficulty 2->1 (过于简单)",
+    "All open_ended: added keywords for fuzzy matching",
+    "All questions: ability_tag refined"
+  ],
+  "per_question_verification": [
+    {
+      "id": "reading_001",
+      "type": "single_choice",
+      "difficulty": 2,
+      "ability_tag": "主旨概括",
+      "status": "pass",
+      "notes": [
+        "验证通过"
+      ]
+    },
+    {
+      "id": "reading_002",
+      "type": "single_choice",
+      "difficulty": 2,
+      "ability_tag": "词句理解",
+      "status": "pass",
+      "notes": [
+        "验证通过"
+      ]
+    },
+    {
+      "id": "reading_003",
+      "type": "single_choice",
+      "difficulty": 1,
+      "ability_tag": "信息提取",
+      "status": "pass",
+      "notes": [
+        "验证通过"
+      ]
+    },
+    {
+      "id": "reading_004",
+      "type": "single_choice",
+      "difficulty": 2,
+      "ability_tag": "推断想象",
+      "status": "pass",
+      "notes": [
+        "验证通过"
+      ]
+    },
+    {
+      "id": "reading_005",
+      "type": "single_choice",
+      "difficulty": 2,
+      "ability_tag": "人物品质",
+      "status": "pass",
+      "notes": [
+        "验证通过"
+      ]
+    },
+    {
+      "id": "reading_006",
+      "type": "single_choice",
+      "difficulty": 2,
+      "ability_tag": "词句理解",
+      "status": "pass",
+      "notes": [
+        "验证通过"
+      ]
+    },
+    {
+      "id": "reading_007",
+      "type": "single_choice",
+      "difficulty": 2,
+      "ability_tag": "古诗理解",
+      "status": "pass",
+      "notes": [
+        "验证通过"
+      ]
+    },
+    {
+      "id": "reading_008",
+      "type": "single_choice",
+      "difficulty": 2,
+      "ability_tag": "道理归纳",
+      "status": "pass",
+      "notes": [
+        "验证通过"
+      ]
+    },
+    {
+      "id": "reading_009",
+      "type": "single_choice",
+      "difficulty": 1,
+      "ability_tag": "信息提取",
+      "status": "pass",
+      "notes": [
+        "验证通过"
+      ]
+    },
+    {
+      "id": "reading_010",
+      "type": "single_choice",
+      "difficulty": 2,
+      "ability_tag": "人物品质",
+      "status": "pass",
+      "notes": [
+        "验证通过"
+      ]
+    },
+    {
+      "id": "reading_011",
+      "type": "single_choice",
+      "difficulty": 2,
+      "ability_tag": "阅读方法",
+      "status": "pass",
+      "notes": [
+        "验证通过"
+      ]
+    },
+    {
+      "id": "reading_012",
+      "type": "single_choice",
+      "difficulty": 2,
+      "ability_tag": "信息提取",
+      "status": "pass",
+      "notes": [
+        "验证通过"
+      ]
+    },
+    {
+      "id": "reading_013",
+      "type": "open_ended",
+      "difficulty": 2,
+      "ability_tag": "词句理解",
+      "status": "pass",
+      "notes": [
+        "验证通过"
+      ]
+    },
+    {
+      "id": "reading_014",
+      "type": "single_choice",
+      "difficulty": 2,
+      "ability_tag": "主旨概括",
+      "status": "pass",
+      "notes": [
+        "验证通过"
+      ]
+    },
+    {
+      "id": "reading_015",
+      "type": "single_choice",
+      "difficulty": 2,
+      "ability_tag": "信息提取",
+      "status": "pass",
+      "notes": [
+        "验证通过"
+      ]
+    },
+    {
+      "id": "reading_016",
+      "type": "open_ended",
+      "difficulty": 2,
+      "ability_tag": "词句理解",
+      "status": "pass",
+      "notes": [
+        "验证通过"
+      ]
+    },
+    {
+      "id": "reading_017",
+      "type": "single_choice",
+      "difficulty": 2,
+      "ability_tag": "阅读方法",
+      "status": "pass",
+      "notes": [
+        "验证通过"
+      ]
+    },
+    {
+      "id": "reading_018",
+      "type": "single_choice",
+      "difficulty": 2,
+      "ability_tag": "主旨概括",
+      "status": "pass",
+      "notes": [
+        "验证通过"
+      ]
+    },
+    {
+      "id": "reading_019",
+      "type": "open_ended",
+      "difficulty": 2,
+      "ability_tag": "词句理解",
+      "status": "pass",
+      "notes": [
+        "验证通过"
+      ]
+    },
+    {
+      "id": "reading_020",
+      "type": "single_choice",
+      "difficulty": 2,
+      "ability_tag": "阅读方法",
+      "status": "pass",
+      "notes": [
+        "验证通过"
+      ]
+    },
+    {
+      "id": "reading_021",
+      "type": "single_choice",
+      "difficulty": 2,
+      "ability_tag": "阅读方法",
+      "status": "pass",
+      "notes": [
+        "验证通过"
+      ]
+    },
+    {
+      "id": "reading_022",
+      "type": "open_ended",
+      "difficulty": 2,
+      "ability_tag": "词句理解",
+      "status": "pass",
+      "notes": [
+        "验证通过"
+      ]
+    },
+    {
+      "id": "reading_023",
+      "type": "single_choice",
+      "difficulty": 1,
+      "ability_tag": "信息提取",
+      "status": "pass",
+      "notes": [
+        "验证通过"
+      ]
+    },
+    {
+      "id": "reading_024",
+      "type": "single_choice",
+      "difficulty": 2,
+      "ability_tag": "信息提取",
+      "status": "pass",
+      "notes": [
+        "验证通过"
+      ]
+    },
+    {
+      "id": "reading_025",
+      "type": "open_ended",
+      "difficulty": 2,
+      "ability_tag": "主旨概括",
+      "status": "pass",
+      "notes": [
+        "验证通过"
+      ]
+    },
+    {
+      "id": "reading_026",
+      "type": "open_ended",
+      "difficulty": 2,
+      "ability_tag": "内容理解",
+      "status": "pass",
+      "notes": [
+        "验证通过"
+      ]
+    },
+    {
+      "id": "reading_027",
+      "type": "single_choice",
+      "difficulty": 2,
+      "ability_tag": "信息提取",
+      "status": "pass",
+      "notes": [
+        "验证通过"
+      ]
+    },
+    {
+      "id": "reading_028",
+      "type": "single_choice",
+      "difficulty": 2,
+      "ability_tag": "阅读方法",
+      "status": "pass",
+      "notes": [
+        "验证通过"
+      ]
+    },
+    {
+      "id": "reading_029",
+      "type": "ordering",
+      "difficulty": 2,
+      "ability_tag": "事件排序",
+      "status": "pass",
+      "notes": [
+        "验证通过"
+      ]
+    },
+    {
+      "id": "reading_030",
+      "type": "open_ended",
+      "difficulty": 3,
+      "ability_tag": "词句理解",
+      "status": "pass",
+      "notes": [
+        "验证通过"
+      ]
+    },
+    {
+      "id": "reading_031",
+      "type": "single_choice",
+      "difficulty": 2,
+      "ability_tag": "修辞理解",
+      "status": "pass",
+      "notes": [
+        "验证通过"
+      ]
+    },
+    {
+      "id": "reading_032",
+      "type": "single_choice",
+      "difficulty": 2,
+      "ability_tag": "信息提取",
+      "status": "pass",
+      "notes": [
+        "验证通过"
+      ]
+    },
+    {
+      "id": "reading_033",
+      "type": "single_choice",
+      "difficulty": 2,
+      "ability_tag": "人物品质",
+      "status": "pass",
+      "notes": [
+        "验证通过"
+      ]
+    },
+    {
+      "id": "reading_034",
+      "type": "open_ended",
+      "difficulty": 2,
+      "ability_tag": "词句理解",
+      "status": "pass",
+      "notes": [
+        "验证通过"
+      ]
+    },
+    {
+      "id": "reading_035",
+      "type": "single_choice",
+      "difficulty": 2,
+      "ability_tag": "主旨概括",
+      "status": "pass",
+      "notes": [
+        "验证通过"
+      ]
+    },
+    {
+      "id": "reading_036",
+      "type": "open_ended",
+      "difficulty": 2,
+      "ability_tag": "词句理解",
+      "status": "pass",
+      "notes": [
+        "验证通过"
+      ]
+    },
+    {
+      "id": "reading_037",
+      "type": "single_choice",
+      "difficulty": 2,
+      "ability_tag": "字音辨析",
+      "status": "pass",
+      "notes": [
+        "验证通过"
+      ]
+    },
+    {
+      "id": "reading_038",
+      "type": "open_ended",
+      "difficulty": 3,
+      "ability_tag": "词句理解",
+      "status": "pass",
+      "notes": [
+        "验证通过"
+      ]
+    },
+    {
+      "id": "reading_039",
+      "type": "open_ended",
+      "difficulty": 2,
+      "ability_tag": "词句理解",
+      "status": "pass",
+      "notes": [
+        "验证通过"
+      ]
+    },
+    {
+      "id": "reading_040",
+      "type": "open_ended",
+      "difficulty": 3,
+      "ability_tag": "词句理解",
+      "status": "pass",
+      "notes": [
+        "验证通过"
+      ]
+    }
+  ]
+}

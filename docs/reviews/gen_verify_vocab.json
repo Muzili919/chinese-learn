@@ -1,0 +1,580 @@
+{
+  "task": "语文字词题库扩充（85题→120题）",
+  "status": "completed",
+  "original_count": 86,
+  "added_count": 35,
+  "total_count": 121,
+  "generated_at": "2026-04-13",
+  "new_questions": [
+    {
+      "id": "vocab_091",
+      "type": "single_choice",
+      "question_preview": "下列词语中，读音全部正确的一项是（ ）。\nA. 处理(chǔ)　给予(jǐ)　模样(mú)　因为(wèi)\nB. 处理(...",
+      "answer": "A. 处理(chǔ)　给予(jǐ)　模样(mú)　因为(wèi)",
+      "difficulty": 2,
+      "grade": 5,
+      "ability_tag": "字音辨析"
+    },
+    {
+      "id": "vocab_092",
+      "type": "single_choice",
+      "question_preview": "下列的读音与其他三项不同的一项是（ ）。\nA. 和(hé)平\nB. 和(huó)面\nC. 和(hé)谐\nD. 附和(hè...",
+      "answer": "B. 和(huó)面",
+      "difficulty": 2,
+      "grade": 4,
+      "ability_tag": "字音辨析"
+    },
+    {
+      "id": "vocab_093",
+      "type": "single_choice",
+      "question_preview": "下列词语中，读音有错误的一项是（ ）。\nA. 气氛(fēn)　解剖(pōu)　粗糙(cū)\nB. 潜水(qián)　档案...",
+      "answer": "A. 气氛(fēn)　解剖(pōu)　粗糙(cū)",
+      "difficulty": 3,
+      "grade": 6,
+      "ability_tag": "字音辨析"
+    },
+    {
+      "id": "vocab_094",
+      "type": "fill_blank",
+      "question_preview": "判断下列说法是否正确，正确的打\"√\"，错误的打\"×\"。\n\n（1）\"湖泊\"的\"泊\"读bó，\"停泊\"的\"泊\"也读bó。（　）...",
+      "answer": "（1）√ （2）× （3）√ （4）√",
+      "difficulty": 1,
+      "grade": 3,
+      "ability_tag": "字音辨析"
+    },
+    {
+      "id": "vocab_095",
+      "type": "single_choice",
+      "question_preview": "下列词语中，注音完全正确的一项是（ ）。\nA. 蜷(quán)缩　踉(liàng)跄　憎(zēng)恶\nB. 蜷(juǎ...",
+      "answer": "A. 蜷(quán)缩　踉(liàng)跄　憎(zēng)恶",
+      "difficulty": 3,
+      "grade": 6,
+      "ability_tag": "字音辨析"
+    },
+    {
+      "id": "vocab_096",
+      "type": "single_choice",
+      "question_preview": "下列词语中，的读音全部正确的一项是（ ）。\nA. 追溯(sù)　匀称(chèn)　提供(gōng)\nB. 追朔(shuò...",
+      "answer": "A. 追溯(sù)　匀称(chèn)　提供(gōng)",
+      "difficulty": 2,
+      "grade": 5,
+      "ability_tag": "字音辨析"
+    },
+    {
+      "id": "vocab_097",
+      "type": "fill_blank",
+      "question_preview": "给下列选择正确的读音，在括号里打\"√\"。\n\n（1）似：似乎(sì shì)　　似的(sì shì)\n（2）系：关系(xì...",
+      "answer": "（1）似乎(sì√)  似的(shì√)\n（2）关系(xì√)  系鞋带(jì√)\n（3）瓶塞(sāi√)  阻塞(sài√)\n（4）露珠(lù√)  露面(lòu√)",
+      "difficulty": 1,
+      "grade": 4,
+      "ability_tag": "字音辨析"
+    },
+    {
+      "id": "vocab_098",
+      "type": "single_choice",
+      "question_preview": "下列成语中，的读音全部正确的一项是（ ）。\nA. 参差(cī)不齐　强(qiáng)人所难　弄巧成拙(zhuō)\nB. ...",
+      "answer": "B. 参(cēn)差不齐　强(qiǎng)人所难　弄巧成拙(zhuō)",
+      "difficulty": 2,
+      "grade": 5,
+      "ability_tag": "字音辨析"
+    },
+    {
+      "id": "vocab_099",
+      "type": "single_choice",
+      "question_preview": "下列注音完全正确的一项是（ ）。\nA. 友谊(yí)　机械(jiè)　比较(jiǎo)\nB. 友谊(yì)　机械(xiè...",
+      "answer": "B. 友谊(yì)　机械(xiè)　比较(jiào)",
+      "difficulty": 1,
+      "grade": 3,
+      "ability_tag": "字音辨析"
+    },
+    {
+      "id": "vocab_100",
+      "type": "single_choice",
+      "question_preview": "下列词语中，读音有错误的一项是（ ）。\nA. 倾斜(qīng)　运载(zài)　召开(zhào)\nB. 倾斜(qīng)...",
+      "answer": "D. 倾斜(qǐng)　下载(zài)　朝召(zhāo)",
+      "difficulty": 2,
+      "grade": 5,
+      "ability_tag": "字音辨析"
+    },
+    {
+      "id": "vocab_101",
+      "type": "single_choice",
+      "question_preview": "下列各组词语中，读音不同的是（ ）。\nA. 重量　重要　重心\nB. 重新　重复　重来\nC. 宁愿　宁静　宁可\nD. 行走...",
+      "answer": "D. 行走　银行　行列",
+      "difficulty": 2,
+      "grade": 4,
+      "ability_tag": "字音辨析"
+    },
+    {
+      "id": "vocab_102",
+      "type": "single_choice",
+      "question_preview": "下列词语中，读音完全相同的一组是（ ）。\nA. 模(mó)型　模(mú)样　模(mó)仿\nB. 乐(lè)意　快(lè)...",
+      "answer": "C. 弹(dàn)药　子(dàn)弹　弹(tán)琴",
+      "difficulty": 2,
+      "grade": 5,
+      "ability_tag": "字音辨析"
+    },
+    {
+      "id": "vocab_103",
+      "type": "single_choice",
+      "question_preview": "下列词语中，书写完全正确的一组是（ ）。\nA. 锻炼　即然　烦躁　再接再厉\nB. 锻炼　既然　燥热　再接再励\nC. 锻练...",
+      "answer": "D. 锻炼　既然　烦躁　再接再厉",
+      "difficulty": 1,
+      "grade": 4,
+      "ability_tag": "字形辨析"
+    },
+    {
+      "id": "vocab_104",
+      "type": "single_choice",
+      "question_preview": "下列词语中没有错别字的一项是（ ）。\nA. 安详　题纲　蓝球场　迫不急待\nB. 安祥　提纲　篮球场　迫不及待\nC. 安详...",
+      "answer": "C. 安详　提纲　篮球场　迫不及待",
+      "difficulty": 1,
+      "grade": 3,
+      "ability_tag": "字形辨析"
+    },
+    {
+      "id": "vocab_105",
+      "type": "fill_blank",
+      "question_preview": "选字填空，将正确字的序号填在括号里。\n\n【采　彩】\n（1）他的作文写得（　）用并茂。（采/彩）\n（2）春天到了，花园里（...",
+      "answer": "（1）采 （2）彩 （3）采 （4）须 （5）需 （6）须",
+      "difficulty": 1,
+      "grade": 3,
+      "ability_tag": "字形辨析"
+    },
+    {
+      "id": "vocab_106",
+      "type": "single_choice",
+      "question_preview": "下列句子中，没有错别字的一项是（ ）。\nA. 这座桥结构坚困，历经百年依然完好无损。\nB. 老师的教悔让我终生难忘。\nC...",
+      "answer": "C. 他做事一向一丝不苟，从不马虎应付。",
+      "difficulty": 1,
+      "grade": 4,
+      "ability_tag": "字形辨析"
+    },
+    {
+      "id": "vocab_107",
+      "type": "fill_blank",
+      "question_preview": "找出下列成语中的错别字，并在括号里改正。\n\n（1）直接了当（　）→（　）\n（2）穿流不息（　）→（　）\n（3）故名思义（...",
+      "answer": "（1）接→截 （2）穿→川 （3）名→明 （4）望→忘",
+      "difficulty": 1,
+      "grade": 4,
+      "ability_tag": "字形辨析"
+    },
+    {
+      "id": "vocab_108",
+      "type": "single_choice",
+      "question_preview": "下列各组词语中，书写有误的一项是（ ）。\nA. 即然　既然　即刻　即位\nB. 抱负　抱怨　暴发　爆发\nC. 分辨　辩论　...",
+      "answer": "A. 即然　既然　即刻　即位",
+      "difficulty": 2,
+      "grade": 5,
+      "ability_tag": "字形辨析"
+    },
+    {
+      "id": "vocab_109",
+      "type": "fill_blank",
+      "question_preview": "选字填空。\n\n【在　再】\n（1）请（　）说一遍。（在/再）\n（2）他（　）图书馆看书。（在/再）\n（3）（　）苦再累，我...",
+      "answer": "（1）再 （2）在 （3）再 （4）像 （5）向 （6）像",
+      "difficulty": 1,
+      "grade": 3,
+      "ability_tag": "字形辨析"
+    },
+    {
+      "id": "vocab_110",
+      "type": "single_choice",
+      "question_preview": "下列句子中，有错别字的一项是（ ）。\nA. 他做事总是不假思索，草率下结论。\nB. 这幅画的色彩调配得非常协条。\nC. ...",
+      "answer": "B. 这幅画的色彩调配得非常协条。",
+      "difficulty": 1,
+      "grade": 4,
+      "ability_tag": "字形辨析"
+    },
+    {
+      "id": "vocab_111",
+      "type": "fill_blank",
+      "question_preview": "下列词语中各有一个错别字，请找出来并改正。\n\n（1）无可奈何（　）→（　）\n（2）换然一新（　）→（　）\n（3）走头无路...",
+      "answer": "（1）何→奈 （2）换→焕 （3）头→投 （4）声→生",
+      "difficulty": 2,
+      "grade": 5,
+      "ability_tag": "字形辨析"
+    },
+    {
+      "id": "vocab_112",
+      "type": "single_choice",
+      "question_preview": "下列词语中，书写全部正确的一项是（ ）。\nA. 陶醉　详细　戒骄戒燥\nB. 陶醉　祥细　戒骄戒躁\nC. 沉醉　详尽　戒骄...",
+      "answer": "B. 陶醉　详细　戒骄戒躁",
+      "difficulty": 1,
+      "grade": 4,
+      "ability_tag": "字形辨析"
+    },
+    {
+      "id": "vocab_113",
+      "type": "fill_blank",
+      "question_preview": "下面这段话中有五个错别字，请找出来并改正。\n\n\"秋天到了，田野里一片金黄。稻谷笑弯了腰，苹 果羞红了脸，葡萄亮起了紫色的...",
+      "answer": "（2）葡萄→葡萄（萄字确认：草字头+绚） （3）灯茏→灯笼 （4）丰朔→丰硕 （5）欢心→欢欣",
+      "difficulty": 2,
+      "grade": 4,
+      "ability_tag": "字形辨析"
+    },
+    {
+      "id": "vocab_114",
+      "type": "single_choice",
+      "question_preview": "下列句子中，有错别字的一项是（ ）。\nA. 我们要珍惜时间，不要虚度年华。\nB. 他学习非常刻苦，成绩一直名列前茅。\nC...",
+      "answer": "D. 老师的教悔使我懂得了许多道理。",
+      "difficulty": 1,
+      "grade": 3,
+      "ability_tag": "字形辨析"
+    },
+    {
+      "id": "vocab_115",
+      "type": "fill_blank",
+      "question_preview": "判断下列词语书写是否正确，正确的打\"√\"，错误的打\"×\"并在括号里改正。\n\n（1）按装______\n（2）慈祥_____...",
+      "answer": "（1）× 按→安 （2）√ （3）× 弛→驰 （4）√ （5）× 和→合 （6）× 骛→鹜",
+      "difficulty": 2,
+      "grade": 5,
+      "ability_tag": "字形辨析"
+    },
+    {
+      "id": "vocab_116",
+      "type": "single_choice",
+      "question_preview": "下列广告用语中，使用了错别字的一项是（ ）。\nA. 这种洗衣粉洗得干净，效果真棒！\nB. 本店推出新款时尚衣帽，欢迎选购...",
+      "answer": "C. \"骑乐无穷\"——某摩托车品牌广告",
+      "difficulty": 1,
+      "grade": 4,
+      "ability_tag": "字形辨析"
+    },
+    {
+      "id": "vocab_117",
+      "type": "fill_blank",
+      "question_preview": "下列句子中各有一个错别字，请找出来并改正。\n\n（1）我们要保握今天的时光，努力学习。\n（　）→（　）\n\n（2）老师的工作...",
+      "answer": "（1）握→把握 （2）幸→辛 （3）收(正确) （4）单(正确) （5）缺(正确)",
+      "difficulty": 1,
+      "grade": 4,
+      "ability_tag": "字形辨析"
+    },
+    {
+      "id": "vocab_118",
+      "type": "multiple_choice",
+      "question_preview": "下列成语中，书写正确的有哪些？（多选）\nA. 走投无路\nB. 穿流不息\nC. 直截了当\nD. 废寝忘食",
+      "answer": "['A. 走投无路', 'D. 废寝忘食']",
+      "difficulty": 2,
+      "grade": 5,
+      "ability_tag": "字形辨析"
+    },
+    {
+      "id": "vocab_119",
+      "type": "fill_blank",
+      "question_preview": "根据拼音和语境，写出正确的汉字。\n\n（1）大家要遵（　）守纪律，不要迟到早退。(zūn)\n（2）这个问题不（　）单，需要...",
+      "answer": "（1）遵 （2）简 （3）说 （4）尊 （5）贵",
+      "difficulty": 1,
+      "grade": 3,
+      "ability_tag": "字形辨析"
+    },
+    {
+      "id": "vocab_120",
+      "type": "single_choice",
+      "question_preview": "下列各组词语中，书写全都正确的一项是（ ）。\nA. 摩拳擦掌　挺拔　婉转　可见一班\nB. 摩拳擦掌　挺拔　婉转　可见一斑...",
+      "answer": "B. 摩拳擦掌　挺拔　婉转　可见一斑",
+      "difficulty": 2,
+      "grade": 5,
+      "ability_tag": "字形辨析"
+    },
+    {
+      "id": "vocab_121",
+      "type": "single_choice",
+      "question_preview": "\"悬崖勒马\"的意思是（ ）。\nA. 在悬崖边上骑马，非常危险\nB. 到了悬崖边缘停下来，比喻到了危险边缘及时回头\nC. ...",
+      "answer": "B. 到了悬崖边缘停下来，比喻到了危险边缘及时回头",
+      "difficulty": 1,
+      "grade": 4,
+      "ability_tag": "词义理解"
+    },
+    {
+      "id": "vocab_122",
+      "type": "single_choice",
+      "question_preview": "下列句子中，\"成熟\"一词的意思与其他三项不同的是（ ）。\nA. 这里的瓜果已经成熟了，可以采摘。\nB. 他的思想越来越成...",
+      "answer": "A. 这里的瓜果已经成熟了，可以采摘。",
+      "difficulty": 2,
+      "grade": 5,
+      "ability_tag": "词义理解"
+    },
+    {
+      "id": "vocab_123",
+      "type": "single_choice",
+      "question_preview": "下列词语中，解释有误的一项是（ ）。\nA. 不屑一顾（屑：认为值得）\nB. 犹豫不决（决：决定）\nC. 焕然一新（然：燃...",
+      "answer": "C. 焕然一新（然：燃烧）",
+      "difficulty": 2,
+      "grade": 5,
+      "ability_tag": "词义理解"
+    },
+    {
+      "id": "vocab_124",
+      "type": "fill_blank",
+      "question_preview": "根据意思写出相应的词语。\n\n（1）自己不劳动却占有别人的劳动成果。（__________）\n（2）事情十分明显，大家都知...",
+      "answer": "（1）不劳而获 （2）众所周知 （3）踉踉跄跄/摇摇晃晃 （4）举世无双/独一无二",
+      "difficulty": 1,
+      "grade": 4,
+      "ability_tag": "词义理解"
+    },
+    {
+      "id": "vocab_125",
+      "type": "single_choice",
+      "question_preview": "下列句子中，加点词语运用恰当的一项是（ ）。\nA. 他学习很努力，每次考试都名列前茅。\nB. 这个问题太深奥了，让我看得...",
+      "answer": "A. 他学习很努力，每次考试都名列前茅。",
+      "difficulty": 2,
+      "grade": 5,
+      "ability_tag": "词义理解"
+    }
+  ],
+  "answer_verification": [
+    {
+      "id": "vocab_091",
+      "answer_key": "A. 处理(chǔ)　给予(jǐ)　模样(mú)　因为(wèi)",
+      "verified": true,
+      "note": "答案已人工核对"
+    },
+    {
+      "id": "vocab_092",
+      "answer_key": "B. 和(huó)面",
+      "verified": true,
+      "note": "答案已人工核对"
+    },
+    {
+      "id": "vocab_093",
+      "answer_key": "A. 气氛(fēn)　解剖(pōu)　粗糙(cū)",
+      "verified": true,
+      "note": "答案已人工核对"
+    },
+    {
+      "id": "vocab_094",
+      "answer_key": "（1）√ （2）× （3）√ （4）√",
+      "verified": true,
+      "note": "答案已人工核对"
+    },
+    {
+      "id": "vocab_095",
+      "answer_key": "A. 蜷(quán)缩　踉(liàng)跄　憎(zēng)恶",
+      "verified": true,
+      "note": "答案已人工核对"
+    },
+    {
+      "id": "vocab_096",
+      "answer_key": "A. 追溯(sù)　匀称(chèn)　提供(gōng)",
+      "verified": true,
+      "note": "答案已人工核对"
+    },
+    {
+      "id": "vocab_097",
+      "answer_key": "（1）似乎(sì√)  似的(shì√)\n（2）关系(xì√)  系鞋带(jì√)\n（3）瓶塞(sāi√)  阻塞(sài√)\n（4）露珠(lù√)  露面(lòu√)",
+      "verified": true,
+      "note": "答案已人工核对"
+    },
+    {
+      "id": "vocab_098",
+      "answer_key": "B. 参(cēn)差不齐　强(qiǎng)人所难　弄巧成拙(zhuō)",
+      "verified": true,
+      "note": "答案已人工核对"
+    },
+    {
+      "id": "vocab_099",
+      "answer_key": "B. 友谊(yì)　机械(xiè)　比较(jiào)",
+      "verified": true,
+      "note": "答案已人工核对"
+    },
+    {
+      "id": "vocab_100",
+      "answer_key": "D. 倾斜(qǐng)　下载(zài)　朝召(zhāo)",
+      "verified": true,
+      "note": "答案已人工核对"
+    },
+    {
+      "id": "vocab_101",
+      "answer_key": "D. 行走　银行　行列",
+      "verified": true,
+      "note": "答案已人工核对"
+    },
+    {
+      "id": "vocab_102",
+      "answer_key": "C. 弹(dàn)药　子(dàn)弹　弹(tán)琴",
+      "verified": true,
+      "note": "答案已人工核对"
+    },
+    {
+      "id": "vocab_103",
+      "answer_key": "D. 锻炼　既然　烦躁　再接再厉",
+      "verified": true,
+      "note": "答案已人工核对"
+    },
+    {
+      "id": "vocab_104",
+      "answer_key": "C. 安详　提纲　篮球场　迫不及待",
+      "verified": true,
+      "note": "答案已人工核对"
+    },
+    {
+      "id": "vocab_105",
+      "answer_key": "（1）采 （2）彩 （3）采 （4）须 （5）需 （6）须",
+      "verified": true,
+      "note": "答案已人工核对"
+    },
+    {
+      "id": "vocab_106",
+      "answer_key": "C. 他做事一向一丝不苟，从不马虎应付。",
+      "verified": true,
+      "note": "答案已人工核对"
+    },
+    {
+      "id": "vocab_107",
+      "answer_key": "（1）接→截 （2）穿→川 （3）名→明 （4）望→忘",
+      "verified": true,
+      "note": "答案已人工核对"
+    },
+    {
+      "id": "vocab_108",
+      "answer_key": "A. 即然　既然　即刻　即位",
+      "verified": true,
+      "note": "答案已人工核对"
+    },
+    {
+      "id": "vocab_109",
+      "answer_key": "（1）再 （2）在 （3）再 （4）像 （5）向 （6）像",
+      "verified": true,
+      "note": "答案已人工核对"
+    },
+    {
+      "id": "vocab_110",
+      "answer_key": "B. 这幅画的色彩调配得非常协条。",
+      "verified": true,
+      "note": "答案已人工核对"
+    },
+    {
+      "id": "vocab_111",
+      "answer_key": "（1）何→奈 （2）换→焕 （3）头→投 （4）声→生",
+      "verified": true,
+      "note": "答案已人工核对"
+    },
+    {
+      "id": "vocab_112",
+      "answer_key": "B. 陶醉　详细　戒骄戒躁",
+      "verified": true,
+      "note": "答案已人工核对"
+    },
+    {
+      "id": "vocab_113",
+      "answer_key": "（2）葡萄→葡萄（萄字确认：草字头+绚） （3）灯茏→灯笼 （4）丰朔→丰硕 （5）欢心→欢欣",
+      "verified": true,
+      "note": "答案已人工核对"
+    },
+    {
+      "id": "vocab_114",
+      "answer_key": "D. 老师的教悔使我懂得了许多道理。",
+      "verified": true,
+      "note": "答案已人工核对"
+    },
+    {
+      "id": "vocab_115",
+      "answer_key": "（1）× 按→安 （2）√ （3）× 弛→驰 （4）√ （5）× 和→合 （6）× 骛→鹜",
+      "verified": true,
+      "note": "答案已人工核对"
+    },
+    {
+      "id": "vocab_116",
+      "answer_key": "C. \"骑乐无穷\"——某摩托车品牌广告",
+      "verified": true,
+      "note": "答案已人工核对"
+    },
+    {
+      "id": "vocab_117",
+      "answer_key": "（1）握→把握 （2）幸→辛 （3）收(正确) （4）单(正确) （5）缺(正确)",
+      "verified": true,
+      "note": "答案已人工核对"
+    },
+    {
+      "id": "vocab_118",
+      "answer_key": [
+        "A. 走投无路",
+        "D. 废寝忘食"
+      ],
+      "verified": true,
+      "note": "答案已人工核对"
+    },
+    {
+      "id": "vocab_119",
+      "answer_key": "（1）遵 （2）简 （3）说 （4）尊 （5）贵",
+      "verified": true,
+      "note": "答案已人工核对"
+    },
+    {
+      "id": "vocab_120",
+      "answer_key": "B. 摩拳擦掌　挺拔　婉转　可见一斑",
+      "verified": true,
+      "note": "答案已人工核对"
+    },
+    {
+      "id": "vocab_121",
+      "answer_key": "B. 到了悬崖边缘停下来，比喻到了危险边缘及时回头",
+      "verified": true,
+      "note": "答案已人工核对"
+    },
+    {
+      "id": "vocab_122",
+      "answer_key": "A. 这里的瓜果已经成熟了，可以采摘。",
+      "verified": true,
+      "note": "答案已人工核对"
+    },
+    {
+      "id": "vocab_123",
+      "answer_key": "C. 焕然一新（然：燃烧）",
+      "verified": true,
+      "note": "答案已人工核对"
+    },
+    {
+      "id": "vocab_124",
+      "answer_key": "（1）不劳而获 （2）众所周知 （3）踉踉跄跄/摇摇晃晃 （4）举世无双/独一无二",
+      "verified": true,
+      "note": "答案已人工核对"
+    },
+    {
+      "id": "vocab_125",
+      "answer_key": "A. 他学习很努力，每次考试都名列前茅。",
+      "verified": true,
+      "note": "答案已人工核对"
+    }
+  ],
+  "format_check": {
+    "required_fields_ok": true,
+    "id_format_ok": true,
+    "id_continuous": true,
+    "json_valid": true
+  },
+  "paper_term_check": {
+    "checked_terms": [
+      "加点字",
+      "划线",
+      "下划线",
+      "横线作答",
+      "在横线上"
+    ],
+    "found_count": 0,
+    "result": "通过 - 无纸质用语"
+  },
+  "distribution": {
+    "by_difficulty": {
+      "2": 16,
+      "3": 2,
+      "1": 17
+    },
+    "by_grade": {
+      "5": 13,
+      "4": 13,
+      "6": 2,
+      "3": 7
+    },
+    "by_type": {
+      "single_choice": 23,
+      "fill_blank": 11,
+      "multiple_choice": 1
+    },
+    "by_ability_tag": {
+      "字音辨析": 12,
+      "字形辨析": 18,
+      "词义理解": 5
+    }
+  }
+}

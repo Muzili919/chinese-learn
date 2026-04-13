@@ -1,0 +1,470 @@
+[
+  {
+    "question_id": "lit_002",
+    "severity": "design_issue",
+    "category": "format_issue",
+    "field": "type",
+    "current_value": "fill_blank",
+    "description": "标点符号填空题对在线判分极其困难。例如第(3)小题要求同时填写冒号、左引号、问号、右引号，格式匹配的容错性几乎为零。学生可能输入\"：\\"问\\"\"等各种变体，系统难以统一判分。",
+    "suggestion": "改为单选题，如'第(1)句括号里应填什么标点？A.逗号 B.句号 C.问号 D.感叹号'。或将标点符号替换为选择题形式。"
+  },
+  {
+    "question_id": "lit_003",
+    "severity": "design_issue",
+    "category": "format_issue",
+    "field": "type",
+    "current_value": "fill_blank",
+    "description": "判断题'正确的打√，错误的打×'属于纸质试卷题型，数字化时存在判分问题：学生可能输入'对''错''true''false''√''×''yes''no'等，难以统一匹配。",
+    "suggestion": "改为单选题形式，如'下列说法正确的是：A.武松打虎出自水浒传 B.草船借箭的主角是曹操 ...'，或使用专用判断题交互组件。"
+  },
+  {
+    "question_id": "lit_004",
+    "severity": "error",
+    "category": "wrong_answer",
+    "field": "analysis",
+    "current_value": "提示语在中间用逗号；冒号不用于"有"字后面；问号在引号内。",
+    "description": "选项B'我喜欢吃的水果有：苹果、香蕉、橘子等。'中冒号的使用实际上是可以接受的。根据《标点符号用法》GB/T 15834-2011，冒号可用于提示下文，'有'字后使用冒号虽不是必须但并非错误。本题正确答案C没有问题，但解析中对B选项的判断过于绝对，可能造成学生困惑。",
+    "suggestion": "修改解析中对B选项的说明，改为：'选项B中冒号可以省略但不算严格意义上的错误，而C选项标点使用完全规范，是最佳答案。'"
+  },
+  {
+    "question_id": "lit_005",
+    "severity": "design_issue",
+    "category": "format_issue",
+    "field": "type",
+    "current_value": "fill_blank",
+    "description": "要求填写名著名称，答案包含书名号《》。学生可能输入'红楼梦'或'《红楼梦》'，系统需要同时接受两种格式，否则会导致判分错误。",
+    "suggestion": "答案中注明可接受的多种格式，或在判分时做标准化处理。"
+  },
+  {
+    "question_id": "lit_007",
+    "severity": "design_issue",
+    "category": "format_issue",
+    "field": "type",
+    "current_value": "fill_blank",
+    "description": "同lit_003，判断题在数字化场景下存在判分困难问题。",
+    "suggestion": "改为单选题或使用专用判断题组件。"
+  },
+  {
+    "question_id": "lit_007",
+    "severity": "suggestion",
+    "category": "other",
+    "field": "ability_tag",
+    "current_value": "四大名著",
+    "description": "本题实际考查的是标点符号（书名号用法），但ability_tag标注为'四大名著'，与题目内容不匹配。题目恰好以四大名著作为书名号的举例素材。",
+    "suggestion": "将ability_tag改为'标点符号'，以准确反映考查知识点。"
+  },
+  {
+    "question_id": "lit_010",
+    "severity": "design_issue",
+    "category": "format_issue",
+    "field": "type",
+    "current_value": "fill_blank",
+    "description": "开放性简答题在数字化判分中难以实现自动评分。例如'省略号表示列举的省略或说话断断续续'，学生可能用各种表述方式回答，系统难以穷举所有正确答案。",
+    "suggestion": "改为选择题，如'省略号的作用不包括：A.列举的省略 B.说话断断续续 C.表示强调 D.引文的省略'。"
+  },
+  {
+    "question_id": "lit_013",
+    "severity": "design_issue",
+    "category": "format_issue",
+    "field": "type",
+    "current_value": "fill_blank",
+    "description": "同lit_003，判断题数字化判分困难。",
+    "suggestion": "改为单选题形式。"
+  },
+  {
+    "question_id": "lit_015",
+    "severity": "design_issue",
+    "category": "format_issue",
+    "field": "answer",
+    "current_value": "（1）关羽 （2）林黛玉 （3）孙悟空 （4）鲁智深",
+    "description": "填空题答案需要精确匹配。如学生输入'关公'而非'关羽'，'猴哥'而非'孙悟空'，'鲁达'而非'鲁智深'，均会导致判分错误。同时'她葬花焚诗稿'的描述中，'焚诗稿'实际上是后续情节，初次接触红楼梦的学生可能不了解这一细节。",
+    "suggestion": "提供答案的同义词白名单，或改为选择题。"
+  },
+  {
+    "question_id": "lit_017",
+    "severity": "suggestion",
+    "category": "distractor_quality",
+    "field": "answer",
+    "current_value": "（1）√ （2）√ （3）√ （4）×",
+    "description": "第(4)题'赤壁之战是诸葛亮指挥的'标记为×，但实际上在小说《三国演义》中，赤壁之战的总体指挥权虽然在周瑜手中，但诸葛亮借东风、草船借箭都是赤壁之战的重要组成部分，且在民间认知中诸葛亮与赤壁之战高度关联。此题可能引起争议。",
+    "suggestion": "如果考查的是小说内容而非历史事实，可在解析中明确说明：赤壁之战在小说中主要由周瑜指挥，诸葛亮负责配合。"
+  },
+  {
+    "question_id": "lit_018",
+    "severity": "design_issue",
+    "category": "format_issue",
+    "field": "type",
+    "current_value": "fill_blank",
+    "description": "开放性填空题，要求'每空写一个关键词'。答案'想象''道理''准确''记事'并非唯一正确答案，如说明文也可填'客观''知识'，记叙文也可填'叙事''人物'等。数字化判分无法覆盖所有合理答案。",
+    "suggestion": "改为选择题，如'说明文的主要特点是：A.生动想象 B.情感丰富 C.客观准确 D.韵律优美'。"
+  },
+  {
+    "question_id": "lit_023",
+    "severity": "design_issue",
+    "category": "format_issue",
+    "field": "type",
+    "current_value": "fill_blank",
+    "description": "判断题数字化判分困难。",
+    "suggestion": "改为单选题形式。"
+  },
+  {
+    "question_id": "lit_025",
+    "severity": "error",
+    "category": "wrong_answer",
+    "field": "question",
+    "current_value": "（2）他原是玉帝的御马监，因偷吃蟠桃、大闹天宫被压在五行山下。",
+    "description": "描述错误。孙悟空原是花果山石猴，被天庭招安后担任'弼马温'（管理御马），而非'御马监'。'御马监'是机构名称，不是孙悟空的职位。应改为'弼马温'。",
+    "suggestion": "将'他原是玉帝的御马监'改为'他原是玉帝御马监的弼马温'。"
+  },
+  {
+    "question_id": "lit_025",
+    "severity": "suggestion",
+    "category": "other",
+    "field": "question",
+    "current_value": "（3）他原是猪八戒，因调戏嫦娥被贬下凡，错投猪胎。他是__________。",
+    "description": "题目已经给出了'他原是猪八戒'，要求再填答案'猪八戒'，题目设计存在循环——答案已在题目中明示，失去考查意义。",
+    "suggestion": "改为'他原是天蓬元帅，因调戏嫦娥被贬下凡，错投猪胎。他是__________。'"
+  },
+  {
+    "question_id": "lit_026",
+    "severity": "error",
+    "category": "wrong_answer",
+    "field": "answer",
+    "current_value": "A. 我喜欢吃的水果有：苹果、香蕉、橘子。",
+    "description": "本题答案标注A为'有误'项，但'我喜欢吃的水果有：苹果、香蕉、橘子。'这个句子的标点符号使用并无明显错误。根据《标点符号用法》GB/T 15834-2011，冒号用于提示下文是正确的用法。与前述lit_004的解析（B选项冒号不算严格错误但C更好）存在矛盾。",
+    "suggestion": "要么修改本题正确答案（A选项并不算明显错误），要么重新设计D选项使其更明显为错误项。建议将D改为'我喜欢吃的水果有苹果、香蕉、橘子等等。'（'等等'和省略号只用一个——等等这里没有省略号，可改为'我喜欢吃的水果有：苹果、香蕉、橘子、等。'，即'等'前加顿号）来制造更明显的错误。"
+  },
+  {
+    "question_id": "lit_032",
+    "severity": "design_issue",
+    "category": "format_issue",
+    "field": "type",
+    "current_value": "fill_blank",
+    "description": "开放性填空题，要求写出引号的'两种作用'，数字化判分无法覆盖学生可能的各种表述。",
+    "suggestion": "改为选择题，如'下列不属于双引号作用的是：A.直接引用 B.特定称谓 C.表示因果 D.强调'。"
+  },
+  {
+    "question_id": "lit_033",
+    "severity": "design_issue",
+    "category": "format_issue",
+    "field": "type",
+    "current_value": "fill_blank",
+    "description": "判断题数字化判分困难。",
+    "suggestion": "改为单选题形式。"
+  },
+  {
+    "question_id": "lit_037",
+    "severity": "design_issue",
+    "category": "format_issue",
+    "field": "type",
+    "current_value": "fill_blank",
+    "description": "判断题数字化判分困难。",
+    "suggestion": "改为单选题形式。"
+  },
+  {
+    "question_id": "lit_038",
+    "severity": "design_issue",
+    "category": "digital_unfriendly",
+    "field": "type",
+    "current_value": "fill_blank",
+    "description": "连线题'将人物与所属作品用直线连起来'属于典型的纸质试卷题型，在数字化环境中难以实现。答案格式'1—C 2—B 3—D 4—A'的输入方式对学生不友好，且匹配难度高。",
+    "suggestion": "改为匹配题（拖拽排序）或单选题，如'下列人物与作品对应正确的是：A.贾宝玉——水浒传 B.武松——三国演义 C.诸葛亮——三国演义 D.猪八戒——红楼梦'。"
+  },
+  {
+    "question_id": "lit_039",
+    "severity": "error",
+    "category": "wrong_answer",
+    "field": "question",
+    "current_value": "选项A和B完全相同",
+    "description": "选项A'妈妈问我：\"你今天想去哪里玩？\"'与选项B'妈妈问我：\"你今天想去哪里玩？\"'文字完全一致，这在单选题中构成严重错误——学生无法区分A和B，且两个选项不可能同时正确或同时错误。",
+    "suggestion": "将B改为一个有区别的错误选项，如'妈妈问我：\"你今天想去哪里玩\"？'（问号在引号外），或'妈妈问我：你今天想去哪里玩？'（无引号）。"
+  },
+  {
+    "question_id": "lit_040",
+    "severity": "design_issue",
+    "category": "format_issue",
+    "field": "type",
+    "current_value": "fill_blank",
+    "description": "填空题要求填写情节名称，但标准答案较为具体（如'鲁提辖拳打镇关西'），学生可能简答为'拳打镇关西'或'打镇关西'。同时第(4)题答案'宋江题反诗'在原著中为'浔阳楼题反诗'，答案是否接受简写需要明确。",
+    "suggestion": "提供答案的白名单（接受简写），或改为选择题。"
+  },
+  {
+    "question_id": "lit_042",
+    "severity": "design_issue",
+    "category": "format_issue",
+    "field": "type",
+    "current_value": "fill_blank",
+    "description": "开放性填空题，要求同时写出标点名称和用法，数字化判分困难。学生可能用不同措辞描述相同用法。",
+    "suggestion": "拆分为两道单选题：一道考查名称，一道考查用法。"
+  },
+  {
+    "question_id": "lit_043",
+    "severity": "design_issue",
+    "category": "format_issue",
+    "field": "type",
+    "current_value": "fill_blank",
+    "description": "判断题数字化判分困难。",
+    "suggestion": "改为单选题形式。"
+  },
+  {
+    "question_id": "lit_044",
+    "severity": "design_issue",
+    "category": "digital_unfriendly",
+    "field": "type",
+    "current_value": "fill_blank",
+    "description": "连线题属于纸质试卷题型，数字化环境难以实现。",
+    "suggestion": "改为单选题，如'下列作者与作品对应正确的是：A.红楼梦——罗贯中 B.水浒传——曹雪芹 C.三国演义——罗贯中 D.西游记——施耐庵'。"
+  },
+  {
+    "question_id": "lit_045",
+    "severity": "design_issue",
+    "category": "format_issue",
+    "field": "type",
+    "current_value": "fill_blank",
+    "description": "填空题要求填写情节名称，答案需要精确匹配。",
+    "suggestion": "改为选择题或提供答案白名单。"
+  },
+  {
+    "question_id": "lit_047",
+    "severity": "design_issue",
+    "category": "format_issue",
+    "field": "type",
+    "current_value": "fill_blank",
+    "description": "判断题数字化判分困难。",
+    "suggestion": "改为单选题形式。"
+  },
+  {
+    "question_id": "lit_048",
+    "severity": "design_issue",
+    "category": "format_issue",
+    "field": "type",
+    "current_value": "fill_blank",
+    "description": "开放性填空题，要求写出省略号的作用，数字化判分困难。",
+    "suggestion": "改为选择题，如'下列句子中省略号表示引文省略的是：A.我家有鸡、鸭、鹅…… B.他从山中来，带着兰花草…… C.呜——火车开了 D.他说：我——不知道'。"
+  },
+  {
+    "question_id": "lit_053",
+    "severity": "design_issue",
+    "category": "format_issue",
+    "field": "type",
+    "current_value": "fill_blank",
+    "description": "判断题数字化判分困难。",
+    "suggestion": "改为单选题形式。"
+  },
+  {
+    "question_id": "lit_054",
+    "severity": "design_issue",
+    "category": "digital_unfriendly",
+    "field": "type",
+    "current_value": "fill_blank",
+    "description": "连线题属于纸质试卷题型，数字化环境难以实现。",
+    "suggestion": "改为单选题或匹配拖拽题。"
+  },
+  {
+    "question_id": "lit_055",
+    "severity": "design_issue",
+    "category": "format_issue",
+    "field": "type",
+    "current_value": "fill_blank",
+    "description": "填空题要求填写人物名称，答案需要精确匹配。特别是第(4)题'花荣'这个人物对小学生来说认知度较低，难度可能偏高。",
+    "suggestion": "提供答案白名单，或将第(4)题替换为认知度更高的人物描述。"
+  },
+  {
+    "question_id": "lit_057",
+    "severity": "design_issue",
+    "category": "format_issue",
+    "field": "type",
+    "current_value": "fill_blank",
+    "description": "判断题数字化判分困难。",
+    "suggestion": "改为单选题形式。"
+  },
+  {
+    "question_id": "lit_058",
+    "severity": "design_issue",
+    "category": "format_issue",
+    "field": "type",
+    "current_value": "fill_blank",
+    "description": "开放性填空题，要求写出破折号的作用，数字化判分困难。",
+    "suggestion": "改为选择题。"
+  },
+  {
+    "question_id": "lit_062",
+    "severity": "error",
+    "category": "wrong_answer",
+    "field": "question",
+    "current_value": "（1）　　　（　　）",
+    "description": "第(1)小题的标点符号显示为空白/空格，无法辨识是哪个标点。答案字段虽然标注为'句号'，但题目本身存在显示缺陷。答案字段的附加解释'严格来说，这不是标点符号。可能是题目出错了'印证了此问题。题干数据有损坏。",
+    "suggestion": "修复题干数据，将第(1)小题的标点符号改为'。'（句号）。同时清理answer字段中多余的讨论性文字。"
+  },
+  {
+    "question_id": "lit_063",
+    "severity": "design_issue",
+    "category": "format_issue",
+    "field": "type",
+    "current_value": "fill_blank",
+    "description": "判断题数字化判分困难。",
+    "suggestion": "改为单选题形式。"
+  },
+  {
+    "question_id": "lit_064",
+    "severity": "design_issue",
+    "category": "digital_unfriendly",
+    "field": "type",
+    "current_value": "fill_blank",
+    "description": "连线题属于纸质试卷题型，数字化环境难以实现。同时考查人物兵器对应对于小学5年级来说偏难。",
+    "suggestion": "改为单选题形式。"
+  },
+  {
+    "question_id": "lit_065",
+    "severity": "error",
+    "category": "wrong_answer",
+    "field": "answer",
+    "current_value": "（3）三打白骨精？不对，黄袍怪是宝象国故事，叫\"黄袍怪\"或\"波月洞\"。准确为：悟空降服黄袍怪。常见为\"孙悟空斗黄袍怪\"。可简写为\"黄袍怪\"或\"救师降妖\"。",
+    "description": "答案字段包含了出题者的思考过程和自我纠正内容，属于明显的数据质量问题。答案应该给出唯一或标准的答案，而非多个可能答案加上出题者的犹豫。此外，黄袍怪将唐僧变成老虎的情节在原著中对应的标准回目名为'孙悟空智降妖怪'或'宝象国唐僧逢灾'，但更通用的名称应为'黄袍怪'或'悟空降妖'。",
+    "suggestion": "将第(3)题答案精简为唯一标准答案，如'（3）孙悟空三打白骨精（误——应为黄袍怪情节），正确答案：孙悟空大战黄袍怪'，但不应包含思考过程。最终答案应为：'（3）悟空大战黄袍怪（或：宝象国救师）'。"
+  },
+  {
+    "question_id": "lit_067",
+    "severity": "design_issue",
+    "category": "format_issue",
+    "field": "type",
+    "current_value": "fill_blank",
+    "description": "判断题数字化判分困难。",
+    "suggestion": "改为单选题形式。"
+  },
+  {
+    "question_id": "lit_068",
+    "severity": "design_issue",
+    "category": "format_issue",
+    "field": "type",
+    "current_value": "fill_blank",
+    "description": "开放性填空题，要求写出引号的作用，数字化判分困难。",
+    "suggestion": "改为选择题。"
+  },
+  {
+    "question_id": "lit_072",
+    "severity": "design_issue",
+    "category": "format_issue",
+    "field": "type",
+    "current_value": "fill_blank",
+    "description": "开放性填空题，要求写出破折号的作用，数字化判分困难。",
+    "suggestion": "改为选择题。"
+  },
+  {
+    "question_id": "lit_073",
+    "severity": "error",
+    "category": "wrong_answer",
+    "field": "answer",
+    "current_value": "（4）√",
+    "description": "第(4)题'司马懿是魏国的大将，最后篡夺了魏国政权'标记为正确（√），但在历史事实和《三国演义》小说中，篡夺魏国政权的是司马懿的孙子司马炎（建立晋朝），而非司马懿本人。司马懿生前是魏国权臣，并未正式篡位。这个说法不够准确。",
+    "suggestion": "将该题标记为×，并修改为'司马懿家族最终篡夺了魏国政权'为√，或将原说法改为×，因为司马懿本人并未篡夺魏国政权。"
+  },
+  {
+    "question_id": "lit_074",
+    "severity": "design_issue",
+    "category": "digital_unfriendly",
+    "field": "type",
+    "current_value": "fill_blank",
+    "description": "连线题属于纸质试卷题型，数字化环境难以实现。同时考查四大名著开篇词对小学5年级学生来说难度偏高。",
+    "suggestion": "改为单选题形式，或适当降低难度。"
+  },
+  {
+    "question_id": "lit_075",
+    "severity": "suggestion",
+    "category": "difficulty_mismatch",
+    "field": "difficulty",
+    "current_value": 2,
+    "description": "本题考查《红楼梦》中较为冷门的人物和情节，如'设相思局害死贾瑞'、'香菱被打死人命'、'金钏儿跳井'等，这些内容在小学阶段的四大名著教学中较少涉及。虽然标注为难度2（基础），但实际难度对小学5年级学生偏高。",
+    "suggestion": "将difficulty提升为3，或将题目替换为更常见的红楼梦人物描述（如贾母、刘姥姥等）。"
+  },
+  {
+    "question_id": "lit_077",
+    "severity": "design_issue",
+    "category": "format_issue",
+    "field": "type",
+    "current_value": "fill_blank",
+    "description": "判断题数字化判分困难。",
+    "suggestion": "改为单选题形式。"
+  },
+  {
+    "question_id": "lit_078",
+    "severity": "design_issue",
+    "category": "format_issue",
+    "field": "type",
+    "current_value": "fill_blank",
+    "description": "开放性填空题，要求写出引号的作用，数字化判分困难。",
+    "suggestion": "改为选择题。"
+  },
+  {
+    "question_id": "lit_079",
+    "severity": "suggestion",
+    "category": "distractor_quality",
+    "field": "options",
+    "current_value": "A. 林冲在山神庙中遇到了鲁智深 B. 林冲在山神庙中听到了陆谦等人的谈话，得知自己被陷害 C. 林冲在山神庙中被高俅派来的人杀死 D. 林冲在山神庙中烧死了陆谦等人",
+    "description": "选项D'林冲在山神庙中烧死了陆谦等人'并不完全错误——在原著中，林冲确实在风雪山神庙情节中手刃了陆谦等人（用花枪刺死，而非烧死，但'烧死'是基于火烧草料场背景的常见误解）。严格来说D选项也有一定迷惑性但方式不准确。建议使干扰项更清晰。",
+    "suggestion": "将D选项改为更明确的错误描述，如'林冲在山神庙中向朝廷投降'，避免与正确答案产生歧义。"
+  },
+  {
+    "question_id": "lit_065",
+    "severity": "suggestion",
+    "category": "difficulty_mismatch",
+    "field": "difficulty",
+    "current_value": 2,
+    "description": "第(3)小题'唐僧被黄袍怪变成老虎'这个情节对小学5年级学生来说较为冷门，大多数学生对《西游记》的了解集中在主要情节（大闹天宫、三打白骨精等），黄袍怪（宝象国）情节认知度较低。同时答案字段的混乱也反映了此题出题质量不够高。",
+    "suggestion": "将difficulty提升为3，或将第(3)题替换为更知名的情节（如'真假美猴王''三借芭蕉扇'等）。"
+  },
+  {
+    "question_id": "lit_073",
+    "severity": "suggestion",
+    "category": "difficulty_mismatch",
+    "field": "difficulty",
+    "current_value": 2,
+    "description": "本题考查'司马懿篡夺魏国政权'等较为深入的情节，对小学5年级学生来说偏难。大多数学生对《三国演义》的了解集中在桃园结义、草船借箭、空城计等经典情节。",
+    "suggestion": "将difficulty提升为3，或将第(4)题替换为更常见的内容。"
+  },
+  {
+    "question_id": "lit_074",
+    "severity": "suggestion",
+    "category": "difficulty_mismatch",
+    "field": "difficulty",
+    "current_value": 2,
+    "description": "考查四大名著开篇词，这对小学5年级学生来说明显偏难。大多数学生不会背诵这些开篇词，尤其是《水浒传》的'D. 试看书林隐处，几多俊逸儒流'对小学生来说非常陌生。",
+    "suggestion": "将difficulty提升为3或4，或将题目替换为更容易辨认的经典名句。"
+  },
+  {
+    "question_id": "全局",
+    "severity": "suggestion",
+    "category": "other",
+    "field": "knowledge_tag",
+    "current_value": "全部为\"文学常识\"",
+    "description": "全部78题的knowledge_tag均为'文学常识'，但实际上题目涵盖了三大类：四大名著知识、标点符号用法、文体常识。标签过于笼统，无法帮助系统按知识点分类出题。",
+    "suggestion": "将knowledge_tag细分为'四大名著'、'标点符号'、'文体常识'三类。"
+  },
+  {
+    "question_id": "全局",
+    "severity": "suggestion",
+    "category": "other",
+    "field": "difficulty",
+    "current_value": "全部为2",
+    "description": "全部78题的difficulty均为2（基础），但实际难度差异很大。例如考查四大名著开篇词的lit_074、考查红楼梦冷门人物的lit_075，难度明显高于考查基本人物对应的lit_005。",
+    "suggestion": "重新评估难度分布，建议将冷门人物/情节/开篇词等题目标注为difficulty 3（提升），基础人物对应标注为difficulty 1。目标难度分布建议：基础(d1)30%、中等(d2)50%、提升(d3)20%。"
+  },
+  {
+    "question_id": "全局",
+    "severity": "suggestion",
+    "category": "other",
+    "field": "grade",
+    "current_value": "全部为5",
+    "description": "全部78题的grade均为5（五年级），但四大名著在小学阶段的课标要求主要分布在3-6年级。低难度的四大名著人物对应题（如lit_001、lit_005）适合3-4年级，而标点符号综合运用题和冷门情节题更适合5-6年级。",
+    "suggestion": "根据题目实际难度，将grade分布调整为3-6年级，其中基础题可设为3-4年级，综合应用题设为5-6年级。"
+  },
+  {
+    "question_id": "全局",
+    "severity": "suggestion",
+    "category": "other",
+    "field": "type",
+    "current_value": "single_choice和fill_blank混合",
+    "description": "78题中fill_blank类型题目占比超过一半（约47题），且大量为判断题和连线题。这些题型在数字化场景下存在严重的判分问题：判断题需要接受√/×/对/错/true/false等多种输入，连线题和开放性简答题几乎无法自动判分。",
+    "suggestion": "将所有判断题改为单选题（'下列说法正确的是'），连线题改为选择题（'下列对应关系正确的是'），开放性简答题改为选择题。目标：single_choice占比80%以上。"
+  }
+]

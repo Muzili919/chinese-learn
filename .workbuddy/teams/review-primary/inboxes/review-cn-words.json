@@ -1,0 +1,11 @@
+[
+  {
+    "id": "shutdown-1776048216385",
+    "from": "team-lead",
+    "to": "review-cn-words",
+    "type": "shutdown_request",
+    "content": "{\"type\":\"shutdown_request\",\"request_id\":\"shutdown-1776048216385\",\"reason\":\"任务完成，请关闭\",\"from\":\"team-lead\",\"timestamp\":\"2026-04-13T02:43:36.385Z\"}",
+    "timestamp": "2026-04-13T02:43:36.385Z",
+    "read": true
+  }
+]

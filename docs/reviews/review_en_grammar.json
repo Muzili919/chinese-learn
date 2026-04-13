@@ -1,0 +1,146 @@
+[
+  {
+    "question_id": "全局-缺失ID",
+    "severity": "error",
+    "category": "other",
+    "field": "id",
+    "current_value": "en_grammar_003, en_grammar_031~040",
+    "description": "题库文件缺少ID为en_grammar_003以及en_grammar_031到en_grammar_040的10道题。当前文件只有89道题（001-002, 004-030, 041-100），远少于预期的99道。缺少的en_grammar_031~040这10道题应该是一批独立的题目。",
+    "suggestion": "检查题目生成脚本，补充缺失的11道题目（en_grammar_003和en_grammar_031~040），确保题库总数达到99道。"
+  },
+  {
+    "question_id": "全局-重复ID",
+    "severity": "error",
+    "category": "other",
+    "field": "id",
+    "current_value": "en_grammar_071, en_grammar_072, en_grammar_073, en_grammar_074, en_grammar_075, en_grammar_076, en_grammar_077, en_grammar_078, en_grammar_079, en_grammar_080",
+    "description": "文件中存在10个重复ID。en_grammar_071~080各出现两次：第一次是第71~80题（介词、所有格等），第二次是另一批不同的题目（让步状语从句、不规则动词等）。两批题目的内容完全不同但使用了相同的ID。这会导致题库数据冲突和显示错误。",
+    "suggestion": "将第二批重复的en_grammar_071~080重新编号为en_grammar_081~090，并将原来的en_grammar_081~090顺延为en_grammar_091~100，en_grammar_091~100顺延为en_grammar_101~110。确保所有ID唯一。"
+  },
+  {
+    "question_id": "en_grammar_006",
+    "severity": "suggestion",
+    "category": "distractor_quality",
+    "field": "options",
+    "current_value": "[\"A. That's right.\", \"B. No, thanks.\", \"C. You're welcome.\", \"D. All right.\"]",
+    "description": "干扰项B \"No, thanks.\" 不太适合作为致谢的应答干扰项。'No, thanks' 通常用于拒绝提议（如 Would you like...?），不是感谢的应答，区分度不够好。",
+    "suggestion": "建议将B改为 \"That's all right.\" 或 \"Not at all.\"，这些都是常见的感谢应答干扰项，考查学生是否能区分正确用法。"
+  },
+  {
+    "question_id": "en_grammar_024",
+    "severity": "error",
+    "category": "wrong_answer",
+    "field": "answer",
+    "current_value": "B",
+    "description": "本题答案有争议，analysis中也暴露了出题者的犹豫。题干'I like apples ______ my sister likes oranges'前后句表达两种不同的喜好，用'and'表示并列更自然（我喜欢苹果，我妹妹喜欢橘子），用'but'也可以（有对比意味）。但analysis中出题者自己也承认'两个喜好不同，但并非对立，常用and'，最终强行设B为正确答案，缺乏唯一性。",
+    "suggestion": "方案一：将答案改为A（and），因为两个句子表达的是不同的并列事实而非对立转折；方案二：重写题干使转折语义更明确，例如'I like apples, ______ my sister doesn't like them at all.'，此时答案B（but）才唯一正确。"
+  },
+  {
+    "question_id": "en_grammar_049",
+    "severity": "design_issue",
+    "category": "ambiguous",
+    "field": "options",
+    "current_value": "[\"A. Pardon?\", \"B. Thank you.\", \"C. I'm sorry.\", \"D. That's OK.\"]",
+    "description": "本题题干问'Could you tell me the way to the station?'，但正确答案是'Pardon?'（请求重复），这暗示说话者没听清。然而场景应该是问路者向路人问路，路人没有给出方向而是请求重复，逻辑不通。作为问路应答题，缺少一个'Go straight and turn left'之类的正确指路选项。干扰项C 'I'm sorry' 后面可以接 'I don't know' 也是一个合理的场景回应。",
+    "suggestion": "建议重写本题。如果考请求重复，题干应改为'I didn't catch that. ______' 或类似场景；如果考问路应答，正确答案应改为指路表达如'Go straight and turn right at the first crossing.'，干扰项包含Pardon?、Sorry, I'm new here等。"
+  },
+  {
+    "question_id": "en_grammar_086",
+    "severity": "design_issue",
+    "category": "ambiguous",
+    "field": "options",
+    "current_value": "[\"A. Don't worry\", \"B. That's great\", \"C. I'm sorry to hear that\", \"D. Congratulations\"]",
+    "description": "本题正确答案设为A 'Don't worry'，但C 'I'm sorry to hear that' 对于考试失利也是一个合理且更符合英语母语者习惯的回应。后文说'You can do better next time'确实是安慰性质，但'I'm sorry to hear that'加'You can do better next time'的组合更自然。本题答案不够唯一。",
+    "suggestion": "方案一：将答案改为C 'I'm sorry to hear that'，更符合安慰失利场景；方案二：保留A为答案，但将C改为明显不合适的干扰项如 'That's wonderful!' 或 'Good job!'，确保答案唯一。"
+  },
+  {
+    "question_id": "全局-题型设计",
+    "severity": "design_issue",
+    "category": "digital_unfriendly",
+    "field": "type",
+    "current_value": "fill_blank",
+    "description": "完形填空题型（en_grammar_010, 020, 030, 050, 060, 070, 080, 090, 100共9道）在数字化练习平台中存在严重的不友好问题：（1）答案字段包含多个子答案，如'（1）am （2）get up （3）go （4）visited'，难以实现自动评分；（2）填空题缺少明确的输入格式引导，学生不知道如何填写；（3）多空题的评分逻辑复杂，部分正确时如何给分不明确。",
+    "suggestion": "对于Web应用，建议将完形填空题改造为选择题形式，每个空格单独出选择题选项；或者实现一个专门的完形填空组件，每个空格有独立的下拉选择框。同时需要对填空题的答案格式进行标准化，便于自动评分。"
+  },
+  {
+    "question_id": "全局-答案格式不一致",
+    "severity": "error",
+    "category": "format_issue",
+    "field": "answer",
+    "current_value": "混合格式：选择题用字母'A'/'B'/'C'/'D'，填空题用英文单词/短语，完形填空用'（1）...（2）...'格式",
+    "description": "answer字段格式严重不一致：选择题使用字母（'A', 'B'等），普通填空题使用英文单词/短语（'children', 'is singing'等），完形填空使用带序号的中括号格式（'（1）am （2）get up （3）go （4）visited'）。部分填空题还有多个可接受答案（如'en_grammar_012'的'will visit / are going to visit'），格式为用'/'分隔。这种不一致会增加前端评分逻辑的复杂度。",
+    "suggestion": "统一答案格式规范：选择题统一用字母；填空题统一用英文答案字符串，多答案用'|'分隔（而非'/'）；完形填空题建议用JSON数组或结构化格式存储多个答案。在代码层面需要针对不同type实现不同的评分逻辑。"
+  },
+  {
+    "question_id": "全局-难度标注无区分度",
+    "severity": "suggestion",
+    "category": "difficulty_mismatch",
+    "field": "difficulty",
+    "current_value": "全部为0.5",
+    "description": "所有99道题的difficulty值均为0.5，没有任何区分度。实际上这些题目难度差异明显：如en_grammar_001（be动词选择）是基础题，en_grammar_048（被动语态）和en_grammar_090（if条件句+定语从句综合）是明显更难的题目。全部标为0.5使得难度标注失去意义。",
+    "suggestion": "建议根据题目实际难度重新标注：基础题（be动词、简单时态、基础交际）设为0.3；中等题（比较级最高级、从句、被动语态）设为0.5；较难题（综合完形填空、主将从现、定语从句）设为0.7-0.8。"
+  },
+  {
+    "question_id": "全局-题目重复",
+    "severity": "error",
+    "category": "other",
+    "field": "question",
+    "current_value": "多对重复题目",
+    "description": "存在多组高度相似的题目：（1）en_grammar_043和en_grammar_093：题干几乎完全相同（'Thank you for helping me with my English/my homework'，选项和答案一致）；（2）en_grammar_077和en_grammar_091：定语从句题，仅将'man'改为'boy'，其余选项完全相同；（3）en_grammar_026和en_grammar_089：电话用语题，仅对话略有不同。这些重复降低了题库的有效覆盖面。",
+    "suggestion": "对于en_grammar_043和en_grammar_093，合并为一题或修改其中一题的语境；对于en_grammar_077和en_grammar_091，修改一题考查which或whose等其他关系代词；对于en_grammar_026和en_grammar_089，保留两个不同场景（对方在 vs 不在），但确保题干和选项有足够差异。"
+  },
+  {
+    "question_id": "全局-题型分布",
+    "severity": "suggestion",
+    "category": "other",
+    "field": "ability_tag",
+    "current_value": "语法选择47题、词形变换25题、情景交际17题、完形填空9题（实际只有89题）",
+    "description": "题型分布以语法选择为主（约53%），但作为小学英语题库，缺少一些重要题型：没有句型转换（肯定句/否定句/疑问句互转）、没有英汉互译、没有看图填空、没有阅读理解。特别是句型转换是小学高年级重要考点。此外，完形填空虽然有9道但全是语法导向，缺乏真正的篇章理解考查。",
+    "suggestion": "在补充缺失的11道题时，考虑增加句型转换、英汉互译等题型。对于完形填空，增加对上下文逻辑和词汇理解（而非纯语法）的考查。"
+  },
+  {
+    "question_id": "en_grammar_078 (第二批, between)",
+    "severity": "design_issue",
+    "category": "ambiguous",
+    "field": "question",
+    "current_value": "用所给单词的适当形式填空。\n\nI'm interested ______ (in/on/at) collecting stamps.",
+    "description": "本题给出三个选项让选择填入，但实际上这不是'用所给单词的适当形式填空'，而是'选择正确的介词填空'。题干指令与题目实际形式不匹配。此外，对于这种选择题形式的填空，不应归为'词形变换'类型。",
+    "suggestion": "方案一：改为真正的词形变换题，如'I'm interested in ______ (collect) stamps'，答案为collecting；方案二：将题型改为multiple_choice，选项列为A. in B. on C. at D. for，ability_tag改为'语法选择'。"
+  },
+  {
+    "question_id": "en_grammar_025",
+    "severity": "design_issue",
+    "category": "ambiguous",
+    "field": "question",
+    "current_value": "用所给单词的适当形式填空。\n\nWhat ______ (a/an) interesting story it is!",
+    "description": "与en_grammar_078类似，题干说'用所给单词的适当形式填空'，但'(a/an)'给出的是两个冠词选择，不是要求变换形式。这不是词形变换题，而是冠词选择题。",
+    "suggestion": "将题型改为multiple_choice，选项设为A. a B. an C. the D. /，ability_tag改为'语法选择'。或者改为真正的词形变换如'What ______ (interest) story it is!'，答案为interesting。"
+  },
+  {
+    "question_id": "en_grammar_065",
+    "severity": "design_issue",
+    "category": "format_issue",
+    "field": "question",
+    "current_value": "用所给单词的适当形式填空。\n\n______ (Can/Could) you please pass me the salt?",
+    "description": "与en_grammar_025和078同类问题。题干说'用所给单词的适当形式填空'，但'(Can/Could)'是在两个情态动词中选择，不是变换形式。且答案'Can/Could'表示两个都正确，在自动评分中难以处理。",
+    "suggestion": "改为选择题形式，或改为真正的词形变换题如'He ______ (can) swim when he was five years old'，答案为could。如果保留选择题形式，答案应只保留一个最合适的（Could，因为'please'暗示礼貌语气，用Could更恰当）。"
+  },
+  {
+    "question_id": "en_grammar_015",
+    "severity": "design_issue",
+    "category": "format_issue",
+    "field": "question",
+    "current_value": "用所给单词的适当形式填空。\n\n______ (Can) you swim when you were five?",
+    "description": "题干说'用所给单词的适当形式填空'，但'(Can)'要求大写变化为'Could'，这更像是大小写和词形变换的结合。对于小学生来说，题目指令不够明确——学生可能不理解需要将can变为过去式could。另外，句首大写也是考量的因素，可能造成混淆。",
+    "suggestion": "保持题目但优化指令，如'用所给单词的适当时态形式填空，注意大小写'，或在题干中更明确地提示需要变换时态。"
+  },
+  {
+    "question_id": "en_grammar_012",
+    "severity": "suggestion",
+    "category": "format_issue",
+    "field": "answer",
+    "current_value": "will visit / are going to visit",
+    "description": "答案'will visit / are going to visit'使用了'/'分隔两个可接受答案，但第二个答案'are going to visit'只有主语为复数时才适用，而题干主语是They（复数），所以两者都正确。然而在自动评分系统中，'/'分隔符可能与路径或其他含义混淆，建议使用更明确的分隔符。",
+    "suggestion": "将分隔符改为'|'，即'will visit|are going to visit'，并确保前端评分逻辑支持多答案匹配。同时在analysis中说明两个答案的适用条件。"
+  }
+]

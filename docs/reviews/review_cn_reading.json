@@ -1,0 +1,263 @@
+[
+  {
+    "question_id": "reading_003",
+    "severity": "suggestion",
+    "category": "difficulty_mismatch",
+    "field": "difficulty",
+    "current_value": 2,
+    "description": "题目仅要求从一段不到50字的短文中提取一个明确写出的人名时间'七点半'，信息定位极其简单，无需阅读理解能力，对五年级学生来说过于简单，更像是一年级的读题练习。40道题中已有reading_009也是类似的信息提取题，这类低难度题目占比过多。",
+    "suggestion": "建议将difficulty降为1，或增加题目复杂度（如设置时间陷阱、需推理的细节题），使难度与五年级水平匹配。"
+  },
+  {
+    "question_id": "reading_009",
+    "severity": "suggestion",
+    "category": "difficulty_mismatch",
+    "field": "difficulty",
+    "current_value": 2,
+    "description": "与reading_003完全同构——直接在文中找'下午三点'即可作答，无需任何阅读理解能力。两道题在同一题库中重复，且都与五年级能力要求不匹配。",
+    "suggestion": "建议合并或删除其中一道，或将其中一道改造为需要推理判断的细节题（如：小明比比赛开始早到了多久？），将difficulty调整为1。"
+  },
+  {
+    "question_id": "reading_004",
+    "severity": "design_issue",
+    "category": "ambiguous",
+    "field": "answer",
+    "current_value": "最有可能是孩子做的，因为妈妈刚下班，而家里已经做好饭菜",
+    "description": "推断类开放题答案过于绝对化。实际上可能是爸爸、爷爷奶奶、保姆做的。参考答案用'最有可能是'但选项有限。更关键的问题是：系统如何判断用户的不同回答？如用户回答'是家里其他人做的'是否算对？作为开放题，答案判定范围太窄。",
+    "suggestion": "建议改为选择题（提供A孩子B爸爸C奶奶D以上都有可能等选项），或明确标注'言之有理即可'并在系统判定时增加关键词匹配（如'家里其他成员''家人'等）。"
+  },
+  {
+    "question_id": "reading_005",
+    "severity": "suggestion",
+    "category": "format_issue",
+    "field": "answer",
+    "current_value": "表现了他默默做好事、不张扬的品质",
+    "description": "品质分析类开放题答案不够全面。'默默捡垃圾什么也没说'至少能体现：默默无闻/不张扬、爱护环境、有公德心、无私奉献。参考答案只给了一个角度，学生如果回答'热爱公益'或'有公德心'是否算错？答案的判定标准不明确。",
+    "suggestion": "建议补充多个可接受答案，如'默默无闻/爱护环境/有公德心/乐于助人'等，标注'任选一个意思相近的答案即可'。"
+  },
+  {
+    "question_id": "reading_006",
+    "severity": "design_issue",
+    "category": "ambiguous",
+    "field": "answer",
+    "current_value": "说明他说的话很有吸引力或很有分量",
+    "description": "题目问'说明了什么'，但短文只有一句话，信息量极少，可以有多种理解角度：(1)他说的话很有吸引力/分量；(2)大家很尊重他；(3)内容很重要；(4)安静反而让人更专注。参考答案只给了一个方向，但其他合理理解也应被接受。",
+    "suggestion": "建议增加可接受的答案变体，或改为选择题。另外短文信息量太少，作为五年级题目不够充实，建议增加上下文使推断更有依据。"
+  },
+  {
+    "question_id": "reading_007",
+    "severity": "suggestion",
+    "category": "difficulty_mismatch",
+    "field": "question",
+    "current_value": "阅读古诗，完成题目",
+    "description": "题目归类为'阅读理解'，但实际是古诗名句理解，与古诗词鉴赏更相关。仅给出两句诗，没有提供全诗和创作背景，五年级学生可能不了解出处（王之涣《登鹳雀楼》），缺少必要的支撑信息。analysis中也说'古诗题必须意象+整体画面'，但题目本身没有提供足够的诗意信息来分析。",
+    "suggestion": "建议补充诗人信息和全诗（至少四句），或将此题移入古诗词题库。"
+  },
+  {
+    "question_id": "reading_011",
+    "severity": "design_issue",
+    "category": "format_issue",
+    "field": "answer",
+    "current_value": "一读（浏览），知大意；二读（细读），解词句；三读（品读），悟情理。",
+    "description": "这是死记硬背式的知识记忆题，不是阅读理解题。'三读法'不是标准化的语文概念——不同教材/老师可能有不同版本（如有的用'略读-精读-赏读'，有的用'通读-细读-品读'）。如果学生回答'略读'而不是'浏览'，可能被判错，但实际上意思一样。作为开放题，缺乏明确的判定标准。",
+    "suggestion": "建议改为选择题，或将答案改为接受多个合理变体（浏览/略读/通读、细读/精读/详读、品读/赏读/悟读均可）。"
+  },
+  {
+    "question_id": "reading_013",
+    "severity": "error",
+    "category": "digital_unfriendly",
+    "field": "question",
+    "current_value": "解释下列加点字的意思",
+    "description": "题目要求'解释下列加点字'，这是典型的纸质试卷用语。在数字界面中，学生根本看不到哪些字被'加点'标注了。文言文字词理解题（reading_016/019/022/026/030/034/036/037/038/039/040）全部存在同样的问题，约11道题受影响。",
+    "suggestion": "建议将'加点字'替换为直接引用目标字的格式，如'解释下列带下划线的字'并用下划线/加粗/括号标注。例如：'①虎求百兽而食之（求：______）'改为'解释带下划线的字：虎<u>求</u>百兽而食之'，或在题干中用引号直接标出目标字。这是最高优先级的修复项，影响11道题。"
+  },
+  {
+    "question_id": "reading_014",
+    "severity": "design_issue",
+    "category": "format_issue",
+    "field": "answer",
+    "current_value": "摘句法：找（中心）句；合并法：几个意思（合并）一起。",
+    "description": "与reading_011同样的问题——这是死记硬背式的知识题而非阅读理解题。答案'中心句'和'合并'可能有不同表达方式。此外，'合并法'的口诀'几个意思合并一起'表达略显生硬，'合在一起'或'综合起来'更自然。",
+    "suggestion": "建议补充可接受的答案变体（如'总起句'='中心句'，'归纳'='合并'），或改为选择题。"
+  },
+  {
+    "question_id": "reading_017",
+    "severity": "design_issue",
+    "category": "format_issue",
+    "field": "answer",
+    "current_value": "（1）联系（上下文）猜词义；（2）拆（字）再组合；（3）找（近义）词来替换。",
+    "description": "与reading_011、014同样——死记硬背的知识口诀题，且答案可能有合理变体。如'联系语境'vs'联系上下文'，'找同义词'vs'找近义词'。且'拆字'法并非所有词语都适用，口诀本身过于简化。",
+    "suggestion": "建议改为选择题，或增加答案变体。"
+  },
+  {
+    "question_id": "reading_020",
+    "severity": "design_issue",
+    "category": "format_issue",
+    "field": "answer",
+    "current_value": "按时间：找（时间）词；按空间：找（方位）词；按事情发展：找（起因）→经过→（结果）。",
+    "description": "继续是死记硬背口诀题。答案变体问题：'起因'可以等于'原因'，'经过'可以等于'过程'。且这类题型占比过高（reading_011/014/017/020/021共5道），严重影响题库的阅读理解实际练习功能。",
+    "suggestion": "建议将5道口诀填空题合并为2道，腾出空间给真正的阅读理解题。"
+  },
+  {
+    "question_id": "reading_021",
+    "severity": "design_issue",
+    "category": "format_issue",
+    "field": "answer",
+    "current_value": "一看（标题），明对象；二看（结构），理顺序；三看（语言），抓方法。",
+    "description": "口诀填空题。答案是'标题-结构-语言'，但说明文三看法在不同教材中也有不同版本，如'一看标题/二看开头结尾/三看说明方法'等。学生答'首段'而非'标题'也可能合理。",
+    "suggestion": "建议增加答案变体，或改为选择题。"
+  },
+  {
+    "question_id": "reading_023",
+    "severity": "suggestion",
+    "category": "difficulty_mismatch",
+    "field": "difficulty",
+    "current_value": 2,
+    "description": "整道题是直接从文中找数字和关键词填空（五十、九、拱、拱、大桥洞、四个小桥洞），属于纯信息提取，无需理解分析。虽然答案完全正确，但作为五年级题目过于简单。",
+    "suggestion": "建议将difficulty调整为1，或增加一道推理题（如'为什么说这种设计是建桥史上的创举？'）。"
+  },
+  {
+    "question_id": "reading_025",
+    "severity": "error",
+    "category": "wrong_answer",
+    "field": "question/answer",
+    "current_value": "第2自然段写了猫的两个特点：一是__________，二是__________。\n答案：一是老实，二是贪玩。",
+    "description": "题目说'第2自然段'，但实际上提供的文本只有两段：第1段写'猫的性格实在有些古怪'及其表现（老实、贪玩、尽职），第2段写'说它贪玩吧……又是多么尽职'。答案要求写'老实'和'贪玩'两个特点，但如果按自然段划分，第1段已包含了老实和贪玩的内容。更重要的是，该段落实际上描写了猫三个特点：老实、贪玩、尽职。答案只给了两个，遗漏了'尽职'这个重要特点。且'第2自然段'这个表述在只有两段文字中容易引起混淆。",
+    "suggestion": "建议明确自然段划分，将答案改为三个特点（老实、贪玩、尽职），或重新组织题目表述，如'短文写了猫的哪几个性格特点？请列举出来'。"
+  },
+  {
+    "question_id": "reading_028",
+    "severity": "error",
+    "category": "wrong_answer",
+    "field": "answer",
+    "current_value": "1—C  2—B  3—A  4—D",
+    "description": "这是匹配题，题干要求'用直线连起来'，但给出的pairs只有4组左右项，且未编号。answer中用了'1-C 2-B 3-A 4-D'这种编号，但题目中的左右项根本没有编号A/B/C/D或1/2/3/4。学生不知道哪个对应哪个编号。此外，作为数字界面中的匹配题，'用直线连起来'的纸质考试用语无法实现，学生无法实际操作连线。",
+    "suggestion": "建议重构为选择题（'下列阅读方法与作用的对应，正确的是___'），或在题目中给左右项编号。同时删除'用直线连起来'的表述。"
+  },
+  {
+    "question_id": "reading_029",
+    "severity": "error",
+    "category": "format_issue",
+    "field": "type",
+    "current_value": "fill_blank",
+    "description": "题目type标记为'fill_blank'（填空题），但实际是排序题（事件排序）。类型标注错误会导致系统渲染和判题逻辑出错。排序题的答案'②→③→④→①'格式也不规范，用'→'连接序号不够清晰，且数字序号使用了全角圆圈数字②③④①，技术处理上可能带来编码或匹配问题。",
+    "suggestion": "建议将type改为更合适的类型（如'ordering'或'sort'），或统一使用阿拉伯数字格式'2,3,4,1'以避免编码问题。"
+  },
+  {
+    "question_id": "reading_024",
+    "severity": "suggestion",
+    "category": "format_issue",
+    "field": "answer",
+    "current_value": "（1）× （2）√ （3）√ （4）×",
+    "description": "判断正误题使用'√''×'符号，但在数字界面中学生需要输入这些符号，体验不友好。且答案格式的判定需要精确匹配'√'和'×'这两个特殊Unicode字符，如果学生输入'对/错''true/false''T/F'可能无法匹配。题目type标记为'fill_blank'不够准确，应为判断题。",
+    "suggestion": "建议改为选择题（ABCD选项），或支持多种答案格式的匹配。"
+  },
+  {
+    "question_id": "reading_032",
+    "severity": "suggestion",
+    "category": "format_issue",
+    "field": "answer",
+    "current_value": "（1）√ （2）× （3）√ （4）×",
+    "description": "与reading_024相同的问题——判断正误题的格式判定问题。此外，第(2)小题'松鼠的尾巴像一把扇子'判定为×，但原文说'帽缨形的美丽尾巴'，答案正确。需要确保系统的判定逻辑能处理这类特殊符号。",
+    "suggestion": "与reading_024同建议。"
+  },
+  {
+    "question_id": "reading_030",
+    "severity": "suggestion",
+    "category": "difficulty_mismatch",
+    "field": "difficulty",
+    "current_value": 2,
+    "description": "《叶公好龙》是七年级/初一语文课文中的文言文篇目，文本难度明显高于五年级水平。文中的'牖''还'（通假字）等字词对五年级学生来说过于深奥。且作为小学题库，答案要求翻译全文并分析寓意，难度偏高。此外，40道题中文言文题目多达11道（reading_013/016/019/022/026/030/034/036/037/038/039/040），占比近30%，远超小学语文文言文应有的比例。",
+    "suggestion": "建议将文言文题目控制在5-6道以内（保留最经典篇目），将超纲的篇目替换为白话文阅读理解题。难度分级上，文言文题应标为difficulty 3。"
+  },
+  {
+    "question_id": "reading_037",
+    "severity": "error",
+    "category": "digital_unfriendly",
+    "field": "question",
+    "current_value": "下列加点字的读音完全正确的一项是（　）...A. **鬻**盾（yú）**誉**之（yù）**弗**能应（fó）...",
+    "description": "题目要求判断'加点字'的读音，但同时在question和options中都用了Markdown加粗（**）来标注目标字。问题在于：(1)'加点'是纸质用语，数字界面应用'加粗'或'下划线'；(2)options中每个选项的格式不一致——question中用**标注但在options中改成了（）标音的格式，学生需要对比两处信息；(3)题目混合了选择题和翻译题，一道题包含3个小题，作为单道题来说过于复杂。此题也是开放题type但包含选择题子题的类型不匹配问题。",
+    "suggestion": "建议将字音题拆分为独立的选择题，翻译题和问答题拆分为独立的开放题。'加点字'统一改为'加粗的字'。"
+  },
+  {
+    "question_id": "reading_037",
+    "severity": "error",
+    "category": "format_issue",
+    "field": "type",
+    "current_value": "open_ended",
+    "description": "reading_037的type标记为'open_ended'，但题目中第一个子题（字音选择题）是选择题，有ABCD四个选项，且options字段也有内容。type与实际题型不匹配，会导致系统判题逻辑错误。",
+    "suggestion": "建议将此题拆分：字音题作为独立single_choice题，翻译和问答题作为独立open_ended题。"
+  },
+  {
+    "question_id": "reading_038",
+    "severity": "suggestion",
+    "category": "difficulty_mismatch",
+    "field": "difficulty",
+    "current_value": 2,
+    "description": "《郑人买履》的文言文包含'度'的一词多义（动词duó和名词dù）、通假字'反'通'返'等知识点，且要求学生区分两个不同读音和含义的'度'，对五年级学生来说偏难。difficulty 2不能反映实际难度。",
+    "suggestion": "建议将difficulty调整为3，或增加解题提示降低难度。"
+  },
+  {
+    "question_id": "reading_040",
+    "severity": "suggestion",
+    "category": "difficulty_mismatch",
+    "field": "difficulty",
+    "current_value": 2,
+    "description": "《画蛇添足》虽是常见成语故事，但文中包含'祠''舍人''卮'等较难的文言词汇，且要求解释'引''固''安''亡'四个古字义。词汇量和理解难度超出五年级一般水平。",
+    "suggestion": "建议将difficulty调整为3。"
+  },
+  {
+    "question_id": "reading_001",
+    "severity": "suggestion",
+    "category": "format_issue",
+    "field": "answer",
+    "current_value": "小明不怕困难，坚持去看望生病的同学",
+    "description": "主旨概括开放题的答案只有一个固定表述。学生可能回答'小明虽然遇到困难但仍然坚持看望同学'或'小明克服困难去探望生病同学'等不同表述，意思相同但用词不同。如果系统使用精确匹配，这些合理答案都会被判错。",
+    "suggestion": "建议标注多个可接受的答案变体，或在系统层面使用关键词匹配（如'困难/坚持/看望'）。"
+  },
+  {
+    "question_id": "reading_002",
+    "severity": "suggestion",
+    "category": "format_issue",
+    "field": "answer",
+    "current_value": "表示出乎意料，说明他的反应与常人不同",
+    "description": "答案表述过于固定。学生可能的合理回答包括：'表示转折关系''说明他没有因为失败而沮丧''表现了他的乐观心态''表示与常理相反'等。这些回答都抓住了要点但用词不同。",
+    "suggestion": "建议增加可接受答案的关键词列表（如包含'转折''出乎意料''不同''相反'等均算正确）。"
+  },
+  {
+    "question_id": "reading_035",
+    "severity": "suggestion",
+    "category": "format_issue",
+    "field": "answer",
+    "current_value": "（1）果实埋在地里，不炫耀，默默奉献。\n（2）人要做有用的人，不要做只讲体面而对别人没有好处的人。\n（3）本文通过写花生的品格，告诉我们人要做朴实无华、默默奉献、对社会有用的人。",
+    "description": "三问的开放题答案全部是固定表述。第(1)问可能回答'朴实无华'或'不张扬'，第(2)问可能回答'做人要注重内在品质'，第(3)问的概括可能有多种合理表达。系统如果精确匹配，很多合理答案会被判错。",
+    "suggestion": "建议每个子问题都标注'意思对即可'，并在analysis中列出核心关键词供匹配参考。"
+  },
+  {
+    "question_id": "reading_033",
+    "severity": "suggestion",
+    "category": "format_issue",
+    "field": "answer",
+    "current_value": "（4）机智、勇敢（或：沉着、不屈服）",
+    "description": "品质分析题答案标注了'或'的变体，这是好的做法。但其他类似题目（reading_005/006/010）没有这样做，标准不一致。建议所有品质分析题都提供可接受的多种答案。",
+    "suggestion": "建议统一品质分析类题目的答案格式，均标注多个可接受变体。"
+  },
+  {
+    "question_id": "reading_all",
+    "severity": "suggestion",
+    "category": "other",
+    "field": "overall_structure",
+    "current_value": "40道题",
+    "description": "整体题库存在以下结构性问题：\n1. 口诀填空题过多（reading_011/014/017/020/021共5道，占12.5%），这些是死记硬背题，不是阅读理解题\n2. 文言文题占比过高（11道，占27.5%），远超小学比例\n3. 难度分布单一——40道题全部标注为difficulty 2，没有梯度区分\n4. 题型分布不均：开放题约28道（70%），选择题仅4道（10%），缺少多选题、排序题、简答题的合理搭配\n5. 年级标注单一——全部标为grade 5，但实际难度差异很大（如三读法口诀vs画蛇添足翻译）\n6. ability_tag标签混乱——大量题目标签为泛化的'阅读理解'而非具体的'主旨概括''细节理解''词句理解'等",
+    "suggestion": "建议：(1)将口诀填空题减少到2道，增加记叙文、说明文、散文的阅读理解题；(2)文言文控制在5-6道，增加白话文长文阅读；(3)建立三级难度体系（基础/提升/拓展），将现有题目重新分级；(4)增加选择题和判断题比例至30-40%；(5)精细化ability_tag标签。"
+  },
+  {
+    "question_id": "reading_all",
+    "severity": "design_issue",
+    "category": "other",
+    "field": "open_answer_matching",
+    "current_value": "约28道open_ended题",
+    "description": "约70%的题目为open_ended（开放题），但所有答案都是固定字符串。这意味着系统判题要么用精确匹配（大量误判），要么需要额外的关键词匹配逻辑。对于小学语文阅读理解来说，答案的表述方式千变万化，固定答案会导致体验很差。例如reading_005'表现了他默默做好事、不张扬的品质'，学生回答'默默无闻''热爱公益''保护环境'都应该算对。",
+    "suggestion": "这是系统性问题，建议在JSON中为每道开放题增加'keywords'字段，列出可接受的关键词列表，供模糊匹配使用。例如：{\"answer\": \"表现了他默默做好事、不张扬的品质\", \"keywords\": [\"默默\", \"不张扬\", \"公德心\", \"爱护环境\", \"无私\", \"奉献\"]}。"
+  }
+]

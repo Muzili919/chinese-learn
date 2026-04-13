@@ -1,0 +1,560 @@
+[
+  {
+    "question_id": "poetry_001",
+    "severity": "error",
+    "category": "wrong_answer",
+    "field": "analysis",
+    "current_value": "'人材'不同于'人才'",
+    "description": "答案和analysis中均使用了'人材'，但现行小学语文教材（部编版）统一写作'人才'。'不拘一格降人才'是人教版统编教材的标准写法。应将答案和分析中的'人材'统一改为'人才'。",
+    "suggestion": "将answer中的'人材'改为'人才'，analysis中涉及'人材'的表述同步修改。"
+  },
+  {
+    "question_id": "poetry_003",
+    "severity": "design_issue",
+    "category": "digital_unfriendly",
+    "field": "type",
+    "current_value": "fill_blank（判断题）",
+    "description": "本题实际是判断正误题（打√或打×），但type设为fill_blank。判断题在数字化界面中需要特殊的交互方式（如按钮），与填空题的文本输入不同。混合使用判断题和填空题type容易导致系统处理混乱。",
+    "suggestion": "判断正误题应使用专门的judgment类型，或在题干中明确告知用户如何作答（如：在括号中填写√或×）。"
+  },
+  {
+    "question_id": "poetry_004",
+    "severity": "design_issue",
+    "category": "digital_unfriendly",
+    "field": "question",
+    "current_value": "将左边的诗人与右边的诗句用直线连起来。",
+    "description": "连线题是纸质考试常用题型，数字化界面中用户无法画直线。这类题需要转换为选择题或填空匹配题。",
+    "suggestion": "将连线题改为选择题形式，如'下列诗人与诗句对应正确的一项是'。"
+  },
+  {
+    "question_id": "poetry_007",
+    "severity": "design_issue",
+    "category": "format_issue",
+    "field": "type",
+    "current_value": "fill_blank",
+    "description": "本题是文言文翻译题，答案为长段落文字（如'天资聪明而又好学的人，不以向地位比自己低、学识比自己差的人请教为耻'）。作为填空题，用户需要输入完整翻译，答案匹配难度极大，任何措辞差异都可能导致判错。",
+    "suggestion": "翻译题建议改为选择题（给出几个翻译版本让学生选择），或改为关键字填空形式（如'敏而好学'翻译为'____而又好学'），降低判分难度。"
+  },
+  {
+    "question_id": "poetry_007",
+    "severity": "suggestion",
+    "category": "other",
+    "field": "knowledge_tag",
+    "current_value": "古诗词",
+    "description": "本题考查的是文言文翻译（《论语》和朱熹《古人谈读书》），内容为古文而非诗词，knowledge_tag应更准确。",
+    "suggestion": "knowledge_tag可改为'古诗文'或'文言文'，以更准确地反映考查内容。"
+  },
+  {
+    "question_id": "poetry_008",
+    "severity": "design_issue",
+    "category": "digital_unfriendly",
+    "field": "type",
+    "current_value": "fill_blank（判断题）",
+    "description": "同poetry_003，本题实际是判断正误题，但type为fill_blank。",
+    "suggestion": "判断正误题应使用专门的judgment类型，或明确告知用户作答方式。"
+  },
+  {
+    "question_id": "poetry_010",
+    "severity": "error",
+    "category": "digital_unfriendly",
+    "field": "question",
+    "current_value": "下列加点字的读音完全正确的一项是……",
+    "description": "题干中使用'加点字'这一纸质考试用语。在数字化界面中，用户看不到加点的效果，无法确定需要判断读音的是哪些字。选项中虽然标注了拼音，但与题干中的'加点'对应关系不明确。",
+    "suggestion": "去掉'加点字'的说法，改为直接给出带拼音的选项，如选项已直接标注拼音则题干可改为'下列词语中读音完全正确的一项是'。"
+  },
+  {
+    "question_id": "poetry_014",
+    "severity": "design_issue",
+    "category": "digital_unfriendly",
+    "field": "question",
+    "current_value": "将左边的诗句与右边所描写的季节用直线连起来。",
+    "description": "同poetry_004，连线题在数字化界面中无法实现。",
+    "suggestion": "改为选择题或排序填空题。"
+  },
+  {
+    "question_id": "poetry_015",
+    "severity": "error",
+    "category": "digital_unfriendly",
+    "field": "question",
+    "current_value": "写出下列诗句中加点字的解释。（1）死去元知万事**空**（　）",
+    "description": "题干中使用'加点字'这一纸质考试用语，用粗体标记的字在用户界面可能无法正常显示为'加点'效果。用户需要看到哪些字需要解释。",
+    "suggestion": "去掉'加点字'的说法，直接在题目中用括号或其他方式标注需要解释的字，如'下列句子中画横线的字'，并在界面中用下划线或颜色标记。"
+  },
+  {
+    "question_id": "poetry_016",
+    "severity": "suggestion",
+    "category": "other",
+    "field": "analysis",
+    "current_value": "'明月松间照，清泉石上流'是动态描写",
+    "description": "analysis中说B选项'是动态描写'有误。B选项引用的诗句'明月松间照，清泉石上流'实际上是'以动衬静'的写法，既有静态（月照松间）也有动态（泉流石上），不能简单说是'动态描写'。不过答案选D是正确的。",
+    "suggestion": "修改analysis中对B选项的描述，改为'以动衬静，动静结合'。"
+  },
+  {
+    "question_id": "poetry_018",
+    "severity": "error",
+    "category": "wrong_answer",
+    "field": "analysis",
+    "current_value": "'问渠那得清如许'的'渠'是第三人称代词，不是水渠",
+    "description": "analysis中说'渠'是第三人称代词，这是正确的。但答案判断第（3）项'渠'指水渠为正确（√），与analysis矛盾。第（3）项'渠指水渠，这里指方塘里的水'应判为错误（×）。'渠'在古代汉语中是第三人称代词'它'（指代方塘），不是水渠。",
+    "suggestion": "将第（3）项答案由√改为×。原句'问渠那得清如许'意思是'问它（方塘）怎么会如此清澈'，'渠'是代词，不是水渠。答案应改为'（1）√ （2）× （3）× （4）√'。"
+  },
+  {
+    "question_id": "poetry_019",
+    "severity": "error",
+    "category": "wrong_answer",
+    "field": "answer",
+    "current_value": "① → ④ → ② → ③",
+    "description": "答案将②（张继，约715-779）排在④（张志和，约730-810）前面，称张继先于张志和。但analysis中自己也说'张继（约715-779）与张志和同时代'，两者的生卒年有较大重叠区间，且张志和生卒年本身不确切。在中小学语文教学中，通常将张志和与张继视为同时代，不存在明确的先后关系。题目的排序要求'按作者朝代的先后顺序排列'，但②和④都是盛/中唐诗人，无法确定先后。该题的排序依据不充分。",
+    "suggestion": "建议将②和④的顺序调换为④→②（张志和约730-810，张继约715-779，实际上两人几乎同时代），或者在题目中增加提示说明②④的顺序可以互换，或者将此题改为选择题形式避免争议。"
+  },
+  {
+    "question_id": "poetry_024",
+    "severity": "design_issue",
+    "category": "digital_unfriendly",
+    "field": "question",
+    "current_value": "将左边的诗句与右边所表达的主要情感用直线连起来。右列出现了两次。",
+    "description": "连线题在数字化界面无法实现。此外，题干中右列选项被重复列出了两次，可能是排版错误。",
+    "suggestion": "修改为选择题形式，并删除重复的右列选项。"
+  },
+  {
+    "question_id": "poetry_026",
+    "severity": "design_issue",
+    "category": "format_issue",
+    "field": "answer",
+    "current_value": "（1）运用了比喻的修辞手法……（2）运用了托物言志（借物喻人）的表现手法……",
+    "description": "本题是简答题，答案为长段落文字。用户输入的答案与标准答案在措辞上几乎不可能完全一致，判分困难。",
+    "suggestion": "改为选择题形式，提供对修辞手法和表现手法的几个选项供学生选择。"
+  },
+  {
+    "question_id": "poetry_027",
+    "severity": "suggestion",
+    "category": "other",
+    "field": "analysis",
+    "current_value": "D中'社会变革'是本体，'风雷'是喻体",
+    "description": "'九州生气恃风雷'中的'风雷'严格来说不是比喻'社会变革'，而是比喻能够带来变革的'巨大力量'或'波澜壮阔的社会运动'。analysis中说D选项中'风雷'是喻体没错，但说本体是'社会变革'不够准确。",
+    "suggestion": "将analysis中D项的本体描述改为'巨大的社会变革力量'或'风起云涌的变革运动'。"
+  },
+  {
+    "question_id": "poetry_033",
+    "severity": "design_issue",
+    "category": "digital_unfriendly",
+    "field": "question",
+    "current_value": "将左边的文言文名句与右边正确的出处用直线连起来。",
+    "description": "连线题在数字化界面无法实现。",
+    "suggestion": "改为选择题形式。"
+  },
+  {
+    "question_id": "poetry_035",
+    "severity": "design_issue",
+    "category": "format_issue",
+    "field": "answer",
+    "current_value": "（1）这首诗是陆游临终前写给儿子的遗嘱。表达了诗人至死不忘祖国统一……（2）最能体现诗人情感的字是'悲'……",
+    "description": "本题是简答题，答案为长段落文字，用户输入难以精确匹配。",
+    "suggestion": "改为选择题形式。"
+  },
+  {
+    "question_id": "poetry_037",
+    "severity": "design_issue",
+    "category": "format_issue",
+    "field": "type",
+    "current_value": "fill_blank",
+    "description": "同poetry_007，文言文翻译题作为填空题，答案为长段文字，用户输入难以精确匹配。",
+    "suggestion": "改为选择题或关键字填空题。"
+  },
+  {
+    "question_id": "poetry_043",
+    "severity": "design_issue",
+    "category": "digital_unfriendly",
+    "field": "question",
+    "current_value": "将左边的文言文句子与右边表达的主旨用直线连起来。",
+    "description": "连线题在数字化界面无法实现。",
+    "suggestion": "改为选择题形式。"
+  },
+  {
+    "question_id": "poetry_045",
+    "severity": "design_issue",
+    "category": "format_issue",
+    "field": "answer",
+    "current_value": "（1）运用了反复和对称的句式……（2）'聒'字是拟声词……",
+    "description": "简答题，答案为长段文字，用户输入难以精确匹配。",
+    "suggestion": "改为选择题形式。"
+  },
+  {
+    "question_id": "poetry_049",
+    "severity": "error",
+    "category": "digital_unfriendly",
+    "field": "question",
+    "current_value": "下列加点字的读音完全正确的一项是。",
+    "description": "题干使用'加点字'这一纸质考试用语，数字化界面中用户无法看到加点效果。",
+    "suggestion": "去掉'加点字'的说法，改为'下列词语中读音完全正确的一项是'。"
+  },
+  {
+    "question_id": "poetry_051",
+    "severity": "suggestion",
+    "category": "distractor_quality",
+    "field": "answer",
+    "current_value": "（1）√ （2）√ （3）√ （4）√",
+    "description": "四个判断全部为正确，没有任何区分度。作为判断题，至少应有一项为错误，否则失去了考查的意义。",
+    "suggestion": "将第（3）项修改为有争议或错误的表述，如'垂緌饮清露'说明蝉在喝水时触角自然下垂（×，因为'垂緌'是蝉的固定形态特征，不是喝水的动作状态），使答案变为（1）√ （2）√ （3）× （4）√。"
+  },
+  {
+    "question_id": "poetry_052",
+    "severity": "design_issue",
+    "category": "digital_unfriendly",
+    "field": "question",
+    "current_value": "将左边的诗句与右边蕴含的哲理用直线连起来。",
+    "description": "连线题在数字化界面无法实现。",
+    "suggestion": "改为选择题形式。"
+  },
+  {
+    "question_id": "poetry_054",
+    "severity": "design_issue",
+    "category": "format_issue",
+    "field": "answer",
+    "current_value": "（1）'西湖歌舞'比喻……（2）因为南宋统治者……",
+    "description": "简答题，答案为长段文字，用户输入难以精确匹配。",
+    "suggestion": "改为选择题形式。"
+  },
+  {
+    "question_id": "poetry_056",
+    "severity": "error",
+    "category": "digital_unfriendly",
+    "field": "question",
+    "current_value": "写出下列文言文句子中加点字的解释。（1）**敏**而好学",
+    "description": "题干使用'加点字'这一纸质考试用语，数字化界面中用户无法看到加点效果。",
+    "suggestion": "改为直接标注需要解释的字，如'下列句子中括号内的字'，并用下划线或颜色标记。"
+  },
+  {
+    "question_id": "poetry_061",
+    "severity": "design_issue",
+    "category": "digital_unfriendly",
+    "field": "question",
+    "current_value": "将左边的古诗与右边描写的主要对象用直线连起来。",
+    "description": "连线题在数字化界面无法实现。",
+    "suggestion": "改为选择题形式。"
+  },
+  {
+    "question_id": "poetry_062",
+    "severity": "design_issue",
+    "category": "format_issue",
+    "field": "type",
+    "current_value": "fill_blank",
+    "description": "同poetry_007，文言文翻译题作为填空题，答案为长段文字。",
+    "suggestion": "改为选择题或关键字填空题。"
+  },
+  {
+    "question_id": "poetry_065",
+    "severity": "design_issue",
+    "category": "format_issue",
+    "field": "answer",
+    "current_value": "（1）'见'同'现'……（2）朱熹认为读书最重要的是'心到'……",
+    "description": "简答题，答案为长段文字，用户输入难以精确匹配。",
+    "suggestion": "改为选择题形式。"
+  },
+  {
+    "question_id": "poetry_068",
+    "severity": "error",
+    "category": "digital_unfriendly",
+    "field": "question",
+    "current_value": "下列加点字的读音完全正确的一项是。",
+    "description": "题干使用'加点字'这一纸质考试用语。",
+    "suggestion": "去掉'加点字'的说法。"
+  },
+  {
+    "question_id": "poetry_066",
+    "severity": "error",
+    "category": "wrong_answer",
+    "field": "analysis",
+    "current_value": "准确排序：虞世南（唐）→朱熹（南宋）→陆游（南宋）→林升（南宋后期）",
+    "description": "analysis中说林升是'南宋后期'，但陆游（1125-1210）和林升的生活年代实际上有较大重叠，林升的《题临安邸》大致创作于南宋初期（临安即杭州，南宋初年定都于此），而非'南宋后期'。更关键的是，答案排序为①→③→④→②，即朱熹排在陆游前面。但朱熹（1130-1200）和陆游（1125-1210）几乎同时代，朱熹甚至比陆游年轻5岁，说朱熹一定早于陆游是不准确的。",
+    "suggestion": "这道题的排序依据不充分，因为朱熹和陆游、陆游和林升的生活年代都有较大重叠。建议改为选择题形式，或改为只比较明显有先后关系的作者（如唐代vs宋代vs清代）。"
+  },
+  {
+    "question_id": "poetry_070",
+    "severity": "suggestion",
+    "category": "other",
+    "field": "type",
+    "current_value": "poetry_070 与 poetry_051 完全重复",
+    "description": "poetry_070 的题目、选项、答案与 poetry_051 完全相同（判断垂緌的理解，四个全部√），是重复题目。",
+    "suggestion": "删除poetry_070，或修改为一道有区分度的新题。"
+  },
+  {
+    "question_id": "poetry_071",
+    "severity": "suggestion",
+    "category": "other",
+    "field": "type",
+    "current_value": "poetry_071 与 poetry_052 完全重复",
+    "description": "poetry_071 的题目、选项、答案与 poetry_052 完全相同（诗句与哲理连线），是重复题目。",
+    "suggestion": "删除poetry_071，或修改为一道有区分度的新题。"
+  },
+  {
+    "question_id": "poetry_072",
+    "severity": "suggestion",
+    "category": "other",
+    "field": "type",
+    "current_value": "poetry_072 与 poetry_053 完全重复",
+    "description": "poetry_072 的题目、选项、答案与 poetry_053 完全相同（根据语境填写诗句），是重复题目。",
+    "suggestion": "删除poetry_072，或修改为一道有区分度的新题。"
+  },
+  {
+    "question_id": "poetry_073",
+    "severity": "suggestion",
+    "category": "other",
+    "field": "type",
+    "current_value": "poetry_073 与 poetry_054 完全重复",
+    "description": "poetry_073 的题目、选项、答案与 poetry_054 完全相同（阅读《题临安邸》回答问题），是重复题目。",
+    "suggestion": "删除poetry_073，或修改为一道有区分度的新题。"
+  },
+  {
+    "question_id": "poetry_074",
+    "severity": "suggestion",
+    "category": "other",
+    "field": "type",
+    "current_value": "poetry_074 与 poetry_055 完全重复",
+    "description": "poetry_074 的题目、选项、答案与 poetry_055 完全相同（'空山'理解选择题），是重复题目。",
+    "suggestion": "删除poetry_074，或修改为一道有区分度的新题。"
+  },
+  {
+    "question_id": "poetry_075",
+    "severity": "suggestion",
+    "category": "other",
+    "field": "type",
+    "current_value": "poetry_075 与 poetry_056 完全重复",
+    "description": "poetry_075 的题目、选项、答案与 poetry_056 完全相同（文言文加点字解释），是重复题目。",
+    "suggestion": "删除poetry_075，或修改为一道有区分度的新题。"
+  },
+  {
+    "question_id": "poetry_076",
+    "severity": "suggestion",
+    "category": "other",
+    "field": "type",
+    "current_value": "poetry_076 与 poetry_057 完全重复",
+    "description": "poetry_076 的题目、选项、答案与 poetry_057 完全相同（己亥杂诗排序），是重复题目。",
+    "suggestion": "删除poetry_076，或修改为一道有区分度的新题。"
+  },
+  {
+    "question_id": "poetry_077",
+    "severity": "suggestion",
+    "category": "other",
+    "field": "type",
+    "current_value": "poetry_077 与 poetry_058 完全重复",
+    "description": "poetry_077 的题目、选项、答案与 poetry_058 完全相同（'不耻下问'理解），是重复题目。",
+    "suggestion": "删除poetry_077，或修改为一道有区分度的新题。"
+  },
+  {
+    "question_id": "poetry_069",
+    "severity": "suggestion",
+    "category": "other",
+    "field": "type",
+    "current_value": "poetry_069 与 poetry_050 完全重复",
+    "description": "poetry_069 的题目、选项、答案与 poetry_050 完全相同（'不须归'理解选择题），是重复题目。",
+    "suggestion": "删除poetry_069，或修改为一道有区分度的新题。"
+  },
+  {
+    "question_id": "poetry_080",
+    "severity": "design_issue",
+    "category": "digital_unfriendly",
+    "field": "question",
+    "current_value": "将左边的小古文句子与右边体现的人物品质用直线连起来。",
+    "description": "连线题在数字化界面无法实现。",
+    "suggestion": "改为选择题形式。"
+  },
+  {
+    "question_id": "poetry_081",
+    "severity": "error",
+    "category": "digital_unfriendly",
+    "field": "question",
+    "current_value": "写出下列诗句中加点字的意思。（1）**但**悲不见九州同",
+    "description": "题干使用'加点字'这一纸质考试用语。",
+    "suggestion": "改为直接标注需要解释的字。"
+  },
+  {
+    "question_id": "poetry_082",
+    "severity": "design_issue",
+    "category": "format_issue",
+    "field": "answer",
+    "current_value": "（1）'风雷'比喻……'万马齐喑'比喻……（2）表达了诗人……",
+    "description": "简答题，答案为长段文字，用户输入难以精确匹配。",
+    "suggestion": "改为选择题形式。"
+  },
+  {
+    "question_id": "poetry_089",
+    "severity": "design_issue",
+    "category": "digital_unfriendly",
+    "field": "type",
+    "current_value": "fill_blank（判断题）",
+    "description": "本题实际是判断正误题，但type为fill_blank。",
+    "suggestion": "判断正误题应使用专门的judgment类型。"
+  },
+  {
+    "question_id": "poetry_090",
+    "severity": "design_issue",
+    "category": "digital_unfriendly",
+    "field": "question",
+    "current_value": "将左边诗句中的'风'与右边正确的含义用直线连起来。",
+    "description": "连线题在数字化界面无法实现。",
+    "suggestion": "改为选择题形式。"
+  },
+  {
+    "question_id": "poetry_091",
+    "severity": "design_issue",
+    "category": "format_issue",
+    "field": "type",
+    "current_value": "fill_blank",
+    "description": "同poetry_007，文言文翻译题作为填空题。",
+    "suggestion": "改为选择题或关键字填空题。"
+  },
+  {
+    "question_id": "poetry_092",
+    "severity": "design_issue",
+    "category": "format_issue",
+    "field": "answer",
+    "current_value": "（1）'由'指孔子的学生子路……（2）这段话告诉我们要诚实……",
+    "description": "简答题，答案为长段文字。",
+    "suggestion": "改为选择题形式。"
+  },
+  {
+    "question_id": "poetry_093",
+    "severity": "suggestion",
+    "category": "other",
+    "field": "answer",
+    "current_value": "C. 都表达了诗人渴望祖国统一、收复失地的爱国情感。",
+    "description": "严格来说，《题临安邸》的核心情感是'讽刺统治者苟且偷安'，虽然深层包含收复失地的愿望，但直接说'表达了诗人渴望祖国统一的爱国情感'不够准确。《示儿》才是直接表达'渴望统一'，《题临安邸》更侧重于讽刺和愤怒。C选项将两首诗的情感简单等同了。",
+    "suggestion": "将C选项修改为更准确的表述，如'都表达了诗人对国家命运的关切和爱国情感'，或增加一个更具区分度的干扰项。"
+  },
+  {
+    "question_id": "poetry_094",
+    "severity": "design_issue",
+    "category": "format_issue",
+    "field": "answer",
+    "current_value": "（1）身向榆关那畔行；纳兰性德 （2）死去元知万事空；陆游",
+    "description": "答案格式中用分号分隔诗句和作者，但题干用括号'作者：（　）'表示。用户的输入格式可能与标准答案不一致（如用逗号、冒号等），导致判错。",
+    "suggestion": "统一答案格式要求，在题干中明确示例格式，如'示例：居高声自远；虞世南'。"
+  },
+  {
+    "question_id": "poetry_095",
+    "severity": "suggestion",
+    "category": "format_issue",
+    "field": "answer",
+    "current_value": "④ → ② → ③ → ①",
+    "description": "答案要求只写序号，用箭头排列。但在数字界面中，用户可能输入'4231'或'④②③①'等多种格式，与标准答案格式不一致。需要明确格式要求或系统支持多种格式的匹配。",
+    "suggestion": "在题干中给出示例格式，如'示例：④→②→③→①'。"
+  },
+  {
+    "question_id": "poetry_096",
+    "severity": "design_issue",
+    "category": "format_issue",
+    "field": "answer",
+    "current_value": "（1）甲文运用了排比的修辞手法。作用：增强了语言的气势……（2）'万马齐喑'形容……",
+    "description": "简答题，答案为长段文字，用户输入难以精确匹配。",
+    "suggestion": "改为选择题形式，或改为判断题。"
+  },
+  {
+    "question_id": "poetry_001",
+    "severity": "suggestion",
+    "category": "other",
+    "field": "knowledge_tag",
+    "current_value": "古诗词",
+    "description": "poetry_001考查的内容包含陆游《示儿》、林升《题临安邸》、龚自珍《己亥杂诗》（诗词）和诸葛亮《诫子书》（文言文），knowledge_tag统一为'古诗词'不能准确覆盖文言文部分。",
+    "suggestion": "knowledge_tag改为'古诗文'更准确。建议全题库统一评估：如果题库中包含文言文内容，应使用'古诗文'标签。"
+  },
+  {
+    "question_id": "poetry_005",
+    "severity": "suggestion",
+    "category": "format_issue",
+    "field": "answer",
+    "current_value": "（1）我劝天公重抖擞，不拘一格降人材。\n（2）死去元知万事空，但悲不见九州同。",
+    "description": "第（2）题要求写出'唯一使我痛心的是没有亲眼看到祖国的统一'对应的诗句，答案给的是'死去元知万事空，但悲不见九州同'。但更准确的对应应该是'但悲不见九州同'这一句。答案要求写两句是否与题意匹配取决于评分标准，可能在'唯一使我痛心'的描述上不够精确（'万事空'对应的不是痛心，而是坦然）。",
+    "suggestion": "考虑将第（2）题改为只要求写一句'但悲不见九州同'，或将描述修改为'诗人明知死后万事皆空，但唯一使他痛心的是没有看到祖国统一'，使两句都成为合理答案。"
+  },
+  {
+    "question_id": "poetry_009",
+    "severity": "suggestion",
+    "category": "other",
+    "field": "knowledge_tag",
+    "current_value": "古诗词",
+    "description": "《少年中国说》是散文/议论文，不是诗词，knowledge_tag应更准确。",
+    "suggestion": "knowledge_tag改为'古诗文'或'文言文'。"
+  },
+  {
+    "question_id": "poetry_010",
+    "severity": "suggestion",
+    "category": "other",
+    "field": "ability_tag",
+    "current_value": "诗句默写",
+    "description": "本题考查的是古诗中的字音辨析，不是诗句默写。ability_tag应更准确。",
+    "suggestion": "ability_tag改为'字音辨析'。"
+  },
+  {
+    "question_id": "poetry_011",
+    "severity": "suggestion",
+    "category": "other",
+    "field": "grade",
+    "current_value": 5,
+    "description": "《枫桥夜泊》（张继）是三年级课本中的古诗（部编版三年级下册），但题目标注为5年级。虽然5年级也可能复习此诗，但如果题库定位是'该年级课本中出现的诗'，则年级标注可能不准确。",
+    "suggestion": "确认题库的年级标注规则：如果按'首次出现在哪一年级课本'标注，则《枫桥夜泊》应为3年级。如果按'适合在该年级练习'标注，则5年级也可接受。建议统一标注规则。"
+  },
+  {
+    "question_id": "poetry_013",
+    "severity": "design_issue",
+    "category": "digital_unfriendly",
+    "field": "type",
+    "current_value": "fill_blank（判断题）",
+    "description": "本题实际是判断正误题，但type为fill_blank。",
+    "suggestion": "判断正误题应使用专门的judgment类型。"
+  },
+  {
+    "question_id": "poetry_023",
+    "severity": "design_issue",
+    "category": "digital_unfriendly",
+    "field": "type",
+    "current_value": "fill_blank（判断题）",
+    "description": "本题实际是判断正误题，但type为fill_blank。",
+    "suggestion": "判断正误题应使用专门的judgment类型。"
+  },
+  {
+    "question_id": "poetry_032",
+    "severity": "design_issue",
+    "category": "digital_unfriendly",
+    "field": "type",
+    "current_value": "fill_blank（判断题）",
+    "description": "本题实际是判断正误题，但type为fill_blank。",
+    "suggestion": "判断正误题应使用专门的judgment类型。"
+  },
+  {
+    "question_id": "poetry_042",
+    "severity": "design_issue",
+    "category": "digital_unfriendly",
+    "field": "type",
+    "current_value": "fill_blank（判断题）",
+    "description": "本题实际是判断正误题，但type为fill_blank。",
+    "suggestion": "判断正误题应使用专门的judgment类型。"
+  },
+  {
+    "question_id": "poetry_060",
+    "severity": "design_issue",
+    "category": "digital_unfriendly",
+    "field": "type",
+    "current_value": "fill_blank（判断题）",
+    "description": "本题实际是判断正误题，但type为fill_blank。",
+    "suggestion": "判断正误题应使用专门的judgment类型。"
+  },
+  {
+    "question_id": "poetry_079",
+    "severity": "design_issue",
+    "category": "digital_unfriendly",
+    "field": "type",
+    "current_value": "fill_blank（判断题）",
+    "description": "本题实际是判断正误题，但type为fill_blank。",
+    "suggestion": "判断正误题应使用专门的judgment类型。"
+  },
+  {
+    "question_id": "poetry_017",
+    "severity": "suggestion",
+    "category": "other",
+    "field": "answer",
+    "current_value": "（2）一箪食，一瓢饮，在陋巷，人不堪其忧，回也不改其乐。",
+    "description": "答案中省略了'贤哉，回也！'和结尾的'贤哉，回也！'。原文是'子曰：贤哉，回也！一箪食，一瓢饮，在陋巷，人不堪其忧，回也不改其乐。贤哉，回也！'。虽然小学教学中通常只要求默写中间部分，但答案是否需要包含首尾的'贤哉，回也'取决于教材要求。",
+    "suggestion": "确认教材对该段的要求，如果教材要求默写完整段落，则应补全。如果教材只要求默写中间部分，则当前答案可以接受，但建议在答案后注明（节选）。"
+  }
+]
