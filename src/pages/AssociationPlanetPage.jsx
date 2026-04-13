@@ -266,7 +266,7 @@ function ConfusableModal({ wordA, wordB, onClose }) {
 }
 
 // ─── 词根树主视图 ──────────────────────────────────────────────────────────
-function WordTree({ wordObj, visible, onNodeClick, onConfusableClick, masteryStatus }) {
+function WordTree({ wordObj, visible, onNodeClick, onConfusableClick, masteryStatus, grade }) {
   const associations = wordObj.associations || []
   const confusables = (wordObj.confusables || []).filter(w => allWordsMap[w])
 
@@ -454,7 +454,7 @@ function checkSpelling(input, answer) {
 }
 
 // ─── 答题区 ──────────────────────────────────────────────────────────────
-function QuizSection({ wordObj, onWordDone }) {
+function QuizSection({ wordObj, onWordDone, grade }) {
   const [questions] = useState(() => buildQuestions(wordObj, getWordContext(grade)))
   const [qIndex, setQIndex] = useState(0)
   const [selected, setSelected] = useState(null)
@@ -926,6 +926,7 @@ export default function AssociationPlanetPage({ user, grade = 'primary', onFinis
                 onNodeClick={handleNodeClick}
                 onConfusableClick={handleConfusableClick}
                 masteryStatus={currentSrsStatus}
+                grade={grade}
               />
             )}
           </div>
@@ -980,6 +981,7 @@ export default function AssociationPlanetPage({ user, grade = 'primary', onFinis
                 key={sessionWords[currentIdx].word}
                 wordObj={sessionWords[currentIdx]}
                 onWordDone={handleWordDone}
+                grade={grade}
               />
             </div>
           )}
