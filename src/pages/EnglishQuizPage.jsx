@@ -52,7 +52,10 @@ function speakEnglish(text, onEnd) {
 // ─── 多子题解析 ────────────────────────────────────────────────────────────
 
 function isMultiPartAnswer(q) {
-  return /\(1\)|\（1\）/.test(q.answer || '') || /→/.test(q.answer || '')
+  const ans = q.answer || ''
+  // 排序题（箭头格式）不算多子题，单独处理
+  if (/^[A-D]\s*→\s*[A-D]/.test(ans)) return false
+  return /\(1\)|\（1\）/.test(ans)
 }
 
 // 将题目字符串按 (1)(2)... 或 → 分段
@@ -116,7 +119,7 @@ function parseSubParts(q) {
         }))
       }
       // 去掉选项行，只保留问题干（处理 "A. xxx B. xxx C. xxx D. xxx" 同行格式）
-      const optionsLine = text.match(/^[A-D]\.\s*.+[A-D]\.\s*.+$/m)
+      const optionsLine = part.text.match(/^[A-D]\.\s*.+[A-D]\.\s*.+$/m)
       if (optionsLine) {
         displayText = part.text.replace(optionsLine[0], '').trim()
       } else {
@@ -516,7 +519,7 @@ function detectMode(q) {
   if (q.type === 'open_ended') return 'writing'
   if (isMultiPartAnswer(q)) return 'multi_sub'
   if (q.type === 'true_false') return 'true_false'
-  // 图片听力题：题干含"图片"但选项是图片描述文字，当作选择处理
+  if (/^[A-D]\s*→\s*[A-D]/.test(q.answer || '')) return 'ordering'
   if (Array.isArray(q.options) && q.options.length >= 2) return 'choice'
   if (q.type === 'fill_blank' && (q.answer || '').length < 40) return 'text_fill'
   return 'writing'
@@ -601,6 +604,115 @@ function isChoiceCorrect(selected, q) {
   return strip(selected) === strip(ans)
 }
 
+// ─── 排序题组件（听录音排序 A→B→C→D） ─────────────────────────────────────────
+function OrderingQuestion({ q, onSubmit }) {
+  const correctItems = (q.answer || '').split('→').map(s => s.trim()).filter(Boolean)
+  const [submitted, setSubmitted] = useState(false)
+  const [isCorrect, setIsCorrect] = useState(false)
+  const allOptions = Array.isArray(q.options) && q.options.length > 0
+    ? q.options.map(o => o.replace(/^[A-D]\.\s*/i, '').replace(/的图片描述$/, ''))
+    : ['选项一', '选项二', '选项三', '选项四']
+  const correctLabels = correctItems.map(item => {
+    const idx = ['A','B','C','D','a','b','c','d'].indexOf(item)
+    if (idx >= 0 && idx < allOptions.length) return { label: item.toUpperCase(), text: allOptions[idx] }
+    return { label: item, text: item }
+  })
+  const [order, setOrder] = useState([])
+
+  function handleSelectLabel(label) {
+    if (submitted || order.includes(label)) return
+    setOrder([...order, label])
+  }
+
+  function handleRemoveFromOrder(idx) {
+    if (submitted) return
+    setOrder(order.filter((_, i) => i !== idx))
+  }
+
+  function getLabelText(label) {
+    const item = correctLabels.find(c => c.label === label)
+    return item ? item.text : label
+  }
+
+  function handleSubmit() {
+    if (order.length !== correctLabels.length) return
+    const correct = order.every((label, i) => label === correctLabels[i].label)
+    setIsCorrect(correct)
+    setSubmitted(true)
+  }
+
+  return (
+    <div className="flex flex-col gap-4">
+      <div className="bg-white rounded-2xl p-4 shadow-sm">
+        <div className="flex items-center gap-2 mb-3">
+          <span className="text-xs font-semibold px-2 py-0.5 rounded-full" style={{ background: '#ede9fe', color: '#7c3aed' }}>排序题</span>
+          <button onClick={() => speakEnglish(q.question)} className="ml-auto w-7 h-7 flex items-center justify-center bg-sky-100 text-sky-500 rounded-full text-sm">🔊</button>
+        </div>
+        <p className="text-gray-800 text-sm leading-relaxed whitespace-pre-wrap">{q.question}</p>
+      </div>
+
+      <div className="bg-white rounded-2xl p-4 shadow-sm">
+        <div className="text-xs font-semibold text-gray-500 mb-2">你的排序（按顺序点击下方选项）：</div>
+        <div className="flex gap-2 flex-wrap min-h-[40px]">
+          {order.length === 0 && <span className="text-xs text-gray-400">点击下方选项开始排序...</span>}
+          {order.map((label, i) => (
+            <button key={label + '-' + i} onClick={() => handleRemoveFromOrder(i)}
+              className="flex items-center gap-1 px-3 py-2 rounded-xl bg-violet-100 text-violet-700 text-sm font-semibold active:scale-95">
+              <span className="text-[10px] bg-violet-200 rounded px-1">{i + 1}</span>
+              {label}. {getLabelText(label)}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      {!submitted && (
+        <div className="bg-white rounded-2xl p-4 shadow-sm">
+          <div className="text-xs font-semibold text-gray-500 mb-2">请按听到的顺序选择：</div>
+          <div className="grid grid-cols-2 gap-2">
+            {correctLabels.map(item => (
+              <button key={item.label} onClick={() => handleSelectLabel(item.label)}
+                disabled={order.includes(item.label)}
+                className={`py-3 px-3 rounded-xl border-2 text-sm font-medium text-left transition-all active:scale-95
+                  ${order.includes(item.label) ? 'bg-gray-100 border-gray-200 text-gray-400 line-through' : 'bg-white border-gray-200 text-gray-700'}`}>
+                {item.label}. {item.text}
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {!submitted && order.length === correctLabels.length && (
+        <button onClick={handleSubmit}
+          className="w-full py-3 rounded-2xl bg-gradient-to-r from-violet-500 to-purple-500 text-white font-bold active:scale-95 shadow-md">
+          提交排序
+        </button>
+      )}
+
+      {submitted && (
+        <div className={`rounded-2xl p-4 border ${isCorrect ? 'bg-green-50 border-green-200' : 'bg-red-50 border-red-200'}`}>
+          <div className={`font-bold text-base mb-2 ${isCorrect ? 'text-green-700' : 'text-red-600'}`}>
+            {isCorrect ? '✅ 排序正确！' : `❌ 正确顺序：${correctLabels.map(c => c.label).join(' → ')}`}
+          </div>
+          <div className="text-xs text-gray-600 mt-1">
+            正确顺序：{correctLabels.map((c, i) => <span key={c.label} className="inline-flex items-center gap-1 mr-2">
+              <span className="bg-violet-100 text-violet-700 px-1.5 py-0.5 rounded font-bold">{i + 1}</span>
+              {c.label}. {c.text}
+              {i < correctLabels.length - 1 && <span className="text-gray-400 ml-1">→</span>}
+            </span>)}
+          </div>
+        </div>
+      )}
+
+      {submitted && (
+        <button onClick={() => onSubmit(order.join(' → '), isCorrect)}
+          className="w-full py-3 rounded-2xl bg-gradient-to-r from-sky-400 to-blue-500 text-white font-bold active:scale-95 shadow-md">
+          继续下一题 →
+        </button>
+      )}
+    </div>
+  )
+}
+
 // ─── 英语题目通用组件 ──────────────────────────────────────────────────────
 
 const TYPE_LABEL = { multiple_choice: '选择题', fill_blank: '填空题', open_ended: '写作题', true_false: '判断题' }
@@ -618,6 +730,8 @@ function EnglishQuestion({ question: q, onSubmit, englishTag }) {
   if (mode === 'multi_sub') return <MultiSubQuiz question={q} onSubmit={onSubmit} englishTag={englishTag} />
   // 写作 → 独立组件
   if (mode === 'writing') return <SimpleWritingInput q={q} onSubmit={onSubmit} englishTag={englishTag} />
+  // 排序题 → 独立组件
+  if (mode === 'ordering') return <OrderingQuestion q={q} onSubmit={onSubmit} />
 
   // ── 判断题（T/F）──
   if (mode === 'true_false') {
