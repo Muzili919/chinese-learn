@@ -14,6 +14,7 @@ import MV1Demo from './pages/MV1Demo'
 import EnglishHomePage from './pages/EnglishHomePage'
 import EnglishQuizPage from './pages/EnglishQuizPage'
 import AssociationPlanetPage from './pages/AssociationPlanetPage'
+import WordPlanetPage from './pages/WordPlanetPage'
 import DictationPage from './pages/DictationPage'
 import SelfTestPage from './pages/SelfTestPage'
 import PoliticsHomePage from './pages/PoliticsHomePage'
@@ -474,6 +475,15 @@ export default function App() {
         onFinish={(result) => { setSessionResult(result); setPage('result') }}
         onBack={() => { setPage('home'); setActiveSubject('english') }}
         onRetry={() => startQuiz({ ...englishQuizOptions, englishTag: 'en_association' })}
+      />
+    )
+    if (page === 'englishQuiz' && englishQuizOptions.englishTag === 'en_association_j2') return (
+      <WordPlanetPage
+        user={user}
+        grade="j2"
+        onFinish={(result) => { setSessionResult(result); setPage('result') }}
+        onBack={() => { setPage('home'); setActiveSubject('english') }}
+        onRetry={() => startQuiz({ ...englishQuizOptions, englishTag: 'en_association_j2' })}
       />
     )
     if (page === 'englishQuiz' && englishQuizOptions.englishTag !== 'en_association') return (
