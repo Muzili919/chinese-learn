@@ -1,8 +1,8 @@
 {
   "meta": {
-    "total": 800,
-    "generated_at": "2026-04-12",
-    "version": "junior2_v1"
+    "total": 1276,
+    "generated_at": "2026-04-13",
+    "version": "junior2_v4-final"
   },
   "words": {
     "advice": {
@@ -9491,7 +9491,11 @@
         "city",
         "right"
       ],
-      "confusables": [],
+      "confusables": [
+        "city",
+        "civil",
+        "certain"
+      ],
       "example": "Every citizen should obey the law.",
       "memory_tip": "citizen→公民"
     },
@@ -9918,7 +9922,11 @@
         "cross",
         "road"
       ],
-      "confusables": [],
+      "confusables": [
+        "cross",
+        "across",
+        "crowd"
+      ],
       "example": "Be careful at the crossing.",
       "memory_tip": "crossing→十字路口"
     },
@@ -11309,7 +11317,11 @@
         "surprise",
         "give"
       ],
-      "confusables": [],
+      "confusables": [
+        "give",
+        "lift",
+        "shift"
+      ],
       "example": "Thank you for the gift.",
       "memory_tip": "gift礼物",
       "overlap": "primary"
@@ -11761,7 +11773,11 @@
         "terribly",
         "bad"
       ],
-      "confusables": [],
+      "confusables": [
+        "bad",
+        "barely",
+        "hardly"
+      ],
       "example": "He was badly hurt.",
       "memory_tip": "badly→糟糕地"
     },
@@ -11836,7 +11852,11 @@
         "shallowly",
         "profoundly"
       ],
-      "confusables": [],
+      "confusables": [
+        "deep",
+        "sleepy",
+        "steeply"
+      ],
       "example": "She was deeply moved.",
       "memory_tip": "deeply→深深地"
     },
@@ -11993,7 +12013,11 @@
         "hard",
         "scarcely"
       ],
-      "confusables": [],
+      "confusables": [
+        "hard",
+        "nearly",
+        "scarce"
+      ],
       "example": "I can hardly believe it.",
       "memory_tip": "hard+ly→几乎不"
     },
@@ -12085,7 +12109,11 @@
         "always",
         "not"
       ],
-      "confusables": [],
+      "confusables": [
+        "ever",
+        "however",
+        "forever"
+      ],
       "example": "I have never been to Japan.",
       "memory_tip": "never从不",
       "overlap": "primary"
@@ -12351,7 +12379,11 @@
         "over",
         "along"
       ],
-      "confusables": [],
+      "confusables": [
+        "cross",
+        "around",
+        "about"
+      ],
       "example": "She walked across the street.",
       "memory_tip": "across→穿过"
     },
@@ -12446,7 +12478,11 @@
         "besides",
         "near"
       ],
-      "confusables": [],
+      "confusables": [
+        "besides",
+        "behind",
+        "before"
+      ],
       "example": "Come and sit beside me.",
       "memory_tip": "beside→在旁边",
       "overlap": "primary"
@@ -12945,7 +12981,11 @@
         "nothing",
         "anybody"
       ],
-      "confusables": [],
+      "confusables": [
+        "something",
+        "nothing",
+        "everything"
+      ],
       "example": "Is there anything I can do?",
       "memory_tip": "any+thing→任何事物"
     },
@@ -15978,7 +16018,11 @@
         "ground",
         "university"
       ],
-      "confusables": [],
+      "confusables": [
+        "camp",
+        "compass",
+        "cactus"
+      ],
       "example": "Our campus is very beautiful in spring.",
       "memory_tip": "camp(营地)+us→学校营地"
     },
@@ -16045,7 +16089,11 @@
         "writing",
         "article"
       ],
-      "confusables": [],
+      "confusables": [
+        "comprehension",
+        "competition",
+        "condition"
+      ],
       "example": "Our homework is to write a composition about my hobby.",
       "memory_tip": "com(一起)+pos(放)+ition→组合文字"
     },
@@ -16077,7 +16125,11 @@
         "conversation",
         "talk"
       ],
-      "confusables": [],
+      "confusables": [
+        "disgust",
+        "discount",
+        "discretion"
+      ],
       "example": "We had a discussion about the project.",
       "memory_tip": "discuss(讨论)+ion"
     },
@@ -16247,7 +16299,11 @@
         "write",
         "pen"
       ],
-      "confusables": [],
+      "confusables": [
+        "pen",
+        "panel",
+        "pixel"
+      ],
       "example": "I write with a pencil so I can erase mistakes.",
       "memory_tip": "pencil=铅笔"
     },
@@ -16417,7 +16473,11 @@
         "write",
         "letters"
       ],
-      "confusables": [],
+      "confusables": [
+        "speaking",
+        "smelling",
+        "spinning"
+      ],
       "example": "Pay attention to your spelling.",
       "memory_tip": "spell(拼写)+ing"
     },
@@ -16518,7 +16578,10 @@
         "course",
         "book"
       ],
-      "confusables": [],
+      "confusables": [
+        "workbook",
+        "notebook"
+      ],
       "example": "Don't forget to bring your textbook.",
       "memory_tip": "text(课本)+book"
     },
@@ -16567,7 +16630,11 @@
         "guide",
         "help"
       ],
-      "confusables": [],
+      "confusables": [
+        "author",
+        "actor",
+        "editor"
+      ],
       "example": "My parents hired a tutor for my math.",
       "memory_tip": "tut(保护)+or→指导者"
     },
@@ -16582,7 +16649,11 @@
         "clothes",
         "wear"
       ],
-      "confusables": [],
+      "confusables": [
+        "union",
+        "inform",
+        "unicorn"
+      ],
       "example": "All students must wear uniforms at school.",
       "memory_tip": "uni(一个)+form(形式)→统一服装"
     },
@@ -16597,7 +16668,11 @@
         "internet",
         "web"
       ],
-      "confusables": [],
+      "confusables": [
+        "webpage",
+        "web",
+        "site"
+      ],
       "example": "You can find the information on our website.",
       "memory_tip": "web(网)+site(地点)"
     },
@@ -16629,7 +16704,11 @@
         "floor",
         "apartment"
       ],
-      "confusables": [],
+      "confusables": [
+        "colony",
+        "blanket",
+        "baloney"
+      ],
       "example": "There are flowers on the balcony.",
       "memory_tip": "balco(梁)+ny→有横梁的地方"
     },
@@ -16644,7 +16723,10 @@
         "toilet",
         "shower"
       ],
-      "confusables": [],
+      "confusables": [
+        "bedroom",
+        "batroom"
+      ],
       "example": "Go to the bathroom and wash your hands.",
       "memory_tip": "bath(洗澡)+room=浴室"
     },
@@ -16659,7 +16741,11 @@
         "room",
         "sleep"
       ],
-      "confusables": [],
+      "confusables": [
+        "breadth",
+        "breath",
+        "broth"
+      ],
       "example": "My bedroom is small but clean.",
       "memory_tip": "bed(床)+room=睡觉的房间"
     },
@@ -16726,7 +16812,11 @@
         "polite",
         "man"
       ],
-      "confusables": [],
+      "confusables": [
+        "gentle",
+        "gently",
+        "gentlemen"
+      ],
       "example": "He is a real gentleman.",
       "memory_tip": "gentle(温和)+man→温和的人"
     },
@@ -16741,7 +16831,11 @@
         "child",
         "family"
       ],
-      "confusables": [],
+      "confusables": [
+        "grandchildren",
+        "grandson",
+        "granddaughter"
+      ],
       "example": "Grandma loves her grandchildren very much.",
       "memory_tip": "grand(大)+child→大的孩子辈"
     },
@@ -16756,7 +16850,11 @@
         "elder",
         "family"
       ],
-      "confusables": [],
+      "confusables": [
+        "grandmother",
+        "grandparent",
+        "grandpa"
+      ],
       "example": "My grandfather tells me stories every night.",
       "memory_tip": "grand(祖父)+father"
     },
@@ -16771,7 +16869,11 @@
         "elder",
         "family"
       ],
-      "confusables": [],
+      "confusables": [
+        "grandfather",
+        "grandparent",
+        "grandma"
+      ],
       "example": "Grandmother cooks delicious food.",
       "memory_tip": "grand(祖母)+mother"
     },
@@ -16838,7 +16940,10 @@
         "TV",
         "relax"
       ],
-      "confusables": [],
+      "confusables": [
+        "dining room",
+        "drawing room"
+      ],
       "example": "We watch TV in the living room.",
       "memory_tip": "living(生活)+room=生活空间"
     },
@@ -16870,7 +16975,10 @@
         "uncle",
         "family"
       ],
-      "confusables": [],
+      "confusables": [
+        "niece",
+        "nervous"
+      ],
       "example": "My nephew is five years old this year.",
       "memory_tip": "neph(孙子)+ew→下一代男性亲属"
     },
@@ -16920,7 +17028,11 @@
         "uncle",
         "family"
       ],
-      "confusables": [],
+      "confusables": [
+        "relation",
+        "related",
+        "relatively"
+      ],
       "example": "We visited our relatives during Spring Festival.",
       "memory_tip": "relat(关系)+ive→有关系的人"
     },
@@ -17056,7 +17168,11 @@
         "small",
         "new"
       ],
-      "confusables": [],
+      "confusables": [
+        "young",
+        "youngest",
+        "stronger"
+      ],
       "example": "My younger brother is in primary school.",
       "memory_tip": "young(年轻)+er比较级"
     },
@@ -17123,7 +17239,11 @@
         "pay",
         "cashier"
       ],
-      "confusables": [],
+      "confusables": [
+        "check-out",
+        "checkup",
+        "check"
+      ],
       "example": "Please go to the checkout counter.",
       "memory_tip": "check(检查)+out→结算离开"
     },
@@ -17138,7 +17258,11 @@
         "ticket",
         "discount"
       ],
-      "confusables": [],
+      "confusables": [
+        "copy",
+        "copper",
+        "coconut"
+      ],
       "example": "I have a coupon for ten percent off.",
       "memory_tip": "coup(切)+on→可切割金额的小纸片"
     },
@@ -17171,7 +17295,10 @@
         "shop",
         "food"
       ],
-      "confusables": [],
+      "confusables": [
+        "groceries",
+        "group"
+      ],
       "example": "Mom went to buy some groceries.",
       "memory_tip": "gross(大量)+ery→大量商品处"
     },
@@ -17221,7 +17348,11 @@
         "sell",
         "shop"
       ],
-      "confusables": [],
+      "confusables": [
+        "mark",
+        "mart",
+        "markup"
+      ],
       "example": "My mother goes to the market every morning.",
       "memory_tip": "market=市场"
     },
@@ -17357,7 +17488,10 @@
         "store",
         "buy"
       ],
-      "confusables": [],
+      "confusables": [
+        "chopping",
+        "shipping"
+      ],
       "example": "I enjoy shopping with my friends.",
       "memory_tip": "shop(商店)+ping→去商店的活动"
     },
@@ -17390,7 +17524,11 @@
         "shop",
         "food"
       ],
-      "confusables": [],
+      "confusables": [
+        "submarket",
+        "super",
+        "market"
+      ],
       "example": "We buy food at the supermarket every week.",
       "memory_tip": "super(超级)+market=大型市场"
     },
@@ -17405,7 +17543,11 @@
         "all",
         "whole"
       ],
-      "confusables": [],
+      "confusables": [
+        "totally",
+        "tunnel",
+        "talent"
+      ],
       "example": "The total cost is two hundred yuan.",
       "memory_tip": "total=总共"
     },
@@ -17420,7 +17562,11 @@
         "fly",
         "travel"
       ],
-      "confusables": [],
+      "confusables": [
+        "airplane",
+        "export",
+        "airfield"
+      ],
       "example": "We arrived at the airport two hours early.",
       "memory_tip": "air(空气)+port(港口)→飞机港口"
     },
@@ -17520,7 +17666,10 @@
         "fly",
         "rotor"
       ],
-      "confusables": [],
+      "confusables": [
+        "helmet",
+        "hovercraft"
+      ],
       "example": "The helicopter landed on the roof.",
       "memory_tip": "helic(螺旋)+opter→螺旋飞行器"
     },
@@ -17535,7 +17684,11 @@
         "expressway",
         "road"
       ],
-      "confusables": [],
+      "confusables": [
+        "subway",
+        "freeway",
+        "driveway"
+      ],
       "example": "Don't drive too fast on the highway.",
       "memory_tip": "high(高)+way(路)→高速路"
     },
@@ -17568,7 +17721,10 @@
         "permit",
         "allow"
       ],
-      "confusables": [],
+      "confusables": [
+        "licensee",
+        "licensor"
+      ],
       "example": "Do you have a driving license?",
       "memory_tip": "licen(允许)+se→许可文件"
     },
@@ -17583,7 +17739,11 @@
         "motorbike",
         "bike"
       ],
-      "confusables": [],
+      "confusables": [
+        "motorbike",
+        "motor",
+        "bicycle"
+      ],
       "example": "He rides a motorcycle to work.",
       "memory_tip": "motor(马达)+cycle(车)→摩托车"
     },
@@ -17598,7 +17758,10 @@
         "walker",
         "crossing"
       ],
-      "confusables": [],
+      "confusables": [
+        "pedestal",
+        "pediatrician"
+      ],
       "example": "Pedestrians should use the crosswalk.",
       "memory_tip": "ped(脚)+estrian→用脚走路的人"
     },
@@ -17665,7 +17828,11 @@
         "track",
         "train"
       ],
-      "confusables": [],
+      "confusables": [
+        "roadway",
+        "rail",
+        "trailway"
+      ],
       "example": "The railway station is near my home.",
       "memory_tip": "rail(铁轨)+way(路)=铁路"
     },
@@ -17732,7 +17899,11 @@
         "train",
         "bus"
       ],
-      "confusables": [],
+      "confusables": [
+        "statue",
+        "status",
+        "stationary"
+      ],
       "example": "I'll meet you at the bus station.",
       "memory_tip": "stat(站立)+ion→停留处"
     },
@@ -17747,7 +17918,10 @@
         "car",
         "cab"
       ],
-      "confusables": [],
+      "confusables": [
+        "tape",
+        "tapir"
+      ],
       "example": "Let's take a taxi there.",
       "memory_tip": "taxi=出租车"
     },
@@ -17954,7 +18128,10 @@
         "snack",
         "biscuit"
       ],
-      "confusables": [],
+      "confusables": [
+        "cooky",
+        "coolie"
+      ],
       "example": "Grandma baked some cookies for us.",
       "memory_tip": "cook(烹制)+ie→小块食物"
     },
@@ -17969,7 +18146,10 @@
         "maize",
         "yellow"
       ],
-      "confusables": [],
+      "confusables": [
+        "coin",
+        "cone"
+      ],
       "example": "Corn is grown in many parts of China.",
       "memory_tip": "corn=玉米"
     },
@@ -18002,7 +18182,10 @@
         "food",
         "health"
       ],
-      "confusables": [],
+      "confusables": [
+        "die",
+        "dict"
+      ],
       "example": "A balanced diet is important.",
       "memory_tip": "diet=日常饮食"
     },
@@ -18035,7 +18218,10 @@
         "element",
         "part"
       ],
-      "confusables": [],
+      "confusables": [
+        "ingredients",
+        "integral"
+      ],
       "example": "Check the ingredients on the package.",
       "memory_tip": "ingredi(进入)+ent→放入的东西"
     },
@@ -18138,7 +18324,10 @@
         "good",
         "healthy"
       ],
-      "confusables": [],
+      "confusables": [
+        "nutrition",
+        "nutritive"
+      ],
       "example": "Vegetables are nutritious.",
       "memory_tip": "nutri(营养)+tious→含营养的"
     },
@@ -18205,7 +18394,10 @@
         "hot",
         "oatmeal"
       ],
-      "confusables": [],
+      "confusables": [
+        "porous",
+        "courage"
+      ],
       "example": "Chinese people often eat porridge for breakfast.",
       "memory_tip": "porridge=粥"
     },
@@ -18290,7 +18482,10 @@
         "bread",
         "lunch"
       ],
-      "confusables": [],
+      "confusables": [
+        "which",
+        "sandwiches"
+      ],
       "example": "I made a sandwich for lunch.",
       "memory_tip": "sandwich=三明治"
     },
@@ -18410,7 +18605,10 @@
         "healthy",
         "food"
       ],
-      "confusables": [],
+      "confusables": [
+        "vegan",
+        "vegetate"
+      ],
       "example": "Eat more vegetables every day.",
       "memory_tip": "vegetab(植物)+le→植物性食物"
     },
@@ -18442,7 +18640,10 @@
         "server",
         "restaurant"
       ],
-      "confusables": [],
+      "confusables": [
+        "waiter",
+        "witness"
+      ],
       "example": "The waitress brought us the bill.",
       "memory_tip": "wait(等)+ress(女性)→女服务员"
     },
@@ -18457,7 +18658,10 @@
         "milk",
         "healthy"
       ],
-      "confusables": [],
+      "confusables": [
+        "yoghourt",
+        "yogourt"
+      ],
       "example": "Yogurt is good for digestion.",
       "memory_tip": "yogurt=酸奶"
     },
@@ -18472,7 +18676,11 @@
         "gray sky",
         "overcast"
       ],
-      "confusables": [],
+      "confusables": [
+        "cloud",
+        "could",
+        "clown"
+      ],
       "example": "It's cloudy today. It might rain.",
       "memory_tip": "cloud(云)+y→多云的"
     },
@@ -18487,7 +18695,10 @@
         "ground",
         "disaster"
       ],
-      "confusables": [],
+      "confusables": [
+        "earth quack",
+        "earthquick"
+      ],
       "example": "An earthquake shook the city last night.",
       "memory_tip": "earth(地)+quake(震动)"
     },
@@ -18538,7 +18749,10 @@
         "flash",
         "storm"
       ],
-      "confusables": [],
+      "confusables": [
+        "lighten",
+        "lightening"
+      ],
       "example": "Lightning lit up the whole sky.",
       "memory_tip": "light(光)+ning→发光现象"
     },
@@ -18624,7 +18838,10 @@
         "raining",
         "wet"
       ],
-      "confusables": [],
+      "confusables": [
+        "rain",
+        "raining"
+      ],
       "example": "I don't like rainy days.",
       "memory_tip": "rain(雨)+y→下雨的"
     },
@@ -18764,7 +18981,10 @@
         "white",
         "winter weather"
       ],
-      "confusables": [],
+      "confusables": [
+        "snow",
+        "showy"
+      ],
       "example": "It's snowy outside. Wear warm clothes.",
       "memory_tip": "snow(雪)+y→下雪的"
     },
@@ -18883,7 +19103,9 @@
         "look up to",
         "praise"
       ],
-      "confusables": [],
+      "confusables": [
+        "admirer"
+      ],
       "example": "I admire my teacher very much.",
       "memory_tip": "ad(加强)+mire(惊奇)→令人惊叹→佩服"
     },
@@ -18916,7 +19138,10 @@
         "declare",
         "tell"
       ],
-      "confusables": [],
+      "confusables": [
+        "pronounce",
+        "denounce"
+      ],
       "example": "The teacher announced the test date.",
       "memory_tip": "an(向)+nounce(报告)→向大家报告"
     },
@@ -18931,7 +19156,10 @@
         "regret",
         "say sorry"
       ],
-      "confusables": [],
+      "confusables": [
+        "apology",
+        "apologise"
+      ],
       "example": "You should apologize to her.",
       "memory_tip": "apo(远离)+log(说)+ize→说开→道歉"
     },
@@ -18963,7 +19191,10 @@
         "enjoy",
         "thank"
       ],
-      "confusables": [],
+      "confusables": [
+        "appreciative",
+        "appropriate"
+      ],
       "example": "I appreciate your help.",
       "memory_tip": "ap(加强)+preci(价值)+ate→认可价值→感激"
     },
@@ -18995,7 +19226,10 @@
         "escape",
         "prevent"
       ],
-      "confusables": [],
+      "confusables": [
+        "aviod",
+        "awoid"
+      ],
       "example": "You should avoid making the same mistake.",
       "memory_tip": "a(出)+void(空)→使落空→避开"
     },
@@ -19292,7 +19526,10 @@
         "assure",
         "make believe"
       ],
-      "confusables": [],
+      "confusables": [
+        "convinced",
+        "convincing"
+      ],
       "example": "I convinced him to join us.",
       "memory_tip": "con(彻底)+vince(征服)→彻底征服对方心意"
     },
@@ -19360,7 +19597,10 @@
         "vanish",
         "fade"
       ],
-      "confusables": [],
+      "confusables": [
+        "dissapear",
+        "appearance"
+      ],
       "example": "The sun disappeared behind clouds.",
       "memory_tip": "dis(不)+appear(出现)→不再出现→消失"
     },
@@ -19497,7 +19737,10 @@
         "search",
         "investigate"
       ],
-      "confusables": [],
+      "confusables": [
+        "explode",
+        "exploit"
+      ],
       "example": "Scientists explore outer space.",
       "memory_tip": "ex(出)+plo(大声呼喊)+re→向外呼喊→探寻"
     },
@@ -19634,7 +19877,10 @@
         "shock",
         "scare"
       ],
-      "confusables": [],
+      "confusables": [
+        "frightened",
+        "frightful"
+      ],
       "example": "Loud noises frighten the baby.",
       "memory_tip": "fright(恐惧)+en→使恐惧"
     },
@@ -19737,7 +19983,10 @@
         "point out",
         "recognize"
       ],
-      "confusables": [],
+      "confusables": [
+        "identity",
+        "identified"
+      ],
       "example": "Can you identify this bird?",
       "memory_tip": "identi(同一)+fy→认出是同一个→确认"
     },
@@ -20247,7 +20496,9 @@
         "say",
         "utter"
       ],
-      "confusables": [],
+      "confusables": [
+        "pronounce_lookalike"
+      ],
       "example": "How do you pronounce this word?",
       "memory_tip": "pro(向前)+nounc(宣告)+e→发出声音→发音"
     },
@@ -20704,7 +20955,9 @@
         "go around",
         "encircle"
       ],
-      "confusables": [],
+      "confusables": [
+        "surround_lookalike"
+      ],
       "example": "Mountains surround the village.",
       "memory_tip": "sur(周围)+round(圆圈)→围一圈→包围"
     },
@@ -20971,7 +21224,9 @@
         "speak softly",
         "secret talk"
       ],
-      "confusables": [],
+      "confusables": [
+        "whisper_lookalike"
+      ],
       "example": "Don't whisper in class.",
       "memory_tip": "whisper=耳语"
     },
@@ -21146,7 +21401,9 @@
         "puzzle",
         "bewilder"
       ],
-      "confusables": [],
+      "confusables": [
+        "confuse_lookalike"
+      ],
       "example": "The question confused many students.",
       "memory_tip": "con(共同)+fuse(倒)→倒在一起→困惑"
     },
@@ -21559,7 +21816,9 @@
         "damage",
         "eliminate"
       ],
-      "confusables": [],
+      "confusables": [
+        "destroy_lookalike"
+      ],
       "example": "The fire destroyed the whole building.",
       "memory_tip": "de(去掉)+stroy(建造)→拆掉建造→摧毁"
     },
@@ -21919,7 +22178,9 @@
         "kind",
         "soft"
       ],
-      "confusables": [],
+      "confusables": [
+        "gentle_lookalike"
+      ],
       "example": "She has a gentle voice.",
       "memory_tip": "gent(优雅)+le→优雅温和的"
     },
@@ -21934,7 +22195,9 @@
         "pale",
         "weightless"
       ],
-      "confusables": [],
+      "confusables": [
+        "light_lookalike"
+      ],
       "example": "This bag is light enough to carry.",
       "memory_tip": "light本身→轻的"
     },
@@ -21948,7 +22211,9 @@
         "lengthy",
         "extended"
       ],
-      "confusables": [],
+      "confusables": [
+        "long_similar"
+      ],
       "example": "The river is very long.",
       "memory_tip": "long本身→长的"
     },
@@ -22029,7 +22294,9 @@
         "state",
         "requirement"
       ],
-      "confusables": [],
+      "confusables": [
+        "condition_lookalike"
+      ],
       "example": "The car is in good condition.",
       "memory_tip": "cond(条件)+ition→条件"
     },
@@ -22044,7 +22311,9 @@
         "possibility",
         "opening"
       ],
-      "confusables": [],
+      "confusables": [
+        "opportunity_lookalike"
+      ],
       "example": "Don't miss this opportunity!",
       "memory_tip": "op(朝向)+portun(港口)→朝向港口→机会"
     },
@@ -22059,7 +22328,9 @@
         "remove",
         "lift off"
       ],
-      "confusables": [],
+      "confusables": [
+        "take off_lookalike"
+      ],
       "example": "The plane will take off soon.",
       "memory_tip": "take(拿)+off(脱下)→脱下/起飞"
     },
@@ -22074,7 +22345,9 @@
         "wear",
         "add"
       ],
-      "confusables": [],
+      "confusables": [
+        "put on_lookalike"
+      ],
       "example": "Put on your coat.",
       "memory_tip": "put(放)+on(上)→穿上去"
     },
@@ -22088,7 +22361,9 @@
         "watch over",
         "take care of"
       ],
-      "confusables": [],
+      "confusables": [
+        "look after_lookalike"
+      ],
       "example": "Can you look after my cat?",
       "memory_tip": "look(看)+after(之后)→之后还看着→照顾"
     },
@@ -22102,7 +22377,9 @@
         "shut down",
         "switch off"
       ],
-      "confusables": [],
+      "confusables": [
+        "turn off_lookalike"
+      ],
       "example": "Turn off the TV before bed.",
       "memory_tip": "turn(转)+off(关)→关掉"
     },
@@ -22117,7 +22394,9 @@
         "fail",
         "stop working"
       ],
-      "confusables": [],
+      "confusables": [
+        "break down_lookalike"
+      ],
       "example": "My car broke down.",
       "memory_tip": "break(破)+down(向下)→坏掉→故障"
     },
@@ -22132,7 +22411,9 @@
         "persist",
         "keep going"
       ],
-      "confusables": [],
+      "confusables": [
+        "carry on_lookalike"
+      ],
       "example": "Carry on with your work.",
       "memory_tip": "carry(带)+on(继续)→带着继续"
     },
@@ -22147,7 +22428,9 @@
         "meet by chance",
         "find"
       ],
-      "confusables": [],
+      "confusables": [
+        "come across_lookalike"
+      ],
       "example": "I came across an old photo.",
       "memory_tip": "come(来)+across(穿过)→穿过遇到"
     },
@@ -22162,7 +22445,9 @@
         "discover",
         "figure out"
       ],
-      "confusables": [],
+      "confusables": [
+        "find out_lookalike"
+      ],
       "example": "Please find out who did it.",
       "memory_tip": "find(找)+out(出来)→找出来"
     },
@@ -22176,7 +22461,9 @@
         "get on well",
         "have a good relationship"
       ],
-      "confusables": [],
+      "confusables": [
+        "get along_lookalike"
+      ],
       "example": "I get along well with my classmates.",
       "memory_tip": "get(得)+along(一起)→一起相处"
     },
@@ -22191,7 +22478,9 @@
         "review",
         "check"
       ],
-      "confusables": [],
+      "confusables": [
+        "go over_lookalike"
+      ],
       "example": "Let's go over the lesson again.",
       "memory_tip": "go(走)+over(越过)→从头过一遍→复习"
     },
@@ -22205,7 +22494,9 @@
         "spend time together",
         "hang around"
       ],
-      "confusables": [],
+      "confusables": [
+        "hang out_lookalike"
+      ],
       "example": "We like to hang out at the mall.",
       "memory_tip": "hang(挂)+out(外面)→挂在外面玩"
     },
@@ -22220,7 +22511,9 @@
         "turn up",
         "appear"
       ],
-      "confusables": [],
+      "confusables": [
+        "show up_lookalike"
+      ],
       "example": "He didn't show up at the meeting.",
       "memory_tip": "show(展示)+up(上来)→现身"
     },
@@ -22269,7 +22562,9 @@
         "upright",
         "direct"
       ],
-      "confusables": [],
+      "confusables": [
+        "straight_lookalike"
+      ],
       "example": "Go straight at the crossing.",
       "memory_tip": "straight本身"
     },
@@ -22284,7 +22579,9 @@
         "flat",
         "even"
       ],
-      "confusables": [],
+      "confusables": [
+        "smooth_lookalike"
+      ],
       "example": "The road is smooth here.",
       "memory_tip": "smoo(滑)+th"
     },
@@ -22315,7 +22612,9 @@
         "criterion",
         "norm"
       ],
-      "confusables": [],
+      "confusables": [
+        "standard_lookalike"
+      ],
       "example": "You must meet the standard.",
       "memory_tip": "stand(站立)+ard"
     },
@@ -22556,6 +22855,1591 @@
       ],
       "example": "Knowledge is power.",
       "memory_tip": "power本身"
+    },
+    "geography": {
+      "word": "geography",
+      "meaning": "地理；地理学",
+      "category": "noun_academic",
+      "tier": 1,
+      "frequency": "medium",
+      "associations": [
+        "map",
+        "earth",
+        "country",
+        "location"
+      ],
+      "confusables": [
+        "geometry",
+        "graph",
+        "geology"
+      ],
+      "example": "Geography is my favorite subject.",
+      "memory_tip": "geo(地)+graph(写)+y→地理"
+    },
+    "history": {
+      "word": "history",
+      "meaning": "历史；历史学",
+      "category": "noun_academic",
+      "tier": 1,
+      "frequency": "high",
+      "associations": [
+        "past",
+        "event",
+        "story",
+        "date"
+      ],
+      "confusables": [
+        "historic",
+        "mystery",
+        "mastery"
+      ],
+      "example": "We learn about Chinese history at school.",
+      "memory_tip": "histor(故事)+y→历史"
+    },
+    "physics": {
+      "word": "physics",
+      "meaning": "物理；物理学",
+      "category": "noun_academic",
+      "tier": 1,
+      "frequency": "medium",
+      "associations": [
+        "science",
+        "experiment",
+        "force",
+        "energy"
+      ],
+      "confusables": [
+        "physical",
+        "physique"
+      ],
+      "example": "Physics helps us understand how things work.",
+      "memory_tip": "phys(自然)+ics→物理"
+    },
+    "chemistry": {
+      "word": "chemistry",
+      "meaning": "化学",
+      "category": "noun_academic",
+      "tier": 1,
+      "frequency": "medium",
+      "associations": [
+        "experiment",
+        "lab",
+        "element",
+        "reaction"
+      ],
+      "confusables": [
+        "chemist",
+        "chemical"
+      ],
+      "example": "Chemistry experiments are fun.",
+      "memory_tip": "chem(化学)+istry学科"
+    },
+    "biology": {
+      "word": "biology",
+      "meaning": "生物；生物学",
+      "category": "noun_academic",
+      "tier": 1,
+      "frequency": "medium",
+      "associations": [
+        "life",
+        "animal",
+        "plant",
+        "cell"
+      ],
+      "confusables": [
+        "biological",
+        "biography"
+      ],
+      "example": "Biology is the study of living things.",
+      "memory_tip": "bio生命+logy学问"
+    },
+    "laboratory/lab": {
+      "word": "laboratory/lab",
+      "meaning": "实验室",
+      "category": "noun_place",
+      "tier": 1,
+      "frequency": "medium",
+      "associations": [
+        "experiment",
+        "science",
+        "research",
+        "test"
+      ],
+      "confusables": [
+        "lavatory",
+        "library"
+      ],
+      "example": "We do experiments in the laboratory.",
+      "memory_tip": "labor工作+ory地方"
+    },
+    "pollution": {
+      "word": "pollution",
+      "meaning": "污染",
+      "category": "noun_common",
+      "tier": 1,
+      "frequency": "high",
+      "associations": [
+        "dirty",
+        "air",
+        "water",
+        "environment"
+      ],
+      "confusables": [
+        "pollute",
+        "solution",
+        "revolution"
+      ],
+      "example": "Air pollution is a serious problem.",
+      "memory_tip": "pollut弄脏+ion污染"
+    },
+    "climate": {
+      "word": "climate",
+      "meaning": "气候",
+      "category": "noun_common",
+      "tier": 1,
+      "frequency": "medium",
+      "associations": [
+        "weather",
+        "temperature",
+        "global",
+        "change"
+      ],
+      "confusables": [
+        "climb",
+        "clime",
+        "client"
+      ],
+      "example": "The climate here is mild and comfortable.",
+      "memory_tip": "clim倾斜+ate气候"
+    },
+    "ocean": {
+      "word": "ocean",
+      "meaning": "海洋；大洋",
+      "category": "noun_place",
+      "tier": 1,
+      "frequency": "medium",
+      "associations": [
+        "sea",
+        "water",
+        "wave",
+        "beach"
+      ],
+      "confusables": [
+        "odd",
+        "odor",
+        "Oxon"
+      ],
+      "example": "The Pacific Ocean is the largest ocean.",
+      "memory_tip": "ocean=海洋"
+    },
+    "space": {
+      "word": "space",
+      "meaning": "空间；太空",
+      "category": "noun_common",
+      "tier": 1,
+      "frequency": "high",
+      "associations": [
+        "universe",
+        "star",
+        "room",
+        "place"
+      ],
+      "confusables": [
+        "spare",
+        "spell",
+        "spark"
+      ],
+      "example": "Scientists explore outer space.",
+      "memory_tip": "space=空间/太空"
+    },
+    "star": {
+      "word": "star",
+      "meaning": "星星；明星",
+      "category": "noun_common",
+      "tier": 1,
+      "frequency": "high",
+      "associations": [
+        "sky",
+        "night",
+        "shine",
+        "moon"
+      ],
+      "confusables": [
+        "stare",
+        "start",
+        "stair"
+      ],
+      "example": "Stars shine brightly at night.",
+      "memory_tip": "star星 vs stare盯(少a)"
+    },
+    "moon": {
+      "word": "moon",
+      "meaning": "月亮；月球",
+      "category": "noun_common",
+      "tier": 1,
+      "frequency": "high",
+      "associations": [
+        "night",
+        "sky",
+        "sun",
+        "star"
+      ],
+      "confusables": [
+        "noon",
+        "soon",
+        "moan"
+      ],
+      "example": "Moon looks like a round plate.",
+      "memory_tip": "moon=月亮"
+    },
+    "sun/sunshine": {
+      "word": "sun/sunshine",
+      "meaning": "太阳；阳光",
+      "category": "noun_common",
+      "tier": 1,
+      "frequency": "high",
+      "associations": [
+        "bright",
+        "warm",
+        "day",
+        "shine"
+      ],
+      "confusables": [
+        "son",
+        "sung",
+        "sin"
+      ],
+      "example": "Sun rises in east every morning.",
+      "memory_tip": "sun=太阳"
+    },
+    "universe": {
+      "word": "universe",
+      "meaning": "宇宙",
+      "category": "noun_common",
+      "tier": 1,
+      "frequency": "medium",
+      "associations": [
+        "space",
+        "star",
+        "planet",
+        "galaxy"
+      ],
+      "confusables": [
+        "university",
+        "universal",
+        "verse"
+      ],
+      "example": "Universe full of mysteries.",
+      "memory_tip": "uni一+verse转→宇宙"
+    },
+    "robot": {
+      "word": "robot",
+      "meaning": "机器人",
+      "category": "noun_common",
+      "tier": 1,
+      "frequency": "medium",
+      "associations": [
+        "machine",
+        "computer",
+        "automatic",
+        "future"
+      ],
+      "confusables": [
+        "rob",
+        "rabbit",
+        "orbit"
+      ],
+      "example": "Robots help people do things.",
+      "memory_tip": "robot=机器人"
+    },
+    "electricity": {
+      "word": "electricity",
+      "meaning": "电；电流",
+      "category": "noun_common",
+      "tier": 1,
+      "frequency": "high",
+      "associations": [
+        "power",
+        "light",
+        "energy",
+        "wire"
+      ],
+      "confusables": [
+        "electric",
+        "electronic",
+        "electron"
+      ],
+      "example": "Electricity very important modern life.",
+      "memory_tip": "electr电+icity性质→电"
+    },
+    "electronic": {
+      "word": "electronic",
+      "meaning": "电子的",
+      "category": "adjective_describe",
+      "tier": 1,
+      "frequency": "medium",
+      "associations": [
+        "device",
+        "computer",
+        "phone",
+        "digital"
+      ],
+      "confusables": [
+        "electric",
+        "electricity",
+        "electron"
+      ],
+      "example": "Electronic products cheaper.",
+      "memory_tip": "electron电子+ic"
+    },
+    "camera": {
+      "word": "camera",
+      "meaning": "照相机；摄像头",
+      "category": "noun_common",
+      "tier": 1,
+      "frequency": "high",
+      "associations": [
+        "photo",
+        "picture",
+        "take",
+        "video"
+      ],
+      "confusables": [
+        "camara",
+        "comrade"
+      ],
+      "example": "Brought camera for photos.",
+      "memory_tip": "cam房+era暗房→相机"
+    },
+    "email/e-mail": {
+      "word": "email/e-mail",
+      "meaning": "电子邮件",
+      "category": "noun_common",
+      "tier": 1,
+      "frequency": "high",
+      "associations": [
+        "letter",
+        "send",
+        "internet",
+        "message"
+      ],
+      "confusables": [
+        "mail",
+        "email"
+      ],
+      "example": "Send email with details.",
+      "memory_tip": "e电子+mail邮件"
+    },
+    "information": {
+      "word": "information",
+      "meaning": "信息；消息",
+      "category": "noun_common",
+      "tier": 1,
+      "frequency": "high",
+      "associations": [
+        "news",
+        "data",
+        "fact",
+        "knowledge"
+      ],
+      "confusables": [
+        "informative",
+        "formation",
+        "invitation"
+      ],
+      "example": "Find information on Internet.",
+      "memory_tip": "in进入+form形+ation→信息"
+    },
+    "Internet/internet": {
+      "word": "Internet/internet",
+      "meaning": "互联网",
+      "category": "noun_common",
+      "tier": 1,
+      "frequency": "high",
+      "associations": [
+        "web",
+        "online",
+        "network",
+        "computer"
+      ],
+      "confusables": [
+        "intranet",
+        "intern",
+        "interest"
+      ],
+      "example": "Internet connects worldwide.",
+      "memory_tip": "Inter间+net网→互联网"
+    },
+    "online": {
+      "word": "online",
+      "meaning": "在线的",
+      "category": "adjective_describe",
+      "tier": 1,
+      "frequency": "high",
+      "associations": [
+        "internet",
+        "website",
+        "connect",
+        "shop"
+      ],
+      "confusables": [
+        "outline",
+        "on-line"
+      ],
+      "example": "Shopping online convenient.",
+      "memory_tip": "on+line→在线上"
+    },
+    "software": {
+      "word": "software",
+      "meaning": "软件",
+      "category": "noun_common",
+      "tier": 1,
+      "frequency": "medium",
+      "associations": [
+        "computer",
+        "program",
+        "app",
+        "install"
+      ],
+      "confusables": [
+        "soft",
+        "hardware",
+        "shareware"
+      ],
+      "example": "Update software regularly.",
+      "memory_tip": "soft软+ware产品→软件"
+    },
+    "traditional": {
+      "word": "traditional",
+      "meaning": "传统的",
+      "category": "adjective_describe",
+      "tier": 1,
+      "frequency": "high",
+      "associations": [
+        "old",
+        "culture",
+        "custom",
+        "festival"
+      ],
+      "confusables": [
+        "tradition",
+        "trade",
+        "traffic"
+      ],
+      "example": "Traditional Chinese medicine famous.",
+      "memory_tip": "tradition+al→传统"
+    },
+    "custom": {
+      "word": "custom",
+      "meaning": "风俗；习惯",
+      "category": "noun_common",
+      "tier": 1,
+      "frequency": "medium",
+      "associations": [
+        "tradition",
+        "habit",
+        "culture",
+        "local"
+      ],
+      "confusables": [
+        "customer",
+        "costume",
+        "accustom"
+      ],
+      "example": "Take off shoes entering local custom.",
+      "memory_tip": "custom风俗 vs customer顾客"
+    },
+    "ceremony": {
+      "word": "ceremony",
+      "meaning": "典礼；仪式",
+      "category": "noun_common",
+      "tier": 1,
+      "frequency": "medium",
+      "associations": [
+        "official",
+        "formal",
+        "event",
+        "tradition"
+      ],
+      "confusables": [
+        "ceremonial",
+        "crony"
+      ],
+      "example": "Opening ceremony grand.",
+      "memory_tip": "ceremon仪式+y→仪式"
+    },
+    "symbol": {
+      "word": "symbol",
+      "meaning": "象征；标志",
+      "category": "noun_common",
+      "tier": 1,
+      "frequency": "medium",
+      "associations": [
+        "sign",
+        "mark",
+        "represent",
+        "meaning"
+      ],
+      "confusables": [
+        "symptom",
+        "simple"
+      ],
+      "example": "Dragon symbol of China.",
+      "memory_tip": "sym一起+bol→标志"
+    },
+    "palace": {
+      "word": "palace",
+      "meaning": "宫殿",
+      "category": "noun_place",
+      "tier": 1,
+      "frequency": "medium",
+      "associations": [
+        "king",
+        "queen",
+        "royal",
+        "building"
+      ],
+      "confusables": [
+        "place",
+        "peace",
+        "pale"
+      ],
+      "example": "Forbidden City emperor palace.",
+      "memory_tip": "palace宫殿 vs place地点"
+    },
+    "emperor": {
+      "word": "emperor",
+      "meaning": "皇帝",
+      "category": "noun_common",
+      "tier": 1,
+      "frequency": "medium",
+      "associations": [
+        "king",
+        "queen",
+        "royal",
+        "power"
+      ],
+      "confusables": [
+        "empire",
+        "amber",
+        "emphasize"
+      ],
+      "example": "Emperor lived in Forbidden City.",
+      "memory_tip": "empire帝国+or统治者"
+    },
+    "abroad": {
+      "word": "abroad",
+      "meaning": "在国外",
+      "category": "adverb",
+      "tier": 1,
+      "frequency": "medium",
+      "associations": [
+        "foreign",
+        "travel",
+        "overseas",
+        "study"
+      ],
+      "confusables": [
+        "board",
+        "broad",
+        "aboard"
+      ],
+      "example": "She abroad to study English.",
+      "memory_tip": "a+broad宽→走向宽阔处"
+    },
+    "social": {
+      "word": "social",
+      "meaning": "社会的；社交的",
+      "category": "adjective_describe",
+      "tier": 1,
+      "frequency": "high",
+      "associations": [
+        "society",
+        "public",
+        "friend",
+        "media"
+      ],
+      "confusables": [
+        "society",
+        "special",
+        "solemn"
+      ],
+      "example": "WeChat popular social app.",
+      "memory_tip": "soc伙伴+ial社会的"
+    },
+    "law": {
+      "word": "law",
+      "meaning": "法律",
+      "category": "noun_common",
+      "tier": 1,
+      "frequency": "high",
+      "associations": [
+        "rule",
+        "court",
+        "judge",
+        "police"
+      ],
+      "confusables": [
+        "lawyer",
+        "low",
+        "lawn"
+      ],
+      "example": "Everyone obey law.",
+      "memory_tip": "law法律 vs low低同音不同义"
+    },
+    "vote": {
+      "word": "vote",
+      "meaning": "投票；选举",
+      "category": "verb_action",
+      "tier": 1,
+      "frequency": "medium",
+      "associations": [
+        "election",
+        "choose",
+        "select",
+        "decision"
+      ],
+      "confusables": [
+        "veto",
+        "vogue",
+        "voice"
+      ],
+      "example": "People vote for leaders.",
+      "memory_tip": "vote投票"
+    },
+    "peace": {
+      "word": "peace",
+      "meaning": "和平；安宁",
+      "category": "noun_common",
+      "tier": 1,
+      "frequency": "high",
+      "associations": [
+        "war",
+        "quiet",
+        "calm",
+        "world"
+      ],
+      "confusables": [
+        "piece",
+        "peak",
+        "pear"
+      ],
+      "example": "Hope world peace.",
+      "memory_tip": "peace和平(a) vs piece一块"
+    },
+    "war": {
+      "word": "war",
+      "meaning": "战争",
+      "category": "noun_common",
+      "tier": 1,
+      "frequency": "medium",
+      "associations": [
+        "fight",
+        "battle",
+        "peace",
+        "soldier"
+      ],
+      "confusables": [
+        "warn",
+        "warm",
+        "wire"
+      ],
+      "example": "War brings suffering.",
+      "memory_tip": "war战争"
+    },
+    "nation": {
+      "word": "nation",
+      "meaning": "民族；国家",
+      "category": "noun_common",
+      "tier": 1,
+      "frequency": "high",
+      "associations": [
+        "people",
+        "country",
+        "national",
+        "countrywide"
+      ],
+      "confusables": [
+        "national",
+        "native",
+        "nature"
+      ],
+      "example": "Chinese nation 56 ethnic groups.",
+      "memory_tip": "nation民族/国家"
+    },
+    "national": {
+      "word": "national",
+      "meaning": "国家的；民族的",
+      "category": "adjective_describe",
+      "tier": 1,
+      "frequency": "high",
+      "associations": [
+        "country",
+        "international",
+        "flag",
+        "day"
+      ],
+      "confusables": [
+        "nationality",
+        "native"
+      ],
+      "example": "National Day October 1st.",
+      "memory_tip": "nation+al国家"
+    },
+    "fever": {
+      "word": "fever",
+      "meaning": "发烧",
+      "category": "noun_common",
+      "tier": 1,
+      "frequency": "high",
+      "associations": [
+        "temperature",
+        "hot",
+        "sick",
+        "ill"
+      ],
+      "confusables": [
+        "favor",
+        "forever"
+      ],
+      "example": "He fever 39 degrees.",
+      "memory_tip": "fever发烧"
+    },
+    "cough": {
+      "word": "cough",
+      "meaning": "咳嗽",
+      "category": "verb/noun",
+      "tier": 1,
+      "frequency": "high",
+      "associations": [
+        "cold",
+        "sick",
+        "throat",
+        "ill"
+      ],
+      "confusables": [
+        "cow",
+        "rough",
+        "enough"
+      ],
+      "example": "Cover mouth when cough.",
+      "memory_tip": "cough咳嗽"
+    },
+    "pain": {
+      "word": "pain",
+      "meaning": "疼痛",
+      "category": "noun_common",
+      "tier": 1,
+      "frequency": "high",
+      "associations": [
+        "hurt",
+        "ache",
+        "suffer",
+        "body"
+      ],
+      "confusables": [
+        "painful",
+        "paint",
+        "pane"
+      ],
+      "example": "Pain back.",
+      "memory_tip": "pain疼痛/painful痛苦"
+    },
+    "wound": {
+      "word": "wound",
+      "meaning": "伤口；伤害",
+      "category": "noun/verb",
+      "tier": 1,
+      "frequency": "medium",
+      "associations": [
+        "hurt",
+        "injury",
+        "cut",
+        "bleed"
+      ],
+      "confusables": [
+        "would",
+        "wonder"
+      ],
+      "example": "Wound healing slowly.",
+      "memory_tip": "wound伤口(/wu:nd/)"
+    },
+    "recover": {
+      "word": "recover",
+      "meaning": "恢复；康复",
+      "category": "verb_action",
+      "tier": 1,
+      "frequency": "high",
+      "associations": [
+        "get better",
+        "heal",
+        "return",
+        "health"
+      ],
+      "confusables": [
+        "recovery",
+        "rediscover"
+      ],
+      "example": "Recovered illness quickly.",
+      "memory_tip": "re回+cover覆盖→恢复"
+    },
+    "mood": {
+      "word": "mood",
+      "meaning": "心情；情绪",
+      "category": "noun_common",
+      "tier": 1,
+      "frequency": "medium",
+      "associations": [
+        "feeling",
+        "emotion",
+        "happy",
+        "sad"
+      ],
+      "confusables": [
+        "moon",
+        "wood",
+        "food"
+      ],
+      "example": "Good mood today.",
+      "memory_tip": "mood心情"
+    },
+    "spirit": {
+      "word": "spirit",
+      "meaning": "精神；灵魂",
+      "category": "noun_common",
+      "tier": 1,
+      "frequency": "high",
+      "associations": [
+        "soul",
+        "mind",
+        "courage",
+        "energy"
+      ],
+      "confusables": [
+        "spiritual",
+        "spite",
+        "script"
+      ],
+      "example": "Team spirit important success.",
+      "memory_tip": "spirit精神/灵魂"
+    },
+    "sense": {
+      "word": "sense",
+      "meaning": "感觉；意义",
+      "category": "noun/verb",
+      "tier": 1,
+      "frequency": "high",
+      "associations": [
+        "feeling",
+        "understand",
+        "meaning",
+        "common"
+      ],
+      "confusables": [
+        "since",
+        "scene"
+      ],
+      "example": "Common sense tells wrong.",
+      "memory_tip": "sense感觉/常识"
+    },
+    "produce": {
+      "word": "produce",
+      "meaning": "生产；制造",
+      "category": "verb_action",
+      "tier": 1,
+      "frequency": "high",
+      "associations": [
+        "make",
+        "create",
+        "grow",
+        "farm"
+      ],
+      "confusables": [
+        "product",
+        "production",
+        "reduce"
+      ],
+      "example": "Factory produces cars.",
+      "memory_tip": "pro向前+duce引导→生产"
+    },
+    "complex": {
+      "word": "complex",
+      "meaning": "复杂的",
+      "category": "adjective_describe",
+      "tier": 1,
+      "frequency": "medium",
+      "associations": [
+        "complicated",
+        "difficult",
+        "hard"
+      ],
+      "confusables": [
+        "comp_confusable"
+      ],
+      "example": "Problem quite complex.",
+      "memory_tip": "com一起+plex编织→复杂"
+    },
+    "major": {
+      "word": "major",
+      "meaning": "主要的；重大的",
+      "category": "adj/noun",
+      "tier": 1,
+      "frequency": "high",
+      "associations": [
+        "main",
+        "important",
+        "large",
+        "big"
+      ],
+      "confusables": [
+        "mayor",
+        "make"
+      ],
+      "example": "English major subject.",
+      "memory_tip": "maj大+or较大"
+    },
+    "minor": {
+      "word": "minor",
+      "meaning": "较小的；次要的",
+      "category": "adj/noun",
+      "tier": 1,
+      "frequency": "medium",
+      "associations": [
+        "small",
+        "less important",
+        "young"
+      ],
+      "confusables": [
+        "minus",
+        "mirror"
+      ],
+      "example": "Just minor problem.",
+      "memory_tip": "min小+or较小"
+    },
+    "proper": {
+      "word": "proper",
+      "meaning": "适当的；正确的",
+      "category": "adjective_describe",
+      "tier": 1,
+      "frequency": "high",
+      "associations": [
+        "correct",
+        "suitable",
+        "right"
+      ],
+      "confusables": [
+        "property",
+        "properly"
+      ],
+      "example": "Wear proper clothes.",
+      "memory_tip": "proper本身→适当"
+    },
+    "rough": {
+      "word": "rough",
+      "meaning": "粗糙的",
+      "category": "adjective_describe",
+      "tier": 1,
+      "frequency": "medium",
+      "associations": [
+        "uneven",
+        "harsh",
+        "coarse"
+      ],
+      "confusables": [
+        "tough",
+        "roll"
+      ],
+      "example": "Hands rough hard work.",
+      "memory_tip": "rough粗糙"
+    },
+    "sharp": {
+      "word": "sharp",
+      "meaning": "锋利的；敏锐的",
+      "category": "adj/adv",
+      "tier": 1,
+      "frequency": "high",
+      "associations": [
+        "keen",
+        "cutting",
+        "bright",
+        "smart"
+      ],
+      "confusables": [
+        "shape",
+        "share",
+        "shark"
+      ],
+      "example": "Knife sharp careful!",
+      "memory_tip": "sharp锋利/尖锐"
+    },
+    "attitude": {
+      "word": "attitude",
+      "meaning": "态度",
+      "category": "noun_common",
+      "tier": 1,
+      "frequency": "high",
+      "associations": [
+        "view",
+        "opinion",
+        "approach",
+        "outlook"
+      ],
+      "confusables": [
+        "altitude",
+        "aptitude"
+      ],
+      "example": "Good attitude leads success.",
+      "memory_tip": "att面向+itude态度"
+    },
+    "quantity": {
+      "word": "quantity",
+      "meaning": "数量",
+      "category": "noun_common",
+      "tier": 1,
+      "frequency": "medium",
+      "associations": [
+        "amount",
+        "number",
+        "volume",
+        "size"
+      ],
+      "confusables": [
+        "quality",
+        "quantum"
+      ],
+      "example": "Large quantity wasted.",
+      "memory_tip": "quant多少+ity数量"
+    },
+    "prize": {
+      "word": "prize",
+      "meaning": "奖品",
+      "category": "noun_common",
+      "tier": 1,
+      "frequency": "medium",
+      "associations": [
+        "award",
+        "reward",
+        "win",
+        "medal"
+      ],
+      "confusables": [
+        "price",
+        "praise"
+      ],
+      "example": "Won first prize contest.",
+      "memory_tip": "prize奖品vs price价"
+    },
+    "award": {
+      "word": "award",
+      "meaning": "奖品；授予",
+      "category": "noun/verb",
+      "tier": 1,
+      "frequency": "medium",
+      "associations": [
+        "prize",
+        "medal",
+        "give",
+        "honr"
+      ],
+      "confusables": [
+        "aware",
+        "await"
+      ],
+      "example": "School gave him award.",
+      "memory_tip": "award奖项/授予"
+    },
+    "honor/honour": {
+      "word": "honor/honour",
+      "meaning": "荣誉；尊敬",
+      "category": "noun/verb",
+      "tier": 1,
+      "frequency": "high",
+      "associations": [
+        "respect",
+        "glory",
+        "pride",
+        "praise"
+      ],
+      "confusables": [
+        "honest",
+        "honey"
+      ],
+      "example": "Honor meet you.",
+      "memory_tip": "honor荣誉/尊敬"
+    },
+    "pride": {
+      "word": "pride",
+      "meaning": "骄傲；自豪",
+      "category": "noun_common",
+      "tier": 1,
+      "frequency": "high",
+      "associations": [
+        "proud",
+        "self-respect",
+        "dignity"
+      ],
+      "confusables": [
+        "price",
+        "pride"
+      ],
+      "example": "Take pride your work.",
+      "memory_tip": "pride骄傲名vs proud形"
+    },
+    "secret": {
+      "word": "secret",
+      "meaning": "秘密",
+      "category": "noun/adj",
+      "tier": 1,
+      "frequency": "medium",
+      "associations": [
+        "hidden",
+        "private",
+        "mystery",
+        "unknown"
+      ],
+      "confusables": [
+        "secret",
+        "secure",
+        "sector"
+      ],
+      "example": "Dont tell anyone secret.",
+      "memory_tip": "secret秘密"
+    },
+    "problem": {
+      "word": "problem",
+      "meaning": "问题；难题",
+      "category": "noun_common",
+      "tier": 1,
+      "frequency": "high",
+      "associations": [
+        "issue",
+        "difficulty",
+        "trouble",
+        "matter"
+      ],
+      "confusables": [
+        "problem",
+        "probable",
+        "probe"
+      ],
+      "example": "Every problem has solution.",
+      "memory_tip": "pro向前+blem抛→问题"
+    },
+    "difficulty": {
+      "word": "difficulty",
+      "meaning": "困难",
+      "category": "noun_common",
+      "tier": 1,
+      "frequency": "high",
+      "associations": [
+        "problem",
+        "hardship",
+        "trouble",
+        "challenge"
+      ],
+      "confusables": [
+        "difficult",
+        "difference",
+        "diffcult"
+      ],
+      "example": "Face difficulties courage.",
+      "memory_tip": "difficult困难+y困难名"
+    },
+    "disadvantage": {
+      "word": "disadvantage",
+      "meaning": "劣势；不利",
+      "category": "noun_common",
+      "tier": 1,
+      "frequency": "medium",
+      "associations": [
+        "weakness",
+        "drawback",
+        "minus",
+        "problem"
+      ],
+      "confusables": [
+        "advantage",
+        "disagree",
+        "discourage"
+      ],
+      "example": "Every advantage has disadvantage.",
+      "memory_tip": "dis不+advantage非优势→劣势"
+    },
+    "relationship": {
+      "word": "relationship",
+      "meaning": "关系",
+      "category": "noun_common",
+      "tier": 1,
+      "frequency": "high",
+      "associations": [
+        "connection",
+        "relation",
+        "bond",
+        "link"
+      ],
+      "confusables": [
+        "relative",
+        "relation",
+        "relay"
+      ],
+      "example": "Good relationship needs trust.",
+      "memory_tip": "relation关系+ship关系"
+    },
+    "friendship": {
+      "word": "friendship",
+      "meaning": "友谊",
+      "category": "noun_common",
+      "tier": 1,
+      "frequency": "high",
+      "associations": [
+        "friend",
+        "bond",
+        "close",
+        "loyal"
+      ],
+      "confusables": [
+        "friends",
+        "friendship",
+        "fiendship"
+      ],
+      "example": "True friendship lasts forever.",
+      "memory_tip": "friend朋友+ship友谊"
+    },
+    "talent": {
+      "word": "talent",
+      "meaning": "天才；天赋",
+      "category": "noun_common",
+      "tier": 1,
+      "frequency": "high",
+      "associations": [
+        "gift",
+        "skill",
+        "ability",
+        "potential"
+      ],
+      "confusables": [
+        "talent",
+        "talent",
+        "taller"
+      ],
+      "example": "She talent for music.",
+      "memory_tip": "talent天赋/才华"
+    },
+    "background": {
+      "word": "background",
+      "meaning": "背景",
+      "category": "noun_common",
+      "tier": 1,
+      "frequency": "high",
+      "associations": [
+        "history",
+        "origin",
+        "context",
+        "back"
+      ],
+      "confusables": [
+        "back",
+        "backward",
+        "ground"
+      ],
+      "example": "Tell about background.",
+      "memory_tip": "back后+ground地面→背景"
+    },
+    "position": {
+      "word": "position",
+      "meaning": "位置；职位",
+      "category": "noun_common",
+      "tier": 1,
+      "frequency": "high",
+      "associations": [
+        "location",
+        "place",
+        "job",
+        "situation"
+      ],
+      "confusables": [
+        "position",
+        "positive",
+        "position"
+      ],
+      "example": "What position company?",
+      "memory_tip": "posit放置+ion放置处"
+    },
+    "length": {
+      "word": "length",
+      "meaning": "长度",
+      "category": "noun_common",
+      "tier": 1,
+      "frequency": "high",
+      "associations": [
+        "long",
+        "distance",
+        "measurement",
+        "size"
+      ],
+      "confusables": [
+        "length",
+        "level",
+        "legend"
+      ],
+      "example": "What length bridge?",
+      "memory_tip": "long长+th长度名"
+    },
+    "shape": {
+      "word": "shape",
+      "meaning": "形状；形状",
+      "category": "noun/verb",
+      "tier": 1,
+      "frequency": "medium",
+      "associations": [
+        "form",
+        "outline",
+        "figure",
+        "mold"
+      ],
+      "confusables": [
+        "shape",
+        "shake",
+        "shade"
+      ],
+      "example": "Cloud strange shape.",
+      "memory_tip": "shape形状"
+    },
+    "pattern": {
+      "word": "pattern",
+      "meaning": "模式；图案",
+      "category": "noun_common",
+      "tier": 1,
+      "frequency": "medium",
+      "associations": [
+        "design",
+        "model",
+        "style",
+        "regular"
+      ],
+      "confusables": [
+        "patron",
+        "patent",
+        "pattern"
+      ],
+      "example": "Follow sentence pattern.",
+      "memory_tip": "pattern模式/图案"
+    },
+    "style": {
+      "word": "style",
+      "meaning": "风格；样式",
+      "category": "noun_common",
+      "tier": 1,
+      "frequency": "medium",
+      "associations": [
+        "fashion",
+        "design",
+        "manner",
+        "look"
+      ],
+      "confusables": [
+        "stylish",
+        "style",
+        "stack"
+      ],
+      "example": "She own writing style.",
+      "memory_tip": "style风格"
+    },
+    "model": {
+      "word": "model",
+      "meaning": "模型；模范",
+      "category": "noun_common",
+      "tier": 1,
+      "frequency": "high",
+      "associations": [
+        "example",
+        "pattern",
+        "copy",
+        "version"
+      ],
+      "confusables": [
+        "mode",
+        "modem",
+        "middle"
+      ],
+      "example": "She fashion model.",
+      "memory_tip": "mod样式+el样式展示→模型"
+    },
+    "nearby": {
+      "word": "nearby",
+      "meaning": "附近的",
+      "category": "adverb/adj",
+      "tier": 1,
+      "frequency": "medium",
+      "associations": [
+        "close",
+        "near",
+        "neighborhood",
+        "around"
+      ],
+      "confusables": [
+        "near",
+        "nearly",
+        "nearby"
+      ],
+      "example": "Bank nearby.",
+      "memory_tip": "near近+by附近"
+    },
+    "within": {
+      "word": "within",
+      "meaning": "在...之内",
+      "category": "prep",
+      "tier": 1,
+      "frequency": "medium",
+      "associations": [
+        "inside",
+        "not beyond",
+        "in",
+        "less than"
+      ],
+      "confusables": [
+        "with",
+        "without",
+        "withdraw"
+      ],
+      "example": "Finish task within two hours.",
+      "memory_tip": "with在+in里→在里面"
+    },
+    "presently": {
+      "word": "presently",
+      "meaning": "目前；现在",
+      "category": "adverb",
+      "tier": 1,
+      "frequency": "medium",
+      "associations": [
+        "now",
+        "currently",
+        "soon",
+        "at present"
+      ],
+      "confusables": [
+        "present",
+        "president",
+        "prevent"
+      ],
+      "example": "Hes presently working new project.",
+      "memory_tip": "present现在+ly"
+    },
+    "current": {
+      "word": "current",
+      "meaning": "当前的；流通的",
+      "category": "adjective_describe",
+      "tier": 1,
+      "frequency": "high",
+      "associations": [
+        "present",
+        "now",
+        "modern",
+        "existing"
+      ],
+      "confusables": [
+        "currency",
+        "currently",
+        "current"
+      ],
+      "example": "Current situation improving.",
+      "memory_tip": "curr跑+ent正在跑→当前"
+    },
+    "moment": {
+      "word": "moment",
+      "meaning": "片刻；时刻",
+      "category": "noun_common",
+      "tier": 1,
+      "frequency": "high",
+      "associations": [
+        "instant",
+        "second",
+        "minute",
+        "while"
+      ],
+      "confusables": [
+        "moment",
+        "momentum",
+        "moment"
+      ],
+      "example": "Wait moment please.",
+      "memory_tip": "moment时刻/瞬间"
+    },
+    "generation": {
+      "word": "generation",
+      "meaning": "一代人",
+      "category": "noun_common",
+      "tier": 1,
+      "frequency": "medium",
+      "associations": [
+        "age group",
+        "people",
+        "era",
+        "young"
+      ],
+      "confusables": [
+        "general",
+        "generator",
+        "generation"
+      ],
+      "example": "Young generation loves technology.",
+      "memory_tip": "gener产生+ation一群→一代"
+    },
+    "life/lives": {
+      "word": "life/lives",
+      "meaning": "生活；生命；人们",
+      "category": "noun_common",
+      "tier": 1,
+      "frequency": "high",
+      "associations": [
+        "live",
+        "alive",
+        "born",
+        "experience"
+      ],
+      "confusables": [
+        "live",
+        "like",
+        "lift"
+      ],
+      "example": "Life like box chocolates.",
+      "memory_tip": "life生活/生命lives复"
+    },
+    "width": {
+      "word": "width",
+      "meaning": "宽度",
+      "category": "noun_common",
+      "tier": 1,
+      "frequency": "medium",
+      "associations": [
+        "wide",
+        "breadth",
+        "measure",
+        "size"
+      ],
+      "confusables": [
+        "with"
+      ],
+      "example": "Measure width table.",
+      "memory_tip": "wide宽+th宽度"
+    },
+    "depth": {
+      "word": "depth",
+      "meaning": "深度",
+      "category": "noun_common",
+      "tier": 1,
+      "frequency": "medium",
+      "associations": [
+        "deep",
+        "deepness",
+        "measure"
+      ],
+      "confusables": [
+        "death",
+        "dept"
+      ],
+      "example": "What depth pool?",
+      "memory_tip": "deep深+th深度"
     }
   }
 }

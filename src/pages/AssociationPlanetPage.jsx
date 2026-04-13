@@ -509,7 +509,8 @@ function ConfusableModal({ wordA, wordB, onClose }) {
 // ─── 词根树主视图 ──────────────────────────────────────────────────────────
 function WordTree({ wordObj, visible, onNodeClick, onConfusableClick, masteryStatus, grade }) {
   const associations = wordObj.associations || []
-  const confusables = (wordObj.confusables || []).filter(w => allWordsMap[w])
+  // 易混词：保留所有（即使不在主词库），显示时fallback到EXTERNAL_WORD_MEANINGS
+  const confusables = wordObj.confusables || []
 
   // 掌握状态
   const MASTERY = {
@@ -529,40 +530,44 @@ function WordTree({ wordObj, visible, onNodeClick, onConfusableClick, masterySta
         transition: 'opacity 0.35s ease, transform 0.35s ease',
       }}
     >
-      {/* 联想词区（上方，蓝色） */}
+      {/* 联想记忆区（上方）— 用关联词帮记当前词 */}
       {associations.length > 0 && (
         <div className="w-full">
           <div className="text-xs font-semibold text-blue-500 text-center mb-2">
-            🔗 联想词 — 点击跳转
+            🔗 联想记忆 — 记住「{wordObj.word}」
           </div>
-          <div className="flex flex-wrap justify-center gap-2">
+          <div className="flex flex-wrap justify-center gap-1.5">
             {associations.map((w, i) => {
               const obj = allWordsMap[w] || allWordsMap[w.toLowerCase()]
+              const extMeaning = (!obj) ? (EXTERNAL_WORD_MEANINGS[w] || EXTERNAL_WORD_MEANINGS[w.toLowerCase()] || null) : null
               return (
-                <button
+                <span
                   key={w}
-                  onClick={() => onNodeClick(w)}
-                  className="flex flex-col items-center px-4 py-2 rounded-2xl active:scale-95 transition-all"
+                  className="inline-flex items-center px-3 py-1.5 rounded-xl text-sm font-medium"
                   style={{
                     background: 'linear-gradient(135deg, #dbeafe, #bfdbfe)',
                     color: '#1e40af',
-                    minWidth: 64,
                     opacity: visible ? 1 : 0,
                     transform: visible ? 'translateY(0)' : 'translateY(-12px)',
                     transition: `opacity 0.35s ${i * 0.07}s ease, transform 0.35s ${i * 0.07}s ease`,
-                    boxShadow: '0 2px 8px rgba(59,130,246,0.2)',
-                    cursor: 'pointer',
+                    boxShadow: '0 2px 6px rgba(59,130,246,0.15)',
                   }}
                 >
-                  <span className="font-bold text-sm">{w}</span>
+                  <span className="font-bold">{w}</span>
                   {obj
-                    ? <span className="text-[10px] opacity-80">{obj.meaning}</span>
-                    : <span className="text-[10px] opacity-50">查看 →</span>
-                  }
-                </button>
+                    ? <span className="text-[10px] opacity-70 ml-0.5">({obj.meaning})</span>
+                    : extMeaning
+                      ? <span className="text-[10px] opacity-60 ml-0.5">({extMeaning})</span>
+                      : null}
+                  <span className="text-blue-600 mx-0.5">→</span>
+                  <span className="text-xs font-bold text-blue-700">{wordObj.meaning}</span>
+                </span>
               )
             })}
           </div>
+          <p className="text-[10px] text-blue-400 text-center mt-1">
+            💡 通过上面的词联想「{wordObj.word}」的意思
+          </p>
         </div>
       )}
 
@@ -662,6 +667,7 @@ function WordTree({ wordObj, visible, onNodeClick, onConfusableClick, masterySta
           <div className="flex flex-wrap justify-center gap-2">
             {confusables.map((w, i) => {
               const obj = allWordsMap[w]
+              const extMeaning = (!obj) ? (EXTERNAL_WORD_MEANINGS[w] || EXTERNAL_WORD_MEANINGS[w.toLowerCase()] || null) : null
               return (
                 <button
                   key={w}
@@ -678,7 +684,11 @@ function WordTree({ wordObj, visible, onNodeClick, onConfusableClick, masterySta
                   }}
                 >
                   <span className="font-bold text-sm">{w}</span>
-                  {obj && <span className="text-[10px] opacity-80">{obj.meaning}</span>}
+                  {obj
+                    ? <span className="text-[10px] opacity-80">{obj.meaning}</span>
+                    : extMeaning
+                      ? <span className="text-[10px] opacity-70">{extMeaning}</span>
+                      : null}
                 </button>
               )
             })}

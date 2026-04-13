@@ -750,7 +750,10 @@ function WordCard({ wordObj, onJump }) {
 // ═══════════════════════════════════════════════════════════════════════════
 function WordTree({ wordObj, visible, onNodeClick, onConfusableClick, masteryStatus }) {
   const associations = wordObj.associations || []
-  const confusables = (wordObj.confusables || []).filter(w => allWordsMap[w])
+  // 易混词：保留所有（即使不在主词库），显示时fallback到EXTERNAL_WORD_MEANINGS
+  const confusablesRaw = wordObj.confusables || []
+  // 过滤仅用于显示主词库词的版本（保持原有逻辑兼容）
+  const confusables = confusablesRaw
 
   // 掌握状态
   const MASTERY = {
@@ -779,6 +782,7 @@ function WordTree({ wordObj, visible, onNodeClick, onConfusableClick, masterySta
           <div className="flex flex-wrap justify-center gap-2">
             {associations.map((w, i) => {
               const obj = allWordsMap[w] || allWordsMap[w.toLowerCase()]
+              const extMeaning = (!obj) ? (EXTERNAL_WORD_MEANINGS[w] || EXTERNAL_WORD_MEANINGS[w.toLowerCase()] || null) : null
               return (
                 <button
                   key={w}
@@ -798,8 +802,9 @@ function WordTree({ wordObj, visible, onNodeClick, onConfusableClick, masterySta
                   <span className="font-bold text-sm">{w}</span>
                   {obj
                     ? <span className="text-[10px] opacity-80">{obj.meaning}</span>
-                    : <span className="text-[10px] opacity-50">查看 →</span>
-                  }
+                    : extMeaning
+                      ? <span className="text-[10px] opacity-70">{extMeaning}</span>
+                      : <span className="text-[10px] opacity-50">查看 →</span>}
                 </button>
               )
             })}
@@ -903,6 +908,7 @@ function WordTree({ wordObj, visible, onNodeClick, onConfusableClick, masterySta
           <div className="flex flex-wrap justify-center gap-2">
             {confusables.map((w, i) => {
               const obj = allWordsMap[w]
+              const extMeaning = (!obj) ? (EXTERNAL_WORD_MEANINGS[w] || EXTERNAL_WORD_MEANINGS[w.toLowerCase()] || null) : null
               return (
                 <button
                   key={w}
@@ -919,7 +925,11 @@ function WordTree({ wordObj, visible, onNodeClick, onConfusableClick, masterySta
                   }}
                 >
                   <span className="font-bold text-sm">{w}</span>
-                  {obj && <span className="text-[10px] opacity-80">{obj.meaning}</span>}
+                  {obj
+                    ? <span className="text-[10px] opacity-80">{obj.meaning}</span>
+                    : extMeaning
+                      ? <span className="text-[10px] opacity-70">{extMeaning}</span>
+                      : null}
                 </button>
               )
             })}

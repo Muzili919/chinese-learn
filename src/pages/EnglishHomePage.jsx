@@ -11,6 +11,7 @@ const EN_PLANETS = [
   { id: 'en_writing', label: '写作星球', emoji: '✏️', color: 'from-pink-400 to-rose-600',    desc: 'AI批改·句子作文' },
   { id: 'en_dictation', label: '听写星球', emoji: '✍️', color: 'from-cyan-400 to-blue-500', desc: 'TTS听写·拍照批改·词库管理', isDictation: true },
   { id: 'en_self_test', label: '自测星球', emoji: '📝', color: 'from-blue-500 to-indigo-600', desc: 'AI出卷·小升初难度·查漏补缺', isSelfTest: true },
+  { id: 'en_lightning', label: '闪电测验', emoji: '⚡', color: 'from-yellow-400 to-orange-500', desc: '5题快测·纯回忆·约30秒', isLightning: true },
 ]
 
 // 英语弱项 tag -> englishTag 映射
@@ -44,15 +45,11 @@ export default function EnglishHomePage({ user, grade = 'primary', onStartQuiz, 
     ? Math.round(records.filter(r => r.correct).length / records.length * 100)
     : 0
 
-  // 今日已练哪些英语星球（用于标记已练状态）
+  // 今日已练哪些英语星球（只有完成整轮练习才算，答1题不算）
   const practicedToday = useMemo(() => {
-    const today = new Date().toISOString().slice(0, 10)
-    const set = new Set()
-    records
-      .filter(r => r.timestamp?.startsWith(today) && r.subject === 'english')
-      .forEach(r => { if (r.knowledge_tag) set.add(r.knowledge_tag) })
-    return set
-  }, [records])
+    const completed = storage.getCompletedPlanetsToday(user?.id)
+    return new Set(completed)
+  }, [user?.id, records])
 
   // knowledge_tag -> planet id 映射
   const TAG_TO_PLANET = {
@@ -209,6 +206,7 @@ export default function EnglishHomePage({ user, grade = 'primary', onStartQuiz, 
                   onClick={() => {
                     if (planet.isDictation) onStartQuiz({ dictation: true, dictationSubject: 'english' })
                     else if (planet.isSelfTest) onStartQuiz({ selfTest: true, selfTestSubject: 'english' })
+                    else if (planet.isLightning) onStartQuiz({ lightningQuiz: true })
                     else onStartQuiz({ englishTag: planet.id, grade })
                   }}
                   className={`flex-shrink-0 w-28 bg-gradient-to-br ${planet.color} text-white rounded-xl p-2.5 flex flex-col items-center justify-center gap-1 shadow-sm active:scale-95 transition-transform relative ${done ? 'ring-2 ring-green-300 opacity-80' : ''}`}

@@ -210,17 +210,25 @@ function VariantCard({ variant, index, total, onDone }) {
   )
 }
 
-// ─── 通用答案匹配 ──────────────────────────────────────
+// ─── 通用答案匹配（支持带圈数字、括号数字、A/B/C/D等）──
 function isAnswerCorrect(userAnswer, correctAnswer, options) {
   if (!userAnswer || !correctAnswer) return false
-  const ua = String(userAnswer).trim().toLowerCase().replace(/^[a-d]\.\s*/i, '')
-  const ca = String(correctAnswer).trim().toLowerCase().replace(/^[a-d]\.\s*/i, '')
+  const normalize = (str) => String(str).trim()
+    .replace(/^[a-d]\.\s*/i, '')
+    // 带圈数字 → 普通数字
+    .replace(/[①-⑩]/g, m => String.fromCharCode(m.charCodeAt(0) - 0x2460 + 0x31))
+    // 中文括号数字 → 普通
+    .replace(/（([0-9]+)）/g, '$1')
+    .replace(/\(([0-9]+)\)/g, '$1')
+    .toLowerCase()
+  const ua = normalize(userAnswer)
+  const ca = normalize(correctAnswer)
   if (ua === ca) return true
-  // 字母匹配
+  // 字母匹配选项内容
   if (/^[a-d]$/i.test(correctAnswer.trim()) && options?.length) {
     const idx = correctAnswer.trim().toUpperCase().charCodeAt(0) - 65
     if (idx >= 0 && idx < options.length) {
-      return ua === options[idx].replace(/^[A-D]\.\s*/i, '').trim().toLowerCase()
+      return ua === normalize(options[idx])
     }
   }
   return false

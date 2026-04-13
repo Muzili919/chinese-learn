@@ -17,6 +17,7 @@ import AssociationPlanetPage from './pages/AssociationPlanetPage'
 import WordPlanetPage from './pages/WordPlanetPage'
 import DictationPage from './pages/DictationPage'
 import SelfTestPage from './pages/SelfTestPage'
+import LightningQuizPage from './pages/LightningQuizPage'
 import PoliticsHomePage from './pages/PoliticsHomePage'
 import PoliticsQuizPage from './pages/PoliticsQuizPage'
 import { initGamificationState } from './utils/gamification'
@@ -376,6 +377,9 @@ export default function App() {
     } else if (opts.dictation) {
       setQuizOptions(opts)
       setPage('dictation')
+    } else if (opts.lightningQuiz) {
+      setQuizOptions(opts)
+      setPage('lightning_quiz')
     } else if (opts.wrongReview) {
       setQuizOptions(opts)
       setPage('wrong_answers_quiz')
@@ -428,6 +432,13 @@ export default function App() {
     if (page === 'sentence_practice') return <SentencePracticePage user={user} onBack={goHome} />
     if (page === 'essay') return <EssayPage user={user} onBack={goHome} />
     if (page === 'dictation') return <DictationPage user={user} subject={quizOptions?.dictationSubject} onBack={goHome} />
+    if (page === 'lightning_quiz') return (
+      <LightningQuizPage
+        user={user}
+        onFinish={(result) => { setSessionResult(result); setPage('result') }}
+        onBack={() => { setPage('home'); setActiveSubject('english') }}
+      />
+    )
     if (page === 'self_test') return (
       <SelfTestPage
         user={user}

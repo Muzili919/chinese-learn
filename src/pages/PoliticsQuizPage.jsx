@@ -486,6 +486,8 @@ export default function PoliticsQuizPage({ user, options = {}, onFinish, onBack 
         xpEarned: xpGained + xp, durationSec: totalSec,
       }
       storage.addSession(user.id, session)
+      // 标记星球完成（只有做完才算打卡）
+      if (current?.ability_tag) storage.markPlanetComplete(user.id, current.ability_tag)
       updateStreak(user.id)
       syncAfterSession(user.id)
       onFinish({ session, records: allRecords })

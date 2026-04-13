@@ -99,16 +99,10 @@ export default function HomePage({ user, onStartQuiz, hideHeader, activeSubject:
   }, [activeSubjectProp, hideHeader])
 
   const practicedToday = useMemo(() => {
-    const today = new Date().toISOString().slice(0, 10)
-    const set = new Set()
-    records
-      .filter(r => r.timestamp?.startsWith(today))
-      .forEach(r => {
-        if (r.knowledge_tag) set.add(r.knowledge_tag)
-        if (r.knowledge_tag === '阅读理解') set.add('reading')
-      })
-    return set
-  }, [records])
+    // 只统计"完成整轮练习"的星球，答1题不算
+    const completed = storage.getCompletedPlanetsToday(user?.id)
+    return new Set(completed)
+  }, [user?.id, records]) // records变化时刷新（依赖records确保响应式更新）
 
   const weakPoints = useMemo(() => {
     if (records.length < 5) return []

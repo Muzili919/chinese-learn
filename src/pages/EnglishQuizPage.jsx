@@ -1157,8 +1157,10 @@ export default function EnglishQuizPage({ user, options = {}, onFinish, onBack }
         total: allRecords.length, correct: correctCount,
         xpEarned: xpGained + xp, durationSec: totalSec,
       }
-      storage.addSession(user.id, session)
-      updateStreak(user.id)
+        storage.addSession(user.id, session)
+        // 标记星球完成（只有做完才算打卡）
+        if (current?.knowledge_tag) storage.markPlanetComplete(user.id, current.knowledge_tag)
+        updateStreak(user.id)
       syncAfterSession(user.id)
       onFinish({ session, records: allRecords })
     } else {

@@ -9,15 +9,21 @@ function normalize(s) {
     .replace(/[，。！？、；：""''《》（）\s]/g, '')
 }
 
-// 通用答案归一化（支持英文选择题 "A. xxx" 前缀）
+// 通用答案归一化（支持英文选择题 "A. xxx" 前缀、带圈数字等）
 function normalizeAnswer(str) {
   if (!str) return ''
-  return String(str).trim().toLowerCase()
+  return String(str).trim()
     .replace(/^[a-d]\.\s*/i, '')  // 去掉 "A. " 前缀
+    // 带圈数字 → 普通数字：①②③④⑤⑥⑦⑧⑨⑩ 及 Unicode 范围
+    .replace(/[①-⑩]/g, m => String.fromCharCode(m.charCodeAt(0) - 0x2460 + 0x31))
+    // 中文括号数字（1）→ 普通数字
+    .replace(/（([0-9]+)）/g, '$1')
+    .replace(/\(([0-9]+)\)/g, '$1')
+    .toLowerCase()
     .replace(/\s+/g, ' ')
 }
 
-// 通用答案匹配函数：处理 A/B/C/D 字母、选项全文、大小写等
+// 通用答案匹配函数：处理 A/B/C/D 字母、选项全文、大小写、带圈数字等
 function isAnswerCorrect(userAnswer, correctAnswer, options) {
   const ua = normalizeAnswer(userAnswer)
   const ca = normalizeAnswer(correctAnswer)
@@ -39,6 +45,13 @@ function isAnswerCorrect(userAnswer, correctAnswer, options) {
     if (idx >= 0 && idx < options.length) {
       return normalizeAnswer(options[idx]) === ca
     }
+  }
+
+  // 填空题：correctAnswer 可能是 "（5）xxx" 而 ua 是 "5xxx"
+  // 去除所有非核心字符后比较
+  if (ua && ca) {
+    const stripCore = s => s.replace(/[^a-z0-9\u4e00-\u9fff]/g, '')
+    if (stripCore(ua) === stripCore(ca)) return true
   }
 
   return false
@@ -319,6 +332,16 @@ function ChoiceQuestion({ question, onDone }) {
 
   const correctOpt = getCorrectOption()
 
+  // 防护：选项为空时显示提示
+  if (!question.options || question.options.length === 0) {
+    return (
+      <div className="bg-red-50 border-2 border-dashed border-red-300 rounded-2xl px-5 py-6 text-center">
+        <p className="text-sm text-red-600 font-medium">⚠️ 此题选项为空</p>
+        <p className="text-xs text-gray-400 mt-1">ID: {question.id}</p>
+      </div>
+    )
+  }
+
   return (
     <div className="flex flex-col gap-3">
       {question.options.map(opt => {
@@ -374,7 +397,7 @@ function JudgmentQuestion({ question, onDone }) {
     }
   }
 
-  if (!current) return null
+  if (!current) return <div className="text-center text-gray-400 py-8">⏳ 加载中...</div>
   const thisResult = results[subIndex]
 
   return (
@@ -468,7 +491,7 @@ function TypoQuestion({ question, onDone }) {
   const [results, setResults] = useState([])
 
   const current = items[subIndex]
-  if (!current) return null
+  if (!current) return <div className="text-center text-gray-400 py-8">⏳ 加载中...</div>
 
   const expected = corrections[current.num]
   const isOk = expected === '__ok__'
@@ -595,6 +618,16 @@ function OrderQuestion({ question, onDone }) {
     onDone(correct ? question.answer : '答错', correct)
   }
 
+  // 防护：选项为空时显示提示
+  if (!options || options.length === 0) {
+    return (
+      <div className="bg-red-50 border-2 border-dashed border-red-300 rounded-2xl px-5 py-6 text-center">
+        <p className="text-sm text-red-600 font-medium">⚠️ 排序选项为空</p>
+        <p className="text-xs text-gray-400 mt-1">ID: {question.id}</p>
+      </div>
+    )
+  }
+
   return (
     <div className="flex flex-col gap-4">
       <p className="text-sm text-gray-500 bg-white rounded-2xl px-4 py-3 border border-gray-100">{instruction}</p>
@@ -656,6 +689,7 @@ function OrderQuestion({ question, onDone }) {
 function FillQuestion({ question, onDone }) {
   const [input, setInput] = useState('')
   const [submitted, setSubmitted] = useState(false)
+  // ★ 使用带归一化的匹配
   const correct = submitted && isAnswerCorrect(input, question.answer, null)
 
   function handleSubmit() {
@@ -667,6 +701,8 @@ function FillQuestion({ question, onDone }) {
       questionType: question.type,
       userAnswer: input,
       correctAnswer: question.answer,
+      normalizedUser: normalizeAnswer(input),
+      normalizedCorrect: normalizeAnswer(question.answer),
       isCorrect
     })
     onDone(input, isCorrect)
@@ -680,7 +716,9 @@ function FillQuestion({ question, onDone }) {
       <input type="text" value={input}
         onChange={e => setInput(e.target.value)}
         onKeyDown={e => e.key === 'Enter' && handleSubmit()}
-        disabled={submitted} placeholder="在这里输入答案…"
+        disabled={submitted}
+        placeholder="请输入答案（数字可用①②③或123）"
+        autoFocus
         className={`w-full border-2 rounded-2xl px-5 py-4 text-base text-gray-800 focus:outline-none transition-colors ${
           submitted
             ? correct ? 'border-green-400 bg-green-50' : 'border-red-400 bg-red-50'
@@ -689,9 +727,14 @@ function FillQuestion({ question, onDone }) {
       />
       {!submitted && (
         <button onClick={handleSubmit} disabled={!input.trim()}
-          className="w-full bg-indigo-500 disabled:bg-gray-200 disabled:text-gray-400 text-white font-bold py-4 rounded-2xl text-base">
+          className="w-full bg-indigo-500 disabled:bg-gray-200 disabled:text-gray-400 text-white font-bold py-4 rounded-2xl text-base active:scale-95 transition-transform">
           提交
         </button>
+      )}
+      {submitted && !correct && (
+        <div className="bg-yellow-50 border border-yellow-300 rounded-2xl px-4 py-3">
+          <p className="text-sm text-gray-700">正确答案：<b className="text-indigo-700">{question.answer}</b></p>
+        </div>
       )}
     </div>
   )
@@ -758,7 +801,7 @@ function WordBankQuestion({ question, onDone }) {
     }
   }
 
-  if (!current) return null
+  if (!current) return <div className="text-center text-gray-400 py-8">⏳ 加载中...</div>
   const thisResult = results[subIndex]
   const blankLine = extractBlankLine(question.question, current.num)
   // 第一行作为题目指令（如"补充下列诗句。"）
@@ -932,7 +975,7 @@ function PlainMultiSubQuestion({ question, onDone }) {
     }
   }
 
-  if (!current) return null
+  if (!current) return <div className="text-center text-gray-400 py-8">⏳ 加载中...</div>
   const thisResult = results[subIndex]
 
   return (
@@ -1086,6 +1129,16 @@ function MultiMeaningQuestion({ question, onDone }) {
     onDone(symbol, correct)
   }
 
+  // 防护：选项为空时显示提示
+  if (!options || options.length === 0) {
+    return (
+      <div className="bg-red-50 border-2 border-dashed border-red-300 rounded-2xl px-5 py-6 text-center">
+        <p className="text-sm text-red-600 font-medium">⚠️ 多义选项为空</p>
+        <p className="text-xs text-gray-400 mt-1">ID: {question.id}</p>
+      </div>
+    )
+  }
+
   return (
     <div className="flex flex-col gap-3">
       <div className="bg-white rounded-3xl px-5 py-5 shadow-sm border border-gray-100">
@@ -1113,11 +1166,13 @@ function MultiMeaningQuestion({ question, onDone }) {
 
 function MatchingQuestion({ question, onDone }) {
   const pairs = question.pairs || []
+  // 打乱右列时保留原始索引（用于内容匹配）
   const [shuffledRight] = useState(() =>
-    [...pairs.map((p, i) => ({ text: p.right, idx: i }))].sort(() => Math.random() - 0.5)
+    [...pairs.map((p, i) => ({ text: p.right, origIdx: i }))].sort(() => Math.random() - 0.5)
   )
   const [leftSel, setLeftSel] = useState(null)
-  const [matched, setMatched] = useState({})  // {leftIdx: rightShuffledIdx}
+  // matched: {leftIdx: rightShuffledIndex}
+  const [matched, setMatched] = useState({})
   const [errors, setErrors] = useState({})
   const [submitted, setSubmitted] = useState(false)
   const allMatched = Object.keys(matched).length === pairs.length
@@ -1130,16 +1185,38 @@ function MatchingQuestion({ question, onDone }) {
   function handleRight(item, ri) {
     if (submitted || leftSel === null) return
     if (Object.values(matched).includes(ri)) return
-    const correct = item.idx === leftSel
+    // ★ 内容匹配而非索引匹配：即使右列有重复项也能正确判断
+    const expectedRightText = pairs[leftSel].right
+    const correct = item.text === expectedRightText
     setMatched(p => ({ ...p, [leftSel]: ri }))
     if (!correct) setErrors(p => ({ ...p, [leftSel]: true }))
     setLeftSel(null)
   }
 
   function handleSubmit() {
-    const correct = pairs.every((_, i) => !errors[i])
+    // ★ 用内容匹配重新校验所有配对
+    let allCorrect = true
+    for (const [leftIdx, riStr] of Object.entries(matched)) {
+      const ri = Number(riStr)
+      const actualRightText = shuffledRight[ri]?.text
+      const expectedRightText = pairs[leftIdx]?.right
+      if (actualRightText !== expectedRightText) {
+        allCorrect = false
+        break
+      }
+    }
     setSubmitted(true)
-    onDone(correct ? question.answer : '答错', correct)
+    onDone(allCorrect ? question.answer : '答错', allCorrect)
+  }
+
+  // 防护：配对数据为空时显示提示
+  if (!pairs || pairs.length === 0) {
+    return (
+      <div className="bg-red-50 border-2 border-dashed border-red-300 rounded-2xl px-5 py-6 text-center">
+        <p className="text-sm text-red-600 font-medium">⚠️ 配对数据为空</p>
+        <p className="text-xs text-gray-400 mt-1">ID: {question.id}</p>
+      </div>
+    )
   }
 
   return (
@@ -1249,10 +1326,19 @@ export default function DuolingoStyleQuiz({ question, onAnswerSubmit, showVarian
 
   return (
     <div className="flex flex-col gap-4 pb-44">
+      {/* 题目为空时的防护 */}
+      {!question || (!question.type && !question.question) ? (
+        <div className="bg-orange-50 border-2 border-dashed border-orange-300 rounded-3xl px-6 py-10 text-center">
+          <p className="text-lg font-bold text-orange-700 mb-1">⏳ 题目加载中...</p>
+          <p className="text-sm text-gray-400">如果持续显示此页面，请返回重试</p>
+          <button onClick={() => window.history.back()} className="mt-3 text-xs text-indigo-500 underline">← 返回</button>
+        </div>
+      ) : (
+      <>
       {/* 标签 */}
       <div className="flex gap-2 flex-wrap">
-        <span className="bg-indigo-100 text-indigo-700 text-xs px-3 py-1 rounded-full font-semibold">{question.knowledge_tag}</span>
-        <span className="bg-gray-100 text-gray-500 text-xs px-3 py-1 rounded-full">{question.ability_tag}</span>
+        <span className="bg-indigo-100 text-indigo-700 text-xs px-3 py-1 rounded-full font-semibold">{question.knowledge_tag || '未分类'}</span>
+        <span className="bg-gray-100 text-gray-500 text-xs px-3 py-1 rounded-full">{question.ability_tag || '-'}</span>
         <span className="text-gray-300 text-xs px-2 py-1">{'⭐'.repeat(question.difficulty || 1)}</span>
       </div>
 
@@ -1290,6 +1376,17 @@ export default function DuolingoStyleQuiz({ question, onAnswerSubmit, showVarian
       {isFill && fillType === 'matching_fill' && <MatchingQuestion      question={{ ...question, pairs: matchingFillPairs }} onDone={handleDone} />}
       {isFill && fillType === 'multi_sub'  && <PlainMultiSubQuestion  question={question} onDone={handleDone} />}
       {isFill && fillType === 'plain'      && <FillQuestion           question={question} onDone={handleDone} />}
+
+      {/* 兜底：未知题型不显示空白，给出提示 */}
+      {!((question.type === 'single_choice' || question.type === 'multiple_choice') ||
+         question.type === 'multi_meaning' || question.type === 'matching' ||
+         (isFill && ['judgment','typo','order','wordbank','matching_fill','multi_sub','plain'].includes(fillType))) && (
+        <div className="bg-yellow-50 border-2 border-dashed border-yellow-300 rounded-3xl px-6 py-8 text-center">
+          <p className="text-lg font-bold text-yellow-700 mb-1">⚠️ 题目格式暂不支持</p>
+          <p className="text-sm text-gray-500">题型: {question.type || '(空)'} | 填空分类: {fillType || '-'}</p>
+          <p className="text-xs text-gray-400 mt-2">ID: {question.id}</p>
+        </div>
+      )}
 
       {/* 底部反馈面板：选择题 & 普通填空 */}
       {answered && !hasInternalSubmit && (
@@ -1344,6 +1441,8 @@ export default function DuolingoStyleQuiz({ question, onAnswerSubmit, showVarian
             </div>
           </div>
         </div>
+      )}
+      </>
       )}
     </div>
   )

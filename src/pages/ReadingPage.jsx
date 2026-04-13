@@ -472,6 +472,8 @@ export default function ReadingPage({ user, onFinish, onBack }) {
       durationSec: totalSec,
     }
     storage.addSession(user.id, session)
+    // 标记星球完成（只有做完才算打卡）
+    if (current?.knowledge_tag) storage.markPlanetComplete(user.id, current.knowledge_tag)
     updateStreak(user.id)
     syncAfterSession(user.id)
     onFinish({ session, records })

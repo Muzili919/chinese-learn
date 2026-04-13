@@ -40,13 +40,29 @@ export const storage = {
     localStorage.setItem(P + 'records_' + userId, JSON.stringify(records));
   },
 
-  // Sessions: array of { date, total, correct, xpEarned, durationSec }
+  // Sessions: array of { date, total, correct, xpEarned, durationSec, knowledgeTag? }
   getSessions: (userId) =>
     JSON.parse(localStorage.getItem(P + 'sessions_' + userId) || '[]'),
   addSession: (userId, session) => {
     const sessions = storage.getSessions(userId);
     sessions.push(session);
     localStorage.setItem(P + 'sessions_' + userId, JSON.stringify(sessions));
+  },
+
+  // 完成整轮练习的星球标记（只有做完所有题目才标记，不是答1题就算）
+  // 结构: { "2026-04-13": ["语文选择题", "英语单词"], "2026-04-12": [...] }
+  getCompletedPlanets: (userId) =>
+    JSON.parse(localStorage.getItem(P + 'completed_' + userId) || '{}'),
+  markPlanetComplete: (userId, planetTag) => {
+    const today = new Date().toISOString().split('T')[0];
+    const map = storage.getCompletedPlanets(userId);
+    if (!map[today]) map[today] = [];
+    if (!map[today].includes(planetTag)) map[today].push(planetTag);
+    localStorage.setItem(P + 'completed_' + userId, JSON.stringify(map));
+  },
+  getCompletedPlanetsToday: (userId) => {
+    const today = new Date().toISOString().split('T')[0];
+    return storage.getCompletedPlanets(userId)[today] || [];
   },
 
   // Streak

@@ -41,15 +41,11 @@ export default function PoliticsHomePage({ user, onStartQuiz, onBack }) {
     return polR.length > 0 ? Math.round(polR.filter(r => r.correct).length / polR.length * 100) : 0
   }, [records])
 
-  // 今日已练哪些星球
+  // 今日已练哪些星球（只有完成整轮练习才算，答1题不算）
   const practicedToday = useMemo(() => {
-    const today = new Date().toISOString().slice(0, 10)
-    const set = new Set()
-    records
-      .filter(r => r.timestamp?.startsWith(today) && r.subject === 'politics')
-      .forEach(r => { if (r.ability_tag) set.add(r.ability_tag) })
-    return set
-  }, [records])
+    const completed = storage.getCompletedPlanetsToday(user?.id)
+    return new Set(completed)
+  }, [user?.id, records])
 
   // 道法弱项诊断
   const polWeakPoints = useMemo(() => {
