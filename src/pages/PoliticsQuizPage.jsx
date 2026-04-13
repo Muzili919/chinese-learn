@@ -75,12 +75,7 @@ function MaterialAnalysisQuiz({ question: q, onSubmit }) {
       }
       setAiResults(results)
       setSubmitted(true)
-
-      // 计算总分
-      const totalScore = results.reduce((s, r) => s + r.score, 0)
-      const maxTotal = results.reduce((s, r) => s + (r.maxScore || 8), 0)
-      const pct = maxTotal > 0 ? Math.round(totalScore / maxTotal * 100) : 0
-      onSubmit('', pct >= 50)
+      setLoading(false)
     } catch (e) {
       console.error('AI评分失败', e)
       setLoading(false)
@@ -230,7 +225,7 @@ function SimpleOpenEndedQuiz({ q, onSubmit }) {
       const result = await evaluateQuestion(q, input, 'politics')
       setAiResult(result)
       setSubmitted(true)
-      onSubmit(input, result.score >= 60)
+      setLoading(false)
     } catch (e) {
       console.error('AI评分失败', e)
       setLoading(false)
