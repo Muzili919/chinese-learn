@@ -683,7 +683,7 @@ function QuizSection({ wordObj, onWordDone, grade }) {
 // ═══════════════════════════════════════════════════════════════════════════
 // 主页面
 // ═══════════════════════════════════════════════════════════════════════════
-export default function AssociationPlanetPage({ user, grade = 'primary', onFinish, onBack }) {
+export default function AssociationPlanetPage({ user, grade = 'primary', onFinish, onBack, onRetry }) {
   const wordCtx = useMemo(() => getWordContext(grade), [grade])
   const [sessionWords] = useState(() => scheduleSessionWords(getWordContext(grade), null))
   const [currentIdx, setCurrentIdx] = useState(0)

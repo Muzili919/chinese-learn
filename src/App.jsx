@@ -268,6 +268,7 @@ export default function App() {
         grade={grade}
         onFinish={(result) => { setSessionResult(result); setPage('result') }}
         onBack={() => { setPage('home'); setActiveSubject('english') }}
+        onRetry={() => startQuiz({ ...englishQuizOptions, englishTag: 'en_association' })}
       />
     )
     if (page === 'englishQuiz' && englishQuizOptions.englishTag !== 'en_association') return (
