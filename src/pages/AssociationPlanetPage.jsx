@@ -189,10 +189,227 @@ function SyllableDisplay({ word }) {
   )
 }
 
+// ─── 外部词词典（关联词/易混词中引用但无完整词条的词） ───────────────
+const EXTERNAL_WORD_MEANINGS = {
+  // === 时间/日期 ===
+  'sunset': '日落', 'sunrise': '日出', 'morning': '早晨', 'noon': '中午',
+  'afternoon': '下午', 'midnight': '午夜', 'today': '今天', 'tomorrow': '明天',
+  'yesterday': '昨天', 'weekend': '周末', 'weekday': '工作日',
+  'January': '一月', 'February': '二月', 'March': '三月', 'April': '四月',
+  'May': '五月', 'June': '六月', 'July': '七月', 'August': '八月',
+  'September': '九月', 'October': '十月', 'November': '十一月', 'December': '十二月',
+  'Monday': '星期一', 'Tuesday': '星期二', 'Wednesday': '星期三', 'Thursday': '星期四',
+  'Friday': '星期五', 'Saturday': '星期六', 'Sunday': '星期日',
+  'New Year': '新年', 'Christmas': '圣诞节', 'Easter': '复活节', 'Halloween': '万圣节',
+  'Thanksgiving': '感恩节',
+  // === 方位/地理 ===
+  'west': '西', 'east': '东', 'north': '北', 'south': '南', 'center': '中心',
+  'left': '左', 'right': '右', 'up': '上', 'down': '下', 'front': '前', 'back': '后',
+  'inside': '里面', 'outside': '外面', 'nearby': '附近', 'farther': '更远',
+  'China': '中国', 'English': '英语', 'Australia': '澳大利亚', 'Africa': '非洲',
+  'Earth': '地球', 'Saturn': '土星', 'equator': '赤道', 'polar': '极地的',
+  // === 人物/动物（非主词条） ===
+  'cowboy': '牛仔', 'hero': '英雄', 'princess': '公主', 'king': '国王', 'angel': '天使',
+  'fireman': '消防员', 'postman': '邮递员', 'dentist': '牙医', 'scientist': '科学家',
+  'bunny': '兔子', 'hippo': '河马', 'kitten': '小猫', 'kitty': '猫咪', 'goat': '山羊',
+  'donkey': '驴子', 'bull': '公牛', 'calf': '小牛', 'cub': '幼兽', 'crow': '乌鸦',
+  // === 食物/饮料 ===
+  'bananas': '香蕉(复)', 'cherries': '樱桃(复)', 'apples': '苹果(复)',
+  'blueberry': '蓝莓', 'eggplant': '茄子', 'mangoes': '芒果(复)', 'tuna': '金枪鱼',
+  'turkey': '火鸡', 'beer': '啤酒', 'cocoa': '可可', 'tea': '茶',
+  'dessert': '甜点', 'dinner': '晚餐', 'breakfast': '早餐', 'lunch': '午餐',
+  // === 服装/物品 ===
+  'boot': '靴子', 'shoes': '鞋子(复)', 'sock': '袜子', 'sandal': '凉鞋',
+  'cloths': '布料', 'mittens': '连指手套', 'costume': '戏服', 'gadget': '小器具',
+  'coin': '硬币', 'doll': '洋娃娃', 'gem': '宝石', 'diamonds': '钻石(复)',
+  // === 动词变形/相关 ===
+  'act': '表演', 'beat': '打', 'blow': '吹', 'boil': '煮', 'borrow': '借入',
+  'burn': '燃烧', 'bend': '弯曲', 'breathe': '呼吸', 'build': '建造',
+  'carry': '搬运', 'carve': '雕刻', 'celebrate': '庆祝', 'charge': '收费',
+  'cheat': '作弊', 'cheer': '欢呼', 'chose': '选择(过去式)', 'churn': '搅拌',
+  'click': '点击', 'close': '关闭', 'collect': '收集', 'connect': '连接',
+  'cook': '做饭', 'cooks': '烹饪(三单)', 'create': '创造', 'cross': '穿过',
+  'crush': '压碎', 'discover': '发现', 'dive': '跳水', 'drive': '开车',
+  'drink': '喝', 'earn': '赚取', 'enjoyed': '享受(过去式)', 'erase': '擦除',
+  'excite': '使兴奋', 'feed': '喂养', 'feel': '感觉', 'fill': '填充',
+  'find': '发现', 'finish': '完成', 'fit': '适合', 'fry': '油炸',
+  'forgot': '忘记(过去式)', 'found': '找到(过去式)', 'fried': '油炸的',
+  'give': '给', 'gave': '给(过去式)', 'greet': '问候', 'growl': '低吼',
+  'hide': '隐藏', 'hunt': '狩猎', 'hiss': '发出嘶声', 'invent': '发明',
+  'jingle': '叮当响', 'joke': '开玩笑', 'keep': '保持', 'kiss': '亲吻',
+  'knew': '知道(过去式)', 'laugh': '笑', 'lead': '领导', 'lean': '倾斜',
+  'leak': '泄漏', 'lift': '举起', 'live': '居住', 'load': '装载',
+  'lose': '丢失', 'lost': '丢失(过去式)', 'move': '移动', 'moved': '移动(过去式)',
+  'pick': '挑选', 'play': '玩', 'press': '按', 'protect': '保护',
+  'pray': '祈祷', 'push': '推', 'pull': '拉', 'reach': '到达', 'read': '读',
+  'repeat': '重复', 'retire': '退休', 'ride': '骑', 'roar': '咆哮',
+  'rush': '冲', 'said': '说(过去式)', 'scale': '攀爬', 'scare': '吓唬',
+  'scream': '尖叫', 'serve': '服务', 'set': '设置', 'show': '展示',
+  'sing': '唱', 'skip': '跳过', 'solve': '解决', 'spell': '拼写',
+  'spot': '发现', 'start': '开始', 'stay': '停留', 'stick': '粘住',
+  'store': '存储', 'take away': '拿走', 'think': '想', 'thought': '想(过去式)',
+  'travel': '旅行', 'treasure': '珍视', 'trick': '欺骗', 'tried': '尝试(过去式)',
+  'use': '使用', 'want': '想要', 'went': '去(过去式)', 'whisper': '耳语',
+  'widen': '变宽', 'worry': '担心', 'work': '工作', 'would': '会(过去式)',
+  // === 形容词/副词 ===
+  'abstract': '抽象的', 'adult': '成年的', 'alone': '单独的', 'certain': '确定的',
+  'careful': '小心的', 'clear': '清楚的', 'close': '近的', 'colourful': '多彩的',
+  'delicate': '精致的', 'difficult': '困难的', 'excellent': '优秀的',
+  'excited': '兴奋的', 'experienced': '有经验的', 'extensive': '广泛的',
+  'famous': '著名的', 'favorite': '最喜欢的', 'final': '最终的', 'fine': '好的',
+  'finely': '精细地', 'finished': '完成的', 'glorious': '光荣的',
+  'holy': '神圣的', 'ill': '生病的', 'likely': '可能的', 'lively': '活泼的',
+  'lonely': '孤独的', 'loving': '充满爱的', 'mad': '疯狂的', 'medical': '医疗的',
+  'medium': '中等的', 'messy': '凌乱的', 'middle': '中间的', 'multiple': '多个的',
+  'nervous': '紧张的', 'noisy': '吵闹的', 'older': '更老的', 'oral': '口头的',
+  'outdoor': '户外的', 'over': '结束/超过', 'poor': '贫穷的', 'ready': '准备好的',
+  'social': '社会的', 'smart': '聪明的', 'some': '一些', 'spatial': '空间的',
+  'steady': '稳定的', 'steep': '陡峭的', 'straight': '直的', 'strong': '强壮的',
+  'such': '这样的', 'tough': '艰难的', 'true': '真实的', 'various': '各种的',
+  'warm': '温暖的', 'wealthy': '富裕的', 'wide': '宽的', 'wild': '野生的',
+  'grey': '灰色的', 'pink': '粉色的', 'violet': '紫色的',
+  // === 名词（非主词条） ===
+  'abstract': '抽象概念', 'addition': '增加', 'agriculture': '农业',
+  'arena': '竞技场', 'arrow': '箭头', 'avenue': '大道', 'baggage': '行李',
+  'bamboo': '竹子', 'bar': '酒吧', 'bath': '洗澡', 'battle': '战役',
+  'bedtime': '睡前', 'birth': '出生', 'birthday': '生日', 'blank': '空白',
+  'board': '木板', 'books': '书本(复)', 'born': '出生', 'bother': '麻烦',
+  'bow': '鞠躬/弓', 'brain': '大脑', 'brake': '刹车', 'brass': '黄铜',
+  'broom': '扫帚', 'brow': '眉毛', 'bucket': '水桶', 'bud': '花苞',
+  'bush': '灌木丛', 'cab': '出租车', 'cabin': '小屋', 'cage': '笼子',
+  'calendar': '日历', 'camp': '营地', 'candle': '蜡烛', 'case': '情况/箱子',
+  'chance': '机会', 'charge': '收费', 'circus': '马戏团', 'citrus': '柑橘',
+  'coach': '教练', 'coal': '煤炭', 'collar': '领圈', 'column': '柱子',
+  'commuter': '通勤者', 'compute': '计算', 'cooker': '炊具',
+  'cart': '手推车', 'carton': '纸箱', 'choice': '选择', 'cloth': '布',
+  'clover': '三叶草', 'crush': '粉碎', 'cumber': '负担', 'date': '日期',
+  'dear': '亲爱的', 'delivery': '递送', 'demand': '要求', 'demon': '恶魔',
+  'dice': '骰子', 'diction': '措辞', 'dirt': '泥土', 'disk': '磁盘',
+  'diver': '潜水员', 'drawer': '抽屉', 'drip': '滴落', 'eager': '渴望的',
+  'easier': '更容易的', 'end': '末端', 'enemy': '敌人', 'entry': '入口',
+  'envy': '嫉妒', 'error': '错误', 'ever': '曾经', 'every': '每个',
+  'excuse': '借口', 'exited': '已退出', 'experience': '经验',
+  'factor': '因素', 'feather': '羽毛', 'feeling': '感觉', 'feet': '脚(复)',
+  'fellow': '家伙', 'fewer': '更少的', 'film': '电影', 'fin': '鳍',
+  'flavour': '味道', 'food': '食物', 'forever': '永远', 'forth': '向前',
+  'friends': '朋友(复)', 'from': '来自', 'front': '前面', 'fry': '炸薯条',
+  'future': '未来', 'garlicky': '大蒜味的', 'glisten': '闪耀',
+  'gold': '黄金', 'golf': '高尔夫', 'graph': '图表', 'grave': '坟墓',
+  'greeting': '问候', 'growl': '低吼声', 'gum': '口香糖', 'gun': '枪',
+  'habit': '习惯', 'ham': '火腿', 'hands': '手(复)', 'hanger': '衣架',
+  'harpy': '鹰身女妖', 'hazy': '朦胧的', 'health': '健康', 'heap': '堆',
+  'heartache': '心痛', 'heat': '热量', 'heaven': '天堂', 'here': '这里',
+  'hide': '躲藏处', 'him': '他', 'his': '他的', 'hole': '洞',
+  'hollow': '空洞', 'holy day': '假日', 'honor': '荣誉', 'hose': '软管',
+  'host': '主人', 'hostel': '旅舍', 'housework': '家务', 'how': '如何',
+  'howl': '嚎叫', 'hump': '驼峰', 'husband': '丈夫', 'ink': '墨水',
+  'inland': '内陆', 'insect': '昆虫', 'instant': '瞬间', 'jack': '千斤顶',
+  'joint': '关节', 'lab': '实验室', 'lady': '女士', 'large': '大的',
+  'laughter': '笑声', 'law': '法律', 'leather': '皮革', 'leg': '腿',
+  'legs': '腿(复)', 'lengthen': '加长', 'let': '让', 'lever': '杠杆',
+  'lid': '盖子', 'life': '生活', 'lighter': '打火机', 'likelihood': '可能性',
+  'litter': '垃圾', 'load': '负荷', 'log': '原木', 'loin': '腰部',
+  'machine': '机器', 'mail': '邮件', 'maker': '制造者', 'mark': '标记',
+  'married': '已婚的', 'master': '大师', 'me': '我', 'medium': '媒体',
+  'men': '男人(复)', 'meow': '喵喵叫', 'mess': '混乱', 'mind': '头脑',
+  'mister': '先生', 'misunderstand': '误解', 'money': '钱', 'monster': '怪物',
+  'month': '月份', 'moo': '哞叫', 'mosaic': '马赛克', 'mourning': '哀悼',
+  'mover': '搬运工', 'muscle': '肌肉', 'muse': '缪斯', 'mush': '糊状物',
+  'nation': '国家', 'neck': '脖子', 'neighbour': '邻居', 'nerve': '神经',
+  'nerves': '神经(复)', 'net': '网', 'newspaper': '报纸', 'nights': '夜晚(复)',
+  'not': '不', 'note': '笔记', 'nothing': '没有东西', 'now': '现在',
+  'object': '物体', 'off': '关闭', 'often': '经常', 'oh': '哦',
+  'oink': '猪叫声', 'okay': '好的', 'on': '在...上面', 'oral': '口头',
+  'other': '其他的', 'ouch': '哎哟', 'ounce': '盎司', 'our': '我们的',
+  'out': '出去', 'oven': '烤箱', 'ox': '公牛', 'pack': '包装',
+  'packet': '包裹', 'pair': '一对', 'pajama': '睡衣', 'papa': '爸爸',
+  'passage': '通道', 'past': '过去的', 'path': '路径', 'peak': '顶峰',
+  'perhaps': '也许', 'pet': '宠物', 'picket': '尖桩', 'picnic': '野餐',
+  'piece': '片', 'pillage': '掠夺', 'pin': '大头针', 'pipe': '管子',
+  'pitcher': '投手', 'place': '地方', 'plane': '飞机', 'pleasure': '快乐',
+  'plus': '加上', 'pocket': '口袋', 'point': '点', 'pool': '水池',
+  'pop': '流行', 'port': '港口', 'postbox': '邮箱', 'pound': '磅',
+  'prayer': '祷告', 'present': '礼物', 'prize': '奖品', 'purse': '钱包',
+  'quack': '鸭叫', 'quarrel': '争吵', 'quart': '夸脱', 'quilt': '被子',
+  'racket': '球拍', 'rail': '铁轨', 'rant': '咆哮', 'ready': '准备好的',
+  'retain': '保留', 'rider': '骑手', 'ring': '戒指', 'rise': '升起',
+  'role': '角色', 'roof': '屋顶', 'rope': '绳子', 'sandal': '凉鞋',
+  'scale': '规模', 'scar': '伤疤', 'sealing': '密封', 'seat': '座位',
+  'secret': '秘密', 'self': '自己', 'series': '系列', 'shall': '将要',
+  'she': '她', 'shell': '贝壳', 'shore': '岸边', 'should': '应该',
+  'since': '自从', 'single': '单个的', 'skeleton': '骨架',
+  'snowbank': '雪堆', 'snowfall': '降雪', 'snowmen': '雪人(复)',
+  'snowplow': '除雪机', 'soap': '肥皂', 'sock': '袜子', 'sort': '种类',
+  'sour': '酸的', 'spear': '长矛', 'spot': '地点', 'state': '状态',
+  'stencil': '模板', 'step': '步骤', 'stone': '石头', 'straight': '笔直的',
+  'strength': '力量', 'string': '绳子', 'stripes': '条纹', 'stuff': '东西',
+  'suit': '西装', 'sum': '总和', 'supplies': '供应品', 'supposed': '应该的',
+  'swam': '游泳(过去式)', 'sweat': '汗水', 'tank': '坦克', 'tape': '胶带',
+  'taper': '锥形', 'tax': '税收', 'tear': '眼泪', 'teen': '青少年',
+  'temperate': '温和的', 'tent': '帐篷', 'terrific': '很棒的',
+  'text': '文本', 'than': '比', 'thank': '感谢', 'them': '他们',
+  'thicket': '灌木丛', 'things': '东西(复)', 'throat': '喉咙', 'tidy': '整洁的',
+  'tie': '领带', 'tigger': '跳跳虎', 'times': '次数', 'tire': '轮胎',
+  'to': '到', 'tool': '工具', 'tooth': '牙齿', 'tower': '塔',
+  'track': '轨道', 'trap': '陷阱', 'trick': '诡计', 'tube': '管子',
+  'twentieth': '第二十', 'two wheels': '两轮车', 'um': '嗯',
+  'underground': '地下', 'union': '联盟', 'us': '我们', 'value': '价值',
+  'villa': '别墅', 'viola': '中提琴', 'vision': '视力', 'wagon': '马车',
+  'waist': '腰', 'wan': '苍白的', 'warmer': '取暖器', 'wife': '妻子',
+  'willow': '柳树', 'with': '和...一起', 'women': '女人(复)', 'wood': '木头',
+  'wool': '羊毛', 'yoghurt': '酸奶', 'your': '你的', 'youth': '青春',
+  'yum': '好吃',
+  // === 短语/复合词 ===
+  'all ways': '总是', 'big cat': '大猫', 'big eyes': '大眼睛',
+  'big room': '大房间', 'black and white': '黑白', 'many people': '许多人',
+  'birth day': '出生日', 'holy day': '假日', 'take away': '拿走',
+  'to day': '今天', "when's day": '哪一天', 'T-shirt': 'T恤', 'TV': '电视',
+  'PE': '体育课', 'Finnish': '芬兰语', 'Chinese': '中文/中国的',
+}
+
+/** 检查一个词是否有外部词条 */
+function hasExternalWord(key) {
+  return !!EXTERNAL_WORD_MEANINGS[key]
+}
+/** 获取外部词条信息 */
+function getExternalWordInfo(key) {
+  const meaning = EXTERNAL_WORD_MEANINGS[key]
+  if (!meaning) return null
+  return { word: key, meaning, isExternal: true }
+}
+
+// ─── 外部词提示卡片（点击未收录的关联/易混词时显示） ──────────────────
+function ExternalWordCard({ word, meaning, onClose }) {
+  return (
+    <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/30" onClick={onClose}>
+      <div
+        className="bg-white rounded-2xl p-5 w-full max-w-xs shadow-xl"
+        onClick={e => e.stopPropagation()}
+        style={{ animation: 'modalIn 0.2s ease' }}
+      >
+        <div className="flex justify-between items-center mb-3">
+          <span className="text-xs font-semibold text-violet-500 bg-violet-50 px-2 py-0.5 rounded-full">📖 拓展词</span>
+          <button onClick={onClose} className="text-gray-400 hover:text-gray-600 text-lg leading-none">×</button>
+        </div>
+
+        <div className="text-center mb-3">
+          <div className="text-2xl font-bold text-gray-800">{word}</div>
+          <div className="text-base text-indigo-600 mt-1 font-medium">{meaning}</div>
+        </div>
+
+        <div className="bg-gray-50 rounded-xl p-3 text-sm text-gray-500 text-center">
+          这是关联词，暂不在主学习库中<br/>
+          <span className="text-xs text-gray-400">了解即可，无需记忆</span>
+        </div>
+      </div>
+    </div>
+  )
+}
+
 // ─── 对比弹窗 ──────────────────────────────────────────────────────────────
 function ConfusableModal({ wordA, wordB, onClose }) {
-  const objA = allWordsMap[wordA] || {}
-  const objB = allWordsMap[wordB] || {}
+  const objA = allWordsMap[wordA] || getExternalWordInfo(wordA) || { word: wordA, meaning: wordA }
+  const objB = allWordsMap[wordB] || getExternalWordInfo(wordB) || { word: wordB, meaning: wordB }
 
   // 找出字母差异
   function getDiff() {
@@ -691,6 +908,7 @@ export default function AssociationPlanetPage({ user, grade = 'primary', onFinis
   const [treeVisible, setTreeVisible] = useState(false)
   const [showQuiz, setShowQuiz] = useState(false)
   const [modal, setModal] = useState(null)
+  const [externalWord, setExternalWord] = useState(null)  // 外部词提示卡片
   const [sessionResults, setSessionResults] = useState([])
   const [totalXP, setTotalXP] = useState(0)
   const [done, setDone] = useState(false)
@@ -770,7 +988,7 @@ export default function AssociationPlanetPage({ user, grade = 'primary', onFinis
     // 先在 session 中查找
     const idx = sessionWords.findIndex(w => w.word.toLowerCase() === key)
     if (idx !== -1) {
-      setTempWord(null)
+      setExternalWord(null)
       switchWord(idx)
       return
     }
@@ -784,6 +1002,10 @@ export default function AssociationPlanetPage({ user, grade = 'primary', onFinis
         setTempWord(networkWord)
         setTreeVisible(true)
       }, 300)
+    } else if (hasExternalWord(key)) {
+      // 未收录但有外部词典 → 显示拓展词卡片
+      const info = getExternalWordInfo(key)
+      setExternalWord(info)
     } else {
       showToast(`"${wordKey}" 暂未收录`)
     }
@@ -994,6 +1216,15 @@ export default function AssociationPlanetPage({ user, grade = 'primary', onFinis
           wordA={modal.wordA}
           wordB={modal.wordB}
           onClose={() => setModal(null)}
+        />
+      )}
+
+      {/* 外部词提示卡片 */}
+      {externalWord && (
+        <ExternalWordCard
+          word={externalWord.word}
+          meaning={externalWord.meaning}
+          onClose={() => setExternalWord(null)}
         />
       )}
 
