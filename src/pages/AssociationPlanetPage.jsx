@@ -1,5 +1,7 @@
-import { useState, useEffect, useCallback, useRef } from 'react'
-import { storage } from '../utils/storage'
+import { useState, useEffect, useCallback, useRef, useMemo } from 'react'
+import { storage, updateStreak } from '../utils/storage'
+import { updateSRS, toQuality, isDue } from '../utils/srs'
+import { syncAfterSession } from '../utils/sync'
 import { speakEnglish as _speakEnglish } from '../utils/tts'
 import wordsNetwork from '../data/words_network.json'
 import j2WordsNetwork from '../data/words_network_j2.json'
@@ -40,6 +42,44 @@ function shuffle(arr) {
 function pickSessionWords(ctx) {
   const w = ctx || _defaultCtx
   return shuffle(w.allWords).slice(0, SESSION_SIZE)
+}
+
+// ─── SRS 智能调度 ──────────────────────────────────────────────────────
+function scheduleSessionWords(ctx, srsMap) {
+  const w = ctx || _defaultCtx
+  const pool = w.allWords
+
+  // 分池：到期 / 新词 / 已复习未到期
+  const due = pool.filter(wo => srsMap && isDue(srsMap[`assoc_${wo.word}`]))
+  const newCards = pool.filter(wo => !srsMap || !srsMap[`assoc_${wo.word}`])
+  const reviewed = pool.filter(wo => srsMap && srsMap[`assoc_${wo.word}`] && !isDue(srsMap[`assoc_${wo.word}`]))
+
+  let selected = []
+  const half = Math.ceil(SESSION_SIZE / 2)
+
+  // 优先选到期词（最多一半）
+  if (due.length > 0) {
+    selected = selected.concat(shuffle(due).slice(0, half))
+  }
+  // 剩余从新词补
+  if (selected.length < SESSION_SIZE && newCards.length > 0) {
+    const need = SESSION_SIZE - selected.length
+    selected = selected.concat(shuffle(newCards).slice(0, need))
+  }
+  // 还不够就从已复习的补
+  if (selected.length < SESSION_SIZE && reviewed.length > 0) {
+    const need = SESSION_SIZE - selected.length
+    selected = selected.concat(shuffle(reviewed).slice(0, need))
+  }
+
+  // 按词族分组（同类词聚在一起）
+  const groups = {}
+  for (const wo of selected) {
+    const cat = wo.category || 'misc'
+    if (!groups[cat]) groups[cat] = []
+    groups[cat].push(wo)
+  }
+  return Object.values(groups).flat()
 }
 
 // ─── 生成 2 道题（联想题 + 辨析题） ──────────────────────────────────────
@@ -226,9 +266,18 @@ function ConfusableModal({ wordA, wordB, onClose }) {
 }
 
 // ─── 词根树主视图 ──────────────────────────────────────────────────────────
-function WordTree({ wordObj, visible, onNodeClick, onConfusableClick }) {
+function WordTree({ wordObj, visible, onNodeClick, onConfusableClick, masteryStatus }) {
   const associations = wordObj.associations || []
   const confusables = (wordObj.confusables || []).filter(w => allWordsMap[w])
+
+  // 掌握状态
+  const MASTERY = {
+    new: { emoji: '⚪', label: '新词', cls: 'bg-gray-50 text-gray-500' },
+    due: { emoji: '🟡', label: '待复习', cls: 'bg-amber-50 text-amber-600' },
+    mastered: { emoji: '🟢', label: '已掌握', cls: 'bg-emerald-50 text-emerald-600' },
+    reviewed: { emoji: '🔵', label: '复习中', cls: 'bg-blue-50 text-blue-600' },
+  }
+  const ms = MASTERY[masteryStatus] || MASTERY.new
 
   return (
     <div
@@ -306,11 +355,19 @@ function WordTree({ wordObj, visible, onNodeClick, onConfusableClick }) {
               {wordObj.meaning}
             </div>
           </div>
-          <div
-            className="text-xs px-2 py-0.5 rounded-full font-semibold"
-            style={{ background: '#bbf7d0', color: '#166534' }}
-          >
-            tier {wordObj.tier}
+          <div className="flex items-center gap-1.5">
+            <div
+              className="text-xs px-2 py-0.5 rounded-full font-semibold"
+              style={{ background: '#bbf7d0', color: '#166534' }}
+            >
+              tier {wordObj.tier}
+            </div>
+            <span
+              className={`text-[10px] px-1.5 py-0.5 rounded-full font-medium ${ms.cls}`}
+              title={ms.label}
+            >
+              {ms.emoji}
+            </span>
           </div>
         </div>
 
@@ -628,17 +685,25 @@ function QuizSection({ wordObj, onWordDone }) {
 // ═══════════════════════════════════════════════════════════════════════════
 export default function AssociationPlanetPage({ user, grade = 'primary', onFinish, onBack }) {
   const wordCtx = useMemo(() => getWordContext(grade), [grade])
-  const [sessionWords] = useState(() => pickSessionWords(getWordContext(grade)))
+  const [sessionWords] = useState(() => scheduleSessionWords(getWordContext(grade), null))
   const [currentIdx, setCurrentIdx] = useState(0)
-  const [tempWord, setTempWord] = useState(null) // 点击联想词时临时预览，不影响 session 进度
+  const [tempWord, setTempWord] = useState(null)
   const [treeVisible, setTreeVisible] = useState(false)
   const [showQuiz, setShowQuiz] = useState(false)
-  const [modal, setModal] = useState(null) // { wordA, wordB }
-  const [sessionResults, setSessionResults] = useState([]) // { correct, total }
+  const [modal, setModal] = useState(null)
+  const [sessionResults, setSessionResults] = useState([])
   const [totalXP, setTotalXP] = useState(0)
   const [done, setDone] = useState(false)
   const [toast, setToast] = useState(null)
   const scrollContainerRef = useRef(null)
+  // ─── SRS 状态 ──────────────────────────────────────────────
+  const [srsStates, setSrsStates] = useState(() => {
+    if (!user?.id) return {}
+    try {
+      const saved = localStorage.getItem(`srs_${user.id}`)
+      return saved ? JSON.parse(saved) : {}
+    } catch { return {} }
+  })
 
   const currentWord = tempWord || sessionWords[currentIdx]
   const xp = storage.getXP(user?.id)
@@ -667,6 +732,26 @@ export default function AssociationPlanetPage({ user, grade = 'primary', onFinis
     const t = setTimeout(() => setTreeVisible(true), 100)
     return () => clearTimeout(t)
   }, [])
+
+  // ─── SRS 状态加载（组件挂载时从 localStorage 读取） ──────
+  useEffect(() => {
+    if (!user?.id) return
+    try {
+      const saved = localStorage.getItem(`srs_${user.id}`)
+      if (saved) setSrsStates(JSON.parse(saved))
+    } catch {}
+  }, [user?.id])
+
+  // 当前词的掌握状态
+  const currentSrsStatus = useMemo(() => {
+    if (!currentWord || !user?.id) return 'new'
+    const cardId = `assoc_${currentWord.word}`
+    const state = srsStates[cardId]
+    if (!state) return 'new'
+    if (isDue(state)) return 'due'
+    if (state.reviewCount >= 3 && state.easeFactor >= 2.5) return 'mastered'
+    return 'reviewed'
+  }, [currentWord, srsStates, user?.id])
 
   // 词切换时自动朗读
   useEffect(() => {
@@ -717,8 +802,21 @@ export default function AssociationPlanetPage({ user, grade = 'primary', onFinis
     const newResults = [...sessionResults, { correct, total }]
     setSessionResults(newResults)
 
+    // ─── SRS 记录 ──────────────────────────────
+    if (user?.id && currentWord) {
+      const cardId = `assoc_${currentWord.word}`
+      const passed = correct / total >= 0.6
+      const quality = toQuality(passed, Math.round((correct / total) * 10))
+      const oldState = srsStates[cardId] || null
+      const newState = updateSRS(oldState, quality)
+      setSrsStates(prev => ({ ...prev, [cardId]: newState }))
+      try {
+        localStorage.setItem(`srs_${user.id}`, JSON.stringify({ ...srsStates, [cardId]: newState }))
+      } catch {}
+      storage.addRecord(user.id, { ability_tag: currentWord.category || 'misc', knowledge_tag: '联想星球', subject: 'english', correct, total })
+    }
+
     if (currentIdx + 1 >= sessionWords.length) {
-      // session 结束
       setDone(true)
     } else {
       switchWord(currentIdx + 1)
@@ -751,11 +849,19 @@ export default function AssociationPlanetPage({ user, grade = 'primary', onFinis
           </div>
         </div>
         <button
-          onClick={() => onFinish({
-            correct: totalCorrect,
-            total: totalQs,
-            xpGained: totalXP,
-          })}
+          onClick={() => {
+            // SRS 同步 + streak 更新
+            if (user?.id) {
+              updateStreak(user.id)
+              syncAfterSession(user.id)
+            }
+            storage.addSession(user?.id, 'association_planet', { correct: totalCorrect, total: totalQs, xpGained: totalXP })
+            onFinish({
+              correct: totalCorrect,
+              total: totalQs,
+              xpGained: totalXP,
+            })
+          }}
           className="mt-2 w-full max-w-xs py-3 rounded-2xl bg-gradient-to-r from-emerald-400 to-teal-600 text-white font-bold text-base shadow-md active:scale-95 transition-transform"
         >
           查看结果 →
@@ -819,6 +925,7 @@ export default function AssociationPlanetPage({ user, grade = 'primary', onFinis
                 visible={treeVisible}
                 onNodeClick={handleNodeClick}
                 onConfusableClick={handleConfusableClick}
+                masteryStatus={currentSrsStatus}
               />
             )}
           </div>
