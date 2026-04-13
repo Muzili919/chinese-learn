@@ -70,7 +70,6 @@ export default function EnglishHomePage({ user, grade = 'primary', onStartQuiz, 
 
   // 英语弱项建议（筛选 subject === 'english' 的记录）
   const enWeakPoints = useMemo(() => {
-    if (records.length < 5) return []
     const enRecords = records.filter(r => r.subject === 'english')
     if (enRecords.length < 3) return []
     const d = diagnose(enRecords)
@@ -141,7 +140,7 @@ export default function EnglishHomePage({ user, grade = 'primary', onStartQuiz, 
       </div>
 
       {/* ===== 弱项建议区域（天蓝色调，与语文琥珀色区分）===== */}
-      {enWeakPoints.length > 0 && (
+      {enWeakPoints.length > 0 ? (
         <div className="mx-4 mt-4 bg-sky-50 border border-sky-200 rounded-2xl p-4">
           <p className="text-sm font-semibold text-sky-700 mb-2">💡 建议重点练习（点击直接进入）</p>
           <div className="flex flex-wrap gap-2">
@@ -159,7 +158,12 @@ export default function EnglishHomePage({ user, grade = 'primary', onStartQuiz, 
             })}
           </div>
         </div>
-      )}
+      ) : records.filter(r => r.subject === 'english').length === 0 ? (
+        <div className="mx-4 mt-4 bg-sky-50 border border-sky-200 rounded-2xl p-4">
+          <p className="text-sm font-semibold text-sky-700 mb-1">💡 还没有英语练习数据</p>
+          <p className="text-xs text-sky-500">先做几道英语题，我会分析你的弱项哦！</p>
+        </div>
+      ) : null}
 
       {/* ===== 星球卡片区 ===== */}
       <div className="flex-1 px-4 pt-4 pb-8">
@@ -167,7 +171,7 @@ export default function EnglishHomePage({ user, grade = 'primary', onStartQuiz, 
         <div className="flex items-center justify-between mb-3">
           <h2 className="text-base font-semibold text-gray-600">🌟 英语学习星球</h2>
           <span className="text-xs text-gray-400">
-            今日已练 {corePlanets.filter(p => isPracticed(p)).length + specialPlanets.filter(p => isPracticed(p)).length}/{EN_PLANETS.length} 个星球
+            今日已练 {corePlanets.filter(p => isPracticed(p)).length}/{corePlanets.length} 个星球
           </span>
         </div>
 

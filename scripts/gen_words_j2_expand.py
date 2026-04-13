@@ -1732,30 +1732,3 @@ print(f"P2 高频动词M-Z: {len(P2_VERBS_MZ)} 词")
 
 print(f"\n=== 第二部分动词总计: {len(NEW_WORDS) - PART1_COUNT} 新词 ===")
 print(f"累计已生成: {len(NEW_WORDS)} 词")
-
-# ============== 写入文件 ==============
-added = 0; skipped_dupes = 0
-for entry in NEW_WORDS:
-    w = entry["word"]
-    if w in existing_data["words"]:
-        skipped_dupes += 1
-    else:
-        existing_data["words"][w] = entry
-        added += 1
-
-# 清理自引用和重叠
-for w, obj in existing_data["words"].items():
-    ass = set(obj.get("associations",[]) or [])
-    conf = set(obj.get("confusables",[]) or [])
-    obj["associations"] = [a for a in ass if a != w]
-    obj["confusables"] = [c for c in conf if c != w and c not in obj["associations"]]
-
-with open(J2_FILE, "w", encoding="utf-8") as f:
-    json.dump(existing_data, f, ensure_ascii=False, indent=2)
-
-print(f"
-=== 最终结果 ===")
-print(f"新增词: {added}")
-print(f"跳过重复: {skipped_dupes}")
-print(f"总词数: {len(existing_data[\"words\"])}")
-
