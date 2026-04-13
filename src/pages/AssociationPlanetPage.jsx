@@ -1042,7 +1042,7 @@ export default function AssociationPlanetPage({ user, grade = 'primary', onFinis
   function handleWordDone(correct, total) {
     const xpGained = correct * XP_CORRECT
     if (xpGained > 0 && user?.id) {
-      storage.addXP(user.id, xpGained)
+      try { storage.addXP(user.id, xpGained) } catch {}
     }
     setTotalXP(prev => prev + xpGained)
     const newResults = [...sessionResults, { correct, total }]
@@ -1050,18 +1050,21 @@ export default function AssociationPlanetPage({ user, grade = 'primary', onFinis
 
     // ─── SRS 记录 ──────────────────────────────
     if (user?.id && currentWord) {
-      const cardId = `assoc_${currentWord.word}`
-      const passed = correct / total >= 0.6
-      const quality = toQuality(passed, Math.round((correct / total) * 10))
-      const oldState = srsStates[cardId] || null
-      const newState = updateSRS(oldState, quality)
-      setSrsStates(prev => ({ ...prev, [cardId]: newState }))
       try {
-        localStorage.setItem(`srs_${user.id}`, JSON.stringify({ ...srsStates, [cardId]: newState }))
+        const cardId = `assoc_${currentWord.word}`
+        const passed = correct / total >= 0.6
+        const quality = toQuality(passed, Math.round((correct / total) * 10))
+        const oldState = srsStates[cardId] || null
+        const newState = updateSRS(oldState, quality)
+        setSrsStates(prev => ({ ...prev, [cardId]: newState }))
+        try {
+          localStorage.setItem(`srs_${user.id}`, JSON.stringify({ ...srsStates, [cardId]: newState }))
+        } catch {}
+        storage.addRecord(user.id, { ability_tag: currentWord.category || 'misc', knowledge_tag: '联想星球', subject: 'english', correct, total })
       } catch {}
-      storage.addRecord(user.id, { ability_tag: currentWord.category || 'misc', knowledge_tag: '联想星球', subject: 'english', correct, total })
     }
 
+    // 切换到下一个词（始终执行）
     if (currentIdx + 1 >= sessionWords.length) {
       setDone(true)
     } else {
