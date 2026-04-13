@@ -553,10 +553,7 @@
         "desk",
         "classroom"
       ],
-      "confusables": [
-        "ruler",
-        "ruler"
-      ],
+      "confusables": [],
       "example": "I have a long ruler.",
       "memory_tip": "尺子画直线"
     },
@@ -571,10 +568,7 @@
         "draw",
         "blackboard"
       ],
-      "confusables": [
-        "marker",
-        "marker"
-      ],
+      "confusables": [],
       "example": "The marker is red.",
       "memory_tip": "彩笔画颜色"
     },
@@ -589,10 +583,7 @@
         "paper",
         "hand"
       ],
-      "confusables": [
-        "scissors",
-        "scissors"
-      ],
+      "confusables": [],
       "example": "Use scissors carefully.",
       "memory_tip": "剪刀剪纸"
     },
@@ -607,10 +598,7 @@
         "send",
         "paper"
       ],
-      "confusables": [
-        "envelope",
-        "envelope"
-      ],
+      "confusables": [],
       "example": "Put the stamp on the envelope.",
       "memory_tip": "信封装信"
     },
@@ -625,10 +613,7 @@
         "send",
         "mail"
       ],
-      "confusables": [
-        "stamp",
-        "stamp"
-      ],
+      "confusables": [],
       "example": "I need a stamp.",
       "memory_tip": "邮票贴信封"
     },
@@ -643,10 +628,7 @@
         "paper",
         "hand"
       ],
-      "confusables": [
-        "glue",
-        "glue"
-      ],
+      "confusables": [],
       "example": "Glue the paper together.",
       "memory_tip": "胶水粘东西"
     },
@@ -661,10 +643,7 @@
         "one",
         "ten"
       ],
-      "confusables": [
-        "number",
-        "number"
-      ],
+      "confusables": [],
       "example": "My favourite number is seven.",
       "memory_tip": "数字数数"
     },
@@ -679,10 +658,7 @@
         "start",
         "circle"
       ],
-      "confusables": [
-        "zero",
-        "zero"
-      ],
+      "confusables": [],
       "example": "The score is zero.",
       "memory_tip": "零像圆圈"
     },
@@ -697,10 +673,7 @@
         "single",
         "number"
       ],
-      "confusables": [
-        "one",
-        "one"
-      ],
+      "confusables": [],
       "example": "I have one apple.",
       "memory_tip": "一就是1"
     },
@@ -715,10 +688,7 @@
         "second",
         "number"
       ],
-      "confusables": [
-        "two",
-        "two"
-      ],
+      "confusables": [],
       "example": "Two birds fly high.",
       "memory_tip": "二就是2"
     },
@@ -733,10 +703,7 @@
         "triangle",
         "number"
       ],
-      "confusables": [
-        "three",
-        "three"
-      ],
+      "confusables": [],
       "example": "Three little pigs.",
       "memory_tip": "三就是3"
     },
@@ -751,10 +718,7 @@
         "square",
         "number"
       ],
-      "confusables": [
-        "four",
-        "four"
-      ],
+      "confusables": [],
       "example": "Four seasons in a year.",
       "memory_tip": "四就是4"
     },
@@ -769,10 +733,7 @@
         "hand",
         "number"
       ],
-      "confusables": [
-        "five",
-        "five"
-      ],
+      "confusables": [],
       "example": "Five fingers on a hand.",
       "memory_tip": "五就是5"
     },
@@ -787,10 +748,7 @@
         "insect",
         "number"
       ],
-      "confusables": [
-        "six",
-        "six"
-      ],
+      "confusables": [],
       "example": "A bee has six legs.",
       "memory_tip": "六就是6"
     },
@@ -805,10 +763,7 @@
         "week",
         "number"
       ],
-      "confusables": [
-        "seven",
-        "seven"
-      ],
+      "confusables": [],
       "example": "Seven days in a week.",
       "memory_tip": "七就是7"
     },
@@ -823,10 +778,7 @@
         "spider",
         "number"
       ],
-      "confusables": [
-        "eight",
-        "eight"
-      ],
+      "confusables": [],
       "example": "An octopus has eight arms.",
       "memory_tip": "八就是8"
     },
@@ -841,10 +793,7 @@
         "cat",
         "number"
       ],
-      "confusables": [
-        "nine",
-        "nine"
-      ],
+      "confusables": [],
       "example": "A cat has nine lives.",
       "memory_tip": "九就是9"
     },
@@ -859,10 +808,7 @@
         "fingers",
         "number"
       ],
-      "confusables": [
-        "ten",
-        "ten"
-      ],
+      "confusables": [],
       "example": "I have ten fingers.",
       "memory_tip": "十就是10"
     },
@@ -877,10 +823,7 @@
         "team",
         "number"
       ],
-      "confusables": [
-        "eleven",
-        "eleven"
-      ],
+      "confusables": [],
       "example": "Eleven players in a team.",
       "memory_tip": "十一就是11"
     },
@@ -895,10 +838,7 @@
         "noon",
         "number"
       ],
-      "confusables": [
-        "twelve",
-        "twelve"
-      ],
+      "confusables": [],
       "example": "Twelve o'clock is lunchtime.",
       "memory_tip": "十二就是12"
     },
@@ -913,10 +853,7 @@
         "three",
         "number"
       ],
-      "confusables": [
-        "thirteen",
-        "thirteen"
-      ],
+      "confusables": [],
       "example": "I am thirteen years old.",
       "memory_tip": "十三就是13"
     },
@@ -931,10 +868,7 @@
         "four",
         "number"
       ],
-      "confusables": [
-        "fourteen",
-        "fourteen"
-      ],
+      "confusables": [],
       "example": "Fourteen days are two weeks.",
       "memory_tip": "十四就是14"
     },
@@ -949,10 +883,7 @@
         "five",
         "number"
       ],
-      "confusables": [
-        "fifteen",
-        "fifteen"
-      ],
+      "confusables": [],
       "example": "Fifteen minutes is a quarter.",
       "memory_tip": "十五就是15"
     },
@@ -967,10 +898,7 @@
         "six",
         "number"
       ],
-      "confusables": [
-        "sixteen",
-        "sixteen"
-      ],
+      "confusables": [],
       "example": "Sweet sixteen is a special age.",
       "memory_tip": "十六就是16"
     },
@@ -985,10 +913,7 @@
         "seven",
         "number"
       ],
-      "confusables": [
-        "seventeen",
-        "seventeen"
-      ],
+      "confusables": [],
       "example": "Seventeen is a prime number.",
       "memory_tip": "十七就是17"
     },
@@ -1003,10 +928,7 @@
         "eight",
         "number"
       ],
-      "confusables": [
-        "eighteen",
-        "eighteen"
-      ],
+      "confusables": [],
       "example": "You can vote at eighteen.",
       "memory_tip": "十八就是18"
     },
@@ -1021,10 +943,7 @@
         "nine",
         "number"
       ],
-      "confusables": [
-        "nineteen",
-        "nineteen"
-      ],
+      "confusables": [],
       "example": "Nineteen comes before twenty.",
       "memory_tip": "十九就是19"
     },
@@ -1039,10 +958,7 @@
         "two",
         "ten"
       ],
-      "confusables": [
-        "twenty",
-        "twenty"
-      ],
+      "confusables": [],
       "example": "Twenty students are in class.",
       "memory_tip": "二十就是20"
     },
@@ -1057,10 +973,7 @@
         "ten",
         "number"
       ],
-      "confusables": [
-        "thirty",
-        "thirty"
-      ],
+      "confusables": [],
       "example": "Thirty days has September.",
       "memory_tip": "三十就是30"
     },
@@ -1075,10 +988,7 @@
         "ten",
         "number"
       ],
-      "confusables": [
-        "forty",
-        "forty"
-      ],
+      "confusables": [],
       "example": "Ali Baba had forty thieves.",
       "memory_tip": "四十就是40"
     },
@@ -1094,7 +1004,6 @@
         "forty"
       ],
       "confusables": [
-        "fifty",
         "finally"
       ],
       "example": "I am fifty years old.",
@@ -2588,8 +2497,7 @@
         "shirt"
       ],
       "confusables": [
-        "skirt",
-        "T-shirt"
+        "skirt"
       ],
       "example": "I like my new T-shirt.",
       "memory_tip": "T恤很舒服"
@@ -3181,10 +3089,7 @@
         "month",
         "spring"
       ],
-      "confusables": [
-        "March",
-        "march"
-      ],
+      "confusables": [],
       "example": "March comes in spring.",
       "memory_tip": "三月春天到。"
     },
@@ -3200,7 +3105,6 @@
         "rain"
       ],
       "confusables": [
-        "April",
         "apple"
       ],
       "example": "April showers bring flowers.",
@@ -3218,7 +3122,6 @@
         "flower"
       ],
       "confusables": [
-        "may",
         "day"
       ],
       "example": "May is full of flowers.",
@@ -3254,8 +3157,7 @@
         "summer"
       ],
       "confusables": [
-        "jungle",
-        "July"
+        "jungle"
       ],
       "example": "July is hot.",
       "memory_tip": "七月暑假热"
@@ -3271,10 +3173,7 @@
         "September",
         "summer"
       ],
-      "confusables": [
-        "August",
-        "August"
-      ],
+      "confusables": [],
       "example": "August has no school.",
       "memory_tip": "八月暑假中"
     },
@@ -3290,7 +3189,6 @@
         "fall"
       ],
       "confusables": [
-        "September",
         "November"
       ],
       "example": "School starts in September.",
@@ -3308,7 +3206,6 @@
         "fall"
       ],
       "confusables": [
-        "October",
         "December"
       ],
       "example": "October has Halloween.",
@@ -3326,7 +3223,6 @@
         "fall"
       ],
       "confusables": [
-        "November",
         "September"
       ],
       "example": "November is cool.",
@@ -3344,7 +3240,6 @@
         "winter"
       ],
       "confusables": [
-        "December",
         "October"
       ],
       "example": "December has Christmas.",
@@ -3362,8 +3257,7 @@
         "fall"
       ],
       "confusables": [
-        "reason",
-        "season"
+        "reason"
       ],
       "example": "There are four seasons.",
       "memory_tip": "一年有四季"
@@ -3380,7 +3274,6 @@
         "green"
       ],
       "confusables": [
-        "spring",
         "bring"
       ],
       "example": "Spring is warm.",
@@ -3398,7 +3291,6 @@
         "hot"
       ],
       "confusables": [
-        "summer",
         "winter"
       ],
       "example": "Summer is sunny.",
@@ -3416,7 +3308,6 @@
         "autumn"
       ],
       "confusables": [
-        "fall",
         "fill"
       ],
       "example": "Don't fall down.",
@@ -3434,7 +3325,6 @@
         "cold"
       ],
       "confusables": [
-        "winter",
         "summer"
       ],
       "example": "Winter has snow.",
@@ -3452,7 +3342,6 @@
         "child"
       ],
       "confusables": [
-        "people",
         "apple"
       ],
       "example": "Many people are here.",
@@ -3470,7 +3359,6 @@
         "baby"
       ],
       "confusables": [
-        "boy",
         "toy"
       ],
       "example": "The boy plays ball.",
@@ -3488,7 +3376,6 @@
         "baby"
       ],
       "confusables": [
-        "girl",
         "bird"
       ],
       "example": "The girl has a doll.",
@@ -3506,7 +3393,6 @@
         "sick"
       ],
       "confusables": [
-        "doctor",
         "actor"
       ],
       "example": "The doctor helps me.",
@@ -3524,7 +3410,6 @@
         "good"
       ],
       "confusables": [
-        "friend",
         "find"
       ],
       "example": "She is my good friend.",
@@ -3542,7 +3427,6 @@
         "near"
       ],
       "confusables": [
-        "neighbor",
         "neighbour"
       ],
       "example": "My neighbor is kind.",
@@ -3560,7 +3444,6 @@
         "serve"
       ],
       "confusables": [
-        "waiter",
         "waitress"
       ],
       "example": "The waiter brings food.",
@@ -3578,7 +3461,6 @@
         "serve"
       ],
       "confusables": [
-        "waitress",
         "waiter"
       ],
       "example": "The waitress is nice.",
@@ -3596,7 +3478,6 @@
         "stage"
       ],
       "confusables": [
-        "actor",
         "actress"
       ],
       "example": "He is a good actor.",
@@ -3614,7 +3495,6 @@
         "stage"
       ],
       "confusables": [
-        "actress",
         "actor"
       ],
       "example": "She is a famous actress.",
@@ -3632,7 +3512,6 @@
         "mother"
       ],
       "confusables": [
-        "baby",
         "body"
       ],
       "example": "The baby is sleeping.",
@@ -3650,7 +3529,6 @@
         "play"
       ],
       "confusables": [
-        "child",
         "children"
       ],
       "example": "Every child likes games.",
@@ -3668,7 +3546,6 @@
         "adult"
       ],
       "confusables": [
-        "man",
         "men"
       ],
       "example": "The man drives a car.",
@@ -3686,7 +3563,6 @@
         "adult"
       ],
       "confusables": [
-        "woman",
         "women"
       ],
       "example": "The woman reads a book.",
@@ -3704,7 +3580,6 @@
         "music"
       ],
       "confusables": [
-        "singer",
         "finger"
       ],
       "example": "The singer sings well.",
@@ -3722,7 +3597,6 @@
         "draw"
       ],
       "confusables": [
-        "shape",
         "sharp"
       ],
       "example": "A circle is a shape.",
@@ -3740,7 +3614,6 @@
         "shape"
       ],
       "confusables": [
-        "circle",
         "circus"
       ],
       "example": "Draw a big circle.",
@@ -3758,7 +3631,6 @@
         "long"
       ],
       "confusables": [
-        "line",
         "lion"
       ],
       "example": "Draw a straight line.",
@@ -3776,7 +3648,6 @@
         "book"
       ],
       "confusables": [
-        "rectangle",
         "triangle"
       ],
       "example": "A door is a rectangle.",
@@ -4361,7 +4232,6 @@
         "fish"
       ],
       "confusables": [
-        "pond",
         "found"
       ],
       "example": "Ducks swim in the pond.",
@@ -4685,7 +4555,6 @@
         "buy"
       ],
       "confusables": [
-        "mall",
         "ball"
       ],
       "example": "The mall has many shops.",
@@ -4757,7 +4626,6 @@
         "open"
       ],
       "confusables": [
-        "umbrella",
         "um"
       ],
       "example": "I use an umbrella in the rain.",
@@ -6575,8 +6443,7 @@
         "book"
       ],
       "confusables": [
-        "ring",
-        "bring"
+        "ring"
       ],
       "example": "Bring your book.",
       "memory_tip": "带来书本"
@@ -6665,7 +6532,6 @@
         "fun"
       ],
       "confusables": [
-        "skate",
         "state"
       ],
       "example": "I can skate on ice.",
@@ -6737,8 +6603,7 @@
         "clean"
       ],
       "confusables": [
-        "wish",
-        "wash"
+        "wish"
       ],
       "example": "Wash your hands.",
       "memory_tip": "洗手洗脸"
@@ -6773,8 +6638,7 @@
         "hand"
       ],
       "confusables": [
-        "car",
-        "carry"
+        "car"
       ],
       "example": "Carry the bag, please.",
       "memory_tip": "搬运东西"
@@ -6791,7 +6655,6 @@
         "sky"
       ],
       "confusables": [
-        "fly",
         "fry"
       ],
       "example": "Birds can fly.",
@@ -6809,7 +6672,6 @@
         "book"
       ],
       "confusables": [
-        "forget",
         "forgot"
       ],
       "example": "Don't forget your book.",
@@ -6827,7 +6689,6 @@
         "down"
       ],
       "confusables": [
-        "lie",
         "lid"
       ],
       "example": "I lie on the bed.",
@@ -6845,7 +6706,6 @@
         "summer"
       ],
       "confusables": [
-        "swim",
         "swam"
       ],
       "example": "I can swim fast.",
@@ -6863,7 +6723,6 @@
         "name"
       ],
       "confusables": [
-        "remember",
         "november"
       ],
       "example": "Remember your homework.",
@@ -6881,8 +6740,7 @@
         "friend"
       ],
       "confusables": [
-        "tall",
-        "tell"
+        "tall"
       ],
       "example": "Tell me a story.",
       "memory_tip": "告诉故事"
@@ -6899,7 +6757,6 @@
         "bed"
       ],
       "confusables": [
-        "wake",
         "cake"
       ],
       "example": "I wake up early.",
@@ -6917,7 +6774,6 @@
         "tidy"
       ],
       "confusables": [
-        "clean",
         "clear"
       ],
       "example": "Clean your room.",
@@ -6935,7 +6791,6 @@
         "class"
       ],
       "confusables": [
-        "teach",
         "reach"
       ],
       "example": "My mom teaches me.",
@@ -7025,7 +6880,6 @@
         "table"
       ],
       "confusables": [
-        "under",
         "wonder"
       ],
       "example": "The ball is under.",
@@ -7187,7 +7041,6 @@
         "polar"
       ],
       "confusables": [
-        "north",
         "mouth"
       ],
       "example": "It is cold north.",
@@ -7403,7 +7256,6 @@
         "cat"
       ],
       "confusables": [
-        "tail",
         "tall"
       ],
       "example": "The dog wags its tail.",
@@ -7439,7 +7291,6 @@
         "big cat"
       ],
       "confusables": [
-        "tiger",
         "tigger"
       ],
       "example": "The tiger has stripes.",
@@ -7559,8 +7410,7 @@
         "black and white"
       ],
       "confusables": [
-        "pants",
-        "panda"
+        "pants"
       ],
       "example": "The panda eats bamboo.",
       "memory_tip": "熊猫吃竹子"
@@ -7577,8 +7427,7 @@
         "Africa"
       ],
       "confusables": [
-        "zero",
-        "zebra"
+        "zero"
       ],
       "example": "A zebra has black stripes.",
       "memory_tip": "斑马有黑白纹"
@@ -7595,8 +7444,7 @@
         "big"
       ],
       "confusables": [
-        "wagon",
-        "dragon"
+        "wagon"
       ],
       "example": "The dragon is in a story.",
       "memory_tip": "龙是故事里的"
@@ -7631,8 +7479,7 @@
         "road"
       ],
       "confusables": [
-        "track",
-        "truck"
+        "track"
       ],
       "example": "A truck carries many things.",
       "memory_tip": "大卡车运东西"
@@ -7649,8 +7496,7 @@
         "big"
       ],
       "confusables": [
-        "but",
-        "bus"
+        "but"
       ],
       "example": "We go to school by bus.",
       "memory_tip": "我们坐公交上学"
@@ -7667,8 +7513,7 @@
         "yellow"
       ],
       "confusables": [
-        "tax",
-        "taxi"
+        "tax"
       ],
       "example": "We take a taxi home.",
       "memory_tip": "我们打车回家"
@@ -7700,8 +7545,7 @@
         "fast"
       ],
       "confusables": [
-        "rain",
-        "train"
+        "rain"
       ],
       "example": "The train goes on rails.",
       "memory_tip": "火车在铁轨上"
@@ -7718,8 +7562,7 @@
         "water"
       ],
       "confusables": [
-        "sheep",
-        "ship"
+        "sheep"
       ],
       "example": "A ship sails on the sea.",
       "memory_tip": "轮船在海上"
@@ -7736,8 +7579,7 @@
         "sound"
       ],
       "confusables": [
-        "ball",
-        "bell"
+        "ball"
       ],
       "example": "The school bell rings.",
       "memory_tip": "学校的铃铛响"
@@ -7814,8 +7656,7 @@
         "court"
       ],
       "confusables": [
-        "ten",
-        "tennis"
+        "ten"
       ],
       "example": "She plays tennis well.",
       "memory_tip": "她网球打得好"
@@ -7847,8 +7688,7 @@
         "summer"
       ],
       "confusables": [
-        "swim",
-        "swimming"
+        "swim"
       ],
       "example": "I like swimming in summer.",
       "memory_tip": "我喜欢夏天游泳"
@@ -7865,8 +7705,7 @@
         "field"
       ],
       "confusables": [
-        "run",
-        "running"
+        "run"
       ],
       "example": "Running is good for you.",
       "memory_tip": "跑步对你有益"
@@ -7883,8 +7722,7 @@
         "sport"
       ],
       "confusables": [
-        "bell",
-        "ball"
+        "bell"
       ],
       "example": "The ball is round.",
       "memory_tip": "球是圆的"
@@ -7901,8 +7739,7 @@
         "fun"
       ],
       "confusables": [
-        "spot",
-        "sport"
+        "spot"
       ],
       "example": "Football is a sport.",
       "memory_tip": "足球是一项运动"
@@ -7919,8 +7756,7 @@
         "eat"
       ],
       "confusables": [
-        "April",
-        "apple"
+        "April"
       ],
       "example": "An apple a day is good.",
       "memory_tip": "一天一苹果"
@@ -9195,7 +9031,6 @@
         "salad"
       ],
       "confusables": [
-        "cucumber",
         "cumber"
       ],
       "example": "Cucumber is cool.",
@@ -9249,7 +9084,6 @@
         "strong"
       ],
       "confusables": [
-        "garlic",
         "garlicky"
       ],
       "example": "Garlic tastes strong.",
@@ -9267,8 +9101,7 @@
         "green"
       ],
       "confusables": [
-        "paper",
-        "pepper"
+        "paper"
       ],
       "example": "This pepper is hot.",
       "memory_tip": "辣椒红又辣"
@@ -9303,7 +9136,6 @@
         "bowl"
       ],
       "confusables": [
-        "salad",
         "sad"
       ],
       "example": "Salad is fresh and good.",
@@ -9321,8 +9153,7 @@
         "lunch"
       ],
       "confusables": [
-        "sand",
-        "sandwich"
+        "sand"
       ],
       "example": "I like cheese sandwich.",
       "memory_tip": "三明治夹心"
@@ -9375,8 +9206,7 @@
         "happy"
       ],
       "confusables": [
-        "candle",
-        "candy"
+        "candle"
       ],
       "example": "Children like candy.",
       "memory_tip": "糖果甜滋滋"
@@ -9429,7 +9259,6 @@
         "sandwich"
       ],
       "confusables": [
-        "cheese",
         "choose"
       ],
       "example": "Mice like cheese.",
@@ -9447,7 +9276,6 @@
         "cold"
       ],
       "confusables": [
-        "yogurt",
         "yoghurt"
       ],
       "example": "Yogurt is good for you.",
@@ -9483,7 +9311,6 @@
         "fruit"
       ],
       "confusables": [
-        "mango",
         "mangoes"
       ],
       "example": "Mango is a sweet fruit.",
@@ -9501,7 +9328,6 @@
         "sweet"
       ],
       "confusables": [
-        "cherry",
         "cherries"
       ],
       "example": "Cherries are red and sweet.",
@@ -9519,8 +9345,7 @@
         "summer"
       ],
       "confusables": [
-        "lemon",
-        "melon"
+        "lemon"
       ],
       "example": "Melon is sweet and juicy.",
       "memory_tip": "哈密瓜多汁"
@@ -9537,7 +9362,6 @@
         "beach"
       ],
       "confusables": [
-        "coconut",
         "cocoa"
       ],
       "example": "Coconut grows on beach.",
@@ -10591,8 +10415,7 @@
         "skeleton"
       ],
       "confusables": [
-        "one",
-        "bone"
+        "one"
       ],
       "example": "Our body has many bones.",
       "memory_tip": "骨头撑身体"
@@ -10717,8 +10540,7 @@
         "red"
       ],
       "confusables": [
-        "car",
-        "carpet"
+        "car"
       ],
       "example": "The carpet is soft.",
       "memory_tip": "地毯铺在地板上"
@@ -10753,7 +10575,6 @@
         "head"
       ],
       "confusables": [
-        "pillow",
         "willow"
       ],
       "example": "My pillow is soft.",
@@ -10789,7 +10610,6 @@
         "home"
       ],
       "confusables": [
-        "mirror",
         "error"
       ],
       "example": "Look in the mirror.",
@@ -10879,7 +10699,6 @@
         "glass"
       ],
       "confusables": [
-        "bottle",
         "battle"
       ],
       "example": "Drink water from a bottle.",
@@ -10969,7 +10788,6 @@
         "knife"
       ],
       "confusables": [
-        "fork",
         "pork"
       ],
       "example": "Use a fork to eat.",
@@ -10987,7 +10805,6 @@
         "fork"
       ],
       "confusables": [
-        "knife",
         "wife"
       ],
       "example": "The knife is sharp.",
@@ -11005,7 +10822,6 @@
         "bowl"
       ],
       "confusables": [
-        "spoon",
         "soon"
       ],
       "example": "Eat soup with a spoon.",
@@ -11023,7 +10839,6 @@
         "hot"
       ],
       "confusables": [
-        "pot",
         "dot"
       ],
       "example": "Cook soup in the pot.",
@@ -11041,7 +10856,6 @@
         "hot"
       ],
       "confusables": [
-        "pan",
         "pen"
       ],
       "example": "Fry an egg in the pan.",
@@ -11077,7 +10891,6 @@
         "hot"
       ],
       "confusables": [
-        "jungle",
         "jingle"
       ],
       "example": "Monkeys live in the jungle.",
@@ -11095,7 +10908,6 @@
         "dry"
       ],
       "confusables": [
-        "desert",
         "dessert"
       ],
       "example": "The desert is very hot.",
@@ -11113,7 +10925,6 @@
         "small"
       ],
       "confusables": [
-        "island",
         "inland"
       ],
       "example": "The island is in the sea.",
@@ -11131,7 +10942,6 @@
         "green"
       ],
       "confusables": [
-        "valley",
         "value"
       ],
       "example": "The valley is between mountains.",
@@ -11149,7 +10959,6 @@
         "high"
       ],
       "confusables": [
-        "waterfall",
         "waiter"
       ],
       "example": "The waterfall is beautiful.",
@@ -11977,7 +11786,6 @@
         "fire"
       ],
       "confusables": [
-        "brave",
         "grave"
       ],
       "example": "The firefighter is brave.",
@@ -12049,8 +11857,7 @@
         "smile"
       ],
       "confusables": [
-        "police",
-        "polite"
+        "police"
       ],
       "example": "Say please to be polite.",
       "memory_tip": "礼貌就是讲客气。"
@@ -13380,10 +13187,7 @@
         "skin",
         "ice"
       ],
-      "confusables": [
-        "smooth",
-        "smooth"
-      ],
+      "confusables": [],
       "example": "The stone is smooth.",
       "memory_tip": "石头滑，摸起来。"
     },
@@ -13452,10 +13256,7 @@
         "light",
         "star"
       ],
-      "confusables": [
-        "bright",
-        "bright"
-      ],
+      "confusables": [],
       "example": "The sun is bright.",
       "memory_tip": "太阳亮，照四方。"
     },
@@ -13488,10 +13289,7 @@
         "building",
         "tree"
       ],
-      "confusables": [
-        "high",
-        "high"
-      ],
+      "confusables": [],
       "example": "The mountain is high.",
       "memory_tip": "山很高，难爬顶。"
     },
@@ -13525,8 +13323,7 @@
         "thing"
       ],
       "confusables": [
-        "strong",
-        "strange"
+        "strong"
       ],
       "example": "The sound is strange.",
       "memory_tip": "声音怪，仔细听。"
@@ -13543,8 +13340,7 @@
         "number"
       ],
       "confusables": [
-        "luck",
-        "lucky"
+        "luck"
       ],
       "example": "He is a lucky boy.",
       "memory_tip": "男孩幸运，捡到钱。"
@@ -13560,10 +13356,7 @@
         "game",
         "teacher"
       ],
-      "confusables": [
-        "popular",
-        "popular"
-      ],
+      "confusables": [],
       "example": "The song is popular.",
       "memory_tip": "歌流行，人人唱。"
     },
@@ -13578,10 +13371,7 @@
         "day",
         "book"
       ],
-      "confusables": [
-        "important",
-        "important"
-      ],
+      "confusables": [],
       "example": "This test is important.",
       "memory_tip": "考试重要，要复习。"
     },
@@ -13596,10 +13386,7 @@
         "movie",
         "game"
       ],
-      "confusables": [
-        "interesting",
-        "interesting"
-      ],
+      "confusables": [],
       "example": "The book is interesting.",
       "memory_tip": "书有趣，爱阅读。"
     },
@@ -13614,10 +13401,7 @@
         "book",
         "app"
       ],
-      "confusables": [
-        "useful",
-        "useful"
-      ],
+      "confusables": [],
       "example": "This tool is useful.",
       "memory_tip": "工具有用，帮大忙。"
     },
@@ -13650,10 +13434,7 @@
         "animal",
         "fire"
       ],
-      "confusables": [
-        "dangerous",
-        "dangerous"
-      ],
+      "confusables": [],
       "example": "Fire is dangerous.",
       "memory_tip": "火危险，要远离。"
     },
@@ -13668,10 +13449,7 @@
         "app",
         "video"
       ],
-      "confusables": [
-        "internet",
-        "internet"
-      ],
+      "confusables": [],
       "example": "We use the internet.",
       "memory_tip": "互联网，连世界。"
     },
@@ -13686,10 +13464,7 @@
         "computer",
         "screen"
       ],
-      "confusables": [
-        "website",
-        "website"
-      ],
+      "confusables": [],
       "example": "I visit a website.",
       "memory_tip": "网站多，信息广。"
     },
@@ -13704,10 +13479,7 @@
         "type",
         "letter"
       ],
-      "confusables": [
-        "keyboard",
-        "keyboard"
-      ],
+      "confusables": [],
       "example": "I type on the keyboard.",
       "memory_tip": "键盘打字，嗒嗒响。"
     },
@@ -13759,8 +13531,7 @@
         "app"
       ],
       "confusables": [
-        "table",
-        "tablet"
+        "table"
       ],
       "example": "I have a tablet.",
       "memory_tip": "平板电脑，随身带。"
@@ -13776,10 +13547,7 @@
         "screen",
         "internet"
       ],
-      "confusables": [
-        "video",
-        "video"
-      ],
+      "confusables": [],
       "example": "I watch a video.",
       "memory_tip": "视频有趣，我喜欢。"
     },
@@ -13794,10 +13562,7 @@
         "take",
         "family"
       ],
-      "confusables": [
-        "photo",
-        "photo"
-      ],
+      "confusables": [],
       "example": "I take a photo.",
       "memory_tip": "照片记录，美好时。"
     },
@@ -14779,8 +14544,7 @@
         "cave"
       ],
       "confusables": [
-        "towel",
-        "tunnel"
+        "towel"
       ],
       "example": "The train goes through a tunnel.",
       "memory_tip": "隧道火车穿。"
@@ -14797,8 +14561,7 @@
         "road"
       ],
       "confusables": [
-        "terrific",
-        "traffic"
+        "terrific"
       ],
       "example": "The traffic is busy.",
       "memory_tip": "交通路上忙。"
@@ -14833,8 +14596,7 @@
         "train"
       ],
       "confusables": [
-        "passage",
-        "passenger"
+        "passage"
       ],
       "example": "She is a passenger.",
       "memory_tip": "乘客坐车里。"
@@ -14850,10 +14612,7 @@
         "airport",
         "fly"
       ],
-      "confusables": [
-        "pilot",
-        "pilot"
-      ],
+      "confusables": [],
       "example": "The pilot flies the plane.",
       "memory_tip": "飞行员开飞机。"
     },
@@ -14868,10 +14627,7 @@
         "team",
         "ball"
       ],
-      "confusables": [
-        "captain",
-        "captain"
-      ],
+      "confusables": [],
       "example": "He is the captain.",
       "memory_tip": "船长或队长。"
     },
@@ -14886,10 +14642,7 @@
         "underground",
         "city"
       ],
-      "confusables": [
-        "subway",
-        "subway"
-      ],
+      "confusables": [],
       "example": "I take the subway.",
       "memory_tip": "地铁地下跑。"
     },
@@ -14904,10 +14657,7 @@
         "fly",
         "airport"
       ],
-      "confusables": [
-        "helicopter",
-        "helicopter"
-      ],
+      "confusables": [],
       "example": "The helicopter flies high.",
       "memory_tip": "直升机天上飞。"
     },
@@ -14923,7 +14673,6 @@
         "moon"
       ],
       "confusables": [
-        "rocket",
         "pocket"
       ],
       "example": "The rocket goes to space.",
@@ -14940,10 +14689,7 @@
         "help",
         "city"
       ],
-      "confusables": [
-        "police",
-        "police"
-      ],
+      "confusables": [],
       "example": "The police help us.",
       "memory_tip": "警察保平安。"
     },
@@ -14958,10 +14704,7 @@
         "help",
         "truck"
       ],
-      "confusables": [
-        "firefighter",
-        "firefighter"
-      ],
+      "confusables": [],
       "example": "The firefighter puts out fire.",
       "memory_tip": "消防员灭火。"
     },
@@ -14977,7 +14720,6 @@
         "corn"
       ],
       "confusables": [
-        "farmer",
         "warmer"
       ],
       "example": "The farmer grows food.",
@@ -14994,10 +14736,7 @@
         "study",
         "discover"
       ],
-      "confusables": [
-        "scientist",
-        "scientist"
-      ],
+      "confusables": [],
       "example": "The scientist does experiments.",
       "memory_tip": "科学家做实验。"
     },
@@ -15012,10 +14751,7 @@
         "machine",
         "bridge"
       ],
-      "confusables": [
-        "engineer",
-        "engineer"
-      ],
+      "confusables": [],
       "example": "The engineer builds things.",
       "memory_tip": "工程师建造。"
     },
@@ -15030,10 +14766,7 @@
         "paint",
         "draw"
       ],
-      "confusables": [
-        "artist",
-        "artist"
-      ],
+      "confusables": [],
       "example": "The artist paints a picture.",
       "memory_tip": "艺术家画画。"
     },
@@ -15049,7 +14782,6 @@
         "story"
       ],
       "confusables": [
-        "writer",
         "rider"
       ],
       "example": "The writer writes a book.",
@@ -15067,7 +14799,6 @@
         "cake"
       ],
       "confusables": [
-        "baker",
         "maker"
       ],
       "example": "The baker makes bread.",
@@ -15084,10 +14815,7 @@
         "library",
         "read"
       ],
-      "confusables": [
-        "librarian",
-        "librarian"
-      ],
+      "confusables": [],
       "example": "The librarian helps us.",
       "memory_tip": "图书管理员管书。"
     },
@@ -15102,10 +14830,7 @@
         "TV",
         "write"
       ],
-      "confusables": [
-        "reporter",
-        "reporter"
-      ],
+      "confusables": [],
       "example": "The reporter tells news.",
       "memory_tip": "记者报新闻。"
     },
@@ -15120,10 +14845,7 @@
         "happy",
         "celebrate"
       ],
-      "confusables": [
-        "festival",
-        "festival"
-      ],
+      "confusables": [],
       "example": "We enjoy the festival.",
       "memory_tip": "节日大家乐。"
     },
@@ -15138,10 +14860,7 @@
         "candy",
         "costume"
       ],
-      "confusables": [
-        "Halloween",
-        "Halloween"
-      ],
+      "confusables": [],
       "example": "Halloween is in October.",
       "memory_tip": "万圣节要糖。"
     },
@@ -15157,7 +14876,6 @@
         "bunny"
       ],
       "confusables": [
-        "Easter",
         "east"
       ],
       "example": "Easter eggs are fun.",
@@ -15174,10 +14892,7 @@
         "turkey",
         "family"
       ],
-      "confusables": [
-        "Thanksgiving",
-        "Thanksgiving"
-      ],
+      "confusables": [],
       "example": "Thanksgiving is in November.",
       "memory_tip": "感恩节吃火鸡。"
     },
@@ -15192,10 +14907,7 @@
         "celebrate",
         "happy"
       ],
-      "confusables": [
-        "New Year",
-        "new year"
-      ],
+      "confusables": [],
       "example": "Happy New Year!",
       "memory_tip": "新年新开始。"
     },
@@ -15211,7 +14923,6 @@
         "culture"
       ],
       "confusables": [
-        "tradition",
         "addition"
       ],
       "example": "It is our tradition.",
@@ -15229,7 +14940,6 @@
         "tradition"
       ],
       "confusables": [
-        "culture",
         "agriculture"
       ],
       "example": "We learn about culture.",
@@ -15247,7 +14957,6 @@
         "pole"
       ],
       "confusables": [
-        "flag",
         "flat"
       ],
       "example": "The flag is flying.",
@@ -15607,8 +15316,7 @@
         "globe"
       ],
       "confusables": [
-        "spear",
-        "sphere"
+        "spear"
       ],
       "example": "The Earth is a sphere.",
       "memory_tip": "球体就是圆球"
@@ -15625,8 +15333,7 @@
         "round"
       ],
       "confusables": [
-        "calendar",
-        "cylinder"
+        "calendar"
       ],
       "example": "A can is a cylinder.",
       "memory_tip": "圆柱像罐头"
@@ -15642,10 +15349,7 @@
         "key",
         "play"
       ],
-      "confusables": [
-        "piano",
-        "piano"
-      ],
+      "confusables": [],
       "example": "She plays the piano.",
       "memory_tip": "钢琴黑白键"
     },
@@ -15660,10 +15364,7 @@
         "string",
         "sing"
       ],
-      "confusables": [
-        "guitar",
-        "guitar"
-      ],
+      "confusables": [],
       "example": "He plays the guitar.",
       "memory_tip": "吉他有六弦"
     },
@@ -15678,10 +15379,7 @@
         "beat",
         "loud"
       ],
-      "confusables": [
-        "drum",
-        "drum"
-      ],
+      "confusables": [],
       "example": "The drum is loud.",
       "memory_tip": "鼓声咚咚响"
     },
@@ -15696,10 +15394,7 @@
         "blow",
         "pipe"
       ],
-      "confusables": [
-        "flute",
-        "flute"
-      ],
+      "confusables": [],
       "example": "She plays the flute.",
       "memory_tip": "长笛吹着响"
     },
@@ -15714,10 +15409,7 @@
         "brass",
         "loud"
       ],
-      "confusables": [
-        "trumpet",
-        "trumpet"
-      ],
+      "confusables": [],
       "example": "The trumpet sounds loud.",
       "memory_tip": "小号声音亮"
     },
@@ -15732,10 +15424,7 @@
         "move",
         "happy"
       ],
-      "confusables": [
-        "dance",
-        "dance"
-      ],
+      "confusables": [],
       "example": "We dance to music.",
       "memory_tip": "舞蹈随乐动"
     },
@@ -15751,7 +15440,6 @@
         "voice"
       ],
       "confusables": [
-        "sing",
         "son"
       ],
       "example": "I like to sing.",
@@ -15769,7 +15457,6 @@
         "brush"
       ],
       "confusables": [
-        "paint",
         "point"
       ],
       "example": "I paint a picture.",
@@ -15877,8 +15564,7 @@
         "winter"
       ],
       "confusables": [
-        "boat",
-        "coat"
+        "boat"
       ],
       "example": "Put on your coat, please.",
       "memory_tip": "外套coat天冷穿"
@@ -15895,7 +15581,6 @@
         "sun"
       ],
       "confusables": [
-        "hat",
         "hot"
       ],
       "example": "The hat is too big.",
@@ -15913,7 +15598,6 @@
         "cold"
       ],
       "confusables": [
-        "glove",
         "love"
       ],
       "example": "I lost one glove.",
@@ -15931,7 +15615,6 @@
         "wear"
       ],
       "confusables": [
-        "shoe",
         "shy"
       ],
       "example": "Tie your shoes, please.",
@@ -15949,7 +15632,6 @@
         "desk"
       ],
       "confusables": [
-        "table",
         "vegetable"
       ],
       "example": "The book is on the table.",
@@ -15967,7 +15649,6 @@
         "watch"
       ],
       "confusables": [
-        "clock",
         "chicken"
       ],
       "example": "What time is it on the clock?",
@@ -15985,7 +15666,6 @@
         "eat"
       ],
       "confusables": [
-        "fridge",
         "bridge"
       ],
       "example": "The juice is in the fridge.",
@@ -16003,7 +15683,6 @@
         "summer"
       ],
       "confusables": [
-        "fan",
         "fun"
       ],
       "example": "Turn on the fan, please.",
@@ -16021,7 +15700,6 @@
         "wall"
       ],
       "confusables": [
-        "floor",
         "doctor"
       ],
       "example": "The ball is on the floor.",
@@ -16039,7 +15717,6 @@
         "open"
       ],
       "confusables": [
-        "key",
         "knee"
       ],
       "example": "I lost my key.",
@@ -16057,7 +15734,6 @@
         "bag"
       ],
       "confusables": [
-        "schoolbag",
         "school bus"
       ],
       "example": "My schoolbag is heavy.",
@@ -16074,10 +15750,7 @@
         "colour",
         "art"
       ],
-      "confusables": [
-        "crayon",
-        "crayon"
-      ],
+      "confusables": [],
       "example": "I like drawing with crayons.",
       "memory_tip": "蜡笔crayon画画用"
     },
@@ -16093,7 +15766,6 @@
         "grass"
       ],
       "confusables": [
-        "garden",
         "garlic"
       ],
       "example": "There are many flowers in the garden.",
@@ -16111,7 +15783,6 @@
         "walk"
       ],
       "confusables": [
-        "hill",
         "village"
       ],
       "example": "The house is on the hill.",
@@ -16129,7 +15800,6 @@
         "fish"
       ],
       "confusables": [
-        "sea",
         "see"
       ],
       "example": "I love swimming in the sea.",
@@ -16147,7 +15817,6 @@
         "dark"
       ],
       "confusables": [
-        "shadow",
         "share"
       ],
       "example": "My shadow is long in the evening.",
@@ -16165,7 +15834,6 @@
         "farm"
       ],
       "confusables": [
-        "hen",
         "pen"
       ],
       "example": "The hen has five eggs.",
@@ -16183,7 +15851,6 @@
         "bone"
       ],
       "confusables": [
-        "dinosaur",
         "doctor"
       ],
       "example": "Dinosaurs lived long ago.",
@@ -16201,7 +15868,6 @@
         "cat"
       ],
       "confusables": [
-        "cheetah",
         "china"
       ],
       "example": "The cheetah is the fastest animal.",
@@ -16219,7 +15885,6 @@
         "class"
       ],
       "confusables": [
-        "pupil",
         "people"
       ],
       "example": "There are 40 pupils in our class.",
@@ -16237,7 +15902,6 @@
         "busy"
       ],
       "confusables": [
-        "worker",
         "waiter"
       ],
       "example": "My father is a worker.",
@@ -16255,7 +15919,6 @@
         "shop"
       ],
       "confusables": [
-        "bookstore",
         "cook"
       ],
       "example": "I want to go to the bookstore.",
@@ -16272,10 +15935,7 @@
         "tall",
         "build"
       ],
-      "confusables": [
-        "building",
-        "building"
-      ],
+      "confusables": [],
       "example": "That is a tall building.",
       "memory_tip": "建筑物building是build出来的"
     },
@@ -16291,7 +15951,6 @@
         "fly"
       ],
       "confusables": [
-        "spaceship",
         "ship"
       ],
       "example": "The spaceship flies to the moon.",
@@ -16309,7 +15968,6 @@
         "dish"
       ],
       "confusables": [
-        "chopsticks",
         "chocolate"
       ],
       "example": "I can use chopsticks.",
@@ -16327,7 +15985,6 @@
         "earth"
       ],
       "confusables": [
-        "nature",
         "culture"
       ],
       "example": "I love nature.",
@@ -16345,7 +16002,6 @@
         "enjoy"
       ],
       "confusables": [
-        "hobby",
         "happy"
       ],
       "example": "What is your hobby?",
@@ -16363,7 +16019,6 @@
         "love"
       ],
       "confusables": [
-        "mom",
         "map"
       ],
       "example": "Mom, I am hungry.",
@@ -16381,7 +16036,6 @@
         "good"
       ],
       "confusables": [
-        "cool",
         "old"
       ],
       "example": "It is cool in the evening.",
@@ -16399,7 +16053,6 @@
         "eat"
       ],
       "confusables": [
-        "fat",
         "cat"
       ],
       "example": "The cat is very fat.",
@@ -16417,7 +16070,6 @@
         "vegetable"
       ],
       "confusables": [
-        "fresh",
         "free"
       ],
       "example": "The fruit is fresh.",
@@ -16435,7 +16087,6 @@
         "nice"
       ],
       "confusables": [
-        "friendly",
         "fly"
       ],
       "example": "She is very friendly.",
@@ -16453,7 +16104,6 @@
         "kind"
       ],
       "confusables": [
-        "helpful",
         "hello"
       ],
       "example": "He is very helpful.",
@@ -16471,7 +16121,6 @@
         "flower"
       ],
       "confusables": [
-        "pretty",
         "price"
       ],
       "example": "The dress is pretty.",
@@ -16488,7 +16137,6 @@
         "serious"
       ],
       "confusables": [
-        "strict",
         "street"
       ],
       "example": "Our teacher is strict.",
@@ -16506,7 +16154,6 @@
         "fruit"
       ],
       "confusables": [
-        "sweet",
         "swim"
       ],
       "example": "The cake is sweet.",
@@ -16524,7 +16171,6 @@
         "big"
       ],
       "confusables": [
-        "become",
         "come"
       ],
       "example": "I want to become a teacher.",
@@ -16542,7 +16188,6 @@
         "read"
       ],
       "confusables": [
-        "can",
         "cap"
       ],
       "example": "I can swim.",
@@ -16560,7 +16205,6 @@
         "wish"
       ],
       "confusables": [
-        "dream",
         "ice cream"
       ],
       "example": "I have a dream.",
@@ -16578,7 +16222,6 @@
         "nature"
       ],
       "confusables": [
-        "hike",
         "bike"
       ],
       "example": "Let's go hiking this weekend.",
@@ -16596,7 +16239,6 @@
         "sit"
       ],
       "confusables": [
-        "stay",
         "say"
       ],
       "example": "Stay at home, please.",
@@ -16614,7 +16256,6 @@
         "star"
       ],
       "confusables": [
-        "shine",
         "shy"
       ],
       "example": "The sun shines bright.",
