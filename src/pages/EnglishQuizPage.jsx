@@ -515,9 +515,80 @@ function SimpleWritingInput({ q, onSubmit, englishTag, passage }) {
 function detectMode(q) {
   if (q.type === 'open_ended') return 'writing'
   if (isMultiPartAnswer(q)) return 'multi_sub'
+  if (q.type === 'true_false') return 'true_false'
+  // 图片听力题：题干含"图片"但选项是图片描述文字，当作选择处理
   if (Array.isArray(q.options) && q.options.length >= 2) return 'choice'
   if (q.type === 'fill_blank' && (q.answer || '').length < 40) return 'text_fill'
   return 'writing'
+}
+
+// ─── 判断题（T/F）组件 ──────────────────────────────────────────────────────
+function TrueFalseQuestion({ q, onSubmit }) {
+  const [submitted, setSubmitted] = useState(false)
+  const [selected, setSelected] = useState(null)
+  const correctAnswer = (q.answer || '').trim().toUpperCase() // A/B or T/F
+  // 将 A/B 映射为 T/F
+  const correctTF = correctAnswer === 'A' || correctAnswer === 'T' ? 'T' : 'F'
+
+  function handleTF(val) {
+    if (submitted) return
+    const isCorrect = val === correctTF
+    setSelected(val)
+    setIsCorrect(isCorrect)
+    setSubmitted(true)
+  }
+  const [isCorrect, setIsCorrect] = useState(false)
+
+  return (
+    <div className="flex flex-col gap-4">
+      {/* 题目 */}
+      <div className="bg-white rounded-2xl p-4 shadow-sm">
+        <div className="flex items-center gap-2 mb-3">
+          <span className="text-xs font-semibold px-2 py-0.5 rounded-full"
+            style={{ background: '#fff7ed', color: '#c2410c' }}>判断题</span>
+          <button onClick={() => speakEnglish(q.question)}
+            className="ml-auto w-7 h-7 flex items-center justify-center bg-sky-100 text-sky-500 rounded-full text-sm">🔊</button>
+        </div>
+        <p className="text-gray-800 text-sm leading-relaxed whitespace-pre-wrap">{q.question}</p>
+      </div>
+
+      {/* T/F 按钮 */}
+      {!submitted && (
+        <div className="grid grid-cols-2 gap-3">
+          <button onClick={() => handleTF('T')}
+            className="py-4 rounded-2xl border-2 border-green-200 bg-white font-bold text-base text-green-700 active:scale-95 transition-all">
+            ✅ T 正确
+          </button>
+          <button onClick={() => handleTF('F')}
+            className="py-4 rounded-2xl border-2 border-red-200 bg-white font-bold text-base text-red-600 active:scale-95 transition-all">
+            ❌ F 错误
+          </button>
+        </div>
+      )}
+
+      {/* 反馈 */}
+      {submitted && (
+        <div className={`rounded-2xl p-4 border ${isCorrect ? 'bg-green-50 border-green-200' : 'bg-red-50 border-red-200'}`}>
+          <div className={`font-bold text-base mb-2 ${isCorrect ? 'text-green-700' : 'text-red-600'}`}>
+            {isCorrect ? '✅ 回答正确！' : `❌ 正确答案：${correctTF === 'T' ? 'T 正确' : 'F 错误'}`}
+          </div>
+          {q.analysis && (
+            <div className="mt-2 pt-2 border-t border-gray-200">
+              <div className="text-xs font-semibold text-gray-500 mb-1">💡 解析</div>
+              <div className="text-xs text-gray-600 leading-relaxed whitespace-pre-wrap">{q.analysis}</div>
+            </div>
+          )}
+        </div>
+      )}
+
+      {submitted && (
+        <button onClick={() => onSubmit(selected, isCorrect)}
+          className="w-full py-3 rounded-2xl bg-gradient-to-r from-sky-400 to-blue-500 text-white font-bold active:scale-95 shadow-md">
+          继续下一题 →
+        </button>
+      )}
+    </div>
+  )
 }
 
 function isChoiceCorrect(selected, q) {
@@ -532,11 +603,12 @@ function isChoiceCorrect(selected, q) {
 
 // ─── 英语题目通用组件 ──────────────────────────────────────────────────────
 
-const TYPE_LABEL = { multiple_choice: '选择题', fill_blank: '填空题', open_ended: '写作题' }
+const TYPE_LABEL = { multiple_choice: '选择题', fill_blank: '填空题', open_ended: '写作题', true_false: '判断题' }
 const TYPE_COLOR = {
   multiple_choice: { bg: '#e0f2fe', text: '#0369a1' },
   fill_blank:      { bg: '#f0fdf4', text: '#15803d' },
   open_ended:      { bg: '#fdf4ff', text: '#7e22ce' },
+  true_false:      { bg: '#fff7ed', text: '#c2410c' },
 }
 
 function EnglishQuestion({ question: q, onSubmit, englishTag }) {
@@ -546,6 +618,11 @@ function EnglishQuestion({ question: q, onSubmit, englishTag }) {
   if (mode === 'multi_sub') return <MultiSubQuiz question={q} onSubmit={onSubmit} englishTag={englishTag} />
   // 写作 → 独立组件
   if (mode === 'writing') return <SimpleWritingInput q={q} onSubmit={onSubmit} englishTag={englishTag} />
+
+  // ── 判断题（T/F）──
+  if (mode === 'true_false') {
+    return <TrueFalseQuestion q={q} onSubmit={onSubmit} />
+  }
 
   // ── 选择题 / 填空题 ──
   const [selected, setSelected] = useState(null)
@@ -600,7 +677,7 @@ function EnglishQuestion({ question: q, onSubmit, englishTag }) {
               <button key={i} onClick={() => handleSelect(opt)} disabled={submitted}
                 className={`rounded-2xl border-2 px-4 py-3 text-sm font-medium text-left transition-all active:scale-95 ${cls}`}>
                 <span className="mr-2 text-xs font-bold opacity-40">{['A','B','C','D'][i]}.</span>
-                {opt.replace(/^[A-D]\.\s*/i, '').replace(/^T$/, '正确').replace(/^F$/, '错误').replace(/的图片描述$/, '')}
+                {opt.replace(/^[A-D]\.\s*/i, '').replace(/的图片描述$/, '')}
               </button>
             )
           })}
