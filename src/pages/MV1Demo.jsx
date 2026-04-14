@@ -89,43 +89,63 @@ function FriendsPanel({ state, userId, onStateChange }) {
     if (fid === userId) { setAddStatus('不能添加自己'); return; }
     if (friends.includes(fid)) { setAddStatus('已经是好友了'); return; }
     setAddLoading(true);
-    setAddStatus('验证中...');
+    setAddStatus('搜索中...');
     try {
-      // 策略1：直接用输入值作为 user_id 查 mv1_state
-      let preview = await fetchUserPetPreview(fid);
       let targetId = fid;
+      let foundName = '';
+      let preview = null;
 
-      // 策略2：如果按 user_id 查不到，尝试按用户名查 users 表获取真实 id
+      // 策略1：直接用输入值作为 user_id 查 mv1_state（获取宠物预览）
+      preview = await fetchUserPetPreview(fid);
       if (!preview?.petEmoji) {
+        // 策略2：按用户名查 users 表获取真实 id
         try {
           const foundUser = await findUserByName(fid);
           if (foundUser && foundUser.id !== userId && !friends.includes(foundUser.id)) {
-            // 用查到的真实 id 再查一次宠物预览
-            preview = await fetchUserPetPreview(foundUser.id);
-            if (preview?.petEmoji) {
-              targetId = foundUser.id;
-              setAddStatus(`找到用户「${foundUser.name}」，正在添加...`);
-            }
+            targetId = foundUser.id;
+            foundName = foundUser.name;
+            // 用真实 id 查宠物预览（可能为空，没关系）
+            preview = await fetchUserPetPreview(foundUser.id) || null;
+          } else if (foundUser?.id === userId) {
+            setAddLoading(false); setAddStatus('不能添加自己'); return;
+          } else if (foundUser && friends.includes(foundUser.id)) {
+            setAddLoading(false); setAddStatus('已经是好友了'); return;
           }
-        } catch (_) { /* findUserByName 可能失败，忽略 */ }
+        } catch (_) { /* findUserByName 可能失败 */ }
       }
 
-      if (!preview?.petEmoji) {
-        setAddStatus('未找到该用户，请检查好友码或用户名');
-        setAddLoading(false);
-        return;
+      // 最终检查：两种策略都没找到任何用户
+      if (!targetId || (targetId === fid && !preview?.petEmoji && !foundName)) {
+        // 再试一次：确认输入的fid是否就是有效的user_id（即使没有宠物记录也允许添加）
+        const directCheck = await fetchUserPetPreview(fid);
+        if (!directCheck?.petEmoji) {
+          // 最后尝试按名字查一次
+          const nameCheck = await findUserByName(fid);
+          if (!nameCheck) {
+            setAddStatus(`未找到用户「${fid}」，请检查好友码或用户名`);
+            setAddLoading(false); return;
+          }
+          if (nameCheck.id === userId) { setAddLoading(false); setAddStatus('不能添加自己'); return; }
+          if (friends.includes(nameCheck.id)) { setAddLoading(false); setAddStatus('已经是好友了'); return; }
+          targetId = nameCheck.id;
+          foundName = nameCheck.name;
+        }
       }
-      // 通过验证，添加好友
+
+      // 找到用户，添加好友
+      const displayName = foundName || targetId.slice(0, 8) + '...';
+      setAddStatus(`已添加「${displayName}」为好友 ✅`);
       const newFriends = [...friends, targetId];
       setFriends(newFriends);
-      setAddStatus('');
       setAddInput('');
-      // 更新state（通过parent callback）
+      // 更新state到云端
       const fullState = { ...state, friends: newFriends };
       await upsertMV1State(userId, fullState);
-      // 同时更新本地preview
-      setFriendPreviews(prev => ({ ...prev, [targetId]: preview }));
+      // 更新本地预览
+      if (preview) setFriendPreviews(prev => ({ ...prev, [targetId]: preview }));
+      else setFriendPreviews(prev => ({ ...prev, [targetId]: { userId: targetId, petName: '??', petEmoji: '❓', petLevel: 0, petStage: '未知' } }));
     } catch (e) {
+      console.error('addFriend error:', e);
       setAddStatus('网络错误，请重试');
     }
     setAddLoading(false);
