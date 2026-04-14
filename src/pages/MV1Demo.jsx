@@ -60,21 +60,59 @@ function FriendsPanel({ state, userId, onStateChange }) {
   const [activeEncouragement, setActiveEncouragement] = useState(null);
   const [confirmDelete, setConfirmDelete] = useState(null);
 
-  // 加载好友预览
+  // 从users表批量获取用户名
+  const fetchFriendNames = async (ids) => {
+    if (!supabaseClient || ids.length === 0) return {};
+    try {
+      const { data } = await supabaseClient
+        .from('users')
+        .select('id, name')
+        .in('id', ids);
+      if (!data) return {};
+      const m = {};
+      data.forEach(u => { m[u.id] = u.name; });
+      return m;
+    } catch { return {}; }
+  };
+
+  // 加载好友预览（双源：mv1_state宠物数据 + users表基本信息）
   useEffect(() => {
     const list = state.friends || [];
     setFriends(list);
     if (list.length === 0) return;
-    Promise.all(
-      list.map(async (fid) => {
-        const preview = await fetchUserPetPreview(fid);
-        return { id: fid, ...preview };
-      })
-    ).then(results => {
+
+    let cancelled = false;
+    
+    // 并行获取：宠物数据 + 用户名
+    Promise.all([
+      Promise.all(list.map(async (fid) => ({ id: fid, ...(await fetchUserPetPreview(fid)) }))),
+      fetchFriendNames(list),
+    ]).then(([results, names]) => {
+      if (cancelled) return;
       const map = {};
-      results.forEach(r => { if (r.petEmoji) map[r.id] = r; });
+      results.forEach(r => {
+        const userName = names[r.id] || r.petName || r.id.slice(0, 8);
+        if (r.petEmoji) {
+          // 有宠物数据的正常显示
+          map[r.id] = r;
+          if (!map[r.id].petName && userName !== r.id.slice(0, 8)) map[r.id].petName = userName;
+        } else {
+          // 没有宠物数据的显示用户名 + 占位
+          map[r.id] = {
+            userId: r.id,
+            petName: userName,
+            petEmoji: '🥚',
+            petLevel: null,
+            petStage: '未孵化',
+            totalLearnQuestions: null,
+            daysActive: 0,
+          };
+        }
+      });
       setFriendPreviews(map);
     });
+
+    return () => { cancelled = true; };
   }, [state.friends]);
 
   // 未读鼓励
@@ -151,11 +189,23 @@ function FriendsPanel({ state, userId, onStateChange }) {
       const fullState = { ...state, friends: newFriends };
       await upsertMV1State(userId, fullState);
       
-      // 更新预览
+      // 更新预览（双源：先查宠物数据，再用用户名补充）
       const preview = await fetchUserPetPreview(targetId);
+      const friendName = targetName || targetId.slice(0, 10) + '...';
       setFriendPreviews(prev => ({
         ...prev,
-        [targetId]: preview || { userId: targetId, petName: '??', petEmoji: '❓', petLevel: 0, petStage: '未知' }
+        [targetId]: (preview && preview.petEmoji) ? {
+          ...preview,
+          petName: preview.petName || friendName,
+        } : {
+          userId: targetId,
+          petName: friendName,
+          petEmoji: '🥚',
+          petLevel: null,
+          petStage: '未孵化',
+          totalLearnQuestions: null,
+          daysActive: 0,
+        }
       }));
     } catch (e) {
       console.error('[addFriend] 异常:', e);
@@ -346,7 +396,7 @@ function FriendsPanel({ state, userId, onStateChange }) {
                     }}>{p.petRarity || 'N'}</span>
                   </div>
                   <p style={{ margin: 0, fontSize: 11, color: '#9ca3af' }}>
-                    {p.petStage || '?'} · Lv.{p.petLevel || 0} · 📝{p.totalLearnQuestions || 0}题 · 🔥{p.daysActive || 1}天
+                    {p.petStage || '未知'} · Lv.{p.petLevel ?? '?'} · 📝{p.totalLearnQuestions ?? 0}题 · 🔥{p.daysActive ?? 0}天
                   </p>
                 </div>
                 {/* 操作按钮 */}
