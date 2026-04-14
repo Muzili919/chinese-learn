@@ -98,11 +98,22 @@ export default function HomePage({ user, onStartQuiz, hideHeader, activeSubject:
     }
   }, [activeSubjectProp, hideHeader])
 
+  // 今日已练哪些星球（只有完成整轮练习才算，答1题不算）
+  // refreshKey: 从答题页返回时强制刷新，解决 localStorage 已更新但 React 未 re-render 的问题
+  const [refreshKey, setRefreshKey] = useState(0)
+  useEffect(() => {
+    const handleVisible = () => {
+      if (document.visibilityState === 'visible') setRefreshKey(k => k + 1)
+    }
+    document.addEventListener('visibilitychange', handleVisible)
+    return () => document.removeEventListener('visibilitychange', handleVisible)
+  }, [])
+
   const practicedToday = useMemo(() => {
     // 只统计"完成整轮练习"的星球，答1题不算
     const completed = storage.getCompletedPlanetsToday(user?.id)
     return new Set(completed)
-  }, [user?.id, records]) // records变化时刷新（依赖records确保响应式更新）
+  }, [user?.id, records, refreshKey]) // refreshKey 保证从答题页返回时重新计算
 
   const weakPoints = useMemo(() => {
     if (records.length < 5) return []

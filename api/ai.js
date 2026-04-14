@@ -65,7 +65,8 @@ export default async function handler(req, res) {
 export const config = {
   api: {
     bodyParser: {
-      sizeLimit: '50kb',
+      // 自测试卷生成请求体较大（systemPrompt+返回JSON），需放宽到4MB
+      sizeLimit: '4mb',
     },
   },
 }

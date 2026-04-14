@@ -135,6 +135,50 @@ export default function QuizPage({ user, options = {}, onFinish, onBack }) {
 
   if (!current) return null
 
+  // 防护：如果当前题目缺少关键字段（如type/question/options），显示错误并允许跳过
+  const isQuestionValid = current && (current.type || current.question)
+  const [skipCount, setSkipCount] = useState(0)
+
+  // 自动跳过无效题目
+  useEffect(() => {
+    if (!isQuestionValid && current && index < questions.length) {
+      console.warn('检测到无效题目，自动跳过:', current.id, current)
+      setSkipCount(c => c + 1)
+      // 跳到下一题
+      if (index + 1 < questions.length) {
+        setIndex(i => i + 1)
+      } else {
+        // 已是最后一题，直接结束
+        const totalSec = Math.round((Date.now() - startTime.current) / 1000)
+        const session = {
+          date: new Date().toISOString(),
+          total: questions.length - skipCount,
+          correct: sessionRecords.filter(r => r.correct).length,
+          xpEarned: xpGained,
+          durationSec: totalSec,
+        }
+        storage.addSession(user.id, session)
+        if (current?.knowledge_tag) storage.markPlanetComplete(user.id, current.knowledge_tag)
+        updateStreak(user.id)
+        syncAfterSession(user.id)
+        onFinish({ session, records: sessionRecords })
+      }
+    }
+  }, [index])
+
+  if (!isQuestionValid && skipCount > 0) {
+    return (
+      <div className="flex flex-col min-h-screen bg-gradient-to-b from-blue-50 to-indigo-50 items-center justify-center px-6">
+        <div className="bg-orange-50 border-2 border-dashed border-orange-300 rounded-3xl px-8 py-10 text-center max-w-sm">
+          <p className="text-xl mb-2">⚠️</p>
+          <p className="text-base font-bold text-orange-700 mb-1">遇到异常题目</p>
+          <p className="text-xs text-gray-400 mb-4">ID: {current?.id || '未知'} 正在自动跳过...</p>
+          <button onClick={() => window.history.back()} className="text-xs text-indigo-500 underline">← 返回重试</button>
+        </div>
+      </div>
+    )
+  }
+
   const progress = (index / questions.length) * 100
 
   return (

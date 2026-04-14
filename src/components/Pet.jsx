@@ -32,6 +32,9 @@ function getLevelSprite(level) {
   return LEVEL_SPRITES[1]
 }
 
+/** 所有可用的精灵图（用于错误降级） */
+const ALL_SPRITES = Object.values(LEVEL_SPRITES)
+
 /** 根据当前pose和状态计算情绪key */
 function resolveEmotion(pose, stats) {
   if (pose === 'happy' || pose === 'upgrade' || pose === 'petting') return 'excited'
@@ -155,6 +158,8 @@ export default function Pet({
   const [isBreathing, setIsBreathing] = useState(true)
   const [isBlinking, setIsBlinking] = useState(false)
   const [showZZZ, setShowZZZ] = useState(false)
+  // 图片加载失败降级索引（用于精灵图加载失败时切换到备用图）
+  const [spriteErrorIdx, setSpriteErrorIdx] = useState(0)
 
   // ---- 反应动画状态（互动反馈）----
   const [reaction, setReaction] = useState(null) // 'eating' | 'bathing' | 'sleeping' | 'petting' | null
@@ -172,9 +177,19 @@ export default function Pet({
   const levelSprite = getLevelSprite(level)
   const emotionKey = resolveEmotion(activePose, currentStats)
   // 当显式触发happy/upgrade时，优先用情绪图；否则用等级外观
-  const imgSrc = (activePose !== 'normal' && EMOTION_SPRITES[emotionKey])
+  // 图片降级：如果当前精灵图加载失败，自动切换到备用精灵图
+  const baseImg = (activePose !== 'normal' && EMOTION_SPRITES[emotionKey])
     ? EMOTION_SPRITES[emotionKey]
     : levelSprite
+  const imgSrc = spriteErrorIdx > 0
+    ? ALL_SPRITES[spriteErrorIdx % ALL_SPRITES.length] || baseImg
+    : baseImg
+
+  /** 处理图片加载失败 → 自动切换到备用精灵图 */
+  const handleImgError = () => {
+    console.warn('宠物精灵图加载失败:', imgSrc, '→ 尝试备用图')
+    setSpriteErrorIdx(i => i + 1)
+  }
 
   // ---- 待机动画系统 ----
   useEffect(() => {
@@ -477,7 +492,7 @@ export default function Pet({
       >
         {renderBubble()}
         <div onClick={handleClick} style={{ display: 'inline-block', position: 'relative' }}>
-          <img src={imgSrc} alt="pet" style={petStyle} draggable={false} />
+          <img src={imgSrc} alt="pet" style={petStyle} draggable={false} onError={handleImgError} />
           {renderAccessories()}
           {renderZZZ()}
           {renderBlinkOverlay()}
@@ -637,7 +652,7 @@ export default function Pet({
           {stageLabel}
         </div>
 
-        <img src={imgSrc} alt="pet" style={petStyle} draggable={false} />
+        <img src={imgSrc} alt="pet" style={petStyle} draggable={false} onError={handleImgError} />
         {renderAccessories()}
         {renderZZZ()}
         {renderBlinkOverlay()}

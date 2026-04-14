@@ -1,4 +1,4 @@
-import { useMemo } from 'react'
+import { useMemo, useState, useEffect } from 'react'
 import { storage, calcLevel, calcLevelProgress } from '../utils/storage'
 import { diagnose, getWeakPoints } from '../utils/diagnosis'
 
@@ -42,10 +42,19 @@ export default function PoliticsHomePage({ user, onStartQuiz, onBack }) {
   }, [records])
 
   // 今日已练哪些星球（只有完成整轮练习才算，答1题不算）
+  const [refreshKey, setRefreshKey] = useState(0)
+  useEffect(() => {
+    const handleVisible = () => {
+      if (document.visibilityState === 'visible') setRefreshKey(k => k + 1)
+    }
+    document.addEventListener('visibilitychange', handleVisible)
+    return () => document.removeEventListener('visibilitychange', handleVisible)
+  }, [])
+
   const practicedToday = useMemo(() => {
     const completed = storage.getCompletedPlanetsToday(user?.id)
     return new Set(completed)
-  }, [user?.id, records])
+  }, [user?.id, records, refreshKey])
 
   // 道法弱项诊断
   const polWeakPoints = useMemo(() => {
