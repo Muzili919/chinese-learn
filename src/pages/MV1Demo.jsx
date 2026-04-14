@@ -75,7 +75,7 @@ function FriendsPanel({ state, userId, onStateChange }) {
     } catch { return {}; }
   };
 
-  // 加载好友预览（双源：mv1_state宠物数据 + users表基本信息）
+  // 加载好友预览（服务端API绕过RLS + users表补充名字）
   useEffect(() => {
     const list = state.friends || [];
     setFriends(list);
@@ -83,34 +83,62 @@ function FriendsPanel({ state, userId, onStateChange }) {
 
     let cancelled = false;
     
-    // 并行获取：宠物数据 + 用户名
-    Promise.all([
-      Promise.all(list.map(async (fid) => ({ id: fid, ...(await fetchUserPetPreview(fid)) }))),
-      fetchFriendNames(list),
-    ]).then(([results, names]) => {
-      if (cancelled) return;
-      const map = {};
-      results.forEach(r => {
-        const userName = names[r.id] || r.petName || r.id.slice(0, 8);
-        if (r.petEmoji) {
-          // 有宠物数据的正常显示
-          map[r.id] = r;
-          if (!map[r.id].petName && userName !== r.id.slice(0, 8)) map[r.id].petName = userName;
+    (async () => {
+      let map = {};
+      
+      try {
+        // === 策略1：走服务端API（绕过RLS）获取完整宠物数据 ===
+        console.log('[friendPreviews] 通过服务端API查询', list.length, '个好友');
+        const apiRes = await fetch('/api/friend-preview', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ userIds: list }),
+        });
+        
+        if (apiRes.ok) {
+          const { previews } = await apiRes.json();
+          console.log('[friendPreviews] 服务端返回:', previews?.length || 0, '条记录');
+          (previews || []).forEach(p => { map[p.userId] = p; });
         } else {
-          // 没有宠物数据的显示用户名 + 占位
-          map[r.id] = {
-            userId: r.id,
-            petName: userName,
+          console.warn('[friendPreviews] 服务端API失败，降级为客户端查询', await apiRes.text());
+        }
+      } catch (e) {
+        console.warn('[friendPreviews] 服务端API异常:', e.message, '降级处理');
+      }
+      
+      // === 策略2：对服务端没返回的，尝试客户端直连补充（可能被RLS拦截）===
+      for (const fid of list) {
+        if (!map[fid]) {
+          try {
+            const p = await fetchUserPetPreview(fid);
+            if (p?.petEmoji) map[fid] = p;
+          } catch (_) {}
+        }
+      }
+      
+      // === 策略3：从users表补充用户名（兜底） ===
+      const names = await fetchFriendNames(list);
+      
+      // 最终合并：有宠物数据直接用，没有的用名字+占位符
+      for (const fid of list) {
+        if (!map[fid]) {
+          map[fid] = {
+            userId: fid,
+            petName: names[fid] || fid.slice(0, 10),
             petEmoji: '🥚',
             petLevel: null,
             petStage: '未孵化',
             totalLearnQuestions: null,
             daysActive: 0,
           };
+        } else if (names[fid]) {
+          // 有宠物数据但缺名字的补充名字
+          if (!map[fid].petName) map[fid].petName = names[fid];
         }
-      });
-      setFriendPreviews(map);
-    });
+      }
+      
+      if (!cancelled) setFriendPreviews(map);
+    })();
 
     return () => { cancelled = true; };
   }, [state.friends]);
@@ -189,9 +217,28 @@ function FriendsPanel({ state, userId, onStateChange }) {
       const fullState = { ...state, friends: newFriends };
       await upsertMV1State(userId, fullState);
       
-      // 更新预览（双源：先查宠物数据，再用用户名补充）
-      const preview = await fetchUserPetPreview(targetId);
-      const friendName = targetName || targetId.slice(0, 10) + '...';
+      // 更新预览（优先用服务端API绕过RLS）
+      let preview = null;
+      try {
+        const apiRes = await fetch('/api/friend-preview', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ userIds: [targetId] }),
+        });
+        if (apiRes.ok) {
+          const { previews } = await apiRes.json();
+          preview = previews?.[0] || null;
+          console.log('[addFriend] 服务端预览:', preview ? '✅有数据' : '❌无数据');
+        }
+      } catch (e) {
+        console.warn('[addFriend] 服务端预览失败:', e);
+      }
+      
+      if (!preview) {
+        preview = await fetchUserPetPreview(targetId);
+      }
+      
+      const friendName = targetName || targetId.slice(0, 10);
       setFriendPreviews(prev => ({
         ...prev,
         [targetId]: (preview && preview.petEmoji) ? {
