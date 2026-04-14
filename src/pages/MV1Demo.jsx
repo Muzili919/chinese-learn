@@ -158,16 +158,16 @@ function FriendsPanel({ state, userId, onStateChange }) {
         <p style={{ margin: '0 0 4px', fontSize: 12, color: '#6b7280' }}>我的好友码</p>
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8 }}>
           <code style={{
-            fontSize: 20, fontWeight: 800, color: '#1e40af',
+            fontSize: 16, fontWeight: 800, color: '#1e40af',
             background: 'white', padding: '6px 16px', borderRadius: 10,
-            letterSpacing: 2,
-          }}>{userId ? userId.slice(0, 8) : '...'}</code>
+            letterSpacing: 1, fontFamily: 'monospace',
+          }}>{userId || '...'}</code>
           <button onClick={copyFriendCode} style={{
             padding: '6px 12px', border: 'none', borderRadius: 8, cursor: 'pointer',
             background: '#3b82f6', color: 'white', fontSize: 11, fontWeight: 600,
           }}>复制</button>
         </div>
-        <p style={{ margin: '6px 0 0', fontSize: 10, color: '#9ca3af' }}>把好友码分享给朋友，互相添加</p>
+        <p style={{ margin: '6px 0 0', fontSize: 10, color: '#9ca3af' }}>📋 推荐点击「复制」后发送给朋友，或让对方也点「复制」再粘贴添加</p>
       </div>
 
       {/* 未读鼓励弹窗 */}
