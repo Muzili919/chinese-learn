@@ -20,6 +20,7 @@ import {
 } from '../utils/gamification';
 import { storage, calcLevel, calcLevelProgress } from '../utils/storage';
 import { fetchMV1State, upsertMV1State, fetchUserPetPreview, sendEncouragement } from '../utils/mv1_cloud';
+import { findUserByName } from '../utils/sync';
 import ShopPanel from '../components/ShopPanel';
 import DailyTasksPanel from '../components/DailyTasksPanel';
 import PetSwitchPanel from '../components/PetSwitchPanel';
@@ -81,7 +82,7 @@ function FriendsPanel({ state, userId, onStateChange }) {
     e => !e.read
   );
 
-  // 添加好友
+  // 添加好友（支持好友码/user_id 或 用户名两种方式）
   const handleAddFriend = async () => {
     const fid = addInput.trim();
     if (!fid) return;
@@ -90,14 +91,32 @@ function FriendsPanel({ state, userId, onStateChange }) {
     setAddLoading(true);
     setAddStatus('验证中...');
     try {
-      const preview = await fetchUserPetPreview(fid);
+      // 策略1：直接用输入值作为 user_id 查 mv1_state
+      let preview = await fetchUserPetPreview(fid);
+      let targetId = fid;
+
+      // 策略2：如果按 user_id 查不到，尝试按用户名查 users 表获取真实 id
       if (!preview?.petEmoji) {
-        setAddStatus('未找到该用户，请检查好友码');
+        try {
+          const foundUser = await findUserByName(fid);
+          if (foundUser && foundUser.id !== userId && !friends.includes(foundUser.id)) {
+            // 用查到的真实 id 再查一次宠物预览
+            preview = await fetchUserPetPreview(foundUser.id);
+            if (preview?.petEmoji) {
+              targetId = foundUser.id;
+              setAddStatus(`找到用户「${foundUser.name}」，正在添加...`);
+            }
+          }
+        } catch (_) { /* findUserByName 可能失败，忽略 */ }
+      }
+
+      if (!preview?.petEmoji) {
+        setAddStatus('未找到该用户，请检查好友码或用户名');
         setAddLoading(false);
         return;
       }
       // 通过验证，添加好友
-      const newFriends = [...friends, fid];
+      const newFriends = [...friends, targetId];
       setFriends(newFriends);
       setAddStatus('');
       setAddInput('');
@@ -105,7 +124,7 @@ function FriendsPanel({ state, userId, onStateChange }) {
       const fullState = { ...state, friends: newFriends };
       await upsertMV1State(userId, fullState);
       // 同时更新本地preview
-      setFriendPreviews(prev => ({ ...prev, [fid]: preview }));
+      setFriendPreviews(prev => ({ ...prev, [targetId]: preview }));
     } catch (e) {
       setAddStatus('网络错误，请重试');
     }
@@ -228,7 +247,7 @@ function FriendsPanel({ state, userId, onStateChange }) {
           <input
             value={addInput}
             onChange={e => setAddInput(e.target.value)}
-            placeholder="输入好友码..."
+            placeholder="输入好友码或对方名字..."
             style={{
               flex: 1, padding: '8px 12px', border: '1px solid #e5e7eb', borderRadius: 8,
               fontSize: 13, outline: 'none',
