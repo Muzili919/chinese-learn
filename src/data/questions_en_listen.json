@@ -49,7 +49,7 @@
     "answer": "A",
     "analysis": "【考点】本题考查听辨星期和课程安排。\n【解题思路】对话中明确提到“We have art class on Wednesdays.”。\n【总结】听对话判断要关注细节信息，特别是星期和活动。",
     "difficulty": 0.5,
-    "listening_text": "W: What day is it today?\nM: It's Wednesday.\nW: Great! We have art class on Wednesdays.\n\n句子：They have art class on Wednesdays."
+    "listening_text": "W: What day is it today?\nM: It's Wednesday.\nW: Great! We have art class on Wednesdays."
   },
   {
     "id": "en_listen_004",
@@ -62,7 +62,7 @@
     "answer": "B → A → C → D",
     "analysis": "【考点】本题考查听辨时间顺序和日常活动。\n【解题思路】按文本顺序：起床→吃早餐→上学→上英语课。\n【总结】听音排序要抓住顺序词：first, then, after that, finally。",
     "difficulty": 0.5,
-    "listening_text": "First, I get up at 7 o'clock.\nThen, I eat breakfast at 7:30.\nAfter that, I go to school at 8 o'clock.\nFinally, I have English class at 9 o'clock.\n\n选项（图片描述）：\nA. 吃早餐\nB. 起床\nC. 上学\nD. 上英语课"
+    "listening_text": "First, I get up at 7 o'clock.\nThen, I eat breakfast at 7:30.\nAfter that, I go to school at 8 o'clock.\nFinally, I have English class at 9 o'clock."
   },
   {
     "id": "en_listen_005",
@@ -127,7 +127,7 @@
     "answer": "B",
     "analysis": "【考点】本题考查听辨数字信息。\n【解题思路】文本提到四口人，句子说三口人，不符。\n【总结】注意数字细节的精确捕捉。",
     "difficulty": 0.5,
-    "listening_text": "There are four people in my family: my parents, my sister and me.\n\n句子：There are three people in the speaker's family."
+    "listening_text": "There are four people in my family: my parents, my sister and me."
   },
   {
     "id": "en_listen_009",
@@ -140,7 +140,7 @@
     "answer": "A",
     "analysis": "【考点】本题考查一般现在时主语I后面的动词原形。\n【解题思路】I为第一人称，谓语用动词原形。\n【总结】听力中语法题要结合主谓一致判断。",
     "difficulty": 0.5,
-    "listening_text": "I often ______ books on the weekend.\n\n选项：\nA. read\nB. reads\nC. reading\nD. to read"
+    "listening_text": "I often ______ books on the weekend.\nA. read\nB. reads\nC. reading\nD. to read"
   },
   {
     "id": "en_listen_010",
@@ -153,7 +153,7 @@
     "answer": "C → D → A → B",
     "analysis": "【考点】本题考查听辨一天中的活动顺序。\n【解题思路】按时间顺序：上午做作业→然后去公园→下午踢足球→晚上看电视。\n【总结】注意时间状语和顺序连词（then, in the afternoon, in the evening）。",
     "difficulty": 0.5,
-    "listening_text": "In the morning, I do my homework. Then I go to the park. In the afternoon, I play football. In the evening, I watch TV.\n\n活动：\nA. 踢足球\nB. 看电视\nC. 做作业\nD. 去公园"
+    "listening_text": "In the morning, I do my homework. Then I go to the park. In the afternoon, I play football. In the evening, I watch TV."
   },
   {
     "id": "en_listen_011",
@@ -205,7 +205,7 @@
     "answer": "B",
     "analysis": "【考点】本题考查听辨能力（can/can't）。\n【解题思路】Lily回答“Yes, I can.”，说明她会游泳。\n【总结】注意听清肯定和否定回答。",
     "difficulty": 0.5,
-    "listening_text": "M: Can you swim, Lily?\nW: Yes, I can. I can swim very well.\n\n句子：Lily cannot swim."
+    "listening_text": "M: Can you swim, Lily?\nW: Yes, I can. I can swim very well."
   },
   {
     "id": "en_listen_014",
@@ -218,7 +218,7 @@
     "answer": "B → A → C → D",
     "analysis": "【考点】本题考查听辨三餐及食物顺序。\n【解题思路】按文本顺序：早餐（bread and milk）→午餐（rice and chicken）→晚餐（noodles and fish）→甜点（ice cream）。\n【总结】关注时间词：breakfast, lunch, dinner, dessert。",
     "difficulty": 0.5,
-    "listening_text": "For breakfast, I have bread and milk.\nFor lunch, I have rice and chicken.\nFor dinner, I have noodles and fish.\nAnd for dessert, I have ice cream.\n\n食物：\nA. 米饭和鸡肉\nB. 面包和牛奶\nC. 面条和鱼\nD. 冰淇淋"
+    "listening_text": "For breakfast, I have bread and milk.\nFor lunch, I have rice and chicken.\nFor dinner, I have noodles and fish.\nAnd for dessert, I have ice cream."
   },
   {
     "id": "en_listen_015",
@@ -283,7 +283,7 @@
     "answer": "B",
     "analysis": "【考点】本题考查听辨星期信息。\n【解题思路】文本说“because it's Sunday”，所以今天是周日，不是周一。\n【总结】注意but后面的信息往往是关键。",
     "difficulty": 0.5,
-    "listening_text": "I usually get up at 6:30, but today I got up at 7:00 because it's Sunday.\n\n句子：Today is Monday."
+    "listening_text": "I usually get up at 6:30, but today I got up at 7:00 because it's Sunday."
   },
   {
     "id": "en_listen_019",
@@ -296,7 +296,7 @@
     "answer": "A",
     "analysis": "【考点】本题考查There be句型的就近原则。\n【解题思路】a pen是单数，be动词用is。\n【总结】There be句型中，be动词与最近的主语保持一致。",
     "difficulty": 0.5,
-    "listening_text": "There ______ a pen and two pencils on the desk.\n\n选项：\nA. is\nB. are\nC. am\nD. be"
+    "listening_text": "There ______ a pen and two pencils on the desk.\nA. is\nB. are\nC. am\nD. be"
   },
   {
     "id": "en_listen_020",
@@ -309,7 +309,7 @@
     "answer": "C → D → A → B",
     "analysis": "【考点】本题考查听辨地点顺序。\n【解题思路】按文本顺序：超市→图书馆→公园→家。\n【总结】关注顺序词：first, next, then, finally。",
     "difficulty": 0.5,
-    "listening_text": "First, I go to the supermarket to buy some fruit.\nNext, I go to the library to read books.\nThen, I go to the park to fly a kite.\nFinally, I go home.\n\n地点：\nA. 公园\nB. 家\nC. 超市\nD. 图书馆"
+    "listening_text": "First, I go to the supermarket to buy some fruit.\nNext, I go to the library to read books.\nThen, I go to the park to fly a kite.\nFinally, I go home."
   },
   {
     "id": "en_listen_021",
@@ -361,7 +361,7 @@
     "answer": "B",
     "analysis": "【考点】本题考查听辨季节和原因。\n【解题思路】对话中Amy说最喜欢冬季，句子说夏季，不符。\n【总结】注意听清季节名词和原因状语从句。",
     "difficulty": 0.5,
-    "listening_text": "M: What's your favorite season, Amy?\nW: I like winter best because I can make a snowman.\n\n句子：Amy's favorite season is summer."
+    "listening_text": "M: What's your favorite season, Amy?\nW: I like winter best because I can make a snowman."
   },
   {
     "id": "en_listen_024",
@@ -374,7 +374,7 @@
     "answer": "B → A → D → C",
     "analysis": "【考点】本题考查听辨颜色顺序。\n【解题思路】按文本顺序：红色→蓝色→黄色→绿色。\n【总结】注意颜色单词的发音区别。",
     "difficulty": 0.5,
-    "listening_text": "My schoolbag is red.\nMy pencil box is blue.\nMy eraser is yellow.\nMy ruler is green.\n\n选项：\nA. 蓝色\nB. 红色\nC. 绿色\nD. 黄色"
+    "listening_text": "My schoolbag is red.\nMy pencil box is blue.\nMy eraser is yellow.\nMy ruler is green."
   },
   {
     "id": "en_listen_025",
@@ -439,7 +439,7 @@
     "answer": "B",
     "analysis": "【考点】本题考查听辨时间信息。\n【解题思路】文本说工作日开放，周末未提及。\n【总结】注意on weekdays和on weekends的区别。",
     "difficulty": 0.5,
-    "listening_text": "The museum is open from 9:00 a.m. to 5:00 p.m. on weekdays.\n\n句子：The museum is open on weekends."
+    "listening_text": "The museum is open from 9:00 a.m. to 5:00 p.m. on weekdays."
   },
   {
     "id": "en_listen_029",
@@ -452,7 +452,7 @@
     "answer": "D",
     "analysis": "【考点】本题考查现在进行时的主谓一致。\n【解题思路】“Look!”提示现在进行时，主语“The boys”复数，用are playing。\n【总结】现在进行时标志词：look, listen, now。",
     "difficulty": 0.5,
-    "listening_text": "Look! The boys ______ football on the playground.\n\n选项：\nA. play\nB. plays\nC. is playing\nD. are playing"
+    "listening_text": "Look! The boys ______ football on the playground.\nA. play\nB. plays\nC. is playing\nD. are playing"
   },
   {
     "id": "en_listen_030",
@@ -465,7 +465,7 @@
     "answer": "D → C → A → B",
     "analysis": "【考点】本题考查听辨星期和学科对应关系。\n【解题思路】周一语文→周二数学→周三英语→周四科学。\n【总结】注意星期单词和学科单词的配对。",
     "difficulty": 0.5,
-    "listening_text": "On Monday, we have Chinese.\nOn Tuesday, we have math.\nOn Wednesday, we have English.\nOn Thursday, we have science.\n\n学科：\nA. 英语\nB. 科学\nC. 数学\nD. 语文"
+    "listening_text": "On Monday, we have Chinese.\nOn Tuesday, we have math.\nOn Wednesday, we have English.\nOn Thursday, we have science."
   },
   {
     "id": "en_listen_031",
@@ -517,7 +517,7 @@
     "answer": "B",
     "analysis": "【考点】本题考查听辨时间和日常活动。\n【解题思路】对话中周末起床时间是8:00，不是6:30。\n【总结】注意区分weekdays和weekends的时间差异。",
     "difficulty": 0.5,
-    "listening_text": "W: What time do you get up every day?\nM: I get up at 6:30. But on weekends, I get up at 8:00.\n\n句子：He gets up at 6:30 on weekends."
+    "listening_text": "W: What time do you get up every day?\nM: I get up at 6:30. But on weekends, I get up at 8:00."
   },
   {
     "id": "en_listen_034",
@@ -530,7 +530,7 @@
     "answer": "B → D → A → C",
     "analysis": "【考点】本题考查听辨动物名词顺序。\n【解题思路】按文本顺序：熊猫→猴子→老虎→大象。\n【总结】注意动物单词的发音和顺序词。",
     "difficulty": 0.5,
-    "listening_text": "I like pandas.\nMy sister likes monkeys.\nMy brother likes tigers.\nMy mother likes elephants.\n\n选项：\nA. 老虎\nB. 熊猫\nC. 大象\nD. 猴子"
+    "listening_text": "I like pandas.\nMy sister likes monkeys.\nMy brother likes tigers.\nMy mother likes elephants."
   },
   {
     "id": "en_listen_035",
@@ -595,7 +595,7 @@
     "answer": "B",
     "analysis": "【考点】本题考查听辨活动动词。\n【解题思路】文本说go boating，句子说go swimming，不符。\n【总结】注意区分不同活动：boating, swimming, fishing, running。",
     "difficulty": 0.5,
-    "listening_text": "There is a river in the park. You can go boating on it.\n\n句子：You can go swimming in the river."
+    "listening_text": "There is a river in the park. You can go boating on it."
   },
   {
     "id": "en_listen_039",
@@ -608,7 +608,7 @@
     "answer": "B",
     "analysis": "【考点】本题考查不定冠词a/an的用法。\n【解题思路】umbrella以元音音素开头，用an。\n【总结】元音音素开头的单词前用an：apple, elephant, umbrella, hour。",
     "difficulty": 0.5,
-    "listening_text": "This is ______ umbrella. It's new.\n\n选项：\nA. a\nB. an\nC. the\nD. /"
+    "listening_text": "This is ______ umbrella. It's new.\nA. a\nB. an\nC. the\nD. /"
   },
   {
     "id": "en_listen_040",
@@ -621,7 +621,7 @@
     "answer": "B → D → A → C",
     "analysis": "【考点】本题考查听辨节日对应的月份。\n【解题思路】一月元旦→三月植树节→六月儿童节→十月国庆节。\n【总结】常见节日与月份对应：New Year's Day(Jan.), Tree Planting Day(Mar.), Children's Day(Jun.), National Day(Oct.)。",
     "difficulty": 0.5,
-    "listening_text": "New Year's Day is in January.\nTree Planting Day is in March.\nChildren's Day is in June.\nNational Day is in October.\n\n月份：\nA. 六月\nB. 一月\nC. 十月\nD. 三月"
+    "listening_text": "New Year's Day is in January.\nTree Planting Day is in March.\nChildren's Day is in June.\nNational Day is in October."
   },
   {
     "id": "en_listen_041",
@@ -673,7 +673,7 @@
     "answer": "B",
     "analysis": "【考点】本题考查听辨能力（can/can't）。\n【解题思路】对话中明确说“No, I can't. But I can play the guitar.”\n【总结】注意can/can't的否定和肯定信息。",
     "difficulty": 0.5,
-    "listening_text": "W: Can you play the piano?\nM: No, I can't. But I can play the guitar.\n\n句子：He can play the piano."
+    "listening_text": "W: Can you play the piano?\nM: No, I can't. But I can play the guitar."
   },
   {
     "id": "en_listen_044",
@@ -686,7 +686,7 @@
     "answer": "C → B → A → D",
     "analysis": "【考点】本题考查听辨数字顺序。\n【解题思路】号码中出现的顺序：6,8,2,5。\n【总结】听力中数字题要集中注意力，可边听边记。",
     "difficulty": 0.5,
-    "listening_text": "My phone number is 6-8-3-2-5-1-7.\nPlease call me.\n\n数字：\nA. 2\nB. 8\nC. 6\nD. 5"
+    "listening_text": "My phone number is 6-8-3-2-5-1-7.\nPlease call me.\nA. 2\nB. 8\nC. 6\nD. 5"
   },
   {
     "id": "en_listen_045",
@@ -751,7 +751,7 @@
     "answer": "B",
     "analysis": "【考点】本题考查听辨比较级。\n【解题思路】Sarah 1.55米，姐姐1.6米，Sarah更矮。\n【总结】比较级要注意谁比谁高/矮。",
     "difficulty": 0.5,
-    "listening_text": "Sarah is shorter than her sister. Her sister is 1.6 meters tall. Sarah is 1.55 meters tall.\n\n句子：Sarah is taller than her sister."
+    "listening_text": "Sarah is shorter than her sister. Her sister is 1.6 meters tall. Sarah is 1.55 meters tall."
   },
   {
     "id": "en_listen_049",
@@ -764,7 +764,7 @@
     "answer": "A",
     "analysis": "【考点】本题考查There be句型的就近原则。\n【解题思路】离be动词最近的主语是a pen（单数），用is。\n【总结】There be句型遵循就近原则。",
     "difficulty": 0.5,
-    "listening_text": "There ______ a pen and two books on the desk.\n\n选项：\nA. is\nB. are\nC. am\nD. be"
+    "listening_text": "There ______ a pen and two books on the desk.\nA. is\nB. are\nC. am\nD. be"
   },
   {
     "id": "en_listen_050",

@@ -59,6 +59,21 @@ function speakEnglish(text, onEnd) {
   _speakEnglish(text, { onEnd })
 }
 
+// 从 listening_text 中提取纯英文内容（去除中文行，避免英语 TTS 乱读中文）
+function extractEnglishForTTS(text) {
+  if (!text) return ''
+  const chineseRe = /[\u4e00-\u9fff]/
+  const lines = text.split('\n')
+  const englishLines = lines.filter(line => {
+    const stripped = line.trim()
+    if (!stripped) return false
+    // 跳过含中文字符的行
+    if (chineseRe.test(stripped)) return false
+    return true
+  })
+  return englishLines.join('\n').trim()
+}
+
 // ─── 多子题解析 ────────────────────────────────────────────────────────────
 
 function isMultiPartAnswer(q) {
@@ -759,22 +774,29 @@ function TrueFalseQuestion({ q, onSubmit }) {
         <div className="flex items-center gap-2 mb-3">
           <span className="text-xs font-semibold px-2 py-0.5 rounded-full"
             style={{ background: '#fff7ed', color: '#c2410c' }}>判断题</span>
-          <button onClick={() => speakEnglish(q.question)}
+          <button onClick={() => speakEnglish(q.statement || q.question)}
             className="ml-auto w-7 h-7 flex items-center justify-center bg-sky-100 text-sky-500 rounded-full text-sm">🔊</button>
         </div>
         <p className="text-gray-800 text-sm leading-relaxed whitespace-pre-wrap">{q.question}</p>
+        {/* 判断句子（statement 字段）——用于听力判断题 */}
+        {q.statement && (
+          <div className="mt-3 p-3 bg-amber-50 rounded-xl border border-amber-200">
+            <div className="text-[10px] text-amber-600 font-semibold uppercase tracking-wide mb-1">判断句子</div>
+            <p className="text-gray-800 text-sm leading-relaxed font-medium">{q.statement}</p>
+          </div>
+        )}
       </div>
 
-      {/* T/F 按钮 */}
+      {/* A/B 按钮（英语判断题用 A=正确 B=错误） */}
       {!submitted && (
         <div className="grid grid-cols-2 gap-3">
           <button onClick={() => handleTF('T')}
             className="py-4 rounded-2xl border-2 border-green-200 bg-white font-bold text-base text-green-700 active:scale-95 transition-all">
-            ✅ T 正确
+            A &nbsp; 正确
           </button>
           <button onClick={() => handleTF('F')}
             className="py-4 rounded-2xl border-2 border-red-200 bg-white font-bold text-base text-red-600 active:scale-95 transition-all">
-            ❌ F 错误
+            B &nbsp; 错误
           </button>
         </div>
       )}
@@ -783,7 +805,7 @@ function TrueFalseQuestion({ q, onSubmit }) {
       {submitted && (
         <div className={`rounded-2xl p-4 border ${isCorrect ? 'bg-green-50 border-green-200' : 'bg-red-50 border-red-200'}`}>
           <div className={`font-bold text-base mb-2 ${isCorrect ? 'text-green-700' : 'text-red-600'}`}>
-            {isCorrect ? '✅ 回答正确！' : `❌ 正确答案：${correctTF === 'T' ? 'T 正确' : 'F 错误'}`}
+            {isCorrect ? '✅ 回答正确！' : `❌ 正确答案：${correctTF === 'T' ? 'A 正确' : 'B 错误'}`}
           </div>
           {q.analysis && (
             <div className="mt-2 pt-2 border-t border-gray-200">
@@ -1130,8 +1152,13 @@ export default function EnglishQuizPage({ user, options = {}, onFinish, onBack }
 
   useEffect(() => {
     if (current?.listening_text) {
-      setIsPlayingAudio(true)
-      speakEnglish(current.listening_text, () => setIsPlayingAudio(false))
+      const ttsText = extractEnglishForTTS(current.listening_text)
+      if (ttsText) {
+        setIsPlayingAudio(true)
+        speakEnglish(ttsText, () => setIsPlayingAudio(false))
+      } else {
+        setIsPlayingAudio(false)
+      }
     } else {
       setIsPlayingAudio(false)
     }
