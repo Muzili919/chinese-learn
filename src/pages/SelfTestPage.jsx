@@ -576,30 +576,38 @@ function getScoringPrompt(questions, answers, subject) {
         const promptText = ua?.selectedPrompt !== undefined
           ? (q.prompts?.[ua.selectedPrompt]?.title || '')
           : ''
-        return `${i + 1}. 【${q.type === 'writing' ? '作文' : '简答题'}】（${q.score}分）\n题目：${q.stem}\n${promptText ? '选作题目：' + promptText + '\n' : ''}学生答案：${ua?.text || '（未作答）'}\n评分标准：${q.rubric || '无'}`
+        return `${i + 1}. 【作文/实践题】（${q.score}分）\n题目：${q.stem.slice(0, 120)}\n${promptText ? '选作题目：' + promptText + '\n' : ''}学生答案：${(ua?.text || '（未作答）').slice(0, 300)}\n评分标准：${(q.rubric || '无').slice(0, 100)}`
       }
-      return `${i + 1}. 【简答题】（${q.score}分）\n题目：${q.stem}\n学生答案：${ua || '（未作答）'}\n参考答案：${q.answer || '无'}`
+      // 参考答案截断，防止 prompt 过长
+      const refAnswer = (q.answer || '无').slice(0, 200)
+      return `${i + 1}. 【简答题】（${q.score}分）\n题目：${q.stem.slice(0, 150)}\n学生答案：${(String(ua || '（未作答）')).slice(0, 300)}\n参考答案要点：${refAnswer}`
     })
     .join('\n\n')
 
   if (!items) return null
 
+  const writingRubric = subject === 'english'
+    ? '英语作文：内容相关30%，语法正确35%，拼写正确35%'
+    : subject === 'politics'
+      ? '道法主观题：观点明确20%，知识运用40%，逻辑层次30%，语言规范10%'
+      : '语文作文：内容完整30%，语句通顺30%，修辞手法20%，书写规范20%'
+
   return `你是一位阅卷老师，请对以下学生的主观题进行评分。
 
 ## 评分要求
-- 严格按照每道题的评分标准给分
-- ${subject === 'chinese' ? '语文作文：内容完整30%，语句通顺30%，修辞手法20%，书写规范20%' : '英语作文：内容相关30%，语法正确35%，拼写正确35%'}
-- 给分要合理，不要过于严格也不要过于宽松
-- 每道题都给出简短点评（30字以内）
+- 严格按照每道题满分给分（不得超过该题满分）
+- ${writingRubric}
+- 给分合理，不过于严格也不过于宽松
+- 每道题给出简短点评（30字以内）
 
 ## 需要评分的题目
 ${items}
 
-## 返回JSON格式
+## 返回JSON格式（严格JSON，key为题目id）
 {
   "scores": {
-    "q_id_1": { "earned": 8, "comment": "内容完整，语句通顺，但缺少修辞手法" },
-    "q_id_2": { "earned": 3, "comment": "只答对了一半要点" }
+    "q1": { "earned": 8, "comment": "要点基本覆盖，但缺少具体论据" },
+    "q2": { "earned": 5, "comment": "格式规范，内容充实" }
   }
 }`
 }
@@ -1170,9 +1178,9 @@ function ResultMode({ examData, answers, elapsed, subject, user, onBack, onRetry
         if (scoringPrompt) {
           try {
             const aiResult = await callDeepSeek(
-              '你是一位资深阅卷老师，请严格按照评分标准给分。',
+              '你是一位资深阅卷老师，请严格按照评分标准给分，只返回JSON。',
               scoringPrompt,
-              { temperature: 0.3 }
+              { temperature: 0.3, max_tokens: 1500 }
             )
             if (aiResult.scores) {
               Object.entries(aiResult.scores).forEach(([qId, score]) => {
@@ -1199,7 +1207,8 @@ function ResultMode({ examData, answers, elapsed, subject, user, onBack, onRetry
           return { title: sec.title, earned, total }
         })
 
-        const analysisPrompt = `你是一位资深${subject === 'english' ? '英语' : '语文'}老师。请根据学生的考试成绩写一份简短的分析报告。
+        const subjectName = subject === 'english' ? '英语' : subject === 'politics' ? '道德与法治' : '语文'
+        const analysisPrompt = `你是一位资深${subjectName}老师。请根据学生的考试成绩写一份简短的分析报告。
 
 ## 考试信息
 - 科目：${subject === 'english' ? '英语' : '语文'}
