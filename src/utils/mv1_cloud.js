@@ -46,15 +46,50 @@ export async function upsertMV1State(userId, state) {
   } catch (e) {
     console.error('MV1 upsert error', e)
   }
+  // 同步宠物预览到 users 表（RLS 允许跨用户 SELECT，解决好友列表无法读取问题）
+  try {
+    const pet = state.currentPet || {}
+    const poolItem = (state.petPool || []).find(p => p.poolId === pet.poolId) || {}
+    const preview = {
+      petName: poolItem.name || '神秘宠物',
+      petEmoji: poolItem.emoji || '🥚',
+      petRarity: poolItem.rarity || 'N',
+      petLevel: pet.level || 1,
+      petStage: !pet.level || pet.level < 2 ? '蛋' : pet.level < 10 ? '幼年' : pet.level < 20 ? '成长期' : pet.level < 30 ? '成熟体' : '完全体',
+      totalLearnQuestions: state.totalLearnQuestions || 0,
+      daysActive: state.daysActive || 1,
+      weeklyQuestions: state.weeklyQuestions || 0,
+      updatedAt: new Date().toISOString(),
+    }
+    await client.from('users').upsert({ id: userId, pet_preview: preview }, { onConflict: 'id' })
+  } catch (e) {
+    // 忽略：users 表可能暂未添加 pet_preview 列
+  }
 }
 
 /**
- * 获取用户宠物预览信息（好友列表用，只读必要字段）
+ * 获取用户宠物预览信息（好友列表用）
+ * 优先读 users.pet_preview（匿名密钥可跨用户访问），
+ * 降级读 mv1_state（可能被 RLS 拦截）
  */
 export async function fetchUserPetPreview(userId) {
   if (!userId) return null
   const client = getClient()
   if (!client) return null
+
+  // 策略1：读 users.pet_preview（无 RLS 限制）
+  try {
+    const { data } = await client
+      .from('users')
+      .select('pet_preview')
+      .eq('id', userId)
+      .maybeSingle()
+    if (data?.pet_preview?.petEmoji) {
+      return { userId, ...data.pet_preview }
+    }
+  } catch (_) {}
+
+  // 策略2：直接读 mv1_state（可能被 RLS 拦截，静默失败）
   try {
     const { data, error } = await client
       .from('mv1_state')
@@ -71,14 +106,12 @@ export async function fetchUserPetPreview(userId) {
       petEmoji: poolItem.emoji,
       petRarity: poolItem.rarity,
       petLevel: pet.level || 1,
-      petStage: pet.level < 2 ? '蛋' : pet.level < 10 ? '幼年' : pet.level < 20 ? '成长期' : pet.level < 30 ? '成熟体' : '完全体',
+      petStage: !pet.level || pet.level < 2 ? '蛋' : pet.level < 10 ? '幼年' : pet.level < 20 ? '成长期' : pet.level < 30 ? '成熟体' : '完全体',
       totalLearnQuestions: s.totalLearnQuestions || 0,
-      totalCorrectAnswers: s.totalCorrectAnswers || 0,
       daysActive: s.daysActive || 1,
       weeklyQuestions: s.weeklyQuestions || 0,
     }
   } catch (e) {
-    console.error('MV1 preview fetch error', e)
     return null
   }
 }

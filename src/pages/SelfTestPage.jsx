@@ -48,7 +48,14 @@ function getAnswerableQuestions(sections) {
   return qs
 }
 
-// ─── 语文出题 System Prompt ────────────────────────────
+// ─── 初中常量 ──────────────────────────────────────────
+const JUNIOR_EXAM_TYPE_MAP = {
+  midterm:  '期中综合',
+  final:    '期末综合',
+  mock:     '中考模拟',
+}
+
+// ─── 小升初语文 System Prompt ──────────────────────────
 function getChineseExamPrompt(grade, examType) {
   return `你是一位资深小学语文教研员，擅长设计适配移动端和电脑端的在线语文试题。请生成一份完整的语文试卷，严格按JSON格式返回。
 
@@ -320,6 +327,245 @@ function getEnglishExamPrompt(grade, examType) {
 - All English text at ${GRADE_MAP[grade]} level`
 }
 
+// ─── 初中语文 System Prompt ────────────────────────────
+function getJuniorChineseExamPrompt(examType) {
+  const examLabel = JUNIOR_EXAM_TYPE_MAP[examType] || '期末综合'
+  return `你是一位资深初中语文教研员，专攻中考备考，擅长设计适配移动端和电脑端的在线试题。请生成一份初二语文试卷，严格按JSON格式返回。
+
+## 核心参数
+- 适用年级：初中二年级（八年级）人教版
+- 考查类型：${examLabel}
+- 难度标准：中考难度，不超出初二知识范围
+- 满分：100分，题数约20-25题
+- 手机端友好：选项精简，题干清晰，无连线等复杂操作
+
+## 题型结构
+**一、积累与运用（30分）**
+1. 字音字形（单选，4题×2分=8分）
+2. 成语/词语运用（单选，4题×2分=8分）
+3. 文学常识与名著（判断题，4题×1分=4分）
+4. 古诗文默写（填空，5空×2分=10分，给上句填下句或情境填写）
+
+**二、文言文阅读（20分）**
+5. 展示文言文原文（passage类型，不计题号）
+6. 重点字词解释（填空，4题×2分=8分）
+7. 句子翻译（简答，2题×3分=6分）
+8. 内容理解（单选，2题×3分=6分）
+
+**三、现代文阅读（25分）**
+9. 展示阅读材料（passage类型，300-400字记叙文或说明文）
+10. 内容理解（单选，2题×3分=6分）
+11. 词语/句子理解（简答，2题×4分=8分，答案参考50字内）
+12. 主旨情感（简答，1题×5分=5分）
+13. 语言赏析（简答，1题×6分=6分，从修辞/描写角度）
+
+**四、写作（25分）**
+14. 中考作文（写作，1题25分，二选一，300-400字）
+
+## JSON格式
+{
+  "title": "初二语文${examLabel}测试",
+  "totalScore": 100,
+  "sections": [
+    {
+      "title": "一、积累与运用（30分）",
+      "questions": [
+        { "id": "q1", "type": "choice", "score": 2, "stem": "下列加点字注音全都正确的一项是（ ）", "options": ["A选项", "B选项", "C选项", "D选项"], "answer": 0, "analysis": "解析..." },
+        { "id": "q5", "type": "truefalse", "score": 1, "stem": "《水浒传》的作者是施耐庵。", "answer": true, "analysis": "解析..." },
+        { "id": "q9", "type": "fill", "score": 2, "stem": "根据提示填写名句：会当凌绝顶，________。（杜甫《望岳》）", "answer": "一览众山小", "acceptableAnswers": ["一览众山小"], "analysis": "出自杜甫《望岳》。" }
+      ]
+    },
+    {
+      "title": "二、文言文阅读（20分）",
+      "subsections": [
+        {
+          "title": "阅读下面文言文，完成题目",
+          "passageTitle": "《桃花源记》节选",
+          "passage": "文言文原文...",
+          "questions": [
+            { "id": "q14", "type": "fill", "score": 2, "stem": "解释加点词：①阡陌（　　）②交通（　　）", "answer": "田间小路；相互通达", "acceptableAnswers": ["田间小路；相互通达", "小路；通达"], "analysis": "解析..." },
+            { "id": "q16", "type": "shortanswer", "score": 3, "stem": "把下面句子翻译成现代汉语：土地平旷，屋舍俨然。", "answer": "土地平坦开阔，房屋整整齐齐。", "analysis": "重点词：平旷=平坦开阔，俨然=整整齐齐。" }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "三、现代文阅读（25分）",
+      "subsections": [
+        {
+          "title": "阅读下面文章，完成题目",
+          "passageTitle": "文章标题",
+          "passage": "300-400字记叙文或说明文...",
+          "questions": [
+            { "id": "q19", "type": "choice", "score": 3, "stem": "对文章内容理解正确的一项是（ ）", "options": ["A选项", "B选项", "C选项", "D选项"], "answer": 1, "analysis": "解析..." }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "四、写作（25分）",
+      "questions": [
+        { "id": "q24", "type": "writing", "score": 25, "stem": "请从以下两个题目中任选一个，写一篇300-400字的作文。", "prompts": [{"title": "那一次，我真的成长了", "hint": "写一件让你成长的事，要有细节描写和感悟。"}, {"title": "我最敬佩的一个人", "hint": "通过具体事例表现人物品质，有外貌或动作描写。"}], "wordLimit": "300-400字", "rubric": "内容切题、情感真实40%，结构完整清晰30%，语言表达30%" }
+      ]
+    }
+  ]
+}
+
+## 关键规则
+- id从q1连续编号，passage不占编号
+- choice的answer是索引（0-3）
+- truefalse的answer是true/false布尔值
+- fill必须有acceptableAnswers数组
+- shortanswer的answer是参考答案（50字内）
+- writing不需要answer，但需要rubric
+- 每道题必须有analysis解析
+- 文言文passage必须是真实的人教版课文选段`
+}
+
+// ─── 初中英语 System Prompt ────────────────────────────
+function getJuniorEnglishExamPrompt(examType) {
+  const examLabel = JUNIOR_EXAM_TYPE_MAP[examType] || '期末综合'
+  return `You are a senior junior high school English teacher specializing in 中考 exam preparation. Generate a Grade 8 (初二) English test paper as strict JSON. Mobile-friendly design required.
+
+## Parameters
+- Grade: 初二 (Grade 8), PEP textbook
+- Exam type: ${examLabel}
+- Difficulty: 中考 standard, within Grade 8 scope
+- Total: 100 points, ~22-26 questions
+- Mobile-friendly: clear stems, tappable options, no complex operations
+
+## Structure
+**Part 1: Language Knowledge (30pts)**
+1. Vocabulary in context (choice, 5×2=10pts) — choose word that fits the sentence
+2. Grammar (choice, 5×2=10pts) — passive voice, relative clauses, modal verbs, tenses
+3. Cloze test (choice, 5×2=10pts) — fill in blanks in a short passage
+
+**Part 2: Reading Comprehension (30pts)**
+4. Passage A (150-200 words, passage type + 4 questions)
+   - 2 truefalse (2pts each) + 2 choice (3pts each) = 10pts
+5. Passage B (200-250 words, informational/narrative, passage type + 4 questions)
+   - 2 choice (4pts each) + 1 shortanswer (5pts, answer in English ≤30 words) + 1 fill (7pts) = 20pts
+
+**Part 3: Language Use (25pts)**
+6. Complete the dialogue (choice, 5×2=10pts)
+7. Sentence transformation (reorder, 3×3=9pts) — rewrite using given words
+8. Translation (shortanswer, 2×3=6pts) — translate Chinese sentences to English
+
+**Part 4: Writing (15pts)**
+9. Email/letter or short essay (writing, 15pts, 80-100 words)
+
+## JSON Format
+{
+  "title": "Grade 8 English ${examLabel} Test",
+  "totalScore": 100,
+  "sections": [
+    { "title": "Part 1: Language Knowledge (30pts)", "questions": [
+        { "id": "q1", "type": "choice", "score": 2, "stem": "The book ______ on the desk is mine.", "options": ["lying", "lies", "lay", "to lie"], "answer": 0, "analysis": "现在分词作定语，表示书正放在桌上。" }
+    ]},
+    { "title": "Part 2: Reading Comprehension (30pts)", "subsections": [
+        { "title": "Read Passage A and answer questions", "passageTitle": "Passage A", "passage": "150-200 word passage...", "questions": [
+            { "id": "q16", "type": "truefalse", "score": 2, "stem": "Statement to judge based on passage.", "answer": true, "analysis": "解析..." }
+        ]}
+    ]},
+    { "title": "Part 3: Language Use (25pts)", "questions": [
+        { "id": "q21", "type": "reorder", "score": 3, "stem": "连词成句：been / have / I / Beijing / to", "answer": "I have been to Beijing.", "acceptableAnswers": ["I have been to Beijing.", "i have been to beijing"], "analysis": "现在完成时结构：have/has + been to。" }
+    ]},
+    { "title": "Part 4: Writing (15pts)", "questions": [
+        { "id": "q26", "type": "writing", "score": 15, "stem": "Write an email to your pen pal about your school life. (80-100 words)", "prompts": [{"title": "My School Life", "hint": "Include: favourite subject, after-school activities, friends."}], "wordLimit": "80-100 words", "rubric": "Content relevance 40%, Grammar accuracy 35%, Vocabulary range 25%" }
+    ]}
+  ]
+}
+
+## Rules
+- id from q1, consecutive (passages don't count)
+- choice answer = index (0-3), truefalse = true/false boolean
+- fill/reorder must have acceptableAnswers array with case-insensitive variants
+- shortanswer answer ≤ 40 words (reference answer)
+- writing needs rubric, no answer field
+- Every question must have analysis (Chinese OK)
+- All content within Grade 8 level, 中考 difficulty`
+}
+
+// ─── 初中政治 System Prompt ────────────────────────────
+function getPoliticsExamPrompt(examType) {
+  const examLabel = JUNIOR_EXAM_TYPE_MAP[examType] || '期末综合'
+  return `你是一位资深初中道德与法治教研员，专攻中考备考，擅长设计适配移动端和电脑端的在线试题。请生成一份初二道德与法治试卷，严格按JSON格式返回。
+
+## 核心参数
+- 适用年级：初中二年级（八年级）人教版道德与法治
+- 考查类型：${examLabel}
+- 难度标准：中考难度，不超出初二知识范围
+- 满分：100分，题数约18-22题
+- 手机端友好：选项简洁，情境真实，无复杂操作
+
+## 知识模块覆盖（初二核心）
+- 宪法与法律（公民权利与义务、依法治国、未成年人保护）
+- 国情国策（基本经济制度、国家制度、民主政治）
+- 道德与心理（诚信、责任、情绪管理、尊重他人）
+- 社会生活（网络生活、社会规则、公平正义）
+
+## 题型结构
+**一、单项选择题（40分）**
+1. 选择题（单选，10题×4分=40分）
+   - 题干短小精悍，选项A/B/C/D，覆盖4大模块，结合时事材料
+
+**二、非选择题（60分）**
+2. 简答题（2题×10分=20分）
+   - 每题设2个小问，考查"是什么/为什么/怎么做"
+   - 参考答案要点明确（3-4个要点，每点15字内）
+3. 材料分析题（2题×15分=30分）
+   - 每题含150字左右材料 + 2个子问
+   - 子问考查：①结合材料说明XX的重要性/必要性 ②青少年/公民应该怎么做
+4. 综合探究题（1题×10分=10分）
+   - 实践情境（倡议书/调查报告/活动方案），考查综合运用
+
+## JSON格式
+{
+  "title": "初二道德与法治${examLabel}测试",
+  "totalScore": 100,
+  "sections": [
+    {
+      "title": "一、单项选择题（每题4分，共40分）",
+      "questions": [
+        { "id": "q1", "type": "choice", "score": 4, "stem": "下列关于宪法地位的说法正确的是（ ）\nA. 宪法只规定公民权利，不规定国家机关权力\nB. 宪法是其他法律的立法依据和基础\nC. 宪法的修改程序与普通法律相同\nD. 宪法只约束公民，不约束国家机关", "options": ["宪法只规定公民权利，不规定国家机关权力", "宪法是其他法律的立法依据和基础", "宪法的修改程序与普通法律相同", "宪法只约束公民，不约束国家机关"], "answer": 1, "analysis": "【解析】宪法是根本法，是其他法律的立法依据，具有最高法律效力。" }
+      ]
+    },
+    {
+      "title": "二、非选择题",
+      "subsections": [
+        {
+          "title": "（一）简答题（每题10分）",
+          "questions": [
+            { "id": "q11", "type": "shortanswer", "score": 10, "stem": "党的二十大报告指出，全面依法治国是国家治理的一场深刻革命。\n请回答：（1）为什么要坚持依法治国？（5分）\n（2）青少年应如何做到依法办事？（5分）", "answer": "（1）①法律是治国之重器；②依法治国是党领导人民治理国家的基本方略；③有利于维护社会秩序和公平正义；④保障公民权利。\n（2）①学法懂法守法用法；②自觉遵守法律法规；③用法律维护自身权益；④敢于同违法行为作斗争。", "analysis": "考查依法治国的意义和青少年的做法，注意从多角度分析。" }
+          ]
+        },
+        {
+          "title": "（二）材料分析题（每题15分）",
+          "questions": [
+            { "id": "q13", "type": "shortanswer", "score": 15, "stem": "材料：2024年某地开展"宪法宣传周"活动，同学们纷纷参与宪法知识竞赛，学习宪法精神。有同学认为："宪法离我们的生活很远。"\n\n（1）结合材料，你是否赞同该同学的观点？请说明理由。（8分）\n（2）青少年应如何用实际行动践行宪法精神？（7分）", "answer": "（1）不赞同。宪法与我们的生活密切相关：①宪法保障公民受教育的权利；②宪法保护公民人身自由；③宪法规定公民的基本权利与义务，与每个人息息相关；④宪法是国家根本法，任何组织和个人都在宪法范围内活动。\n（2）①认真学习宪法，了解宪法的地位和基本内容；②宣传宪法精神；③自觉遵守宪法；④用宪法维护自身合法权益；⑤敢于检举违反宪法的行为。", "analysis": "材料分析题关键：①联系材料②运用所学知识③答出要点" }
+          ]
+        },
+        {
+          "title": "（三）综合探究题（10分）",
+          "questions": [
+            { "id": "q15", "type": "writing", "score": 10, "stem": "学校团委开展"文明上网，从我做起"主题活动，请你以学生会的名义写一份倡议书，倡导同学们文明健康使用网络。\n要求：格式规范（有称谓、正文、落款），内容包含至少3条具体倡议，字数100字左右。", "prompts": [{"title": "文明上网倡议书", "hint": "格式：称谓（全校同学们）+ 正文（3条以上具体倡议）+ 落款（学生会 + 日期）"}], "wordLimit": "约100字", "rubric": "格式规范30分，倡议内容具体充实50分，语言得体20分" }
+          ]
+        }
+      ]
+    }
+  ]
+}
+
+## 关键规则
+- id从q1连续编号，passage不占编号
+- choice的answer是索引（0-3）
+- truefalse的answer是true/false布尔值
+- shortanswer提供详细参考答案（要点式，便于学生对照）
+- writing需要rubric，不需要answer
+- 每道题必须有analysis
+- 严格按中考评分标准，难度符合中考水平`
+}
+
 // ─── AI 评分 Prompt（主观题批量评分）───────────────────
 function getScoringPrompt(questions, answers, subject) {
   const items = questions
@@ -415,50 +661,86 @@ function getGlobalIndex(sections, targetId) {
 // ═══════════════════════════════════════════════════════
 // 组件：设置界面
 // ═══════════════════════════════════════════════════════
-function SetupMode({ onStart, subject, onBack }) {
-  const [grade, setGrade] = useState(5)
+function SetupMode({ onStart, subject, grade: gradeProp, onBack }) {
+  // 小学：年级 4/5/6 可选；初中：固定 'junior2'
+  const isJunior = gradeProp === 'junior2'
+  const [selectedGrade, setSelectedGrade] = useState(isJunior ? 'junior2' : 5)
   const [examType, setExamType] = useState('final')
+
+  const isPolitics = subject === 'politics'
+  const themeGradient = isPolitics
+    ? 'from-red-500 to-orange-600'
+    : subject === 'english'
+      ? 'from-blue-500 to-indigo-600'
+      : 'from-amber-500 to-orange-600'
+
+  const subjectLabel = isPolitics ? '道德与法治' : subject === 'english' ? '英语' : '语文'
+
+  const examTypes = isJunior
+    ? [
+        { key: 'midterm', label: '期中综合', emoji: '📖' },
+        { key: 'final',   label: '期末综合', emoji: '🎯' },
+        { key: 'mock',    label: '中考模拟', emoji: '🏆' },
+      ]
+    : [
+        { key: 'midterm', label: '期中综合', emoji: '📖' },
+        { key: 'final',   label: '期末综合', emoji: '🎯' },
+      ]
+
+  const difficultyText = isJunior
+    ? '中考难度 · 不超出初二范围'
+    : '基础70% · 提升20% · 拓展10%'
+
+  const questionCount = isPolitics ? '18-22 题' : isJunior ? '20-26 题' : '25-30 题'
 
   return (
     <div className="flex flex-col gap-5 px-4 py-5">
       {/* 标题卡片 */}
-      <div className={`rounded-2xl p-5 text-white text-center ${subject === 'english'
-        ? 'bg-gradient-to-r from-blue-500 to-indigo-600'
-        : 'bg-gradient-to-r from-amber-500 to-orange-600'}`}>
+      <div className={`rounded-2xl p-5 text-white text-center bg-gradient-to-r ${themeGradient}`}>
         <div className="text-4xl mb-2">📝</div>
-        <h2 className="text-xl font-bold">{subject === 'english' ? '英语' : '语文'}自测小考</h2>
+        <h2 className="text-xl font-bold">{subjectLabel}自测小考</h2>
         <p className="text-sm opacity-80 mt-1">AI 生成完整试卷 · 自动评分 · 查漏补缺</p>
       </div>
 
-      {/* 年级选择 */}
-      <div>
-        <div className="text-xs font-semibold text-gray-500 mb-2">选择年级</div>
-        <div className="flex gap-2">
-          {[4, 5, 6].map(g => (
-            <button key={g} onClick={() => setGrade(g)}
-              className={`flex-1 py-3.5 rounded-2xl text-center transition-all active:scale-95 ${
-                grade === g
-                  ? `${subject === 'english' ? 'bg-gradient-to-r from-blue-500 to-indigo-600' : 'bg-gradient-to-r from-amber-500 to-orange-600'} text-white shadow-md`
-                  : 'bg-gray-100 text-gray-600'}`}>
-              <div className="text-lg font-bold">{g}年级</div>
-              <div className="text-[10px] opacity-70">人教版</div>
-            </button>
-          ))}
+      {/* 年级选择（仅小学显示） */}
+      {!isJunior && (
+        <div>
+          <div className="text-xs font-semibold text-gray-500 mb-2">选择年级</div>
+          <div className="flex gap-2">
+            {[4, 5, 6].map(g => (
+              <button key={g} onClick={() => setSelectedGrade(g)}
+                className={`flex-1 py-3.5 rounded-2xl text-center transition-all active:scale-95 ${
+                  selectedGrade === g
+                    ? `bg-gradient-to-r ${themeGradient} text-white shadow-md`
+                    : 'bg-gray-100 text-gray-600'}`}>
+                <div className="text-lg font-bold">{g}年级</div>
+                <div className="text-[10px] opacity-70">人教版</div>
+              </button>
+            ))}
+          </div>
         </div>
-      </div>
+      )}
+
+      {/* 初中：固定显示初二 */}
+      {isJunior && (
+        <div className={`rounded-2xl p-4 bg-gradient-to-r ${themeGradient} text-white flex items-center gap-3`}>
+          <span className="text-2xl">🏫</span>
+          <div>
+            <div className="font-bold text-base">初中二年级（八年级）</div>
+            <div className="text-xs opacity-80">人教版 · 中考备考</div>
+          </div>
+        </div>
+      )}
 
       {/* 考试类型 */}
       <div>
         <div className="text-xs font-semibold text-gray-500 mb-2">考查范围</div>
-        <div className="flex gap-3">
-          {[
-            { key: 'midterm', label: '期中综合', emoji: '📖' },
-            { key: 'final', label: '期末综合', emoji: '🎯' },
-          ].map(t => (
+        <div className="flex gap-2">
+          {examTypes.map(t => (
             <button key={t.key} onClick={() => setExamType(t.key)}
               className={`flex-1 py-3.5 rounded-2xl text-center transition-all active:scale-95 ${
                 examType === t.key
-                  ? `${subject === 'english' ? 'bg-gradient-to-r from-blue-500 to-indigo-600' : 'bg-gradient-to-r from-amber-500 to-orange-600'} text-white shadow-md`
+                  ? `bg-gradient-to-r ${themeGradient} text-white shadow-md`
                   : 'bg-gray-100 text-gray-600'}`}>
               <div className="text-xl mb-1">{t.emoji}</div>
               <div className="text-sm font-bold">{t.label}</div>
@@ -475,7 +757,7 @@ function SetupMode({ onStart, subject, onBack }) {
         </div>
         <div className="flex justify-between text-sm">
           <span className="text-gray-500">题量</span>
-          <span className="font-bold text-gray-800">25-30 题</span>
+          <span className="font-bold text-gray-800">{questionCount}</span>
         </div>
         <div className="flex justify-between text-sm">
           <span className="text-gray-500">预计时间</span>
@@ -483,14 +765,14 @@ function SetupMode({ onStart, subject, onBack }) {
         </div>
         <div className="flex justify-between text-sm">
           <span className="text-gray-500">难度</span>
-          <span className="font-bold text-gray-800">基础70% · 提升20% · 拓展10%</span>
+          <span className="font-bold text-gray-800">{difficultyText}</span>
         </div>
       </div>
 
       {/* 提示 */}
       <div className="bg-amber-50 border border-amber-200 rounded-2xl p-4">
         <p className="text-xs text-amber-700 leading-relaxed">
-          ⚠️ 考试开始后请勿切换页面，作文主观题由 AI 评分（仅供参考）。
+          ⚠️ 考试开始后请勿切换页面，主观题由 AI 评分（仅供参考）。
           做错的题目会自动收入错题本，方便后续复习。
         </p>
       </div>
@@ -501,11 +783,8 @@ function SetupMode({ onStart, subject, onBack }) {
           className="py-4 rounded-2xl bg-gray-100 text-gray-600 font-bold text-sm active:scale-95 transition-all px-6">
           ← 返回
         </button>
-        <button onClick={() => onStart({ grade, examType })}
-          className={`flex-1 py-4 rounded-2xl text-white font-bold text-lg shadow-md active:scale-95 transition-all ${
-            subject === 'english'
-              ? 'bg-gradient-to-r from-blue-500 to-indigo-600'
-              : 'bg-gradient-to-r from-amber-500 to-orange-600'}`}>
+        <button onClick={() => onStart({ grade: selectedGrade, examType })}
+          className={`flex-1 py-4 rounded-2xl text-white font-bold text-lg shadow-md active:scale-95 transition-all bg-gradient-to-r ${themeGradient}`}>
           📝 开始考试
         </button>
       </div>
@@ -721,7 +1000,7 @@ function ExamMode({ examData, subject, onBack, onSubmit }) {
     })(),
   }))
 
-  const themeColor = subject === 'english' ? 'from-blue-500 to-indigo-600' : 'from-amber-500 to-orange-600'
+  const themeColor = subject === 'politics' ? 'from-red-500 to-orange-600' : subject === 'english' ? 'from-blue-500 to-indigo-600' : 'from-amber-500 to-orange-600'
 
   return (
     <div className="flex flex-col min-h-screen bg-gray-50">
@@ -1291,27 +1570,42 @@ ${sectionScores.map(s => `- ${s.title}：${s.earned}/${s.total}分（${s.total >
 // ═══════════════════════════════════════════════════════
 // 主页面
 // ═══════════════════════════════════════════════════════
-export default function SelfTestPage({ user, subject, onBack }) {
+export default function SelfTestPage({ user, subject, grade: gradeProp = 'primary', onBack }) {
   const [mode, setMode] = useState('setup') // setup / loading / exam / result
   const [examData, setExamData] = useState(null)
   const [answers, setAnswers] = useState({})
   const [elapsed, setElapsed] = useState(0)
   const [error, setError] = useState(null)
 
-  const themeColor = subject === 'english' ? 'from-blue-500 to-indigo-600' : 'from-amber-500 to-orange-600'
-  const themeBg = subject === 'english' ? 'from-blue-50 to-indigo-50' : 'from-amber-50 to-orange-50'
+  const themeColor = subject === 'politics' ? 'from-red-500 to-orange-600' : subject === 'english' ? 'from-blue-500 to-indigo-600' : 'from-amber-500 to-orange-600'
+  const themeBg = subject === 'politics' ? 'from-red-50 to-orange-50' : subject === 'english' ? 'from-blue-50 to-indigo-50' : 'from-amber-50 to-orange-50'
 
   async function handleStart({ grade, examType }) {
     setMode('loading')
     setError(null)
+    const isJunior = gradeProp === 'junior2'
+
     try {
-      const systemPrompt = subject === 'english'
-        ? getEnglishExamPrompt(grade, examType)
-        : getChineseExamPrompt(grade, examType)
+      let systemPrompt, userPrompt
 
-      const userPrompt = `请生成一份${GRADE_MAP[grade]}${EXAM_TYPE_MAP[examType]}测试卷。严格按照要求的题型结构和分值出题，确保总分100分。`
+      if (subject === 'politics') {
+        systemPrompt = getPoliticsExamPrompt(examType)
+        userPrompt = `请生成一份初二道德与法治${JUNIOR_EXAM_TYPE_MAP[examType] || '期末综合'}测试卷。严格按照要求的题型结构和分值出题，确保总分100分。`
+      } else if (isJunior && subject === 'chinese') {
+        systemPrompt = getJuniorChineseExamPrompt(examType)
+        userPrompt = `请生成一份初二语文${JUNIOR_EXAM_TYPE_MAP[examType] || '期末综合'}测试卷。严格按照要求的题型结构和分值出题，确保总分100分。`
+      } else if (isJunior && subject === 'english') {
+        systemPrompt = getJuniorEnglishExamPrompt(examType)
+        userPrompt = `Please generate a Grade 8 English ${JUNIOR_EXAM_TYPE_MAP[examType] || '期末综合'} test paper. Follow the structure exactly with correct point allocation. Total: 100 points.`
+      } else if (subject === 'english') {
+        systemPrompt = getEnglishExamPrompt(grade, examType)
+        userPrompt = `Please generate a ${GRADE_MAP[grade]} ${EXAM_TYPE_MAP[examType]} English test paper. Follow the structure exactly. Total: 100 points.`
+      } else {
+        systemPrompt = getChineseExamPrompt(grade, examType)
+        userPrompt = `请生成一份${GRADE_MAP[grade]}${EXAM_TYPE_MAP[examType]}语文测试卷。严格按照要求的题型结构和分值出题，确保总分100分。`
+      }
 
-      const result = await callDeepSeek(systemPrompt, userPrompt, { temperature: 0.8 })
+      const result = await callDeepSeek(systemPrompt, userPrompt, { temperature: 0.8, max_tokens: 3500 })
 
       if (!result.sections || !Array.isArray(result.sections)) {
         throw new Error('AI 返回格式异常，请重试')
@@ -1370,7 +1664,7 @@ export default function SelfTestPage({ user, subject, onBack }) {
               className="w-9 h-9 flex items-center justify-center bg-white/20 rounded-xl text-lg font-bold active:bg-white/30">
               ←
             </button>
-            <h1 className="flex-1 text-xl font-bold">📝 {subject === 'english' ? '英语' : '语文'}自测小考</h1>
+            <h1 className="flex-1 text-xl font-bold">📝 {subject === 'politics' ? '道德与法治' : subject === 'english' ? '英语' : '语文'}自测小考</h1>
           </div>
         </div>
         {error && (
@@ -1378,7 +1672,7 @@ export default function SelfTestPage({ user, subject, onBack }) {
             <p className="text-sm text-red-600 font-medium">❌ {error}</p>
           </div>
         )}
-        <SetupMode onStart={handleStart} subject={subject} onBack={onBack} />
+        <SetupMode onStart={handleStart} subject={subject} grade={gradeProp} onBack={onBack} />
       </div>
     )
   }

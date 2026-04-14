@@ -18,7 +18,7 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: 'Method not allowed' })
   }
 
-  const { text, lang = 'en-US', rate = 0 } = req.body
+  const { text, lang = 'en-US', rate = 1.0 } = req.body
 
   if (!text || text.trim().length === 0) {
     return res.status(400).json({ error: 'Text is required' })
@@ -35,10 +35,8 @@ export default async function handler(req, res) {
 
     await tts.setMetadata(voice, OUTPUT_FORMAT.AUDIO_24KHZ_48KBITRATE_MONO_MP3)
 
-    // rate: -100% 到 +100%，映射用户输入 0.5-1.5 → -50% 到 +50%
-    const rateStr = rate !== 0 ? `${Math.round((rate - 1) * 100)}%` : '+0%'
-
-    const readable = tts.toStream(text, { rate: rateStr })
+    // edge-tts-node ProsodyOptions.rate 期望数值（1.0=正常速度），直接传入
+    const readable = tts.toStream(text, { rate: rate || 1.0 })
 
     // 收集所有 chunk 为 Buffer
     const chunks = []
