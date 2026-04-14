@@ -20,7 +20,7 @@ import {
 } from '../utils/gamification';
 import { storage, calcLevel, calcLevelProgress } from '../utils/storage';
 import { fetchMV1State, upsertMV1State, fetchUserPetPreview, sendEncouragement } from '../utils/mv1_cloud';
-import { findUserByName } from '../utils/sync';
+import { findUserByName, supabase as supabaseClient } from '../utils/sync';
 import ShopPanel from '../components/ShopPanel';
 import DailyTasksPanel from '../components/DailyTasksPanel';
 import PetSwitchPanel from '../components/PetSwitchPanel';
@@ -82,70 +82,83 @@ function FriendsPanel({ state, userId, onStateChange }) {
     e => !e.read
   );
 
-  // 添加好友（支持好友码/user_id 或 用户名两种方式）
+  // 添加好友（支持好友码/user_id 或 用户名，支持模糊搜索）
   const handleAddFriend = async () => {
     const fid = addInput.trim();
     if (!fid) return;
     if (fid === userId) { setAddStatus('不能添加自己'); return; }
-    if (friends.includes(fid)) { setAddStatus('已经是好友了'); return; }
+    
     setAddLoading(true);
-    setAddStatus('搜索中...');
+    setAddStatus('🔍 搜索中...');
+    
     try {
-      let targetId = fid;
-      let foundName = '';
-      let preview = null;
-
-      // 策略1：直接用输入值作为 user_id 查 mv1_state（获取宠物预览）
-      preview = await fetchUserPetPreview(fid);
-      if (!preview?.petEmoji) {
-        // 策略2：按用户名查 users 表获取真实 id
-        try {
-          const foundUser = await findUserByName(fid);
-          if (foundUser && foundUser.id !== userId && !friends.includes(foundUser.id)) {
-            targetId = foundUser.id;
-            foundName = foundUser.name;
-            // 用真实 id 查宠物预览（可能为空，没关系）
-            preview = await fetchUserPetPreview(foundUser.id) || null;
-          } else if (foundUser?.id === userId) {
-            setAddLoading(false); setAddStatus('不能添加自己'); return;
-          } else if (foundUser && friends.includes(foundUser.id)) {
-            setAddLoading(false); setAddStatus('已经是好友了'); return;
-          }
-        } catch (_) { /* findUserByName 可能失败 */ }
-      }
-
-      // 最终检查：两种策略都没找到任何用户
-      if (!targetId || (targetId === fid && !preview?.petEmoji && !foundName)) {
-        // 再试一次：确认输入的fid是否就是有效的user_id（即使没有宠物记录也允许添加）
-        const directCheck = await fetchUserPetPreview(fid);
-        if (!directCheck?.petEmoji) {
-          // 最后尝试按名字查一次
-          const nameCheck = await findUserByName(fid);
-          if (!nameCheck) {
-            setAddStatus(`未找到用户「${fid}」，请检查好友码或用户名`);
-            setAddLoading(false); return;
-          }
-          if (nameCheck.id === userId) { setAddLoading(false); setAddStatus('不能添加自己'); return; }
-          if (friends.includes(nameCheck.id)) { setAddLoading(false); setAddStatus('已经是好友了'); return; }
-          targetId = nameCheck.id;
-          foundName = nameCheck.name;
+      let targetId = null;
+      let targetName = '';
+      
+      // === 策略1：直接当 user_id 用（输入的就是ID） ===
+      console.log('[addFriend] 策略1: 尝试以user_id查询:', fid);
+      const idPreview = await fetchUserPetPreview(fid);
+      if (idPreview) {
+        console.log('[addFriend] ✅ 在mv1_state中找到用户');
+        targetId = fid;
+      } else {
+        console.log('[addFriend] ⚠️ mv1_state无记录，尝试users表模糊搜索...');
+        
+        // === 策略2：按名字查 users 表（先精确后模糊）===
+        // 先用原版findUserByName（精确匹配）
+        let foundUser = await findUserByName(fid);
+        
+        // 如果精确匹配不到，尝试模糊搜索
+        if (!foundUser && supabaseClient) {
+          console.log('[addFriend] 精确匹配未果，尝试模糊搜索...');
+          const { data: fuzzyResults } = await supabaseClient
+            .from('users')
+            .select('id, name')
+            .ilike('name', `%${fid}%`)
+            .order('created_at', { ascending: false })
+            .limit(5);
+          console.log('[addFriend] 模糊搜索结果:', fuzzyResults);
+          foundUser = fuzzyResults?.[0] || null;
+        }
+        
+        if (foundUser) {
+          if (foundUser.id === userId) { setAddLoading(false); setAddStatus('不能添加自己'); return; }
+          if (friends.includes(foundUser.id)) { setAddLoading(false); setAddStatus('已经是好友了'); return; }
+          targetId = foundUser.id;
+          targetName = foundUser.name;
+          console.log('[addFriend] ✅ 找到用户:', foundUser.name, 'id:', foundUser.id);
         }
       }
 
-      // 找到用户，添加好友
-      const displayName = foundName || targetId.slice(0, 8) + '...';
-      setAddStatus(`已添加「${displayName}」为好友 ✅`);
+      // 最终判定
+      if (!targetId) {
+        console.error('[addFriend] ❌ 所有策略均未找到用户，输入值:', fid);
+        setAddStatus(`❌ 未找到「${fid}」\n请确认对方已注册`);
+        setAddLoading(false);
+        return;
+      }
+
+      // 执行添加
+      const displayName = targetName || targetId.slice(0, 10) + '...';
+      console.log('[addFriend] 正在添加好友:', displayName, 'id:', targetId);
+      
+      setAddStatus(`✅ 已添加「${displayName}」为好友`);
       const newFriends = [...friends, targetId];
       setFriends(newFriends);
       setAddInput('');
-      // 更新state到云端
+      
+      // 存储到云端
       const fullState = { ...state, friends: newFriends };
       await upsertMV1State(userId, fullState);
-      // 更新本地预览
-      if (preview) setFriendPreviews(prev => ({ ...prev, [targetId]: preview }));
-      else setFriendPreviews(prev => ({ ...prev, [targetId]: { userId: targetId, petName: '??', petEmoji: '❓', petLevel: 0, petStage: '未知' } }));
+      
+      // 更新预览
+      const preview = await fetchUserPetPreview(targetId);
+      setFriendPreviews(prev => ({
+        ...prev,
+        [targetId]: preview || { userId: targetId, petName: '??', petEmoji: '❓', petLevel: 0, petStage: '未知' }
+      }));
     } catch (e) {
-      console.error('addFriend error:', e);
+      console.error('[addFriend] 异常:', e);
       setAddStatus('网络错误，请重试');
     }
     setAddLoading(false);
