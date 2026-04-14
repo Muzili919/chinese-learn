@@ -457,15 +457,15 @@ export default function App() {
       <PoliticsHomePage
         user={user}
         onStartQuiz={startQuiz}
-        onBack={() => { setPage('home'); setActiveSubject('chinese') }}
+        onBack={() => { setPage('home'); setActiveSubject('politics') }}
       />
     )
     if (page === 'politicsQuiz') return (
       <PoliticsQuizPage
         user={user}
         options={quizOptions}
-        onFinish={(result) => { setSessionResult(result); setPage('result') }}
-        onBack={() => { setPage('home'); setActiveSubject('chinese') }}
+        onFinish={(result) => { setSessionResult(result); setPage('result'); setActiveSubject('politics') }}
+        onBack={() => { setPage('home'); setActiveSubject('politics') }}
       />
     )
     if (page === 'wrong_answers_quiz') return (

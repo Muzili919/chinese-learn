@@ -1,24 +1,27 @@
-const API_URL = 'https://api.deepseek.com/v1/chat/completions'
-const API_KEY = import.meta.env.VITE_DEEPSEEK_API_KEY
+// 通过 Vercel Serverless Function 代理调用 DeepSeek API（保护 Key 安全）
+const API_URL = '/api/ai'
 
-async function callDeepSeek(systemPrompt, userPrompt) {
+async function callDeepSeek(systemPrompt, userPrompt, options = {}) {
   const res = await fetch(API_URL, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      Authorization: `Bearer ${API_KEY}`,
     },
     body: JSON.stringify({
-      model: 'deepseek-chat',
+      model: options.model || 'deepseek-chat',
       messages: [
         { role: 'system', content: systemPrompt },
         { role: 'user', content: userPrompt },
       ],
       response_format: { type: 'json_object' },
-      temperature: 0.7,
+      temperature: options.temperature ?? 0.7,
+      max_tokens: options.max_tokens,
     }),
   })
-  if (!res.ok) throw new Error(`DeepSeek API error: ${res.status}`)
+  if (!res.ok) {
+    const errData = await res.json().catch(() => ({}))
+    throw new Error(errData.error || `AI request failed (${res.status})`)
+  }
   const data = await res.json()
   return JSON.parse(data.choices[0].message.content)
 }

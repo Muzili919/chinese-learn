@@ -15,7 +15,17 @@ import j2ListenQ from '../data/questions_en_j2_listen.json'
 import j2ReadingQ from '../data/questions_en_j2_reading.json'
 import j2WritingQ from '../data/questions_en_j2_writing.json'
 
-const SESSION_SIZE = 15
+const DEFAULT_SESSION_SIZE = 15
+
+// 各星球每次答题数
+const EN_SESSION_SIZES = {
+  en_association: 10,
+  en_vocab:       10,
+  en_listen:      10,
+  en_grammar:     10,
+  en_reading:     5,
+  en_writing:     10,
+}
 
 const EN_QUESTION_MAP = {
   en_vocab:   enVocabQ,
@@ -1101,11 +1111,13 @@ export default function EnglishQuizPage({ user, options = {}, onFinish, onBack }
   const startTime = useRef(Date.now())
   const questionStartTime = useRef(Date.now())
 
+  const sessionSize = EN_SESSION_SIZES[englishTag] || DEFAULT_SESSION_SIZE
+
   const questions = useMemo(() => {
     const questionMap = grade === 'junior2' ? J2_QUESTION_MAP : EN_QUESTION_MAP
     const pool = questionMap[englishTag] || enVocabQ
-    return shuffle(pool).slice(0, SESSION_SIZE)
-  }, [englishTag, grade])
+    return shuffle(pool).slice(0, sessionSize)
+  }, [englishTag, grade, sessionSize])
 
   const [index, setIndex] = useState(0)
   const [sessionRecords, setSessionRecords] = useState([])

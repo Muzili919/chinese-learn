@@ -7,7 +7,7 @@ import wordsNetwork from '../data/words_network.json'
 import j2WordsNetwork from '../data/words_network_j2.json'
 
 // ─── 常量 ───────────────────────────────────────────────────────────────
-const SESSION_SIZE = 15
+const SESSION_SIZE = 10
 const XP_CORRECT = 10
 
 // ─── TTS ──────────────────────────────────────────────────────────────────

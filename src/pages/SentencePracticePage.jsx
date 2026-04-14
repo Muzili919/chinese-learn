@@ -4,7 +4,7 @@ import { storage } from '../utils/storage'
 import { syncAfterSession } from '../utils/sync'
 import allWords from '../data/sentence_words.json'
 
-const SESSION_SIZE = 10
+const SESSION_SIZE = 5
 
 function shuffle(arr) {
   const a = [...arr]

@@ -14,7 +14,16 @@ import sentenceQ from '../data/questions_sentence.json'
 import litQ from '../data/questions_literature.json'
 
 const ALL_QUESTIONS = [...vocabQ, ...poetryQ, ...idiomQ, ...sentenceQ, ...litQ]
-const SESSION_SIZE = 20
+const DEFAULT_SESSION_SIZE = 20
+
+// 各星球每次答题数
+const PLANET_SESSION_SIZES = {
+  字词: 10,
+  古诗词: 10,
+  成语: 10,
+  句子: 10,
+  文学常识: 10,
+}
 
 function shuffle(arr) {
   const a = [...arr]
@@ -38,6 +47,11 @@ function shuffleOptions(question) {
 export default function QuizPage({ user, options = {}, onFinish, onBack }) {
   const { focusTag = null, knowledgeTag = null, wrongCardIds = null } = options
 
+  // 根据星球确定每次答题数
+  const sessionSize = (wrongCardIds?.length)
+    ? DEFAULT_SESSION_SIZE
+    : (PLANET_SESSION_SIZES[knowledgeTag] || DEFAULT_SESSION_SIZE)
+
   const srsStates = useRef(storage.getSrsState(user.id))
   const startTime = useRef(Date.now())
   const questionStartTime = useRef(Date.now())
@@ -46,14 +60,14 @@ export default function QuizPage({ user, options = {}, onFinish, onBack }) {
     if (wrongCardIds?.length) {
       const idSet = new Set(wrongCardIds)
       const pool = ALL_QUESTIONS.filter(q => idSet.has(q.id))
-      return shuffle(pool).slice(0, SESSION_SIZE).map(shuffleOptions)
+      return shuffle(pool).slice(0, sessionSize).map(shuffleOptions)
     }
     let pool = ALL_QUESTIONS
     if (knowledgeTag) pool = pool.filter((q) => q.knowledge_tag === knowledgeTag)
     // 全部混合模式：无 knowledgeTag 且无 focusTag 时，从各星球各抽题
     const isMixed = !knowledgeTag && !focusTag
-    return scheduleSession(pool, srsStates.current, SESSION_SIZE, focusTag, isMixed).map(shuffleOptions)
-  }, [focusTag, knowledgeTag, wrongCardIds])
+    return scheduleSession(pool, srsStates.current, sessionSize, focusTag, isMixed).map(shuffleOptions)
+  }, [focusTag, knowledgeTag, wrongCardIds, sessionSize])
 
   const isWrongReview = !!(wrongCardIds?.length)
 

@@ -9,7 +9,7 @@ import polAnalysisQ from '../data/questions_politics_analysis.json'
 
 // 不同星球每次答题数
 const SESSION_SIZES = {
-  pol_choice: 20,
+  pol_choice: 15,
   pol_answer: 10,
   pol_analysis: 5,
   pol_explore: 3,
