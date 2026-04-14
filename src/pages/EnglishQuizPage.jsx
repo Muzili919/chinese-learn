@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef, useMemo } from 'react'
 import { storage, updateStreak } from '../utils/storage'
 import { updateSRS, toQuality } from '../utils/srs'
+import { scheduleSession } from '../utils/scheduler'
 import { syncAfterSession } from '../utils/sync'
 import { speakEnglish as _speakEnglish, stop as stopTTS, initTTS } from '../utils/tts'
 import { evaluateEnglishReading, evaluateEnglishWriting } from '../utils/ai'
@@ -67,11 +68,19 @@ function extractEnglishForTTS(text) {
   const englishLines = lines.filter(line => {
     const stripped = line.trim()
     if (!stripped) return false
-    // 跳过含中文字符的行
     if (chineseRe.test(stripped)) return false
     return true
   })
   return englishLines.join('\n').trim()
+}
+
+// 填空题 TTS：把 ______ 替换为实际答案再朗读（不让 TTS 读出"blank"）
+function buildListeningTTSText(q) {
+  let text = extractEnglishForTTS(q.listening_text || '')
+  if (!text) return ''
+  const answer = (q.answer || '').trim()
+  if (answer) text = text.replace(/_{3,}/g, answer)
+  return text
 }
 
 // ─── 多子题解析 ────────────────────────────────────────────────────────────
@@ -1138,7 +1147,8 @@ export default function EnglishQuizPage({ user, options = {}, onFinish, onBack }
   const questions = useMemo(() => {
     const questionMap = grade === 'junior2' ? J2_QUESTION_MAP : EN_QUESTION_MAP
     const pool = questionMap[englishTag] || enVocabQ
-    return shuffle(pool).slice(0, sessionSize)
+    const seenToday = new Set(storage.getSeenToday(user.id))
+    return scheduleSession(pool, srsStates.current, sessionSize, null, false, seenToday)
   }, [englishTag, grade, sessionSize])
 
   const [index, setIndex] = useState(0)
@@ -1152,7 +1162,7 @@ export default function EnglishQuizPage({ user, options = {}, onFinish, onBack }
 
   useEffect(() => {
     if (current?.listening_text) {
-      const ttsText = extractEnglishForTTS(current.listening_text)
+      const ttsText = buildListeningTTSText(current)
       if (ttsText) {
         setIsPlayingAudio(true)
         speakEnglish(ttsText, () => setIsPlayingAudio(false))
@@ -1200,6 +1210,8 @@ export default function EnglishQuizPage({ user, options = {}, onFinish, onBack }
         // 标记星球完成（只有做完才算打卡）
         if (current?.knowledge_tag) storage.markPlanetComplete(user.id, current.knowledge_tag)
         updateStreak(user.id)
+        // 今日已见：记录本 session 所有题 id，下次选题自动排到最后
+        storage.markSeenToday(user.id, questions.map(q => q.id))
       syncAfterSession(user.id)
       onFinish({ session, records: allRecords })
     } else {
@@ -1244,7 +1256,7 @@ export default function EnglishQuizPage({ user, options = {}, onFinish, onBack }
             {isPlayingAudio ? '正在播放听力...' : '听力已播放完毕'}
           </span>
           <button
-            onClick={() => { if (isPlayingAudio) return; setIsPlayingAudio(true); speakEnglish(current.listening_text, () => setIsPlayingAudio(false)) }}
+            onClick={() => { if (isPlayingAudio) return; setIsPlayingAudio(true); speakEnglish(buildListeningTTSText(current), () => setIsPlayingAudio(false)) }}
             disabled={isPlayingAudio}
             className={`text-sm px-4 py-2 rounded-full font-bold ${isPlayingAudio ? 'bg-violet-200 text-violet-400 cursor-not-allowed' : 'bg-violet-500 text-white active:bg-violet-600'}`}
           >

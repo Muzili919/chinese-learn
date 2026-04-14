@@ -79,6 +79,21 @@ export const storage = {
     return xp;
   },
 
+  // 今日已见题目（跨 session 去重，防止同一天反复刷到相同题）
+  // 结构: { date: "2026-04-14", ids: ["en_001", "en_002", ...] }
+  getSeenToday: (userId) => {
+    const data = JSON.parse(localStorage.getItem(P + 'seen_today_' + userId) || '{}')
+    const today = new Date().toISOString().split('T')[0]
+    if (data.date !== today) return []   // 日期变了，视为空
+    return data.ids || []
+  },
+  markSeenToday: (userId, ids) => {
+    const today = new Date().toISOString().split('T')[0]
+    const existing = storage.getSeenToday(userId)
+    const merged = [...new Set([...existing, ...ids])]
+    localStorage.setItem(P + 'seen_today_' + userId, JSON.stringify({ date: today, ids: merged }))
+  },
+
   // Parent PIN
   getParentPin: () => localStorage.getItem(P + 'pin') || null,
   setParentPin: (pin) => localStorage.setItem(P + 'pin', pin),

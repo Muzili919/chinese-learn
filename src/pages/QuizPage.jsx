@@ -64,9 +64,9 @@ export default function QuizPage({ user, options = {}, onFinish, onBack }) {
     }
     let pool = ALL_QUESTIONS
     if (knowledgeTag) pool = pool.filter((q) => q.knowledge_tag === knowledgeTag)
-    // 全部混合模式：无 knowledgeTag 且无 focusTag 时，从各星球各抽题
     const isMixed = !knowledgeTag && !focusTag
-    return scheduleSession(pool, srsStates.current, sessionSize, focusTag, isMixed).map(shuffleOptions)
+    const seenToday = new Set(storage.getSeenToday(user.id))
+    return scheduleSession(pool, srsStates.current, sessionSize, focusTag, isMixed, seenToday).map(shuffleOptions)
   }, [focusTag, knowledgeTag, wrongCardIds, sessionSize])
 
   const isWrongReview = !!(wrongCardIds?.length)
@@ -121,6 +121,8 @@ export default function QuizPage({ user, options = {}, onFinish, onBack }) {
         // 标记星球完成（只有做完才算打卡）
         if (current?.knowledge_tag) storage.markPlanetComplete(user.id, current.knowledge_tag)
         updateStreak(user.id)
+        // 今日已见：记录本 session 所有题 id
+        storage.markSeenToday(user.id, questions.map(q => q.id))
         syncAfterSession(user.id)
 
         onFinish({ session, records: allRecords })
