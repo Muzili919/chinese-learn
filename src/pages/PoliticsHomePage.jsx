@@ -71,41 +71,11 @@ export default function PoliticsHomePage({ user, onStartQuiz, onBack }) {
 
   return (
     <div className="min-h-screen flex flex-col bg-gray-50">
-      {/* ====== 顶部栏（与语文统一） ====== */}
+      {/* ====== 顶部栏（精简：返回+标题，数据卡片由外层统一展示） ====== */}
       <div className="bg-white shadow-sm" style={{ paddingTop: 'env(safe-area-inset-top, 36px)' }}>
-        {/* 返回 + 标题 */}
-        <div className="px-4 pt-3 pb-2 flex items-center gap-3">
+        <div className="px-4 pt-3 pb-3 flex items-center gap-3">
           <button onClick={onBack} className="w-9 h-9 flex items-center justify-center bg-gray-100 rounded-xl text-lg font-bold text-gray-500 active:bg-gray-200 transition-colors">←</button>
-          <div className="flex-1">
-            <h1 className="text-xl font-bold text-gray-800">道德与法治 ⚖️</h1>
-            <p className="text-xs text-gray-400 mt-0.5">
-              {streak.count > 0 ? `已连续学习 ${streak.count} 天 🔥` : '今天开始第一天打卡吧！'}
-            </p>
-          </div>
-        </div>
-
-        {/* 三张数据卡 - 统一配色（橙/靛/绿） */}
-        <div className="flex gap-2 px-4 pb-3 mt-2">
-          {/* 连胜 - 橙色 */}
-          <div className="flex-1 rounded-2xl p-3 text-center" style={{ background: 'linear-gradient(135deg, #fff7ed, #fed7aa)' }}>
-            <div className="text-2xl font-extrabold text-orange-500">{streak.count}</div>
-            <div className="text-[10px] text-orange-400 font-medium mt-0.5">连续天数 🔥</div>
-          </div>
-          {/* 等级 - 靛蓝 */}
-          <div className="flex-1 rounded-2xl p-3" style={{ background: 'linear-gradient(135deg, #f5f3ff, #ddd6fe)' }}>
-            <div className="flex items-baseline gap-1 justify-center">
-              <span className="text-2xl font-extrabold text-indigo-600">Lv.{level}</span>
-            </div>
-            <div className="w-full bg-indigo-100 rounded-full h-1.5 mt-1.5">
-              <div className="bg-gradient-to-r from-indigo-400 to-purple-500 h-1.5 rounded-full transition-all" style={{ width: `${xpPct}%` }} />
-            </div>
-            <div className="text-[9px] text-indigo-400 text-center mt-0.5">{levelProgress.currentExp}/{levelProgress.requiredExp} XP</div>
-          </div>
-          {/* 正确率 - 绿色 */}
-          <div className="flex-1 rounded-2xl p-3 text-center" style={{ background: 'linear-gradient(135deg, #f0fdf4, #bbf7d0)' }}>
-            <div className="text-2xl font-extrabold text-green-600">{todayCorrect !== null ? `${todayCorrect}%` : `${totalAccuracy}%`}</div>
-            <div className="text-[10px] text-green-500 font-medium mt-0.5">{todayCorrect !== null ? '今日正确率 ✅' : '总正确率 ✅'}</div>
-          </div>
+          <h1 className="text-xl font-bold text-gray-800">道德与法治 ⚖️</h1>
         </div>
       </div>
 
