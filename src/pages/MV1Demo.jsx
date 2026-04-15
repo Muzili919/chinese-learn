@@ -519,9 +519,19 @@ function FriendsPanel({ state, userId, onStateChange }) {
 
 // ====== 主组件 ======
 export default function MV1Demo({ onBack, initialState, onStateChange }) {
-  const [state, setState] = useState(() => initialState || initGamificationState());
+  // 初始状态：优先用传入的（上帝模式/缓存），否则默认
+  const [state, setState] = useState(() => {
+    // 如果传入的initialState有宠物，直接用它（防止刷新后变蛋）
+    if (initialState?.currentPet?.poolId || initialState?.ownedPets?.length > 0) {
+      return initialState;
+    }
+    // 否则用默认（可能是蛋态）
+    return initialState || initGamificationState();
+  });
   const [activeTab, setActiveTab] = useState('interact');
   const [levelUpAnim, setLevelUpAnim] = useState(false);
+  // 是否已完成初始化（云端数据回来前不渲染宠物相关UI）
+  const [isInitialized, setIsInitialized] = useState(false);
   // 防止初始化时的持久化 effect 用空状态覆盖云端好友数据
   const initializedRef = React.useRef(false);
 
@@ -602,6 +612,7 @@ export default function MV1Demo({ onBack, initialState, onStateChange }) {
       };
       initializedRef.current = true;
       setState(merged);
+      setIsInitialized(true);  // 标记云端数据已加载完成
     });
   }, []);
 
@@ -937,15 +948,31 @@ export default function MV1Demo({ onBack, initialState, onStateChange }) {
 
         {activeTab === 'interact' && (
           <>
-            <div style={{ display: 'flex', justifyContent: 'center', marginBottom: 12 }}>
-              {isEggState(state) ? (
-                /* 🥚 蛋态 */
+            {/* 云端数据未加载完成时显示加载中（防止蛋态闪烁） */}
+            {(() => {
+              if (!isInitialized) return (
+                <div style={{
+                  display: 'flex', flexDirection: 'column', alignItems: 'center',
+                  justifyContent: 'center', padding: 40, gap: 12
+                }}>
+                  <div style={{
+                    width: 48, height: 48, borderRadius: '50%',
+                    border: '4px solid #e0e7ff', borderTopColor: '#6366f1',
+                    animation: 'spin 0.8s linear infinite'
+                  }} />
+                  <span style={{ color: '#94a3b8', fontSize: 14 }}>正在连接云端...</span>
+                  <style>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
+                </div>
+              )
+              if (isEggState(state)) return (
+                /* 🥚 蛋态 — 确认云端没有宠物后才显示 */
                 <PetEgg 
                   onDrawCard={handleDrawCard}
                   hasTicket={hasFreeCard(state)}
                 />
-              ) : (
-                /* 🐱/🐉 宠物正常显示 */
+              )
+              /* 🐱/🐉 宠物正常显示 */
+              return (
                 <Pet
                   type={currentPet?.poolId || 'pet_toothless'} experience={petExp} level={petLevel} onGainExp={() => {}}
                   mode="full" size={180}
@@ -957,8 +984,8 @@ export default function MV1Demo({ onBack, initialState, onStateChange }) {
                   inventory={state.inventory}
                   onTap={handlePetInteractTap}
                 />
-              )}
-            </div>
+              )
+            })()}
 
             {/* ✨ 抽卡动画覆盖层 */}
             <GachaAnimation
