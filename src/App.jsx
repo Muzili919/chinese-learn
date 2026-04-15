@@ -405,11 +405,8 @@ export default function App() {
   function handleOnboarding(newUser) {
     storage.setUser(newUser)
     setUser(newUser)
-    // 切换账号/新登录：重置宠物状态为初始（避免沿用上一用户的数据）
-    if (!isGodMode()) {
-      const initState = initGamificationState()
-      setGameState(initState)
-    }
+    // 不再重置gameState！MV1Demo内部会用fetchMV1State(user.id)自动拉取该用户的云端宠物数据
+    // 之前重置会导致：空state传入→蛋态→自动抽卡→覆盖云端数据
     setPage('home')
     setActiveTab('home')
   }

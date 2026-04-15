@@ -62,6 +62,8 @@ export default function EnglishHomePage({ user, grade = 'primary', onStartQuiz, 
 
   // knowledge_tag -> planet id 映射
   const TAG_TO_PLANET = {
+    '英语联想': 'en_association',
+    '联想星球': 'en_association',
     '英语词汇': 'en_vocab',
     '英语听力': 'en_listen',
     '英语语法': 'en_grammar',

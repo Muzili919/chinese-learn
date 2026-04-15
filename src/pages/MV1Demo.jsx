@@ -535,10 +535,12 @@ export default function MV1Demo({ onBack, initialState, onStateChange }) {
   // 防止初始化时的持久化 effect 用空状态覆盖云端好友数据
   const initializedRef = React.useRef(false);
 
-  const userId = useMemo(() => storage.getUser()?.id || '', []);
-  const userName = useMemo(() => storage.getUser()?.name || '', []);
+  // ★ 用 initialState.currentPet.poolId 作为用户变化信号（切换账号时 gameState 变化触发重渲染）
+  // 不再用空依赖的 useMemo（那会导致切换账号后 userId 不更新）
+  const currentUserId = initialState?.currentPet ? 'has_pet' : 'no_pet'
 
   // 初始化：云端加载 + 同步 storage XP + 同步今日任务
+  // 依赖 currentUserId：当 App.jsx 切换账号导致 gameState 变化时重新拉取云端数据
   useEffect(() => {
     const user = storage.getUser();
     if (!user?.id) return;
@@ -614,7 +616,7 @@ export default function MV1Demo({ onBack, initialState, onStateChange }) {
       setState(merged);
       setIsInitialized(true);  // 标记云端数据已加载完成
     });
-  }, []);
+  }, [currentUserId]);  // 切换账号时重新拉取云端宠物数据
 
   // 处理未读鼓励（进入宠物页时弹提示，自动标记已读）
   useEffect(() => {
@@ -672,29 +674,28 @@ export default function MV1Demo({ onBack, initialState, onStateChange }) {
     });
   }, []);
 
-  // 商店购买
+    // ★ 商店使用宠物可支配经验池（总经验-已消耗升级），不影响人物学习等级
   const handleShopAction = useCallback((actionId) => {
     setState(s => {
-      const lp = calcLevelProgress(s.exp || 0);
-      const spendable = lp.currentExp;
-      const user = storage.getUser();
+      // 宠物可支配经验 = 总XP - 已消耗(升级) = 答题获得但还没花在升级上的部分
+      const totalXP = storage.getXP(storage.getUser()?.id || '') || s.exp || 0;
+      const consumed = s.petExpConsumed || 0;
+      const petSpendable = Math.max(0, totalXP - consumed);
 
       if (actionId.startsWith('buy_acc_')) {
         const accId = actionId.replace('buy_acc_', '');
         const acc = ACCESSORY_SHOP.find(a => a.id === accId);
-        if (!acc || acc.price > spendable) return s;
+        if (!acc || acc.price > petSpendable) return s;  // 宠物经验不足
         const newS = buyAccessory(s, accId);
-        if (newS !== s && user?.id) storage.addXP(user.id, -acc.price);
-        return { ...newS, exp: Math.max(0, s.exp - acc.price) };
+        return { ...newS, petExpConsumed: (newS.petExpConsumed || consumed) + acc.price };
       }
       if (actionId.startsWith('equip_')) return equipAccessory(s, actionId.replace('equip_', ''));
-      if (actionId.startsWith('unequip_')) return unequipAccessory(s, actionId.replace('unequip_', ''));
+      if (actionId.startsWith('unequip_')) return unequipAccessory(s, actionId.replace('unequip_'));
 
       const item = SHOP_ITEMS.find(i => i.id === actionId);
-      if (!item || item.price > spendable) return s;
+      if (!item || item.price > petSpendable) return s;
       const newS = buyItem(s, actionId);
-      if (newS !== s && user?.id) storage.addXP(user.id, -item.price);
-      return { ...newS, exp: Math.max(0, s.exp - item.price) };
+      return { ...newS, petExpConsumed: (newS.petExpConsumed || consumed) + item.price };
     });
   }, []);
 
