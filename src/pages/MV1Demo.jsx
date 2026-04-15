@@ -676,8 +676,30 @@ export default function MV1Demo({ onBack, initialState, onStateChange }) {
 
     // ★ 商店使用宠物可支配经验池（总经验-已消耗升级），不影响人物学习等级
   const handleShopAction = useCallback((actionId) => {
+    // 特殊处理：抽卡券 → 直接触发抽卡（不是加库存）
+    if (actionId === 'card_draw') {
+      setState(s => {
+        const totalXP = storage.getXP(storage.getUser()?.id || '') || s.exp || 0;
+        const consumed = s.petExpConsumed || 0;
+        const petSpendable = Math.max(0, totalXP - consumed);
+        
+        if (petSpendable < 500) return s;  // 经验不足
+        
+        // 直接触发抽卡
+        const { state: newS, pet } = drawCard({ ...s, exp: petSpendable });
+        if (!pet) return s;
+        
+        setGachaResult(pet);
+        setShowGacha(true);
+        
+        // 扣经验
+        const newConsumed = (s.petExpConsumed || 0) + 500;
+        return { ...newS, exp: Math.max(0, petSpendable - 500), petExpConsumed: newConsumed };
+      });
+      return;
+    }
+
     setState(s => {
-      // 宠物可支配经验 = 总XP - 已消耗(升级) = 答题获得但还没花在升级上的部分
       const totalXP = storage.getXP(storage.getUser()?.id || '') || s.exp || 0;
       const consumed = s.petExpConsumed || 0;
       const petSpendable = Math.max(0, totalXP - consumed);
@@ -685,7 +707,7 @@ export default function MV1Demo({ onBack, initialState, onStateChange }) {
       if (actionId.startsWith('buy_acc_')) {
         const accId = actionId.replace('buy_acc_', '');
         const acc = ACCESSORY_SHOP.find(a => a.id === accId);
-        if (!acc || acc.price > petSpendable) return s;  // 宠物经验不足
+        if (!acc || acc.price > petSpendable) return s;
         const newS = buyAccessory(s, accId);
         return { ...newS, petExpConsumed: (newS.petExpConsumed || consumed) + acc.price };
       }

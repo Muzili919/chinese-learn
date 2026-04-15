@@ -557,6 +557,8 @@ export function initGamificationState() {
     currentPet: null,        // 🥚 null = 蛋态，显示 PetEgg 组件
     hasReceivedFreeCard: true, // 🎴 首次登录送1张免费抽卡券
     freeCardUsed: false,     // 免费券是否已使用
+    totalDraws: 0,           // 累计抽卡次数（方案B驱动）
+    pityCount: 0,            // 保底计数（连续未出SR次数）
     dailyTasks: initDailyTasks(),
     dailyLastResetDate: new Date().toDateString(),
     // 任务计数器
@@ -692,16 +694,13 @@ export function manualLevelUp(state) {
 // ============================================================
 //  宠物操作（新版 - 带状态变化）
 // ============================================================
-function feedPet(state, amount = 10) {
+function feedPet(state) {
   const pet = { ...state.currentPet };
-  // 只加宠物经验，不自动升级（升级由用户手动点击触发）
-  let petExp = (pet.exp || 0) + amount;
+  // 喂食不加宠物经验！宠物经验只来源于每日任务和每日答题
   
   const stats = { ...(pet.stats || defaultStats()) };
   stats.hunger = clamp(stats.hunger + 15, 0, 100); // 喂养增加饱食度
   
-  pet.exp = petExp;
-  // level 和 stage 不变，等用户手动点升级
   pet.mood = 'neutral';
   pet.tapCount = 0;
   pet.stats = stats;
@@ -786,29 +785,41 @@ export function tickPetStats(state, minutes = 1) {
 //  抽卡（保持原有逻辑）- 🔧 修复：改为500经验值
 // ============================================================
 // 抽卡权重配置（8只宠物，根据等级调整稀有度概率）
-const DRAW_WEIGHTS = {
-  // Lv 1-9: 小橘猫为主，紫柴犬+无牙仔低概率
-  early: [
-    { poolId: 'pet_kitten',    weight: 50 },   // N
-    { poolId: 'pet_shiba',     weight: 28 },   // N
-    { poolId: 'pet_fox',       weight: 12 },   // R
-    { poolId: 'pet_toothless', weight: 10 },   // SR
+// 抽卡概率配置 - 按累计抽卡次数（方案B）
+// 类似原神/崩铁的怜悯机制(pity)：抽得越多，高稀有度概率越高
+// base: 基础权重(前3次), warmup: 4-10次, boosted: 11+次触发怜悯
+const DRAW_WEIGHTS_BY_DRAW = {
+  // 前3次：N偏多，让新用户体验基础宠物
+  base: [
+    { poolId: 'pet_kitten',    weight: 50 },
+    { poolId: 'pet_shiba',     weight: 28 },
+    { poolId: 'pet_fox',       weight: 12 },
+    { poolId: 'pet_toothless', weight: 10 },
   ],
-  // Lv 10-19: 紫柴犬和无牙仔比例提升
-  mid: [
-    { poolId: 'pet_kitten',    weight: 35 },   // N
-    { poolId: 'pet_shiba',     weight: 25 },   // N
-    { poolId: 'pet_fox',       weight: 15 },   // R
-    { poolId: 'pet_toothless', weight: 25 },   // SR
+  // 第4-10次：R/SR概率逐步提升
+  warmup: [
+    { poolId: 'pet_kitten',    weight: 40 },
+    { poolId: 'pet_shiba',     weight: 22 },
+    { poolId: 'pet_fox',       weight: 18 },
+    { poolId: 'pet_toothless', weight: 20 },
   ],
-  // Lv 20+: 无牙仔概率最高
-  late: [
-    { poolId: 'pet_kitten',    weight: 20 },   // N
-    { poolId: 'pet_shiba',     weight: 20 },   // N
-    { poolId: 'pet_fox',       weight: 15 },   // R
-    { poolId: 'pet_toothless', weight: 45 },   // SR
+  // 第11次+：怜悯模式，SR/SSR占比接近一半
+  boosted: [
+    { poolId: 'pet_kitten',    weight: 28 },
+    { poolId: 'pet_shiba',     weight: 17 },
+    { poolId: 'pet_fox',       weight: 20 },
+    { poolId: 'pet_toothless', weight: 35 },
   ],
 };
+
+// 保底机制：连续N次未出SR → 下次必定出SR
+const PITY_SR_THRESHOLD = 5;  // 连续5次没出SR，第6次必出
+
+function getDrawWeights(totalDraws) {
+  if (totalDraws <= 3) return DRAW_WEIGHTS_BY_DRAW.base;
+  if (totalDraws <= 10) return DRAW_WEIGHTS_BY_DRAW.warmup;
+  return DRAW_WEIGHTS_BY_DRAW.boosted;
+}
 
 /**
  * 抽卡
@@ -826,34 +837,49 @@ export function hasFreeCard(state) {
 
 function drawCard(state) {
   // 免费券 → 不消耗经验
-  const isFree = !state.freeCardUsed && state.hasReceivedFreeCard
+  const isFree = !state.freeCardUsed && state.hasReceivedFreeCard;
   
   if (!isFree && (state.exp || 0) < 500) 
     return { state, pet: null }; // 经验不足
 
-  const lvl = state.level || 1;
-  let w = lvl < 10 ? DRAW_WEIGHTS.early : lvl < 20 ? DRAW_WEIGHTS.mid : DRAW_WEIGHTS.late;
+  // 按累计抽卡次数选择权重表（方案B：累计抽卡驱动）
+  const totalDraws = (state.totalDraws || 0) + 1;
+  let w = getDrawWeights(totalDraws);
   
-  const total = w.reduce((a, it) => a + it.weight, 0) || 1;
-  let r = Math.random() * total;
+  const totalWeight = w.reduce((a, it) => a + it.weight, 0) || 1;
+  let r = Math.random() * totalWeight;
   let chosen = w[0].poolId;
   for (const it of w) { if (r < it.weight) { chosen = it.poolId; break; } r -= it.weight; }
   
-  const owned = Array.isArray(state.ownedPets) ? [...state.ownedPets] : [];
-  if (!owned.includes(chosen)) owned.push(chosen);
+  // 保底机制：连续5次未出SR → 必出SR
+  const pityCount = (state.pityCount || 0) + 1;
+  const petInfo = PET_POOL.find(p => p.poolId === chosen) || { poolId: chosen, name: '未知', emoji: '\u2753', rarity: 'N' };
   
-  // 获取宠物详细信息
-  const petInfo = PET_POOL.find(p => p.poolId === chosen) || { poolId: chosen, name: '未知', emoji: '❓', rarity: 'N' };
+  let finalChosen = chosen;
+  let newPityCount = pityCount;
+  if (pityCount >= PITY_SR_THRESHOLD && petInfo.rarity !== 'SR' && petInfo.rarity !== 'SSR') {
+    finalChosen = 'pet_toothless';
+    newPityCount = 0;
+  } else if (petInfo.rarity === 'SR' || petInfo.rarity === 'SSR') {
+    newPityCount = 0;
+  }
+  
+  const owned = Array.isArray(state.ownedPets) ? [...state.ownedPets] : [];
+  if (!owned.includes(finalChosen)) owned.push(finalChosen);
+  
+  const finalPetInfo = PET_POOL.find(p => p.poolId === finalChosen) || { poolId: finalChosen, name: '未知', emoji: '\u2753', rarity: 'N' };
   
   const newState = {
     ...state,
     exp: isFree ? state.exp : state.exp - 500,
     ownedPets: owned,
-    currentPet: { poolId: chosen, level: 1, exp: 0, mood: 'neutral', tapCount: 0, stats: defaultStats(), equippedAccessories: {} },
-    freeCardUsed: true,   // 标记免费券已使用
+    currentPet: { poolId: finalChosen, level: 1, exp: 0, mood: 'neutral', tapCount: 0, stats: defaultStats(), equippedAccessories: {} },
+    freeCardUsed: true,
+    totalDraws: totalDraws,
+    pityCount: newPityCount,
   };
 
-  return { state: newState, pet: petInfo };
+  return { state: newState, pet: finalPetInfo };
 }
 
 /**
