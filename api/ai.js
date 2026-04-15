@@ -4,7 +4,8 @@
 // ═══════════════════════════════════════════════════════════════
 
 const DEEPSEEK_API_URL = 'https://api.deepseek.com/v1/chat/completions'
-const DEEPSEEK_API_KEY = process.env.DEEPSEEK_API_KEY
+// 兼容 VITE_ 前缀（Vite 项目 .env 中习惯用 VITE_ 前缀，serverless function 需要读原始变量名）
+const DEEPSEEK_API_KEY = process.env.DEEPSEEK_API_KEY || process.env.VITE_DEEPSEEK_API_KEY
 
 export default async function handler(req, res) {
   // 只允许 POST
