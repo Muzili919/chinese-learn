@@ -638,11 +638,13 @@
     "type": "true_false",
     "question": "根据短文内容，李明住在中国的南方还是北方？\n\nAccording to the passage, does Li Ming live in the south or north of China?",
     "options": [
-      "A. 正确",
-      "B. 错误"
+      "A. North China",
+      "B. South China",
+      "C. East China",
+      "D. West China"
     ],
     "answer": "B",
-    "analysis": "【考点】考查地理位置信息\n【解题思路】Li Ming说\"I live in a small town in the south of China\"，题目说north，方向相反\n【解题口诀】👉 判断正误抓关键名词，south≠north",
+    "analysis": "【考点】考查地理方位词。\n【解题思路】原文 I live in a small town in the south of China.\n【总结】south of China = 中国南方。",
     "core_trap": "south和north方向相反，容易听错",
     "mnemonic": "south=南方，north=北方，看到什么选什么",
     "difficulty": 0.3,
@@ -658,11 +660,13 @@
     "type": "true_false",
     "question": "根据短文内容，李明最喜欢哪个季节？\n\nAccording to the passage, which season does Li Ming like best?",
     "options": [
-      "A. 正确",
-      "B. 错误"
+      "A. Spring",
+      "B. Summer",
+      "C. Autumn",
+      "D. Winter"
     ],
-    "answer": "B",
-    "analysis": "【考点】考查最喜欢的季节\n【解题思路】短文中说\"I like autumn best\"，题目说喜欢spring，季节不同\n【解题口诀】👉 like...best=最喜欢，后面跟的就是答案",
+    "answer": "C",
+    "analysis": "【考点】考查最喜欢的季节。\n【解题思路】I like autumn best because it's cool and the leaves are beautiful.\n【总结】like ... best = 最喜欢。",
     "core_trap": "短文提到了spring的天气，容易误以为喜欢春天",
     "mnemonic": "like...best才是最喜欢的，提到某个季节≠喜欢那个季节",
     "difficulty": 0.3,
@@ -678,11 +682,13 @@
     "type": "true_false",
     "question": "根据短文内容，李明的妹妹多大？\n\nAccording to the passage, how old is Li Ming's sister?",
     "options": [
-      "A. 正确",
-      "B. 错误"
+      "A. 10 years old",
+      "B. 11 years old",
+      "C. 12 years old",
+      "D. 13 years old"
     ],
-    "answer": "A",
-    "analysis": "【考点】考查数字推理\n【解题思路】Li Ming 14岁，妹妹比他小两岁（two years younger），14-2=12岁\n【解题口诀】👉 比较级+数字需要计算，younger=小",
+    "answer": "C",
+    "analysis": "【考点】考查数字计算推理。\n【解题思路】李明14岁，妹妹 two years younger = 14 - 2 = 12岁。\n【总结】younger than = 比...小，需用减法计算。",
     "core_trap": "需要计算而非直接听到数字",
     "mnemonic": "14-2=12，younger=小，计算要准确",
     "difficulty": 0.6,
@@ -698,11 +704,13 @@
     "type": "true_false",
     "question": "根据短文内容，Tom什么时候去了公园？\n\nAccording to the passage, when did Tom go to the park?",
     "options": [
-      "A. 正确",
-      "B. 错误"
+      "A. Yesterday morning",
+      "B. Last Saturday afternoon",
+      "C. This Sunday morning",
+      "D. Tomorrow evening"
     ],
     "answer": "B",
-    "analysis": "【考点】考查时间信息\n【解题思路】短文中说\"In the afternoon, he went to the park\"，题目说早上，时间不符\n【解题口诀】👉 in the morning=早上，in the afternoon=下午",
+    "analysis": "【考点】考查时间状语辨析。\n【解题思路】根据短文时间线索推断 Tom 去公园的具体时间。\n【总结】注意 yesterday/last week/tomorrow 等时间词的区别。",
     "core_trap": "got up early容易误导为上午去公园",
     "mnemonic": "afternoon=下午，morning=上午，got up early≠活动在上午",
     "difficulty": 0.3,
@@ -718,11 +726,13 @@
     "type": "true_false",
     "question": "根据短文内容，他们踢了多长时间足球？\n\nAccording to the passage, how long did they play football?",
     "options": [
-      "A. 正确",
-      "B. 错误"
+      "A. One hour",
+      "B. Two hours",
+      "C. Three hours",
+      "D. Half an hour"
     ],
     "answer": "B",
-    "analysis": "【考点】考查持续时间\n【解题思路】短文中说\"played football for two hours\"，题目说三小时，数字不符\n【解题口诀】👉 数字细节直接抓，two≠three",
+    "analysis": "【考点】考查时间段表达。\n【解题思路】根据短文中踢足球时长的描述判断具体时长。\n【总结】for + 时间段 表示持续多长时间。",
     "core_trap": "two和three是不同数字",
     "mnemonic": "two hours=两小时，看清数字别猜",
     "difficulty": 0.3,
@@ -738,11 +748,13 @@
     "type": "true_false",
     "question": "根据短文内容，步行上学是最受欢迎的方式吗？\n\nAccording to the passage, is walking the most popular way to go to school?",
     "options": [
-      "A. 正确",
-      "B. 错误"
+      "A. Yes, walking is the most popular way.",
+      "B. No, biking is more popular than walking.",
+      "C. Taking the bus is most popular.",
+      "D. Nobody walks to school."
     ],
     "answer": "B",
-    "analysis": "【考点】考查短文主要观点\n【解题思路】短文最后说\"more and more students prefer going to school by subway\"，地铁是越来越受欢迎的方式，步行不是最流行的\n【解题口诀】👉 more and more=越来越多，是文章重点强调的趋势",
+    "analysis": "【考点】考查最高级和比较级。\n【解题思路】根据各方式的数据对比判断步行是否最受欢迎。\n【总结】most popular = 最受欢迎，需比较所有选项数据。",
     "core_trap": "短文列举了多种方式，容易误选任何一个为\"最流行\"",
     "mnemonic": "短文强调subway越来越流行，不是walking最流行",
     "difficulty": 0.7,
@@ -758,11 +770,13 @@
     "type": "true_false",
     "question": "根据短文内容，有些学生为什么骑自行车上学？\n\nAccording to the passage, why do some students ride bicycles to school?",
     "options": [
-      "A. 正确",
-      "B. 错误"
+      "A. Because it is fast and convenient.",
+      "B. Because they live far from school.",
+      "C. Because they don't like walking.",
+      "D. Because bikes are cheap and cool."
     ],
     "answer": "A",
-    "analysis": "【考点】考查短文中列举的原因\n【解题思路】短文中说\"Some ride bicycles because it's good for health\"，与题目一致\n【解题口诀】👉 because后面的就是原因，直接对应",
+    "analysis": "【考点】考查原因状语从句。\n【解题思路】原文说明了学生选择骑车上学的原因。\n【总结】because 引导的原因状语从句直接给出答案。",
     "core_trap": "无，直接信息匹配",
     "mnemonic": "good for health=对健康好，原文直接说了",
     "difficulty": 0.3,
@@ -778,11 +792,13 @@
     "type": "true_false",
     "question": "根据短文内容，每个人最多可以参加几项活动？\n\nAccording to the passage, how many events can each person take part in at most?",
     "options": [
-      "A. 正确",
-      "B. 错误"
+      "A. One activity at most",
+      "B. Two activities at most",
+      "C. Three activities at most",
+      "D. No limit"
     ],
     "answer": "B",
-    "analysis": "【考点】考查数字限制\n【解题思路】短文中说\"Everyone can take part in at most two events\"，题目说三项\n【解题口诀】👉 at most=最多，后面数字要精确",
+    "analysis": "【考点】考查数量限制。\n【解题思路】原文有参加活动数量的限制规则。\n【总结】at most / maximum = 最多，注意数量限定词。",
     "core_trap": "at most two≠at most three",
     "mnemonic": "at most two=最多两个，题目说三个就是错的",
     "difficulty": 0.3,
@@ -798,11 +814,13 @@
     "type": "true_false",
     "question": "根据短文内容，运动会将在哪里举行？\n\nAccording to the passage, where will the sports meet be held?",
     "options": [
-      "A. 正确",
-      "B. 错误"
+      "A. On the school playground",
+      "B. At the city stadium",
+      "C. In the sports center",
+      "D. At the park field"
     ],
     "answer": "A",
-    "analysis": "【考点】考查地点信息\n【解题思路】短文中说\"on the playground\"，地点是操场，与题目一致\n【解题口诀】👉 on the playground=在操场上",
+    "analysis": "【考点】考查地点状语。\n【解题思路】原文指明了运动会举办地点。\n【总结】地点通常由 at / in / on + 地点名词构成。",
     "core_trap": "无，直接信息匹配",
     "mnemonic": "playground=操场，原文明确说了",
     "difficulty": 0.3,
@@ -818,11 +836,13 @@
     "type": "true_false",
     "question": "根据短文内容，大熊猫只生活在四川省吗？\n\nAccording to the passage, do pandas only live in Sichuan Province?",
     "options": [
-      "A. 正确",
-      "B. 错误"
+      "A. Yes, they live only in Sichuan Province.",
+      "B. No, they also live in other provinces.",
+      "C. They live only in zoos now.",
+      "D. They live in many countries worldwide."
     ],
     "answer": "B",
-    "analysis": "【考点】考查地理分布信息\n【解题思路】短文中说\"They live mainly in Sichuan, Gansu and Shaanxi provinces\"，不止四川一个省\n【解题口诀】👉 mainly in...后面可能列举多个地点",
+    "analysis": "【考点】考查范围限定词 only。\n【解题思路】原文提到熊猫分布不止四川一地。\n【总结】only 表示仅仅，如果原文提到其他地区则选否。",
     "core_trap": "熊猫最出名的在四川，容易误以为只生活在四川",
     "mnemonic": "Sichuan, Gansu, Shaanxi=四川、甘肃、陕西，三个省份",
     "difficulty": 0.6,

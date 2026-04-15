@@ -793,7 +793,8 @@ function extractInlineChoices(text) {
 function extractPassageOnly(questionText) {
   if (!questionText) return questionText
   // 去掉末尾的所有 (n)... 子题块（含其中的ABCD选项）
-  let cleaned = questionText.replace(/\n*\s*\(\d+\)[^\n]*(\n\s*[A-D][.、)][^\n]*/g, '').trim()
+  const reBlock = /[\s\n]*\(\d+\)[^\n]*(?:[\s\n]+[A-D][.、)\]]+[^\n]*)*/g
+  let cleaned = questionText.replace(reBlock, '').trim()
   // 去掉残留的多余空行
   cleaned = cleaned.replace(/\n{3,}/g, '\n\n').trim()
   return cleaned || questionText

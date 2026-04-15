@@ -72,6 +72,7 @@ export default function GlobalPetDock({ gameState }) {
         level={level}
         mode="dock"
         size={90}
+        pose="sleeping"
         stats={currentPet.stats}
         equippedAccessories={currentPet.equippedAccessories}
         soundEnabled={gameState?.settings?.soundEnabled !== false}

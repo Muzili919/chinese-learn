@@ -43,11 +43,13 @@
     "type": "multiple_choice",
     "question": "根据对话内容，她们星期三有美术课吗？\n\nAccording to the conversation, do they have art class on Wednesdays?",
     "options": [
-      "A. T",
-      "B. F"
+      "A. Yes, they do.",
+      "B. No, they have music class.",
+      "C. They have P.E. on Wednesdays.",
+      "D. They have no classes."
     ],
     "answer": "A",
-    "analysis": "【考点】本题考查听辨星期和课程安排。\n【解题思路】对话中明确提到“We have art class on Wednesdays.”。\n【总结】听对话判断要关注细节信息，特别是星期和活动。",
+    "analysis": "【考点】考查听辨课程安排。\n【解题思路】对话明确说 We have art class on Wednesdays，星期三有美术课。\n【总结】注意听清楚星期几对应什么课程。",
     "difficulty": 0.5,
     "listening_text": "W: What day is it today?\nM: It's Wednesday.\nW: Great! We have art class on Wednesdays."
   },
@@ -121,11 +123,13 @@
     "type": "multiple_choice",
     "question": "根据录音内容，说话人家里有几口人？\n\nAccording to the recording, how many people are there in the speaker's family?",
     "options": [
-      "A. T",
-      "B. F"
+      "A. Three people",
+      "B. Four people",
+      "C. Five people",
+      "D. Six people"
     ],
     "answer": "B",
-    "analysis": "【考点】本题考查听辨数字信息。\n【解题思路】文本提到四口人，句子说三口人，不符。\n【总结】注意数字细节的精确捕捉。",
+    "analysis": "【考点】考查听辨数字和家庭人数。\n【解题思路】录音说 four people: my parents, my sister and me，共4口人。\n【总结】数家庭成员时要包括说话人自己。",
     "difficulty": 0.5,
     "listening_text": "There are four people in my family: my parents, my sister and me."
   },
@@ -199,11 +203,13 @@
     "type": "multiple_choice",
     "question": "根据对话内容，Lily会游泳吗？\n\nAccording to the conversation, can Lily swim?",
     "options": [
-      "A. T",
-      "B. F"
+      "A. Yes, she can swim very well.",
+      "B. No, she cannot swim.",
+      "C. She can only swim a little.",
+      "D. She used to swim but not now."
     ],
-    "answer": "B",
-    "analysis": "【考点】本题考查听辨能力（can/can't）。\n【解题思路】Lily回答“Yes, I can.”，说明她会游泳。\n【总结】注意听清肯定和否定回答。",
+    "answer": "A",
+    "analysis": "【考点】考查 can 能力表达。\n【解题思路】Lily 回答 Yes, I can. I can swim very well.\n【总结】can 开头的一般疑问句，肯定回答是 Yes, I can.",
     "difficulty": 0.5,
     "listening_text": "M: Can you swim, Lily?\nW: Yes, I can. I can swim very well."
   },
@@ -277,11 +283,13 @@
     "type": "multiple_choice",
     "question": "根据录音内容，今天为什么起得比平时晚？\n\nAccording to the recording, why did the speaker get up later than usual today?",
     "options": [
-      "A. T",
-      "B. F"
+      "A. Because she was ill.",
+      "B. Because it was Sunday.",
+      "C. Because the alarm did not ring.",
+      "D. Because she stayed up late."
     ],
     "answer": "B",
-    "analysis": "【考点】本题考查听辨星期信息。\n【解题思路】文本说“because it's Sunday”，所以今天是周日，不是周一。\n【总结】注意but后面的信息往往是关键。",
+    "analysis": "【考点】考查原因状语从句。\n【解题思路】原文 because it is Sunday，周日可以晚起。\n【总结】because 后面紧跟的就是原因。",
     "difficulty": 0.5,
     "listening_text": "I usually get up at 6:30, but today I got up at 7:00 because it's Sunday."
   },
@@ -355,11 +363,13 @@
     "type": "multiple_choice",
     "question": "根据对话内容，Amy最喜欢哪个季节？\n\nAccording to the conversation, which season does Amy like best?",
     "options": [
-      "A. T",
-      "B. F"
+      "A. Spring",
+      "B. Summer",
+      "C. Autumn",
+      "D. Winter"
     ],
-    "answer": "B",
-    "analysis": "【考点】本题考查听辨季节和原因。\n【解题思路】对话中Amy说最喜欢冬季，句子说夏季，不符。\n【总结】注意听清季节名词和原因状语从句。",
+    "answer": "D",
+    "analysis": "【考点】考查季节偏好。\n【解题思路】Amy 说 I like winter best because I can make a snowman.\n【总结】like ... best = 最喜欢，后面跟的是答案。",
     "difficulty": 0.5,
     "listening_text": "M: What's your favorite season, Amy?\nW: I like winter best because I can make a snowman."
   },
@@ -433,11 +443,13 @@
     "type": "multiple_choice",
     "question": "根据录音内容，博物馆周末开放吗？\n\nAccording to the recording, is the museum open on weekends?",
     "options": [
-      "A. T",
-      "B. F"
+      "A. Yes, open all day including weekends.",
+      "B. No, only on weekdays (9am-5pm).",
+      "C. Only on Saturday mornings.",
+      "D. Only on Sunday afternoons."
     ],
     "answer": "B",
-    "analysis": "【考点】本题考查听辨时间信息。\n【解题思路】文本说工作日开放，周末未提及。\n【总结】注意on weekdays和on weekends的区别。",
+    "analysis": "【考点】考查开放时间。\n【解题思路】原文 open from 9 to 5 on weekdays，仅工作日开放。\n【总结】weekdays = 工作日（周一到周五），不含周末。",
     "difficulty": 0.5,
     "listening_text": "The museum is open from 9:00 a.m. to 5:00 p.m. on weekdays."
   },
@@ -511,11 +523,13 @@
     "type": "multiple_choice",
     "question": "根据对话内容，说话人周末几点起床？\n\nAccording to the conversation, what time does the speaker get up on weekends?",
     "options": [
-      "A. T",
-      "B. F"
+      "A. 6:30",
+      "B. 7:00",
+      "C. 7:30",
+      "D. 8:00"
     ],
-    "answer": "B",
-    "analysis": "【考点】本题考查听辨时间和日常活动。\n【解题思路】对话中周末起床时间是8:00，不是6:30。\n【总结】注意区分weekdays和weekends的时间差异。",
+    "answer": "D",
+    "analysis": "【考点】考查时间信息对比。\n【解题思路】平时 get up at 6:30，但 on weekends I get up at 8:00。\n【总结】注意区分平日和周末的不同时间。",
     "difficulty": 0.5,
     "listening_text": "W: What time do you get up every day?\nM: I get up at 6:30. But on weekends, I get up at 8:00."
   },
@@ -589,11 +603,13 @@
     "type": "multiple_choice",
     "question": "根据录音内容，公园里的河上可以划船吗？\n\nAccording to the recording, can you go boating on the river in the park?",
     "options": [
-      "A. T",
-      "B. F"
+      "A. Yes, you can go boating.",
+      "B. No, the river is too small.",
+      "C. Only in summer months.",
+      "D. Boating is not allowed."
     ],
-    "answer": "B",
-    "analysis": "【考点】本题考查听辨活动动词。\n【解题思路】文本说go boating，句子说go swimming，不符。\n【总结】注意区分不同活动：boating, swimming, fishing, running。",
+    "answer": "A",
+    "analysis": "【考点】考查活动设施。\n【解题思路】原文 There is a river. You can go boating on it.\n【总结】can go boating = 可以划船。",
     "difficulty": 0.5,
     "listening_text": "There is a river in the park. You can go boating on it."
   },
@@ -667,11 +683,13 @@
     "type": "multiple_choice",
     "question": "根据对话内容，说话人会弹钢琴吗？\n\nAccording to the conversation, can the speaker play the piano?",
     "options": [
-      "A. T",
-      "B. F"
+      "A. Yes, he plays piano very well.",
+      "B. No, he plays guitar instead.",
+      "C. He is learning piano.",
+      "D. He used to play piano."
     ],
     "answer": "B",
-    "analysis": "【考点】本题考查听辨能力（can/can't）。\n【解题思路】对话中明确说“No, I can't. But I can play the guitar.”\n【总结】注意can/can't的否定和肯定信息。",
+    "analysis": "【考点】考查否定+转折。\n【解题思路】回答 No, I can't. But I can play the guitar.\n【总结】No, ... But ... 表示否定后接转折补充。",
     "difficulty": 0.5,
     "listening_text": "W: Can you play the piano?\nM: No, I can't. But I can play the guitar."
   },
@@ -745,11 +763,13 @@
     "type": "multiple_choice",
     "question": "根据录音内容，Sarah比她姐姐高还是矮？\n\nAccording to the recording, is Sarah taller or shorter than her sister?",
     "options": [
-      "A. T",
-      "B. F"
+      "A. Sarah is taller than her sister.",
+      "B. Sarah is shorter than her sister.",
+      "C. They are the same height.",
+      "D. Sarah is 1.70 meters tall."
     ],
     "answer": "B",
-    "analysis": "【考点】本题考查听辨比较级。\n【解题思路】Sarah 1.55米，姐姐1.6米，Sarah更矮。\n【总结】比较级要注意谁比谁高/矮。",
+    "analysis": "【考点】考查比较级。\n【解题思路】Sarah is shorter than her sister. Sister 1.6m, Sarah 1.55m.\n【总结】shorter than = 比...矮；注意数字大小比较。",
     "difficulty": 0.5,
     "listening_text": "Sarah is shorter than her sister. Her sister is 1.6 meters tall. Sarah is 1.55 meters tall."
   },

@@ -861,6 +861,7 @@ export default function MV1Demo({ onBack, initialState, onStateChange }) {
               <Pet
                 type={currentPet?.poolId || 'pet_toothless'} experience={petExp} level={petLevel} onGainExp={() => {}}
                 mode="full" size={180}
+                pose="reading"
                 stats={currentPet?.stats}
                 equippedAccessories={currentPet?.equippedAccessories}
                 soundEnabled={state.settings?.soundEnabled !== false}

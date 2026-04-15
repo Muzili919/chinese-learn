@@ -5,6 +5,35 @@ import PetSvgSprite, { getPetSvgComponent } from './PetSprites'
 // ============================================================
 //  多宠物精灵图映射表（2026-04-15 改造：支持18只宠物动态加载）
 // ============================================================
+// ============================================================
+//  小橘猫专用 PNG 表情映射（AI生成的精美插图）
+//  三阶段成长系统，每阶段9张表情
+// ============================================================
+const EMOTION_NAMES = [
+  'reading', 'sleeping', 'happy',     // 第1行：读书(答题) / 睡觉(Dock) / 开心
+  'sad_cry', 'angry', 'eating',        // 第2行：哭泣 / 生气 / 吃东西
+  'wave', 'excited', 'normal',         // 第3行：招手(洗澡) / 兴奋(升级) / 正常
+];
+
+function makeKittenStage(stageDir) {
+  const map = {};
+  for (const name of EMOTION_NAMES) {
+    map[name] = `/pets/kitten/${stageDir ? stageDir + '/' : ''}${name}.png`;
+  }
+  return map;
+}
+
+// 按等级选择阶段的情绪精灵图
+function getKittenEmotion(emotionKey, level) {
+  let stageDir = '';
+  if (level >= 20) stageDir = 'stage3';      // 完全体：金色神圣猫
+  else if (level >= 10) stageDir = 'stage2';  // 少年期：戴眼镜学童猫
+  // 1-9: 幼体期，根目录（无子目录）
+  
+  const sprites = makeKittenStage(stageDir);
+  return sprites[emotionKey] || sprites.normal;
+}
+
 const PET_SPRITE_MAP = (function() {
   const baseEmotions = {
     normal: '/pets/emotion-normal.png', happy: '/pets/emotion-happy.png',
@@ -32,7 +61,7 @@ const PET_SPRITE_MAP = (function() {
 
   return {
     // === N级 ===
-    pet_kitten:   makePet('kitten'),
+    pet_kitten: { levelSprites: dragonLevels, emotionSprites: makeKittenStage(''), hasPngEmotions: true, useLevelBasedEmotion: true },
     pet_puppy:    makePet('puppy'),
     pet_bunny:    makePet('bunny'),
     pet_hamster:  makePet('hamster'),
@@ -78,7 +107,11 @@ function getLevelSprite(level, type) {
  * @param {string} emotionKey - 情绪标识
  * @param {string} type - 宠物类型
  */
-function getEmotionSprite(emotionKey, type) {
+function getEmotionSprite(emotionKey, type, level = 1) {
+  // 小橘猫专用：根据等级自动选择成长阶段（幼体/少年/完全体）
+  if (type === 'pet_kitten') {
+    return getKittenEmotion(emotionKey, level)
+  }
   const sprites = getPetSprites(type)
   return sprites.emotionSprites[emotionKey] || null
 }
@@ -86,25 +119,44 @@ function getEmotionSprite(emotionKey, type) {
 /** 所有可用的默认精灵图（用于错误降级，取自默认宠物） */
 const ALL_SPRITES = Object.values(PET_SPRITE_MAP.pet_toothless.levelSprites)
 
-/** 根据当前pose和状态计算情绪key */
+/**
+ * 根据当前pose和状态计算情绪key
+ * 
+ * 小橘猫专用映射（9张AI精美PNG）：
+ *   reading  → 答题/学习时默认（📖读书）
+ *   sleeping → Dock常态化显示（💤睡觉）
+ *   eating   → 喂食时（🍪吃东西）
+ *   excited  → 升级/开心时（✨兴奋）
+ *   happy    → 一般开心（😊开心）
+ *   wave     → 招手互动（👋招手）
+ *   normal   → 普通待机（😐正常）
+ *   sad_cry  → 难过哭泣（😭哭）
+ *   angry    → 生气（😠生气）
+ */
 function resolveEmotion(pose, stats) {
+  // === 特殊动作直接映射 ===
+  if (pose === 'reading' || pose === 'quiz') return 'reading'     // 📖 读书 = 答题默认
+  if (pose === 'sleeping') return 'sleeping'                       // 💤 睡觉 = Dock默认
+  if (pose === 'eating') return 'eating'                          // 🍪 吃东西
   if (pose === 'happy' || pose === 'upgrade' || pose === 'petting') return 'excited'
-  if (pose === 'laugh') return 'laugh'
-  // 反应动画的情绪映射
-  if (pose === 'eating') return 'happy'     // 吃东西 → 开心
-  if (pose === 'bathing') return 'bliss'     // 洗澡 → 极度开心
-  if (pose === 'sleeping') return 'normal'   // 睡觉 → 平静（闭眼效果用CSS做）
+  if (pose === 'laugh') return 'happy'
+  if (pose === 'bathing') return 'wave'
 
+  // === 根据四维状态自动判断 ===
   const intimacy = stats?.intimacy ?? 50
   const energy = stats?.energy ?? 80
   const hunger = stats?.hunger ?? 70
 
+  // 状态极差：哭泣
+  if (hunger < 20 || energy < 15 || intimacy < 20) return 'sad_cry'
+  // 状态较差：生气
+  if (hunger < 35 || energy < 25 || intimacy < 35) return 'angry'
+  // 状态一般：正常
+  if (hunger < 50 || energy < 40) return 'normal'
+  // 状态良好：开心
   if (intimacy > 70 && energy > 50 && hunger > 40) {
-    return intimacy > 90 ? 'bliss' : 'cheer'
+    return intimacy > 90 ? 'excited' : 'happy'
   }
-  if (hunger < 20 || energy < 15 || intimacy < 20) return 'sad3'
-  if (hunger < 35 || energy < 25 || intimacy < 35) return 'sad2'
-  if (hunger < 50 || energy < 40) return 'sad1'
 
   return 'normal'
 }
@@ -227,11 +279,13 @@ export default function Pet({
   // 根据等级获取外观 + 根据pose/stats获取情绪（支持多宠物type参数）
   const levelSprite = getLevelSprite(level, type)
   const emotionKey = resolveEmotion(activePose, currentStats)
-  // 当显式触发happy/upgrade时，优先用情绪图；否则用等级外观
-  const emotionSprite = getEmotionSprite(emotionKey, type)
-  // 图片降级：如果当前精灵图加载失败，自动切换到备用精灵图
-  const baseImg = (activePose !== 'normal' && emotionSprite)
-    ? emotionSprite
+  const emotionSprite = getEmotionSprite(emotionKey, type, level)
+  
+  // 小橘猫有完整PNG表情系统 → 始终用表情图（根据等级自动选阶段）
+  // 其他宠物：非normal姿态用情绪图，normal用等级外观
+  const hasPngSystem = PET_SPRITE_MAP[type]?.hasPngEmotions
+  const baseImg = (hasPngSystem || (activePose !== 'normal' && emotionSprite))
+    ? (emotionSprite || levelSprite)
     : levelSprite
   const imgSrc = spriteErrorIdx > 0
     ? ALL_SPRITES[spriteErrorIdx % ALL_SPRITES.length] || baseImg
