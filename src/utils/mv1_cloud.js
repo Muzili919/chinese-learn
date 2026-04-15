@@ -46,7 +46,7 @@ export async function upsertMV1State(userId, state) {
   } catch (e) {
     console.error('MV1 upsert error', e)
   }
-  // 同步宠物预览到 users 表（RLS 允许跨用户 SELECT，解决好友列表无法读取问题）
+  // 同步宠物预览到 users 表（无 RLS 限制，好友列表 + 排行榜共用）
   try {
     const pet = state.currentPet || {}
     const poolItem = (state.petPool || []).find(p => p.poolId === pet.poolId) || {}
@@ -57,6 +57,7 @@ export async function upsertMV1State(userId, state) {
       petLevel: pet.level || 1,
       petStage: !pet.level || pet.level < 2 ? '蛋' : pet.level < 10 ? '幼年' : pet.level < 20 ? '成长期' : pet.level < 30 ? '成熟体' : '完全体',
       totalLearnQuestions: state.totalLearnQuestions || 0,
+      totalCorrectAnswers: state.totalCorrectAnswers || 0,
       daysActive: state.daysActive || 1,
       weeklyQuestions: state.weeklyQuestions || 0,
       updatedAt: new Date().toISOString(),
@@ -154,36 +155,26 @@ export async function sendEncouragement(fromUserId, fromName, toUserId) {
 
 /**
  * 获取所有用户的宠物预览（排行榜用）
- * 注意：Supabase需要配置RLS策略允许读取该表
+ * 读 users.pet_preview —— anon key 无 RLS 限制，可跨用户访问
  */
 export async function fetchAllPreviews() {
   const client = getClient()
   if (!client) return []
   try {
     const { data, error } = await client
-      .from('mv1_state')
-      .select('user_id, state')
-      .limit(50)
+      .from('users')
+      .select('id, name, pet_preview')
+      .not('pet_preview', 'is', null)
+      .limit(100)
     if (error || !data) return []
 
-    return data.map(row => {
-      const s = row.state || {}
-      const pet = s.currentPet || {}
-      const poolItem = (s.petPool || []).find(p => p.poolId === pet.poolId) || { name: '神秘宠物', emoji: '🥚', rarity: 'N' }
-      return {
-        userId: row.user_id,
-        petName: poolItem.name,
-        petEmoji: poolItem.emoji,
-        petRarity: poolItem.rarity,
-        petLevel: pet.level || 1,
-        petStage: pet.level < 2 ? '蛋' : pet.level < 10 ? '幼年' : pet.level < 20 ? '成长期' : pet.level < 30 ? '成熟体' : '完全体',
-        totalLearnQuestions: s.totalLearnQuestions || 0,
-        totalCorrectAnswers: s.totalCorrectAnswers || 0,
-        daysActive: s.daysActive || 1,
-        weeklyQuestions: s.weeklyQuestions || 0,
-        playerName: s.playerName || '',
-      }
-    })
+    return data
+      .filter(row => row.pet_preview?.petEmoji)   // 过滤掉空预览
+      .map(row => ({
+        userId: row.id,
+        playerName: row.name || '匿名同学',
+        ...row.pet_preview,
+      }))
   } catch (e) {
     console.error('MV1 fetch all previews error', e)
     return []
