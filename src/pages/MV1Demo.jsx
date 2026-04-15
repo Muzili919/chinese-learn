@@ -549,17 +549,39 @@ export default function MV1Demo({ onBack, initialState, onStateChange }) {
         ? cloud.friends
         : (initialState?.friends || []);
 
+      // 宠物数据：优先级 — 云端 > initialState > 默认(蛋)
+      // 关键修复：如果本地(initialState)已有宠物但云端没有，保留本地数据
+      // 防止抽卡后切页面/刷新导致云端旧数据覆盖本地新宠物
+      const localHasPet = (initialState?.currentPet?.poolId && initialState?.ownedPets?.length > 0)
+      const cloudHasPet = cloud?.currentPet?.poolId
+      const resolvedCurrentPet = (() => {
+        if (cloud?.currentPet) {
+          return {
+            ...(initialState?.currentPet || {}),
+            ...cloud.currentPet,
+            stats: cloud.currentPet.stats || {},
+            equippedAccessories: cloud.currentPet.equippedAccessories || {},
+          }
+        }
+        // 云端没有宠物数据，但本地有 → 保留本地（防止变蛋）
+        if (localHasPet) return initialState.currentPet
+        // 都没有 → 蛋态
+        return null
+      })()
+
+      const resolvedOwnedPets = (() => {
+        if (cloud?.ownedPets?.length > 0) return cloud.ownedPets
+        if (initialState?.ownedPets?.length > 0) return initialState.ownedPets
+        return []
+      })()
+
       const merged = {
         ...base,
         ...(cloud || {}),
         exp: storageXP,
         petExpConsumed: cloud?.petExpConsumed || 0,
-        currentPet: cloud?.currentPet ? {
-          ...(base.currentPet || {}),
-          ...cloud.currentPet,
-          stats: cloud.currentPet.stats || {},
-          equippedAccessories: cloud.currentPet.equippedAccessories || {},
-        } : (base.currentPet || null),
+        currentPet: resolvedCurrentPet,
+        ownedPets: resolvedOwnedPets,
         inventory: { ...base.inventory, ...(cloud?.inventory || {}) },
         dailyTasks,
         dailyLastResetDate: today,
