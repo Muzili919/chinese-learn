@@ -5,7 +5,7 @@
     "knowledge_tag": "英语听力",
     "ability_tag": "听力辨识",
     "type": "multiple_choice",
-    "question": "听录音，选择与所听内容相符的图片。",
+    "question": "根据录音内容，说话人的书包是什么颜色的？\n\nAccording to the recording, what color is the speaker's schoolbag?",
     "options": [
       "A. 一个红色书包的图片描述",
       "B. 一个蓝白相间书包的图片描述",
@@ -23,7 +23,7 @@
     "knowledge_tag": "英语听力",
     "ability_tag": "听力辨识",
     "type": "multiple_choice",
-    "question": "听录音，选择你所听到的单词。",
+    "question": "根据录音内容，数学老师是什么样的人？\n\nAccording to the recording, what is the math teacher like?",
     "options": [
       "A. strict",
       "B. funny",
@@ -41,7 +41,7 @@
     "knowledge_tag": "英语听力",
     "ability_tag": "听力判断",
     "type": "multiple_choice",
-    "question": "听对话，判断下列说法是否正确，正确的选T，错误的选F。",
+    "question": "根据对话内容，她们星期三有美术课吗？\n\nAccording to the conversation, do they have art class on Wednesdays?",
     "options": [
       "A. T",
       "B. F"
@@ -70,7 +70,7 @@
     "knowledge_tag": "英语听力",
     "ability_tag": "听短文填空",
     "type": "fill_blank",
-    "question": "听短文，填入所缺的单词。",
+    "question": "根据短文内容，Amy最喜欢的季节是什么？\n\nAccording to the passage, what is Amy's favorite season?",
     "options": [],
     "answer": "summer",
     "analysis": "【考点】本题考查听辨季节及原因。\n【解题思路】从“go swimming”可推断出季节是夏季。\n【总结】听短文填空要结合常识和上下文推理。",
@@ -83,7 +83,7 @@
     "knowledge_tag": "英语听力",
     "ability_tag": "听力辨识",
     "type": "multiple_choice",
-    "question": "听录音，选择与所听内容相符的图片。",
+    "question": "根据录音内容，狗在什么地方睡觉？\n\nAccording to the recording, where is the dog sleeping?",
     "options": [
       "A. 狗在沙发上睡觉",
       "B. 狗在树下睡觉",
@@ -101,7 +101,7 @@
     "knowledge_tag": "英语听力",
     "ability_tag": "听对话选择回答",
     "type": "multiple_choice",
-    "question": "听对话，选择正确的应答句。",
+    "question": "根据对话内容，对于对方的邀请，应该如何回答？\n\nAccording to the conversation, how should you respond to the invitation?",
     "options": [
       "A. Yes, please.",
       "B. No, I don't.",
@@ -119,7 +119,7 @@
     "knowledge_tag": "英语听力",
     "ability_tag": "听音判断正误",
     "type": "multiple_choice",
-    "question": "听录音，判断下列句子与所听内容是否相符。相符选T，不相符选F。",
+    "question": "根据录音内容，说话人家里有几口人？\n\nAccording to the recording, how many people are there in the speaker's family?",
     "options": [
       "A. T",
       "B. F"
@@ -161,7 +161,7 @@
     "knowledge_tag": "英语听力",
     "ability_tag": "听力辨识",
     "type": "multiple_choice",
-    "question": "听录音，选择与所听内容相符的图片。",
+    "question": "根据录音内容，说话人的叔叔是做什么工作的？在哪里工作？\n\nAccording to the recording, what is the speaker's uncle? Where does he work?",
     "options": [
       "A. 警察在警局",
       "B. 医生在医院",
@@ -179,7 +179,7 @@
     "knowledge_tag": "英语听力",
     "ability_tag": "听力辨识",
     "type": "multiple_choice",
-    "question": "听录音，选择你所听到的单词。",
+    "question": "根据录音内容，今天天气如何？\n\nAccording to the recording, how is the weather today?",
     "options": [
       "A. sunny",
       "B. rainy",
@@ -197,7 +197,7 @@
     "knowledge_tag": "英语听力",
     "ability_tag": "听力判断",
     "type": "multiple_choice",
-    "question": "听对话，判断下列说法是否正确，正确的选T，错误的选F。",
+    "question": "根据对话内容，Lily会游泳吗？\n\nAccording to the conversation, can Lily swim?",
     "options": [
       "A. T",
       "B. F"
@@ -226,7 +226,7 @@
     "knowledge_tag": "英语听力",
     "ability_tag": "听短文填空",
     "type": "fill_blank",
-    "question": "听短文，填入所缺的单词。",
+    "question": "根据短文内容，猫是什么颜色的？\n\nAccording to the passage, what color is the cat?",
     "options": [],
     "answer": "black",
     "analysis": "【考点】本题考查听辨颜色形容词。\n【解题思路】文本中“white and...”需要填一个颜色，常见搭配有black。\n【总结】注意and前后的颜色并列关系。",
@@ -239,7 +239,7 @@
     "knowledge_tag": "英语听力",
     "ability_tag": "听力辨识",
     "type": "multiple_choice",
-    "question": "听录音，选择与所听内容相符的图片。",
+    "question": "根据录音内容，男孩在公园里做什么？\n\nAccording to the recording, what is the boy doing in the park?",
     "options": [
       "A. 男孩在公园跑步",
       "B. 男孩在公园骑自行车",
@@ -257,7 +257,7 @@
     "knowledge_tag": "英语听力",
     "ability_tag": "听对话选择回答",
     "type": "multiple_choice",
-    "question": "听对话，选择正确的应答句。",
+    "question": "根据对话内容，说话人怎样去上学？\n\nAccording to the conversation, how does the speaker go to school?",
     "options": [
       "A. By bus.",
       "B. At 8 o'clock.",
@@ -275,7 +275,7 @@
     "knowledge_tag": "英语听力",
     "ability_tag": "听音判断正误",
     "type": "multiple_choice",
-    "question": "听录音，判断下列句子与所听内容是否相符。相符选T，不相符选F。",
+    "question": "根据录音内容，今天为什么起得比平时晚？\n\nAccording to the recording, why did the speaker get up later than usual today?",
     "options": [
       "A. T",
       "B. F"
@@ -317,7 +317,7 @@
     "knowledge_tag": "英语听力",
     "ability_tag": "听力辨识",
     "type": "multiple_choice",
-    "question": "听录音，选择与所听内容相符的图片。",
+    "question": "根据录音内容，猫睡在哪里？\n\nAccording to the recording, where is the cat sleeping?",
     "options": [
       "A. 猫在床下",
       "B. 猫在沙发上",
@@ -335,7 +335,7 @@
     "knowledge_tag": "英语听力",
     "ability_tag": "听力辨识",
     "type": "multiple_choice",
-    "question": "听录音，选择你所听到的单词。",
+    "question": "根据录音内容，说话人的叔叔是什么职业？\n\nAccording to the recording, what is the speaker's uncle's job?",
     "options": [
       "A. doctor",
       "B. teacher",
@@ -353,7 +353,7 @@
     "knowledge_tag": "英语听力",
     "ability_tag": "听力判断",
     "type": "multiple_choice",
-    "question": "听对话，判断下列说法是否正确，正确的选T，错误的选F。",
+    "question": "根据对话内容，Amy最喜欢哪个季节？\n\nAccording to the conversation, which season does Amy like best?",
     "options": [
       "A. T",
       "B. F"
@@ -382,7 +382,7 @@
     "knowledge_tag": "英语听力",
     "ability_tag": "听短文填空",
     "type": "fill_blank",
-    "question": "听短文，填入所缺的单词。",
+    "question": "根据短文内容，房间里有一个什么样的大家具用来放书和玩具？\n\nAccording to the passage, what big piece of furniture is in the room for books and toys?",
     "options": [],
     "answer": "bookshelf",
     "analysis": "【考点】本题考查听辨家具名词及功能。\n【解题思路】“put my books and toys in it”提示是书柜。\n【总结】根据物品用途推断单词。",
@@ -395,7 +395,7 @@
     "knowledge_tag": "英语听力",
     "ability_tag": "听力辨识",
     "type": "multiple_choice",
-    "question": "听录音，选择与所听内容相符的图片。",
+    "question": "根据录音内容，说话人通常怎样去动物园？\n\nAccording to the recording, how does the speaker usually go to the zoo?",
     "options": [
       "A. 骑自行车",
       "B. 坐公交车",
@@ -413,7 +413,7 @@
     "knowledge_tag": "英语听力",
     "ability_tag": "听对话选择回答",
     "type": "multiple_choice",
-    "question": "听对话，选择正确的应答句。",
+    "question": "根据对话内容，对方问的是什么？应如何回答？\n\nAccording to the conversation, what question was asked? How to respond?",
     "options": [
       "A. I'm 12 years old.",
       "B. I'm 1.5 meters tall.",
@@ -431,7 +431,7 @@
     "knowledge_tag": "英语听力",
     "ability_tag": "听音判断正误",
     "type": "multiple_choice",
-    "question": "听录音，判断下列句子与所听内容是否相符。相符选T，不相符选F。",
+    "question": "根据录音内容，博物馆周末开放吗？\n\nAccording to the recording, is the museum open on weekends?",
     "options": [
       "A. T",
       "B. F"
@@ -473,7 +473,7 @@
     "knowledge_tag": "英语听力",
     "ability_tag": "听力辨识",
     "type": "multiple_choice",
-    "question": "听录音，选择与所听内容相符的图片。",
+    "question": "根据录音内容，男孩穿着什么样的衣服？\n\nAccording to the recording, what clothes is the boy wearing?",
     "options": [
       "A. 穿绿色T恤和黑色裤子",
       "B. 穿红色T恤和蓝色牛仔裤",
@@ -491,7 +491,7 @@
     "knowledge_tag": "英语听力",
     "ability_tag": "听力辨识",
     "type": "multiple_choice",
-    "question": "听录音，选择你所听到的单词。",
+    "question": "根据录音内容，说话人哪里不舒服？\n\nAccording to the recording, what's wrong with the speaker?",
     "options": [
       "A. stomachache",
       "B. toothache",
@@ -509,7 +509,7 @@
     "knowledge_tag": "英语听力",
     "ability_tag": "听力判断",
     "type": "multiple_choice",
-    "question": "听对话，判断下列说法是否正确，正确的选T，错误的选F。",
+    "question": "根据对话内容，说话人周末几点起床？\n\nAccording to the conversation, what time does the speaker get up on weekends?",
     "options": [
       "A. T",
       "B. F"
@@ -538,7 +538,7 @@
     "knowledge_tag": "英语听力",
     "ability_tag": "听短文填空",
     "type": "fill_blank",
-    "question": "听短文，填入所缺的单词。",
+    "question": "根据短文内容，说话人的生日在哪个月？\n\nAccording to the passage, which month is the speaker's birthday in?",
     "options": [],
     "answer": "January",
     "analysis": "【考点】本题考查听辨月份。\n【解题思路】“the first month of the year”提示是一月。\n【总结】月份单词：January, February, March, April, May, June, July, August, September, October, November, December。",
@@ -551,7 +551,7 @@
     "knowledge_tag": "英语听力",
     "ability_tag": "听力辨识",
     "type": "multiple_choice",
-    "question": "听录音，选择与所听内容相符的图片。",
+    "question": "根据录音内容，电影院的位置在哪里？\n\nAccording to the recording, where is the cinema located?",
     "options": [
       "A. 公园在电影院和学校之间",
       "B. 学校在公园和电影院之间",
@@ -569,7 +569,7 @@
     "knowledge_tag": "英语听力",
     "ability_tag": "听对话选择回答",
     "type": "multiple_choice",
-    "question": "听对话，选择正确的应答句。",
+    "question": "根据对话内容，对方问的是妈妈的什么？应如何回答？\n\nAccording to the conversation, what was asked about mother? How to respond?",
     "options": [
       "A. She is a nurse.",
       "B. She is at home.",
@@ -587,7 +587,7 @@
     "knowledge_tag": "英语听力",
     "ability_tag": "听音判断正误",
     "type": "multiple_choice",
-    "question": "听录音，判断下列句子与所听内容是否相符。相符选T，不相符选F。",
+    "question": "根据录音内容，公园里的河上可以划船吗？\n\nAccording to the recording, can you go boating on the river in the park?",
     "options": [
       "A. T",
       "B. F"
@@ -629,7 +629,7 @@
     "knowledge_tag": "英语听力",
     "ability_tag": "听力辨识",
     "type": "multiple_choice",
-    "question": "听录音，选择与所听内容相符的图片。",
+    "question": "根据录音内容，说话人想吃什么？\n\nAccording to the recording, what would the speaker like to eat?",
     "options": [
       "A. 一碗面条加牛肉",
       "B. 一碗面条加蔬菜",
@@ -647,7 +647,7 @@
     "knowledge_tag": "英语听力",
     "ability_tag": "听力辨识",
     "type": "multiple_choice",
-    "question": "听录音，选择你所听到的单词。",
+    "question": "根据录音内容，英语老师是个什么样的人？\n\nAccording to the recording, what is the English teacher like?",
     "options": [
       "A. strict",
       "B. funny",
@@ -665,7 +665,7 @@
     "knowledge_tag": "英语听力",
     "ability_tag": "听力判断",
     "type": "multiple_choice",
-    "question": "听对话，判断下列说法是否正确，正确的选T，错误的选F。",
+    "question": "根据对话内容，说话人会弹钢琴吗？\n\nAccording to the conversation, can the speaker play the piano?",
     "options": [
       "A. T",
       "B. F"
@@ -694,7 +694,7 @@
     "knowledge_tag": "英语听力",
     "ability_tag": "听短文填空",
     "type": "fill_blank",
-    "question": "听短文，填入所缺的单词。",
+    "question": "根据短文内容，说话人住在什么地方？\n\nAccording to the passage, where does the speaker live?",
     "options": [],
     "answer": "village",
     "analysis": "【考点】本题考查听辨居住地名词。\n【解题思路】“small”和“many trees and flowers”提示是村庄。\n【总结】居住地名词：city, town, village, countryside。",
@@ -707,7 +707,7 @@
     "knowledge_tag": "英语听力",
     "ability_tag": "听力辨识",
     "type": "multiple_choice",
-    "question": "听录音，选择与所听内容相符的图片。",
+    "question": "根据录音内容，银行在哪里？\n\nAccording to the recording, where is the bank?",
     "options": [
       "A. 直走，银行在左边",
       "B. 右转，银行在右边",
@@ -725,7 +725,7 @@
     "knowledge_tag": "英语听力",
     "ability_tag": "听对话选择回答",
     "type": "multiple_choice",
-    "question": "听对话，选择正确的应答句。",
+    "question": "根据对话内容，对方问的是什么？应如何回答？\n\nAccording to the conversation, what was asked? How to respond?",
     "options": [
       "A. I like playing basketball.",
       "B. Three times a week.",
@@ -743,7 +743,7 @@
     "knowledge_tag": "英语听力",
     "ability_tag": "听音判断正误",
     "type": "multiple_choice",
-    "question": "听录音，判断下列句子与所听内容是否相符。相符选T，不相符选F。",
+    "question": "根据录音内容，Sarah比她姐姐高还是矮？\n\nAccording to the recording, is Sarah taller or shorter than her sister?",
     "options": [
       "A. T",
       "B. F"
@@ -772,7 +772,7 @@
     "knowledge_tag": "英语听力",
     "ability_tag": "听短文填空",
     "type": "fill_blank",
-    "question": "听短文，填入所缺的单词。",
+    "question": "根据短文内容，明天的天气将会怎样？\n\nAccording to the passage, what will the weather be like tomorrow?",
     "options": [],
     "answer": "cold",
     "analysis": "【考点】本题考查听辨天气和温度。\n【解题思路】温度降到5度，提示天气寒冷。\n【总结】天气与温度对应：cold（低温），hot（高温），warm（温暖），cool（凉爽）。",

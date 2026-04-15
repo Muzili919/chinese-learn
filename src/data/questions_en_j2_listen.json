@@ -6,7 +6,7 @@
     "knowledge_tag": "英语综合",
     "ability_tag": "情景交际",
     "type": "multiple_choice",
-    "question": "请根据以上内容，选出正确的选项。",
+    "question": "根据录音内容，对方请求做什么？\n\nAccording to the recording, what does the speaker ask the other person to do?",
     "options": [
       "A. Could you please open the window?",
       "B. Could you please close the door?",
@@ -27,7 +27,7 @@
     "knowledge_tag": "英语综合",
     "ability_tag": "情景交际",
     "type": "multiple_choice",
-    "question": "请根据以上内容，选出正确的选项。",
+    "question": "根据对话内容，说话人通常如何去上学？\n\nAccording to the conversation, how does the speaker usually go to school?",
     "options": [
       "A. I usually go to school by bus.",
       "B. I usually go to school by bike.",
@@ -48,7 +48,7 @@
     "knowledge_tag": "英语综合",
     "ability_tag": "情景交际",
     "type": "multiple_choice",
-    "question": "请根据以上内容，选出正确的选项。",
+    "question": "根据录音内容，他们打算明天做什么？\n\nAccording to the recording, what are they going to do tomorrow?",
     "options": [
       "A. We are going to have a picnic tomorrow.",
       "B. We are going to have a meeting tomorrow.",
@@ -69,7 +69,7 @@
     "knowledge_tag": "英语综合",
     "ability_tag": "情景交际",
     "type": "multiple_choice",
-    "question": "请根据以上内容，选出正确的选项。",
+    "question": "根据录音内容，关于她去北京的情况，哪个说法正确？\n\nAccording to the recording, which statement about her trip to Beijing is correct?",
     "options": [
       "A. She has been to Beijing twice.",
       "B. She has gone to Beijing twice.",
@@ -90,7 +90,7 @@
     "knowledge_tag": "英语综合",
     "ability_tag": "情景交际",
     "type": "multiple_choice",
-    "question": "请根据以上内容，选出正确的选项。",
+    "question": "根据录音内容，天气正在发生什么变化？\n\nAccording to the recording, what is happening to the weather?",
     "options": [
       "A. The weather is getting warmer and warmer.",
       "B. The weather is getting colder and colder.",
@@ -111,7 +111,7 @@
     "knowledge_tag": "英语综合",
     "ability_tag": "情景交际",
     "type": "multiple_choice",
-    "question": "请根据以上内容，选出正确的选项。",
+    "question": "根据录音内容，妈妈要求说话人做什么？\n\nAccording to the recording, what did mother ask the speaker not to do?",
     "options": [
       "A. My mother asked me not to play computer games.",
       "B. My father asked me not to play computer games.",
@@ -132,7 +132,7 @@
     "knowledge_tag": "英语综合",
     "ability_tag": "情景交际",
     "type": "multiple_choice",
-    "question": "请根据以上内容，选出正确的选项。",
+    "question": "根据录音内容，如果明天下雨会怎样？\n\nAccording to the recording, what will happen if it rains tomorrow?",
     "options": [
       "A. If it rains tomorrow, we will stay at home.",
       "B. If it rains tomorrow, we will go to the park.",
@@ -153,7 +153,7 @@
     "knowledge_tag": "英语综合",
     "ability_tag": "情景交际",
     "type": "multiple_choice",
-    "question": "请根据以上内容，选出正确的选项。",
+    "question": "根据录音内容，关于那个男孩和苹果，哪个说法正确？\n\nAccording to the recording, which statement about the boy and the apple is correct?",
     "options": [
       "A. He is tall enough to reach the apple.",
       "B. He is too short to reach the apple.",
@@ -174,7 +174,7 @@
     "knowledge_tag": "英语综合",
     "ability_tag": "情景交际",
     "type": "multiple_choice",
-    "question": "请根据以上内容，选出正确的选项。",
+    "question": "根据录音内容，英语和数学相比怎么样？\n\nAccording to the recording, how does English compare with math?",
     "options": [
       "A. English is as important as math.",
       "B. English is more important than math.",
@@ -195,7 +195,7 @@
     "knowledge_tag": "英语综合",
     "ability_tag": "情景交际",
     "type": "multiple_choice",
-    "question": "请根据以上内容，选出正确的选项。",
+    "question": "根据录音内容，老师告诉了我们什么客观事实？\n\nAccording to the recording, what fact did the teacher tell us?",
     "options": [
       "A. The teacher told us the earth goes around the sun.",
       "B. The teacher told us the earth went around the sun.",
@@ -216,7 +216,7 @@
     "knowledge_tag": "英语综合",
     "ability_tag": "情景交际",
     "type": "multiple_choice",
-    "question": "请根据以上对话内容，选择正确答案。",
+    "question": "根据对话内容，Lucy将怎么去奶奶家？\n\nAccording to the conversation, how will Lucy go to visit her grandma?",
     "options": [
       "A. By car.",
       "B. By bus.",
@@ -237,7 +237,7 @@
     "knowledge_tag": "英语综合",
     "ability_tag": "情景交际",
     "type": "multiple_choice",
-    "question": "请根据以上对话内容，选择正确答案。",
+    "question": "根据对话内容，邮局在哪里？\n\nAccording to the conversation, where is the post office?",
     "options": [
       "A. On the left of the second crossing.",
       "B. On the right of the second crossing.",
@@ -258,7 +258,7 @@
     "knowledge_tag": "英语综合",
     "ability_tag": "情景交际",
     "type": "multiple_choice",
-    "question": "请根据以上对话内容，选择正确答案。",
+    "question": "根据对话内容，课程将在什么时候开始？\n\nAccording to the conversation, when will the class begin?",
     "options": [
       "A. At 8:00.",
       "B. At 8:15.",
@@ -279,7 +279,7 @@
     "knowledge_tag": "英语综合",
     "ability_tag": "情景交际",
     "type": "multiple_choice",
-    "question": "请根据以上对话内容，选择正确答案。",
+    "question": "根据对话内容，Mike哪门考试没通过？\n\nAccording to the conversation, which exam did Mike fail?",
     "options": [
       "A. English.",
       "B. Chinese.",
@@ -300,7 +300,7 @@
     "knowledge_tag": "英语综合",
     "ability_tag": "情景交际",
     "type": "multiple_choice",
-    "question": "请根据以上对话内容，选择正确答案。",
+    "question": "根据对话内容，Anna最喜欢什么运动？\n\nAccording to the conversation, what sport does Anna like best?",
     "options": [
       "A. Basketball.",
       "B. Swimming.",
@@ -321,7 +321,7 @@
     "knowledge_tag": "英语综合",
     "ability_tag": "情景交际",
     "type": "multiple_choice",
-    "question": "请根据以上对话内容，选择正确答案。",
+    "question": "根据对话内容，较便宜的那件T恤多少钱？\n\nAccording to the conversation, how much is the cheaper T-shirt?",
     "options": [
       "A. 120 yuan.",
       "B. 80 yuan.",
@@ -342,7 +342,7 @@
     "knowledge_tag": "英语综合",
     "ability_tag": "情景交际",
     "type": "multiple_choice",
-    "question": "请根据以上对话内容，选择正确答案。",
+    "question": "根据对话内容，Lily借了什么样的书？\n\nAccording to the conversation, what kind of books did Lily borrow?",
     "options": [
       "A. English books.",
       "B. Science books.",
@@ -363,7 +363,7 @@
     "knowledge_tag": "英语综合",
     "ability_tag": "情景交际",
     "type": "multiple_choice",
-    "question": "请根据以上对话内容，选择正确答案。",
+    "question": "根据对话内容，班上有多少名女生？\n\nAccording to the conversation, how many girls are there in the class?",
     "options": [
       "A. 20.",
       "B. 30.",
@@ -384,7 +384,7 @@
     "knowledge_tag": "英语综合",
     "ability_tag": "情景交际",
     "type": "multiple_choice",
-    "question": "请根据以上对话内容，选择正确答案。",
+    "question": "根据对话内容，Tom读的书是关于什么的？\n\nAccording to the conversation, what is Tom's book about?",
     "options": [
       "A. How to learn English well.",
       "B. How to protect the environment.",
@@ -405,7 +405,7 @@
     "knowledge_tag": "英语综合",
     "ability_tag": "情景交际",
     "type": "multiple_choice",
-    "question": "请根据以上对话内容，选择正确答案。",
+    "question": "根据对话内容，Jane为什么看起来很累？\n\nAccording to the conversation, why does Jane look tired?",
     "options": [
       "A. Because she was sick.",
       "B. Because she stayed up late preparing for a speech contest.",
@@ -426,7 +426,7 @@
     "knowledge_tag": "英语综合",
     "ability_tag": "情景交际",
     "type": "multiple_choice",
-    "question": "请根据以上对话内容，选择正确答案。",
+    "question": "根据对话内容，他们决定周末去做什么？\n\nAccording to the conversation, what have they decided to do this weekend?",
     "options": [
       "A. Go shopping.",
       "B. Go swimming.",
@@ -447,7 +447,7 @@
     "knowledge_tag": "英语综合",
     "ability_tag": "情景交际",
     "type": "multiple_choice",
-    "question": "请根据以上对话内容，选择正确答案。",
+    "question": "根据对话内容，Mr. Green现在在哪里？\n\nAccording to the conversation, where is Mr. Green now?",
     "options": [
       "A. At home.",
       "B. In the office.",
@@ -468,7 +468,7 @@
     "knowledge_tag": "英语综合",
     "ability_tag": "情景交际",
     "type": "multiple_choice",
-    "question": "请根据以上对话内容，选择正确答案。",
+    "question": "根据对话内容，Peter在澳大利亚待了多久？\n\nAccording to the conversation, how long did Peter stay in Australia?",
     "options": [
       "A. For a week.",
       "B. For two weeks.",
@@ -489,7 +489,7 @@
     "knowledge_tag": "英语综合",
     "ability_tag": "情景交际",
     "type": "multiple_choice",
-    "question": "请根据以上对话内容，选择正确答案。",
+    "question": "根据对话内容，Mary想喝什么？\n\nAccording to the conversation, what would Mary like to drink?",
     "options": [
       "A. A cup of coffee.",
       "B. A glass of milk.",
@@ -510,7 +510,7 @@
     "knowledge_tag": "英语综合",
     "ability_tag": "情景交际",
     "type": "multiple_choice",
-    "question": "请根据以上对话内容，选择正确答案。",
+    "question": "根据对话内容，Jack长大后想成为什么？\n\nAccording to the conversation, what does Jack want to be when he grows up?",
     "options": [
       "A. A doctor.",
       "B. A teacher.",
@@ -531,7 +531,7 @@
     "knowledge_tag": "英语综合",
     "ability_tag": "情景交际",
     "type": "multiple_choice",
-    "question": "请根据以上对话内容，选择正确答案。",
+    "question": "根据对话内容，去医院应该怎么走？\n\nAccording to the conversation, how can we get to the nearest hospital?",
     "options": [
       "A. Turn left, then go straight.",
       "B. Turn right, then go straight.",
@@ -552,7 +552,7 @@
     "knowledge_tag": "英语综合",
     "ability_tag": "情景交际",
     "type": "multiple_choice",
-    "question": "请根据以上对话内容，选择正确答案。",
+    "question": "根据对话内容，那位女士看过这部电影几次了？\n\nAccording to the conversation, how many times has the lady watched the movie?",
     "options": [
       "A. Once.",
       "B. Twice.",
@@ -573,7 +573,7 @@
     "knowledge_tag": "英语综合",
     "ability_tag": "情景交际",
     "type": "multiple_choice",
-    "question": "请根据以上对话内容，选择正确答案。",
+    "question": "根据对话内容，Lisa的生日是什么时候？\n\nAccording to the conversation, when is Lisa's birthday?",
     "options": [
       "A. October 5th.",
       "B. October 15th.",
@@ -594,7 +594,7 @@
     "knowledge_tag": "英语综合",
     "ability_tag": "情景交际",
     "type": "multiple_choice",
-    "question": "请根据以上对话内容，选择正确答案。",
+    "question": "根据对话内容，Bob上周末做了什么？\n\nAccording to the conversation, what did Bob do last weekend?",
     "options": [
       "A. He went fishing.",
       "B. He went camping.",
@@ -615,7 +615,7 @@
     "knowledge_tag": "英语综合",
     "ability_tag": "情景交际",
     "type": "multiple_choice",
-    "question": "请根据以上对话内容，选择正确答案。",
+    "question": "根据对话内容，Amy为什么没参加昨晚的聚会？\n\nAccording to the conversation, why didn't Amy come to the party last night?",
     "options": [
       "A. Because she had too much homework.",
       "B. Because she had a bad cold.",
@@ -636,7 +636,7 @@
     "knowledge_tag": "英语综合",
     "ability_tag": "阅读理解",
     "type": "true_false",
-    "question": "根据录音内容，判断下列说法是否正确。",
+    "question": "根据短文内容，李明住在中国的南方还是北方？\n\nAccording to the passage, does Li Ming live in the south or north of China?",
     "options": [
       "A. 正确",
       "B. 错误"
@@ -656,7 +656,7 @@
     "knowledge_tag": "英语综合",
     "ability_tag": "阅读理解",
     "type": "true_false",
-    "question": "根据录音内容，判断下列说法是否正确。",
+    "question": "根据短文内容，李明最喜欢哪个季节？\n\nAccording to the passage, which season does Li Ming like best?",
     "options": [
       "A. 正确",
       "B. 错误"
@@ -676,7 +676,7 @@
     "knowledge_tag": "英语综合",
     "ability_tag": "阅读理解",
     "type": "true_false",
-    "question": "根据录音内容，判断下列说法是否正确。",
+    "question": "根据短文内容，李明的妹妹多大？\n\nAccording to the passage, how old is Li Ming's sister?",
     "options": [
       "A. 正确",
       "B. 错误"
@@ -696,7 +696,7 @@
     "knowledge_tag": "英语综合",
     "ability_tag": "阅读理解",
     "type": "true_false",
-    "question": "根据录音内容，判断下列说法是否正确。",
+    "question": "根据短文内容，Tom什么时候去了公园？\n\nAccording to the passage, when did Tom go to the park?",
     "options": [
       "A. 正确",
       "B. 错误"
@@ -716,7 +716,7 @@
     "knowledge_tag": "英语综合",
     "ability_tag": "阅读理解",
     "type": "true_false",
-    "question": "根据录音内容，判断下列说法是否正确。",
+    "question": "根据短文内容，他们踢了多长时间足球？\n\nAccording to the passage, how long did they play football?",
     "options": [
       "A. 正确",
       "B. 错误"
@@ -736,7 +736,7 @@
     "knowledge_tag": "英语综合",
     "ability_tag": "阅读理解",
     "type": "true_false",
-    "question": "根据录音内容，判断下列说法是否正确。",
+    "question": "根据短文内容，步行上学是最受欢迎的方式吗？\n\nAccording to the passage, is walking the most popular way to go to school?",
     "options": [
       "A. 正确",
       "B. 错误"
@@ -756,7 +756,7 @@
     "knowledge_tag": "英语综合",
     "ability_tag": "阅读理解",
     "type": "true_false",
-    "question": "根据录音内容，判断下列说法是否正确。",
+    "question": "根据短文内容，有些学生为什么骑自行车上学？\n\nAccording to the passage, why do some students ride bicycles to school?",
     "options": [
       "A. 正确",
       "B. 错误"
@@ -776,7 +776,7 @@
     "knowledge_tag": "英语综合",
     "ability_tag": "阅读理解",
     "type": "true_false",
-    "question": "根据录音内容，判断下列说法是否正确。",
+    "question": "根据短文内容，每个人最多可以参加几项活动？\n\nAccording to the passage, how many events can each person take part in at most?",
     "options": [
       "A. 正确",
       "B. 错误"
@@ -796,7 +796,7 @@
     "knowledge_tag": "英语综合",
     "ability_tag": "阅读理解",
     "type": "true_false",
-    "question": "根据录音内容，判断下列说法是否正确。",
+    "question": "根据短文内容，运动会将在哪里举行？\n\nAccording to the passage, where will the sports meet be held?",
     "options": [
       "A. 正确",
       "B. 错误"
@@ -816,7 +816,7 @@
     "knowledge_tag": "英语综合",
     "ability_tag": "阅读理解",
     "type": "true_false",
-    "question": "根据录音内容，判断下列说法是否正确。",
+    "question": "根据短文内容，大熊猫只生活在四川省吗？\n\nAccording to the passage, do pandas only live in Sichuan Province?",
     "options": [
       "A. 正确",
       "B. 错误"
@@ -836,7 +836,7 @@
     "knowledge_tag": "英语综合",
     "ability_tag": "阅读理解",
     "type": "multiple_choice",
-    "question": "请根据以上短文内容，选择正确答案。",
+    "question": "根据短文内容，王伟最擅长什么科目？\n\nAccording to the passage, what subject is Wang Wei best at?",
     "options": [
       "A. English.",
       "B. Math.",
@@ -857,7 +857,7 @@
     "knowledge_tag": "英语综合",
     "ability_tag": "阅读理解",
     "type": "multiple_choice",
-    "question": "请根据以上短文内容，选择正确答案。",
+    "question": "根据短文内容，过度使用手机会导致什么问题？\n\nAccording to the passage, what problem can using mobile phones too much cause?",
     "options": [
       "A. They are too expensive.",
       "B. They are bad for our eyes.",
@@ -878,7 +878,7 @@
     "knowledge_tag": "英语综合",
     "ability_tag": "阅读理解",
     "type": "multiple_choice",
-    "question": "请根据以上短文内容，选择正确答案。",
+    "question": "根据短文内容，作者一家在海南待了多久？\n\nAccording to the passage, how long did the family stay in Hainan?",
     "options": [
       "A. For three days.",
       "B. For four days.",
@@ -899,7 +899,7 @@
     "knowledge_tag": "英语综合",
     "ability_tag": "阅读理解",
     "type": "multiple_choice",
-    "question": "请根据以上短文内容，选择正确答案。",
+    "question": "根据短文内容，美术社团每周几开放？\n\nAccording to the passage, on which day is the art club open?",
     "options": [
       "A. On Tuesdays.",
       "B. On Wednesdays.",
@@ -920,7 +920,7 @@
     "knowledge_tag": "英语综合",
     "ability_tag": "阅读理解",
     "type": "multiple_choice",
-    "question": "请根据以上短文内容，选择正确答案。",
+    "question": "根据短文内容，青少年每晚至少需要多少小时睡眠？\n\nAccording to the passage, how many hours of sleep do teenagers need at least per night?",
     "options": [
       "A. Six hours.",
       "B. Seven hours.",
@@ -941,7 +941,7 @@
     "knowledge_tag": "英语综合",
     "ability_tag": "阅读理解",
     "type": "multiple_choice",
-    "question": "请根据以上短文内容，选择正确答案。",
+    "question": "根据短文内容，西湖以什么而闻名？\n\nAccording to the passage, what is the West Lake known for?",
     "options": [
       "A. The Great Wall.",
       "B. The West Lake.",
@@ -962,7 +962,7 @@
     "knowledge_tag": "英语综合",
     "ability_tag": "阅读理解",
     "type": "multiple_choice",
-    "question": "请根据以上短文内容，选择正确答案。",
+    "question": "根据短文内容，这篇短文主要讲的是什么？\n\nAccording to the passage, what is the main idea of this text?",
     "options": [
       "A. How to cook with water.",
       "B. The importance of saving water.",
@@ -983,7 +983,7 @@
     "knowledge_tag": "英语综合",
     "ability_tag": "阅读理解",
     "type": "multiple_choice",
-    "question": "请根据以上短文内容，选择正确答案。",
+    "question": "根据短文内容，Emma学中文多久了？\n\nAccording to the passage, how long has Emma been learning Chinese?",
     "options": [
       "A. For one year.",
       "B. For two years.",
@@ -1004,7 +1004,7 @@
     "knowledge_tag": "英语综合",
     "ability_tag": "阅读理解",
     "type": "multiple_choice",
-    "question": "请根据以上短文内容，选择正确答案。",
+    "question": "根据短文内容，学生们看望老人后感觉如何？\n\nAccording to the passage, how did the students feel after visiting the old people?",
     "options": [
       "A. Tired and sad.",
       "B. Tired but happy.",
@@ -1025,7 +1025,7 @@
     "knowledge_tag": "英语综合",
     "ability_tag": "阅读理解",
     "type": "multiple_choice",
-    "question": "请根据以上短文内容，选择正确答案。",
+    "question": "根据短文内容，学生早上必须在几点前到达学校？\n\nAccording to the passage, before what time must students arrive at school in the morning?",
     "options": [
       "A. Before 7:00.",
       "B. Before 7:30.",
@@ -1046,7 +1046,7 @@
     "knowledge_tag": "英语综合",
     "ability_tag": "词汇运用",
     "type": "multiple_choice",
-    "question": "请根据以上句子，选择正确的单词填入空格（或选出与材料一致的选项）。",
+    "question": "根据录音内容，说话人早餐通常吃什么？\n\nAccording to the recording, what does the speaker usually have for breakfast?",
     "options": [
       "A. bread",
       "B. break",
@@ -1067,7 +1067,7 @@
     "knowledge_tag": "英语综合",
     "ability_tag": "词汇运用",
     "type": "multiple_choice",
-    "question": "请根据以上句子，选择正确的单词填入空格（或选出与材料一致的选项）。",
+    "question": "根据录音内容，我们应该做什么？\n\nAccording to the recording, what should we do?",
     "options": [
       "A. environment",
       "B. experiment",
@@ -1088,7 +1088,7 @@
     "knowledge_tag": "英语综合",
     "ability_tag": "词汇运用",
     "type": "multiple_choice",
-    "question": "请根据以上句子，选择正确的单词填入空格（或选出与材料一致的选项）。",
+    "question": "根据录音内容，那部电影怎么样？\n\nAccording to the recording, how was the film?",
     "options": [
       "A. funny",
       "B. fun",
@@ -1109,7 +1109,7 @@
     "knowledge_tag": "英语综合",
     "ability_tag": "词汇运用",
     "type": "multiple_choice",
-    "question": "请根据以上句子，选择正确的单词填入空格（或选出与材料一致的选项）。",
+    "question": "根据录音内容，爸爸经常怎样送说话人去学校？\n\nAccording to the recording, how does father often take the speaker to school?",
     "options": [
       "A. drives",
       "B. draws",
@@ -1130,7 +1130,7 @@
     "knowledge_tag": "英语综合",
     "ability_tag": "词汇运用",
     "type": "multiple_choice",
-    "question": "请根据以上句子，选择正确的单词填入空格（或选出与材料一致的选项）。",
+    "question": "根据录音内容，明天天气将会怎样？\n\nAccording to the recording, what will the weather be like tomorrow?",
     "options": [
       "A. rain",
       "B. ran",
@@ -1151,7 +1151,7 @@
     "knowledge_tag": "英语综合",
     "ability_tag": "词汇运用",
     "type": "multiple_choice",
-    "question": "请根据以上句子，选择正确的单词填入空格（或选出与材料一致的选项）。",
+    "question": "根据录音内容，对方要求说话人怎样做？\n\nAccording to the recording, how does the other person ask the speaker to speak?",
     "options": [
       "A. louder",
       "B. lower",
@@ -1172,7 +1172,7 @@
     "knowledge_tag": "英语综合",
     "ability_tag": "词汇运用",
     "type": "multiple_choice",
-    "question": "请根据以上句子，选择正确的单词填入空格（或选出与材料一致的选项）。",
+    "question": "根据录音内容，说话人去过长城吗？\n\nAccording to the recording, has the speaker been to the Great Wall?",
     "options": [
       "A. ever",
       "B. never",
@@ -1193,7 +1193,7 @@
     "knowledge_tag": "英语综合",
     "ability_tag": "词汇运用",
     "type": "multiple_choice",
-    "question": "请根据以上句子，选择正确的单词填入空格（或选出与材料一致的选项）。",
+    "question": "根据录音内容，外面天气如何？\n\nAccording to the recording, how is the weather outside?",
     "options": [
       "A. cold",
       "B. cool",
@@ -1214,7 +1214,7 @@
     "knowledge_tag": "英语综合",
     "ability_tag": "词汇运用",
     "type": "multiple_choice",
-    "question": "请根据以上句子，选择正确的单词填入空格（或选出与材料一致的选项）。",
+    "question": "根据录音内容，我们应该怎么做来保护地球？\n\nAccording to the recording, what should we do to protect the earth?",
     "options": [
       "A. try",
       "B. tie",
@@ -1235,7 +1235,7 @@
     "knowledge_tag": "英语综合",
     "ability_tag": "词汇运用",
     "type": "multiple_choice",
-    "question": "请根据以上句子，选择正确的单词填入空格（或选出与材料一致的选项）。",
+    "question": "根据录音内容，老师要求学生对课文做什么？\n\nAccording to the recording, what did the teacher ask the students to do in the text?",
     "options": [
       "A. underline",
       "B. understand",

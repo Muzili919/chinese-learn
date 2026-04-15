@@ -748,13 +748,60 @@ function MatchingQuestion({ q, onSubmit }) {
 
 // ─── 模式检测 ──────────────────────────────────────────────────────────────
 
+/**
+ * 从 question 文本中提取内联的 ABCD 选项（兼容非标准题库数据）
+ * 支持格式：
+ *   "(1) Q? A.xxx B.xxx C.xxx D.xxx"  （多子题内联）
+ *   "A. xxx B. xxx C. xxx D. xxx"        （同行排列）
+ *   "A) xxx\nB) xxx\nC) xxx\nD) xxx"     （分行排列）
+ */
+function extractInlineChoices(text) {
+  if (!text) return null
+  // 格式1：同行 "A. xxx B. xxx C. xxx D. xxx"
+  const inlineMatch = text.match(/([A-D])[.、)]\s*(.+?)\s+(?=[A-D][.、)]\s)/gs)
+  if (inlineMatch && inlineMatch.length >= 2) {
+    const opts = inlineMatch.map(m => {
+      const p = m.match(/([A-D])[.、)]\s*(.+)/s)
+      return p ? { letter: p[1].toUpperCase(), text: p[2].trim() } : null
+    }).filter(Boolean)
+    if (opts.length >= 2) return opts
+  }
+  // 格式2：每行一个选项
+  const lineMatches = [...text.matchAll(/^([A-D])[.、)]\s*(.+)$/gm)]
+  if (lineMatches.length >= 2) {
+    return lineMatches.map(m => ({ letter: m[1].toUpperCase(), text: m[2].trim() }))
+  }
+  // 格式3：从多子题的每个子题中提取最后一段ABCD行
+  // 如 "(1) Where is he?\nA. home B. office C. school D. park"
+  const subMatches = [...text.matchAll(/\((\d+)\)[^A-D]*?\n\s*([A-D][.\s]*[^(\n]+\n?[A-D][.\s]*[^(\n]*\n?[A-D][.\s]*[^(\n]*\n?[A-D][.\s]*[^\n(]*)/g)]
+  if (subMatches.length > 0) {
+    // 这种情况由 MultiSubQuiz 内部的 extractInlineOptions 处理，这里不重复处理
+  }
+  return null
+}
+
+/** 从 question 中提取纯文章正文（去掉末尾所有子题+选项） */
+function extractPassageOnly(questionText) {
+  if (!questionText) return questionText
+  // 去掉末尾的所有 (n)... 子题块（含其中的ABCD选项）
+  let cleaned = questionText.replace(/\n*\s*\(\d+\)[^\n]*(\n\s*[A-D][.、)][^\n]*/g, '').trim()
+  // 去掉残留的多余空行
+  cleaned = cleaned.replace(/\n{3,}/g, '\n\n').trim()
+  return cleaned || questionText
+}
+
 function detectMode(q) {
   if (q.type === 'open_ended') return 'writing'
   if (isMultiPartAnswer(q)) return 'multi_sub'
   if (q.type === 'true_false') return 'true_false'
   if (/^1-?[A-D]/.test((q.answer || '').replace(/\s/g, ''))) return 'matching'
   if (/^[A-D]\s*→\s*[A-D]/.test(q.answer || '')) return 'ordering'
+  // 标准options数组存在 → 选择题
   if (Array.isArray(q.options) && q.options.length >= 2) return 'choice'
+  // 兜底：options为空但question文本中含有可提取的ABCD选项 → 也走选择题模式
+  if ((!q.options || q.options.length === 0) && extractInlineChoices(q.question)) {
+    return 'inline_choice'  // 用特殊标记区分标准choice和内联提取
+  }
   if (q.type === 'fill_blank' && (q.answer || '').length < 40) return 'text_fill'
   return 'writing'
 }
@@ -1022,6 +1069,100 @@ function EnglishQuestion({ question: q, onSubmit, englishTag }) {
   // ── 判断题（T/F）──
   if (mode === 'true_false') {
     return <TrueFalseQuestion q={q} onSubmit={onSubmit} />
+  }
+
+  // ── 内联选择题（options为空但从question文本中提取出选项）──
+  if (mode === 'inline_choice') {
+    const [selected, setSelected] = useState(null)
+    const [submitted, setSubmitted] = useState(false)
+    const [isCorrect, setIsCorrect] = useState(false)
+    // 提取文章正文（去掉末尾子题选项）和内联选项
+    const passageText = useMemo(() => extractPassageOnly(q.question), [q.question])
+    const inlineOpts = useMemo(() => extractInlineChoices(q.question), [q.question])
+    
+    function handleSelect(opt) {
+      if (submitted) return
+      const correct = opt.letter.toUpperCase() === (q.answer || '').trim().toUpperCase()
+        || (/\(\d+\)\s*[A-D]/.test(q.answer || '') && false) // 多子题答案格式在此不适用
+      // 对于多子题格式的单题显示，尝试从answer中找对应选项
+      let isThisCorrect = false
+      const ansStr = (q.answer || '').trim()
+      if (/^[A-D]$/.test(ansStr)) {
+        isThisCorrect = opt.letter.toUpperCase() === ansStr.toUpperCase()
+      } else if (/\([A-D]\)/.test(ansStr)) {
+        // "(B)" 格式
+        isThisCorrect = opt.letter.toUpperCase() === ansStr.match(/\(([A-D])\)/)?.[1]?.toUpperCase()
+      } else {
+        // 尝试从 answer 字符串中查找该字母
+        isThisCorrect = ansStr.toUpperCase().includes(opt.letter.toUpperCase())
+      }
+      setSelected(opt); setIsCorrect(isThisCorrect); setSubmitted(true)
+    }
+
+    const feedbackBg = isCorrect ? 'bg-green-50 border-green-200' : 'bg-red-50 border-red-200'
+
+    return (
+      <div className="flex flex-col gap-4">
+        <div className="bg-white rounded-2xl p-4 shadow-sm">
+          <div className="flex items-center gap-2 mb-3">
+            <span className="text-xs font-semibold px-2 py-0.5 rounded-full"
+              style={{ background: '#eff6ff', color: '#1d4ed8' }}>阅读理解</span>
+            <button onClick={() => speakEnglish(passageText)}
+              className="ml-auto w-7 h-7 flex items-center justify-center bg-sky-100 text-sky-500 rounded-full text-sm">🔊</button>
+          </div>
+          <p className="text-gray-800 text-sm leading-relaxed whitespace-pre-wrap">{passageText}</p>
+        </div>
+
+        {/* 内联提取的选项 */}
+        {inlineOpts && inlineOpts.length > 0 && (
+          <div className="flex flex-col gap-2">
+            {inlineOpts.map((opt) => {
+              let cls = 'bg-white border-gray-200 text-gray-700'
+              if (submitted) {
+                // 从answer中判断正确性
+                let optIsCorrect = false
+                const ansStr = (q.answer || '').trim()
+                if (/^[A-D]$/.test(ansStr)) {
+                  optIsCorrect = opt.letter.toUpperCase() === ansStr.toUpperCase()
+                } else {
+                  optIsCorrect = ansStr.toUpperCase().includes(opt.letter.toUpperCase())
+                }
+                if (optIsCorrect) cls = 'bg-green-50 border-green-400 text-green-700'
+                else if (opt === selected) cls = 'bg-red-50 border-red-400 text-red-600'
+                else cls = 'bg-white border-gray-100 text-gray-300'
+              }
+              return (
+                <button key={opt.letter} onClick={() => handleSelect(opt)} disabled={submitted}
+                  className={`rounded-2xl border-2 px-4 py-3 text-sm font-medium text-left transition-all active:scale-95 ${cls}`}>
+                  <span className="mr-2 text-xs font-bold opacity-40">{opt.letter}.</span>
+                  {opt.text}
+                </button>
+              )
+            })}
+          </div>
+        )}
+
+        {submitted && (
+          <div className={`rounded-2xl p-4 border ${feedbackBg}`}>
+            <div className={`font-bold text-base mb-2 ${isCorrect ? 'text-green-700' : 'text-red-600'}`}>
+              {isCorrect ? '✅ 回答正确！' : `❌ 正确答案：${(q.answer || '').trim()}`}
+            </div>
+            {q.analysis && (
+              <div className="mt-2 pt-2 border-t border-gray-200">
+                <div className="text-xs font-semibold text-gray-500 mb-1">💡 解析 &amp; 翻译</div>
+                <div className="text-xs text-gray-600 whitespace-pre-wrap leading-relaxed">{q.analysis}</div>
+              </div>
+            )}
+          </div>
+        )}
+        {submitted && (
+          <button onClick={() => onSubmit(selected?.letter || '', isCorrect)}
+            className="w-full py-3 rounded-2xl bg-gradient-to-r from-sky-400 to-blue-500 text-white font-bold active:scale-95 transition-transform shadow-md">
+            继续下一题 →
+          </button>
+        )}
+      </div>
+    )
   }
 
   // ── 选择题 / 填空题 ──
