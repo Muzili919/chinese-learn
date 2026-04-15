@@ -854,7 +854,7 @@ export default function MV1Demo({ onBack, initialState, onStateChange }) {
 
   const totalXP = storage.getXP(storage.getUser()?.id || '') || state.exp || 0;
   const lp = calcLevelProgress(totalXP);
-  const spendableXP = lp.currentExp;
+  const spendableXP = petExp; // 🔧 商店用宠物可支配经验（不是人物等级经验）
 
   const petExpConsumed = state.petExpConsumed || 0;
   const petExp = Math.max(0, totalXP - petExpConsumed);

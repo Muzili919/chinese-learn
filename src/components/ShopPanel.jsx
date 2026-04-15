@@ -43,7 +43,7 @@ export default function ShopPanel({ state, onBuy, onUseItem, spendableXP }) {
         marginBottom: 12,
         display: 'flex', alignItems: 'center', justifyContent: 'space-between',
       }}>
-        <span style={{ fontSize: 13, fontWeight: 600, color: '#5b21b6' }}>⭐ 可用经验</span>
+        <span style={{ fontSize: 13, fontWeight: 600, color: '#5b21b6' }}>🐱 可支配经验</span>
         <span style={{ fontSize: 20, fontWeight: 800, color: '#7c3aed' }}>{coins}</span>
       </div>
 
