@@ -6,28 +6,33 @@ import { syncAfterSession } from '../utils/sync'
 const API_URL = '/api/ai'
 
 async function callDeepSeek(systemPrompt, userPrompt, options = {}) {
-  const res = await fetch(API_URL, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-      model: options.model || 'deepseek-chat',
-      messages: [
-        { role: 'system', content: systemPrompt },
-        { role: 'user', content: userPrompt },
-      ],
-      response_format: { type: 'json_object' },
-      temperature: options.temperature ?? 0.7,
-      max_tokens: options.max_tokens,
-    }),
-  })
-  if (!res.ok) {
-    const errData = await res.json().catch(() => ({}))
-    throw new Error(errData.error || `AI 请求失败 (${res.status})，请检查网络后重试`)
+  const controller = new AbortController()
+  const timeoutId = setTimeout(() => controller.abort(), options.timeout || 25000)
+  try {
+    const res = await fetch(API_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      signal: controller.signal,
+      body: JSON.stringify({
+        model: options.model || 'deepseek-chat',
+        messages: [
+          { role: 'system', content: systemPrompt },
+          { role: 'user', content: userPrompt },
+        ],
+        response_format: { type: 'json_object' },
+        temperature: options.temperature ?? 0.7,
+        max_tokens: options.max_tokens,
+      }),
+    })
+    if (!res.ok) {
+      const errData = await res.json().catch(() => ({}))
+      throw new Error(errData.error || `AI 请求失败 (${res.status})`)
+    }
+    const data = await res.json()
+    return JSON.parse(data.choices[0].message.content)
+  } finally {
+    clearTimeout(timeoutId)
   }
-  const data = await res.json()
-  return JSON.parse(data.choices[0].message.content)
 }
 
 // ─── 工具函数 ──────────────────────────────────────────
@@ -1173,43 +1178,19 @@ function ResultMode({ examData, answers, elapsed, subject, user, onBack, onRetry
         }
       })
 
-      // 2. AI 批量评分主观题
-      if (needAI.length > 0) {
-        const scoringPrompt = getScoringPrompt(needAI, answers, subject)
-        if (scoringPrompt) {
-          try {
-            const aiResult = await callDeepSeek(
-              '你是一位资深阅卷老师，请严格按照评分标准给分，只返回JSON。',
-              scoringPrompt,
-              { temperature: 0.3, max_tokens: 1500 }
-            )
-            if (aiResult.scores) {
-              Object.entries(aiResult.scores).forEach(([qId, score]) => {
-                if (score.earned !== undefined) results[qId] = score.earned
-                aiScores[qId] = score.comment || ''
-              })
-              setAiScores({ ...aiScores })
-            }
-          } catch (err) {
-            console.error('AI scoring error:', err)
-          }
-        }
-      }
+      // 2. AI 批量评分主观题 + 3. AI 试卷分析（并行执行，加速）
+      const wrongQs = allQs.filter(q => (results[q.id] || 0) < q.score)
+      const sectionScores = examData.sections.map(sec => {
+        const secQs = (sec.subsections || []).length > 0
+          ? sec.subsections.flatMap(s => (s.questions || []).filter(q => q.type !== 'passage'))
+          : (sec.questions || []).filter(q => q.type !== 'passage')
+        const earned = secQs.reduce((sum, q) => sum + (results[q.id] || 0), 0)
+        const total = secQs.reduce((sum, q) => sum + q.score, 0)
+        return { title: sec.title, earned, total }
+      })
 
-      // 3. 生成 AI 试卷分析
-      try {
-        const wrongQs = allQs.filter(q => (results[q.id] || 0) < q.score)
-        const sectionScores = examData.sections.map(sec => {
-          const secQs = (sec.subsections || []).length > 0
-            ? sec.subsections.flatMap(s => (s.questions || []).filter(q => q.type !== 'passage'))
-            : (sec.questions || []).filter(q => q.type !== 'passage')
-          const earned = secQs.reduce((sum, q) => sum + (results[q.id] || 0), 0)
-          const total = secQs.reduce((sum, q) => sum + q.score, 0)
-          return { title: sec.title, earned, total }
-        })
-
-        const subjectName = subject === 'english' ? '英语' : subject === 'politics' ? '道德与法治' : '语文'
-        const analysisPrompt = `你是一位资深${subjectName}老师。请根据学生的考试成绩写一份简短的分析报告。
+      const subjectName = subject === 'english' ? '英语' : subject === 'politics' ? '道德与法治' : '语文'
+      const analysisPrompt = `你是一位资深${subjectName}老师。请根据学生的考试成绩写一份简短的分析报告。
 
 ## 考试信息
 - 科目：${subject === 'english' ? '英语' : '语文'}
@@ -1226,14 +1207,40 @@ ${sectionScores.map(s => `- ${s.title}：${s.earned}/${s.total}分（${s.total >
   "suggestions": ["建议1", "建议2"]
 }`
 
-        const analysis = await callDeepSeek(
+      // 并行执行：AI评分 + AI分析
+      const [scoringResult, analysisResult] = await Promise.allSettled([
+        needAI.length > 0 && (() => {
+          const scoringPrompt = getScoringPrompt(needAI, answers, subject)
+          if (!scoringPrompt) return null
+          return callDeepSeek(
+            '你是一位资深阅卷老师，请严格按照评分标准给分，只返回JSON。',
+            scoringPrompt,
+            { temperature: 0.3, max_tokens: 1500 }
+          )
+        })(),
+        callDeepSeek(
           '你是一位资深教师，请用简洁专业的语言分析学生考试情况。',
           analysisPrompt,
           { temperature: 0.5 }
-        )
-        setAiAnalysis(analysis)
-      } catch (err) {
-        console.error('AI analysis error:', err)
+        ),
+      ])
+
+      // 处理评分结果
+      if (scoringResult.status === 'fulfilled' && scoringResult.value?.scores) {
+        Object.entries(scoringResult.value.scores).forEach(([qId, score]) => {
+          if (score.earned !== undefined) results[qId] = score.earned
+          aiScores[qId] = score.comment || ''
+        })
+        setAiScores({ ...aiScores })
+      } else {
+        console.error('AI scoring error:', scoringResult.reason)
+      }
+
+      // 处理分析结果
+      if (analysisResult.status === 'fulfilled' && analysisResult.value) {
+        setAiAnalysis(analysisResult.value)
+      } else {
+        console.error('AI analysis error:', analysisResult.reason)
       }
 
       // 4. 错题写入错题集
