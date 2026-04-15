@@ -510,6 +510,67 @@ function defaultStats() {
   };
 }
 
+// ============================================================
+//  🧙 上帝模式 — 满级全宠物测试账号
+// ============================================================
+const ALL_PET_IDS = PET_POOL.map(p => p.poolId);
+// 所有配饰ID（25件）
+const ALL_ACCESSORIES = [
+  'acc_scarf','acc_bell','acc_ribbon','acc_crown','acc_flower',
+  'acc_glasses','acc_hat','acc_antenna','acc_halo','acc_horn',
+  'acc_necklace','acc_bowtie','acc_tie','acc_cape','acc_wings',
+  'acc_backpack','acc_umbrella','acc_shield','acc_flag','acc_instrument',
+];
+
+export function initGodModeState() {
+  return {
+    level: 50,
+    exp: 99999,
+    totalStars: 9999,
+    coins: 99999,
+    petPool: PET_POOL,
+    ownedPets: ALL_PET_IDS,
+    currentPet: {
+      poolId: 'pet_dragon',   // 默认龙王SSR
+      level: 35,
+      exp: 50000,
+      mood: 'happy',
+      tapCount: 99,
+      stats: { hunger: 100, cleanliness: 100, energy: 100, intimacy: 100 },
+      equippedAccessories: { head: 'acc_crown', neck: 'acc_cape', back: 'acc_wings' },
+      lastAction: null,
+      lastFeedTime: Date.now(),
+    },
+    dailyTasks: initDailyTasks(),
+    dailyLastResetDate: new Date().toDateString(),
+    taskCounters: {
+      learnCount: 999,
+      feedCount: 99,
+      interactCount: 99,
+      streakCount: 99,
+    },
+    achievements: [],
+    inventory: {
+      foods: { basic: 99, advanced: 99, gourmet: 99, superGourmet: 99 },
+      cleanItems: 99,
+      energyItems: 99,
+      giftItems: 99,
+      cards: 99,
+      accessories: ALL_ACCESSORIES,
+    },
+    settings: { soundEnabled: true, notificationsEnabled: true },
+    totalLearnQuestions: 9999,
+    totalCorrectAnswers: 8888,
+    daysActive: 365,
+    lastActiveDate: new Date().toDateString(),
+    friends: [],
+    pendingEncouragements: [],
+    weeklyQuestions: 9999,
+    weeklyResetDate: new Date().toISOString().slice(0, 10),
+    _isGodMode: true,
+  };
+}
+
 export function initGamificationState() {
   return {
     level: 1,

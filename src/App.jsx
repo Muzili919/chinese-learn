@@ -20,8 +20,16 @@ import SelfTestPage from './pages/SelfTestPage'
 import LightningQuizPage from './pages/LightningQuizPage'
 import PoliticsHomePage from './pages/PoliticsHomePage'
 import PoliticsQuizPage from './pages/PoliticsQuizPage'
-import { initGamificationState } from './utils/gamification'
+import { initGamificationState, initGodModeState } from './utils/gamification'
 import { fetchMV1State, upsertMV1State } from './utils/mv1_cloud'
+
+// 检查上帝模式：URL 带 ?god=1 或 #god=1
+function isGodMode() {
+  if (typeof window === 'undefined') return false
+  const params = new URLSearchParams(window.location.search)
+  const hash = new URLSearchParams(window.location.hash.split('?')[1] || '')
+  return params.get('god') === '1' || hash.get('god') === '1'
+}
 import LeaderboardPage from './pages/LeaderboardPage'
 import GlobalPetDock from './components/GlobalPetDock'
 
@@ -304,7 +312,7 @@ export default function App() {
   const [activeTab, setActiveTab] = useState('home')
   const [sessionResult, setSessionResult] = useState(null)
   const [quizOptions, setQuizOptions] = useState(null)
-  const [gameState, setGameState] = useState(() => initGamificationState())
+  const [gameState, setGameState] = useState(() => isGodMode() ? initGodModeState() : initGamificationState())
   const [overdueCount, setOverdueCount] = useState(0)
   const [englishQuizOptions, setEnglishQuizOptions] = useState({})
   const [grade, setGrade] = useState(() => storage.getGrade())

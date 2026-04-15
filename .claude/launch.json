@@ -3,9 +3,10 @@
   "configurations": [
     {
       "name": "chinese-learn",
-      "runtimeExecutable": "/opt/homebrew/bin/npm",
+      "runtimeExecutable": "/Users/xiaolongmu/.nvm/versions/node/v24.14.0/bin/npm",
       "runtimeArgs": ["run", "dev"],
-      "port": 5173
+      "port": 5173,
+      "cwd": "/Volumes/ORICO/xinwen/claudecode/chinese-learn"
     }
   ]
 }
