@@ -140,7 +140,7 @@ function getEmotionSprite(emotionKey, type, level = 1) {
     else if (level >= 10) stageDir = 'stage2'   // 赛博柴犬
     // 1-9: stage1（机械幼崽）
     const sprites = makeShibaStage(stageDir)
-    return sprites[emotionKey] || sprites.normal
+    return sprites[emotionKey] || sprites.normal || sprites.happy
   }
   const sprites = getPetSprites(type)
   return sprites.emotionSprites[emotionKey] || null
