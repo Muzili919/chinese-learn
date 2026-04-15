@@ -694,16 +694,14 @@ export function manualLevelUp(state) {
 // ============================================================
 function feedPet(state, amount = 10) {
   const pet = { ...state.currentPet };
+  // 只加宠物经验，不自动升级（升级由用户手动点击触发）
   let petExp = (pet.exp || 0) + amount;
-  let petLevel = pet.level || 1;
-  while (petExp >= 100) { petExp -= 100; petLevel += 1; }
   
   const stats = { ...(pet.stats || defaultStats()) };
   stats.hunger = clamp(stats.hunger + 15, 0, 100); // 喂养增加饱食度
   
   pet.exp = petExp;
-  pet.level = petLevel;
-  pet.stage = stageFromLevel(petLevel);
+  // level 和 stage 不变，等用户手动点升级
   pet.mood = 'neutral';
   pet.tapCount = 0;
   pet.stats = stats;
