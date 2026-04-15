@@ -50,34 +50,36 @@ function MaterialAnalysisQuiz({ question: q, onSubmit }) {
     return <SimpleOpenEndedQuiz q={q} onSubmit={onSubmit} />
   }
 
-  // 全部提交后 → AI批量评分
+  // 全部提交后 → AI并行评分
   async function handleFinalSubmit() {
     setLoading(true)
     try {
-      const results = []
-      for (let i = 0; i < subQuestions.length; i++) {
-        const sub = subQuestions[i]
+      // 并行发起所有子题的AI评分请求
+      const evalPromises = subQuestions.map((sub, i) => {
         const ans = answers[i] || ''
-        if (ans.trim().length > 0) {
-          try {
-            const result = await evaluateQuestion(
-              { ...q, question: sub.question, answer: q.answer, knowledge_tag: q.knowledge_tag, ability_tag: '材料分析题' },
-              ans,
-              'politics'
-            )
-            results.push({ ...result, userAnswer: ans, question: sub.question, maxScore: sub.max_score || 8 })
-          } catch {
-            results.push({ score: 0, correct: false, errorType: 'AI评分失败', userAnswer: ans, question: sub.question, maxScore: sub.max_score || 8 })
-          }
-        } else {
-          results.push({ score: 0, correct: false, errorType: '未作答', userAnswer: '', question: sub.question, maxScore: sub.max_score || 8 })
+        if (ans.trim().length === 0) {
+          return { score: 0, correct: false, errorType: '未作答', userAnswer: '', question: sub.question, maxScore: sub.max_score || 8, idx: i }
         }
-      }
+        return evaluateQuestion(
+          { ...q, question: sub.question, answer: q.answer, knowledge_tag: q.knowledge_tag, ability_tag: '材料分析题' },
+          ans,
+          'politics'
+        ).then(result => ({ ...result, userAnswer: ans, question: sub.question, maxScore: sub.max_score || 8, idx: i }))
+          .catch(() => ({ score: 0, correct: false, errorType: 'AI评分失败', userAnswer: ans, question: sub.question, maxScore: sub.max_score || 8, idx: i }))
+      })
+
+      const settled = await Promise.allSettled(evalPromises)
+      const results = settled.map(s =>
+        s.status === 'fulfilled' ? s.value : { score: 0, correct: false, errorType: 'AI评分异常', question: '', maxScore: 8 }
+      )
+      // 按 idx 排序保证顺序
+      results.sort((a, b) => (a.idx || 0) - (b.idx || 0))
+
       setAiResults(results)
       setSubmitted(true)
-      setLoading(false)
     } catch (e) {
       console.error('AI评分失败', e)
+    } finally {
       setLoading(false)
     }
   }

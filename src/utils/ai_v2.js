@@ -11,28 +11,43 @@
 const API_URL = '/api/ai'
 
 async function callDeepSeek(systemPrompt, userPrompt, options = {}) {
-  const res = await fetch(API_URL, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-      model: options.model || 'deepseek-chat',
-      messages: [
-        { role: 'system', content: systemPrompt },
-        { role: 'user', content: userPrompt },
-      ],
-      response_format: { type: 'json_object' },
-      temperature: options.temperature ?? 0.7,
-      max_tokens: options.max_tokens,
-    }),
-  })
-  if (!res.ok) {
-    const errData = await res.json().catch(() => ({}))
-    throw new Error(errData.error || `AI request failed (${res.status})`)
+  const controller = new AbortController()
+  const timeout = setTimeout(() => {
+    console.warn('⏰ AI请求超时(25s), 自动中止')
+    controller.abort()
+  }, options.timeout || 25000)
+
+  try {
+    const res = await fetch(API_URL, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        ...(controller.signal ? { 'X-Abort': 'true' } : {}),
+      },
+      body: JSON.stringify({
+        model: options.model || 'deepseek-chat',
+        messages: [
+          { role: 'system', content: systemPrompt },
+          { role: 'user', content: userPrompt },
+        ],
+        response_format: { type: 'json_object' },
+        temperature: options.temperature ?? 0.7,
+        max_tokens: options.max_tokens || 1024,  // 默认限制token数
+      }),
+      signal: controller.signal,
+    })
+    clearTimeout(timeout)
+    if (!res.ok) {
+      const errData = await res.json().catch(() => ({}))
+      throw new Error(errData.error || `AI request failed (${res.status})`)
+    }
+    const data = await res.json()
+    return JSON.parse(data.choices[0].message.content)
+  } catch (e) {
+    clearTimeout(timeout)
+    if (e.name === 'AbortError') throw new Error('AI评分超时（25秒），请检查网络后重试')
+    throw e
   }
-  const data = await res.json()
-  return JSON.parse(data.choices[0].message.content)
 }
 
 // ───────────────────────────────────────────────────────────────
