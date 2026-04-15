@@ -1,15 +1,21 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 /**
  * PetSwitchPanel - 我的宠物面板
- * 包含：宠物列表/切换、抽卡入口、宠物数据总览
+ * 包含：宠物列表/切换、抽卡入口、宠物数据总览、卖宠物功能
+ *
+ * 卖宠物: 非当前出战的重复宠物可卖掉 → 获得半张抽卡券(0.5)
+ * 累积0.5+0.5=1张完整抽卡券后可用
  */
-export default function PetSwitchPanel({ state, spendableXP, onSwitchPet, onDrawCard, totalXP }) {
+export default function PetSwitchPanel({ state, spendableXP, onSwitchPet, onDrawCard, totalXP, onSellPet }) {
+  const [confirmSellId, setConfirmSellId] = useState(null)
   const ownedPets = state.ownedPets || []
   const petPool = state.petPool || []
   const currentPet = state.currentPet || {}
   const currentPoolInfo = petPool.find(p => p.poolId === currentPet.poolId) || { name: '宠物', emoji: '🐉', rarity: 'N' }
   const inventory = state.inventory || {}
+  // 抽卡券（整数部分 + 小数部分）
+  const cardFragments = state.cardFragments || 0  // 0.5 的倍数
 
   const totalItems = (inventory.foods?.basic || 0) + (inventory.foods?.advanced || 0) +
     (inventory.cleanItems || 0) + (inventory.energyItems || 0) +
@@ -119,11 +125,39 @@ export default function PetSwitchPanel({ state, spendableXP, onSwitchPet, onDraw
                   }}>出战中</span>
                 )}
                 {owned && !active && (
-                  <span style={{
-                    padding: '4px 10px', borderRadius: 8,
-                    background: '#f3f4f6', color: '#6b7280',
-                    fontSize: 10, fontWeight: 600,
-                  }}>切换</span>
+                  <div style={{ display: 'flex', gap: 4 }}>
+                    {/* 检测是否重复（同类型有2只以上） */}
+                    {ownedPets.filter(id => id === pet.poolId).length > 1 ? (
+                      <>
+                        {confirmSellId === pet.poolId ? (
+                          <div style={{ display: 'flex', gap: 2, alignItems: 'center' }}>
+                            <button
+                              onClick={(e) => { e.stopPropagation(); if (onSellPet) onSellPet(pet.poolId); setConfirmSellId(null); }}
+                              onMouseDown={e => e.stopPropagation()}
+                              style={{ padding: '3px 8px', borderRadius: 6, background: '#ef4444', color: 'white', fontSize: 9, fontWeight: 700, border: 'none', cursor: 'pointer' }}
+                            >✅ 确认卖</button>
+                            <button
+                              onClick={(e) => { e.stopPropagation(); setConfirmSellId(null); }}
+                              onMouseDown={e => e.stopPropagation()}
+                              style={{ padding: '3px 6px', borderRadius: 6, background: '#d1d5db', color: '#374151', fontSize: 9, fontWeight: 600, border: 'none', cursor: 'pointer' }}
+                            >✕</button>
+                          </div>
+                        ) : (
+                          <button
+                            onClick={(e) => { e.stopPropagation(); setConfirmSellId(pet.poolId); }}
+                            style={{
+                              padding: '4px 10px', borderRadius: 8,
+                              background: '#fef2f2', color: '#ef4444',
+                              fontSize: 9, fontWeight: 700, border: '1px solid #fecaca', cursor: 'pointer'
+                            }}>💰 卖掉</button>
+                        )}
+                      </>
+                    ) : null}
+                    <span
+                      style={{ padding: '4px 10px', borderRadius: 8, background: '#f3f4f6', color: '#6b7280', fontSize: 10, fontWeight: 600 }}
+                      onClick={() => onSwitchPet(pet.poolId)}
+                    >切换</span>
+                  </div>
                 )}
               </div>
             )

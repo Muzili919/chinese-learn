@@ -845,9 +845,56 @@ function drawCard(state) {
   return { state: newState, pet: petInfo };
 }
 
-// ============================================================
-//  Helpers
-// ============================================================
+/**
+ * 卖掉一只重复宠物 → 获得0.5张抽卡券
+ * 
+ * 规则：
+ * - 不能卖当前出战的宠物（currentPet）
+ * - 只能卖重复的宠物（同类型有2只以上）
+ * - 卖后获得 0.5 cardFragments，累积到1张完整抽卡券
+ * - cardFragments 为整数时自动转为 cards + 1
+ */
+function sellPet(state, petPoolId) {
+  const owned = state.ownedPets || [];
+  
+  // 安全检查：不能卖当前出战宠物
+  if (state.currentPet?.poolId === petPoolId) {
+    return { state, success: false, error: '不能卖出战中宠物' };
+  }
+  
+  // 检查是否拥有且是重复的
+  if (!owned.includes(petPoolId)) {
+    return { state, success: false, error: '未拥有该宠物' };
+  }
+  
+  const count = owned.filter(id => id === petPoolId).length;
+  if (count <= 1) {
+    return { state, success: false, error: '这是最后一只，不能卖掉' };
+  }
+
+  // 移除一只
+  const newOwned = owned.filter(id => id !== petPoolId);
+  
+  // 增加0.5抽卡券碎片
+  let fragments = (state.cardFragments || 0) + 0.5;
+  let newCards = state.inventory?.cards || 0;
+  
+  // 累积到整数则转为整卡
+  if (fragments >= 1) {
+    newCards += Math.floor(fragments);
+    fragments = fragments - Math.floor(fragments);
+  }
+
+  return {
+    state: {
+      ...state,
+      ownedPets: newOwned,
+      cardFragments: fragments,
+      inventory: { ...(state.inventory || {}), cards: newCards },
+    },
+    success: true,
+  };
+}
 function getCurrentPet(state) { return state.currentPet; }
 function getPetPool(state) { return state.petPool; }
 
@@ -860,6 +907,7 @@ export {
   tapPet,
   resetPetMood,
   drawCard,
+  sellPet,  // 卖宠物 → 0.5抽卡券
   getCurrentPet,
   getPetPool,
   getPetStage,

@@ -21,6 +21,7 @@ import {
   initDailyTasks,
   isEggState,
   hasFreeCard,
+  sellPet,
 } from '../utils/gamification';
 import { storage, calcLevel, calcLevelProgress } from '../utils/storage';
 import { fetchMV1State, upsertMV1State, fetchUserPetPreview, sendEncouragement } from '../utils/mv1_cloud';
@@ -1002,6 +1003,15 @@ export default function MV1Demo({ onBack, initialState, onStateChange }) {
             onSwitchPet={handleSwitchPet}
             onDrawCard={handleDrawCard}
             totalXP={totalXP}
+            onSellPet={(petPoolId) => {
+              const result = sellPet(state, petPoolId);
+              if (result.success) {
+                setState(result.state);
+              } else {
+                // 可以显示toast提示
+                console.warn('卖宠物失败:', result.error);
+              }
+            }}
           />
         )}
       </div>
