@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef, useCallback } from 'react'
 import { storage } from '../utils/storage'
+import { syncAfterSession } from '../utils/sync'
 
 // ─── DeepSeek API（通过 Vercel Serverless Function 代理）─────
 const API_URL = '/api/ai'
@@ -1265,6 +1266,8 @@ ${sectionScores.map(s => `- ${s.title}：${s.earned}/${s.total}分（${s.total >
       })
       setSavedCount(saved)
       setScoring(false)
+      // 云端同步（跨设备学习数据同步：错题记录+SRS+XP）
+      if (user?.id) syncAfterSession(user.id)
     }
     scoreAll()
   }, [])

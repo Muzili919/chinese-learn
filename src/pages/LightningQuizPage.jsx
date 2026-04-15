@@ -1,5 +1,6 @@
 import { useState, useEffect, useCallback, useMemo } from 'react'
 import { storage, updateStreak } from '../utils/storage'
+import { syncAfterSession } from '../utils/sync'
 import { updateSRS, toQuality, isDue } from '../utils/srs'
 import { speakEnglish } from '../utils/tts'
 import wordsNetwork from '../data/words_network_j2.json'
@@ -217,6 +218,9 @@ export default function LightningQuizPage({ user, onFinish, onBack }) {
       storage.markPlanetComplete(user.id, '闪电测验')
       updateStreak(user.id)
     }
+
+    // 云端同步（跨设备学习数据同步）
+    if (user?.id) syncAfterSession(user.id)
 
     onFinish({
       correct: correctCount,

@@ -2,16 +2,86 @@
 // TTS 引擎
 // 优先：/api/tts（Microsoft Edge Neural TTS，音质接近多邻国）
 // 降级：Web Speech API（离线 / API 失败时兜底）
+//
+// ★ 移动端适配：
+//   iOS/Android 要求音频必须在用户手势上下文内启动。
+//   async fetch 会破坏该上下文，导致 audio.play() 被浏览器拒绝。
+//   解决方案：首次用户交互时用 AudioContext 解锁，后续改用
+//   Web Audio API（ctx.createBufferSource().start()），
+//   该 API 在 AudioContext 解锁后即使在 async 回调里也可正常播放。
 // ═══════════════════════════════════════════════════════════════
 
-// ─── Edge TTS（通过 Vercel Serverless 代理） ───────────────────
+// ─── Web Audio Context（全局单例） ───────────────────────────────
 
-// 内存缓存：key = `${text}||${lang}` → ObjectURL
+let _webAudioCtx = null
+let _audioUnlocked = false
+let _currentSource = null  // 当前正在播放的 AudioBufferSourceNode
+
+function getWebAudioCtx() {
+  if (!_webAudioCtx) {
+    _webAudioCtx = new (window.AudioContext || window.webkitAudioContext)()
+  }
+  return _webAudioCtx
+}
+
+/**
+ * 解锁音频系统（必须在用户手势回调里调用）
+ * 在 App.jsx 注册 touchstart/click 监听，首次交互时触发
+ */
+export function unlockAudio() {
+  if (_audioUnlocked) return
+  try {
+    const ctx = getWebAudioCtx()
+    // resume 挂起的 context（iOS Safari 常见）
+    if (ctx.state === 'suspended') ctx.resume()
+    // 播放1个采样的无声 buffer，"激活"音频会话
+    const buf = ctx.createBuffer(1, 1, 22050)
+    const src = ctx.createBufferSource()
+    src.buffer = buf
+    src.connect(ctx.destination)
+    src.start(0)
+    _audioUnlocked = true
+    console.log('[TTS] 音频已解锁 ✓')
+  } catch (e) {
+    // 忽略：部分浏览器不支持 Web Audio API
+  }
+}
+
+// ─── 内存缓存：key = `${text}||${lang}` → ObjectURL ─────────────
 const _audioCache = new Map()
 
-// 当前正在播放的 Audio 元素，用于 stop()
-let _currentAudio = null
+// ─── 用 Web Audio API 播放 ObjectURL（移动端兼容核心） ───────────
+async function playWithWebAudio(blobUrl, rate = 1) {
+  const ctx = getWebAudioCtx()
+  // 如果 context 被挂起（后台切换后），先恢复
+  if (ctx.state === 'suspended') await ctx.resume()
 
+  // fetch ObjectURL → ArrayBuffer → AudioBuffer
+  const response = await fetch(blobUrl)
+  const arrayBuffer = await response.arrayBuffer()
+  const audioBuffer = await ctx.decodeAudioData(arrayBuffer)
+
+  return new Promise((resolve) => {
+    // 停掉上一个
+    if (_currentSource) {
+      try { _currentSource.stop() } catch (_) {}
+      _currentSource = null
+    }
+
+    const source = ctx.createBufferSource()
+    source.buffer = audioBuffer
+    source.playbackRate.value = Math.max(0.5, Math.min(2, rate))
+    source.connect(ctx.destination)
+    source.onended = () => {
+      _currentSource = null
+      resolve()
+    }
+    source.start(0)
+    _currentSource = source
+  })
+}
+
+// ─── Edge TTS（通过 Vercel Serverless 代理） ───────────────────
 async function edgeTTS(text, lang, rate) {
   const cacheKey = `${text}||${lang}`
   let url = _audioCache.get(cacheKey)
@@ -28,17 +98,22 @@ async function edgeTTS(text, lang, rate) {
     _audioCache.set(cacheKey, url)
   }
 
+  // 优先用 Web Audio API（移动端友好）
+  if (window.AudioContext || window.webkitAudioContext) {
+    return playWithWebAudio(url, rate)
+  }
+
+  // 降级：HTMLAudioElement（桌面浏览器兜底）
   return new Promise((resolve, reject) => {
     const audio = new Audio(url)
     audio.playbackRate = Math.max(0.5, Math.min(2, rate))
-    _currentAudio = audio
-    audio.onended = () => { _currentAudio = null; resolve() }
+    audio.onended = resolve
     audio.onerror = () => reject(new Error('Audio play error'))
     audio.play().catch(reject)
   })
 }
 
-// ─── Web Speech API（降级兜底） ────────────────────────────────
+// ─── Web Speech API（离线 / Edge TTS 失败时降级） ─────────────────
 
 let _voices = []
 let _voicesPromise = null
@@ -116,13 +191,7 @@ function webSpeechTTS(text, lang, rate) {
 // ─── 统一接口 ──────────────────────────────────────────────────
 
 /**
- * 通用朗读（优先 Edge TTS → 降级 Web Speech）
- * @param {string} text
- * @param {object} opts
- * @param {string} opts.lang    - 语言代码，默认 'en-US'
- * @param {number} opts.rate    - 语速 0.1-2，默认 0.85
- * @param {Function} opts.onEnd
- * @param {Function} opts.onStart
+ * 通用朗读（优先 Edge TTS + Web Audio → 降级 Web Speech）
  */
 export function speak(text, opts = {}) {
   if (!text) return
@@ -156,11 +225,12 @@ export function speakChinese(text, opts = {}) {
 
 /** 停止播放 */
 export function stop() {
-  if (_currentAudio) {
-    _currentAudio.pause()
-    _currentAudio.currentTime = 0
-    _currentAudio = null
+  // 停止 Web Audio
+  if (_currentSource) {
+    try { _currentSource.stop() } catch (_) {}
+    _currentSource = null
   }
+  // 停止 Web Speech
   const synth = window.speechSynthesis
   if (synth) { synth.cancel(); if (synth.paused) synth.resume() }
 }

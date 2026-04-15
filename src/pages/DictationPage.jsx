@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef, useMemo, useCallback } from 'react'
 import { storage } from '../utils/storage'
+import { syncAfterSession } from '../utils/sync'
 import { speakEnglish, speakChinese, stop, initTTS } from '../utils/tts'
 import enWords from '../data/dictation_en_words.json'
 import cnWords from '../data/dictation_cn_words.json'
@@ -540,6 +541,8 @@ function ResultMode({ results, subject, onDone }) {
   function handleDone() {
     // 加 XP
     storage.addXP(null, XP_DICTATION)
+    // 云端同步（跨设备学习数据同步）
+    if (user?.id) syncAfterSession(user.id)
     onDone()
   }
 

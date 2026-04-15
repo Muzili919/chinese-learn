@@ -22,6 +22,8 @@ import PoliticsHomePage from './pages/PoliticsHomePage'
 import PoliticsQuizPage from './pages/PoliticsQuizPage'
 import { initGamificationState, initGodModeState } from './utils/gamification'
 import { fetchMV1State, upsertMV1State } from './utils/mv1_cloud'
+import { pullFromCloud } from './utils/sync'
+import { unlockAudio } from './utils/tts'
 
 // 检查上帝模式：URL 带 ?god=1 或 #god=1
 function isGodMode() {
@@ -356,23 +358,29 @@ export default function App() {
   }, [])
 
   // 加载宠物游戏状态（合并策略：保留更完整的数据）
+  // 同时拉取云端学习数据（答题记录/SRS/XP/连续天数）→ 跨设备同步
   useEffect(() => {
-    if (user?.id) {
-      fetchMV1State(user.id).then((cloud) => {
-        if (cloud) {
-          setGameState(prev => {
-            // 如果本地有currentPet但云端没有（云端是旧数据），保留本地的
-            const localHasPet = prev?.currentPet?.poolId
-            const cloudHasPet = cloud?.currentPet?.poolId
-            if (localHasPet && !cloudHasPet) {
-              return { ...cloud, currentPet: prev.currentPet, ownedPets: prev.ownedPets }
-            }
-            return cloud
-          })
+    if (!user?.id) return
+
+    // 1. 拉取宠物养成状态
+    fetchMV1State(user.id).then((cloud) => {
+      if (!cloud) return
+      setGameState(prev => {
+        const localHasPet = prev?.currentPet?.poolId
+        const cloudHasPet = cloud?.currentPet?.poolId
+        if (localHasPet && !cloudHasPet) {
+          return { ...cloud, currentPet: prev.currentPet, ownedPets: prev.ownedPets }
         }
+        return cloud
       })
-      setOverdueCount(storage.getOverdueWrongCount(user.id))
-    }
+    })
+
+    // 2. 跨设备同步：从云端拉取学习数据（答题记录/SRS/XP/streak等）
+    pullFromCloud(user.id).catch(function(err) {
+      console.warn('Cloud pull failed (non-fatal):', err.message)
+    })
+
+    setOverdueCount(storage.getOverdueWrongCount(user.id))
   }, [user])
 
   // 当回到主页时刷新积压数
@@ -381,6 +389,18 @@ export default function App() {
       setOverdueCount(storage.getOverdueWrongCount(user.id))
     }
   }, [page, user])
+
+  // 移动端音频解锁：首次用户交互时激活 AudioContext
+  // iOS Safari / Android Chrome 要求音频必须在用户手势上下文内启动
+  useEffect(() => {
+    const handler = () => { unlockAudio() }
+    window.addEventListener('touchstart', handler, { once: true, passive: true })
+    window.addEventListener('click', handler, { once: true })
+    return () => {
+      window.removeEventListener('touchstart', handler)
+      window.removeEventListener('click', handler)
+    }
+  }, [])
 
   function handleOnboarding(newUser) {
     storage.setUser(newUser)
