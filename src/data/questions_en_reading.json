@@ -57,10 +57,7 @@
     "ability_tag": "阅读理解",
     "type": "multiple_choice",
     "question": "阅读下面短文，完成题目。\n\nIt is winter now. The weather is very cold. Snow is falling. The children are very happy. They can make snowmen and play with snow. Some are throwing snowballs. Look at Tom and Mike. They are making a big snowman. They put a carrot as its nose and two stones as its eyes. They also put a hat on its head. It looks funny. The children are laughing.\n\n根据短文内容，选择正确答案。\n(1) What season is it?\nA. Spring B. Summer C. Autumn D. Winter\n\n(2) What are the children doing?\nA. They are making snowmen and playing with snow.\nB. They are swimming in the river.\nC. They are flying kites.\nD. They are reading books.\n\n判断正误。\n(3) Tom and Mike are making a big snowman. (　)\n(4) They put an apple as the snowman's nose. (　)",
-    "options": [
-      "A. T（正确）",
-      "B. F（错误）"
-    ],
+    "options": [],
     "answer": "(1) D (2) A (3) T (4) F",
     "analysis": "【考点】本题考查短文细节理解。\n【解题思路】根据原文信息判断。\n【总结】混合型题目要分别对待，选择题在选项中找匹配，判断题需仔细比对细节。",
     "difficulty": 0.5
@@ -249,10 +246,7 @@
     "ability_tag": "阅读理解",
     "type": "multiple_choice",
     "question": "阅读下面短文，完成题目。\n\nToday many people use the Internet. It is very useful. We can send emails to our friends. We can watch movies and listen to music. We can also find information for our homework. But we need to be careful. Some people use the Internet to do bad things. Never give your password to others. Don't talk to strangers online. And don't spend too much time on the Internet. It is bad for your eyes and health.\n\n(1) What is the main idea of this passage?\nA. How to play games online.\nB. The Internet is useful but we need to be careful.\nC. How to send emails.\nD. The Internet is bad.\n\n(2) What can we do on the Internet according to the passage?\nA. Send emails B. Watch movies C. Find information D. All of the above\n\n(3) Why should we not give our password to others?\nA. Because it's a secret. B. Because some people may do bad things.\nC. Because the Internet is slow. D. Because passwords are useless.\n\n(4) What is bad for your eyes and health?\nA. Watching movies B. Sending emails\nC. Spending too much time on the Internet D. Talking to friends\n\n(5) What should you do if a stranger talks to you online?\nA. Talk back B. Give your phone number\nC. Don't talk to them D. Send them a gift",
-    "options": [
-      "A. T（正确）",
-      "B. F（错误）"
-    ],
+    "options": [],
     "answer": "(1) B (2) D (3) B (4) C (5) C",
     "analysis": "【考点】本题考查主旨大意、细节理解和推理判断。\n【解题思路】主旨从首尾句和转折词but判断；细节直接定位；推理从建议句得出。\n【总结】主旨题关注转折词（but, however）后面的内容；推理题根据文中建议句判断。",
     "difficulty": 0.5

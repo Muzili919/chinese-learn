@@ -118,8 +118,10 @@ export default function QuizPage({ user, options = {}, onFinish, onBack }) {
           durationSec: totalSec,
         }
         storage.addSession(user.id, session)
-        // 标记星球完成（只有做完才算打卡）
-        if (current?.knowledge_tag) storage.markPlanetComplete(user.id, current.knowledge_tag)
+        // 标记星球完成（至少答5题且完成全部，才算打卡）
+        if (allRecords.length >= 5 && current?.knowledge_tag) {
+          storage.markPlanetComplete(user.id, current.knowledge_tag)
+        }
         updateStreak(user.id)
         // 今日已见：记录本 session 所有题 id
         storage.markSeenToday(user.id, questions.map(q => q.id))

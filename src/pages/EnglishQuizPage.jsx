@@ -28,6 +28,15 @@ const EN_SESSION_SIZES = {
   en_writing:     10,
 }
 
+// 星球ID → 今日已练标记用的规范Tag（与 EnglishHomePage.TAG_TO_PLANET 对应）
+const EN_PLANET_CANONICAL_TAG = {
+  en_vocab:   '英语词汇',
+  en_listen:  '英语听力',
+  en_grammar: '英语语法',
+  en_reading: '英语阅读',
+  en_writing: '英语写作',
+}
+
 const EN_QUESTION_MAP = {
   en_vocab:   enVocabQ,
   en_listen:  enListenQ,
@@ -1348,8 +1357,11 @@ export default function EnglishQuizPage({ user, options = {}, onFinish, onBack }
         xpEarned: xpGained + xp, durationSec: totalSec,
       }
         storage.addSession(user.id, session)
-        // 标记星球完成（只有做完才算打卡）
-        if (current?.knowledge_tag) storage.markPlanetComplete(user.id, current.knowledge_tag)
+        // 标记星球完成（至少答5题且完成全部，才算打卡）
+        const completedTag = EN_PLANET_CANONICAL_TAG[englishTag] || current?.knowledge_tag
+        if (completedTag && allRecords.length >= 5) {
+          storage.markPlanetComplete(user.id, completedTag)
+        }
         updateStreak(user.id)
         // 今日已见：记录本 session 所有题 id，下次选题自动排到最后
         storage.markSeenToday(user.id, questions.map(q => q.id))

@@ -443,6 +443,7 @@ export default function App() {
       <SelfTestPage
         user={user}
         subject={quizOptions?.selfTestSubject || 'chinese'}
+        grade={grade}
         onBack={goHome}
       />
     )

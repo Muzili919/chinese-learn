@@ -12,7 +12,7 @@ export default function ReportPage({ user, onBack }) {
   const [pinInput, setPinInput] = useState('')
   const [unlocked, setUnlocked] = useState(false)
   const [pinError, setPinError] = useState(false)
-  const [reportSubject, setReportSubject] = useState('chinese') // 'chinese' | 'english'
+  const [reportSubject, setReportSubject] = useState('chinese') // 'chinese' | 'english' | 'politics'
 
   const allRecords = storage.getRecords(user.id)
   const sessions = storage.getSessions(user.id)
@@ -22,8 +22,12 @@ export default function ReportPage({ user, onBack }) {
     allRecords.filter(r => !r.subject || r.subject === 'chinese'), [allRecords])
   const englishRecords = useMemo(() =>
     allRecords.filter(r => r.subject === 'english'), [allRecords])
+  const politicsRecords = useMemo(() =>
+    allRecords.filter(r => r.subject === 'politics'), [allRecords])
 
-  const records = reportSubject === 'english' ? englishRecords : chineseRecords
+  const records = reportSubject === 'english' ? englishRecords
+    : reportSubject === 'politics' ? politicsRecords
+    : chineseRecords
 
   const diagnosisResult = useMemo(() => {
     if (!records.length) return {}
@@ -96,6 +100,7 @@ export default function ReportPage({ user, onBack }) {
   const SUBJECT_TABS = [
     { id: 'chinese', label: '语文 📖', count: chineseRecords.length },
     { id: 'english', label: '英语 🌎', count: englishRecords.length },
+    ...(politicsRecords.length > 0 ? [{ id: 'politics', label: '政治 🏛️', count: politicsRecords.length }] : []),
   ]
 
   return (
