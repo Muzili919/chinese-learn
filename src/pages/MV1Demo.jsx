@@ -2,6 +2,14 @@ import React, { useMemo, useState, useEffect, useCallback } from 'react';
 import Pet from '../components/Pet';
 import PetEgg from '../components/PetEgg';
 import GachaAnimation from '../components/GachaAnimation';
+
+// 检查上帝模式（与App.jsx保持一致）
+function isGodMode() {
+  if (typeof window === 'undefined') return false
+  const params = new URLSearchParams(window.location.search)
+  const hash = new URLSearchParams(window.location.hash.split('?')[1] || '')
+  return params.get('god') === '1' || hash.get('god') === '1'
+}
 import {
   initGamificationState,
   gainExpForLearning,
@@ -549,12 +557,12 @@ export default function MV1Demo({ onBack, initialState, onStateChange }) {
         ? cloud.friends
         : (initialState?.friends || []);
 
-      // 宠物数据：优先级 — 云端 > initialState > 默认(蛋)
-      // 关键修复：如果本地(initialState)已有宠物但云端没有，保留本地数据
-      // 防止抽卡后切页面/刷新导致云端旧数据覆盖本地新宠物
+      // 宠物数据：优先级 — 上帝模式 > 云端 > initialState > 默认(蛋)
+      const isGod = isGodMode()
       const localHasPet = (initialState?.currentPet?.poolId && initialState?.ownedPets?.length > 0)
       const cloudHasPet = cloud?.currentPet?.poolId
       const resolvedCurrentPet = (() => {
+        if (isGod) return initialState.currentPet  // 上帝模式：始终用本地（initGodModeState）
         if (cloud?.currentPet) {
           return {
             ...(initialState?.currentPet || {}),
@@ -570,6 +578,7 @@ export default function MV1Demo({ onBack, initialState, onStateChange }) {
       })()
 
       const resolvedOwnedPets = (() => {
+        if (isGod) return initialState.ownedPets || []  // 上帝模式：始终用本地全解锁列表
         if (cloud?.ownedPets?.length > 0) return cloud.ownedPets
         if (initialState?.ownedPets?.length > 0) return initialState.ownedPets
         return []

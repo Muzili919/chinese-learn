@@ -380,6 +380,7 @@ export default function Pet({
   reactionPose = null,     // 外部控制的反应姿态（覆盖 internalPose）
   onTap = null,             // 用户点击宠物时的回调（由父组件决定pose切换）
 }) {
+  const typeProp = type  // 用于对话系统区分不同宠物
   const [internalPose, setInternalPose] = useState('normal')
   const [mood, setMood] = useState(50)
   const [hearts, setHearts] = useState([])
@@ -464,7 +465,7 @@ export default function Pet({
     const showDialogue = () => {
       if (cancelled) return
       const type = getDialogueType(currentStats, lastAction)
-      const text = getDialogue(type)
+      const text = getDialogue(type, typeProp)  // 传宠物type获取专属对话
 
       setDialogue(text)
       setShowBubble(true)
@@ -504,7 +505,7 @@ export default function Pet({
   // 手动触发对话（操作时调用）
   const triggerDialogue = useCallback((actionType) => {
     setLastAction(actionType)
-    const text = getDialogue(actionType || getDialogueType(currentStats, actionType))
+    const text = getDialogue(actionType || getDialogueType(currentStats, actionType), typeProp)  // 传宠物type
     setDialogue(text)
     setShowBubble(true)
     if (bubbleTimeoutRef.current) clearTimeout(bubbleTimeoutRef.current)
