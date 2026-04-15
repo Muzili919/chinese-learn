@@ -566,7 +566,7 @@ export default function App() {
           onStateChange={setGameState}
         />
       )
-      if (activeTab === 'rank') return <LeaderboardPage user={user} gameState={gameState} />
+      if (activeTab === 'rank') return <LeaderboardPage user={user} gameState={gameState} onStateChange={setGameState} />
       if (activeTab === 'wrong') return (
         <WrongAnswersPage
           user={user}

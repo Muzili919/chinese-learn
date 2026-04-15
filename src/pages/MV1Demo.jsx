@@ -29,6 +29,7 @@ import { findUserByName, supabase as supabaseClient } from '../utils/sync';
 import ShopPanel from '../components/ShopPanel';
 import DailyTasksPanel from '../components/DailyTasksPanel';
 import PetSwitchPanel from '../components/PetSwitchPanel';
+import PetSpriteAvatar from '../components/PetSpriteAvatar';
 
 // 从今日答题记录同步每日任务进度
 function syncTasksFromRecords(tasks, todayRecords) {
@@ -431,18 +432,16 @@ function FriendsPanel({ state, userId, onStateChange }) {
                 position: 'relative',
               }}>
                 {/* 宠物头像 */}
-                <div style={{
-                  width: 50, height: 50, borderRadius: 50,
-                  background: 'linear-gradient(135deg, #ede9fe, #fce7f3)',
-                  display: 'flex', alignItems: 'center', justifyContent: 'center',
-                  fontSize: 28, flexShrink: 0,
-                }}>
-                  {p.petEmoji || '🥚'}
-                </div>
+                <PetSpriteAvatar
+                  poolId={p.petPoolId || null}
+                  level={p.petLevel || 1}
+                  size={50}
+                  emoji={p.petEmoji || '🥚'}
+                />
                 {/* 宠物信息 */}
                 <div style={{ flex: 1, minWidth: 0 }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
-                    <span style={{ fontWeight: 700, fontSize: 14, color: '#1f2937' }}>{p.petName || '加载中...'}</span>
+                    <span style={{ fontWeight: 700, fontSize: 14, color: '#1f2937' }}>{p.playerName || p.petName || '加载中...'}</span>
                     <span style={{
                       padding: '1px 6px', borderRadius: 4, fontSize: 9, fontWeight: 700,
                       background: p.petRarity === 'SSR' ? '#fef3c7' : p.petRarity === 'SR' ? '#ede9fe' : '#f3f4f6',
@@ -515,6 +514,8 @@ export default function MV1Demo({ onBack, initialState, onStateChange }) {
   const [state, setState] = useState(() => initialState || initGamificationState());
   const [activeTab, setActiveTab] = useState('interact');
   const [levelUpAnim, setLevelUpAnim] = useState(false);
+  // 防止初始化时的持久化 effect 用空状态覆盖云端好友数据
+  const initializedRef = React.useRef(false);
 
   const userId = useMemo(() => storage.getUser()?.id || '', []);
   const userName = useMemo(() => storage.getUser()?.name || '', []);
@@ -543,6 +544,11 @@ export default function MV1Demo({ onBack, initialState, onStateChange }) {
       const todayRecords = records.filter(r => r.timestamp?.startsWith(todayStr));
       dailyTasks = syncTasksFromRecords(dailyTasks, todayRecords);
 
+      // 好友列表：优先用云端数据，若云端为空则保留 initialState 中的好友（避免初始化空态覆盖）
+      const friends = cloud?.friends?.length
+        ? cloud.friends
+        : (initialState?.friends || []);
+
       const merged = {
         ...base,
         ...(cloud || {}),
@@ -558,11 +564,12 @@ export default function MV1Demo({ onBack, initialState, onStateChange }) {
         dailyTasks,
         dailyLastResetDate: today,
         taskCounters: cloud?.taskCounters || base.taskCounters,
-        friends: cloud?.friends || [],
+        friends,
         pendingEncouragements: cloud?.pendingEncouragements || [],
         weeklyQuestions: cloud?.weeklyQuestions || 0,
         weeklyResetDate: cloud?.weeklyResetDate || todayStr,
       };
+      initializedRef.current = true;
       setState(merged);
     });
   }, []);
@@ -578,8 +585,9 @@ export default function MV1Demo({ onBack, initialState, onStateChange }) {
     }
   }, [state.pendingEncouragements?.length]);
 
-  // 持久化
+  // 持久化（跳过初始化前的渲染，防止空好友列表覆盖云端数据）
   useEffect(() => {
+    if (!initializedRef.current) return;
     const user = storage.getUser();
     if (user?.id) upsertMV1State(user.id, state);
     if (onStateChange) onStateChange(state);

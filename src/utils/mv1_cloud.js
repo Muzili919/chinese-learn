@@ -51,6 +51,7 @@ export async function upsertMV1State(userId, state) {
     const pet = state.currentPet || {}
     const poolItem = (state.petPool || []).find(p => p.poolId === pet.poolId) || {}
     const preview = {
+      petPoolId: pet.poolId || null,
       petName: poolItem.name || '神秘宠物',
       petEmoji: poolItem.emoji || '🥚',
       petRarity: poolItem.rarity || 'N',
@@ -103,6 +104,7 @@ export async function fetchUserPetPreview(userId) {
     const poolItem = (s.petPool || []).find(p => p.poolId === pet.poolId) || { name: '神秘宠物', emoji: '🥚', rarity: 'N' }
     return {
       userId,
+      petPoolId: pet.poolId || null,
       petName: poolItem.name,
       petEmoji: poolItem.emoji,
       petRarity: poolItem.rarity,
