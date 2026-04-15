@@ -23,16 +23,40 @@
 - 2026-04-15: 英语题库全面修复（听力question+完形options+前端inline_choice兜底）
 - 2026-04-15: 宠物系统P0+P1升级（3→18只宠物池+动态图片+衰减优化+配饰25件）commit 7cd251f
 
-## 宠物系统架构（重要！）
-- **Pet.jsx** 核心渲染组件：PET_SPRITE_MAP映射18只宠物图片，fallback到dragon图
+## 宠物系统架构（重要！当前2只宠物）
+- **Pet.jsx** 核心渲染组件：PET_SPRITE_MAP映射宠物图片，fallback到dragon图
 - **type参数传递链**: MV1Demo(currentPet.poolId) → Pet(type) → getPetSprites(type) → 图片URL
-- **图片命名规范**: {prefix}-level-{range}.png (3等级) + {prefix}-emotion-{key}.png (9情绪)
-- **gamification.js** PET_POOL定义18只宠物(poolId/name/emoji/rarity/spritePrefix/personality)
-- **抽卡权重**: DRAW_WEIGHTS对象 early/mid/late三档
+- **图片存放**: `public/pets/{spritePrefix}/{stage1,stage2,stage3}/` 各9张PNG
+- **9个动作key**: reading(读书/答题默认) / sleeping(睡觉/Dock默认) / happy / sad_cry / angry / eating / wave / excited / normal
+- **gamification.js** PET_POOL定义宠物(poolId/name/emoji/rarity/spritePrefix/personality)
+- **抽卡权重**: DRAW_WEIGHTS对象 early/mid/late三档（N:40-85 / R:10-30 / SR:5-25 / SSR:1-5）
 - **衰减**: hunger 0.2(8h) / cleanliness 0.28(6h) / energy 0.15 / intimacy -0.02
 - **配饰**: ACCESSORY_SHOP共25件（10头+8颈+7背），PetSwitchPanel显示总数
-- **默认宠物**: pet_kitten（小橘猫，N级）
-- **⚠️ 新宠物精灵图尚未生成**：17只新宠暂时共享dragon fallback图
+- **默认宠物**: pet_kitten（小橘猫，N级）+ pet_toothless（无牙仔，SR级）
+- **Dock点击互动**: sleeping→happy→wave→excited→angry→sad_cry→eating→normal→循环(9动作)
+- **答题模式锁定**: pose=reading，不受点击影响
+
+## 🐱 添加新宠物SOP（用户给图后按此流程执行）
+
+### 用户需提供
+1. **图片**：3阶段×9动作=27张PNG（至少Stage1的9张也能用）
+2. **属性**：中文名 / emoji / 稀有度(N/R/SR/SSR)
+
+### 执行步骤
+| # | 操作 | 文件 |
+|---|------|------|
+| 1 | 图片存入 `public/pets/{prefix}/{stage1,stage2,stage3}/` | 文件系统 |
+| 2 | PET_POOL数组注册新宠物 | gamification.js |
+| 3 | DRAW_WEIGHTS三档加权重 | gamification.js |
+| 4 | 新增 XXX_PNG_EMOTIONS + PET_SPRITE_MAP注册 | Pet.jsx |
+| 5 | initGodModeState() ownedPets加入 | gamification.js |
+| 6 | `vite build && git push` | 验证+部署 |
+
+### ⚠️ 关键规则
+- hasPngEmotions=true 走PNG路径，否则fallback旧SVG
+- levelSprites key是等级门槛(1/10/20)
+- 卖宠物功能自动兼容（检测重复即显示卖掉按钮）
+- 所有头像自动用PetSpriteAvatar组件（已全局替换为PNG）
 
 ## 前端渲染模式（EnglishQuizPage）
 - `detectMode(q)` 决定每道题走哪个渲染路径

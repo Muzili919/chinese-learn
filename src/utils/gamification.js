@@ -5,15 +5,22 @@
 const clamp = (n, min, max) => Math.max(min, Math.min(max, n));
 const pick = (arr) => arr[Math.floor(Math.random() * arr.length)];
 
-// ---- 宠物池（2只：N级小橘猫 + SR级无牙仔）----
+// ---- 宠物池（3只：N级小橘猫 + N级紫柴犬 + SR级无牙仔）----
 const PET_POOL = [
   // === N级 普通 ===
   {
     poolId: 'pet_kitten', name: '小橘猫', emoji: '🐱', rarity: 'N', personality: 'lazy',
+    spritePrefix: 'kitten',
     desc: '额头有"王"字的大橘猫，懒洋洋躺满你整张课桌，但关键时刻从不缺席',
     stages: ['橙色条纹椭圆蛋，有小爪印，摸起来热乎乎的', '巴掌大的橘猫崽，肚皮白白软软，一动就喵一声', '耳朵竖起来了！尾巴高高翘，老爱钻进书包里睡觉', '毛发蓬松，脖子有虎纹，专门坐在课本上挡你看书', '额头浮现"王"字，威严大橘猫，懒洋洋却无处不在'],
   },
-  // === SR级 超稀（原无牙龙位）===
+  {
+    poolId: 'pet_shiba', name: '紫电柴犬', emoji: '🐶', rarity: 'N', personality: 'loyal',
+    spritePrefix: 'shiba',
+    desc: '右耳和左前腿是银色机械义肢、蓝光闪烁的赛博柴犬，忠诚可靠永远守护在你身边',
+    stages: ['银蓝色机械蛋壳，偶尔发出轻微电流嗡嗡声', '橙色毛皮的柴犬幼崽，右耳和左前腿是金属义体，走路时蓝光一闪一闪', '四肢开始出现装甲，蓝紫色光带在关节处流动，尾巴末端带电磁光环', '深灰色机械装甲覆盖四肢和脊柱，黑色强化皮革躯干，眼神坚定', '全身透明机械装甲，胸腔内红蓝双色能量核心，四肢悬浮带电磁光环，终极形态'],
+  },
+  // === SR级 超稀 ===
   {
     poolId: 'pet_toothless', name: '无牙仔', emoji: '🐉', rarity: 'SR', personality: 'tsundere',
     desc: '月光下鳞片泛出幽蓝光芒的夜翼龙，嘴里终于长出四颗小牙，脸上还带着得意的笑',
@@ -497,7 +504,7 @@ export function initGodModeState() {
     totalStars: 9999,
     coins: 99999,
     petPool: PET_POOL,
-    ownedPets: ['pet_kitten', 'pet_toothless'],  // 只有两只
+    ownedPets: ['pet_kitten', 'pet_shiba', 'pet_toothless'],  // 3只全解锁
     currentPet: {
       poolId: 'pet_kitten',   // 默认小橘猫（有精美PNG）
       level: 35,
@@ -782,20 +789,23 @@ export function tickPetStats(state, minutes = 1) {
 // ============================================================
 // 抽卡权重配置（8只宠物，根据等级调整稀有度概率）
 const DRAW_WEIGHTS = {
-  // Lv 1-9: 小橘猫为主，无牙仔低概率
+  // Lv 1-9: 小橘猫为主，紫柴犬+无牙仔低概率
   early: [
-    { poolId: 'pet_kitten',    weight: 85 },   // N
+    { poolId: 'pet_kitten',    weight: 55 },   // N
+    { poolId: 'pet_shiba',     weight: 30 },   // N
     { poolId: 'pet_toothless', weight: 15 },   // SR
   ],
-  // Lv 10-19: 无牙仔比例提升
+  // Lv 10-19: 紫柴犬和无牙仔比例提升
   mid: [
-    { poolId: 'pet_kitten',    weight: 65 },   // N
-    { poolId: 'pet_toothless', weight: 35 },   // SR
-  ],
-  // Lv 20+: 无牙仔概率更高
-  late: [
     { poolId: 'pet_kitten',    weight: 40 },   // N
-    { poolId: 'pet_toothless', weight: 60 },   // SR
+    { poolId: 'pet_shiba',     weight: 30 },   // N
+    { poolId: 'pet_toothless', weight: 30 },   // SR
+  ],
+  // Lv 20+: 无牙仔概率最高
+  late: [
+    { poolId: 'pet_kitten',    weight: 25 },   // N
+    { poolId: 'pet_shiba',     weight: 25 },   // N
+    { poolId: 'pet_toothless', weight: 50 },   // SR
   ],
 };
 

@@ -23,6 +23,15 @@ function makeKittenStage(stageDir) {
   return map;
 }
 
+// 紫柴犬：3阶段PNG表情映射（同 kitten 格式）
+function makeShibaStage(stageDir) {
+  const map = {};
+  for (const name of EMOTION_NAMES) {
+    map[name] = `/pets/shiba/${stageDir ? stageDir + '/' : ''}${name}.png`;
+  }
+  return map;
+}
+
 // 按等级选择阶段的情绪精灵图
 function getKittenEmotion(emotionKey, level) {
   let stageDir = '';
@@ -71,6 +80,27 @@ const PET_SPRITE_MAP = (function() {
       hasPngEmotions: true,
       useLevelBasedEmotion: true,
     },
+    // === N级：紫电柴犬（3阶段AI精美PNG）===
+    pet_shiba: {
+      levelSprites: {
+        1: '/pets/shiba/stage1/reading.png',     // Stage1 (Lv1-9): 机械幼崽
+        10: '/pets/shiba/stage2/reading.png',     // Stage2 (Lv10-19): 赛博柴犬
+        20: '/pets/shiba/stage3/reading.png',     // Stage3 (Lv20+): 终极义体
+      },
+      emotionSprites: {
+        reading: '/pets/shiba/{stage}/reading.png',
+        sleeping: '/pets/shiba/{stage}/sleeping.png',
+        happy: '/pets/shiba/{stage}/happy.png',
+        sad_cry: '/pets/shiba/{stage}/sad_cry.png',
+        angry: '/pets/shiba/{stage}/angry.png',
+        eating: '/pets/shiba/{stage}/eating.png',
+        wave: '/pets/shiba/{stage}/wave.png',
+        excited: '/pets/shiba/{stage}/excited.png',
+        normal: '/pets/shiba/{stage}/normal.png',
+      },
+      hasPngEmotions: true,
+      useLevelBasedEmotion: true,
+    },
     // === SR级：无牙仔（原有SVG） ===
     pet_toothless: { levelSprites: dragonLevels, emotionSprites: baseEmotions },
   };
@@ -103,6 +133,15 @@ function getEmotionSprite(emotionKey, type, level = 1) {
   if (type === 'pet_kitten') {
     return getKittenEmotion(emotionKey, level)
   }
+  // 紫电柴犬：同 kitten 格式，3阶段PNG
+  if (type === 'pet_shiba') {
+    let stageDir = ''
+    if (level >= 20) stageDir = 'stage3'       // 终极义体
+    else if (level >= 10) stageDir = 'stage2'   // 赛博柴犬
+    // 1-9: stage1（机械幼崽）
+    const sprites = makeShibaStage(stageDir)
+    return sprites[emotionKey] || sprites.normal
+  }
   const sprites = getPetSprites(type)
   return sprites.emotionSprites[emotionKey] || null
 }
@@ -121,6 +160,10 @@ function getSpriteSheetSrc(type, level) {
     if (level < 10) return '/pets/kitten/sheet_s1.png'
     if (level < 20) return '/pets/kitten/sheet_s2.png'
     return '/pets/kitten/sheet_s3.png'
+  }
+  if (type === 'pet_shiba') {
+    // 紫柴犬用PNG单图，不需要精灵表
+    return null
   }
   if (type === 'pet_toothless') return '/pets/toothless/sheet_all.png'
   return null
