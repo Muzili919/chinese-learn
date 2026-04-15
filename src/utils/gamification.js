@@ -546,18 +546,10 @@ export function initGamificationState() {
     totalStars: 1,
     coins: 0,
     petPool: PET_POOL,
-    ownedPets: ['pet_kitten'],  // 默认从N级宠物开始
-    currentPet: {
-      poolId: 'pet_kitten',   // 默认小橘猫
-      level: 1,
-      exp: 0,
-      mood: 'neutral',
-      tapCount: 0,
-      stats: defaultStats(),
-      equippedAccessories: {},  // { head: 'acc_xxx', neck: 'acc_yyy', back: 'acc_zzz' }
-      lastAction: null,
-      lastFeedTime: Date.now(),
-    },
+    ownedPets: [],           // 🥚 新用户没有宠物！需要抽卡孵化
+    currentPet: null,        // 🥚 null = 蛋态，显示 PetEgg 组件
+    hasReceivedFreeCard: true, // 🎴 首次登录送1张免费抽卡券
+    freeCardUsed: false,     // 免费券是否已使用
     dailyTasks: initDailyTasks(),
     dailyLastResetDate: new Date().toDateString(),
     // 任务计数器
@@ -807,9 +799,26 @@ const DRAW_WEIGHTS = {
   ],
 };
 
+/**
+ * 抽卡
+ * @returns {{ state, pet }} state=新状态, pet=抽到的宠物信息(供动画用)
+ */
+// ---- 是否在蛋态（无宠物）----
+export function isEggState(state) {
+  return !state || !state.currentPet || !state.currentPet.poolId;
+}
+
+// ---- 是否有免费抽卡券可用 ----
+export function hasFreeCard(state) {
+  return state && state.hasReceivedFreeCard && !state.freeCardUsed;
+}
+
 function drawCard(state) {
-  // 抽卡消耗500经验
-  if ((state.exp || 0) < 500) return state;
+  // 免费券 → 不消耗经验
+  const isFree = !state.freeCardUsed && state.hasReceivedFreeCard
+  
+  if (!isFree && (state.exp || 0) < 500) 
+    return { state, pet: null }; // 经验不足
 
   const lvl = state.level || 1;
   let w = lvl < 10 ? DRAW_WEIGHTS.early : lvl < 20 ? DRAW_WEIGHTS.mid : DRAW_WEIGHTS.late;
@@ -822,12 +831,18 @@ function drawCard(state) {
   const owned = Array.isArray(state.ownedPets) ? [...state.ownedPets] : [];
   if (!owned.includes(chosen)) owned.push(chosen);
   
-  return {
+  // 获取宠物详细信息
+  const petInfo = PET_POOL.find(p => p.poolId === chosen) || { poolId: chosen, name: '未知', emoji: '❓', rarity: 'N' };
+  
+  const newState = {
     ...state,
-    exp: state.exp - 500,  // 🔧 修复：抽卡消耗500经验
+    exp: isFree ? state.exp : state.exp - 500,
     ownedPets: owned,
-    currentPet: { poolId: chosen, level: 1, exp: 0, mood: 'neutral', tapCount: 0, stats: defaultStats(), equippedAccessories: {} }
+    currentPet: { poolId: chosen, level: 1, exp: 0, mood: 'neutral', tapCount: 0, stats: defaultStats(), equippedAccessories: {} },
+    freeCardUsed: true,   // 标记免费券已使用
   };
+
+  return { state: newState, pet: petInfo };
 }
 
 // ============================================================
@@ -870,4 +885,6 @@ export default {
   getCurrentPet,
   getPetPool,
   getPetStage,
+  isEggState,
+  hasFreeCard,
 };

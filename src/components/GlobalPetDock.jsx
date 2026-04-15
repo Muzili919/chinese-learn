@@ -1,20 +1,25 @@
 import React, { useEffect, useState, useCallback } from 'react'
 import Pet from './Pet'
+import PetEgg from './PetEgg'
+import { isEggState, hasFreeCard } from '../utils/gamification'
 
 /**
  * GlobalPetDock - 全局悬浮宠物窗
  * 
  * 显示在所有页面右下角的宠物小窗口
  * - dock模式：透明底、纯展示、3D悬浮
- * - 可选迷你状态条显示低属性警告
+ * - 蛋态：显示小蛋 + 提示点击孵化
  */
-export default function GlobalPetDock({ gameState }) {
+export default function GlobalPetDock({ gameState, onOpenPetPanel }) {
   const [visible, setVisible] = useState(true)
   
   // 从游戏状态获取宠物数据
   const currentPet = gameState?.currentPet || {}
   const level = currentPet?.level || 1
   const exp = currentPet?.exp || 0
+
+  // 是否蛋态
+  const eggMode = isEggState(gameState)
 
   // 自动隐藏逻辑（可选）
   useEffect(() => {
@@ -65,19 +70,31 @@ export default function GlobalPetDock({ gameState }) {
         pointerEvents: 'none',
       }} />
 
-      {/* 宠物主体 */}
-      <Pet
-        type={currentPet?.poolId || 'pet_toothless'}
-        experience={exp}
-        level={level}
-        mode="dock"
-        size={90}
-        pose="sleeping"
-        stats={currentPet.stats}
-        equippedAccessories={currentPet.equippedAccessories}
-        soundEnabled={gameState?.settings?.soundEnabled !== false}
-        showStatsCompact={true}
-      />
+      {/* 宠物主体：蛋态 vs 正常 */}
+      {eggMode ? (
+        /* 🥚 蛋态 Dock */
+        <div 
+          onClick={onOpenPetPanel}
+          style={{ cursor: 'pointer', animation: 'dockEggFloat 3s ease-in-out infinite' }}
+        >
+          <span className="text-5xl drop-shadow-lg" role="img">🥚</span>
+          {/* 小提示 */}
+          <div className="text-[9px] text-center text-white/50 mt-1">点击孵化</div>
+        </div>
+      ) : (
+        <Pet
+          type={currentPet?.poolId || 'pet_toothless'}
+          experience={exp}
+          level={level}
+          mode="dock"
+          size={90}
+          pose="sleeping"
+          stats={currentPet.stats}
+          equippedAccessories={currentPet.equippedAccessories}
+          soundEnabled={gameState?.settings?.soundEnabled !== false}
+          showStatsCompact={true}
+        />
+      )}
       
       {/* 最小化按钮 */}
       <button

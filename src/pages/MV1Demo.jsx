@@ -1,5 +1,7 @@
 import React, { useMemo, useState, useEffect, useCallback } from 'react';
 import Pet from '../components/Pet';
+import PetEgg from '../components/PetEgg';
+import GachaAnimation from '../components/GachaAnimation';
 import {
   initGamificationState,
   gainExpForLearning,
@@ -17,6 +19,8 @@ import {
   ACCESSORY_SHOP,
   DAILY_TASK_TEMPLATES,
   initDailyTasks,
+  isEggState,
+  hasFreeCard,
 } from '../utils/gamification';
 import { storage, calcLevel, calcLevelProgress } from '../utils/storage';
 import { fetchMV1State, upsertMV1State, fetchUserPetPreview, sendEncouragement } from '../utils/mv1_cloud';
@@ -694,18 +698,43 @@ export default function MV1Demo({ onBack, initialState, onStateChange }) {
     });
   }, []);
 
-  // 抽卡
+  // 抽卡（支持动画）
+  const [gachaResult, setGachaResult] = useState(null)  // 抽卡结果（供GachaAnimation用）
+  const [showGacha, setShowGacha] = useState(false)     // 是否显示抽卡动画
+
   const handleDrawCard = useCallback(() => {
     setState(s => {
+      // 蛋态：使用免费券
+      if (isEggState(s)) {
+        const { state: newS, pet } = drawCard(s);
+        if (!pet) return s; // 不应该发生
+        setGachaResult(pet);
+        setShowGacha(true);
+        return newS;
+      }
+      
+      // 正常抽卡
       const totalXP = storage.getXP(storage.getUser()?.id || '') || s.exp || 0;
-      if (totalXP < 500) return s;
-      const newS = drawCard(s);
-      if (newS !== s && storage.getUser()?.id) {
-        storage.addXP(storage.getUser().id, -500);
-        return { ...newS, exp: Math.max(0, totalXP - 500) };
+      if (totalXP < 500 && !hasFreeCard(s)) return s;
+      
+      const { state: newS, pet } = drawCard(s);
+      if (pet && newS !== s) {
+        setGachaResult(pet);
+        setShowGacha(true);
+        if (storage.getUser()?.id && !hasFreeCard(s)) {
+          storage.addXP(storage.getUser().id, -500);
+          return { ...newS, exp: Math.max(0, totalXP - 500) };
+        }
+        return newS;
       }
       return s;
     });
+  }, []);
+
+  // 抽卡动画结束回调
+  const handleGachaComplete = useCallback(() => {
+    setShowGacha(false);
+    setGachaResult(null);
   }, []);
 
   // 切换宠物
@@ -858,17 +887,33 @@ export default function MV1Demo({ onBack, initialState, onStateChange }) {
         {activeTab === 'interact' && (
           <>
             <div style={{ display: 'flex', justifyContent: 'center', marginBottom: 12 }}>
-              <Pet
-                type={currentPet?.poolId || 'pet_toothless'} experience={petExp} level={petLevel} onGainExp={() => {}}
-                mode="full" size={180}
-                pose="reading"
-                stats={currentPet?.stats}
-                equippedAccessories={currentPet?.equippedAccessories}
-                soundEnabled={state.settings?.soundEnabled !== false}
-                onInteract={handleInteract}
-                inventory={state.inventory}
-              />
+              {isEggState(state) ? (
+                /* 🥚 蛋态 */
+                <PetEgg 
+                  onDrawCard={handleDrawCard}
+                  hasTicket={hasFreeCard(state)}
+                />
+              ) : (
+                /* 🐱/🐉 宠物正常显示 */
+                <Pet
+                  type={currentPet?.poolId || 'pet_toothless'} experience={petExp} level={petLevel} onGainExp={() => {}}
+                  mode="full" size={180}
+                  pose="reading"
+                  stats={currentPet?.stats}
+                  equippedAccessories={currentPet?.equippedAccessories}
+                  soundEnabled={state.settings?.soundEnabled !== false}
+                  onInteract={handleInteract}
+                  inventory={state.inventory}
+                />
+              )}
             </div>
+
+            {/* ✨ 抽卡动画覆盖层 */}
+            <GachaAnimation
+              pet={gachaResult}
+              visible={showGacha}
+              onComplete={handleGachaComplete}
+            />
 
             <div style={{
               background: 'white', borderRadius: 16, padding: 14,
