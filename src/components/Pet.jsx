@@ -737,9 +737,16 @@ const handleClick = useCallback((e) => {
       >
         {renderBubble()}
         <div onClick={handleClick} style={{ display: 'inline-block', position: 'relative' }}>
-          {getSpriteSheetSrc(type, level)
-            ? renderSpriteCell(type, level, emotionKey, size, { ...petStyle, objectFit: undefined })
-            : getPetSvgComponent(type)
+          {/* 有独立PNG表情系统的宠物 → 直接用<img>显示透明PNG */}
+          {(PET_SPRITE_MAP[type]?.hasPngEmotion || PET_SPRITE_MAP[type]?.hasPngEmotions)
+            ? <img src={imgSrc} alt="pet" style={{
+                ...petStyle,
+                background: 'none',   // 清除任何背景色
+                objectFit: 'contain',
+              }} draggable={false} onError={handleImgError} />
+            : getSpriteSheetSrc(type, level)
+              ? renderSpriteCell(type, level, emotionKey, size, { ...petStyle, objectFit: undefined })
+              : getPetSvgComponent(type)
               ? <PetSvgSprite poolId={type} level={level} emotion={emotionKey} size={size}
                   style={{ ...petStyle, objectFit: undefined }} />
               : <img src={imgSrc} alt="pet" style={petStyle} draggable={false} onError={handleImgError} />
@@ -903,9 +910,16 @@ const handleClick = useCallback((e) => {
           {stageLabel}
         </div>
 
-        {getSpriteSheetSrc(type, level)
-          ? renderSpriteCell(type, level, emotionKey, size, { ...petStyle, objectFit: undefined })
-          : getPetSvgComponent(type)
+        {/* 有独立PNG表情系统的宠物 → 直接用<img>显示透明PNG */}
+        {(PET_SPRITE_MAP[type]?.hasPngEmotion || PET_SPRITE_MAP[type]?.hasPngEmotions)
+          ? <img src={imgSrc} alt="pet" style={{
+              ...petStyle,
+              background: 'none',
+              objectFit: 'contain',
+            }} draggable={false} onError={handleImgError} />
+          : getSpriteSheetSrc(type, level)
+            ? renderSpriteCell(type, level, emotionKey, size, { ...petStyle, objectFit: undefined })
+            : getPetSvgComponent(type)
             ? <PetSvgSprite poolId={type} level={level} emotion={emotionKey} size={size}
                 style={{ ...petStyle, objectFit: undefined }} />
             : <img src={imgSrc} alt="pet" style={petStyle} draggable={false} onError={handleImgError} />
