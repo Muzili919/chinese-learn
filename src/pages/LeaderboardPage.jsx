@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useMemo } from 'react'
-import { fetchAllPreviews } from '../utils/mv1_cloud'
+import { fetchAllPreviews, fetchUserPetPreview } from '../utils/mv1_cloud'
 import { storage, calcLevel, calcLevelProgress } from '../utils/storage'
 
 /**
@@ -21,24 +21,46 @@ export default function LeaderboardPage({ user, gameState }) {
   const loadRankings = async () => {
     setLoading(true)
     try {
+      // 1. 全局 preview（来自 users.pet_preview，无 RLS）
       const previews = await fetchAllPreviews()
-      // 加入自己（如果没有被包含）
-      const myPreview = gameState ? {
-        userId,
-        petName: '我',
-        petEmoji: '🐉',
-        petRarity: 'SR',
-        petLevel: gameState.currentPet?.level || 1,
-        totalLearnQuestions: gameState.totalLearnQuestions || 0,
-        totalCorrectAnswers: gameState.totalCorrectAnswers || 0,
-        daysActive: gameState.daysActive || 1,
-        weeklyQuestions: gameState.weeklyQuestions || 0,
-        isMe: true,
-      } : null
-
       const all = [...previews]
-      if (myPreview && !all.find(p => p.userId === userId)) {
-        all.push(myPreview)
+
+      // 2. 加入自己（用实际宠物数据，不用硬编码）
+      if (gameState && userId) {
+        const pet = gameState.currentPet
+        const petPool = gameState.petPool || []
+        const poolInfo = petPool.find(p => p.poolId === pet?.poolId) || {}
+        const myPreview = {
+          userId,
+          playerName: user?.name || '我',
+          petName: poolInfo.name || pet?.poolId || '我的宠物',
+          petEmoji: poolInfo.emoji || '🥚',
+          petRarity: poolInfo.rarity || 'N',
+          petLevel: pet?.level || 1,
+          totalLearnQuestions: gameState.totalLearnQuestions || 0,
+          totalCorrectAnswers: gameState.totalCorrectAnswers || 0,
+          daysActive: gameState.daysActive || 1,
+          weeklyQuestions: gameState.weeklyQuestions || 0,
+          isMe: true,
+        }
+        // 替换或插入自己的数据（用本地最新数据覆盖云端缓存）
+        const myIdx = all.findIndex(p => p.userId === userId)
+        if (myIdx >= 0) all[myIdx] = myPreview
+        else all.push(myPreview)
+      }
+
+      // 3. 单独补全好友数据（fetchAllPreviews 只读100条，可能漏掉）
+      const friendIds = gameState?.friends || []
+      const alreadyIn = new Set(all.map(p => p.userId))
+      const missingFriends = friendIds.filter(id => !alreadyIn.has(id))
+
+      if (missingFriends.length > 0) {
+        const fetched = await Promise.all(
+          missingFriends.map(id => fetchUserPetPreview(id).catch(() => null))
+        )
+        fetched.forEach(preview => {
+          if (preview?.petEmoji) all.push({ ...preview, playerName: preview.playerName || '好友' })
+        })
       }
 
       setRankings(all)

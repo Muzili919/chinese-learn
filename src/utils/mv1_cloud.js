@@ -78,15 +78,15 @@ export async function fetchUserPetPreview(userId) {
   const client = getClient()
   if (!client) return null
 
-  // 策略1：读 users.pet_preview（无 RLS 限制）
+  // 策略1：读 users.pet_preview（无 RLS 限制），同时取用户名
   try {
     const { data } = await client
       .from('users')
-      .select('pet_preview')
+      .select('name, pet_preview')
       .eq('id', userId)
       .maybeSingle()
     if (data?.pet_preview?.petEmoji) {
-      return { userId, ...data.pet_preview }
+      return { userId, playerName: data.name || '匿名同学', ...data.pet_preview }
     }
   } catch (_) {}
 
