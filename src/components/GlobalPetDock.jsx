@@ -67,7 +67,7 @@ export default function GlobalPetDock({ gameState }) {
 
       {/* 宠物主体 */}
       <Pet
-        type="dragon"
+        type={currentPet?.poolId || 'pet_toothless'}
         experience={exp}
         level={level}
         mode="dock"

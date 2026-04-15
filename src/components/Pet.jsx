@@ -2,38 +2,88 @@ import React, { useState, useEffect, useCallback, useRef } from 'react'
 import { getDialogueType, getDialogue, STAT_CONFIG } from '../utils/gamification'
 
 // ============================================================
-//  精灵图资源 - 等级外观（来自切割的精灵图）
+//  多宠物精灵图映射表（2026-04-15 改造：支持18只宠物动态加载）
 // ============================================================
-const LEVEL_SPRITES = {
-  1: '/pets/pet-level-1-10.png',     // 幼年期 (Lv 1-10)
-  11: '/pets/pet-level-11-20.png',    // 成长期 (Lv 11-20) 带火焰
-  21: '/pets/pet-level-21-30.png',    // 成熟体 (Lv 21+) 彩色翅膀
+const PET_SPRITE_MAP = (function() {
+  const baseEmotions = {
+    normal: '/pets/emotion-normal.png', happy: '/pets/emotion-happy.png',
+    bliss: '/pets/emotion-bliss.png', laugh: '/pets/emotion-laugh.png',
+    excited: '/pets/emotion-excited.png', cheer: '/pets/emotion-cheer.png',
+    sad1: '/pets/emotion-sad1.png', sad2: '/pets/emotion-sad2.png', sad3: '/pets/emotion-sad3.png',
+  };
+  // 默认龙图（fallback）
+  const dragonLevels = { 1: '/pets/pet-level-1-10.png', 11: '/pets/pet-level-11-20.png', 21: '/pets/pet-level-21-30.png' };
+
+  // 辅助函数：生成某前缀的精灵配置
+  function makePet(prefix) {
+    if (!prefix) return { levelSprites: dragonLevels, emotionSprites: baseEmotions };
+    return {
+      levelSprites: {
+        1: `/pets/${prefix}-level-1-10.png`,
+        11: `/pets/${prefix}-level-11-20.png`,
+        21: `/pets/${prefix}-level-21-30.png`,
+      },
+      emotionSprites: Object.fromEntries(
+        Object.entries(baseEmotions).map(([k, v]) => [k, v.replace('/pets/', `/pets/${prefix}-`)])
+      ),
+    };
+  }
+
+  return {
+    // === N级 ===
+    pet_kitten:   makePet('kitten'),
+    pet_puppy:    makePet('puppy'),
+    pet_bunny:    makePet('bunny'),
+    pet_hamster:  makePet('hamster'),
+    pet_chick:    makePet('chick'),
+    // === R级 ===
+    pet_fox:      makePet('fox'),
+    pet_panda:    makePet('panda'),
+    pet_penguin:  makePet('penguin'),
+    pet_shiba:    makePet('shiba'),
+    pet_squirrel: makePet('squirrel'),
+    pet_duck:     makePet('duck'),
+    // === SR级 ===
+    pet_toothless: makePet(''),      // 空前缀=使用默认dragon图
+    pet_phoenix:  makePet('phoenix'),
+    pet_unicorn:  makePet('unicorn'),
+    pet_kirin:    makePet('kirin'),
+    pet_fairy:    makePet('fairy'),
+    // === SSR级 ===
+    pet_dragon:   makePet('dragon_ss'),
+    pet_star:     makePet('star'),
+  };
+})();
+
+/** 获取指定宠物的精灵配置（带 fallback 到 pet_toothless） */
+function getPetSprites(type) {
+  return PET_SPRITE_MAP[type] || PET_SPRITE_MAP.pet_toothless
 }
 
-// ============================================================
-//  情绪状态精灵图（9种表情）
-// ============================================================
-const EMOTION_SPRITES = {
-  normal:   '/pets/emotion-normal.png',
-  happy:    '/pets/emotion-happy.png',
-  bliss:    '/pets/emotion-bliss.png',
-  laugh:    '/pets/emotion-laugh.png',
-  excited:  '/pets/emotion-excited.png',
-  cheer:    '/pets/emotion-cheer.png',
-  sad1:     '/pets/emotion-sad1.png',
-  sad2:     '/pets/emotion-sad2.png',
-  sad3:     '/pets/emotion-sad3.png',
+/**
+ * 根据宠物类型和等级获取外观图片URL
+ * @param {number} level - 宠物等级
+ * @param {string} type - 宠物类型（poolId）
+ */
+function getLevelSprite(level, type) {
+  const sprites = getPetSprites(type)
+  if (level >= 21) return sprites.levelSprites[21]
+  if (level >= 11) return sprites.levelSprites[11]
+  return sprites.levelSprites[1]
 }
 
-/** 根据等级获取对应的外观图片URL */
-function getLevelSprite(level) {
-  if (level >= 21) return LEVEL_SPRITES[21]
-  if (level >= 11) return LEVEL_SPRITES[11]
-  return LEVEL_SPRITES[1]
+/**
+ * 根据宠物类型和情绪key获取情绪图片URL
+ * @param {string} emotionKey - 情绪标识
+ * @param {string} type - 宠物类型
+ */
+function getEmotionSprite(emotionKey, type) {
+  const sprites = getPetSprites(type)
+  return sprites.emotionSprites[emotionKey] || null
 }
 
-/** 所有可用的精灵图（用于错误降级） */
-const ALL_SPRITES = Object.values(LEVEL_SPRITES)
+/** 所有可用的默认精灵图（用于错误降级，取自默认宠物） */
+const ALL_SPRITES = Object.values(PET_SPRITE_MAP.pet_toothless.levelSprites)
 
 /** 根据当前pose和状态计算情绪key */
 function resolveEmotion(pose, stats) {
@@ -173,13 +223,14 @@ export default function Pet({
 
   const activePose = reactionPose || reaction || (pose !== 'normal' ? pose : internalPose)
 
-  // 根据等级获取外观 + 根据pose/stats获取情绪
-  const levelSprite = getLevelSprite(level)
+  // 根据等级获取外观 + 根据pose/stats获取情绪（支持多宠物type参数）
+  const levelSprite = getLevelSprite(level, type)
   const emotionKey = resolveEmotion(activePose, currentStats)
   // 当显式触发happy/upgrade时，优先用情绪图；否则用等级外观
+  const emotionSprite = getEmotionSprite(emotionKey, type)
   // 图片降级：如果当前精灵图加载失败，自动切换到备用精灵图
-  const baseImg = (activePose !== 'normal' && EMOTION_SPRITES[emotionKey])
-    ? EMOTION_SPRITES[emotionKey]
+  const baseImg = (activePose !== 'normal' && emotionSprite)
+    ? emotionSprite
     : levelSprite
   const imgSrc = spriteErrorIdx > 0
     ? ALL_SPRITES[spriteErrorIdx % ALL_SPRITES.length] || baseImg

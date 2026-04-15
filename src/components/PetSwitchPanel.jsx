@@ -15,7 +15,7 @@ export default function PetSwitchPanel({ state, spendableXP, onSwitchPet, onDraw
     (inventory.cleanItems || 0) + (inventory.energyItems || 0) +
     (inventory.giftItems || 0) + (inventory.cards || 0)
   const totalAccessories = (inventory.accessories || []).length
-  const allAccessories = 14 // 配饰总数
+  const allAccessories = 25 // 配饰总数（10头+8颈+7背）
 
   return (
     <div>

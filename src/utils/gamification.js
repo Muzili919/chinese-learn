@@ -1,15 +1,34 @@
 // ============================================================
-//  汉字星球 - 宠物养成系统 (P0 + P1 完整版)
+//  汉字星球 - 宠物养成系统 (P0 + P1 完整版 v2 - 18宠版)
 // ============================================================
 
 const clamp = (n, min, max) => Math.max(min, Math.min(max, n));
 const pick = (arr) => arr[Math.floor(Math.random() * arr.length)];
 
-// ---- 宠物池 ----
+// ---- 宠物池（18只，N=5 / R=6 / SR=5 / SSR=2）----
 const PET_POOL = [
-  { poolId: 'pet_toothless', name: '无牙仔', emoji: '🐉', rarity: 'SR', desc: '没牙的小黑龙，最爱吃鱼' },
-  { poolId: 'pet_minion', name: '小黄人', emoji: '🟡', rarity: 'R', desc: '黄色小家伙，话超多' },
-  { poolId: 'pet_pika', name: '皮卡丘', emoji: '⚡', rarity: 'SSR', desc: '电光精灵，超级稀有' },
+  // === N级 普通 (5只) ===
+  { poolId: 'pet_kitten',   name: '小橘猫', emoji: '🐱', rarity: 'N',  desc: '橙色小猫咪，爱吃爱睡', personality: 'lazy', spritePrefix: 'kitten' },
+  { poolId: 'pet_puppy',    name: '小柴犬', emoji: '🐶', rarity: 'N',  desc: '忠诚小柴犬，摇尾巴狂魔', personality: 'loyal', spritePrefix: 'puppy' },
+  { poolId: 'pet_bunny',    name: '兔丸子', emoji: '🐰', rarity: 'N',  desc: '圆滚滚的垂耳兔', personality: 'shy', spritePrefix: 'bunny' },
+  { poolId: 'pet_hamster', name: '团子',   emoji: '🐹', rarity: 'N',  desc: '金仓鼠，腮帮子鼓鼓的', personality: 'active', spritePrefix: 'hamster' },
+  { poolId: 'pet_chick',    name: '喳喳',   emoji: '🐥', rarity: 'N',  desc: '小黄鸡，永远充满活力', personality: 'curious', spritePrefix: 'chick' },
+  // === R级 稀有 (6只) ===
+  { poolId: 'pet_fox',      name: '灵狐',   emoji: '🦊', rarity: 'R',  desc: '九尾小火狐（只有一条大尾巴）', personality: 'smart', spritePrefix: 'fox' },
+  { poolId: 'pet_panda',    name: '滚滚',   emoji: '🐼', rarity: 'R',  desc: '圆乎乎的大熊猫', personality: 'clumsy', spritePrefix: 'panda' },
+  { poolId: 'pet_penguin',  name: '波波',   emoji: '🐧', rarity: 'R',  desc: '戴领结的小企鹅', personality: 'gentleman', spritePrefix: 'penguin' },
+  { poolId: 'pet_shiba',    name: '柴柴',   emoji: '🐕', rarity: 'R',  desc: '表情包大师柴犬', personality: 'funny', spritePrefix: 'shiba' },
+  { poolId: 'pet_squirrel', name: '松松',   emoji: '🐿️', rarity: 'R',  desc: '抱松果的小松鼠', personality: 'diligent', spritePrefix: 'squirrel' },
+  { poolId: 'pet_duck',     name: '嘎嘎',   emoji: '🦆', rarity: 'R',  desc: '戴墨镜的酷鸭子', personality: 'cool', spritePrefix: 'duck' },
+  // === SR级 超稀 (5只) ===
+  { poolId: 'pet_toothless',name: '无牙仔', emoji: '🐉', rarity: 'SR', desc: '没牙的小黑龙，最爱吃鱼', personality: 'tsundere', spritePrefix: '' }, // 空前缀=使用默认dragon图
+  { poolId: 'pet_phoenix',  name: '小凤凰', emoji: '🔥', rarity: 'SR', desc: '金色小火凤凰，羽翼绚烂', personality: 'noble', spritePrefix: 'phoenix' },
+  { poolId: 'pet_unicorn',  name: '梦角',   emoji: '🦄', rarity: 'SR', desc: '月光独角兽，角会发光', personality: 'dreamy', spritePrefix: 'unicorn' },
+  { poolId: 'pet_kirin',    name: '小麒麟', emoji: '🦌', rarity: 'SR', desc: '云端踏步的小麒麟', personality: 'righteous', spritePrefix: 'kirin' },
+  { poolId: 'pet_fairy',    name: '萤萤',   emoji: '🧚', rarity: 'SR', desc: '星光小仙子，翅膀透明', personality: 'healing', spritePrefix: 'fairy' },
+  // === SSR级 传说 (2只) ===
+  { poolId: 'pet_dragon',   name: '龙王',   emoji: '🐲', rarity: 'SSR',desc: '东方神龙幼崽，鳞片闪耀', personality: 'majestic', spritePrefix: 'dragon_ss' },
+  { poolId: 'pet_star',     name: '星灵',   emoji: '⭐', rarity: 'SSR',desc: '宇宙诞生的小星星', personality: 'mystic', spritePrefix: 'star' },
 ];
 
 // ---- 阶段计算 ----
@@ -34,10 +53,11 @@ const PET_STATS_MAX = {
 
 const STAT_DECAY_RATE = {
   // 每分钟衰减量（游戏内时间）
-  hunger: 0.5,       // 约3.3小时从满饿到0
-  cleanliness: 0.8,  // 约2小时变脏
-  energy: 0.3,       // 活力自然恢复（负值=恢复），活动消耗
-  intimacy: -0.05,   // 自然缓慢下降（忽略宠物时）
+  // [2026-04-15 优化] 调整为更友好的衰减速度，减少用户焦虑感
+  hunger: 0.2,       // 约8.3小时从满饿到0（原3.3h → 更合理）
+  cleanliness: 0.28,  // 约6小时变脏（原2h → 更友好）
+  energy: 0.15,       // 活力衰减更慢（原0.3 → 降低一半）
+  intimacy: -0.02,    // 自然缓慢下降（原-0.05 → 亲密度更持久）
 };
 
 // 状态对应的文案标签和颜色
@@ -294,39 +314,36 @@ export function claimTaskReward(state, taskId) {
 export const ACCESSORY_SLOTS = ['head', 'neck', 'back'];
 
 export const ACCESSORY_SHOP = [
-  // ===== 头部配饰 =====
-  { id: 'acc_crown', slot: 'head', name: '小皇冠', icon: '👑', price: 200, rarity: 'SR',
-    emoji: '👑', desc: '皇家风范' },
-  { id: 'acc_glasses', slot: 'head', name: '学霸眼镜', icon: '🤓', price: 100, rarity: 'R',
-    emoji: '🤓', desc: '看起来很聪明' },
-  { id: 'acc_cat_ears', slot: 'head', name: '猫耳发带', icon: '🐱', price: 150, rarity: 'R',
-    emoji: '🐱', desc: '喵~ 可爱加倍' },
-  { id: 'acc_antler', slot: 'head', name: '小鹿角', icon: '🦌', price: 180, rarity: 'R',
-    emoji: '🦌', desc: '森林气息' },
-  { id: 'acc_star_hat', slot: 'head', name: '星星帽', icon: '🌟', price: 300, rarity: 'SSR',
-    emoji: '🌟', desc: '闪闪发光!' },
-  { id: 'acc_santa', slot: 'head', name: '圣诞帽', icon: '🎅', price: 250, rarity: 'SR',
-    emoji: '🎅', desc: '圣诞快乐~' },
+  // ===== 头部配饰（10件）=====
+  { id: 'acc_crown', slot: 'head', name: '小皇冠', icon: '👑', price: 200, rarity: 'SR', emoji: '👑', desc: '皇家风范' },
+  { id: 'acc_glasses', slot: 'head', name: '学霸眼镜', icon: '🤓', price: 100, rarity: 'R', emoji: '🤓', desc: '看起来很聪明' },
+  { id: 'acc_cat_ears', slot: 'head', name: '猫耳发带', icon: '🐱', price: 150, rarity: 'R', emoji: '🐱', desc: '喵~ 可爱加倍' },
+  { id: 'acc_antler', slot: 'head', name: '小鹿角', icon: '🦌', price: 180, rarity: 'R', emoji: '🦌', desc: '森林气息' },
+  { id: 'acc_star_hat', slot: 'head', name: '星星帽', icon: '🌟', price: 300, rarity: 'SSR', emoji: '🌟', desc: '闪闪发光!' },
+  { id: 'acc_santa', slot: 'head', name: '圣诞帽', icon: '🎅', price: 250, rarity: 'SR', emoji: '🎅', desc: '圣诞快乐~' },
+  { id: 'acc_flower_head', slot: 'head', name: '花环', icon: '💐', price: 160, rarity: 'R', emoji: '💐', desc: '春天的气息' },
+  { id: 'acc_headphones', slot: 'head', name: '耳机', icon: '🎧', price: 220, rarity: 'SR', emoji: '🎧', desc: '听歌中...' },
+  { id: 'acc_wizard_hat', slot: 'head', name: '巫师帽', icon: '🎩', price: 350, rarity: 'SSR', emoji: '🎩', desc: '魔法满点' },
+  { id: 'acc_antenna', slot: 'head', name: '天线触角', icon: '📡', price: 180, rarity: 'R', emoji: '📡', desc: '信号满格' },
 
-  // ===== 颈部配饰 =====
-  { id: 'acc_scarf', slot: 'neck', name: '围巾', icon: '🧣', price: 80, rarity: 'N',
-    emoji: '🧣', desc: '暖暖的' },
-  { id: 'acc_bowtie', slot: 'neck', name: '领结', icon: '🎀', price: 120, rarity: 'R',
-    emoji: '🎀', desc: '绅士风度' },
-  { id: 'acc_necklace', slot: 'neck', name: '宝石项链', icon: '💎', price: 400, rarity: 'SSR',
-    emoji: '💎', desc: '超级珍贵!' },
-  { id: 'acc_bell', slot: 'neck', name: '铃铛项圈', icon: '🔔', price: 90, rarity: 'N',
-    emoji: '🔔', desc: '叮铃叮铃~' },
+  // ===== 颈部配饰（8件）=====
+  { id: 'acc_scarf', slot: 'neck', name: '围巾', icon: '🧣', price: 80, rarity: 'N', emoji: '🧣', desc: '暖暖的' },
+  { id: 'acc_bowtie', slot: 'neck', name: '领结', icon: '🎀', price: 120, rarity: 'R', emoji: '🎀', desc: '绅士风度' },
+  { id: 'acc_necklace', slot: 'neck', name: '宝石项链', icon: '💎', price: 400, rarity: 'SSR', emoji: '💎', desc: '超级珍贵!' },
+  { id: 'acc_bell', slot: 'neck', name: '铃铛项圈', icon: '🔔', price: 90, rarity: 'N', emoji: '🔔', desc: '叮铃叮铃~' },
+  { id: 'acc_bowtie_red', slot: 'neck', name: '红领结', icon: '❤️', price: 100, rarity: 'N', emoji: '❤️', desc: '经典红' },
+  { id: 'acc_neck_ruby', slot: 'neck', name: '红宝石项圈', icon: '📿', price: 450, rarity: 'SSR', emoji: '📿', desc: '奢华之选' },
+  { id: 'acc_scarf_winter', slot: 'neck', name: '冬季围巾', icon: '🧣', price: 120, rarity: 'R', emoji: '🧣', desc: '温暖过冬' },
+  { id: 'acc_medal', slot: 'neck', name: '勋章', icon: '🏅', price: 280, rarity: 'SR', emoji: '🏅', desc: '荣誉象征' },
 
-  // ===== 背部配饰 =====
-  { id: 'acc_wings', slot: 'back', name: '小翅膀', icon: '🧚', price: 280, rarity: 'SR',
-    emoji: '🧚', desc: '可以飞咯!' },
-  { id: 'acc_cape', slot: 'back', name: '披风', icon: '🦸', price: 200, rarity: 'R',
-    emoji: '🦸', desc: '超级英雄风' },
-  { id: 'acc_backpack', slot: 'back', name: '小书包', icon: '🎒', price: 130, rarity: 'R',
-    emoji: '🎒', desc: '上学去!' },
-  { id: 'acc_halo', slot: 'back', name: '光环', icon: '😇', price: 500, rarity: 'SSR',
-    emoji: '😇', desc: '神圣之光' },
+  // ===== 背部配饰（7件）=====
+  { id: 'acc_wings', slot: 'back', name: '小翅膀', icon: '🧚', price: 280, rarity: 'SR', emoji: '🧚', desc: '可以飞咯!' },
+  { id: 'acc_cape', slot: 'back', name: '披风', icon: '🦸', price: 200, rarity: 'R', emoji: '🦸', desc: '超级英雄风' },
+  { id: 'acc_backpack', slot: 'back', name: '小书包', icon: '🎒', price: 130, rarity: 'R', emoji: '🎒', desc: '上学去!' },
+  { id: 'acc_halo', slot: 'back', name: '光环', icon: '😇', price: 500, rarity: 'SSR', emoji: '😇', desc: '神圣之光' },
+  { id: 'acc_jetpack', slot: 'back', name: '喷气背包', icon: '🚀', price: 400, rarity: 'SSR', emoji: '🚀', desc: '起飞!' },
+  { id: 'acc_cape_hero', slot: 'back', name: '英雄披风', icon: '🦸', price: 250, rarity: 'SR', emoji: '🦸', desc: '正义降临' },
+  { id: 'acc_wings_fairy', slot: 'back', name: '仙子翅膀', icon: '👼', price: 320, rarity: 'SR', emoji: '👼', desc: '梦幻羽翼' },
 ];
 
 // 获取某个槽位已装备的配饰
@@ -474,13 +491,13 @@ function defaultStats() {
 export function initGamificationState() {
   return {
     level: 1,
-    exp: 100, // 🔧 修复：初始经验改为100xp
-    totalStars: 1,        // 主人星级（=宠物等级）
-    coins: 0,           // P1新增：金币（已弃用，保留兼容）
+    exp: 100,
+    totalStars: 1,
+    coins: 0,
     petPool: PET_POOL,
-    ownedPets: ['pet_toothless'],
+    ownedPets: ['pet_kitten'],  // 默认从N级宠物开始
     currentPet: {
-      poolId: 'pet_toothless',
+      poolId: 'pet_kitten',   // 默认小橘猫
       level: 1,
       exp: 0,
       mood: 'neutral',
@@ -720,15 +737,79 @@ export function tickPetStats(state, minutes = 1) {
 // ============================================================
 //  抽卡（保持原有逻辑）- 🔧 修复：改为500经验值
 // ============================================================
+// 抽卡权重配置（根据等级调整稀有度概率）
+const DRAW_WEIGHTS = {
+  // Lv 1-9: N级为主
+  early: [
+    { poolId: 'pet_kitten',   weight: 14 },
+    { poolId: 'pet_puppy',    weight: 13 },
+    { poolId: 'pet_bunny',    weight: 12 },
+    { poolId: 'pet_hamster',  weight: 11 },
+    { poolId: 'pet_chick',    weight: 10 },
+    { poolId: 'pet_fox',      weight: 8 },
+    { poolId: 'pet_panda',    weight: 7 },
+    { poolId: 'pet_penguin',  weight: 6 },
+    { poolId: 'pet_shiba',    weight: 5 },
+    { poolId: 'pet_squirrel', weight: 4 },
+    { poolId: 'pet_duck',     weight: 3 },
+    { poolId: 'pet_toothless',weight: 2.5 },
+    { poolId: 'pet_phoenix',  weight: 1.5 },
+    { poolId: 'pet_unicorn',  weight: 1.2 },
+    { poolId: 'pet_kirin',    weight: 0.9 },
+    { poolId: 'pet_fairy',    weight: 0.6 },
+    { poolId: 'pet_dragon',   weight: 0.2 },
+    { poolId: 'pet_star',     weight: 0.1 },
+  ],
+  // Lv 10-19: R级比例提升
+  mid: [
+    { poolId: 'pet_kitten',   weight: 10 },
+    { poolId: 'pet_puppy',    weight: 9 },
+    { poolId: 'pet_bunny',    weight: 8 },
+    { poolId: 'pet_hamster',  weight: 7 },
+    { poolId: 'pet_chick',    weight: 6 },
+    { poolId: 'pet_fox',      weight: 10 },
+    { poolId: 'pet_panda',    weight: 9 },
+    { poolId: 'pet_penguin',  weight: 8 },
+    { poolId: 'pet_shiba',    weight: 7 },
+    { poolId: 'pet_squirrel', weight: 6 },
+    { poolId: 'pet_duck',     weight: 5 },
+    { poolId: 'pet_toothless',weight: 4.5 },
+    { poolId: 'pet_phoenix',  weight: 3 },
+    { poolId: 'pet_unicorn',  weight: 2.5 },
+    { poolId: 'pet_kirin',    weight: 2 },
+    { poolId: 'pet_fairy',    weight: 1.5 },
+    { poolId: 'pet_dragon',   weight: 0.7 },
+    { poolId: 'pet_star',     weight: 0.3 },
+  ],
+  // Lv20+: SSR可抽到
+  late: [
+    { poolId: 'pet_kitten',   weight: 7 },
+    { poolId: 'pet_puppy',    weight: 6.5 },
+    { poolId: 'pet_bunny',    weight: 6 },
+    { poolId: 'pet_hamster',  weight: 5.5 },
+    { poolId: 'pet_chick',    weight: 5 },
+    { poolId: 'pet_fox',      weight: 8 },
+    { poolId: 'pet_panda',    weight: 7.5 },
+    { poolId: 'pet_penguin',  weight: 7 },
+    { poolId: 'pet_shiba',    weight: 6.5 },
+    { poolId: 'pet_squirrel', weight: 6 },
+    { poolId: 'pet_duck',     weight: 5.5 },
+    { poolId: 'pet_toothless',weight: 5 },
+    { poolId: 'pet_phoenix',  weight: 4 },
+    { poolId: 'pet_unicorn',  weight: 3.5 },
+    { poolId: 'pet_kirin',    weight: 3 },
+    { poolId: 'pet_fairy',    weight: 2.5 },
+    { poolId: 'pet_dragon',   weight: 2 },
+    { poolId: 'pet_star',     weight: 1.5 },
+  ],
+};
+
 function drawCard(state) {
-  // 🔧 修复：抽卡消耗500经验（不是2000）
-  if ((state.exp || 0) < 500) return state; // 经验不足，不执行
+  // 抽卡消耗500经验
+  if ((state.exp || 0) < 500) return state;
 
   const lvl = state.level || 1;
-  let w;
-  if (lvl < 10) w = [{ poolId: 'pet_toothless', weight: 70 }, { poolId: 'pet_minion', weight: 25 }, { poolId: 'pet_pika', weight: 5 }];
-  else if (lvl < 20) w = [{ poolId: 'pet_toothless', weight: 50 }, { poolId: 'pet_minion', weight: 40 }, { poolId: 'pet_pika', weight: 10 }];
-  else w = [{ poolId: 'pet_toothless', weight: 40 }, { poolId: 'pet_minion', weight: 40 }, { poolId: 'pet_pika', weight: 20 }];
+  let w = lvl < 10 ? DRAW_WEIGHTS.early : lvl < 20 ? DRAW_WEIGHTS.mid : DRAW_WEIGHTS.late;
   
   const total = w.reduce((a, it) => a + it.weight, 0) || 1;
   let r = Math.random() * total;

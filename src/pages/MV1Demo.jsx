@@ -859,7 +859,7 @@ export default function MV1Demo({ onBack, initialState, onStateChange }) {
           <>
             <div style={{ display: 'flex', justifyContent: 'center', marginBottom: 12 }}>
               <Pet
-                type="dragon" experience={petExp} level={petLevel} onGainExp={() => {}}
+                type={currentPet?.poolId || 'pet_toothless'} experience={petExp} level={petLevel} onGainExp={() => {}}
                 mode="full" size={180}
                 stats={currentPet?.stats}
                 equippedAccessories={currentPet?.equippedAccessories}
@@ -894,14 +894,27 @@ export default function MV1Demo({ onBack, initialState, onStateChange }) {
                   宠物经验池: <strong style={{ color: '#6366f1' }}>{petExp}</strong> XP（升级需 {petThreshold}）
                 </p>
                 {canLevelUpPet ? (
-                  <button onClick={handlePetLevelUp} style={{
-                    padding: '6px 16px', border: 'none', borderRadius: 8, cursor: 'pointer',
-                    background: levelUpAnim ? 'linear-gradient(135deg,#fbbf24,#f59e0b)' : 'linear-gradient(135deg,#8b5cf6,#7c3aed)',
-                    color: 'white', fontSize: 12, fontWeight: 700,
-                    boxShadow: '0 3px 10px rgba(139,92,246,0.4)',
-                  }}>
-                    {levelUpAnim ? '🎉 升级!' : '✨ 升级'}
-                  </button>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                    {/* 脉冲动画升级提示 badge */}
+                    <span style={{
+                      display: 'inline-flex', alignItems: 'center', gap: 4,
+                      padding: '2px 10px', borderRadius: 12, fontSize: 11,
+                      background: 'linear-gradient(135deg,#fef3c7,#fde68a)',
+                      color: '#b45309', fontWeight: 700,
+                      border: '1.5px solid #f59e0b',
+                      boxShadow: '0 0 0 0 rgba(245,158,11,0.5)',
+                      animation: 'levelUpPulse 1.5s ease-in-out infinite',
+                    }}>🌟 可升级</span>
+                    <button onClick={handlePetLevelUp} style={{
+                      padding: '6px 16px', border: 'none', borderRadius: 8, cursor: 'pointer',
+                      background: levelUpAnim ? 'linear-gradient(135deg,#fbbf24,#f59e0b)' : 'linear-gradient(135deg,#8b5cf6,#7c3aed)',
+                      color: 'white', fontSize: 12, fontWeight: 700,
+                      boxShadow: levelUpAnim ? '0 3px 16px rgba(251,191,36,0.5)' : '0 3px 10px rgba(139,92,246,0.4)',
+                      animation: !levelUpAnim ? 'btnGlow 1.8s ease-in-out infinite' : 'none',
+                    }}>
+                      {levelUpAnim ? '🎉 升级!' : '✨ 升级'}
+                    </button>
+                  </div>
                 ) : (
                   <span style={{ fontSize: 11, color: '#9ca3af' }}>继续答题获取经验</span>
                 )}
@@ -950,6 +963,14 @@ export default function MV1Demo({ onBack, initialState, onStateChange }) {
       <style>{`
         @keyframes levelUpPop {
           0% { transform: scale(1); } 50% { transform: scale(1.15); } 100% { transform: scale(1); }
+        }
+        @keyframes levelUpPulse {
+          0%, 100% { box-shadow: 0 0 0 0 rgba(245,158,11,0.5); transform: scale(1); }
+          50% { box-shadow: 0 0 6px 4px rgba(245,158,11,0.2); transform: scale(1.05); }
+        }
+        @keyframes btnGlow {
+          0%, 100% { box-shadow: 0 3px 10px rgba(139,92,246,0.4); }
+          50% { box-shadow: 0 3px 18px rgba(139,92,246,0.7), 0 0 12px rgba(139,92,246,0.3); }
         }
       `}</style>
     </div>
