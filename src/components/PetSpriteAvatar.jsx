@@ -1,46 +1,65 @@
 /**
- * PetSpriteAvatar - CSS sprite sheet avatar component
- * Uses real AI-generated 3×3 sprite sheets for pet_kitten and pet_toothless.
- * For all other pets, falls back to emoji display.
+ * PetSpriteAvatar v2 — 支持所有宠物的PNG头像组件
  *
- * Sprite layout (3×3 grid, row-major):
- *   Row 0: poses 0-2
- *   Row 1: poses 3-5
- *   Row 2: poses 6-8
+ * 直接使用各宠物的独立PNG表情图（非精灵图裁剪）
+ * 每只宠物根据等级自动选择对应阶段的 normal/happy 图作为头像
  *
- * background-size: 300% 300%
- * background-position: ${col*50}% ${row*50}%
+ * 支持的宠物：
+ *   - pet_kitten: 3阶段PNG (stage1/stage2/stage3)
+ *   - pet_shiba: 3阶段PNG
+ *   - pet_fox: Stage1 PNG（高等级复用）
+ *   - pet_toothless: SVG精灵图（原有）
  */
 
 import React from 'react'
 
-// Which sheet to use based on pet level
-function getKittenSheet(level) {
-  if (!level || level < 10) return '/pets/kitten/sheet_s1.png'
-  if (level < 20) return '/pets/kitten/sheet_s2.png'
-  return '/pets/kitten/sheet_s3.png'
+// ============================================================
+//  各宠物的头像图路径映射（按等级选阶段）
+// ============================================================
+
+function getKittenAvatarSrc(level = 1) {
+  // 小橘猫：normal 或 happy 作为默认头像
+  if (!level || level < 10) return '/pets/kitten/stage1/normal.png'
+  if (level < 20) return '/pets/kitten/stage2/normal.png'
+  return '/pets/kitten/stage3/normal.png'
 }
 
-function getToothlessSheet(level) {
-  // sheet_all.png has rows = stages (row0=1-9, row1=10-19, row2=20+)
-  return '/pets/toothless/sheet_all.png'
+function getShibaAvatarSrc(level = 1) {
+  if (!level || level < 10) return '/pets/shiba/stage1/normal.png'
+  if (level < 20) return '/pets/shiba/stage2/normal.png'
+  return '/pets/shiba/stage3/happy.png'    // S3缺normal，用happy
 }
 
-function getToothlessRow(level) {
-  if (!level || level < 10) return 0
-  if (level < 20) return 1
-  return 2
+function getFoxAvatarSrc() {
+  // 银月狐只有Stage1
+  return '/pets/fox/stage1/normal.png'
 }
 
-// Maps a pose index (0-8) to CSS background-position in a 3×3 grid
-function spritePos(row, col) {
-  return `${col * 50}% ${row * 50}%`
+function getToothlessAvatarSrc(level = 1) {
+  // 无牙仔用原有SVG等级图
+  if (!level || level < 10) return '/pets/pet-level-1-10.png'
+  if (level < 20) return '/pets/pet-level-11-20.png'
+  return '/pets/pet-level-21-30.png'
 }
 
 /**
- * SpriteCell - renders one cell from a 3×3 sprite sheet
+ * 根据poolId和等级获取头像PNG路径
  */
-export function SpriteCell({ src, row = 0, col = 0, size = 50, borderRadius = '50%', style = {} }) {
+function getAvatarSrc(poolId, level = 1) {
+  switch (poolId) {
+    case 'pet_kitten':   return getKittenAvatarSrc(level)
+    case 'pet_shiba':    return getShibaAvatarSrc(level)
+    case 'pet_fox':      return getFoxAvatarSrc()
+    case 'pet_toothless':return getToothlessAvatarSrc(level)
+    default:             return null
+  }
+}
+
+/**
+ * SpriteCell - 用CSS background显示PNG头像（支持圆形裁切）
+ */
+export function SpriteCell({ src, size = 50, borderRadius = '50%', style = {} }) {
+  if (!src) return null
   return (
     <div
       style={{
@@ -48,10 +67,9 @@ export function SpriteCell({ src, row = 0, col = 0, size = 50, borderRadius = '5
         height: size,
         borderRadius,
         backgroundImage: `url(${src})`,
-        backgroundSize: '300% 300%',
-        backgroundPosition: spritePos(row, col),
+        backgroundSize: 'contain',
+        backgroundPosition: 'center',
         backgroundRepeat: 'no-repeat',
-        imageRendering: 'auto',
         flexShrink: 0,
         ...style,
       }}
@@ -60,34 +78,25 @@ export function SpriteCell({ src, row = 0, col = 0, size = 50, borderRadius = '5
 }
 
 /**
- * PetSpriteAvatar - smart avatar component that picks correct sprite sheet + cell
+ * PetSpriteAvatar - 智能头像组件
  *
  * Props:
- *   poolId: string (e.g. 'pet_kitten', 'pet_toothless')
- *   level: number
- *   size: number (px)
- *   pose: number 0-8 (which cell to show, default 0)
- *   emoji: string (fallback emoji if no sprite sheet)
- *   style: object (extra styles for the container)
+ *   poolId: string (e.g. 'pet_kitten', 'pet_shiba', 'pet_fox', 'pet_toothless')
+ *   level: number (用于选择成长阶段)
+ *   size: number (px, 默认50)
+ *   pose: number (保留参数，暂不影响——头像始终用normal姿态)
+ *   emoji: string (完全不支持时的最终fallback)
+ *   style: object (额外样式)
  */
 export default function PetSpriteAvatar({ poolId, level = 1, size = 50, pose = 0, emoji = '🥚', style = {} }) {
-  const row = Math.floor(pose / 3)
-  const col = pose % 3
+  const src = getAvatarSrc(poolId, level)
 
-  if (poolId === 'pet_kitten') {
-    const src = getKittenSheet(level)
-    return <SpriteCell src={src} row={row} col={col} size={size} style={style} />
+  // 有PNG图 → 直接渲染
+  if (src) {
+    return <SpriteCell src={src} size={size} borderRadius="50%" style={style} />
   }
 
-  if (poolId === 'pet_toothless') {
-    const src = getToothlessSheet(level)
-    const stageRow = getToothlessRow(level)
-    // For toothless, use stageRow as the row, col = pose within that stage (0-2)
-    const stageCol = col < 3 ? col : 0
-    return <SpriteCell src={src} row={stageRow} col={stageCol} size={size} style={style} />
-  }
-
-  // Fallback: emoji in a circle
+  // 最终fallback：emoji圆圈
   return (
     <div style={{
       width: size,
