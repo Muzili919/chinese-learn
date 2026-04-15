@@ -1,11 +1,11 @@
 // ============================================================
-//  汉字星球 - 宠物养成系统 (P0 + P1 完整版 v3 - 8宠精品版)
+//  汉字星球 - 宠物养成系统 (v4 - 精简双宠版)
 // ============================================================
 
 const clamp = (n, min, max) => Math.max(min, Math.min(max, n));
 const pick = (arr) => arr[Math.floor(Math.random() * arr.length)];
 
-// ---- 宠物池（8只，N=2 / R=2 / SR=2 / SSR=2）----
+// ---- 宠物池（2只：N级小橘猫 + SR级无牙仔）----
 const PET_POOL = [
   // === N级 普通 ===
   {
@@ -13,43 +13,11 @@ const PET_POOL = [
     desc: '额头有"王"字的大橘猫，懒洋洋躺满你整张课桌，但关键时刻从不缺席',
     stages: ['橙色条纹椭圆蛋，有小爪印，摸起来热乎乎的', '巴掌大的橘猫崽，肚皮白白软软，一动就喵一声', '耳朵竖起来了！尾巴高高翘，老爱钻进书包里睡觉', '毛发蓬松，脖子有虎纹，专门坐在课本上挡你看书', '额头浮现"王"字，威严大橘猫，懒洋洋却无处不在'],
   },
-  {
-    poolId: 'pet_puppy', name: '小柴犬', emoji: '🐶', rarity: 'N', personality: 'loyal',
-    desc: '耳朵竖得笔直的柴犬，每次你打开书本就来转三圈表示陪读，答对题直接扑脸庆祝',
-    stages: ['棕黄色团子蛋，带白色斑点，微微发烫，贴着耳朵能听见心跳', '耳朵大得撑不起来的柴犬崽，走路踉踉跄跄见你就扑', '耳朵终于竖起来了！每次你打开书本就转三圈陪读', '标准柴犬脸，眼睛弯弯，尾巴卷成甜甜圈，吐舌等你夸', '红棕色浓毛威风凛凛，最喜欢被摸头，是最忠诚的学习伙伴'],
-  },
-  // === R级 稀有 ===
-  {
-    poolId: 'pet_fox', name: '灵狐', emoji: '🦊', rarity: 'R', personality: 'smart',
-    desc: '六尾灵狐，尾巴飘起来像流动的火焰，脚步轻盈无声，是全学校最聪明的学习搭档',
-    stages: ['赤红色镶金边的狐狸蛋，月圆之夜会发出橘色幽光', '一条大尾巴比整个身体还长，老被自己绊倒但眼神已经贼溜溜', '学会了第一个小魔法：把铅笔藏起来再变回来，还对你眨眼', '火红皮毛，耳尖白绒毛，金色狐狸眼，脚步轻盈到完全无声', '六尾灵狐，尾巴像流动的火焰，是最聪明的学习搭档'],
-  },
-  {
-    poolId: 'pet_panda', name: '滚滚', emoji: '🐼', rarity: 'R', personality: 'clumsy',
-    desc: '憨态可掬的大熊猫，平时一摇一摆，答题时眼神突然变得异常锐利，深藏不露的智者',
-    stages: ['黑白分明的大圆蛋，上面有嫩绿竹叶图案，碰它会滚动', '眼圈又黑又圆的熊猫崽，抱着铅笔当竹子啃，坐下就起不来', '肚子更圆了，向零食滚过来的速度出奇地快', '白毛软软、黑耳圆溜，喜欢坐在书边看你学习，偶尔递零食', '憨态可掬却目光锐利，抱着竹子的大熊猫，深藏不露的智者'],
-  },
-  // === SR级 超稀 ===
+  // === SR级 超稀（原无牙龙位）===
   {
     poolId: 'pet_toothless', name: '无牙仔', emoji: '🐉', rarity: 'SR', personality: 'tsundere',
     desc: '月光下鳞片泛出幽蓝光芒的夜翼龙，嘴里终于长出四颗小牙，脸上还带着得意的笑',
     stages: ['哑光黑色龙蛋，细小鳞片纹路，摸起来暖暖的，偶尔轻轻震动', '小小黑龙崽，耳朵像两片大叶子，没有牙却爱冲你龇嘴', '能扑腾翅膀飞一小段了，总是摔到地上拍拍翅膀假装没事', '暗黑鳞片，翠绿眼睛，翅膀完全展开，嘴里还是没有牙…', '月光下鳞片泛出幽蓝光芒，终于长出四颗小牙，得意地笑着'],
-  },
-  {
-    poolId: 'pet_phoenix', name: '小凤凰', emoji: '🔥', rarity: 'SR', personality: 'noble',
-    desc: '金凤凰浴火飞翔，每一片羽毛都像流动的火焰，是永不熄灭的学习之火',
-    stages: ['金红渐变凤凰蛋，蛋壳有羽毛纹，微微发热，放手里不舍得放下', '毛没长好的小毛球，七零八落，叫声细如蚊鸣，但谁都喜欢它', '羽毛开始变色：红橙金交织，飞姿不优雅但偶尔散发温暖光晕', '三尺长的火红尾羽，金色羽冠，落地时细小火花飘散', '金凤凰浴火飞翔，每片羽毛都是流动的火焰，永不熄灭的学习之火'],
-  },
-  // === SSR级 传说 ===
-  {
-    poolId: 'pet_dragon', name: '龙王', emoji: '🐲', rarity: 'SSR', personality: 'majestic',
-    desc: '真正的东方龙王，金鳞铂甲，龙吟声让所有文字都流光溢彩，是汉字星球的守护神',
-    stages: ['纯金龙蛋，祥云纹路细如发丝，散发柔和金光，整个房间都暖了', '三根龙须，爪子小小却有力，第一声龙吟把书桌上文具全震飞了', '鳞片从金黄变为古铜金，开始能喷出小小的金色火球，很为自己骄傲', '威风少年神龙，龙须飘逸，五爪如钩，翱翔时有祥云相随', '真正的龙王降临，金鳞铂甲，龙吟声让文字流光溢彩，汉字星球守护神'],
-  },
-  {
-    poolId: 'pet_star', name: '星灵', emoji: '⭐', rarity: 'SSR', personality: 'mystic',
-    desc: '宇宙知识之灵，星河为发，宇宙为身，每学会一个新知识它就更亮一分',
-    stages: ['深蓝宇宙蛋，蛋壳上有真实星点，会随时间变换成不同星座图案', '会漂浮的小星星，两只大眼睛两条小短手，身体随呼吸一闪一闪', '开始有了淡淡的星云尾迹，飘在空中的样子像一道小彗星', '银色半透明身体，内部有星河流动，眼睛是两颗耀眼的超新星', '宇宙知识之灵，星河为发宇宙为身，每个新知识都让它更亮一分'],
   },
 ];
 
@@ -529,9 +497,9 @@ export function initGodModeState() {
     totalStars: 9999,
     coins: 99999,
     petPool: PET_POOL,
-    ownedPets: ALL_PET_IDS,
+    ownedPets: ['pet_kitten', 'pet_toothless'],  // 只有两只
     currentPet: {
-      poolId: 'pet_dragon',   // 默认龙王SSR
+      poolId: 'pet_kitten',   // 默认小橘猫（有精美PNG）
       level: 35,
       exp: 50000,
       mood: 'happy',
@@ -822,38 +790,20 @@ export function tickPetStats(state, minutes = 1) {
 // ============================================================
 // 抽卡权重配置（8只宠物，根据等级调整稀有度概率）
 const DRAW_WEIGHTS = {
-  // Lv 1-9: N级为主，SSR极低
+  // Lv 1-9: 小橘猫为主，无牙仔低概率
   early: [
-    { poolId: 'pet_kitten',    weight: 35 },   // N
-    { poolId: 'pet_puppy',     weight: 30 },   // N
-    { poolId: 'pet_fox',       weight: 14 },   // R
-    { poolId: 'pet_panda',     weight: 12 },   // R
-    { poolId: 'pet_toothless', weight: 5 },    // SR
-    { poolId: 'pet_phoenix',   weight: 3 },    // SR
-    { poolId: 'pet_dragon',    weight: 0.7 },  // SSR
-    { poolId: 'pet_star',      weight: 0.3 },  // SSR
+    { poolId: 'pet_kitten',    weight: 85 },   // N
+    { poolId: 'pet_toothless', weight: 15 },   // SR
   ],
-  // Lv 10-19: R级比例提升，SR可抽
+  // Lv 10-19: 无牙仔比例提升
   mid: [
-    { poolId: 'pet_kitten',    weight: 22 },   // N
-    { poolId: 'pet_puppy',     weight: 18 },   // N
-    { poolId: 'pet_fox',       weight: 20 },   // R
-    { poolId: 'pet_panda',     weight: 18 },   // R
-    { poolId: 'pet_toothless', weight: 10 },   // SR
-    { poolId: 'pet_phoenix',   weight: 8 },    // SR
-    { poolId: 'pet_dragon',    weight: 2.5 },  // SSR
-    { poolId: 'pet_star',      weight: 1.5 },  // SSR
+    { poolId: 'pet_kitten',    weight: 65 },   // N
+    { poolId: 'pet_toothless', weight: 35 },   // SR
   ],
-  // Lv 20+: SR/SSR大幅提升
+  // Lv 20+: 无牙仔概率更高
   late: [
-    { poolId: 'pet_kitten',    weight: 14 },   // N
-    { poolId: 'pet_puppy',     weight: 12 },   // N
-    { poolId: 'pet_fox',       weight: 18 },   // R
-    { poolId: 'pet_panda',     weight: 16 },   // R
-    { poolId: 'pet_toothless', weight: 16 },   // SR
-    { poolId: 'pet_phoenix',   weight: 14 },   // SR
-    { poolId: 'pet_dragon',    weight: 6 },    // SSR
-    { poolId: 'pet_star',      weight: 4 },    // SSR
+    { poolId: 'pet_kitten',    weight: 40 },   // N
+    { poolId: 'pet_toothless', weight: 60 },   // SR
   ],
 };
 
