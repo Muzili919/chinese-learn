@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react'
 import { getDialogueType, getDialogue, STAT_CONFIG } from '../utils/gamification'
+import PetSvgSprite, { getPetSvgComponent } from './PetSprites'
 
 // ============================================================
 //  多宠物精灵图映射表（2026-04-15 改造：支持18只宠物动态加载）
@@ -543,7 +544,11 @@ export default function Pet({
       >
         {renderBubble()}
         <div onClick={handleClick} style={{ display: 'inline-block', position: 'relative' }}>
-          <img src={imgSrc} alt="pet" style={petStyle} draggable={false} onError={handleImgError} />
+          {getPetSvgComponent(type)
+            ? <PetSvgSprite poolId={type} level={level} emotion={emotionKey} size={size}
+                style={{ ...petStyle, objectFit: undefined }} />
+            : <img src={imgSrc} alt="pet" style={petStyle} draggable={false} onError={handleImgError} />
+          }
           {renderAccessories()}
           {renderZZZ()}
           {renderBlinkOverlay()}
@@ -703,7 +708,11 @@ export default function Pet({
           {stageLabel}
         </div>
 
-        <img src={imgSrc} alt="pet" style={petStyle} draggable={false} onError={handleImgError} />
+        {getPetSvgComponent(type)
+          ? <PetSvgSprite poolId={type} level={level} emotion={emotionKey} size={size}
+              style={{ ...petStyle, objectFit: undefined }} />
+          : <img src={imgSrc} alt="pet" style={petStyle} draggable={false} onError={handleImgError} />
+        }
         {renderAccessories()}
         {renderZZZ()}
         {renderBlinkOverlay()}
