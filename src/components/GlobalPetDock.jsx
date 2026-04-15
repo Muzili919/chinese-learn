@@ -13,14 +13,18 @@ import { isEggState } from '../utils/gamification'
  * - 点击互动：每次点击切换不同表情（循环6种）
  */
 
-// Dock点击互动表情序列（根据素材9动作匹配）
+// Dock点击互动表情序列（9个动作全覆盖）
 const DOCK_POSE_SEQUENCE = [
-  'sleeping',   // 💤 默认：睡觉
-  'happy',      // 😊 点击1次：开心（可爱）
-  'wave',       // 👋 点击2次+：打招呼
-  'excited',    // ✨ 点击3次+：兴奋
+  'sleeping',   // 💤 默认：睡觉（Dock常态化显示）
+  'happy',      // 😊 点击1次：开心（可爱表情）
+  'wave',       // 👋 点击2次：招手打招呼
+  'excited',    // ✨ 点击3次：兴奋星星眼
   'angry',      // 😠 点击4次+：生气
-  'sad_cry',    // 😭 点击5次+：哭泣（再点循环回sleeping）
+  'sad_cry',    // 😭 点击5次+：哭泣
+  'eating',     // 🍪 点击6次：吃东西
+  'reading',    // 📖 点击7次：读书
+  'normal',     // 😐 点击8次：正常待机
+  // 再点循环回 sleeping
 ]
 
 export default function GlobalPetDock({ gameState, onOpenPetPanel }) {
@@ -101,7 +105,7 @@ export default function GlobalPetDock({ gameState, onOpenPetPanel }) {
           <div className="text-[9px] text-center text-white/50 mt-1">点击孵化</div>
         </div>
       ) : (
-        <div onClick={handlePetTap} style={{ cursor: 'pointer' }}>
+        <div>
           <Pet
             type={currentPet?.poolId || 'pet_toothless'}
             experience={exp}
@@ -113,6 +117,7 @@ export default function GlobalPetDock({ gameState, onOpenPetPanel }) {
             equippedAccessories={currentPet.equippedAccessories}
             soundEnabled={gameState?.settings?.soundEnabled !== false}
             showStatsCompact={true}
+            onTap={handlePetTap}
           />
         </div>
       )}

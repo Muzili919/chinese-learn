@@ -733,6 +733,17 @@ export default function MV1Demo({ onBack, initialState, onStateChange }) {
   const [gachaResult, setGachaResult] = useState(null)  // 抽卡结果（供GachaAnimation用）
   const [showGacha, setShowGacha] = useState(false)     // 是否显示抽卡动画
 
+  // 宠物互动页面点击切换表情（9个动作循环）
+  const INTERACT_POSE_SEQUENCE = [
+    'reading', 'sleeping', 'happy', 'wave', 'excited',
+    'angry', 'sad_cry', 'eating', 'normal'
+  ]
+  const [interactTapCount, setInteractTapCount] = useState(0)
+  const interactPose = INTERACT_POSE_SEQUENCE[interactTapCount % INTERACT_POSE_SEQUENCE.length]
+  const handlePetInteractTap = useCallback(() => {
+    setInteractTapCount(c => c + 1)
+  }, [])
+
   const handleDrawCard = useCallback(() => {
     setState(s => {
       // 蛋态：使用免费券
@@ -929,12 +940,13 @@ export default function MV1Demo({ onBack, initialState, onStateChange }) {
                 <Pet
                   type={currentPet?.poolId || 'pet_toothless'} experience={petExp} level={petLevel} onGainExp={() => {}}
                   mode="full" size={180}
-                  pose="reading"
+                  pose={interactPose}
                   stats={currentPet?.stats}
                   equippedAccessories={currentPet?.equippedAccessories}
                   soundEnabled={state.settings?.soundEnabled !== false}
                   onInteract={handleInteract}
                   inventory={state.inventory}
+                  onTap={handlePetInteractTap}
                 />
               )}
             </div>

@@ -301,6 +301,7 @@ export default function Pet({
   onInteract = null,       // (actionType: 'feed'|'clean'|'rest'|'pet') => void
   inventory = null,        // { foods: {basic, advanced}, cleanItems, energyItems, giftItems }
   reactionPose = null,     // 外部控制的反应姿态（覆盖 internalPose）
+  onTap = null,             // 用户点击宠物时的回调（由父组件决定pose切换）
 }) {
   const [internalPose, setInternalPose] = useState('normal')
   const [mood, setMood] = useState(50)
@@ -497,15 +498,20 @@ export default function Pet({
   }, [inventory])
 
   // 点击 → 心形粒子 + 开心姿态
-  const handleClick = (e) => {
-    const rect = e.currentTarget.getBoundingClientRect()
-    const x = e.clientX - rect.left - 16
-    const y = e.clientY - rect.top - 16
-    const id = Date.now()
-    setHearts(h => [...h, { id, x, y }])
-    setTimeout(() => setHearts(h => h.filter(hh => hh.id !== id)), 1000)
-    triggerHappy()
-  }
+// ---- 点击处理（通知父组件，由父组件决定pose切换逻辑）----
+const handleClick = useCallback((e) => {
+  const rect = e.currentTarget.getBoundingClientRect()
+  const x = e.clientX - rect.left - 16
+  const y = e.clientY - rect.top - 16
+  const id = Date.now()
+  setHearts(h => [...h, { id, x, y }])
+  setTimeout(() => setHearts(h => h.filter(hh => hh.id !== id)), 1000)
+  // 播放音效和气泡
+  if (soundEnabled) playSound('tap')
+  triggerDialogue('tapped')
+  // 通知父组件：被点击了！由父组件(Dock/互动页)决定如何切换pose
+  if (onTap) onTap(e)
+}, [soundEnabled, triggerDialogue, onTap])
 
   // 喂养
   const onFeed = () => {
