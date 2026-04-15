@@ -421,13 +421,26 @@ export default function Pet({
   const baseImg = (hasPngSystem || (activePose !== 'normal' && emotionSprite))
     ? (emotionSprite || levelSprite)
     : levelSprite
+  // 有PNG系统的宠物 → 失败时用同宠物的其他表情fallback，不要显示错误的龙图
+  const hasOwnPng = PET_SPRITE_MAP[type]?.hasPngEmotions
+  const fallbackSprites = hasOwnPng ? getPetSprites(type)?.emotionSprites : null
+  const orderedFallbacks = fallbackSprites
+    ? [fallbackSprites.normal, fallbackSprites.happy, fallbackSprites.reading,
+       fallbackSprites.wave, fallbackSprites.excited, fallbackSprites.eating,
+       fallbackSprites.sleeping, fallbackSprites.sad_cry, fallbackSprites.angry]
+         .filter(Boolean)
+    : ALL_SPRITES
   const imgSrc = spriteErrorIdx > 0
-    ? ALL_SPRITES[spriteErrorIdx % ALL_SPRITES.length] || baseImg
+    ? (orderedFallbacks[spriteErrorIdx % orderedFallbacks.length] || baseImg)
     : baseImg
 
   /** 处理图片加载失败 → 自动切换到备用精灵图 */
   const handleImgError = () => {
-    console.warn('宠物精灵图加载失败:', imgSrc, '→ 尝试备用图')
+    console.error('🐱 宠物图加载失败:', {
+      type, emotionKey, level, imgSrc,
+      hasPngSystem: !!hasPngSystem,
+      spriteErrorIdx: spriteErrorIdx + 1
+    })
     setSpriteErrorIdx(i => i + 1)
   }
 

@@ -946,7 +946,7 @@ export default function MV1Demo({ onBack, initialState, onStateChange }) {
       </div>
 
       {/* 内容区 */}
-      <div style={{ flex: 1, padding: 16, overflowY: 'auto', paddingBottom: 28 }}>
+      <div style={{ flex: 1, padding: 16, overflowY: 'auto', paddingBottom: 28, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
 
         {activeTab === 'interact' && (
           <>
