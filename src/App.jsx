@@ -405,6 +405,11 @@ export default function App() {
   function handleOnboarding(newUser) {
     storage.setUser(newUser)
     setUser(newUser)
+    // 切换账号/新登录：重置宠物状态为初始（避免沿用上一用户的数据）
+    if (!isGodMode()) {
+      const initState = initGamificationState()
+      setGameState(initState)
+    }
     setPage('home')
     setActiveTab('home')
   }
@@ -463,6 +468,11 @@ export default function App() {
     setSessionResult(null)
     setQuizOptions(null)
     setActiveTab('home')
+    // 退出登录时重置宠物状态（防止下一用户继承）
+    if (!isGodMode()) {
+      const initState = initGamificationState()
+      setGameState(initState)
+    }
   }
 
   function handleTabChange(tab) {

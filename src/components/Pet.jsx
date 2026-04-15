@@ -102,17 +102,9 @@ const PET_SPRITE_MAP = (function() {
         10: '/pets/shiba/stage2/reading.png',     // Stage2 (Lv10-19): 赛博柴犬
         20: '/pets/shiba/stage3/reading.png',     // Stage3 (Lv20+): 终极义体
       },
-      emotionSprites: {
-        reading: '/pets/shiba/{stage}/reading.png',
-        sleeping: '/pets/shiba/{stage}/sleeping.png',
-        happy: '/pets/shiba/{stage}/happy.png',
-        sad_cry: '/pets/shiba/{stage}/sad_cry.png',
-        angry: '/pets/shiba/{stage}/angry.png',
-        eating: '/pets/shiba/{stage}/eating.png',
-        wave: '/pets/shiba/{stage}/wave.png',
-        excited: '/pets/shiba/{stage}/excited.png',
-        normal: '/pets/shiba/{stage}/normal.png',
-      },
+      // 紫电柴犬：emotionSprites 由 getEmotionSprite() 动态生成（含stage变量）
+      // 这里保留 stage1 作为 fallback 基准路径（getEmotionSprite 优先级更高）
+      emotionSprites: makeShibaStage('stage1'),
       hasPngEmotions: true,
       useLevelBasedEmotion: true,
     },
