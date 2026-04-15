@@ -60,28 +60,19 @@ const PET_SPRITE_MAP = (function() {
   }
 
   return {
-    // === N级 ===
-    pet_kitten: { levelSprites: dragonLevels, emotionSprites: makeKittenStage(''), hasPngEmotions: true, useLevelBasedEmotion: true },
-    pet_puppy:    makePet('puppy'),
-    pet_bunny:    makePet('bunny'),
-    pet_hamster:  makePet('hamster'),
-    pet_chick:    makePet('chick'),
-    // === R级 ===
-    pet_fox:      makePet('fox'),
-    pet_panda:    makePet('panda'),
-    pet_penguin:  makePet('penguin'),
-    pet_shiba:    makePet('shiba'),
-    pet_squirrel: makePet('squirrel'),
-    pet_duck:     makePet('duck'),
-    // === SR级 ===
-    pet_toothless: makePet(''),      // 空前缀=使用默认dragon图
-    pet_phoenix:  makePet('phoenix'),
-    pet_unicorn:  makePet('unicorn'),
-    pet_kirin:    makePet('kirin'),
-    pet_fairy:    makePet('fairy'),
-    // === SSR级 ===
-    pet_dragon:   makePet('dragon_ss'),
-    pet_star:     makePet('star'),
+    // === N级：小橘猫（3阶段AI精美PNG） ===
+    pet_kitten: {
+      levelSprites: {
+        1: '/pets/kitten/normal.png',         // Stage1 (Lv1-9): 幼年橘猫
+        10: '/pets/kitten/stage2/normal.png', // Stage2 (Lv10-19): 戴眼镜少年橘猫
+        20: '/pets/kitten/stage3/normal.png', // Stage3 (Lv20+): 金色光环完全体
+      },
+      emotionSprites: makeKittenStage(''),
+      hasPngEmotions: true,
+      useLevelBasedEmotion: true,
+    },
+    // === SR级：无牙仔（原有SVG） ===
+    pet_toothless: { levelSprites: dragonLevels, emotionSprites: baseEmotions },
   };
 })();
 
