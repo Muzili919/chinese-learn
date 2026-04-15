@@ -279,8 +279,8 @@ function resolveEmotion(pose, stats) {
   const energy = stats?.energy ?? 80
   const hunger = stats?.hunger ?? 70
 
-  // 状态极差：哭泣
-  if (hunger < 20 || energy < 15 || intimacy < 20) return 'sad_cry'
+  // ★ 任何一项低于10% → 强制哭泣（直到全部>10才恢复）
+  if (hunger < 10 || energy < 10 || intimacy < 10) return 'sad_cry'
   // 状态较差：生气
   if (hunger < 35 || energy < 25 || intimacy < 35) return 'angry'
   // 状态一般：正常

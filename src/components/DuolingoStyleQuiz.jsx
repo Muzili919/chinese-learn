@@ -1377,15 +1377,11 @@ export default function DuolingoStyleQuiz({ question, onAnswerSubmit, showVarian
       {isFill && fillType === 'multi_sub'  && <PlainMultiSubQuestion  question={question} onDone={handleDone} />}
       {isFill && fillType === 'plain'      && <FillQuestion           question={question} onDone={handleDone} />}
 
-      {/* 兜底：未知题型不显示空白，给出提示 */}
+      {/* 兜底：未知题型 → 用最通用的填空组件兜底，而不是显示"暂不支持" */}
       {!((question.type === 'single_choice' || question.type === 'multiple_choice') ||
          question.type === 'multi_meaning' || question.type === 'matching' ||
          (isFill && ['judgment','typo','order','wordbank','matching_fill','multi_sub','plain'].includes(fillType))) && (
-        <div className="bg-yellow-50 border-2 border-dashed border-yellow-300 rounded-3xl px-6 py-8 text-center">
-          <p className="text-lg font-bold text-yellow-700 mb-1">⚠️ 题目格式暂不支持</p>
-          <p className="text-sm text-gray-500">题型: {question.type || '(空)'} | 填空分类: {fillType || '-'}</p>
-          <p className="text-xs text-gray-400 mt-2">ID: {question.id}</p>
-        </div>
+        <FillQuestion question={question} onDone={handleDone} />
       )}
 
       {/* 底部反馈面板：选择题 & 普通填空 */}

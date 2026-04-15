@@ -312,7 +312,23 @@ export default function App() {
   const [activeTab, setActiveTab] = useState('home')
   const [sessionResult, setSessionResult] = useState(null)
   const [quizOptions, setQuizOptions] = useState(null)
-  const [gameState, setGameState] = useState(() => isGodMode() ? initGodModeState() : initGamificationState())
+  // 宠物状态：优先读本地缓存（防止刷新后变蛋），其次用上帝模式/默认
+  const [gameState, setGameState] = useState(() => {
+    // 上帝模式始终用满级数据
+    if (isGodMode()) return initGodModeState()
+    // 尝试从localStorage恢复上次的宠物状态
+    try {
+      const cached = localStorage.getItem('mv1_pet_state')
+      if (cached) {
+        const parsed = JSON.parse(cached)
+        // 只有确认有宠物数据才用缓存的
+        if (parsed?.currentPet?.poolId || (parsed?.ownedPets?.length > 0)) {
+          return parsed
+        }
+      }
+    } catch (e) { /* 缓存无效，用默认 */ }
+    return initGamificationState()
+  })
   const [overdueCount, setOverdueCount] = useState(0)
   const [englishQuizOptions, setEnglishQuizOptions] = useState({})
   const [grade, setGrade] = useState(() => storage.getGrade())

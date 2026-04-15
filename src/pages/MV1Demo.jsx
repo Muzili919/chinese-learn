@@ -632,6 +632,8 @@ export default function MV1Demo({ onBack, initialState, onStateChange }) {
     if (!initializedRef.current) return;
     const user = storage.getUser();
     if (user?.id) upsertMV1State(user.id, state);
+    // ★ 关键：同时持久化到localStorage，防止刷新变蛋
+    try { localStorage.setItem('mv1_pet_state', JSON.stringify(state)) } catch(e) {}
     if (onStateChange) onStateChange(state);
   }, [state, onStateChange]);
 
