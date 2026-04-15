@@ -16,6 +16,7 @@
  *   />
  */
 import { useState, useEffect, useCallback } from 'react'
+import PetSpriteAvatar from './PetSpriteAvatar'
 
 // ─── 稀有度配色方案 ──────────────────────────────────────
 const RARITY_CONFIG = {
@@ -300,11 +301,10 @@ export default function GachaAnimation({ pet, visible = false, onComplete }) {
                        }} />
                 </div>
                 
-                {/* 宠物emoji/图标 - 这里用emoji，实际可替换为图片 */}
-                <span className="text-8xl z-10 drop-shadow-lg"
-                      style={{ filter: isRainbow ? 'drop-shadow(0 0 20px rgba(255,255,255,0.5))' : undefined }}>
-                  {pet.emoji || '🐱'}
-                </span>
+                {/* 宠物PNG图片 - 用AI精美插图替代emoji */}
+                <div className="z-10 drop-shadow-lg" style={{ width: 140, height: 140, margin: '0 auto' }}>
+                  <PetSpriteAvatar poolId={pet.poolId} level={1} size={140} pose={2} borderRadius="16px" />
+                </div>
                 
                 {/* SSR彩虹边框 */}
                 {isRainbow && showPet && (

@@ -1,7 +1,8 @@
 import React, { useEffect, useState, useCallback } from 'react'
 import Pet from './Pet'
 import PetEgg from './PetEgg'
-import { isEggState, hasFreeCard } from '../utils/gamification'
+import PetSpriteAvatar from './PetSpriteAvatar'
+import { isEggState } from '../utils/gamification'
 
 /**
  * GlobalPetDock - 全局悬浮宠物窗
@@ -9,9 +10,22 @@ import { isEggState, hasFreeCard } from '../utils/gamification'
  * 显示在所有页面右下角的宠物小窗口
  * - dock模式：透明底、纯展示、3D悬浮
  * - 蛋态：显示小蛋 + 提示点击孵化
+ * - 点击互动：每次点击切换不同表情（循环6种）
  */
+
+// Dock点击互动表情序列（根据素材9动作匹配）
+const DOCK_POSE_SEQUENCE = [
+  'sleeping',   // 💤 默认：睡觉
+  'happy',      // 😊 点击1次：开心（可爱）
+  'wave',       // 👋 点击2次+：打招呼
+  'excited',    // ✨ 点击3次+：兴奋
+  'angry',      // 😠 点击4次+：生气
+  'sad_cry',    // 😭 点击5次+：哭泣（再点循环回sleeping）
+]
+
 export default function GlobalPetDock({ gameState, onOpenPetPanel }) {
   const [visible, setVisible] = useState(true)
+  const [tapCount, setTapCount] = useState(0)
   
   // 从游戏状态获取宠物数据
   const currentPet = gameState?.currentPet || {}
@@ -21,15 +35,18 @@ export default function GlobalPetDock({ gameState, onOpenPetPanel }) {
   // 是否蛋态
   const eggMode = isEggState(gameState)
 
-  // 自动隐藏逻辑（可选）
-  useEffect(() => {
-    // 如果在宠物互动页，可以隐藏dock
-    // 这里保持始终显示
-  }, [])
+  // 根据点击次数获取当前dock pose
+  const dockPose = DOCK_POSE_SEQUENCE[tapCount % DOCK_POSE_SEQUENCE.length]
 
   // 切换可见性
   const toggleVisible = useCallback(() => {
     setVisible(v => !v)
+  }, [])
+
+  // 点击宠物 → 切换表情
+  const handlePetTap = useCallback((e) => {
+    e?.stopPropagation()
+    setTapCount(prev => prev + 1)
   }, [])
 
   if (!visible) {
@@ -48,7 +65,9 @@ export default function GlobalPetDock({ gameState, onOpenPetPanel }) {
           zIndex: 9998,
           transition: 'transform 0.3s ease',
         }}
-      >🐉</button>
+      >
+        <PetSpriteAvatar poolId={currentPet?.poolId} level={level} size={26} pose={0} />
+      </button>
     )
   }
 
@@ -82,18 +101,20 @@ export default function GlobalPetDock({ gameState, onOpenPetPanel }) {
           <div className="text-[9px] text-center text-white/50 mt-1">点击孵化</div>
         </div>
       ) : (
-        <Pet
-          type={currentPet?.poolId || 'pet_toothless'}
-          experience={exp}
-          level={level}
-          mode="dock"
-          size={90}
-          pose="sleeping"
-          stats={currentPet.stats}
-          equippedAccessories={currentPet.equippedAccessories}
-          soundEnabled={gameState?.settings?.soundEnabled !== false}
-          showStatsCompact={true}
-        />
+        <div onClick={handlePetTap} style={{ cursor: 'pointer' }}>
+          <Pet
+            type={currentPet?.poolId || 'pet_toothless'}
+            experience={exp}
+            level={level}
+            mode="dock"
+            size={90}
+            pose={dockPose}
+            stats={currentPet.stats}
+            equippedAccessories={currentPet.equippedAccessories}
+            soundEnabled={gameState?.settings?.soundEnabled !== false}
+            showStatsCompact={true}
+          />
+        </div>
       )}
       
       {/* 最小化按钮 */}
@@ -112,6 +133,13 @@ export default function GlobalPetDock({ gameState, onOpenPetPanel }) {
           transition: 'background 0.2s',
         }}
       >−</button>
+
+      <style>{`
+        @keyframes dockEggFloat {
+          0%, 100% { transform: translateY(0); }
+          50% { transform: translateY(-8px); }
+        }
+      `}</style>
     </div>
   )
 }

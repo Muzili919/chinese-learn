@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import PetSpriteAvatar from './PetSpriteAvatar'
 
 /**
  * PetSwitchPanel - 我的宠物面板
@@ -32,8 +33,9 @@ export default function PetSwitchPanel({ state, spendableXP, onSwitchPet, onDraw
         textAlign: 'center',
         boxShadow: '0 4px 16px rgba(139,92,246,0.12)',
       }}>
-        <div style={{ fontSize: 56, marginBottom: 8 }}>{currentPoolInfo.emoji}</div>
-        <div style={{ fontSize: 18, fontWeight: 800, color: '#1f2937', marginBottom: 4 }}>
+        {/* 用PNG宠物图替代emoji */}
+        <PetSpriteAvatar poolId={currentPet.poolId} level={currentPet.level || 1} size={72} pose={1} />
+        <div style={{ fontSize: 18, fontWeight: 800, color: '#1f2937', marginBottom: 4, marginTop: 4 }}>
           {currentPoolInfo.name}
         </div>
         <div style={{ display: 'flex', justifyContent: 'center', gap: 8, marginBottom: 10 }}>
@@ -100,7 +102,9 @@ export default function PetSwitchPanel({ state, spendableXP, onSwitchPet, onDraw
                   display: 'flex', alignItems: 'center', justifyContent: 'center',
                   fontSize: 28,
                 }}>
-                  {owned ? pet.emoji : '❓'}
+                  {owned ? (
+                    <PetSpriteAvatar poolId={pet.poolId} level={(state.currentPet?.level || 1)} size={46} pose={1} />
+                  ) : '❓'}
                 </div>
                 <div style={{ flex: 1 }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>

@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import PetSpriteAvatar from './PetSpriteAvatar'
 
 /**
  * PetDrawPanel - 宠物抽卡面板
@@ -88,7 +89,7 @@ export default function PetDrawPanel({ spendableXP, onDrawCard, ownedPets = [], 
                   }}>✓</div>
                 )}
                 <div style={{ fontSize: 32, marginBottom: 4 }}>
-                  {owned ? pet.emoji : '❓'}
+                  {owned ? <PetSpriteAvatar poolId={pet.poolId} level={1} size={32} pose={2} /> : '❓'}
                 </div>
                 <div style={{ fontSize: 10, fontWeight: 600, color: owned ? '#374151' : '#9ca3af' }}>
                   {owned ? pet.name : '???'}
@@ -155,7 +156,7 @@ export default function PetDrawPanel({ spendableXP, onDrawCard, ownedPets = [], 
             }}>
               <p style={{ fontSize: 12, color: '#7c3aed', margin: '0 0 8px' }}>🎊 恭喜获得！</p>
               <div style={{ fontSize: 64, marginBottom: 8 }}>
-                {result?.emoji || '🐉'}
+                {result?.poolId ? <PetSpriteAvatar poolId={result.poolId} level={1} size={64} pose={2} /> : (result?.emoji || '🐉')}
               </div>
               <p style={{ fontSize: 18, fontWeight: 800, color: '#1f2937', margin: '0 0 4px' }}>
                 {result?.name || '无牙仔'}

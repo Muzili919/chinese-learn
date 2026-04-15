@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { getCurrentPet, getPetPool, feedPet, tapPet, resetPetMood } from '../utils/gamification';
+import PetSpriteAvatar from './PetSpriteAvatar';
 
 // Simple PetPanel to display and interact with the current pet
 // Props: state (gamification state), onFeed (optional custom feed handler)
@@ -47,10 +48,10 @@ export default function PetPanel({ state, onFeed, onPetTap, onSwitchPet }) {
       <div style={{ textAlign: 'center', position: 'relative', height: 120 }}>
         <div
           onClick={onPetClick}
-          style={{ fontSize: 64, cursor: 'pointer', display: 'inline-block' }}
+          style={{ cursor: 'pointer', display: 'inline-block' }}
           aria-label={poolInfo.name}
         >
-          {poolInfo.emoji}
+          <PetSpriteAvatar poolId={pet.poolId} level={pet.level || 1} size={64} pose={1} />
         </div>
         {heartVisible && (
           <span style={{ position: 'absolute', top: 8, left: '50%', transform: 'translateX(-50%)', fontSize: 32 }}>
@@ -81,8 +82,8 @@ export default function PetPanel({ state, onFeed, onPetTap, onSwitchPet }) {
           const owned = (state.ownedPets || []).includes(p.poolId)
           const active = p.poolId === state.currentPet?.poolId
           return (
-            <button key={p.poolId} onClick={() => onSwitchPet?.(p.poolId)} disabled={!owned} style={{ opacity: owned ? 1 : 0.4, borderRadius: 6, padding: 6 }}>
-              <span style={{ fontSize: 18 }}>{p.emoji}</span>
+            <button key={p.poolId} onClick={() => onSwitchPet?.(p.poolId)} disabled={!owned} style={{ opacity: owned ? 1 : 0.4, borderRadius: 6, padding: 6, border: 'none', background: 'none', cursor: owned ? 'pointer' : 'default' }}>
+              {owned ? <PetSpriteAvatar poolId={p.poolId} level={pet.level || 1} size={24} pose={1} /> : <span style={{ fontSize: 18 }}>❓</span>}
             </button>
           )
         })}

@@ -339,11 +339,21 @@ export default function App() {
     setActiveSubject(subjectId)
   }, [])
 
-  // 加载宠物游戏状态
+  // 加载宠物游戏状态（合并策略：保留更完整的数据）
   useEffect(() => {
     if (user?.id) {
       fetchMV1State(user.id).then((cloud) => {
-        if (cloud) setGameState(cloud)
+        if (cloud) {
+          setGameState(prev => {
+            // 如果本地有currentPet但云端没有（云端是旧数据），保留本地的
+            const localHasPet = prev?.currentPet?.poolId
+            const cloudHasPet = cloud?.currentPet?.poolId
+            if (localHasPet && !cloudHasPet) {
+              return { ...cloud, currentPet: prev.currentPet, ownedPets: prev.ownedPets }
+            }
+            return cloud
+          })
+        }
       })
       setOverdueCount(storage.getOverdueWrongCount(user.id))
     }
