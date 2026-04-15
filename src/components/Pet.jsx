@@ -43,6 +43,21 @@ function getKittenEmotion(emotionKey, level) {
   return sprites[emotionKey] || sprites.normal;
 }
 
+// ============================================================
+//  银月狐专用 PNG 表情映射（Stage1: 9张AI精美PNG）
+// ============================================================
+const FOX_PNG_EMOTIONS = {
+  reading:  '/pets/fox/stage1/reading.png',
+  sleeping: '/pets/fox/stage1/sleeping.png',
+  happy:    '/pets/fox/stage1/happy.png',
+  sad_cry:  '/pets/fox/stage1/sad_cry.png',
+  angry:    '/pets/fox/stage1/angry.png',
+  eating:   '/pets/fox/stage1/eating.png',
+  wave:     '/pets/fox/stage1/wave.png',
+  excited:  '/pets/fox/stage1/excited.png',
+  normal:   '/pets/fox/stage1/normal.png',
+};
+
 const PET_SPRITE_MAP = (function() {
   const baseEmotions = {
     normal: '/pets/emotion-normal.png', happy: '/pets/emotion-happy.png',
@@ -101,7 +116,26 @@ const PET_SPRITE_MAP = (function() {
       hasPngEmotions: true,
       useLevelBasedEmotion: true,
     },
-    // === SR级：无牙仔（原有SVG） ===
+    // === R级：银月狐（Stage1 PNG） ===
+    pet_fox: {
+      levelSprites: {
+        1: '/pets/fox/stage1/reading.png',   // Stage1 (Lv1-9): 三尾小狐狸
+        10: '/pets/fox/stage1/reading.png',  // 暂用Stage1
+        20: '/pets/fox/stage1/reading.png',  // 暂用Stage1
+      },
+      emotionSprites: {
+        reading: '/pets/fox/stage1/reading.png',
+        sleeping: '/pets/fox/stage1/sleeping.png',
+        happy: '/pets/fox/stage1/happy.png',
+        sad_cry: '/pets/fox/stage1/sad_cry.png',
+        angry: '/pets/fox/stage1/angry.png',
+        eating: '/pets/fox/stage1/eating.png',
+        wave: '/pets/fox/stage1/wave.png',
+        excited: '/pets/fox/stage1/excited.png',
+        normal: '/pets/fox/stage1/normal.png',
+      },
+      hasPngEmotions: true,  // 暂不需要useLevelBasedEmotion(只有Stage1)
+    },
     pet_toothless: { levelSprites: dragonLevels, emotionSprites: baseEmotions },
   };
 })();
