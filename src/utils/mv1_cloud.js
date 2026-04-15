@@ -42,7 +42,10 @@ export async function upsertMV1State(userId, state) {
   const client = getClient()
   if (!client) return
   try {
-    await client.from('mv1_state').upsert({ user_id: userId, state }).eq('user_id', userId)
+    await client.from('mv1_state').upsert(
+      { user_id: userId, state },
+      { onConflict: 'user_id' }
+    )
   } catch (e) {
     console.error('MV1 upsert error', e)
   }

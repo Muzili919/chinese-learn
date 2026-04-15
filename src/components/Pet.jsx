@@ -110,6 +110,70 @@ function getEmotionSprite(emotionKey, type, level = 1) {
 /** 所有可用的默认精灵图（用于错误降级，取自默认宠物） */
 const ALL_SPRITES = Object.values(PET_SPRITE_MAP.pet_toothless.levelSprites)
 
+// ============================================================
+//  真实精灵表系统（小橘猫 + 无牙仔）
+//  CSS background-position 从 3×3 网格裁剪单格
+// ============================================================
+
+/** 获取精灵表图片路径 */
+function getSpriteSheetSrc(type, level) {
+  if (type === 'pet_kitten') {
+    if (level < 10) return '/pets/kitten/sheet_s1.png'
+    if (level < 20) return '/pets/kitten/sheet_s2.png'
+    return '/pets/kitten/sheet_s3.png'
+  }
+  if (type === 'pet_toothless') return '/pets/toothless/sheet_all.png'
+  return null
+}
+
+/**
+ * 情绪 → 网格坐标 [row, col]（3×3 精灵表）
+ *
+ * 小橘猫：每个阶段独立的 3×3 表，排列推测如下（可按实际图片调整）：
+ *   (0,0)=reading  (0,1)=sleeping  (0,2)=happy
+ *   (1,0)=sad_cry  (1,1)=angry     (1,2)=eating
+ *   (2,0)=wave     (2,1)=excited   (2,2)=normal
+ *
+ * 无牙仔：sheet_all.png 行=阶段(0/1/2), 列=情绪极性(0=中性/1=正向/2=负向)
+ */
+function getSpriteCell(type, level, emotionKey) {
+  if (type === 'pet_kitten') {
+    const map = {
+      reading: [0, 0], sleeping: [0, 1], happy:   [0, 2],
+      sad_cry: [1, 0], angry:    [1, 1], eating:  [1, 2],
+      wave:    [2, 0], excited:  [2, 1], normal:  [2, 2],
+    }
+    return map[emotionKey] || [2, 2]
+  }
+  if (type === 'pet_toothless') {
+    const stageRow = level < 10 ? 0 : level < 20 ? 1 : 2
+    const posEmo = ['happy', 'excited', 'cheer', 'laugh', 'bliss']
+    const negEmo = ['sad_cry', 'sad1', 'sad2', 'sad3', 'angry']
+    const col = posEmo.includes(emotionKey) ? 1 : negEmo.includes(emotionKey) ? 2 : 0
+    return [stageRow, col]
+  }
+  return [0, 0]
+}
+
+/** 渲染真实精灵表格子（替代 <img> 或 SVG） */
+function renderSpriteCell(type, level, emotionKey, size, style) {
+  const src = getSpriteSheetSrc(type, level)
+  if (!src) return null
+  const [row, col] = getSpriteCell(type, level, emotionKey)
+  return (
+    <div style={{
+      width: size,
+      height: size,
+      backgroundImage: `url(${src})`,
+      backgroundSize: '300% 300%',
+      backgroundPosition: `${col * 50}% ${row * 50}%`,
+      backgroundRepeat: 'no-repeat',
+      flexShrink: 0,
+      ...style,
+    }} />
+  )
+}
+
 /**
  * 根据当前pose和状态计算情绪key
  * 
@@ -589,10 +653,12 @@ export default function Pet({
       >
         {renderBubble()}
         <div onClick={handleClick} style={{ display: 'inline-block', position: 'relative' }}>
-          {getPetSvgComponent(type)
-            ? <PetSvgSprite poolId={type} level={level} emotion={emotionKey} size={size}
-                style={{ ...petStyle, objectFit: undefined }} />
-            : <img src={imgSrc} alt="pet" style={petStyle} draggable={false} onError={handleImgError} />
+          {getSpriteSheetSrc(type, level)
+            ? renderSpriteCell(type, level, emotionKey, size, { ...petStyle, objectFit: undefined })
+            : getPetSvgComponent(type)
+              ? <PetSvgSprite poolId={type} level={level} emotion={emotionKey} size={size}
+                  style={{ ...petStyle, objectFit: undefined }} />
+              : <img src={imgSrc} alt="pet" style={petStyle} draggable={false} onError={handleImgError} />
           }
           {renderAccessories()}
           {renderZZZ()}
@@ -753,10 +819,12 @@ export default function Pet({
           {stageLabel}
         </div>
 
-        {getPetSvgComponent(type)
-          ? <PetSvgSprite poolId={type} level={level} emotion={emotionKey} size={size}
-              style={{ ...petStyle, objectFit: undefined }} />
-          : <img src={imgSrc} alt="pet" style={petStyle} draggable={false} onError={handleImgError} />
+        {getSpriteSheetSrc(type, level)
+          ? renderSpriteCell(type, level, emotionKey, size, { ...petStyle, objectFit: undefined })
+          : getPetSvgComponent(type)
+            ? <PetSvgSprite poolId={type} level={level} emotion={emotionKey} size={size}
+                style={{ ...petStyle, objectFit: undefined }} />
+            : <img src={imgSrc} alt="pet" style={petStyle} draggable={false} onError={handleImgError} />
         }
         {renderAccessories()}
         {renderZZZ()}

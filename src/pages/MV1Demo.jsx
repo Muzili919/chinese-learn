@@ -554,12 +554,12 @@ export default function MV1Demo({ onBack, initialState, onStateChange }) {
         ...(cloud || {}),
         exp: storageXP,
         petExpConsumed: cloud?.petExpConsumed || 0,
-        currentPet: {
-          ...base.currentPet,
-          ...(cloud?.currentPet || {}),
-          stats: cloud?.currentPet?.stats || base.currentPet.stats,
-          equippedAccessories: cloud?.currentPet?.equippedAccessories || {},
-        },
+        currentPet: cloud?.currentPet ? {
+          ...(base.currentPet || {}),
+          ...cloud.currentPet,
+          stats: cloud.currentPet.stats || {},
+          equippedAccessories: cloud.currentPet.equippedAccessories || {},
+        } : (base.currentPet || null),
         inventory: { ...base.inventory, ...(cloud?.inventory || {}) },
         dailyTasks,
         dailyLastResetDate: today,
