@@ -213,9 +213,10 @@ function FriendsPanel({ state, userId, onStateChange }) {
       setFriends(newFriends);
       setAddInput('');
       
-      // 存储到云端
+      // 存储到云端，同时更新父组件 state（防止下次自动保存覆盖好友列表）
       const fullState = { ...state, friends: newFriends };
       await upsertMV1State(userId, fullState);
+      if (onStateChange) onStateChange(fullState);
       
       // 更新预览（优先用服务端API绕过RLS）
       let preview = null;
@@ -294,6 +295,7 @@ function FriendsPanel({ state, userId, onStateChange }) {
     });
     const fullState = { ...state, friends: newFriends };
     await upsertMV1State(userId, fullState);
+    if (onStateChange) onStateChange(fullState);
   };
 
   return (
@@ -931,7 +933,7 @@ export default function MV1Demo({ onBack, initialState, onStateChange }) {
         )}
 
         {activeTab === 'friends' && (
-          <FriendsPanel state={state} userId={userId} />
+          <FriendsPanel state={state} userId={userId} onStateChange={setState} />
         )}
 
         {activeTab === 'my' && (
