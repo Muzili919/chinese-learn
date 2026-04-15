@@ -525,8 +525,9 @@ export default function MV1Demo({ onBack, initialState, onStateChange }) {
     if (initialState?.currentPet?.poolId || initialState?.ownedPets?.length > 0) {
       return initialState;
     }
-    // 否则用默认（可能是蛋态）
-    return initialState || initGamificationState();
+    // null表示"正在切换用户/首次登录"，让useEffect去拉云端数据
+    // 不再返回空蛋态initGamificationState()！防止自动抽卡覆盖云端
+    return null;
   });
   const [activeTab, setActiveTab] = useState('interact');
   const [levelUpAnim, setLevelUpAnim] = useState(false);
@@ -535,9 +536,8 @@ export default function MV1Demo({ onBack, initialState, onStateChange }) {
   // 防止初始化时的持久化 effect 用空状态覆盖云端好友数据
   const initializedRef = React.useRef(false);
 
-  // ★ 用 initialState.currentPet.poolId 作为用户变化信号（切换账号时 gameState 变化触发重渲染）
-  // 不再用空依赖的 useMemo（那会导致切换账号后 userId 不更新）
-  const currentUserId = initialState?.currentPet ? 'has_pet' : 'no_pet'
+  // ★ 用真实 user.id 作为用户变化信号（切换账号时重新拉取云端）
+  const currentUserId = storage.getUser()?.id || null
 
   // 初始化：云端加载 + 同步 storage XP + 同步今日任务
   // 依赖 currentUserId：当 App.jsx 切换账号导致 gameState 变化时重新拉取云端数据
@@ -790,7 +790,9 @@ export default function MV1Demo({ onBack, initialState, onStateChange }) {
   }, [])
 
   const handleDrawCard = useCallback(() => {
+    // state为null时（正在加载云端数据），不允许操作
     setState(s => {
+      if (!s) return s;
       // 蛋态：使用免费券
       if (isEggState(s)) {
         const { state: newS, pet } = drawCard(s);
@@ -847,16 +849,16 @@ export default function MV1Demo({ onBack, initialState, onStateChange }) {
     });
   }, []);
 
-  // 派生数据
-  const currentPet = state.currentPet;
+  // 派生数据（state为null时返回安全默认值，防止渲染崩溃）
+  const currentPet = state?.currentPet;
   const petLevel = currentPet?.level || 1;
   const petThreshold = petLevel * 100;
 
-  const totalXP = storage.getXP(storage.getUser()?.id || '') || state.exp || 0;
+  const totalXP = storage.getXP(storage.getUser()?.id || '') || state?.exp || 0;
   const lp = calcLevelProgress(totalXP);
   const spendableXP = petExp; // 🔧 商店用宠物可支配经验（不是人物等级经验）
 
-  const petExpConsumed = state.petExpConsumed || 0;
+  const petExpConsumed = state?.petExpConsumed || 0;
   const petExp = Math.max(0, totalXP - petExpConsumed);
   const petExpPct = Math.min(100, (petExp / petThreshold) * 100);
   const canLevelUpPet = petExp >= petThreshold;
@@ -907,7 +909,7 @@ export default function MV1Demo({ onBack, initialState, onStateChange }) {
           </p>
         </div>
         {/* 未读鼓励角标 */}
-        {activeTab !== 'friends' && (state.pendingEncouragements || []).some(e => !e.read) && (
+        {activeTab !== 'friends' && (state?.pendingEncouragements || []).some(e => !e.read) && (
           <div
             onClick={() => setActiveTab('friends')}
             style={{
@@ -923,12 +925,12 @@ export default function MV1Demo({ onBack, initialState, onStateChange }) {
               background: '#ef4444', color: 'white', fontSize: 8,
               display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 700,
             }}>
-              {(state.pendingEncouragements || []).filter(e => !e.read).length}
+              {(state?.pendingEncouragements || []).filter(e => !e.read).length}
             </span>
           </div>
         )}
         {/* 玩家等级 */}
-        {!activeTab || activeTab !== 'friends' || !(state.pendingEncouragements || []).some(e => !e.read) ? (
+        {!activeTab || activeTab !== 'friends' || !(state?.pendingEncouragements || []).some(e => !e.read) ? (
           <div style={{
             marginLeft: 'auto', display: 'flex', alignItems: 'center', gap: 6,
             padding: '4px 10px', background: 'linear-gradient(135deg,#f3e8ff,#e0e7ff)',
@@ -958,7 +960,7 @@ export default function MV1Demo({ onBack, initialState, onStateChange }) {
             position: 'relative',
           }}>
             {tab.label}
-            {tab.key === 'friends' && (state.pendingEncouragements || []).some(e => !e.read) && (
+            {tab.key === 'friends' && (state?.pendingEncouragements || []).some(e => !e.read) && (
               <span style={{
                 position: 'absolute', top: 2, right: '20%',
                 width: 8, height: 8, borderRadius: 50, background: '#ef4444',
@@ -975,7 +977,8 @@ export default function MV1Demo({ onBack, initialState, onStateChange }) {
           <>
             {/* 云端数据未加载完成时显示加载中（防止蛋态闪烁） */}
             {(() => {
-              if (!isInitialized) return (
+              // 切换账号/首次登录时state=null，显示加载中而非蛋态（防止自动抽卡覆盖云端数据）
+              if (!state || !isInitialized) return (
                 <div style={{
                   display: 'flex', flexDirection: 'column', alignItems: 'center',
                   justifyContent: 'center', padding: 40, gap: 12

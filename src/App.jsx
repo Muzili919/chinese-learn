@@ -405,8 +405,8 @@ export default function App() {
   function handleOnboarding(newUser) {
     storage.setUser(newUser)
     setUser(newUser)
-    // 不再重置gameState！MV1Demo内部会用fetchMV1State(user.id)自动拉取该用户的云端宠物数据
-    // 之前重置会导致：空state传入→蛋态→自动抽卡→覆盖云端数据
+    // 切换账号时设为null，MV1Demo会先显示"加载中"再拉取云端数据（防止蛋态→自动抽卡覆盖云端）
+    setGameState(null)
     setPage('home')
     setActiveTab('home')
   }
@@ -465,11 +465,8 @@ export default function App() {
     setSessionResult(null)
     setQuizOptions(null)
     setActiveTab('home')
-    // 退出登录时重置宠物状态（防止下一用户继承）
-    if (!isGodMode()) {
-      const initState = initGamificationState()
-      setGameState(initState)
-    }
+    // 清空宠物状态，防止下一个登录用户看到上一个用户的宠物
+    setGameState(null)
   }
 
   function handleTabChange(tab) {
@@ -614,6 +611,7 @@ export default function App() {
       }
       if (activeTab === 'pet') return (
         <MV1Demo
+          key={user?.id || 'no-user'}
           onBack={() => setActiveTab('home')}
           initialState={gameState}
           onStateChange={setGameState}
