@@ -6,7 +6,7 @@ const clamp = (n, min, max) => Math.max(min, Math.min(max, n));
 const pick = (arr) => arr[Math.floor(Math.random() * arr.length)];
 
 // ---- 宠物池（11只）----
-const PET_POOL = [
+export const PET_POOL = [
   // === N级 普通 ===
   {
     poolId: 'pet_kitten', name: '小黄猫', emoji: '🐱', rarity: 'N', personality: 'lazy',

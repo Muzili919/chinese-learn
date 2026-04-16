@@ -27,14 +27,20 @@
 
 # 🐱 宠物系统完整架构文档
 
-## 当前宠物池（4只）
+## 当前宠物池（11只）
 
 | poolId | 中文名 | 稀有度 | spritePrefix | 阶段 | 特点 |
 |--------|--------|--------|-------------|------|------|
 | pet_kitten | 小橘猫 | N | kitten | 幼年→戴眼镜→魔法阵光环 | 默认新手宠物 |
-| pet_shiba | 紫电柴犬 | N | shiba | 赛博机械幼崽→装甲→终极义体 | 机械风 |
-| pet_toothless | 无牙仔 | SR | toothless | 黑龙→成长→完全体 | 高稀有度，保底必出 |
+| pet_shiba | 紫电柴犬 | N | shiba | 赛博机械幼崽→装甲→终极义体 | 2026-04-16升级PNG |
+| pet_hamster | 小仓鼠 | N | hamster | 三阶段 | 呆萌吃货 |
+| pet_corgi | 小柯基 | N | corgi | 三阶段 | 活力粘人 |
 | pet_fox | 银月狐 | R | fox | 白狐幼崽→月纹灵狐→蓝银九尾天狐 | 3阶段PNG(已升级) |
+| pet_butterfly | 冰晶灵蝶 | R | butterfly | 三阶段 | 神秘优雅高冷 |
+| pet_mantis | 战镰螳螂 | R | mantis | 三阶段 | 冷酷凶悍战斗狂 |
+| pet_squirrel | 机械松鼠 | R | squirrel | 三阶段 | 活泼机敏科技萌 |
+| pet_kungfu | 功夫滚滚 | R | kungfu | 三阶段 | 沉稳睿智武学宗师 |
+| pet_toothless | 无牙仔 | SR | toothless | 黑龙→成长→完全体 | 高稀有度，保底必出 |
 
 ### 宠物图片规格
 - 存放路径: `public/pets/{spritePrefix}/{stage1,stage2,stage3}/`

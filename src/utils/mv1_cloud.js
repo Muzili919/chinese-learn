@@ -1,5 +1,6 @@
 // Cloud-based MV1 persistence using Supabase (client-side)
 import { createClient } from '@supabase/supabase-js'
+import { PET_POOL } from './gamification'
 
 let supabase = null
 
@@ -52,7 +53,7 @@ export async function upsertMV1State(userId, state) {
   // 同步宠物预览到 users 表（无 RLS 限制，好友列表 + 排行榜共用）
   try {
     const pet = state.currentPet || {}
-    const poolItem = (state.petPool || []).find(p => p.poolId === pet.poolId) || {}
+    const poolItem = PET_POOL.find(p => p.poolId === pet.poolId) || {}
     const preview = {
       petPoolId: pet.poolId || null,
       petName: poolItem.name || '神秘宠物',
@@ -104,7 +105,7 @@ export async function fetchUserPetPreview(userId) {
     if (error || !data?.state) return null
     const s = data.state
     const pet = s.currentPet || {}
-    const poolItem = (s.petPool || []).find(p => p.poolId === pet.poolId) || { name: '神秘宠物', emoji: '🥚', rarity: 'N' }
+    const poolItem = PET_POOL.find(p => p.poolId === pet.poolId) || { name: '神秘宠物', emoji: '🥚', rarity: 'N' }
     return {
       userId,
       petPoolId: pet.poolId || null,

@@ -725,8 +725,13 @@ export default function MV1Demo({ onBack, initialState, onStateChange }) {
   }, []);
 
   const handleUseItem = useCallback((itemId) => {
+    // 抽卡券：消耗背包中的卡券，直接触发抽卡
+    if (itemId === 'card_draw') {
+      handleShopAction('card_draw');
+      return;
+    }
     setState(s => useItemOnPet(s, itemId));
-  }, []);
+  }, [handleShopAction]);
 
   // 互动
   const handleInteract = useCallback((actionType) => {

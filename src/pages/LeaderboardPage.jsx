@@ -2,6 +2,7 @@ import React, { useState, useEffect, useMemo, useCallback } from 'react'
 import { fetchAllPreviews, fetchUserPetPreview, upsertMV1State, sendEncouragement } from '../utils/mv1_cloud'
 import { storage } from '../utils/storage'
 import { supabase as supabaseClient } from '../utils/sync'
+import { PET_POOL } from '../utils/gamification'
 import PetSpriteAvatar from '../components/PetSpriteAvatar'
 
 /**
@@ -47,8 +48,7 @@ export default function LeaderboardPage({ user, gameState, onStateChange }) {
       // 插入/覆盖自己的数据（用本地最新数据）
       if (gameState && userId) {
         const pet = gameState.currentPet
-        const petPool = gameState.petPool || []
-        const poolInfo = petPool.find(p => p.poolId === pet?.poolId) || {}
+        const poolInfo = PET_POOL.find(p => p.poolId === pet?.poolId) || {}
         const myPreview = {
           userId,
           playerName: user?.name || '我',
