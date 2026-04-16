@@ -167,11 +167,19 @@ export default function WordCannonGame({ state, onGameStateUpdate, grade }) {
     const gs = state?.gameState;
     const today = new Date().toDateString();
     const savedDate = gs?._wordCannonDate;
-    let attempts = gs?.dailyAttempts ?? maxDailyAttempts;
 
-    if (savedDate !== today) {
+    // ★ 修复（防止无限次）：
+    //   1. 默认给0（state未加载时不能玩）
+    //   2. 只有"有保存日期且不是今天"才重置满额（跨天逻辑）
+    //   3. 有保存的dailyAttempts就用它（同一天内多次打开保持扣减状态）
+    let attempts = gs?.dailyAttempts ?? 0;
+
+    if (savedDate && savedDate !== today) {
+      // 新的一天（之前玩过，但日期变了）→ 满额重置
       attempts = maxDailyAttempts;
     }
+    // 如果没有保存日期且没有dailyAttempts，说明从未玩过或数据未加载
+    // 保持0即可，等持久化useEffect写入初始值后再由用户触发
 
     setDailyAttempts(attempts);
     setHighScore(gs?.wordCannonHighScore || 0);
@@ -784,6 +792,11 @@ export default function WordCannonGame({ state, onGameStateUpdate, grade }) {
                 {hasSlowSkill && '⏱️减速 '}
                 {hasShieldSkill && '🛡️护盾 '}
                 {hasClearAllSkill && '💥清屏'}
+              </div>
+            )}
+            {!hasAnySkill && (
+              <div style={{ fontSize: 10, color: '#475569', marginTop: 4, background: 'rgba(255,255,255,0.05)', padding: '3px 8px', borderRadius: 8 }}>
+                🎁 R级以上宠物解锁技能
               </div>
             )}
           </div>

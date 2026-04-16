@@ -540,6 +540,7 @@ export default function App() {
         user={user}
         onStartQuiz={startQuiz}
         onBack={() => { setPage('home'); setActiveSubject('politics') }}
+        onWrongAnswers={() => { setActiveSubject('politics'); setActiveTab('wrong') }}
       />
     )
     if (page === 'politicsQuiz') return (
@@ -626,6 +627,7 @@ export default function App() {
                 <PoliticsHomePage
                   user={user}
                   onStartQuiz={startQuiz}
+                  onWrongAnswers={() => setActiveTab('wrong')}
                 />
               )}
             </div>

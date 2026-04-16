@@ -18,7 +18,7 @@ const WEAK_TAG_MAP = {
   '实践探究题': 'pol_explore',
 }
 
-export default function PoliticsHomePage({ user, onStartQuiz, onBack }) {
+export default function PoliticsHomePage({ user, onStartQuiz, onBack, onWrongAnswers }) {
   const xp = storage.getXP(user.id)
   const level = calcLevel(xp)
   const levelProgress = calcLevelProgress(xp)
@@ -84,7 +84,15 @@ export default function PoliticsHomePage({ user, onStartQuiz, onBack }) {
       <div className="bg-white shadow-sm" style={{ paddingTop: 'env(safe-area-inset-top, 36px)' }}>
         <div className="px-4 pt-3 pb-3 flex items-center gap-3">
           <button onClick={onBack} className="w-9 h-9 flex items-center justify-center bg-gray-100 rounded-xl text-lg font-bold text-gray-500 active:bg-gray-200 transition-colors">←</button>
-          <h1 className="text-xl font-bold text-gray-800">道德与法治 ⚖️</h1>
+          <h1 className="text-xl font-bold text-gray-800 flex-1">道德与法治 ⚖️</h1>
+          {onWrongAnswers && (
+            <button
+              onClick={onWrongAnswers}
+              className="px-3 py-1.5 bg-red-50 text-red-600 text-xs font-bold rounded-xl border border-red-200 active:bg-red-100 active:scale-95 transition-all"
+            >
+              📝 错题
+            </button>
+          )}
         </div>
       </div>
 
