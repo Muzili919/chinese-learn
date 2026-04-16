@@ -156,7 +156,10 @@ export async function pullFromCloud(userId) {
     .single()
   if (userData) {
     if (userData.xp != null) {
-      localStorage.setItem('cl_xp_' + userId, String(userData.xp))
+      // ★ 取本地和云端的最大值，防止同设备切换账号时用旧云端数据覆盖更新的本地 XP
+      const localXP = parseInt(localStorage.getItem('cl_xp_' + userId) || '0')
+      const mergedXP = Math.max(localXP, userData.xp)
+      localStorage.setItem('cl_xp_' + userId, String(mergedXP))
     }
     if (userData.streak_count != null) {
       localStorage.setItem('cl_streak_' + userId, JSON.stringify({

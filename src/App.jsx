@@ -318,17 +318,12 @@ export default function App() {
   const [gameState, setGameState] = useState(() => {
     // 上帝模式始终用满级数据
     if (isGodMode()) return initGodModeState()
-    // 尝试从 localStorage 恢复上次的宠物状态（key 含 userId，防止跨用户污染）
+    // 尝试从 localStorage 恢复上次的宠物状态（自动处理新旧 key 迁移）
     try {
       const currentUser = storage.getUser()
-      const petKey = currentUser?.id ? `mv1_pet_state_${currentUser.id}` : 'mv1_pet_state'
-      const cached = localStorage.getItem(petKey)
-      if (cached) {
-        const parsed = JSON.parse(cached)
-        // 只有确认有宠物数据才用缓存
-        if (parsed?.currentPet?.poolId || (parsed?.ownedPets?.length > 0)) {
-          return parsed
-        }
+      const parsed = storage.readPetState(currentUser?.id)
+      if (parsed?.currentPet?.poolId || parsed?.ownedPets?.length > 0) {
+        return parsed
       }
     } catch (e) { /* 缓存无效，用默认 */ }
     return initGamificationState()
@@ -427,15 +422,9 @@ export default function App() {
     // 新设备/首次登录：localStorage 没有该用户数据，设 null 让云端异步恢复
     let restoredPetState = null
     try {
-      const petKey = newUser.id ? `mv1_pet_state_${newUser.id}` : null
-      if (petKey) {
-        const cached = localStorage.getItem(petKey)
-        if (cached) {
-          const parsed = JSON.parse(cached)
-          if (parsed?.currentPet?.poolId || parsed?.ownedPets?.length > 0) {
-            restoredPetState = parsed
-          }
-        }
+      const parsed = storage.readPetState(newUser.id)
+      if (parsed?.currentPet?.poolId || parsed?.ownedPets?.length > 0) {
+        restoredPetState = parsed
       }
     } catch (_) {}
     setGameState(restoredPetState)

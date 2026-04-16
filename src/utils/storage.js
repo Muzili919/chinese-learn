@@ -147,6 +147,30 @@ export const storage = {
     localStorage.removeItem(P + 'user');
   },
 
+  // ★ 读取宠物状态（含旧 key 自动迁移）
+  // 旧 key: 'mv1_pet_state'（无 userId，多用户会互相污染）
+  // 新 key: 'mv1_pet_state_${userId}'（含 userId，安全隔离）
+  // 首次使用新版本时，自动把旧 key 数据迁移到新 key
+  readPetState: (userId) => {
+    try {
+      if (userId) {
+        const newKey = `mv1_pet_state_${userId}`;
+        const newVal = localStorage.getItem(newKey);
+        if (newVal) return JSON.parse(newVal);
+        // 新 key 没有，尝试旧 key（迁移场景）
+        const oldVal = localStorage.getItem('mv1_pet_state');
+        if (oldVal) {
+          const parsed = JSON.parse(oldVal);
+          // 迁移：把数据复制到新 key
+          localStorage.setItem(newKey, oldVal);
+          // 保留旧 key（不删，防止其他账号还在用）
+          return parsed;
+        }
+      }
+    } catch (_) {}
+    return null;
+  },
+
   // 错题集：最近一次答错的题目 card_id 集合
   getWrongCardIds: (userId) => {
     const records = storage.getRecords(userId);

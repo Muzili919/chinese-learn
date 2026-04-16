@@ -228,6 +228,8 @@ reading(答题默认) / sleeping(Dock默认) / happy / wave / excited / angry / 
 10. **resolveEmotion覆盖用户pose** → 四维状态判断在显式动作之前执行，导致点击切换的happy/excited等被覆盖为normal/sad_cry。必须让USER_CYCLING_POSES白名单直接透传
 11. **抽卡券商店买不了** → handleShopAction('card_draw')原来走"使用已有卡券"逻辑（检查cards>0），不是"购买新卡券"。购买=花500经验加1张到背包，使用=消耗1张触发drawCard，两条路径要分开
 12. **答题后宠物经验不动** → totalXP只在初始化读storage一次，后续storage.addXP不自动同步。需要定时刷新useEffect或用useMemo
+13. **useMemo依赖数组缓存导致经验值卡住** → 即使3秒interval更新了state.exp，totalXP的useMemo可能因React渲染优化跳过重算。最终方案：改用useRef+每渲染直接读storage
+14. **页面切换时经验不同步** → 需要监听visibilitychange事件，从答题页切回时立即刷新，不等定时器
 
 ---
 

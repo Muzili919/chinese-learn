@@ -1,4 +1,4 @@
-import React, { useMemo, useState, useEffect, useCallback } from 'react';
+import React, { useMemo, useState, useEffect, useCallback, useRef } from 'react';
 import Pet from '../components/Pet';
 import PetEgg from '../components/PetEgg';
 import GachaAnimation from '../components/GachaAnimation';
@@ -540,6 +540,8 @@ export default function MV1Demo({ onBack, initialState, onStateChange, grade }) 
   const [isInitialized, setIsInitialized] = useState(false);
   // 防止初始化时的持久化 effect 用空状态覆盖云端好友数据
   const initializedRef = React.useRef(false);
+  // 标记本次初始化是否成功从云端加载（false 时持久化 effect 不推送到 Supabase）
+  const cloudLoadedRef = React.useRef(false);
 
   // ★ 用真实 user.id 作为用户变化信号（切换账号时重新拉取云端）
   const currentUserId = storage.getUser()?.id || null
@@ -547,6 +549,8 @@ export default function MV1Demo({ onBack, initialState, onStateChange, grade }) 
   // 初始化：云端加载 + 同步 storage XP + 同步今日任务
   // 依赖 currentUserId：当 App.jsx 切换账号导致 gameState 变化时重新拉取云端数据
   useEffect(() => {
+    // 每次重新初始化时重置 cloudLoadedRef，防止上一次成功状态被沿用到新账号的错误推送
+    cloudLoadedRef.current = false;
     const user = storage.getUser();
     if (!user?.id) {
       // 没有登录用户（如god模式本地测试），直接用initialState标记初始化完成
@@ -611,12 +615,10 @@ export default function MV1Demo({ onBack, initialState, onStateChange, grade }) 
       })()
 
       // localStorage 是同步保存（始终最新），Supabase 是异步保存（可能滞后）
-      // ★ key 含 userId，防止跨账号/跨设备读到其他用户的数据
+      // ★ 使用 storage.readPetState 自动处理新旧 key 迁移
       let localSnapshot = null;
       try {
-        const petKey = currentUserId ? `mv1_pet_state_${currentUserId}` : 'mv1_pet_state';
-        const cached = localStorage.getItem(petKey);
-        if (cached) localSnapshot = JSON.parse(cached);
+        localSnapshot = storage.readPetState(currentUserId);
       } catch (_) {}
 
       const merged = {
@@ -645,11 +647,14 @@ export default function MV1Demo({ onBack, initialState, onStateChange, grade }) 
         weeklyResetDate: cloud?.weeklyResetDate || todayStr,
       };
       initializedRef.current = true;
+      cloudLoadedRef.current = true;  // 云端加载成功，允许持久化 effect 推送 Supabase
       setState(merged);
       setIsInitialized(true);  // 标记云端数据已加载完成
     }).catch((err) => {
       console.warn('[MV1] 云端加载失败，使用本地状态:', err);
       // 云端失败也要标记初始化完成，否则页面永远转圈
+      // ★ cloudLoadedRef 保持 false：catch 分支用的是 initialState 或空蛋态兜底，
+      //    不能推送到 Supabase，防止网络故障时覆盖云端真实数据
       initializedRef.current = true;
       if (initialState) setState(initialState);
       else setState(initGamificationState());  // 兜底：用默认初始化状态
@@ -672,9 +677,11 @@ export default function MV1Demo({ onBack, initialState, onStateChange, grade }) 
   useEffect(() => {
     if (!initializedRef.current) return;
     const user = storage.getUser();
-    // ★ 安全保护：state 为 null（云端加载失败且无本地缓存时的兜底蛋态）不推送到云端，
-    // 防止网络故障时用空状态覆盖云端已有的宠物数据
-    if (user?.id && state != null) upsertMV1State(user.id, state);
+    // ★ 安全保护双重检查：
+    //   1. state != null：防止 null 写入
+    //   2. cloudLoadedRef.current：只有云端数据成功加载后才允许推送 Supabase，
+    //      防止网络故障（catch 分支）时用兜底空蛋状态覆盖云端真实数据
+    if (user?.id && state != null && cloudLoadedRef.current) upsertMV1State(user.id, state);
     // ★ 关键：同时持久化到localStorage（key 含 userId，防止跨账号污染）
     try {
       const petKey = currentUserId ? `mv1_pet_state_${currentUserId}` : 'mv1_pet_state';
