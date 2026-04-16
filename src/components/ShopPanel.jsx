@@ -1,9 +1,6 @@
 import React, { useState } from 'react'
 import {
-  SHOP_ITEMS, ACCESSORY_SHOP,
-  buyItem, buyAccessory, useItemOnPet,
-  equipAccessory, unequipAccessory,
-  getEquippedAccessory
+  SHOP_ITEMS, GAME_SHOP_ITEMS, ROOM_THEMES,
 } from '../utils/gamification'
 
 /**
@@ -24,15 +21,13 @@ const RARITY_COLORS = {
 }
 
 export default function ShopPanel({ state, onBuy, onUseItem, spendableXP }) {
-  const [activeTab, setActiveTab] = useState('items') // items | accessories | equipped
+  const [activeTab, setActiveTab] = useState('items') // items | house | game_items | bag
   const [selectedItemId, setSelectedItemId] = useState(null)
   const [showBuyConfirm, setShowBuyConfirm] = useState(null)
 
   // 使用 spendableXP（当前等级内可消费经验）如果传入，否则回退到 state.exp
   const coins = spendableXP !== undefined ? spendableXP : (state?.exp || 0)
   const inventory = state?.inventory || {}
-  const ownedAccessories = inventory?.accessories || []
-  const equipped = state?.currentPet?.equippedAccessories || {}
 
   return (
     <div>
@@ -51,8 +46,8 @@ export default function ShopPanel({ state, onBuy, onUseItem, spendableXP }) {
       <div style={{ display: 'flex', gap: 6, marginBottom: 12 }}>
         {[
           { key: 'items', label: '🛒 道具店', icon: '🛒' },
-          { key: 'accessories', label: '👗 装扮店', icon: '👗' },
-          { key: 'equipped', label: '🎨 我的搭配', icon: '🎨' },
+          { key: 'house', label: '🏠 小屋装饰', icon: '🏠' },
+          { key: 'game_items', label: '⚡ 游戏道具', icon: '⚡' },
           { key: 'bag', label: '🎒 背包', icon: '🎒' },
         ].map(tab => (
           <button
@@ -147,212 +142,113 @@ export default function ShopPanel({ state, onBuy, onUseItem, spendableXP }) {
         </div>
       )}
 
-      {/* ====== 装扮店 ====== */}
-      {activeTab === 'accessories' && ACCESSORY_SHOP && (
+      {/* ====== 小屋装饰 ====== */}
+      {activeTab === 'house' && (
         <div>
-          {/* 槽位筛选 */}
-          <div style={{
-            display: 'flex', gap: 6, marginBottom: 10,
-            flexWrap: 'wrap',
-          }}>
-            {[
-              { slot: 'head', label: '🎩 头部' },
-              { slot: 'neck', label: '🧣 颈部' },
-              { slot: 'back', label: '🎒 背部' },
-            ].map(s => (
-              <button key={s.slot}
-                style={{
-                  padding: '5px 12px', borderRadius: 8, border: 'none',
-                  background: '#f3f4f6', color: '#374151',
-                  fontSize: 11, fontWeight: 500, cursor: 'pointer',
-                }}
-              >{s.label}</button>
-            ))}
-          </div>
-
-          {/* 配饰列表 */}
-          <div style={{
-            display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 8,
-          }}>
-            {ACCESSORY_SHOP.map(acc => {
-              const rarity = RARITY_COLORS[acc.rarity] || RARITY_COLORS['N']
-              const owned = ownedAccessories.includes(acc.id)
-              const equippedSlot = equipped[acc.slot] === acc.id
-              const canAfford = coins >= acc.price
-
-              return (
-                <div key={acc.id} style={{
-                  background: owned
-                    ? (equippedSlot ? '#d1fae5' : rarity.bg)
-                    : '#f9fafb',
-                  borderRadius: 12, padding: 10,
-                  border: equippedSlot
-                    ? '2px solid #34d399'
-                    : owned
-                      ? `2px dashed ${rarity.border}`
-                      : '1px solid #f3f4f6',
-                  position: 'relative',
-                  textAlign: 'center',
+          <h3 style={{ fontSize: 14, fontWeight: 700, color: '#4c1d95', marginBottom: 10 }}>🏠 选择小屋主题</h3>
+          {/* 当前主题预览 */}
+          {state?.roomTheme && (() => {
+            const theme = ROOM_THEMES.find(t => t.id === state.roomTheme);
+            if (!theme) return null;
+            return (
+              <div style={{
+                background: theme.bg, borderRadius: 12, padding: 20,
+                marginBottom: 12, minHeight: 100, position: 'relative',
+                display: 'flex', alignItems: 'flex-end', justifyContent: 'center',
+                overflow: 'hidden',
+              }}>
+                <div style={{
+                  position: 'absolute', top: 8, left: 10,
+                  background: 'rgba(255,255,255,0.15)', backdropFilter: 'blur(8px)',
+                  padding: '4px 10px', borderRadius: 20, fontSize: 11, color: 'white',
+                  fontWeight: 600,
                 }}>
-                  {/* 已装备标记 */}
-                  {equippedSlot && (
-                    <div style={{
-                      position: 'absolute', top: 4, right: 4,
-                      background: '#34d399', color: 'white',
-                      fontSize: 8, fontWeight: 700, padding: '1px 5px',
-                      borderRadius: 4,
-                    }}>穿戴中</div>
-                  )}
-
-                  {/* 配饰大图 */}
-                  <div style={{
-                    fontSize: 36, lineHeight: 1, marginBottom: 4,
-                  }}>{acc.emoji}</div>
-
-                  <div style={{
-                    fontSize: 10, fontWeight: 600, color: '#374151',
-                  }}>{acc.name}</div>
-
-                  <div style={{
-                    fontSize: 9, color: '#9ca3af', marginTop: 2,
-                    height: 22, overflow: 'hidden',
-                  }}>{acc.desc}</div>
-
-                  {owned ? (
-                    <button
-                      onClick={() => {
-                        if (equippedSlot) onBuy?.(`unequip_${acc.slot}`)
-                        else onBuy?.(`equip_${acc.id}`)
-                      }}
-                      style={{
-                        width: '100%', padding: '4px 0', borderRadius: 6,
-                        border: 'none',
-                        background: equippedSlot
-                          ? '#ef4444'
-                          : '#34d399',
-                        color: 'white', fontSize: 10, fontWeight: 600,
-                        cursor: 'pointer',
-                      }}
-                    >
-                      {equippedSlot ? '脱下' : '穿上'}
-                    </button>
-                  ) : (
-                    <button
-                      onClick={() => canAfford && onBuy?.(`buy_acc_${acc.id}`)}
-                      disabled={!canAfford}
-                      style={{
-                        width: '100%', padding: '4px 0', borderRadius: 6,
-                        border: 'none',
-                        background: canAfford ? rarity.bg : '#f3f4f6',
-                        color: canAfford ? rarity.text : '#9ca3af',
-                        fontSize: 10, fontWeight: 600,
-                        cursor: canAfford ? 'pointer' : 'not-allowed',
-                      }}
-                    >
-                      ⭐{acc.price}
-                    </button>
-                  )}
+                  当前：{theme.name}
                 </div>
+                {/* 地板 */}
+                <div style={{
+                  width: '100%', height: 30, background: theme.floor,
+                  borderTop: `2px solid ${theme.accentColor}`, opacity: 0.8,
+                }} />
+              </div>
+            );
+          })()}
+          
+          {/* 主题列表 */}
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 8 }}>
+            {ROOM_THEMES.map(theme => {
+              const owned = (state?.ownedRoomThemes || []).includes(theme.id);
+              const active = state?.roomTheme === theme.id;
+              return (
+                <button
+                  key={theme.id}
+                  onClick={() => onBuy(`room_theme_${theme.id}`)}
+                  disabled={active}
+                  style={{
+                    border: active ? `2px solid ${theme.accentColor}` : '1px solid #e5e7eb',
+                    borderRadius: 10, padding: 8, cursor: active ? 'default' : 'pointer',
+                    background: owned ? theme.bg : '#f9fafb',
+                    opacity: active ? 1 : owned ? 0.9 : 0.6,
+                    transition: 'all 0.2s',
+                  }}
+                >
+                  <div style={{ fontSize: 18, marginBottom: 2 }}>{theme.name.split(' ')[0]}</div>
+                  <div style={{ fontSize: 10, color: active ? theme.accentColor : '#6b7280', fontWeight: 600 }}>
+                    {active ? '✓ 使用中' : owned ? '已拥有' : `${theme.price} 经验`}
+                  </div>
+                  <div style={{ fontSize: 9, color: '#9caaf', marginTop: 2 }}>{theme.desc}</div>
+                </button>
               )
             })}
           </div>
         </div>
       )}
 
-      {/* ====== 我的搭配 ====== */}
-      {activeTab === 'equipped' && (
-        <div style={{ textAlign: 'center' }}>
-          {/* 宠物预览 + 配饰叠加展示 */}
-          <div style={{
-            position: 'relative', width: 180, height: 200,
-            margin: '0 auto 16px',
-          }}>
-            {/* 宠物底图 */}
-            <div style={{ fontSize: 140, position: 'absolute', bottom: 0, left: '50%', transform: 'translateX(-50%)' }}>🐉</div>
-            
-            {/* 各部位配饰 */}
-            {['head', 'neck', 'back'].map(slot => {
-              const accId = equipped[slot]
-              if (!accId) return null
-              const acc = ACCESSORY_SHOP.find(a => a.id === accId)
-              if (!acc) return null
-              
-              const positions = {
-                head: { top: '-2%', left: '50%', transform: 'translateX(-50%)', size: 42 },
-                neck: { top: '38%', left: '50%', transform: 'translateX(-50%)', size: 32 },
-                back: { top: '15%', left: '-5%', transform: '', size: 48 },
-              }
-              const pos = positions[slot]
-              
-              return (
-                <div key={slot} style={{
-                  position: 'absolute',
-                  ...pos,
-                  fontSize: pos.size,
-                  filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.2))',
-                }}>
-                  {acc.emoji}
-                </div>
-              )
-            })}
-          </div>
-
-          {/* 槽位列表 */}
+      {/* ====== 游戏道具 ====== */}
+      {activeTab === 'game_items' && (
+        <div>
+          <h3 style={{ fontSize: 14, fontWeight: 700, color: '#4c1d95', marginBottom: 10 }}>⚡ 游戏道具</h3>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-            {[
-              { slot: 'head', label: '🎩 头部', emptyTip: '还没有头饰哦~' },
-              { slot: 'neck', label: '🧣 颈部', emptyTip: '颈部空空的~' },
-              { slot: 'back', label: '🎒 背部', emptyTip: '背上还缺东西~' },
-            ].map(({ slot, label, emptyTip }) => {
-              const accId = equipped[slot]
-              const acc = accId ? ACCESSORY_SHOP.find(a => a.id === accId) : null
-
+            {GAME_SHOP_ITEMS.map(item => {
+              const owned = (state?.gameInventory?.[item.id] || 0);
+              const canBuy = coins >= item.price;
+              const isMaxed = item.maxStack && owned >= item.maxStack;
               return (
-                <div key={slot} style={{
+                <div key={item.id} style={{
                   display: 'flex', alignItems: 'center', gap: 10,
-                  background: 'white', borderRadius: 12, padding: '10px',
-                  border: '1px solid #f3f4f6',
+                  background: 'white', borderRadius: 10, padding: '10px 12px',
+                  boxShadow: '0 1px 3px rgba(0,0,0,0.06)',
                 }}>
-                  <span style={{ fontSize: 18 }}>{label.split(' ')[0]}</span>
-                  
-                  {acc ? (
-                    <>
-                      <div style={{
-                        flex: 1, display: 'flex', alignItems: 'center', gap: 8,
-                      }}>
-                        <span style={{ fontSize: 24 }}>{acc.emoji}</span>
-                        <div>
-                          <div style={{ fontSize: 12, fontWeight: 600, color: '#374151' }}>
-                            {acc.name}
-                          </div>
-                          <div style={{ fontSize: 10, color: '#9ca3af' }}>
-                            {RARITY_COLORS[acc.rarity]?.text && `${acc.rarity}`}
-                          </div>
-                        </div>
-                      </div>
+                  <span style={{ fontSize: 24 }}>{item.icon}</span>
+                  <div style={{ flex: 1 }}>
+                    <div style={{ fontSize: 13, fontWeight: 600, color: '#374151' }}>{item.name}</div>
+                    <div style={{ fontSize: 10, color: '#9caaf' }}>{item.desc}</div>
+                  </div>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+                    {owned > 0 && (
+                      <span style={{
+                        fontSize: 12, fontWeight: 700, color: '#059669',
+                        background: '#d1fae5', padding: '2px 8px', borderRadius: 10,
+                      }}>×{owned}</span>
+                    )}
+                    {!isMaxed && (
                       <button
-                        onClick={() => onBuy?.(`unequip_${slot}`)}
+                        onClick={() => onBuy(item.id)}
+                        disabled={!canBuy}
                         style={{
                           padding: '5px 12px', borderRadius: 8, border: 'none',
-                          background: '#fee2e2', color: '#dc2626',
-                          fontSize: 11, fontWeight: 600, cursor: 'pointer',
+                          background: canBuy ? 'linear-gradient(135deg,#6366f1,#8b5cf6)' : '#e5e7eb',
+                          color: canBuy ? 'white' : '#9caaf', fontSize: 11, fontWeight: 600,
+                          cursor: canBuy ? 'pointer' : 'not-allowed',
                         }}
-                      >脱下</button>
-                    </>
-                  ) : (
-                    <span style={{
-                      flex: 1, fontSize: 11, color: '#9ca3af',
-                      fontStyle: 'italic', textAlign: 'left',
-                    }}>{emptyTip}</span>
-                  )}
+                      >{item.price}💰</button>
+                    )}
+                    {isMaxed && <span style={{ fontSize: 10, color: '#f59e0b' }}>已满</span>}
+                  </div>
                 </div>
               )
             })}
           </div>
-          
-          <p style={{ margin: '12px 0 0', fontSize: 11, color: '#9ca3af' }}>
-            去装扮店购买更多配饰！
-          </p>
         </div>
       )}
 

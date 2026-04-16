@@ -26,6 +26,8 @@ import {
   SHOP_ITEMS,
   ACCESSORY_SHOP,
   DAILY_TASK_TEMPLATES,
+  ROOM_THEMES,
+  GAME_SHOP_ITEMS,
   initDailyTasks,
   isEggState,
   hasFreeCard,
@@ -38,6 +40,7 @@ import ShopPanel from '../components/ShopPanel';
 import DailyTasksPanel from '../components/DailyTasksPanel';
 import PetSwitchPanel from '../components/PetSwitchPanel';
 import PetSpriteAvatar from '../components/PetSpriteAvatar';
+import WordCannonGame from './WordCannonGame';
 
 // 从今日答题记录同步每日任务进度
 function syncTasksFromRecords(tasks, todayRecords) {
@@ -717,6 +720,43 @@ export default function MV1Demo({ onBack, initialState, onStateChange }) {
       if (actionId.startsWith('equip_')) return equipAccessory(s, actionId.replace('equip_', ''));
       if (actionId.startsWith('unequip_')) return unequipAccessory(s, actionId.replace('unequip_'));
 
+      // 小屋主题购买
+      if (actionId.startsWith('room_theme_')) {
+        const themeId = actionId.replace('room_theme_', '');
+        const theme = ROOM_THEMES.find(t => t.id === themeId);
+        if (!theme || theme.price > petSpendable) return s;
+        const ownedThemes = s.ownedRoomThemes || [];
+        if (ownedThemes.includes(themeId)) return s; // 已拥有
+        return {
+          ...s,
+          ownedRoomThemes: [...ownedThemes, themeId],
+          currentRoomTheme: themeId,
+          petExpConsumed: (s.petExpConsumed || consumed) + theme.price,
+        };
+      }
+
+      // 游戏道具购买（extra_play / time_freeze / shield_potion）
+      const gameItem = GAME_SHOP_ITEMS.find(i => i.id === actionId);
+      if (gameItem) {
+        if (gameItem.price > petSpendable) return s;
+        const inv = s.gameInventory || {};
+        if (actionId === 'extra_play') {
+          // extra_play：直接增加 dailyAttempts
+          return {
+            ...s,
+            gameInventory: inv,
+            dailyAttempts: (s.dailyAttempts || 0) + 1,
+            petExpConsumed: (s.petExpConsumed || consumed) + gameItem.price,
+          };
+        }
+        // 其他消耗品：增加背包计数
+        return {
+          ...s,
+          gameInventory: { ...inv, [actionId]: (inv[actionId] || 0) + 1 },
+          petExpConsumed: (s.petExpConsumed || consumed) + gameItem.price,
+        };
+      }
+
       const item = SHOP_ITEMS.find(i => i.id === actionId);
       if (!item || item.price > petSpendable) return s;
       const newS = buyItem(s, actionId);
@@ -786,16 +826,98 @@ export default function MV1Demo({ onBack, initialState, onStateChange }) {
   const [gachaResult, setGachaResult] = useState(null)  // 抽卡结果（供GachaAnimation用）
   const [showGacha, setShowGacha] = useState(false)     // 是否显示抽卡动画
 
-  // 宠物互动页面点击切换表情（9个动作循环）
-  const INTERACT_POSE_SEQUENCE = [
-    'reading', 'sleeping', 'happy', 'wave', 'excited',
-    'angry', 'sad_cry', 'eating', 'normal'
-  ]
-  const [interactTapCount, setInteractTapCount] = useState(0)
-  const interactPose = INTERACT_POSE_SEQUENCE[interactTapCount % INTERACT_POSE_SEQUENCE.length]
+  // ============================================================
+  //  🎮 宠物动作状态机 v2（2026-04-16 重构）
+  // ============================================================
+  //
+  // 规则优先级（从高到低）：
+  //   P0 答题模式 → 强制锁定 reading，点击无反馈
+  //   P1 低血量   → 任何属性 <10% → 强制锁定 sad_cry，点击无反馈
+  //   P2 连续暴点 → 连续点击20次 → 显示 angry（持续3秒后恢复）
+  //   P3 正常互动 → 随机播放 / 点击3次切换动作图片
+  //
+  // 可用动作池（排除特殊状态专用的）：
+  //   happy, excited, wave, eating, normal, sleeping
+  // ============================================================
+
+  // ---- 状态变量 ----
+  const [isQuizMode, setIsQuizMode] = useState(false)       // 是否在答题中
+  const [clickCount, setClickCount] = useState(0)           // 连续点击计数
+  const [showAngry, setShowAngry] = useState(false)          // 是否显示生气状态
+  const [currentActionIndex, setCurrentActionIndex] = useState(0) // 当前正常动作索引
+
+  // 排除特殊状态的正常动作池
+  const NORMAL_ACTIONS = ['happy', 'excited', 'wave', 'eating', 'normal', 'sleeping']
+
+  // ---- 判断当前是否处于低血量状态 ----
+  const isLowStat = useMemo(() => {
+    if (!state?.currentPet?.stats) return false
+    const s = state.currentPet.stats
+    return (s.hunger ?? 100) < 10 || (s.cleanliness ?? 100) < 10 ||
+           (s.energy ?? 100) < 10 || (s.intimacy ?? 50) < 10
+  }, [state?.currentPet?.stats])
+
+  // ---- 计算最终展示的pose ----
+  const interactPose = useMemo(() => {
+    // P0: 答题模式 → 锁定 reading
+    if (isQuizMode) return 'reading'
+    // P1: 低血量 → 锁定 sad_cry
+    if (isLowStat) return 'sad_cry'
+    // P2: 暴击生气 → 显示 angry
+    if (showAngry) return 'angry'
+    // P3: 正常动作循环
+    return NORMAL_ACTIONS[currentActionIndex % NORMAL_ACTIONS.length]
+  }, [isQuizMode, isLowStat, showAngry, currentActionIndex])
+
+  // ---- 宠物是否被锁定（答题/低血量时禁止所有交互）----
+  const isPetLocked = isQuizMode || isLowStat
+
+  // ---- 点击处理：状态机驱动 ----
   const handlePetInteractTap = useCallback(() => {
-    setInteractTapCount(c => c + 1)
-  }, [])
+    // 如果被锁定，什么都不做（Pet.jsx也会拦截）
+    if (isPetLocked) return
+
+    setClickCount(c => {
+      const newCount = c + 1
+
+      // 检查是否达到20次连续点击阈值
+      if (newCount >= 20 && !showAngry) {
+        setShowAngry(true)
+        // 3秒后自动恢复
+        setTimeout(() => {
+          setShowAngry(false)
+          setClickCount(0)  // 重置计数
+        }, 3000)
+        return newCount
+      }
+
+      // 每3次点击切换一次动作
+      if (newCount % 3 === 0) {
+        setCurrentActionIndex(i => i + 1)
+      }
+
+      return newCount
+    })
+  }, [isPetLocked, showAngry])
+
+  // ---- 随机动作切换定时器（5-12秒随机间隔）----
+  useEffect(() => {
+    if (isPetLocked || showAngry) return  // 被锁定时不动
+
+    const scheduleNext = () => {
+      const delay = 5000 + Math.random() * 7000  // 5~12秒随机
+      const timer = setTimeout(() => {
+        if (!isPetLocked && !showAngry) {
+          setCurrentActionIndex(i => i + Math.floor(Math.random() * 3))  // 随机跳1-3步
+        }
+        scheduleNext()
+      }, delay)
+      return timer
+    }
+
+    const timer = scheduleNext()
+    return () => clearTimeout(timer)
+  }, [isPetLocked, showAngry])
 
   const handleDrawCard = useCallback(() => {
     // state为null时（正在加载云端数据），不允许操作
@@ -884,6 +1006,7 @@ export default function MV1Demo({ onBack, initialState, onStateChange }) {
 
   const tabs = [
     { key: 'interact', label: '🎮 互动' },
+    { key: 'game', label: '⚔️ 游戏' },
     { key: 'tasks', label: '📋 任务' },
     { key: 'shop', label: '🏪 商店' },
     { key: 'friends', label: '👫 好友' },
@@ -1019,6 +1142,7 @@ export default function MV1Demo({ onBack, initialState, onStateChange }) {
                   onInteract={handleInteract}
                   inventory={state.inventory}
                   onTap={handlePetInteractTap}
+                  isLocked={isPetLocked}
                 />
               )
             })()}
@@ -1100,6 +1224,13 @@ export default function MV1Demo({ onBack, initialState, onStateChange }) {
 
         {activeTab === 'tasks' && (
           <DailyTasksPanel state={state} onClaim={handleClaimTask} />
+        )}
+
+        {activeTab === 'game' && (
+          <WordCannonGame
+            state={state}
+            onGameStateUpdate={(patch) => setState(s => ({ ...s, ...patch }))}
+          />
         )}
 
         {activeTab === 'shop' && (

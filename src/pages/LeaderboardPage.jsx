@@ -61,6 +61,7 @@ export default function LeaderboardPage({ user, gameState, onStateChange }) {
           totalCorrectAnswers: gameState.totalCorrectAnswers || 0,
           daysActive: gameState.daysActive || 1,
           weeklyQuestions: gameState.weeklyQuestions || 0,
+          wordCannonHighScore: gameState.gameState?.wordCannonHighScore || 0,
           isMe: true,
         }
         const myIdx = all.findIndex(p => p.userId === userId)
@@ -256,6 +257,7 @@ export default function LeaderboardPage({ user, gameState, onStateChange }) {
     { key: 'petLevel', label: '宠物等级', icon: '🐉' },
     { key: 'daysActive', label: '活跃天数', icon: '🔥' },
     { key: 'weeklyQuestions', label: '本周答题', icon: '📅' },
+    { key: 'wordCannonHighScore', label: '炮台高分', icon: '🎯' },
   ]
 
   // ── 渲染宠物头像 ──────────────────────────────────────────

@@ -453,6 +453,8 @@ export default function Pet({
   inventory = null,        // { foods: {basic, advanced}, cleanItems, energyItems, giftItems }
   reactionPose = null,     // 外部控制的反应姿态（覆盖 internalPose）
   onTap = null,             // 用户点击宠物时的回调（由父组件决定pose切换）
+  // ---- 新增：动作状态机 ----
+  isLocked = false,         // 锁定状态（答题中/低血量）→ 点击无任何反馈和切换
 }) {
   const typeProp = type  // 用于对话系统区分不同宠物
   const [internalPose, setInternalPose] = useState('normal')
@@ -664,7 +666,11 @@ export default function Pet({
 
   // 点击 → 心形粒子 + 开心姿态
 // ---- 点击处理（通知父组件，由父组件决定pose切换逻辑）----
+// ⚠️ 动作状态机：isLocked=true时（答题中/低血量），点击无反馈不切换！
 const handleClick = useCallback((e) => {
+  // 锁定状态：完全禁止点击反馈
+  if (isLocked) return
+
   const rect = e.currentTarget.getBoundingClientRect()
   const x = e.clientX - rect.left - 16
   const y = e.clientY - rect.top - 16
@@ -676,7 +682,7 @@ const handleClick = useCallback((e) => {
   triggerDialogue('tapped')
   // 通知父组件：被点击了！由父组件(Dock/互动页)决定如何切换pose
   if (onTap) onTap(e)
-}, [soundEnabled, triggerDialogue, onTap])
+}, [soundEnabled, triggerDialogue, onTap, isLocked])
 
   // 喂养
   const onFeed = () => {

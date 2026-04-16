@@ -578,6 +578,27 @@ export function initGodModeState() {
     pendingEncouragements: [],
     weeklyQuestions: 9999,
     weeklyResetDate: new Date().toISOString().slice(0, 10),
+    // 游戏系统
+    gameState: {
+      dailyAttempts: 99,
+      dailyGameDate: new Date().toDateString(),
+      wordCannonHighScore: 9999,
+      totalBubblesCleared: 9999,
+      maxCombo: 15,
+    },
+    titles: ['beginner','hundred_q','vocab_star','grammar_master','cannon_newbie','cannon_elite','combo_king','week_warrior'],
+    activeTitle: 'cannon_elite',
+    
+    // 小屋系统
+    roomTheme: 'aurora',
+    ownedRoomThemes: ['starlight','forest','city','aurora','volcano'],
+    
+    // 游戏背包
+    gameInventory: {
+      time_freeze: 10,
+      shield_potion: 10,
+    },
+
     _isGodMode: true,
   };
 }
@@ -630,6 +651,20 @@ export function initGamificationState() {
     pendingEncouragements: [],
     weeklyQuestions: 0,
     weeklyResetDate: new Date().toISOString().slice(0, 10),
+
+    // 游戏系统
+    gameState: {
+      dailyAttempts: 3,
+      dailyGameDate: new Date().toDateString(),
+      wordCannonHighScore: 0,
+      totalBubblesCleared: 0,
+      maxCombo: 0,
+    },
+    titles: ['beginner'],
+    activeTitle: 'beginner',
+    roomTheme: null,
+    ownedRoomThemes: [],
+    gameInventory: {},
   };
 }
 
@@ -988,6 +1023,71 @@ function sellPet(state, petPoolId) {
 }
 function getCurrentPet(state) { return state.currentPet; }
 function getPetPool(state) { return state.petPool; }
+
+// ============================================================
+//  🏠 宠物小屋系统
+// ============================================================
+export const ROOM_THEMES = [
+  { id: 'starlight', name: '✨ 星空小屋', price: 200, rarity: 'N',
+    desc: '深邃星空背景，萤火虫飞舞',
+    bg: 'linear-gradient(180deg, #0f0c29 0%, #302b63 50%, #24243e 100%)',
+    floor: '#1a1a2e',
+    accentColor: '#ffd700' },
+  { id: 'forest', name: '🌲 森林小屋', price: 300, rarity: 'R',
+    desc: '阳光穿过树叶的自然空间',
+    bg: 'linear-gradient(180deg, #134e5e 0%, #71b280 100%)',
+    floor: '#5d4037',
+    accentColor: '#81c784' },
+  { id: 'city', name: '🌆 赛博城市', price: 400, rarity: 'R',
+    desc: '霓虹灯闪烁的未来都市',
+    bg: 'linear-gradient(180deg, #0c0c0c 0%, #1a1a2e 50%, #16213e 100%)',
+    floor: '#2d132c',
+    accentColor: '#00fff5' },
+  { id: 'aurora', name: '🌌 极光幻境', price: 600, rarity: 'SR',
+    desc: '北极光照耀的冰原世界',
+    bg: 'linear-gradient(180deg, #00c9ff 0%, #92fe9d 100%)',
+    floor: '#e0f7fa',
+    accentColor: '#e040fb' },
+  { id: 'volcano', name: '🌋 火山熔岩', price: 800, rarity: 'SR',
+    desc: '炽热岩浆流淌的地下城',
+    bg: 'linear-gradient(180deg, #1f0000 0%, #4a0404 50%, #8b0000 100%)',
+    floor: '#2d1010',
+    accentColor: '#ff5722' },
+];
+
+// 游戏相关商店物品
+export const GAME_SHOP_ITEMS = [
+  { id: 'extra_play', name: '额外游戏次数', icon: '🎮', price: 50,
+    desc: '+1次炮台游戏机会', kind: 'game_item' },
+  { id: 'time_freeze', name: '时间冻结', icon: '❄️', price: 100,
+    desc: '游戏中冻结所有气泡5秒', kind: 'game_consumable', maxStack: 5 },
+  { id: 'shield_potion', name: '护盾药水', icon: '🛡️', price: 120,
+    desc: '下次答错不扣血', kind: 'game_consumable', maxStack: 5 },
+];
+
+// ============================================================
+//  🏅 称号系统（自动解锁，不可购买）
+// ============================================================
+export const TITLE_DEFINITIONS = [
+  { id: 'beginner', name: '初学者 🌱', condition: (s) => true, hidden: false, desc: '欢迎来到汉字星球！' },
+  { id: 'hundred_q', name: '百题达人 📚', condition: (s) => (s.totalLearnQuestions || 0) >= 100, hidden: false, desc: '答题超过100道' },
+  { id: 'vocab_star', name: '词汇新星 ⭐', condition: (s) => (s.totalCorrectAnswers || 0) >= 100, hidden: false, desc: '英语词汇量突破100' },
+  { id: 'grammar_master', name: '语法高手 🔷', condition: (s) => {
+    const total = s.totalLearnQuestions || 0;
+    const correct = s.totalCorrectAnswers || 0;
+    return total >= 20 && (correct / total) > 0.8;
+  }, hidden: false, desc: '语法正确率超过80%' },
+  { id: 'cannon_newbie', name: '炮台新手 🎯', condition: (s) => (s.gameState?.wordCannonHighScore || 0) > 0, hidden: false, desc: '首次完成炮台游戏' },
+  { id: 'cannon_elite', name: '炮台精英 🏆', condition: (s) => (s.gameState?.wordCannonHighScore || 0) >= 500, hidden: false, desc: '炮台游戏高分破500' },
+  { id: 'combo_king', name: '连击王者 🔥', condition: (s) => (s.gameState?.maxCombo || 0) >= 5, hidden: false, desc: '单局达成5连击' },
+  { id: 'week_warrior', name: '坚持一周 📅', condition: (s) => (s.daysActive || 0) >= 7, hidden: false, desc: '连续活跃7天' },
+  { id: 'lucky_one', name: '欧皇附体 🎰', condition: (s) => s._gotLuckyDraw === true, hidden: true, desc: '单次抽卡直接出SR以上！（隐藏称号）' },
+];
+
+// 计算已解锁的称号列表
+export function computeUnlockedTitles(state) {
+  return TITLE_DEFINITIONS.filter(t => t.condition(state)).map(t => t.id);
+}
 
 // ============================================================
 //  导出

@@ -65,6 +65,7 @@ export async function upsertMV1State(userId, state) {
       totalCorrectAnswers: state.totalCorrectAnswers || 0,
       daysActive: state.daysActive || 1,
       weeklyQuestions: state.weeklyQuestions || 0,
+      wordCannonHighScore: state.gameState?.wordCannonHighScore || 0,
       updatedAt: new Date().toISOString(),
     }
     await client.from('users').upsert({ id: userId, pet_preview: preview }, { onConflict: 'id' })

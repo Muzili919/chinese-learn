@@ -22,6 +22,41 @@
       "memberId": "reading-fix@_auto_687c1537975c41beb8aaffee0d82112e",
       "name": "reading-fix",
       "role": "重生成初中英语阅读理解题库"
+    },
+    {
+      "memberId": "game-core@_auto_687c1537975c41beb8aaffee0d82112e",
+      "name": "game-core",
+      "role": "创建单词炮台游戏核心"
+    },
+    {
+      "memberId": "shop-house@_auto_687c1537975c41beb8aaffee0d82112e",
+      "name": "shop-house",
+      "role": "商店重构+gamification扩展"
+    },
+    {
+      "memberId": "leaderboard-titles@_auto_687c1537975c41beb8aaffee0d82112e",
+      "name": "leaderboard-titles",
+      "role": "排行榜增强+称号+云端同步"
+    },
+    {
+      "memberId": "reading-batch1@_auto_687c1537975c41beb8aaffee0d82112e",
+      "name": "reading-batch1",
+      "role": "生成阅读题库 Batch1 (第1-5篇)"
+    },
+    {
+      "memberId": "reading-batch2@_auto_687c1537975c41beb8aaffee0d82112e",
+      "name": "reading-batch2",
+      "role": "生成阅读题库 Batch2 (第6-10篇)"
+    },
+    {
+      "memberId": "reading-batch3@_auto_687c1537975c41beb8aaffee0d82112e",
+      "name": "reading-batch3",
+      "role": "生成阅读题库 Batch3 (第11-15篇)"
+    },
+    {
+      "memberId": "reading-batch4@_auto_687c1537975c41beb8aaffee0d82112e",
+      "name": "reading-batch4",
+      "role": "生成阅读题库 Batch4 (第16-20篇)"
     }
   ],
   "isAutoTeam": true
