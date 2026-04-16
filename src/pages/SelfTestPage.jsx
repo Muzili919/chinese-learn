@@ -7,7 +7,7 @@ const API_URL = '/api/ai'
 
 async function callDeepSeek(systemPrompt, userPrompt, options = {}) {
   const controller = new AbortController()
-  const timeoutId = setTimeout(() => controller.abort(), options.timeout || 25000)
+  const timeoutId = setTimeout(() => controller.abort(), options.timeout || 90000)
   try {
     const res = await fetch(API_URL, {
       method: 'POST',

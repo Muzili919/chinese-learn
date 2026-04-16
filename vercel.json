@@ -1,10 +1,1 @@
-{
-  "buildCommand": "npm run build",
-  "outputDirectory": "dist",
-  "rewrites": [
-    {
-      "source": "/(.*)",
-      "destination": "/index.html"
-    }
-  ]
-}
+{"buildCommand": "npm run build", "outputDirectory": "dist", "functions": {"api/ai.js": {"maxDuration": 60}}, "rewrites": [{"source": "/(.*)", "destination": "/index.html"}]}
