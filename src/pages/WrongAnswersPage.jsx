@@ -11,12 +11,13 @@ import enListenQ from '../data/questions_en_listen.json'
 import enGrammarQ from '../data/questions_en_grammar.json'
 import enReadingQ from '../data/questions_en_reading.json'
 import enWritingQ from '../data/questions_en_writing.json'
+import enClozeQ from '../data/questions_en_j2_cloze.json'
 import politicsQ from '../data/questions_politics_choice.json'
 
 const ALL_QUESTIONS = [...vocabQ, ...poetryQ, ...idiomQ, ...sentenceQ, ...litQ]
 const Q_MAP = Object.fromEntries(ALL_QUESTIONS.map(q => [q.id, q]))
 
-const EN_ALL_QUESTIONS = [...enVocabQ, ...enListenQ, ...enGrammarQ, ...enReadingQ, ...enWritingQ]
+const EN_ALL_QUESTIONS = [...enVocabQ, ...enListenQ, ...enGrammarQ, ...enReadingQ, ...enWritingQ, ...enClozeQ]
 const EN_Q_MAP = Object.fromEntries(EN_ALL_QUESTIONS.map(q => [q.id, q]))
 
 // 政治选择题

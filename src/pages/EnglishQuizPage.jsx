@@ -15,6 +15,7 @@ import j2GrammarQ from '../data/questions_en_j2_grammar.json'
 import j2ListenQ from '../data/questions_en_j2_listen.json'
 import j2ReadingQ from '../data/questions_en_j2_reading.json'
 import j2WritingQ from '../data/questions_en_j2_writing.json'
+import j2ClozeQ from '../data/questions_en_j2_cloze.json'
 
 const DEFAULT_SESSION_SIZE = 15
 
@@ -26,6 +27,7 @@ const EN_SESSION_SIZES = {
   en_grammar:     10,
   en_reading:     5,
   en_writing:     10,
+  en_cloze:       3,   // 完形填空：每篇10空，3篇=30小题
 }
 
 // 星球ID → 今日已练标记用的规范Tag（与 EnglishHomePage.TAG_TO_PLANET 对应）
@@ -35,6 +37,7 @@ const EN_PLANET_CANONICAL_TAG = {
   en_grammar: '英语语法',
   en_reading: '英语阅读',
   en_writing: '英语写作',
+  en_cloze:   '完形填空',
 }
 
 const EN_QUESTION_MAP = {
@@ -52,6 +55,7 @@ const J2_QUESTION_MAP = {
   en_grammar: j2GrammarQ,
   en_reading: j2ReadingQ,
   en_writing: j2WritingQ,
+  en_cloze:   j2ClozeQ,
 }
 
 function shuffle(arr) {
@@ -826,6 +830,8 @@ function extractPassageOnly(questionText) {
 
 function detectMode(q) {
   if (q.type === 'open_ended') return 'writing'
+  // 完形填空 → 走专门的ClozeQuestion组件（有__(1)__空格+ABCD选项）
+  if (q.type === 'cloze') return 'cloze'
   if (isMultiPartAnswer(q)) return 'multi_sub'
   if (q.type === 'true_false') return 'true_false'
   if (/^1-?[A-D]/.test((q.answer || '').replace(/\s/g, ''))) return 'matching'
@@ -838,6 +844,170 @@ function detectMode(q) {
   }
   if (q.type === 'fill_blank' && (q.answer || '').length < 40) return 'text_fill'
   return 'writing'
+}
+
+// ─── 完形填空组件 ──────────────────────────────────────────────────────────
+function ClozeQuestion({ q, onSubmit }) {
+  const [step, setStep] = useState(0)
+  const [results, setResults] = useState([])
+  const [submitted, setSubmitted] = useState(false)
+  const [currentCorrect, setCurrentCorrect] = useState(false)
+
+  // 解析options: 每个格式为 "(1) A.xxx B.xxx C.xxx D.xxx"
+  const clozeOptions = useMemo(() => {
+    return (q.options || []).map((optStr, idx) => {
+      const matches = [...optStr.matchAll(/([A-D])\.\s*(.+?)(?=\s*[A-D]\.\s|$)/g)]
+      const opts = matches.map(m => ({ letter: m[1], text: m[2].trim() }))
+      // Extract number from "(1)" prefix
+      const numMatch = optStr.match(/\((\d+)\)/)
+      return { num: numMatch ? parseInt(numMatch[1]) : idx + 1, opts }
+    })
+  }, [q.options])
+
+  // Parse answer string "1.A 2.C 3.B..." → { 1:'A', 2:'C', ... }
+  const answerMap = useMemo(() => {
+    const map = {}
+    ;(q.answer || '').split(/\s+/).forEach(pair => {
+      const m = pair.match(/(\d+)\.([A-D])/i)
+      if (m) map[m[1]] = m[2].toUpperCase()
+    })
+    return map
+  }, [q.answer])
+
+  // Show passage with highlighted current blank
+  const passageHtml = useMemo(() => {
+    let text = q.question || ''
+    // Highlight current blank number
+    if (clozeOptions.length > 0 && step < clozeOptions.length) {
+      const curNum = clozeOptions[step].num
+      text = text.replace(new RegExp(`__\\(${curNum}\\)__`, 'g'), `<span style="color:#0369a1;font-weight:bold;background:#e0f2fe;padding:0 4px;border-radius:4px">__(${curNum})__</span>`)
+      // Dim other blanks
+      text = text.replace(/__\((\d+)__/g, (match, n) => {
+        if (parseInt(n) === curNum) return match
+        return `<span style="color:#9ca3af">__(${n})__</span>`
+      })
+    }
+    return text
+  }, [q.question, step, clozeOptions])
+
+  function handleSelect(letter) {
+    if (submitted) return
+    const correct = letter.toUpperCase() === (answerMap[clozeOptions[step]?.num] || '')
+    setCurrentCorrect(correct)
+    setSubmitted(true)
+  }
+
+  function advance() {
+    const next = [...results, { correct: currentCorrect }]
+    setResults(next)
+    if (next.length < clozeOptions.length) {
+      setStep(s => s + 1)
+      setSubmitted(false)
+      setCurrentCorrect(false)
+    }
+  }
+
+  // Done - show results
+  if (results.length >= clozeOptions.length && clozeOptions.length > 0) {
+    const correct = results.filter(r => r.correct).length
+    const total = clozeOptions.length
+    const pct = Math.round(correct / total * 100)
+    return (
+      <div className="flex flex-col gap-4">
+        <div className={`rounded-2xl p-5 border text-center ${pct >= 60 ? 'bg-green-50 border-green-200' : 'bg-amber-50 border-amber-200'}`}>
+          <div className="text-4xl mb-2">{pct >= 80 ? '🎉' : pct >= 60 ? '👍' : '💪'}</div>
+          <div className={`text-2xl font-extrabold ${pct >= 60 ? 'text-green-700' : 'text-amber-700'}`}>
+            {correct} / {total}
+          </div>
+          <div className="text-sm text-gray-500 mt-1">正确率 {pct}%</div>
+          <div className="flex gap-1 justify-center mt-3">
+            {results.map((r, i) => (
+              <span key={i} className={`w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold text-white ${r.correct ? 'bg-green-400' : 'bg-red-400'}`}>
+                {r.correct ? '✓' : '✗'}
+              </span>
+            ))}
+          </div>
+        </div>
+        {q.analysis && (
+          <div className="bg-sky-50 border border-sky-200 rounded-2xl p-4">
+            <div className="text-xs font-semibold text-sky-600 mb-1">💡 解析</div>
+            <div className="text-xs text-gray-600 whitespace-pre-wrap leading-relaxed">{q.analysis}</div>
+          </div>
+        )}
+        <button onClick={() => onSubmit('', pct >= 60)}
+          className="w-full py-3 rounded-2xl bg-gradient-to-r from-sky-400 to-blue-500 text-white font-bold active:scale-95 transition-transform shadow-md">
+          继续下一题 →
+        </button>
+      </div>
+    )
+  }
+
+  const currentOpts = clozeOptions[step]
+
+  return (
+    <div className="flex flex-col gap-3">
+      {/* 文章（可滚动） */}
+      <div className="bg-white rounded-2xl px-4 py-3 shadow-sm max-h-56 overflow-y-auto">
+        <div className="text-[10px] text-gray-400 font-semibold mb-1 uppercase tracking-wide">阅读材料</div>
+        <p className="text-gray-700 text-xs leading-relaxed whitespace-pre-wrap" dangerouslySetInnerHTML={{ __html: passageHtml }} />
+      </div>
+
+      {/* 进度 */}
+      <div className="flex items-center gap-2">
+        <div className="flex-1 bg-gray-100 rounded-full h-1.5">
+          <div className="bg-sky-400 h-1.5 rounded-full transition-all" style={{ width: `${step / clozeOptions.length * 100}%` }}/>
+        </div>
+        <span className="text-xs text-gray-400 font-medium whitespace-nowrap">
+          第 {step + 1} / {clozeOptions.length} 空
+        </span>
+      </div>
+
+      {/* 当前空题号 */}
+      <div className="bg-white rounded-2xl p-4 shadow-sm">
+        <div className="text-xs font-bold text-sky-500 mb-2">（{currentOpts?.num}）选择正确选项填入文中</div>
+      </div>
+
+      {/* ABCD选项 */}
+      {!submitted && currentOpts?.opts && (
+        <div className="flex flex-col gap-2">
+          {currentOpts.opts.map(opt => (
+            <button key={opt.letter} onClick={() => handleSelect(opt.letter)}
+              className="rounded-2xl border-2 border-gray-200 bg-white px-4 py-3 text-sm text-left font-medium active:scale-95 transition-all">
+              <span className="mr-2 text-xs font-bold text-gray-400">{opt.letter}.</span>{opt.text}
+            </button>
+          ))}
+        </div>
+      )}
+
+      {/* 答后状态 */}
+      {submitted && currentOpts?.opts && (
+        <>
+          <div className="grid grid-cols-2 gap-2">
+            {currentOpts.opts.map(opt => {
+              const isCorrect = opt.letter.toUpperCase() === (answerMap[currentOpts?.num] || '')
+              const wasWrong = !currentCorrect && opt.letter.toUpperCase() !== (answerMap[currentOpts?.num] || '')
+              let cls = 'border-gray-200 bg-white text-gray-400'
+              if (isCorrect) cls = 'border-green-400 bg-green-50 text-green-700'
+              else if (!isCorrect && !wasWrong) cls = 'border-gray-200 bg-white text-gray-300'
+              else cls = 'border-red-300 bg-red-50 text-red-500 opacity-40'
+              return (
+                <div key={opt.letter} className={`rounded-xl border-2 px-3 py-2.5 text-sm font-medium ${cls}`}>
+                  <span className="mr-1 text-xs font-bold">{opt.letter}.</span>{opt.text}
+                </div>
+              )
+            })}
+          </div>
+          <div className={`rounded-2xl px-4 py-3 border font-semibold text-sm ${currentCorrect ? 'bg-green-50 border-green-200 text-green-700' : 'bg-red-50 border-red-200 text-red-600'}`}>
+            {currentCorrect ? '✅ 正确！' : `❌ 正确答案：${answerMap[currentOpts?.num]}`}
+          </div>
+          <button onClick={advance}
+            className="w-full py-3 rounded-2xl bg-gradient-to-r from-emerald-400 to-teal-500 text-white font-bold active:scale-95 transition-transform shadow-md">
+            {results.length + 1 >= clozeOptions.length ? '查看得分 →' : '下一空 →'}
+          </button>
+        </>
+      )}
+    </div>
+  )
 }
 
 // ─── 判断题（T/F）组件 ──────────────────────────────────────────────────────
@@ -1109,6 +1279,8 @@ function EnglishQuestion({ question: q, onSubmit, englishTag }) {
 
   // 多子题分页 → 独立组件
   if (mode === 'multi_sub') return <MultiSubQuiz question={q} onSubmit={onSubmit} englishTag={englishTag} />
+  // 完形填空 → 独立组件
+  if (mode === 'cloze') return <ClozeQuestion q={q} onSubmit={onSubmit} />
   // 连线题 → 独立组件
   if (mode === 'matching') return <MatchingQuestion q={q} onSubmit={onSubmit} />
   // 写作 → 独立组件
@@ -1418,6 +1590,7 @@ export default function EnglishQuizPage({ user, options = {}, onFinish, onBack }
   const PLANET_LABELS = {
     en_vocab: '词汇星球 🔤', en_listen: '听力星球 🎧',
     en_grammar: '语法星球 📐', en_reading: '阅读星球 📚', en_writing: '写作星球 ✏️',
+    en_cloze: '完形填空 📝',
   }
 
   return (
