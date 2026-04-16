@@ -30,7 +30,9 @@ const WORD_TIMEOUT = 8000; // ms — 每个单词8秒答题时间
 const GAME_AREA_HEIGHT = 520;
 const BUBBLE_SIZE_MIN = 52;
 const BUBBLE_SIZE_MAX = 68;
-const BOTTOM_THRESHOLD = GAME_AREA_HEIGHT - 60;
+
+// ★ 底部阈值改为动态函数（不再用固定常量）
+// 注意：bubbleMovement等闭包中通过 gameAreaHeightRef.current 获取实时高度
 
 // 称号系统
 const TITLE_MAP = [
@@ -104,6 +106,8 @@ export default function WordCannonGame({ state, onGameStateUpdate, grade }) {
   const cooldownIntervalRef = useRef(null);
   const shakeRef = useRef(false);
   const flashRedRef = useRef(false);
+  // ★ 动态游戏区域高度（替代固定GAME_AREA_HEIGHT常量）
+  const gameAreaHeightRef = useRef(GAME_AREA_HEIGHT);
 
   /* ── 状态 ── */
   const [phase, setPhase] = useState('idle'); // idle | playing | paused | gameOver
@@ -186,6 +190,38 @@ export default function WordCannonGame({ state, onGameStateUpdate, grade }) {
     setTotalBubblesCleared(gs?.totalBubblesCleared || 0);
     setPetReady(true);
   }, [state?.gameState]);
+
+  /* ── 动态测量游戏区域高度 ── */
+  useEffect(() => {
+    const el = gameAreaRef.current;
+    if (!el) return;
+
+    const measure = () => {
+      // 找到实际的游戏区域DOM（.gameArea样式对应的div）
+      const areaEl = el.querySelector('[style*="flex: 1"]') || el;
+      if (areaEl?.clientHeight && areaEl.clientHeight > 150) {
+        gameAreaHeightRef.current = areaEl.clientHeight;
+      }
+    };
+
+    // 初始测量 + 延迟测量（等布局完成）
+    measure();
+    const t1 = setTimeout(measure, 100);
+    const t2 = setTimeout(measure, 500);
+
+    // ResizeObserver 实时追踪
+    let ro;
+    try {
+      ro = new ResizeObserver(measure);
+      ro.observe(el);
+    } catch (_) { /* ResizeObserver not available */ }
+
+    return () => {
+      clearTimeout(t1);
+      clearTimeout(t2);
+      ro?.disconnect();
+    };
+  }, [state?.gameState, phase]);
 
   /* ── 生成题目选项 ── */
   const generateOptions = useCallback((correctWord) => {
@@ -301,7 +337,7 @@ export default function WordCannonGame({ state, onGameStateUpdate, grade }) {
     const updated = [];
     for (const b of bubblesRef.current) {
       const newTop = b.top + b.speed * slowMult;
-      if (newTop > BOTTOM_THRESHOLD) {
+      if (newTop > (gameAreaHeightRef.current - 60)) {
         // 落底
         hitBottom = b.id;
       } else {
@@ -404,7 +440,7 @@ export default function WordCannonGame({ state, onGameStateUpdate, grade }) {
       // 爆炸效果
       createParticles(
         targetBubble.left + targetBubble.size / 2,
-        Math.min(targetBubble.top + targetBubble.size / 2, GAME_AREA_HEIGHT - 40),
+        Math.min(targetBubble.top + targetBubble.size / 2, gameAreaHeightRef.current - 40),
         '#22c55e'
       );
 
@@ -419,7 +455,7 @@ export default function WordCannonGame({ state, onGameStateUpdate, grade }) {
           setScore(scoreRef.current);
           createParticles(
             extraBubble.left + extraBubble.size / 2,
-            Math.min(extraBubble.top + extraBubble.size / 2, GAME_AREA_HEIGHT - 40),
+            Math.min(extraBubble.top + extraBubble.size / 2, gameAreaHeightRef.current - 40),
             '#3b82f6'
           );
           bubblesRef.current = bubblesRef.current.filter(b => b.id !== extraBubble.id);
@@ -636,7 +672,7 @@ export default function WordCannonGame({ state, onGameStateUpdate, grade }) {
 
     // 清除所有气泡并加分
     for (const b of bubblesRef.current) {
-      createParticles(b.left + b.size / 2, Math.min(b.top + b.size / 2, GAME_AREA_HEIGHT - 40), '#f59e0b');
+      createParticles(b.left + b.size / 2, Math.min(b.top + b.size / 2, gameAreaHeightRef.current - 40), '#f59e0b');
       scoreRef.current += 5;
       totalClearedRef.current += 1;
       sessionClearedRef.current += 1;
@@ -1032,7 +1068,11 @@ const container = {
   width: '100%',
   maxWidth: 420,
   margin: '0 auto',
-  minHeight: 520,
+  // ★ 手机端适配：使用100dvh填满可视区域，不再固定高度
+  height: '100dvh',
+  maxHeight: '100dvh',
+  display: 'flex',
+  flexDirection: 'column',
   background: 'linear-gradient(180deg, #0f0c29 0%, #1a1a3e 35%, #24243e 70%, #302b63 100%)',
   borderRadius: 16,
   overflow: 'hidden',
@@ -1068,6 +1108,7 @@ const infoBar = {
   borderBottom: '1px solid rgba(255,255,255,0.06)',
   zIndex: 10,
   position: 'relative',
+  flexShrink: 0,
 };
 
 const infoItem = {
@@ -1087,7 +1128,9 @@ const infoLabel = {
 const gameArea = {
   position: 'relative',
   width: '100%',
-  height: GAME_AREA_HEIGHT,
+  // ★ 改为flex填充剩余空间（不再固定520px）
+  flex: '1 1 0',
+  minHeight: 200, // 最小高度保证游戏可玩性
   overflow: 'hidden',
   zIndex: 1,
 };
@@ -1119,6 +1162,7 @@ const optionsArea = {
   borderTop: '1px solid rgba(255,255,255,0.04)',
   zIndex: 10,
   position: 'relative',
+  flexShrink: 0,
 };
 
 const optionBtn = {
@@ -1158,6 +1202,7 @@ const skillBar = {
   borderTop: '1px solid rgba(255,255,255,0.03)',
   zIndex: 10,
   position: 'relative',
+  flexShrink: 0,
 };
 
 const skillBtnSlow = {
@@ -1217,6 +1262,7 @@ const petContainer = {
   zIndex: 5,
   height: 84,
   background: 'linear-gradient(180deg, transparent 0%, rgba(15,12,41,0.6) 100%)',
+  flexShrink: 0,
 };
 
 const petGlow = {
@@ -1246,8 +1292,10 @@ const centerContent = {
   flexDirection: 'column',
   alignItems: 'center',
   justifyContent: 'center',
-  padding: '32px 20px',
-  minHeight: 480,
+  padding: '24px 20px',
+  // ★ 首页也用flex填满容器，不再固定minHeight
+  flex: '1 1 0',
+  overflowY: 'auto',
 };
 
 const title = {
