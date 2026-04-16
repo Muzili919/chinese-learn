@@ -43,5 +43,32 @@
     "content": "{\"type\":\"shutdown_response\",\"request_id\":\"shutdown-1776311362980\",\"approve\":true,\"from\":\"en-dictation-gen\",\"timestamp\":\"2026-04-16T04:29:23.241Z\"}",
     "timestamp": "2026-04-16T04:29:23.241Z",
     "read": true
+  },
+  {
+    "id": "msg-1776320945994-zbyhaq",
+    "from": "g7-en-gen",
+    "to": "team-lead",
+    "type": "message",
+    "content": "## 初一（7年级）英语听写词库生成完成 ✅\n\n### 文件位置\n`/Volumes/ORICO/xinwen/claudecode/chinese-learn/src/data/dictation_en_g7.json`\n\n### 生成脚本\n`/Volumes/ORICO/xinwen/claudecode/chinese-learn/scripts/gen_g7_dictation.py`\n\n### 数据统计\n| 指标 | 数值 |\n|------|------|\n| **总词汇量** | **756词**（目标范围750-850 ✅） |\n| 上册（上学期） | 376词 |\n| 下册（下学期） | 380词 |\n| ID唯一性 | 全部唯一 ✅ |\n| JSON可解析性 | 验证通过 ✅ |\n\n### 覆盖范围\n基于**人教版Go for It!** 七年级教材：\n\n**上册 (376词)**：\n- Starter Units 1-3: 基础问候/颜色/家庭/物品\n- Unit 1: My Name / Greetings (姓名/数字)\n- Unit 2: This Is My Pencil? (物品/代词所有格)\n- Unit 3: Do You Have a Soccer Ball? (运动/形容词)\n- Unit 4: Where Is My Schoolbag? (方位介词)\n- Unit 5: Do You Like Bananas? (食物/三餐)\n- Unit 6: How Much Are These Socks? (购物/服装/数字)\n- Unit 7: When Is Your Birthday? (月份/星期/科目)\n\n**下册 (380词)**：\n- Unit 1: Can You Play the Guitar? (能力/乐器/社团)\n- Unit 2: What Time Do You Go to School? (日常作息/时间表达)\n- Unit 3: How Do You Get to School? (交通方式/距离)\n- Unit 4: Don't Eat in Class. (校规/情态动词)\n- Unit 5: Why Do You Like Pandas? (动物描述/保护)\n- Unit 6: It's Raining! (天气/现在进行时)\n- Unit 7: What Does He Look Like? (外貌描述)\n- Unit 8: I'd Like Some Noodles. (饮食点餐/可数不可数名词)\n- Unit 9: How Was Your Weekend? (一般过去时/周末活动)\n\n### 数据格式示例\n```json\n{\n  \"id\": \"en_g7_001\",\n  \"word\": \"hello\",\n  \"meaning\": \"你好；喂\",\n  \"grade\": 7,\n  \"semester\": \"上册\",\n  \"phonetic\": \"/həˈləʊ/\",\n  \"example\": \"Hello, my name is Tom.\"\n}\n```\n\n### 补充内容\n除了教材核心词汇外，还补充了：\n- 常用短语搭配（如 take the subway, on weekends, in danger 等）\n- 动词短语（如 blow out, cut up, put up, wake up 等）\n- 日常交际用语（如 no problem, right now, would like 等）\n\n文件已写入磁盘，JSON格式正确，可供前端直接加载使用。",
+    "timestamp": "2026-04-16T06:29:05.994Z",
+    "read": true
+  },
+  {
+    "id": "msg-1776321708573-h9ufgr",
+    "from": "g9-en-gen",
+    "to": "team-lead",
+    "type": "message",
+    "content": "## ✅ 九年级(初三)英语听写词库生成完成！\n\n### 📁 输出文件\n`/Volumes/ORICO/xinwen/claudecode/chinese-learn/src/data/dictation_en_g9.json`\n\n### 📊 数据统计\n| 指标 | 数值 |\n|------|------|\n| **总词数** | **1000条** (精确达标) |\n| **ID范围** | en_g9_001 ~ en_g9_1000 |\n| **ID唯一性** | ✅ 全部唯一 |\n| **JSON格式** | ✅ json.loads() 验证通过 |\n| **grade** | 统一为 9 |\n| **semester** | 统一为 \"全册\" |\n| **覆盖单元** | Units 1-14（人教版九年级全一册） |\n\n### 📚 覆盖内容\n- **Unit 1**: 学习方法类词汇（textbook, pronunciation, grammar, memorize等）\n- **Unit 2**: 节日文化类（mooncake, lantern, Christmas, tradition等 + 6大节日）\n- **Unit 3**: 问路指路/公共设施（restroom, bookstore, polite, request等）\n- **Unit 4**: 过去与现在对比（used to, humorous, silent, influence等）\n- **Unit 5**: 物品材质与制造（chopstick, cotton, plastic, be made of等）\n- **Unit 6**: 发明创造（invent, accidental, discovery, by accident等）\n- **Unit 7**: 规则与许可（license, allow, choose, responsibility等）\n- **Unit 8**: 推测与归属（must belong to, whose, valuable, possibly等）\n- **Unit 9**: 音乐与电影偏好（prefer, lyrics, electronic, director等）\n- **Unit 10**: 文化习俗与礼仪（custom, bow, shake hands, be supposed to等）\n- **Unit 11**: 情感表达（would rather, drive sb. crazy, disappointment等）\n- **Unit 12**: 意外事件（unexpected, by the time, oversleep, April Fool's等）\n- **Unit 13**: 环境保护（pollution, recycle, endangered, ecosystem等）\n- **Unit 14**: 毕业回顾与展望（graduate, responsibility, achieve, journey等）\n\n### 🔍 验证结果\n```\n✅ ID唯一性验证：1000个唯一ID\n✅ JSON解析：可正确读取1000条记录\n✅ 前3条样本：\n  [en_g9_001] textbook — 教科书；课本\n  [en_g9_002] conversation — 对话；交谈\n  [en_g9_003] aloud — 大声地；出声地\n✅ 最后3条样本：\n  [en_g9_998] at least — 至少；起码\n  [en_g9_999] at most — 最多；至多\n  [en_g9_1000] in other words — 换句话说；也就是说\n```\n\n### 📝 数据格式\n每条记录包含6个字段：id / word / meaning / grade(=9) / semester(=\"全册\") / phonetic / example\n\n### 🛠️ 生成脚本\n`scripts/gen_g9_en_dictation.py` — 可重复运行，含去重和完整验证逻辑",
+    "timestamp": "2026-04-16T06:41:48.573Z",
+    "read": true
+  },
+  {
+    "id": "msg-1776322923061-a238kl",
+    "from": "g8-en-gen",
+    "to": "team-lead",
+    "type": "message",
+    "content": "## ✅ 初二（G8）英语听写词库生成完成\n\n### 文件位置\n`src/data/dictation_en_g8.json`\n\n### 最终数据统计\n| 指标 | 数值 |\n|------|------|\n| **总词数** | **1276** |\n| **ID范围** | en_g8_0001 ~ en_g8_1276 |\n| **上册词数** | 753 (59.0%) |\n| **下册词数** | 523 (41.0%) |\n| **IPA音标覆盖率** | **100%** (1276/1276) |\n| **JSON格式** | ✅ 有效 |\n| **ID唯一性** | ✅ 全部唯一 |\n| **字段完整性** | ✅ id/word/meaning/grade/semester/phonetic/example 全部齐全 |\n\n### 数据来源\n- 基于项目已有 `words_network_j2.json`（单词星球初二词汇，1276词）转换\n- 音标：构建了完整的1300+条IPA音标字典（含短语动词）\n- 例句：保留原有例句或生成适合初二的简单例句\n\n### 格式样本\n```json\n{\n  \"id\": \"en_g8_0001\",\n  \"word\": \"Internet/internet\",\n  \"meaning\": \"互联网\",\n  \"grade\": 8,\n  \"semester\": \"上册\",\n  \"phonetic\": \"/ˈɪntərnet/\",\n  \"example\": \"Internet connects worldwide.\"\n}\n```\n\n### 辅助文件\n- `scripts/fix_g8_phonetics.py` — 音标修复脚本（含完整IPA字典，可复用）\n\n### 备注\n- 上册/下册比例约6:4，基于原单词星球数据的字母排序分布\n- 所有1276个词均有标准IPA音标（含重音符号ˈ和次重音ˌ）\n- 覆盖人教版Go for It!八年级上下册全部核心词汇及常见短语",
+    "timestamp": "2026-04-16T07:02:03.061Z",
+    "read": true
   }
 ]

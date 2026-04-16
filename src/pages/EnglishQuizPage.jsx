@@ -161,13 +161,12 @@ function parseSubParts(q) {
           text: o.replace(/^[A-D]\.\s*/i, '').trim(),
         }))
       }
-      // 去掉选项行，只保留问题干（处理 "A. xxx B. xxx C. xxx D. xxx" 同行格式）
-      const optionsLine = part.text.match(/^[A-D]\.\s*.+[A-D]\.\s*.+$/m)
-      if (optionsLine) {
-        displayText = part.text.replace(optionsLine[0], '').trim()
-      } else {
-        displayText = part.text.replace(/\b[A-D]\.\s*[^\n]+/g, '').trim()
-      }
+      // 去掉所有选项行（统一处理单行/多行选项，修复选项跨两行时第二行残留的 bug）
+      displayText = part.text
+        .split('\n')
+        .filter(line => !/^[A-D]\.\s/.test(line.trim()))
+        .join('\n')
+        .trim()
     }
 
     return {
@@ -227,7 +226,7 @@ function MultiSubQuiz({ question: q, onSubmit, englishTag }) {
     return (
       <div className="flex flex-col gap-4">
         {passage && (
-          <div className="bg-white rounded-2xl px-4 py-3 shadow-sm max-h-36 overflow-y-auto">
+          <div className="bg-white rounded-2xl px-4 py-3 shadow-sm max-h-56 overflow-y-auto">
             <p className="text-xs text-gray-500 leading-relaxed whitespace-pre-wrap">{passage}</p>
           </div>
         )}
@@ -265,7 +264,7 @@ function MultiSubQuiz({ question: q, onSubmit, englishTag }) {
     <div className="flex flex-col gap-3">
       {/* 文章/题干（可滚动） */}
       {passage && (
-        <div className="bg-white rounded-2xl px-4 py-3 shadow-sm max-h-40 overflow-y-auto">
+        <div className="bg-white rounded-2xl px-4 py-3 shadow-sm max-h-64 overflow-y-auto">
           <div className="text-[10px] text-gray-400 font-semibold mb-1 uppercase tracking-wide">阅读材料</div>
           <p className="text-gray-700 text-xs leading-relaxed whitespace-pre-wrap">{passage}</p>
         </div>
@@ -357,31 +356,56 @@ function MultiSubQuiz({ question: q, onSubmit, englishTag }) {
         </div>
       )}
 
-      {/* 文本输入 */}
+      {/* 文本输入（开放式问答） */}
       {current.type === 'text' && !submitted && (
         <div className="flex flex-col gap-2">
-          <input
-            type="text"
+          <textarea
             value={textInput}
             onChange={e => setTextInput(e.target.value)}
-            onKeyDown={e => e.key === 'Enter' && textInput.trim() && handleText()}
-            placeholder="输入答案..."
-            className="border-2 border-gray-200 rounded-xl px-4 py-3 text-sm focus:border-sky-400 outline-none bg-white"
+            placeholder="用英语写出答案..."
+            rows={2}
+            className="border-2 border-gray-200 rounded-xl px-4 py-3 text-sm focus:border-sky-400 outline-none bg-white resize-none"
             autoFocus
             autoComplete="off" autoCorrect="off" spellCheck="false"
           />
           <button
-            onClick={handleText}
+            onClick={() => { if (textInput.trim()) setSubmitted(true) }}
             disabled={!textInput.trim()}
             className="bg-sky-500 disabled:bg-gray-200 text-white font-bold py-3 rounded-xl active:scale-95"
           >
-            确认
+            查看参考答案
           </button>
         </div>
       )}
 
+      {/* 开放式：查看参考答案后自评 */}
+      {current.type === 'text' && submitted && !currentCorrect && (
+        <div className="flex flex-col gap-2">
+          <div className="bg-sky-50 border border-sky-200 rounded-xl p-3">
+            <div className="text-xs font-semibold text-sky-600 mb-1">📖 参考答案</div>
+            <div className="text-sm text-gray-700">{current.rawAnswer}</div>
+          </div>
+          {textInput && (
+            <div className="bg-gray-50 border border-gray-200 rounded-xl p-3">
+              <div className="text-xs font-semibold text-gray-400 mb-1">你的答案</div>
+              <div className="text-sm text-gray-600">{textInput}</div>
+            </div>
+          )}
+          <div className="grid grid-cols-2 gap-2">
+            <button onClick={() => { setCurrentCorrect(true) }}
+              className="py-3 rounded-xl border-2 border-green-300 bg-green-50 text-green-700 font-bold active:scale-95">
+              ✓ 答对了
+            </button>
+            <button onClick={() => { setCurrentCorrect(false); advance() }}
+              className="py-3 rounded-xl border-2 border-amber-300 bg-amber-50 text-amber-700 font-bold active:scale-95">
+              需再学
+            </button>
+          </div>
+        </div>
+      )}
+
       {/* 答题反馈 + 下一题 */}
-      {submitted && (
+      {submitted && (current.type !== 'text' || currentCorrect) && (
         <>
           <div className={`rounded-2xl px-4 py-3 border font-semibold text-sm ${currentCorrect ? 'bg-green-50 border-green-200 text-green-700' : 'bg-red-50 border-red-200 text-red-600'}`}>
             {currentCorrect ? '✅ 正确！' : `❌ 正确答案：${current.rawAnswer}`}
@@ -805,7 +829,7 @@ function detectMode(q) {
   if (isMultiPartAnswer(q)) return 'multi_sub'
   if (q.type === 'true_false') return 'true_false'
   if (/^1-?[A-D]/.test((q.answer || '').replace(/\s/g, ''))) return 'matching'
-  if (/^[A-D]\s*→\s*[A-D]/.test(q.answer || '')) return 'ordering'
+  if (/^[A-E]\s*→\s*[A-E]/.test(q.answer || '')) return 'ordering'  // A-E 支持5项排序（阅读排序题）
   // 标准options数组存在 → 选择题
   if (Array.isArray(q.options) && q.options.length >= 2) return 'choice'
   // 兜底：options为空但question文本中含有可提取的ABCD选项 → 也走选择题模式
@@ -932,19 +956,32 @@ function OrderingQuestion({ q, onSubmit }) {
 
   const listeningOpts = extractListeningOptions()
 
-  // 选项来源优先级：q.options > listening_text提取 > fallback
+  // 从 question 文本中提取多行选项（阅读排序题：每行一个 "A. xxx"，支持 A-E）
+  function extractFromQuestionText(text) {
+    const opts = []
+    for (const line of (text || '').split('\n')) {
+      const m = line.trim().match(/^([A-E])\.\s+(.+)/)
+      if (m) opts.push({ letter: m[1].toUpperCase(), text: m[2].trim() })
+    }
+    return opts.length >= 2 ? opts : null
+  }
+
+  // 选项来源优先级：q.options > listening_text提取 > 从 question 文本提取 > fallback
+  const questionTextOpts = extractFromQuestionText(q.question)
   let allOptions
   if (Array.isArray(q.options) && q.options.length > 0) {
     allOptions = q.options.map((o, i) => ({
-      letter: ['A','B','C','D'][i],
-      text: o.replace(/^[A-D]\.\s*/i, '').replace(/的图片描述$/, ''),
+      letter: ['A','B','C','D','E'][i],
+      text: o.replace(/^[A-E]\.\s*/i, '').replace(/的图片描述$/, ''),
     }))
   } else if (listeningOpts && listeningOpts.length === correctItems.length) {
     allOptions = listeningOpts
+  } else if (questionTextOpts && questionTextOpts.length === correctItems.length) {
+    allOptions = questionTextOpts
   } else {
-    allOptions = correctItems.map((item, i) => {
-      const idx = ['A','B','C','D','a','b','c','d'].indexOf(item)
-      return { letter: (idx >= 0 ? item : ['A','B','C','D'][i]).toUpperCase(), text: `选项 ${['A','B','C','D'][i]}` }
+    allOptions = correctItems.map((item) => {
+      const found = questionTextOpts?.find(o => o.letter === item.toUpperCase())
+      return found || { letter: item.toUpperCase(), text: `事件 ${item.toUpperCase()}` }
     })
   }
 
@@ -979,14 +1016,17 @@ function OrderingQuestion({ q, onSubmit }) {
     setSubmitted(true)
   }
 
+  // 将 question 文本分为「指令+文章」和「事件列表」两部分
+  const passageText = (q.question || '').split('\n').filter(line => !/^[A-E]\.\s/.test(line.trim())).join('\n').trim()
+
   return (
     <div className="flex flex-col gap-4">
       <div className="bg-white rounded-2xl p-4 shadow-sm">
         <div className="flex items-center gap-2 mb-3">
           <span className="text-xs font-semibold px-2 py-0.5 rounded-full" style={{ background: '#ede9fe', color: '#7c3aed' }}>排序题</span>
-          <button onClick={() => speakEnglish(q.question)} className="ml-auto w-7 h-7 flex items-center justify-center bg-sky-100 text-sky-500 rounded-full text-sm">🔊</button>
+          <button onClick={() => speakEnglish(passageText)} className="ml-auto w-7 h-7 flex items-center justify-center bg-sky-100 text-sky-500 rounded-full text-sm">🔊</button>
         </div>
-        <p className="text-gray-800 text-sm leading-relaxed whitespace-pre-wrap">{q.question}</p>
+        <p className="text-gray-800 text-sm leading-relaxed whitespace-pre-wrap">{passageText}</p>
       </div>
 
       <div className="bg-white rounded-2xl p-4 shadow-sm">
@@ -1005,7 +1045,7 @@ function OrderingQuestion({ q, onSubmit }) {
 
       {!submitted && (
         <div className="bg-white rounded-2xl p-4 shadow-sm">
-          <div className="text-xs font-semibold text-gray-500 mb-2">请按听到的顺序选择：</div>
+          <div className="text-xs font-semibold text-gray-500 mb-2">按正确顺序点击下方选项（再次点击可撤销）：</div>
           <div className="grid grid-cols-2 gap-2">
             {allOptions.map(item => {
               const lbl = item.letter || item.label

@@ -679,25 +679,25 @@ export default function MV1Demo({ onBack, initialState, onStateChange }) {
 
     // ★ 商店使用宠物可支配经验池（总经验-已消耗升级），不影响人物学习等级
   const handleShopAction = useCallback((actionId) => {
-    // 特殊处理：抽卡券 → 直接触发抽卡（不是加库存）
+    // 特殊处理：抽卡券 → 消耗背包中的卡券，直接触发抽卡
     if (actionId === 'card_draw') {
       setState(s => {
-        const totalXP = storage.getXP(storage.getUser()?.id || '') || s.exp || 0;
-        const consumed = s.petExpConsumed || 0;
-        const petSpendable = Math.max(0, totalXP - consumed);
+        const currentCards = s.inventory?.cards || 0;
         
-        if (petSpendable < 500) return s;  // 经验不足
+        if (currentCards < 1) return s;  // 没有卡券，不能使用
         
-        // 直接触发抽卡
-        const { state: newS, pet } = drawCard({ ...s, exp: petSpendable });
+        // 直接触发抽卡（不额外扣经验，卡券本身就是消耗品）
+        const { state: newS, pet } = drawCard(s);
         if (!pet) return s;
         
         setGachaResult(pet);
         setShowGacha(true);
         
-        // 扣经验
-        const newConsumed = (s.petExpConsumed || 0) + 500;
-        return { ...newS, exp: Math.max(0, petSpendable - 500), petExpConsumed: newConsumed };
+        // 消耗1张抽卡券
+        return {
+          ...newS,
+          inventory: { ...(newS.inventory || {}), cards: currentCards - 1 },
+        };
       });
       return;
     }

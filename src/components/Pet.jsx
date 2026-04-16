@@ -52,6 +52,15 @@ function makeFoxStage(stageDir) {
   return map;
 }
 
+// 通用：为任意prefix生成3阶段emotion映射（避免每个宠物写一个函数）
+function makePetStage(prefix, stageDir) {
+  const map = {};
+  for (const name of EMOTION_NAMES) {
+    map[name] = `/pets/${prefix}/${stageDir ? stageDir + '/' : ''}${name}.png`;
+  }
+  return map;
+}
+
 const PET_SPRITE_MAP = (function() {
   const baseEmotions = {
     normal: '/pets/emotion-normal.png', happy: '/pets/emotion-happy.png',
@@ -114,7 +123,83 @@ const PET_SPRITE_MAP = (function() {
       hasPngEmotions: true,
       useLevelBasedEmotion: true,
     },
-    pet_toothless: { levelSprites: dragonLevels, emotionSprites: baseEmotions },
+    // === N级：小仓鼠（3阶段AI精美PNG） ===
+    pet_hamster: {
+      levelSprites: {
+        1: '/pets/hamster/stage1/reading.png',
+        10: '/pets/hamster/stage2/reading.png',
+        20: '/pets/hamster/stage3/reading.png',
+      },
+      emotionSprites: makePetStage('hamster', 'stage1'),
+      hasPngEmotions: true,
+      useLevelBasedEmotion: true,
+    },
+    // === N级：小柯基（3阶段AI精美PNG） ===
+    pet_corgi: {
+      levelSprites: {
+        1: '/pets/corgi/stage1/reading.png',
+        10: '/pets/corgi/stage2/reading.png',
+        20: '/pets/corgi/stage3/reading.png',
+      },
+      emotionSprites: makePetStage('corgi', 'stage1'),
+      hasPngEmotions: true,
+      useLevelBasedEmotion: true,
+    },
+    // === R级：冰晶灵蝶（3阶段AI精美PNG） ===
+    pet_butterfly: {
+      levelSprites: {
+        1: '/pets/butterfly/stage1/reading.png',
+        10: '/pets/butterfly/stage2/reading.png',
+        20: '/pets/butterfly/stage3/reading.png',
+      },
+      emotionSprites: makePetStage('butterfly', 'stage1'),
+      hasPngEmotions: true,
+      useLevelBasedEmotion: true,
+    },
+    // === R级：战镰螳螂（3阶段AI精美PNG） ===
+    pet_mantis: {
+      levelSprites: {
+        1: '/pets/mantis/stage1/reading.png',
+        10: '/pets/mantis/stage2/reading.png',
+        20: '/pets/mantis/stage3/reading.png',
+      },
+      emotionSprites: makePetStage('mantis', 'stage1'),
+      hasPngEmotions: true,
+      useLevelBasedEmotion: true,
+    },
+    // === R级：机械松鼠（3阶段AI精美PNG） ===
+    pet_squirrel: {
+      levelSprites: {
+        1: '/pets/squirrel/stage1/reading.png',
+        10: '/pets/squirrel/stage2/reading.png',
+        20: '/pets/squirrel/stage3/reading.png',
+      },
+      emotionSprites: makePetStage('squirrel', 'stage1'),
+      hasPngEmotions: true,
+      useLevelBasedEmotion: true,
+    },
+    // === R级：功夫滚滚（3阶段AI精美PNG） ===
+    pet_kungfu: {
+      levelSprites: {
+        1: '/pets/kungfu/stage1/reading.png',
+        10: '/pets/kungfu/stage2/reading.png',
+        20: '/pets/kungfu/stage3/reading.png',
+      },
+      emotionSprites: makePetStage('kungfu', 'stage1'),
+      hasPngEmotions: true,
+      useLevelBasedEmotion: true,
+    },
+    // === SR级：无牙仔（升级版3阶段AI精美PNG） ===
+    pet_toothless: {
+      levelSprites: {
+        1: '/pets/toothless/stage1/reading.png',
+        10: '/pets/toothless/stage2/reading.png',
+        20: '/pets/toothless/stage3/reading.png',
+      },
+      emotionSprites: makePetStage('toothless', 'stage1'),
+      hasPngEmotions: true,
+      useLevelBasedEmotion: true,
+    },
   };
 })();
 
@@ -141,28 +226,30 @@ function getLevelSprite(level, type) {
  * @param {string} type - 宠物类型
  */
 function getEmotionSprite(emotionKey, type, level = 1) {
-  // 小橘猫专用：根据等级自动选择成长阶段（幼体/少年/完全体）
-  if (type === 'pet_kitten') {
-    return getKittenEmotion(emotionKey, level)
-  }
-  // 紫电柴犬：同 kitten 格式，3阶段PNG
-  if (type === 'pet_shiba') {
+  const petCfg = getPetSprites(type)
+
+  // 通用3阶段PNG宠物（hasPngEmotions + useLevelBasedEmotion）
+  if (petCfg?.useLevelBasedEmotion) {
     let stageDir = ''
-    if (level >= 20) stageDir = 'stage3'       // 终极义体
-    else if (level >= 10) stageDir = 'stage2'   // 赛博柴犬
-    // 1-9: stage1（机械幼崽）
-    const sprites = makeShibaStage(stageDir)
-    return sprites[emotionKey] || sprites.normal || sprites.happy
+    if (level >= 20) stageDir = 'stage3'
+    else if (level >= 10) stageDir = 'stage2'
+    // stage1: 空字符串（根目录）
+
+    // 根据prefix生成路径
+    const prefixMap = {
+      pet_kitten: 'kitten', pet_shiba: 'shiba', pet_fox: 'fox',
+      pet_hamster: 'hamster', pet_corgi: 'corgi',
+      pet_butterfly: 'butterfly', pet_mantis: 'mantis',
+      pet_squirrel: 'squirrel', pet_kungfu: 'kungfu',
+      pet_toothless: 'toothless',
+    }
+    const prefix = prefixMap[type]
+    if (prefix) {
+      const sprites = makePetStage(prefix, stageDir)
+      return sprites[emotionKey] || sprites.normal || sprites.happy
+    }
   }
-  // 银月狐：3阶段PNG（同 kitten/shiba 格式）
-  if (type === 'pet_fox') {
-    let stageDir = ''
-    if (level >= 20) stageDir = 'stage3'       // 蓝银九尾天狐
-    else if (level >= 10) stageDir = 'stage2'   // 月纹灵狐
-    // 1-9: stage1（白色幼狐）
-    const sprites = makeFoxStage(stageDir)
-    return sprites[emotionKey] || sprites.normal || sprites.happy
-  }
+
   const sprites = getPetSprites(type)
   return sprites.emotionSprites[emotionKey] || null
 }

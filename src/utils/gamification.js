@@ -5,27 +5,63 @@
 const clamp = (n, min, max) => Math.max(min, Math.min(max, n));
 const pick = (arr) => arr[Math.floor(Math.random() * arr.length)];
 
-// ---- 宠物池（4只：N级小橘猫 + N级紫柴犬 + R级银月狐 + SR级无牙仔）----
+// ---- 宠物池（11只）----
 const PET_POOL = [
   // === N级 普通 ===
   {
-    poolId: 'pet_kitten', name: '小橘猫', emoji: '🐱', rarity: 'N', personality: 'lazy',
+    poolId: 'pet_kitten', name: '小黄猫', emoji: '🐱', rarity: 'N', personality: 'lazy',
     spritePrefix: 'kitten',
     desc: '额头有"王"字的大橘猫，懒洋洋躺满你整张课桌，但关键时刻从不缺席',
     stages: ['橙色条纹椭圆蛋，有小爪印，摸起来热乎乎的', '巴掌大的橘猫崽，肚皮白白软软，一动就喵一声', '耳朵竖起来了！尾巴高高翘，老爱钻进书包里睡觉', '毛发蓬松，脖子有虎纹，专门坐在课本上挡你看书', '额头浮现"王"字，威严大橘猫，懒洋洋却无处不在'],
   },
   {
-    poolId: 'pet_shiba', name: '紫电柴犬', emoji: '🐶', rarity: 'N', personality: 'loyal',
+    poolId: 'pet_shiba', name: '紫电柴犬', emoji: '🐕', rarity: 'N', personality: 'loyal',
     spritePrefix: 'shiba',
     desc: '右耳和左前腿是银色机械义肢、蓝光闪烁的赛博柴犬，忠诚可靠永远守护在你身边',
     stages: ['银蓝色机械蛋壳，偶尔发出轻微电流嗡嗡声', '橙色毛皮的柴犬幼崽，右耳和左前腿是金属义体，走路时蓝光一闪一闪', '四肢开始出现装甲，蓝紫色光带在关节处流动，尾巴末端带电磁光环', '深灰色机械装甲覆盖四肢和脊柱，黑色强化皮革躯干，眼神坚定', '全身透明机械装甲，胸腔内红蓝双色能量核心，四肢悬浮带电磁光环，终极形态'],
+  },
+  {
+    poolId: 'pet_hamster', name: '小仓鼠', emoji: '🐹', rarity: 'N', personality: 'cheerful',
+    spritePrefix: 'hamster',
+    desc: '圆滚滚的金丝熊仓鼠，腮帮子永远鼓鼓的，三阶段进化为骑士仓鼠再到皇冠圣皇',
+    stages: ['毛茸茸的圆形蛋，上面有小爪子印', '胖嘟嘟的小仓鼠，两颊永远塞着瓜子，呆萌可爱', '穿上了银色骑士盔甲的小勇士，手握小盾牌，萌帅萌帅的', '戴上金色皇冠的皇家仓鼠，周身环绕神圣光辉，威严又可爱', '圣皇仓鼠形态！金冠闪耀，脚踏光轮，真正的仓鼠王者降临！'],
+  },
+  {
+    poolId: 'pet_corgi', name: '小柯基', emoji: '🐶', rarity: 'N', personality: 'energetic',
+    spritePrefix: 'corgi',
+    desc: '屁股扭扭的小短腿柯基，活力满满永远跑在你前面，三阶段从奶基进化到皇家护卫犬',
+    stages: ['一颗圆滚滚的白棕色蛋，像个小土豆', '奶萌奶萌的柯基幼崽，小短腿哒哒跑，耳朵立得像雷达', '穿上红色披风的帅气柯基，眼神坚毅，随时准备守护主人', '身披金色铠甲的皇家护卫柯基，短腿也能走出王者步伐！', '传奇柯基王！全身金甲加冕，屁股扭出王者风范！'],
   },
   // === R级 稀有 ===
   {
     poolId: 'pet_fox', name: '银月狐', emoji: '🦊', rarity: 'R', personality: 'wise',
     spritePrefix: 'fox',
     desc: '月夜中毛发泛着银色微光、九条尾巴如星河般流转的灵狐，智慧与神秘并存',
-    stages: ['月白色的蛋，表面有星点银光在缓缓移动', '三尾小狐狸，每条尾巴尖端都闪烁着淡蓝色的星光', '六条尾巴展开，毛发间流淌着银色月光，眼睛像两颗蓝宝石', '九尾完全绽放，周身环绕月华光环，踏空而行', '银月天狐，九条尾巴化作银河长卷，眼中映出整个星空'],
+    stages: ['月白色的蛋，表面有星点银光在缓缓移动', '白狐幼崽，额生月印记，蓝银色尾光', '月纹灵狐，六尾舒展流淌银辉', '蓝银九尾天狐，周身环绕月华光环', '银月天狐，九尾化作银河长卷，眼中映出整个星空'],
+  },
+  {
+    poolId: 'pet_butterfly', name: '冰晶灵蝶', emoji: '🦋', rarity: 'R', personality: 'mystic',
+    spritePrefix: 'butterfly',
+    desc: '由万年寒冰凝结而成的灵蝶，翅膀上的冰晶花纹蕴含着上古魔法，美丽而神秘',
+    stages: ['一颗晶莹剔透的冰蓝色茧，内部隐约有光芒脉动', '破茧而出的冰晶小蝶，翅膀还微微透明，飞行时洒落细碎冰屑', '双翼完全展开，冰晶花纹流转，周围空气都因它而降温', '灵蝶完全体！六翼冰晶绽放，所过之处霜花盛开，美得令人屏息', '传说级的冰皇灵蝶！双翼覆盖整个天空，每一片冰晶都是一道魔法符文！'],
+  },
+  {
+    poolId: 'pet_mantis', name: '战镰螳螂', emoji: '🦗', rarity: 'R', personality: 'fierce',
+    spritePrefix: 'mantis',
+    desc: '身披银色战甲的机械螳螂，双镰锋利无比，是战场上的收割者',
+    stages: ['银色的卵鞘，表面有金属光泽和精密纹路', '初生的小螳螂，镰刀还很稚嫩但已露出凶悍气质', '战甲覆盖上半身的少年螳螂，双镰开始泛起冷光', '全副武装的战镰螳螂！银色甲壳流光溢彩，双镰可断钢铁', '终极猎杀者！全身纳米甲壳，双镰融合量子利刃，战场之王！'],
+  },
+  {
+    poolId: 'pet_squirrel', name: '机械松鼠', emoji: '🐿️', rarity: 'R', personality: 'playful',
+    spritePrefix: 'squirrel',
+    desc: '半生物半机械的赛博松鼠，大大的眼睛闪烁着LED光芒，尾巴是螺旋推进器',
+    stages: ['一个带有齿轮图案的小巧金属球', '毛茸茸的小松鼠，但耳朵尖和尾巴梢已经变成了金属部件', '半机械化的敏捷松鼠，尾巴可以当螺旋桨飞起来', '全机械改造完成！身体大部分被高科技甲壳覆盖，眼睛是HUD显示屏', '超级机械松鼠王！全身纳米科技，尾巴是等离子推进器，能以超音速穿梭！'],
+  },
+  {
+    poolId: 'pet_kungfu', name: '功夫滚滚', emoji: '🐼', rarity: 'R', personality: 'calm',
+    spritePrefix: 'kungfu',
+    desc: '来自云巅武学的功夫熊猫，手持竹棍，气定神闲间蕴含着毁天灭地的力量',
+    stages: ['一个画着太极图的竹笋状蛋', '戴着红色腰带的小熊猫宝宝，抱着比它还大的竹棍', '黑衣武者形态，手持青竹棍，眼神中透着武术家的沉稳', '脚踏祥云的大宗师，掌心凝聚着蓝色气劲，一招一式皆是绝学', '传说中的武神熊猫！周身环绕雷电与八卦阵，举手投足可开山裂石！'],
   },
   // === SR级 超稀 ===
   {
@@ -504,7 +540,7 @@ export function initGodModeState() {
     totalStars: 9999,
     coins: 99999,
     petPool: PET_POOL,
-    ownedPets: ['pet_kitten', 'pet_shiba', 'pet_fox', 'pet_toothless'],  // 4只全解锁
+    ownedPets: ['pet_kitten', 'pet_shiba', 'pet_hamster', 'pet_corgi', 'pet_fox', 'pet_butterfly', 'pet_mantis', 'pet_squirrel', 'pet_kungfu', 'pet_toothless'],  // 11只全解锁
     currentPet: {
       poolId: 'pet_kitten',   // 默认小橘猫（有精美PNG）
       level: 35,
@@ -791,24 +827,42 @@ export function tickPetStats(state, minutes = 1) {
 const DRAW_WEIGHTS_BY_DRAW = {
   // 前3次：N偏多，让新用户体验基础宠物
   base: [
-    { poolId: 'pet_kitten',    weight: 50 },
-    { poolId: 'pet_shiba',     weight: 28 },
-    { poolId: 'pet_fox',       weight: 12 },
-    { poolId: 'pet_toothless', weight: 10 },
+    { poolId: 'pet_kitten',    weight: 22 },
+    { poolId: 'pet_shiba',     weight: 18 },
+    { poolId: 'pet_hamster',   weight: 14 },
+    { poolId: 'pet_corgi',     weight: 12 },
+    { poolId: 'pet_fox',       weight: 10 },
+    { poolId: 'pet_butterfly', weight: 6 },
+    { poolId: 'pet_mantis',    weight: 5 },
+    { poolId: 'pet_squirrel',  weight: 5 },
+    { poolId: 'pet_kungfu',    weight: 5 },
+    { poolId: 'pet_toothless', weight: 3 },
   ],
   // 第4-10次：R/SR概率逐步提升
   warmup: [
-    { poolId: 'pet_kitten',    weight: 40 },
-    { poolId: 'pet_shiba',     weight: 22 },
-    { poolId: 'pet_fox',       weight: 18 },
-    { poolId: 'pet_toothless', weight: 20 },
+    { poolId: 'pet_kitten',    weight: 15 },
+    { poolId: 'pet_shiba',     weight: 13 },
+    { poolId: 'pet_hamster',   weight: 10 },
+    { poolId: 'pet_corgi',     weight: 9 },
+    { poolId: 'pet_fox',       weight: 14 },
+    { poolId: 'pet_butterfly', weight: 9 },
+    { poolId: 'pet_mantis',    weight: 8 },
+    { poolId: 'pet_squirrel',  weight: 7 },
+    { poolId: 'pet_kungfu',    weight: 8 },
+    { poolId: 'pet_toothless', weight: 7 },
   ],
   // 第11次+：怜悯模式，SR/SSR占比接近一半
   boosted: [
-    { poolId: 'pet_kitten',    weight: 28 },
-    { poolId: 'pet_shiba',     weight: 17 },
-    { poolId: 'pet_fox',       weight: 20 },
-    { poolId: 'pet_toothless', weight: 35 },
+    { poolId: 'pet_kitten',    weight: 10 },
+    { poolId: 'pet_shiba',     weight: 9 },
+    { poolId: 'pet_hamster',   weight: 7 },
+    { poolId: 'pet_corgi',     weight: 6 },
+    { poolId: 'pet_fox',       weight: 14 },
+    { poolId: 'pet_butterfly', weight: 11 },
+    { poolId: 'pet_mantis',    weight: 10 },
+    { poolId: 'pet_squirrel',  weight: 9 },
+    { poolId: 'pet_kungfu',    weight: 10 },
+    { poolId: 'pet_toothless', weight: 14 },
   ],
 };
 
