@@ -2,7 +2,7 @@
   "name": "_auto_687c1537975c41beb8aaffee0d82112e",
   "leadAgentId": "687c1537975c41beb8aaffee0d82112e",
   "workspacePath": "/Volumes/ORICO/xinwen/claudecode/chinese-learn",
-  "createdAt": "2026-04-16T03:44:04.998Z",
+  "createdAt": "2026-04-16T08:00:31.676Z",
   "options": {
     "workspacePath": "/Volumes/ORICO/xinwen/claudecode/chinese-learn",
     "isAutoTeam": true
@@ -14,19 +14,14 @@
       "role": "Team Lead - coordinates the team and interacts with the user"
     },
     {
-      "memberId": "g7-en-gen@_auto_687c1537975c41beb8aaffee0d82112e",
-      "name": "g7-en-gen",
-      "role": "生成初一英语听写词库"
+      "memberId": "cloze-fix@_auto_687c1537975c41beb8aaffee0d82112e",
+      "name": "cloze-fix",
+      "role": "重生成初中英语完形填空题库"
     },
     {
-      "memberId": "g8-en-gen@_auto_687c1537975c41beb8aaffee0d82112e",
-      "name": "g8-en-gen",
-      "role": "生成初二英语听写词库"
-    },
-    {
-      "memberId": "g9-en-gen@_auto_687c1537975c41beb8aaffee0d82112e",
-      "name": "g9-en-gen",
-      "role": "生成初三英语听写词库"
+      "memberId": "reading-fix@_auto_687c1537975c41beb8aaffee0d82112e",
+      "name": "reading-fix",
+      "role": "重生成初中英语阅读理解题库"
     }
   ],
   "isAutoTeam": true

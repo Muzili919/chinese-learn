@@ -223,6 +223,8 @@ reading(答题默认) / sleeping(Dock默认) / happy / wave / excited / angry / 
 5. **spendableXP用了lp.currentExp(人物经验)** → 商店显示错误数值
 6. **AI生成精灵图裁剪** → 必须用PIL去下半部分黑边
 7. **vocab JSON中文引号** → 必须用逐字符解析器替换为「」
+8. **pet_preview宠物信息全为默认值** → upsertMV1State用state.petPool查宠物，但PET_POOL是常量不在state里。必须直接import PET_POOL使用
+9. **抽卡券背包使用无反应** → handleUseItem走useItemOnPet(只处理属性物品)，card_draw必须走handleShopAction触发抽卡逻辑
 
 ---
 

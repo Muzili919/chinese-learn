@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import PetSpriteAvatar from './PetSpriteAvatar'
+import { PET_POOL } from '../utils/gamification'
 
 /**
  * PetSwitchPanel - 我的宠物面板
@@ -11,7 +12,7 @@ import PetSpriteAvatar from './PetSpriteAvatar'
 export default function PetSwitchPanel({ state, spendableXP, onSwitchPet, onDrawCard, totalXP, onSellPet }) {
   const [confirmSellId, setConfirmSellId] = useState(null)
   const ownedPets = state.ownedPets || []
-  const petPool = state.petPool || []
+  const petPool = PET_POOL
   const currentPet = state.currentPet || {}
   const currentPoolInfo = petPool.find(p => p.poolId === currentPet.poolId) || { name: '宠物', emoji: '🐉', rarity: 'N' }
   const inventory = state.inventory || {}

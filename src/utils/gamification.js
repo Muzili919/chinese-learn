@@ -566,7 +566,7 @@ export function initGodModeState() {
       cleanItems: 99,
       energyItems: 99,
       giftItems: 99,
-      cards: 99,
+      cards: 50,
       accessories: ALL_ACCESSORIES,
     },
     settings: { soundEnabled: true, notificationsEnabled: true },
