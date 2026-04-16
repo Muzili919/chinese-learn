@@ -1021,7 +1021,6 @@ export default function MV1Demo({ onBack, initialState, onStateChange, grade }) 
     { key: 'game', label: '⚔️ 游戏' },
     { key: 'tasks', label: '📋 任务' },
     { key: 'shop', label: '🏪 商店' },
-    { key: 'friends', label: '👫 好友' },
     { key: 'my', label: '🐾 我的' },
   ];
 
@@ -1051,29 +1050,7 @@ export default function MV1Demo({ onBack, initialState, onStateChange, grade }) 
             {poolInfo?.name} · {petStage} · Lv.{petLevel}
           </p>
         </div>
-        {/* 未读鼓励角标 */}
-        {activeTab !== 'friends' && (state?.pendingEncouragements || []).some(e => !e.read) && (
-          <div
-            onClick={() => setActiveTab('friends')}
-            style={{
-              marginLeft: 'auto', width: 32, height: 32, borderRadius: 50,
-              background: '#fef3c7', display: 'flex', alignItems: 'center', justifyContent: 'center',
-              cursor: 'pointer', position: 'relative',
-            }}
-          >
-            <span style={{ fontSize: 16 }}>🌟</span>
-            <span style={{
-              position: 'absolute', top: -2, right: -2,
-              width: 14, height: 14, borderRadius: 50,
-              background: '#ef4444', color: 'white', fontSize: 8,
-              display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 700,
-            }}>
-              {(state?.pendingEncouragements || []).filter(e => !e.read).length}
-            </span>
-          </div>
-        )}
         {/* 玩家等级 */}
-        {!activeTab || activeTab !== 'friends' || !(state?.pendingEncouragements || []).some(e => !e.read) ? (
           <div style={{
             marginLeft: 'auto', display: 'flex', alignItems: 'center', gap: 6,
             padding: '4px 10px', background: 'linear-gradient(135deg,#f3e8ff,#e0e7ff)',
@@ -1088,7 +1065,6 @@ export default function MV1Demo({ onBack, initialState, onStateChange, grade }) 
             </div>
             <span style={{ color: '#6b7280', fontSize: 10 }}>{lp.currentExp}/{lp.requiredExp}</span>
           </div>
-        ) : null}
       </div>
 
       {/* Tab 栏 */}
@@ -1098,17 +1074,11 @@ export default function MV1Demo({ onBack, initialState, onStateChange, grade }) 
             flex: 1, padding: '9px 0', border: 'none', borderRadius: 10,
             background: activeTab === tab.key ? 'linear-gradient(135deg,#6366f1,#8b5cf6)' : 'rgba(255,255,255,0.85)',
             color: activeTab === tab.key ? 'white' : '#6b7280',
-            fontWeight: activeTab === tab.key ? 600 : 500, fontSize: tab.key === 'friends' ? 10.5 : 11.5, cursor: 'pointer',
+            fontWeight: activeTab === tab.key ? 600 : 500, fontSize: 11.5, cursor: 'pointer',
             boxShadow: activeTab === tab.key ? '0 3px 12px rgba(99,102,241,0.32)' : '0 1px 3px rgba(0,0,0,0.05)',
             position: 'relative',
           }}>
             {tab.label}
-            {tab.key === 'friends' && (state?.pendingEncouragements || []).some(e => !e.read) && (
-              <span style={{
-                position: 'absolute', top: 2, right: '20%',
-                width: 8, height: 8, borderRadius: 50, background: '#ef4444',
-              }} />
-            )}
           </button>
         ))}
       </div>
@@ -1218,19 +1188,7 @@ export default function MV1Demo({ onBack, initialState, onStateChange, grade }) 
               </div>
             </div>
 
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 8 }}>
-              {[
-                { label: '答题数', value: state.totalLearnQuestions || 0, icon: '📝', color: '#6366f1' },
-                { label: '正确率', value: state.totalLearnQuestions ? `${Math.round((state.totalCorrectAnswers || 0) / state.totalLearnQuestions * 100)}%` : '-', icon: '✅', color: '#10b981' },
-                { label: '活跃天数', value: state.daysActive || 1, icon: '🔥', color: '#f59e0b' },
-              ].map(card => (
-                <div key={card.label} style={{ background: 'white', borderRadius: 12, padding: 12, textAlign: 'center', boxShadow: '0 1px 6px rgba(0,0,0,0.04)' }}>
-                  <div style={{ fontSize: 20 }}>{card.icon}</div>
-                  <div style={{ fontSize: 18, fontWeight: 800, color: card.color, lineHeight: 1.2, marginTop: 2 }}>{card.value}</div>
-                  <div style={{ fontSize: 9, color: '#9ca3af' }}>{card.label}</div>
-                </div>
-              ))}
-            </div>
+
           </>
         )}
 
@@ -1241,16 +1199,13 @@ export default function MV1Demo({ onBack, initialState, onStateChange, grade }) 
         {activeTab === 'game' && (
           <WordCannonGame
             state={state}
+            grade={grade}
             onGameStateUpdate={(patch) => setState(s => ({ ...s, ...patch }))}
           />
         )}
 
         {activeTab === 'shop' && (
           <ShopPanel state={state} onBuy={handleShopAction} onUseItem={handleUseItem} spendableXP={spendableXP} />
-        )}
-
-        {activeTab === 'friends' && (
-          <FriendsPanel state={state} userId={userId} onStateChange={setState} />
         )}
 
         {activeTab === 'my' && (
