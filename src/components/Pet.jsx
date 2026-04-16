@@ -200,6 +200,50 @@ const PET_SPRITE_MAP = (function() {
       hasPngEmotions: true,
       useLevelBasedEmotion: true,
     },
+    // === SR级：花瓣精灵（3阶段AI精美PNG）===
+    pet_petal_fairy: {
+      levelSprites: {
+        1: '/pets/petal_fairy/stage1/normal.png',
+        10: '/pets/petal_fairy/stage2/happy.png',
+        20: '/pets/petal_fairy/stage3/excited.png',
+      },
+      emotionSprites: makePetStage('petal_fairy', 'stage1'),
+      hasPngEmotions: true,
+      useLevelBasedEmotion: true,
+    },
+    // === SR级：机械翼龙（3阶段AI精美PNG）===
+    pet_mecha_dragon: {
+      levelSprites: {
+        1: '/pets/mecha_dragon/stage1/normal.png',
+        10: '/pets/mecha_dragon/stage2/happy.png',
+        20: '/pets/mecha_dragon/stage3/excited.png',
+      },
+      emotionSprites: makePetStage('mecha_dragon', 'stage1'),
+      hasPngEmotions: true,
+      useLevelBasedEmotion: true,
+    },
+    // === SR级：小凤凰（3阶段AI精美PNG）===
+    pet_phoenix: {
+      levelSprites: {
+        1: '/pets/phoenix/stage1/reading.png',
+        10: '/pets/phoenix/stage2/reading.png',
+        20: '/pets/phoenix/stage3/reading.png',
+      },
+      emotionSprites: makePetStage('phoenix', 'stage1'),
+      hasPngEmotions: true,
+      useLevelBasedEmotion: true,
+    },
+    // === SR级：星光小马（3阶段AI精美PNG）===
+    pet_starpony: {
+      levelSprites: {
+        1: '/pets/starpony/stage1/reading.png',
+        10: '/pets/starpony/stage2/reading.png',
+        20: '/pets/starpony/stage3/reading.png',
+      },
+      emotionSprites: makePetStage('starpony', 'stage1'),
+      hasPngEmotions: true,
+      useLevelBasedEmotion: true,
+    },
   };
 })();
 
@@ -242,6 +286,8 @@ function getEmotionSprite(emotionKey, type, level = 1) {
       pet_butterfly: 'butterfly', pet_mantis: 'mantis',
       pet_squirrel: 'squirrel', pet_kungfu: 'kungfu',
       pet_toothless: 'toothless',
+      pet_petal_fairy: 'petal_fairy', pet_mecha_dragon: 'mecha_dragon',
+      pet_phoenix: 'phoenix', pet_starpony: 'starpony',
     }
     const prefix = prefixMap[type]
     if (prefix) {
