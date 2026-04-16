@@ -1,0 +1,107 @@
+- generic [ref=e3]:
+  - generic [ref=e112]:
+    - generic [ref=e113]:
+      - button "←" [ref=e114] [cursor=pointer]
+      - generic [ref=e115]:
+        - heading "🐉 宠物互动" [level=1] [ref=e116]
+        - paragraph [ref=e117]: 小黄猫 · 完全体 · Lv.35
+      - generic [ref=e118]:
+        - generic [ref=e119]: ⭐ Lv.1
+        - generic [ref=e121]: 0/100
+    - generic [ref=e122]:
+      - button "🎮 互动" [ref=e123] [cursor=pointer]
+      - button "⚔️ 游戏" [ref=e124] [cursor=pointer]
+      - button "📋 任务" [ref=e125] [cursor=pointer]
+      - button "🏪 商店" [ref=e126] [cursor=pointer]
+      - button "🐾 我的" [ref=e127] [cursor=pointer]
+    - generic [ref=e128]:
+      - generic [ref=e129]:
+        - generic [ref=e130]: 和主人在一起就是最幸福的时光喵~
+        - generic [ref=e132]:
+          - generic [ref=e133]: Lv.35
+          - generic [ref=e134]: 成熟体
+          - img "pet" [ref=e135] [cursor=pointer]
+          - generic:
+            - generic: 👑
+            - generic: 🦸
+            - generic: 🧚
+        - generic [ref=e136]:
+          - generic [ref=e137]: 📊 状态
+          - generic [ref=e139]:
+            - generic [ref=e140]: 🍖 饱食度
+            - generic [ref=e141]: 100%
+          - generic [ref=e145]:
+            - generic [ref=e146]: ✨ 清洁度
+            - generic [ref=e147]: 100%
+          - generic [ref=e151]:
+            - generic [ref=e152]: ⚡ 活力值
+            - generic [ref=e153]: 100%
+          - generic [ref=e157]:
+            - generic [ref=e158]: ❤️ 亲密度
+            - generic [ref=e159]: 100%
+        - generic [ref=e162]:
+          - generic [ref=e163]: 心情
+          - generic [ref=e164]: 😊
+        - generic [ref=e165]:
+          - button "🍖 喂养 +饱食度 ×4" [ref=e166] [cursor=pointer]:
+            - generic [ref=e167]: 🍖
+            - generic [ref=e168]: 喂养
+            - generic [ref=e169]: +饱食度 ×4
+          - button "🛁 洗澡 +清洁度 ×2" [ref=e170] [cursor=pointer]:
+            - generic [ref=e171]: 🛁
+            - generic [ref=e172]: 洗澡
+            - generic [ref=e173]: +清洁度 ×2
+          - button "💤 休息 +活力 ×2" [ref=e174] [cursor=pointer]:
+            - generic [ref=e175]: 💤
+            - generic [ref=e176]: 休息
+            - generic [ref=e177]: +活力 ×2
+          - button "👋 抚摸 +亲密度" [ref=e178] [cursor=pointer]:
+            - generic [ref=e179]: 👋
+            - generic [ref=e180]: 抚摸
+            - generic [ref=e181]: +亲密度
+        - generic [ref=e182]:
+          - generic [ref=e183]: 🎒 我的背包
+          - generic [ref=e184]:
+            - 'generic "鱼干: 3" [ref=e185]':
+              - generic [ref=e186]: 🐟
+              - generic [ref=e187]: "3"
+            - 'generic "烤鱼: 1" [ref=e188]':
+              - generic [ref=e189]: 🐠
+              - generic [ref=e190]: "1"
+            - 'generic "沐浴露: 2" [ref=e191]':
+              - generic [ref=e192]: 🧴
+              - generic [ref=e193]: "2"
+            - 'generic "能量饮料: 2" [ref=e194]':
+              - generic [ref=e195]: 🥤
+              - generic [ref=e196]: "2"
+            - 'generic "玩具: 1" [ref=e197]':
+              - generic [ref=e198]: 🧸
+              - generic [ref=e199]: "1"
+            - 'generic "抽卡券: 1" [ref=e200]':
+              - generic [ref=e201]: 🃏
+              - generic [ref=e202]: "1"
+      - generic [ref=e203]:
+        - generic [ref=e204]:
+          - generic [ref=e205]:
+            - text: 🐉 宠物成长经验
+            - generic [ref=e206]: Lv.35 · 完全体
+          - generic [ref=e207]: 0 / 3500
+        - generic [ref=e209]:
+          - paragraph [ref=e210]:
+            - text: "宠物经验池:"
+            - strong [ref=e211]: "0"
+            - text: XP（升级需 3500）
+          - generic [ref=e212]: 继续答题获取经验
+  - generic [ref=e89]:
+    - button "📚 学习" [ref=e90] [cursor=pointer]:
+      - generic [ref=e91]: 📚
+      - generic [ref=e92]: 学习
+    - button "🐉 宠物" [active] [ref=e94] [cursor=pointer]:
+      - generic [ref=e95]: 🐉
+      - generic [ref=e96]: 宠物
+    - button "🏆 排行" [ref=e97] [cursor=pointer]:
+      - generic [ref=e98]: 🏆
+      - generic [ref=e99]: 排行
+    - button "💥 错题" [ref=e100] [cursor=pointer]:
+      - generic [ref=e101]: 💥
+      - generic [ref=e102]: 错题

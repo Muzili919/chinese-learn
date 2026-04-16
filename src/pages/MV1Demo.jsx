@@ -27,11 +27,13 @@ import {
   ACCESSORY_SHOP,
   DAILY_TASK_TEMPLATES,
   ROOM_THEMES,
+  FURNITURE_ITEMS,
   GAME_SHOP_ITEMS,
   initDailyTasks,
   isEggState,
   hasFreeCard,
   sellPet,
+  PET_POOL,
 } from '../utils/gamification';
 import { storage, calcLevel, calcLevelProgress } from '../utils/storage';
 import { fetchMV1State, upsertMV1State, fetchUserPetPreview, sendEncouragement } from '../utils/mv1_cloud';
@@ -94,7 +96,7 @@ function FriendsPanel({ state, userId, onStateChange }) {
 
   // 加载好友预览（服务端API绕过RLS + users表补充名字）
   useEffect(() => {
-    const list = state.friends || [];
+    const list = state?.friends || [];
     setFriends(list);
     if (list.length === 0) return;
 
@@ -158,10 +160,10 @@ function FriendsPanel({ state, userId, onStateChange }) {
     })();
 
     return () => { cancelled = true; };
-  }, [state.friends]);
+  }, [state?.friends]);
 
   // 未读鼓励
-  const pending = (state.pendingEncouragements || []).filter(
+  const pending = (state?.pendingEncouragements || []).filter(
     e => !e.read
   );
 
@@ -608,14 +610,32 @@ export default function MV1Demo({ onBack, initialState, onStateChange, grade }) 
         return []
       })()
 
+      // localStorage 是同步保存（始终最新），Supabase 是异步保存（可能滞后）
+      // ★ key 含 userId，防止跨账号/跨设备读到其他用户的数据
+      let localSnapshot = null;
+      try {
+        const petKey = currentUserId ? `mv1_pet_state_${currentUserId}` : 'mv1_pet_state';
+        const cached = localStorage.getItem(petKey);
+        if (cached) localSnapshot = JSON.parse(cached);
+      } catch (_) {}
+
       const merged = {
         ...base,
         ...(cloud || {}),
         exp: storageXP,
-        petExpConsumed: cloud?.petExpConsumed || 0,
+        petExpConsumed: localSnapshot?.petExpConsumed ?? (cloud?.petExpConsumed || 0),
         currentPet: resolvedCurrentPet,
         ownedPets: resolvedOwnedPets,
-        inventory: { ...base.inventory, ...(cloud?.inventory || {}) },
+        // 背包：localStorage 最新，防止刷新后数量回滚
+        inventory: localSnapshot?.inventory
+          ? { ...base.inventory, ...(cloud?.inventory || {}), ...localSnapshot.inventory }
+          : { ...base.inventory, ...(cloud?.inventory || {}) },
+        // 游戏道具背包
+        gameInventory: localSnapshot?.gameInventory ?? (cloud?.gameInventory || base.gameInventory || {}),
+        // 小屋主题
+        ownedRoomThemes: localSnapshot?.ownedRoomThemes ?? (cloud?.ownedRoomThemes || base.ownedRoomThemes || []),
+        currentRoomTheme: localSnapshot?.currentRoomTheme ?? (cloud?.currentRoomTheme || base.currentRoomTheme || 'default'),
+        ownedFurniture: localSnapshot?.ownedFurniture ?? (cloud?.ownedFurniture || base.ownedFurniture || []),
         dailyTasks,
         dailyLastResetDate: today,
         taskCounters: cloud?.taskCounters || base.taskCounters,
@@ -632,35 +652,103 @@ export default function MV1Demo({ onBack, initialState, onStateChange, grade }) 
       // 云端失败也要标记初始化完成，否则页面永远转圈
       initializedRef.current = true;
       if (initialState) setState(initialState);
+      else setState(initGamificationState());  // 兜底：用默认初始化状态
       setIsInitialized(true);
     });
   }, [currentUserId]);  // 切换账号时重新拉取云端宠物数据
 
   // 处理未读鼓励（进入宠物页时弹提示，自动标记已读）
   useEffect(() => {
-    const pending = (state.pendingEncouragements || []).filter(e => !e.read);
+    const pending = (state?.pendingEncouragements || []).filter(e => !e.read);
     if (pending.length > 0) {
       setState(s => ({
         ...s,
         pendingEncouragements: (s.pendingEncouragements || []).map(e => ({ ...e, read: true })),
       }));
     }
-  }, [state.pendingEncouragements?.length]);
+  }, [state?.pendingEncouragements?.length]);
 
   // 持久化（跳过初始化前的渲染，防止空好友列表覆盖云端数据）
   useEffect(() => {
     if (!initializedRef.current) return;
     const user = storage.getUser();
-    if (user?.id) upsertMV1State(user.id, state);
-    // ★ 关键：同时持久化到localStorage，防止刷新变蛋
-    try { localStorage.setItem('mv1_pet_state', JSON.stringify(state)) } catch(e) {}
+    // ★ 安全保护：state 为 null（云端加载失败且无本地缓存时的兜底蛋态）不推送到云端，
+    // 防止网络故障时用空状态覆盖云端已有的宠物数据
+    if (user?.id && state != null) upsertMV1State(user.id, state);
+    // ★ 关键：同时持久化到localStorage（key 含 userId，防止跨账号污染）
+    try {
+      const petKey = currentUserId ? `mv1_pet_state_${currentUserId}` : 'mv1_pet_state';
+      if (state != null) localStorage.setItem(petKey, JSON.stringify(state));
+    } catch(e) {}
     if (onStateChange) onStateChange(state);
   }, [state, onStateChange]);
 
   // 时间衰减
   useEffect(() => {
-    const iv = setInterval(() => setState(s => tickPetStats(s, 5)), 30000);
+    const iv = setInterval(() => setState(s => s ? tickPetStats(s, 5) : s), 30000);
     return () => clearInterval(iv);
+  }, []);
+
+  // ★★★ 强制经验同步系统（Fix #5 增强版：彻底解决学习后宠物经验不动的问题）★★★
+  // 
+  // 问题根因：
+  //   1. MV1Demo组件卸载→重新挂载时，useState初始值用的gameState（可能过时）
+  //   2. 初始化useEffect是异步的（fetchMV1State），在它回来前UI显示旧值
+  //   3. 即使3秒interval更新了state.exp，useMemo依赖数组可能因React渲染优化而跳过
+  //
+  // 三层同步防御：
+  //   L1: 3秒定时轮询（覆盖"停留在宠物页等待"的场景）
+  //   L2: 页面可见性变化时立即刷新（覆盖"从答题页切回来"的场景）
+  //   L3: totalXP用ref绕过useMemo缓存（确保每次渲染都读最新storage）
+  useEffect(() => {
+    // L1: 每3秒对比并同步
+    const iv = setInterval(() => {
+      setState(s => {
+        if (!s) return s;
+        const freshXP = storage.getXP(storage.getUser()?.id || '');
+        if (freshXP !== s.exp && freshXP > 0) {
+          return { ...s, exp: freshXP };
+        }
+        return s;
+      });
+    }, 3000);
+
+    // L2: 用户从答题页切回宠物页时，立即触发一次强制刷新
+    const onVisible = () => {
+      if (!document.hidden) {
+        setState(s => {
+          if (!s) return s;
+          const freshXP = storage.getXP(storage.getUser()?.id || '');
+          // 只要storage的值更大（说明刚答完题），就立即同步
+          if (freshXP !== s.exp && freshXP > 0) {
+            console.log('[MV1] 🔄 页面可见性切换，强制刷新XP:', s.exp, '→', freshXP);
+            return { ...s, exp: freshXP };
+          }
+          return s;
+        });
+      }
+    };
+    document.addEventListener('visibilitychange', onVisible);
+
+    // L3: 组件刚挂载也立即执行一次（不等3秒）
+    // 用setTimeout(0)让它在初始化useEffect之后执行，作为兜底
+    const t = setTimeout(() => {
+      setState(s => {
+        if (!s) return s;
+        const freshXP = storage.getXP(storage.getUser()?.id || '');
+        if (freshXP !== s.exp && freshXP > 0) {
+          console.log('[MV1] 🔥 挂载后兜底刷新XP:', s.exp, '→', freshXP);
+          return { ...s, exp: freshXP };
+        }
+        return s;
+      });
+    }, 500);  // 给初始化useEffect留500ms先跑完
+
+    return () => {
+      clearInterval(iv);
+      document.removeEventListener('visibilitychange', onVisible);
+      clearTimeout(t);
+    };
   }, []);
 
   // 宠物升级（从累计经验池消耗）
@@ -694,24 +782,23 @@ export default function MV1Demo({ onBack, initialState, onStateChange, grade }) 
 
     // ★ 商店使用宠物可支配经验池（总经验-已消耗升级），不影响人物学习等级
   const handleShopAction = useCallback((actionId) => {
-    // 特殊处理：抽卡券 → 消耗背包中的卡券，直接触发抽卡
+    // 特殊处理：抽卡券 → 商店购买（花500经验买1张卡券放入背包）
     if (actionId === 'card_draw') {
       setState(s => {
-        const currentCards = s.inventory?.cards || 0;
-        
-        if (currentCards < 1) return s;  // 没有卡券，不能使用
-        
-        // 直接触发抽卡（不额外扣经验，卡券本身就是消耗品）
-        const { state: newS, pet } = drawCard(s);
-        if (!pet) return s;
-        
-        setGachaResult(pet);
-        setShowGacha(true);
-        
-        // 消耗1张抽卡券
+        const totalXP = storage.getXP(storage.getUser()?.id || '') || s.exp || 0;
+        const consumed = s.petExpConsumed || 0;
+        const petSpendable = Math.max(0, totalXP - consumed);
+
+        // 购买检查：可支配经验 >= 500
+        if (petSpendable < 500) return s;
+
+        // 购买成功：扣经验 + 加1张卡券到背包
+        // ★ buyItem 直接返回 state 对象，不要解构 { state: xxx }
+        const newS = buyItem(s, 'card_draw');
+        if (newS === s) return s;  // buyItem 内部校验失败（不应该发生）
         return {
           ...newS,
-          inventory: { ...(newS.inventory || {}), cards: currentCards - 1 },
+          petExpConsumed: (s.petExpConsumed || consumed) + 500,
         };
       });
       return;
@@ -747,6 +834,21 @@ export default function MV1Demo({ onBack, initialState, onStateChange, grade }) 
         };
       }
 
+      // 家具购买（已拥有不可重复购买）
+      if (actionId.startsWith('furniture_')) {
+        const furnitureId = actionId.replace('furniture_', '');
+        const item = FURNITURE_ITEMS.find(f => f.id === furnitureId);
+        if (!item) return s;
+        if (item.price > petSpendable) return s;
+        const owned = s.ownedFurniture || [];
+        if (owned.includes(furnitureId)) return s; // ★ 防止重复购买
+        return {
+          ...s,
+          ownedFurniture: [...owned, furnitureId],
+          petExpConsumed: (s.petExpConsumed || consumed) + item.price,
+        };
+      }
+
       // 游戏道具购买（extra_play / time_freeze / shield_potion）
       const gameItem = GAME_SHOP_ITEMS.find(i => i.id === actionId);
       if (gameItem) {
@@ -777,12 +879,56 @@ export default function MV1Demo({ onBack, initialState, onStateChange, grade }) 
   }, []);
 
   const handleUseItem = useCallback((itemId) => {
-    // 抽卡券：消耗背包中的卡券，直接触发抽卡
+    // 抽卡券 → 使用背包中的卡券触发抽卡
     if (itemId === 'card_draw') {
-      handleShopAction('card_draw');
+      setState(s => {
+        const currentCards = s.inventory?.cards || 0;
+        if (currentCards < 1) return s;  // 没有卡券
+
+        // 直接触发抽卡（卡券本身已花钱买，使用时不再扣经验）
+        const { state: newS, pet } = drawCard(s);
+        if (!pet) return s;
+
+        setGachaResult(pet);
+        setShowGacha(true);
+
+        // 消耗1张抽卡券
+        return {
+          ...newS,
+          inventory: { ...(newS.inventory || {}), cards: currentCards - 1 },
+        };
+      });
       return;
     }
-    setState(s => useItemOnPet(s, itemId));
+
+    // 背包中的 use_xxx → 对应的 SHOP_ITEMS id（去掉 use_ 前缀）
+    const realId = itemId.startsWith('use_') ? itemId.slice(4) : itemId;
+
+    setState(s => {
+      const inv = { ...(s.inventory || {}) };
+      // 检查库存并扣减
+      if (realId === 'food_basic') {
+        if (!inv.foods?.basic) return s;
+        inv.foods = { ...inv.foods, basic: inv.foods.basic - 1 };
+      } else if (realId === 'food_advanced') {
+        if (!inv.foods?.advanced) return s;
+        inv.foods = { ...inv.foods, advanced: inv.foods.advanced - 1 };
+      } else if (realId === 'clean_basic') {
+        if (!inv.cleanItems) return s;
+        inv.cleanItems = inv.cleanItems - 1;
+      } else if (realId === 'energy_drink') {
+        if (!inv.energyItems) return s;
+        inv.energyItems = inv.energyItems - 1;
+      } else if (realId === 'gift_toy') {
+        if (!inv.giftItems) return s;
+        inv.giftItems = inv.giftItems - 1;
+      } else {
+        return s; // 未知道具
+      }
+      // 应用效果
+      const afterEffect = useItemOnPet({ ...s, inventory: inv }, realId);
+      return afterEffect;
+    });
   }, [handleShopAction]);
 
   // 互动
@@ -857,6 +1003,8 @@ export default function MV1Demo({ onBack, initialState, onStateChange, grade }) 
   const [clickCount, setClickCount] = useState(0)           // 连续点击计数
   const [showAngry, setShowAngry] = useState(false)          // 是否显示生气状态
   const [currentActionIndex, setCurrentActionIndex] = useState(0) // 当前正常动作索引
+  // 宠物走动动画状态
+  const [petWalkOffset, setPetWalkOffset] = useState(0);
 
   // 排除特殊状态的正常动作池
   const NORMAL_ACTIONS = ['happy', 'excited', 'wave', 'eating', 'normal', 'sleeping']
@@ -864,7 +1012,7 @@ export default function MV1Demo({ onBack, initialState, onStateChange, grade }) 
   // ---- 判断当前是否处于低血量状态 ----
   const isLowStat = useMemo(() => {
     if (!state?.currentPet?.stats) return false
-    const s = state.currentPet.stats
+    const s = state?.currentPet?.stats
     return (s.hunger ?? 100) < 10 || (s.cleanliness ?? 100) < 10 ||
            (s.energy ?? 100) < 10 || (s.intimacy ?? 50) < 10
   }, [state?.currentPet?.stats])
@@ -931,6 +1079,18 @@ export default function MV1Demo({ onBack, initialState, onStateChange, grade }) 
     return () => clearTimeout(timer)
   }, [isPetLocked, showAngry])
 
+  // 宠物在小屋里左右踱步动画
+  useEffect(() => {
+    if (!isInitialized) return;
+    const positions = [0, 30, -30, 15, -15, 0];
+    let idx = 0;
+    const timer = setInterval(() => {
+      idx = (idx + 1) % positions.length;
+      setPetWalkOffset(positions[idx]);
+    }, 2200);
+    return () => clearInterval(timer);
+  }, [isInitialized]);
+
   const handleDrawCard = useCallback(() => {
     // state为null时（正在加载云端数据），不允许操作
     setState(s => {
@@ -996,7 +1156,18 @@ export default function MV1Demo({ onBack, initialState, onStateChange, grade }) 
   const petLevel = currentPet?.level || 1;
   const petThreshold = petLevel * 100;
 
-  const totalXP = storage.getXP(storage.getUser()?.id || '') || state?.exp || 0;
+  // ★ totalXP: 用 useRef 存最新值 + 强制刷新计数器
+  //    解决useMemo"依赖不变就不重算"导致storage更新后仍显示旧值的问题
+  const xpRefreshCounter = useState(0)[1];  // forceUpdate函数（不存state值）
+  const latestXPRef = useRef(0);
+
+  // 每次渲染都读storage，确保绝对最新
+  const _freshTotalXP = storage.getXP(storage.getUser()?.id || '') || state?.exp || 0;
+  if (_freshTotalXP !== latestXPRef.current) {
+    latestXPRef.current = _freshTotalXP;
+  }
+  // 用latestXPRef作为真实数据源，state.exp作为fallback
+  const totalXP = Math.max(latestXPRef.current, state?.exp || 0);
   const lp = calcLevelProgress(totalXP);
 
   const petExpConsumed = state?.petExpConsumed || 0;
@@ -1013,7 +1184,7 @@ export default function MV1Demo({ onBack, initialState, onStateChange, grade }) 
     return '完全体';
   }, [petLevel]);
 
-  const poolInfo = (state.petPool || []).find(p => p.poolId === currentPet?.poolId)
+  const poolInfo = (state?.petPool || PET_POOL).find(p => p.poolId === currentPet?.poolId)
     || { name: '无牙仔', emoji: '🐉', rarity: 'SR' };
 
   const tabs = [
@@ -1113,19 +1284,57 @@ export default function MV1Demo({ onBack, initialState, onStateChange, grade }) 
                 />
               )
               /* 🐱/🐉 宠物正常显示 */
+              const roomTheme = ROOM_THEMES.find(t => t.id === state?.currentRoomTheme);
+              const ownedFurniture = state?.ownedFurniture || [];
+              const wallItems = FURNITURE_ITEMS.filter(f => f.zone === 'wall' && ownedFurniture.includes(f.id));
+              const floorItems = FURNITURE_ITEMS.filter(f => f.zone === 'floor' && ownedFurniture.includes(f.id));
               return (
-                <Pet
-                  type={currentPet?.poolId || 'pet_toothless'} experience={petExp} level={petLevel} onGainExp={() => {}}
-                  mode="full" size={180}
-                  pose={interactPose}
-                  stats={currentPet?.stats}
-                  equippedAccessories={currentPet?.equippedAccessories}
-                  soundEnabled={state.settings?.soundEnabled !== false}
-                  onInteract={handleInteract}
-                  inventory={state.inventory}
-                  onTap={handlePetInteractTap}
-                  isLocked={isPetLocked}
-                />
+                <div style={{
+                  background: roomTheme ? roomTheme.bg : 'linear-gradient(180deg,#eef2ff,#ede9fe)',
+                  borderRadius: 16, margin: '0 12px 8px', overflow: 'hidden',
+                  position: 'relative', transition: 'background 0.5s',
+                  minHeight: 220,
+                }}>
+                  {/* 地板 */}
+                  <div style={{
+                    position: 'absolute', bottom: 0, left: 0, right: 0, height: 32,
+                    background: roomTheme ? roomTheme.floor : '#ddd6fe',
+                    borderTop: `2px solid ${roomTheme ? roomTheme.accentColor : '#a78bfa'}`,
+                    opacity: 0.85,
+                  }} />
+                  {/* 墙面家具层 */}
+                  {wallItems.map(f => (
+                    <span key={f.id} style={{
+                      position: 'absolute', fontSize: f.fontSize,
+                      lineHeight: 1, userSelect: 'none',
+                      filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.25))',
+                      ...f.pos,
+                    }}>{f.icon}</span>
+                  ))}
+                  {/* 地板家具层 */}
+                  {floorItems.map(f => (
+                    <span key={f.id} style={{
+                      position: 'absolute', fontSize: f.fontSize,
+                      lineHeight: 1, userSelect: 'none',
+                      filter: 'drop-shadow(0 1px 3px rgba(0,0,0,0.2))',
+                      ...f.pos,
+                    }}>{f.icon}</span>
+                  ))}
+                  {/* 宠物（spriteWalkOffset 只移动精灵图，不动状态栏/按钮） */}
+                  <Pet
+                    type={currentPet?.poolId || 'pet_toothless'} experience={petExp} level={petLevel} onGainExp={() => {}}
+                    mode="full" size={180}
+                    pose={interactPose}
+                    stats={currentPet?.stats}
+                    equippedAccessories={currentPet?.equippedAccessories}
+                    soundEnabled={state?.settings?.soundEnabled !== false}
+                    onInteract={handleInteract}
+                    inventory={state?.inventory}
+                    onTap={handlePetInteractTap}
+                    isLocked={isPetLocked}
+                    spriteWalkOffset={petWalkOffset}
+                  />
+                </div>
               )
             })()}
 
@@ -1200,7 +1409,7 @@ export default function MV1Demo({ onBack, initialState, onStateChange, grade }) 
           <WordCannonGame
             state={state}
             grade={grade}
-            onGameStateUpdate={(patch) => setState(s => ({ ...s, ...patch }))}
+            onGameStateUpdate={(patch) => setState(s => s ? ({ ...s, ...patch }) : s)}
           />
         )}
 

@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import {
-  SHOP_ITEMS, GAME_SHOP_ITEMS, ROOM_THEMES,
+  SHOP_ITEMS, GAME_SHOP_ITEMS, ROOM_THEMES, FURNITURE_ITEMS,
 } from '../utils/gamification'
 
 /**
@@ -147,7 +147,7 @@ export default function ShopPanel({ state, onBuy, onUseItem, spendableXP }) {
         <div>
           <h3 style={{ fontSize: 14, fontWeight: 700, color: '#4c1d95', marginBottom: 10 }}>🏠 选择小屋主题</h3>
           {/* 当前主题预览 */}
-          {state?.roomTheme && (() => {
+          {state?.currentRoomTheme && (() => {
             const theme = ROOM_THEMES.find(t => t.id === state.roomTheme);
             if (!theme) return null;
             return (
@@ -178,17 +178,19 @@ export default function ShopPanel({ state, onBuy, onUseItem, spendableXP }) {
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 8 }}>
             {ROOM_THEMES.map(theme => {
               const owned = (state?.ownedRoomThemes || []).includes(theme.id);
-              const active = state?.roomTheme === theme.id;
+              const active = state?.currentRoomTheme === theme.id;
+              const canAfford = coins >= theme.price;
               return (
                 <button
                   key={theme.id}
-                  onClick={() => onBuy(`room_theme_${theme.id}`)}
+                  onClick={() => !active && (owned || canAfford) && onBuy(`room_theme_${theme.id}`)}
                   disabled={active}
                   style={{
                     border: active ? `2px solid ${theme.accentColor}` : '1px solid #e5e7eb',
-                    borderRadius: 10, padding: 8, cursor: active ? 'default' : 'pointer',
+                    borderRadius: 10, padding: 8,
+                    cursor: active ? 'default' : (owned || canAfford) ? 'pointer' : 'not-allowed',
                     background: owned ? theme.bg : '#f9fafb',
-                    opacity: active ? 1 : owned ? 0.9 : 0.6,
+                    opacity: active ? 1 : (owned || canAfford) ? 0.9 : 0.5,
                     transition: 'all 0.2s',
                   }}
                 >
@@ -196,7 +198,38 @@ export default function ShopPanel({ state, onBuy, onUseItem, spendableXP }) {
                   <div style={{ fontSize: 10, color: active ? theme.accentColor : '#6b7280', fontWeight: 600 }}>
                     {active ? '✓ 使用中' : owned ? '已拥有' : `${theme.price} 经验`}
                   </div>
-                  <div style={{ fontSize: 9, color: '#9caaf', marginTop: 2 }}>{theme.desc}</div>
+                  <div style={{ fontSize: 9, color: '#9ca3af', marginTop: 2 }}>{theme.desc}</div>
+                </button>
+              )
+            })}
+          </div>
+
+          {/* 家具列表 */}
+          <h3 style={{ fontSize: 14, fontWeight: 700, color: '#4c1d95', margin: '14px 0 8px' }}>🛋️ 购买家具</h3>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 8 }}>
+            {FURNITURE_ITEMS.map(item => {
+              const owned = (state?.ownedFurniture || []).includes(item.id);
+              const canAfford = coins >= item.price;
+              return (
+                <button
+                  key={item.id}
+                  onClick={() => !owned && canAfford && onBuy(`furniture_${item.id}`)}
+                  disabled={owned}
+                  style={{
+                    border: owned ? '2px solid #6366f1' : '1px solid #e5e7eb',
+                    borderRadius: 10, padding: '8px 4px',
+                    cursor: owned ? 'default' : canAfford ? 'pointer' : 'not-allowed',
+                    background: owned ? '#eef2ff' : '#f9fafb',
+                    opacity: owned ? 1 : canAfford ? 1 : 0.5,
+                    transition: 'all 0.2s',
+                    display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 3,
+                  }}
+                >
+                  <span style={{ fontSize: 26 }}>{item.icon}</span>
+                  <span style={{ fontSize: 10, fontWeight: 600, color: '#374151' }}>{item.name}</span>
+                  <span style={{ fontSize: 9, color: owned ? '#6366f1' : canAfford ? '#6b7280' : '#d1d5db', fontWeight: 600 }}>
+                    {owned ? '✓ 已放置' : `${item.price} 经验`}
+                  </span>
                 </button>
               )
             })}

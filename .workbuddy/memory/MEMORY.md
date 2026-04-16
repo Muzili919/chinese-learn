@@ -130,12 +130,12 @@ MV1Demo(currentPet.poolId) → Pet(type=poolId) → PET_SPRITE_MAP查找 → 图
 | 喂食(food) | 100 | 饱食度+15 |
 | 清洁(cleaning) | 80 | 清洁度+20 |
 | 玩具(toy) | 50 | 活力+10 |
-| 抽卡券(card_draw) | 500 | 直接触发drawCard() |
-| 配饰 | 200-800 | equipAccessory |
+| 抽卡券(card_draw) | 500 | **购买+1卡券到背包**，背包中使用触发drawCard() |
 
 ### 显示
 - 顶部标题: **🐱 可支配经验**
 - 数值来源: `totalXP - petExpConsumed`
+- **totalXP用useMemo每3秒从storage.getXP刷新**（Fix #5经验同步）
 
 ---
 
@@ -225,6 +225,9 @@ reading(答题默认) / sleeping(Dock默认) / happy / wave / excited / angry / 
 7. **vocab JSON中文引号** → 必须用逐字符解析器替换为「」
 8. **pet_preview宠物信息全为默认值** → upsertMV1State用state.petPool查宠物，但PET_POOL是常量不在state里。必须直接import PET_POOL使用
 9. **抽卡券背包使用无反应** → handleUseItem走useItemOnPet(只处理属性物品)，card_draw必须走handleShopAction触发抽卡逻辑
+10. **resolveEmotion覆盖用户pose** → 四维状态判断在显式动作之前执行，导致点击切换的happy/excited等被覆盖为normal/sad_cry。必须让USER_CYCLING_POSES白名单直接透传
+11. **抽卡券商店买不了** → handleShopAction('card_draw')原来走"使用已有卡券"逻辑（检查cards>0），不是"购买新卡券"。购买=花500经验加1张到背包，使用=消耗1张触发drawCard，两条路径要分开
+12. **答题后宠物经验不动** → totalXP只在初始化读storage一次，后续storage.addXP不自动同步。需要定时刷新useEffect或用useMemo
 
 ---
 

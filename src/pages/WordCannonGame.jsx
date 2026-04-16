@@ -7,21 +7,30 @@
  */
 
 import React, { useRef, useEffect, useState, useCallback, useMemo } from 'react';
-import wordData from '../data/words_network_j2.json';
+import wordDataPrimary from '../data/words_network.json';
+import wordDataJunior from '../data/words_network_j2.json';
 import { PET_POOL } from '../utils/gamification';
 
 /* ═════════════════════ 常量定义（先于所有函数） ═════════════════════ */
 
-const WORD_LIST = Object.values(wordData.words);
-const BASE_FALL_SPEED = 0.4; // px/frame (60fps)
-const SPEED_INCREMENT = 0.08; // 每波增加速度
-const BUBBLE_SPAWN_INTERVAL = 2400; // ms
-const SPAWN_INTERVAL_DECREASE = 150; // 每波减少间隔(ms)
-const MIN_SPAWN_INTERVAL = 1200;
-const GAME_AREA_HEIGHT = 420; // 游戏区域高度(px)
+// 词库按学段区分：primary=小学, j1/j2=初中
+// grade 值参考 App.jsx：'primary' | 'j1' | 'j2'
+const WORD_LIST_PRIMARY = Object.values(wordDataPrimary.words);
+const WORD_LIST_JUNIOR  = Object.values(wordDataJunior.words);
+function getWordList(grade) {
+  return (grade === 'j1' || grade === 'j2') ? WORD_LIST_JUNIOR : WORD_LIST_PRIMARY;
+}
+const BASE_FALL_SPEED = 0.55; // px/frame (60fps)
+const SPEED_INCREMENT = 0.06; // 每波加速
+const BUBBLE_SPAWN_INTERVAL = 3000; // ms — 每隔3秒出一个新气泡
+const SPAWN_INTERVAL_DECREASE = 150;
+const MIN_SPAWN_INTERVAL = 1400;
+const ANSWER_FEEDBACK_DELAY = 800; // ms — 点击后短暂反馈
+const WORD_TIMEOUT = 8000; // ms — 每个单词8秒答题时间
+const GAME_AREA_HEIGHT = 520;
 const BUBBLE_SIZE_MIN = 52;
-const BUBBLE_SIZE_MAX = 72;
-const BOTTOM_THRESHOLD = GAME_AREA_HEIGHT - 60; // 超过此值视为落底
+const BUBBLE_SIZE_MAX = 68;
+const BOTTOM_THRESHOLD = GAME_AREA_HEIGHT - 60;
 
 // 称号系统
 const TITLE_MAP = [
@@ -65,7 +74,7 @@ function getStage(level) {
 
 /* ═════════════════════ 主组件 ═════════════════════ */
 
-export default function WordCannonGame({ state, onGameStateUpdate }) {
+export default function WordCannonGame({ state, onGameStateUpdate, grade }) {
   /* ── 引用 ── */
   const rafRef = useRef(null);
   const gameAreaRef = useRef(null);
@@ -81,6 +90,9 @@ export default function WordCannonGame({ state, onGameStateUpdate }) {
   const totalClearedRef = useRef(0);
   const sessionClearedRef = useRef(0);
   const spawnTimerRef = useRef(null);
+  const wordTimerRef = useRef(null);   // 单词8秒倒计时
+  const [timeLeft, setTimeLeft] = useState(8); // 显示剩余秒数
+  const timeLeftRef = useRef(8);
   const usedWordsRef = useRef(new Set());
   const shieldActiveRef = useRef(false);
   const slowModeActiveRef = useRef(false);
@@ -104,6 +116,8 @@ export default function WordCannonGame({ state, onGameStateUpdate }) {
   const [bubbles, setBubbles] = useState([]);
   const [options, setOptions] = useState([]);
   const [hasTarget, setHasTarget] = useState(false);
+  const [answerFeedback, setAnswerFeedback] = useState(null); // { chosen: key, correct: bool }
+  const answeringRef = useRef(false); // 防止反馈期间重复点击
   const [particles, setParticles] = useState([]); // 爆炸粒子
   const [screenShake, setScreenShake] = useState(false);
   const [flashRed, setFlashRed] = useState(false);
@@ -167,23 +181,72 @@ export default function WordCannonGame({ state, onGameStateUpdate }) {
 
   /* ── 生成题目选项 ── */
   const generateOptions = useCallback((correctWord) => {
+    const wordList = getWordList(grade);
     const correctMeaning = correctWord.meaning;
-    const others = WORD_LIST.filter(w => w.word !== correctWord.word);
+    const others = wordList.filter(w => w.word !== correctWord.word);
     const shuffledOthers = shuffle(others).slice(0, 3);
     const opts = [
       { key: correctWord.word, text: correctMeaning, isCorrect: true },
       ...shuffledOthers.map(w => ({ key: w.word, text: w.meaning, isCorrect: false })),
     ];
     return shuffle(opts);
-  }, []);
+  }, [grade]);
 
-  /* ── 生成新气泡 ── */
+  /* ── 启动单词倒计时（8秒） ── */
+  const startWordTimer = useCallback((bubbleId) => {
+    if (wordTimerRef.current) clearInterval(wordTimerRef.current);
+    timeLeftRef.current = Math.round(WORD_TIMEOUT / 1000);
+    setTimeLeft(timeLeftRef.current);
+
+    wordTimerRef.current = setInterval(() => {
+      timeLeftRef.current -= 1;
+      setTimeLeft(timeLeftRef.current);
+      if (timeLeftRef.current <= 0) {
+        clearInterval(wordTimerRef.current);
+        wordTimerRef.current = null;
+        // 超时：移除气泡，扣血，进下一题
+        if (phaseRef.current !== 'playing') return;
+        if (!shieldActiveRef.current) {
+          hpRef.current -= 1;
+          setHp(hpRef.current);
+        }
+        bubblesRef.current = bubblesRef.current.filter(b => b.id !== bubbleId);
+        setBubbles([...bubblesRef.current]);
+        activeBubbleRef.current = null;
+        answeringRef.current = false;
+        setHasTarget(false);
+        setOptions([]);
+        setAnswerFeedback(null);
+        comboRef.current = 0;
+        setCombo(0);
+        if (hpRef.current <= 0) { endGame(); return; }
+        // 队列里还有气泡就直接激活，否则等新气泡
+        if (bubblesRef.current.length > 0) activateNextBubble();
+        else setTimeout(() => spawnBubble(), 400);
+      }
+    }, 1000);
+  }, []); // eslint-disable-line
+
+  /* ── 激活队列中第一个未答气泡为当前目标 ── */
+  const activateNextBubble = useCallback(() => {
+    const next = bubblesRef.current[0];
+    if (!next) return;
+    activeBubbleRef.current = next.id;
+    const wordList = getWordList(grade);
+    const wordObj = wordList.find(w => w.word === next.wordKey) || { word: next.wordKey, meaning: next.wordKey };
+    optionsRef.current = generateOptions(wordObj);
+    setOptions(optionsRef.current);
+    setHasTarget(true);
+    startWordTimer(next.id);
+  }, [generateOptions, grade, startWordTimer]);
+
+  /* ── 生成新气泡（只负责把气泡加入队列） ── */
   const spawnBubble = useCallback(() => {
-    // 找未使用过的词
-    let available = WORD_LIST.filter(w => !usedWordsRef.current.has(w.word));
+    const wordList = getWordList(grade);
+    let available = wordList.filter(w => !usedWordsRef.current.has(w.word));
     if (available.length < 4) {
       usedWordsRef.current.clear();
-      available = WORD_LIST;
+      available = wordList;
     }
     const chosen = available[Math.floor(Math.random() * available.length)];
     usedWordsRef.current.add(chosen.word);
@@ -207,14 +270,17 @@ export default function WordCannonGame({ state, onGameStateUpdate }) {
     bubblesRef.current.push(bubble);
     setBubbles([...bubblesRef.current]);
 
-    // 设为当前目标
-    activeBubbleRef.current = bubble.id;
-    optionsRef.current = generateOptions(chosen);
-    setOptions(optionsRef.current);
-    setHasTarget(true);
+    // 如果当前没有活跃题目，立刻激活这个
+    if (!activeBubbleRef.current && !answeringRef.current) {
+      activeBubbleRef.current = bubble.id;
+      optionsRef.current = generateOptions(chosen);
+      setOptions(optionsRef.current);
+      setHasTarget(true);
+      startWordTimer(bubble.id);
+    }
 
     questionInWaveRef.current += 1;
-  }, [generateOptions]);
+  }, [generateOptions, grade, startWordTimer]);
 
   /* ── 游戏主循环 ── */
   const gameLoop = useCallback(() => {
@@ -302,10 +368,15 @@ export default function WordCannonGame({ state, onGameStateUpdate }) {
   /* ── 处理答案选择 ── */
   const handleAnswer = useCallback((opt) => {
     if (phaseRef.current !== 'playing' || !activeBubbleRef.current) return;
+    if (answeringRef.current) return; // 反馈期间锁定
+    answeringRef.current = true;
 
     const targetId = activeBubbleRef.current;
     const targetBubble = bubblesRef.current.find(b => b.id === targetId);
-    if (!targetBubble) return;
+    if (!targetBubble) { answeringRef.current = false; return; }
+
+    // 显示反馈（高亮选项）
+    setAnswerFeedback({ chosen: opt.key, correct: opt.isCorrect });
 
     if (opt.isCorrect) {
       // ✅ 正确
@@ -313,13 +384,12 @@ export default function WordCannonGame({ state, onGameStateUpdate }) {
       maxComboRef.current = Math.max(maxComboRef.current, comboRef.current);
 
       let points = 10;
-      if (comboRef.current >= 5) points = 20; // ×2
-      else if (comboRef.current >= 3) points = 15; // ×1.5
+      if (comboRef.current >= 5) points = 20;
+      else if (comboRef.current >= 3) points = 15;
 
       scoreRef.current += points;
       totalClearedRef.current += 1;
       sessionClearedRef.current += 1;
-
       setScore(scoreRef.current);
       setCombo(comboRef.current);
 
@@ -351,9 +421,6 @@ export default function WordCannonGame({ state, onGameStateUpdate }) {
       // 移除目标气泡
       bubblesRef.current = bubblesRef.current.filter(b => b.id !== targetId);
       setBubbles([...bubblesRef.current]);
-      activeBubbleRef.current = null;
-      setHasTarget(false);
-      setOptions([]);
 
       // 波次检查
       if (questionInWaveRef.current >= 10) {
@@ -362,9 +429,18 @@ export default function WordCannonGame({ state, onGameStateUpdate }) {
         setWave(waveRef.current);
       }
 
-      // 下一题
-      const delay = slowModeActiveRef.current ? 1200 : 800;
-      setTimeout(() => spawnBubble(), delay);
+      // 停止倒计时，反馈后激活下一个（或等新气泡）
+      if (wordTimerRef.current) { clearInterval(wordTimerRef.current); wordTimerRef.current = null; }
+      setTimeout(() => {
+        activeBubbleRef.current = null;
+        setHasTarget(false);
+        setOptions([]);
+        setAnswerFeedback(null);
+        answeringRef.current = false;
+        if (bubblesRef.current.length > 0) activateNextBubble();
+        else spawnBubble();
+      }, ANSWER_FEEDBACK_DELAY);
+
     } else {
       // ❌ 错误
       if (!shieldActiveRef.current) {
@@ -381,17 +457,31 @@ export default function WordCannonGame({ state, onGameStateUpdate }) {
       // 错误特效
       setFlashRed(true);
       setScreenShake(true);
-      setTimeout(() => {
-        setFlashRed(false);
-        setScreenShake(false);
-      }, 350);
+      setTimeout(() => { setFlashRed(false); setScreenShake(false); }, 350);
 
       if (hpRef.current <= 0) {
+        setAnswerFeedback(null);
+        answeringRef.current = false;
         endGame();
         return;
       }
+
+      // 答错：移除气泡，激活下一个（或等新气泡）
+      if (wordTimerRef.current) { clearInterval(wordTimerRef.current); wordTimerRef.current = null; }
+      bubblesRef.current = bubblesRef.current.filter(b => b.id !== targetId);
+      setBubbles([...bubblesRef.current]);
+
+      setTimeout(() => {
+        activeBubbleRef.current = null;
+        setHasTarget(false);
+        setOptions([]);
+        setAnswerFeedback(null);
+        answeringRef.current = false;
+        if (bubblesRef.current.length > 0) activateNextBubble();
+        else spawnBubble();
+      }, ANSWER_FEEDBACK_DELAY);
     }
-  }, [spawnBubble, createParticles]);
+  }, [spawnBubble, activateNextBubble, createParticles]);
 
   /* ── 结束游戏 ── */
   const endGame = useCallback(() => {
@@ -401,6 +491,7 @@ export default function WordCannonGame({ state, onGameStateUpdate }) {
     if (spawnTimerRef.current) clearInterval(spawnTimerRef.current);
     if (cooldownIntervalRef.current) clearInterval(cooldownIntervalRef.current);
     if (slowTimerRef.current) clearTimeout(slowTimerRef.current);
+    if (wordTimerRef.current) { clearInterval(wordTimerRef.current); wordTimerRef.current = null; }
 
     const finalScore = scoreRef.current;
     const cleared = totalClearedRef.current;
@@ -464,6 +555,8 @@ export default function WordCannonGame({ state, onGameStateUpdate }) {
     setBubbles([]);
     setOptions([]);
     setHasTarget(false);
+    setAnswerFeedback(null);
+    answeringRef.current = false;
     setParticles([]);
     setScreenShake(false);
     setFlashRed(false);
@@ -486,19 +579,16 @@ export default function WordCannonGame({ state, onGameStateUpdate }) {
       }
     }, 1000);
 
-    // 启动生成器
-    const interval = Math.max(
-      MIN_SPAWN_INTERVAL,
-      BUBBLE_SPAWN_INTERVAL
-    );
+    // 立刻出第一个
+    setTimeout(() => spawnBubble(), 300);
+
+    // 定时持续出气泡（制造紧迫感）
+    const spawnInterval = Math.max(MIN_SPAWN_INTERVAL, BUBBLE_SPAWN_INTERVAL - (waveRef.current - 1) * SPAWN_INTERVAL_DECREASE);
     spawnTimerRef.current = setInterval(() => {
-      if (bubblesRef.current.length < 5) {
+      if (phaseRef.current === 'playing' && bubblesRef.current.length < 6) {
         spawnBubble();
       }
-    }, interval);
-
-    // 先立刻生成一个
-    setTimeout(() => spawnBubble(), 300);
+    }, spawnInterval);
 
     // 启动游戏循环
     rafRef.current = requestAnimationFrame(gameLoop);
@@ -741,6 +831,23 @@ export default function WordCannonGame({ state, onGameStateUpdate }) {
         </div>
       </div>
 
+      {/* 8秒倒计时进度条 */}
+      {hasTarget && (
+        <div style={{ padding: '0 12px 4px', position: 'relative' }}>
+          <div style={{ height: 4, background: 'rgba(255,255,255,0.1)', borderRadius: 2, overflow: 'hidden' }}>
+            <div style={{
+              height: '100%', borderRadius: 2,
+              width: `${(timeLeft / 8) * 100}%`,
+              background: timeLeft <= 3 ? '#ef4444' : timeLeft <= 5 ? '#f97316' : '#22c55e',
+              transition: 'width 0.9s linear, background 0.3s',
+            }} />
+          </div>
+          <span style={{ position: 'absolute', right: 14, top: -1, fontSize: 10, color: timeLeft <= 3 ? '#ef4444' : '#94a3b8' }}>
+            {timeLeft}s
+          </span>
+        </div>
+      )}
+
       {/* 减速模式指示器 */}
       {slowMode && (
         <div style={styles.slowIndicator}>
@@ -811,15 +918,34 @@ export default function WordCannonGame({ state, onGameStateUpdate }) {
       {/* 选项按钮区 */}
       <div style={styles.optionsArea}>
         {options.length > 0 ? (
-          options.map(opt => (
-            <button
-              key={opt.key}
-              onClick={() => handleAnswer(opt)}
-              style={styles.optionBtn}
-            >
-              {opt.text}
-            </button>
-          ))
+          options.map(opt => {
+            // 反馈阶段：给已选项和正确项上色
+            let feedback = null;
+            if (answerFeedback) {
+              if (opt.isCorrect) feedback = 'correct';
+              else if (opt.key === answerFeedback.chosen && !opt.isCorrect) feedback = 'wrong';
+            }
+            return (
+              <button
+                key={opt.key}
+                onClick={() => handleAnswer(opt)}
+                disabled={!!answerFeedback}
+                style={{
+                  ...styles.optionBtn,
+                  ...(feedback === 'correct' ? {
+                    background: 'linear-gradient(135deg,#16a34a,#22c55e)',
+                    color: '#fff', borderColor: '#16a34a',
+                    transform: 'scale(1.04)',
+                  } : feedback === 'wrong' ? {
+                    background: 'linear-gradient(135deg,#dc2626,#ef4444)',
+                    color: '#fff', borderColor: '#dc2626',
+                  } : {}),
+                }}
+              >
+                {feedback === 'correct' ? `✓ ${opt.text}` : feedback === 'wrong' ? `✗ ${opt.text}` : opt.text}
+              </button>
+            );
+          })
         ) : (
           <div style={{ color: '#64748b', fontSize: 13, height: 44, lineHeight: '44px' }}>
             选择正确翻译...

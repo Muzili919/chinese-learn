@@ -1,0 +1,104 @@
+- generic [ref=e3]:
+  - generic [ref=e5]:
+    - generic [ref=e6]:
+      - generic [ref=e7]:
+        - generic [ref=e8]: 📚 学习阶段
+        - generic [ref=e9]:
+          - button "🏫 小学" [ref=e10]:
+            - generic [ref=e11]: 🏫
+            - generic [ref=e12]: 小学
+          - button "🎓 初二" [ref=e13]:
+            - generic [ref=e14]: 🎓
+            - generic [ref=e15]: 初二
+      - generic [ref=e16]:
+        - generic [ref=e17]:
+          - button "📖 语文" [ref=e18]:
+            - generic [ref=e19]: 📖
+            - generic [ref=e20]: 语文
+          - button "🌎 英语" [ref=e21]:
+            - generic [ref=e22]: 🌎
+            - generic [ref=e23]: 英语
+        - generic [ref=e24]:
+          - button "📊" [ref=e25]
+          - button "👤" [ref=e26]
+          - button "💾" [ref=e27]
+      - generic [ref=e28]:
+        - heading "test 同学，加油！👋" [level=1] [ref=e29]
+        - paragraph [ref=e30]: 今天开始第一天打卡吧！
+      - generic [ref=e31]:
+        - generic [ref=e32]:
+          - generic [ref=e33]: "0"
+          - generic [ref=e34]: 连续天数 🔥
+        - generic [ref=e35]:
+          - generic [ref=e37]: Lv.1
+          - generic [ref=e39]: 0/100 XP
+        - generic [ref=e40]:
+          - generic [ref=e41]: 0%
+          - generic [ref=e42]: 总正确率 ✅
+    - generic [ref=e44]:
+      - generic [ref=e45]:
+        - paragraph [ref=e46]: 💡 还没有练习数据
+        - paragraph [ref=e47]: 先做几道题，我会分析你的弱项哦！
+      - generic [ref=e48]:
+        - generic [ref=e49]:
+          - generic [ref=e50]:
+            - heading "选择星球开始闯关" [level=2] [ref=e51]
+            - generic [ref=e52]: 👆 核心闯关
+          - generic [ref=e53]: 今日已练 0/6 个星球
+        - generic [ref=e54]:
+          - button "📚 字词星球" [ref=e55]:
+            - generic [ref=e56]: 📚
+            - generic [ref=e57]: 字词星球
+          - button "🎋 诗词星球" [ref=e58]:
+            - generic [ref=e59]: 🎋
+            - generic [ref=e60]: 诗词星球
+          - button "🏮 成语星球" [ref=e61]:
+            - generic [ref=e62]: 🏮
+            - generic [ref=e63]: 成语星球
+          - button "✏️ 句子星球" [ref=e64]:
+            - generic [ref=e65]: ✏️
+            - generic [ref=e66]: 句子星球
+          - button "📖 阅读星球" [ref=e67]:
+            - generic [ref=e68]: 📖
+            - generic [ref=e69]: 阅读星球
+          - button "🎭 文学星球" [ref=e70]:
+            - generic [ref=e71]: 🎭
+            - generic [ref=e72]: 文学星球
+          - button "✍️ 造句星球" [ref=e73]:
+            - generic [ref=e74]: ✍️
+            - generic [ref=e75]: 造句星球
+          - button "🎧 听写星球" [ref=e76]:
+            - generic [ref=e77]: 🎧
+            - generic [ref=e78]: 听写星球
+        - generic [ref=e80]:
+          - paragraph [ref=e81]: ✨ 工具星球
+          - generic [ref=e82]:
+            - button "📝 作文星球" [ref=e83]:
+              - generic [ref=e84]: 📝
+              - generic [ref=e85]: 作文星球
+            - button "📝 自测星球" [ref=e86]:
+              - generic [ref=e87]: 📝
+              - generic [ref=e88]: 自测星球
+  - generic [ref=e89]:
+    - button "📚 学习" [ref=e90] [cursor=pointer]:
+      - generic [ref=e91]: 📚
+      - generic [ref=e92]: 学习
+    - button "🐉 宠物" [ref=e94] [cursor=pointer]:
+      - generic [ref=e95]: 🐉
+      - generic [ref=e96]: 宠物
+    - button "🏆 排行" [ref=e97] [cursor=pointer]:
+      - generic [ref=e98]: 🏆
+      - generic [ref=e99]: 排行
+    - button "💥 错题" [ref=e100] [cursor=pointer]:
+      - generic [ref=e101]: 💥
+      - generic [ref=e102]: 错题
+  - generic [ref=e103]:
+    - generic [ref=e105]:
+      - generic [ref=e106]: 主人最棒啦！奖励你一个蹭蹭！💕
+      - generic [ref=e108]:
+        - img "pet" [ref=e109] [cursor=pointer]
+        - generic:
+          - generic: 👑
+          - generic: 🦸
+          - generic: 🧚
+    - button "−" [ref=e111] [cursor=pointer]

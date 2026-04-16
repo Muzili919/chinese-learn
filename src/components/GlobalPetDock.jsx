@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from 'react'
+import React, { useEffect, useState, useCallback, useRef } from 'react'
 import Pet from './Pet'
 import PetEgg from './PetEgg'
 import PetSpriteAvatar from './PetSpriteAvatar'
@@ -6,59 +6,97 @@ import { isEggState } from '../utils/gamification'
 
 /**
  * GlobalPetDock - 全局悬浮宠物窗
- * 
- * 显示在所有页面右下角的宠物小窗口
- * - dock模式：透明底、纯展示、3D悬浮
- * - 蛋态：显示小蛋 + 提示点击孵化
- * - 点击互动：每次点击切换不同表情（循环6种）
+ *
+ * 动作规则：
+ *  1. isLearning=true（学习Tab）→ 固定 reading，点击无效
+ *  2. 任意属性 < 10% → 固定 sad_cry，直到全部 > 10%
+ *  3. 连续快速点击 20 次 → angry，5秒后自动恢复
+ *  4. 其他情况 → 每3次点击切换一个动作（循环6种）
  */
 
-// Dock点击互动表情序列（9个动作全覆盖）
-const DOCK_POSE_SEQUENCE = [
-  'sleeping',   // 💤 默认：睡觉（Dock常态化显示）
-  'happy',      // 😊 点击1次：开心（可爱表情）
-  'wave',       // 👋 点击2次：招手打招呼
-  'excited',    // ✨ 点击3次：兴奋星星眼
-  'angry',      // 😠 点击4次+：生气
-  'sad_cry',    // 😭 点击5次+：哭泣
-  'eating',     // 🍪 点击6次：吃东西
-  'reading',    // 📖 点击7次：读书
-  'normal',     // 😐 点击8次：正常待机
-  // 再点循环回 sleeping
-]
+// 普通点击循环的动作序列（不含 reading/sad_cry/angry）
+const CYCLING_POSES = ['sleeping', 'happy', 'wave', 'excited', 'eating', 'normal']
 
-export default function GlobalPetDock({ gameState, onOpenPetPanel }) {
+export default function GlobalPetDock({ gameState, isLearning }) {
   const [visible, setVisible] = useState(true)
-  const [tapCount, setTapCount] = useState(0)
-  
-  // 从游戏状态获取宠物数据
+  const [tapCount, setTapCount] = useState(0)          // 累计点击（用于3次换动作）
+  const [consecutiveCount, setConsecutiveCount] = useState(0) // 连续点击（用于20次生气）
+  const [isAngry, setIsAngry] = useState(false)
+
+  const resetTimerRef = useRef(null)   // 连续点击5秒无操作 → 重置
+  const angryTimerRef = useRef(null)   // 生气5秒后恢复
+
   const currentPet = gameState?.currentPet || {}
   const level = currentPet?.level || 1
-  const exp = currentPet?.exp || 0
+  const exp   = currentPet?.exp   || 0
+  const stats = currentPet?.stats || {}
 
-  // 是否蛋态
   const eggMode = isEggState(gameState)
 
-  // 根据点击次数获取当前dock pose
-  const dockPose = DOCK_POSE_SEQUENCE[tapCount % DOCK_POSE_SEQUENCE.length]
+  // 任意属性 < 10 → 哭泣锁定
+  const isCrying = !isLearning && (
+    (stats.hunger     !== undefined && stats.hunger     < 10) ||
+    (stats.energy     !== undefined && stats.energy     < 10) ||
+    (stats.intimacy   !== undefined && stats.intimacy   < 10)
+  )
 
-  // 切换可见性
-  const toggleVisible = useCallback(() => {
-    setVisible(v => !v)
-  }, [])
+  // 计算当前显示的 pose
+  const getDockPose = () => {
+    if (isLearning) return 'reading'
+    if (isCrying)   return 'sad_cry'
+    if (isAngry)    return 'angry'
+    const idx = Math.floor(tapCount / 3) % CYCLING_POSES.length
+    return CYCLING_POSES[idx]
+  }
+  const dockPose = getDockPose()
 
-  // 点击宠物 → 切换表情
+  // 点击宠物
   const handlePetTap = useCallback((e) => {
     e?.stopPropagation()
+    // 学习中 / 哭泣时 → 完全无响应
+    if (isLearning || isCrying) return
+
+    // 更新连续点击计数
+    setConsecutiveCount(prev => {
+      const next = prev + 1
+      if (next >= 20) {
+        // 触发生气
+        setIsAngry(true)
+        if (angryTimerRef.current) clearTimeout(angryTimerRef.current)
+        angryTimerRef.current = setTimeout(() => {
+          setIsAngry(false)
+          setConsecutiveCount(0)
+          setTapCount(0)
+        }, 5000)
+        return 0
+      }
+      return next
+    })
+
+    // 5秒无点击 → 重置连续计数
+    if (resetTimerRef.current) clearTimeout(resetTimerRef.current)
+    resetTimerRef.current = setTimeout(() => {
+      setConsecutiveCount(0)
+    }, 5000)
+
+    // 累计点击（每3次切换动作）
     setTapCount(prev => prev + 1)
+  }, [isLearning, isCrying])
+
+  // 清理定时器
+  useEffect(() => () => {
+    if (resetTimerRef.current) clearTimeout(resetTimerRef.current)
+    if (angryTimerRef.current) clearTimeout(angryTimerRef.current)
   }, [])
+
+  const toggleVisible = useCallback(() => setVisible(v => !v), [])
 
   if (!visible) {
     return (
       <button
         onClick={toggleVisible}
         style={{
-          position: 'fixed', bottom: 20, right: 20,
+          position: 'fixed', bottom: 90, right: 16,
           width: 48, height: 48, borderRadius: '50%',
           border: '1px solid rgba(99,102,241,0.2)',
           background: 'rgba(255,255,255,0.85)',
@@ -78,12 +116,12 @@ export default function GlobalPetDock({ gameState, onOpenPetPanel }) {
   return (
     <div style={{
       position: 'fixed',
-      bottom: 18,
-      right: 18,
+      bottom: 90,   // ← 上移，避免遮住错题等底部 UI
+      right: 16,
       zIndex: 9999,
       transition: 'opacity 0.4s, transform 0.4s',
     }}>
-      {/* 底部紫色光晕装饰 */}
+      {/* 底部紫色光晕 */}
       <div style={{
         position: 'absolute', bottom: -8, left: '50%',
         transform: 'translateX(-50%)',
@@ -93,15 +131,13 @@ export default function GlobalPetDock({ gameState, onOpenPetPanel }) {
         pointerEvents: 'none',
       }} />
 
-      {/* 宠物主体：蛋态 vs 正常 */}
+      {/* 宠物主体 */}
       {eggMode ? (
-        /* 🥚 蛋态 Dock */
-        <div 
-          onClick={onOpenPetPanel}
+        <div
+          onClick={toggleVisible}
           style={{ cursor: 'pointer', animation: 'dockEggFloat 3s ease-in-out infinite' }}
         >
           <span className="text-5xl drop-shadow-lg" role="img">🥚</span>
-          {/* 小提示 */}
           <div className="text-[9px] text-center text-white/50 mt-1">点击孵化</div>
         </div>
       ) : (
@@ -121,7 +157,7 @@ export default function GlobalPetDock({ gameState, onOpenPetPanel }) {
           />
         </div>
       )}
-      
+
       {/* 最小化按钮 */}
       <button
         onClick={toggleVisible}
@@ -142,7 +178,7 @@ export default function GlobalPetDock({ gameState, onOpenPetPanel }) {
       <style>{`
         @keyframes dockEggFloat {
           0%, 100% { transform: translateY(0); }
-          50% { transform: translateY(-8px); }
+          50%       { transform: translateY(-8px); }
         }
       `}</style>
     </div>

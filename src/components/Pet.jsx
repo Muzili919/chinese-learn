@@ -327,7 +327,12 @@ function renderSpriteCell(type, level, emotionKey, size, style) {
 
 /**
  * 根据当前pose和状态计算情绪key
- * 
+ *
+ * 优先级规则（2026-04-16修复）：
+ *   P0: 显式用户动作（点击切换来的pose）→ 直接使用，不被状态覆盖
+ *   P1: 系统特殊状态（reading/eating等操作锁定的pose）→ 直接映射
+ *   P2: 四维属性自动判断（仅在 pose='normal' 时走此路径）
+ *
  * 小橘猫专用映射（9张AI精美PNG）：
  *   reading  → 答题/学习时默认（📖读书）
  *   sleeping → Dock常态化显示（💤睡觉）
@@ -339,16 +344,21 @@ function renderSpriteCell(type, level, emotionKey, size, style) {
  *   sad_cry  → 难过哭泣（😭哭）
  *   angry    → 生气（😠生气）
  */
+
+// 用户可点击切换的动作集合（这些pose应该直接透传，不走状态判断）
+const USER_CYCLING_POSES = ['happy', 'excited', 'wave', 'eating', 'normal', 'sleeping']
+
 function resolveEmotion(pose, stats) {
-  // === 特殊动作直接映射 ===
+  // === P0: 用户点击切换的显式动作 → 直接透传，不被四维属性覆盖 ===
+  if (USER_CYCLING_POSES.includes(pose)) return pose
+
+  // === P1: 系统特殊动作直接映射 ===
   if (pose === 'reading' || pose === 'quiz') return 'reading'     // 📖 读书 = 答题默认
-  if (pose === 'sleeping') return 'sleeping'                       // 💤 睡觉 = Dock默认
-  if (pose === 'eating') return 'eating'                          // 🍪 吃东西
-  if (pose === 'happy' || pose === 'upgrade' || pose === 'petting') return 'excited'
+  if (pose === 'upgrade' || pose === 'petting') return 'excited'   // 升级/抚摸
   if (pose === 'laugh') return 'happy'
   if (pose === 'bathing') return 'wave'
 
-  // === 根据四维状态自动判断 ===
+  // === P2: 仅在 pose 未明确指定时（normal/null），根据四维状态自动判断 ===
   const intimacy = stats?.intimacy ?? 50
   const energy = stats?.energy ?? 80
   const hunger = stats?.hunger ?? 70
@@ -455,6 +465,7 @@ export default function Pet({
   onTap = null,             // 用户点击宠物时的回调（由父组件决定pose切换）
   // ---- 新增：动作状态机 ----
   isLocked = false,         // 锁定状态（答题中/低血量）→ 点击无任何反馈和切换
+  spriteWalkOffset = 0,     // 精灵左右踱步偏移量（只影响图片，不动状态栏/按钮）
 }) {
   const typeProp = type  // 用于对话系统区分不同宠物
   const [internalPose, setInternalPose] = useState('normal')
@@ -978,7 +989,11 @@ const handleClick = useCallback((e) => {
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
         onClick={handleClick}
-        style={{ display: 'inline-block', position: 'relative', marginBottom: 10 }}
+        style={{
+          display: 'inline-block', position: 'relative', marginBottom: 10,
+          transform: spriteWalkOffset !== 0 ? `translateX(${spriteWalkOffset}px)` : undefined,
+          transition: spriteWalkOffset !== 0 ? 'transform 1.8s ease-in-out' : undefined,
+        }}
       >
         {/* 等级标签 */}
         <div style={{

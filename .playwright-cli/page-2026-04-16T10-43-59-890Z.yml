@@ -1,0 +1,10 @@
+- generic [ref=e6]:
+  - generic [ref=e7]:
+    - generic [ref=e8]: 🌟
+    - heading "汉字星球" [level=1] [ref=e9]
+    - paragraph [ref=e10]: 语文闯关 · 每天进步一点点
+  - generic [ref=e12]:
+    - heading "你叫什么名字？" [level=2] [ref=e13]
+    - paragraph [ref=e14]: 如果之前用过，数据会自动恢复
+    - textbox "例如：小明" [active] [ref=e15]
+    - button "继续 →" [disabled] [ref=e16]

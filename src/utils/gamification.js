@@ -506,7 +506,8 @@ export function buyItem(state, itemId) {
   else if (item.kind === 'gift') inv.giftItems = (inv.giftItems || 0) + 1;
   else if (item.kind === 'card') inv.cards = (inv.cards || 0) + 1;
   
-  return { ...state, exp: state.exp - item.price, inventory: inv };
+  // 不扣 state.exp，由调用方（handleShopAction）通过 petExpConsumed 统一扣除
+  return { ...state, inventory: inv };
 }
 
 // ============================================================
@@ -594,6 +595,7 @@ export function initGodModeState() {
     ownedRoomThemes: ['starlight','forest','city','aurora','volcano'],
     
     // 游戏背包
+    ownedFurniture: FURNITURE_ITEMS.map(f => f.id),
     gameInventory: {
       time_freeze: 10,
       shield_potion: 10,
@@ -665,6 +667,7 @@ export function initGamificationState() {
     roomTheme: null,
     ownedRoomThemes: [],
     gameInventory: {},
+    ownedFurniture: [],
   };
 }
 
@@ -1046,6 +1049,23 @@ export const ROOM_THEMES = [
     bg: 'linear-gradient(180deg, #1f0000 0%, #4a0404 50%, #8b0000 100%)',
     floor: '#2d1010',
     accentColor: '#ff5722' },
+];
+
+// ============================================================
+//  🛋️ 小屋家具数据
+// ============================================================
+export const FURNITURE_ITEMS = [
+  // 墙面装饰（挂在上方）
+  { id: 'wall_window',    name: '小窗户', icon: '🪟', price: 80,  kind: 'furniture', zone: 'wall', pos: { top: '14%', left: '8%'  }, fontSize: 28 },
+  { id: 'wall_bookshelf', name: '小书架', icon: '📚', price: 120, kind: 'furniture', zone: 'wall', pos: { top: '10%', right: '8%' }, fontSize: 28 },
+  { id: 'wall_clock',     name: '挂钟',   icon: '🕐', price: 100, kind: 'furniture', zone: 'wall', pos: { top: '8%',  left: '42%' }, fontSize: 24 },
+  { id: 'wall_trophy',    name: '奖杯',   icon: '🏆', price: 150, kind: 'furniture', zone: 'wall', pos: { top: '14%', right: '20%'}, fontSize: 24 },
+  // 地板装饰（放在地板上）
+  { id: 'floor_plant',    name: '小绿植', icon: '🌿', price: 60,  kind: 'furniture', zone: 'floor', pos: { bottom: '30px', left: '6%'  }, fontSize: 30 },
+  { id: 'floor_ball',     name: '玩具球', icon: '⚽', price: 50,  kind: 'furniture', zone: 'floor', pos: { bottom: '30px', left: '24%' }, fontSize: 24 },
+  { id: 'floor_chair',    name: '小椅子', icon: '🪑', price: 90,  kind: 'furniture', zone: 'floor', pos: { bottom: '30px', right: '6%' }, fontSize: 28 },
+  { id: 'floor_teddy',    name: '玩具熊', icon: '🧸', price: 70,  kind: 'furniture', zone: 'floor', pos: { bottom: '30px', right: '22%'}, fontSize: 26 },
+  { id: 'floor_rug',      name: '小地毯', icon: '🟤', price: 110, kind: 'furniture', zone: 'floor', pos: { bottom: '28px', left: '38%' }, fontSize: 22 },
 ];
 
 // 游戏相关商店物品

@@ -93,7 +93,7 @@ export default function LeaderboardPage({ user, gameState, onStateChange }) {
 
   useEffect(() => {
     if (activeTab === 'rank') loadRankings()
-  }, [activeTab])
+  }, [activeTab, friends])  // friends 变化时也重新加载，确保好友出现在排行榜
 
   // ── 加载好友预览 ───────────────────────────────────────────
   const loadFriendPreviews = useCallback(async (list) => {
@@ -254,9 +254,6 @@ export default function LeaderboardPage({ user, gameState, onStateChange }) {
 
   const metrics = [
     { key: 'totalLearnQuestions', label: '答题数', icon: '📝' },
-    { key: 'petLevel', label: '宠物等级', icon: '🐉' },
-    { key: 'daysActive', label: '活跃天数', icon: '🔥' },
-    { key: 'weeklyQuestions', label: '本周答题', icon: '📅' },
     { key: 'wordCannonHighScore', label: '炮台高分', icon: '🎯' },
   ]
 

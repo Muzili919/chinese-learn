@@ -318,12 +318,14 @@ export default function App() {
   const [gameState, setGameState] = useState(() => {
     // 上帝模式始终用满级数据
     if (isGodMode()) return initGodModeState()
-    // 尝试从localStorage恢复上次的宠物状态
+    // 尝试从 localStorage 恢复上次的宠物状态（key 含 userId，防止跨用户污染）
     try {
-      const cached = localStorage.getItem('mv1_pet_state')
+      const currentUser = storage.getUser()
+      const petKey = currentUser?.id ? `mv1_pet_state_${currentUser.id}` : 'mv1_pet_state'
+      const cached = localStorage.getItem(petKey)
       if (cached) {
         const parsed = JSON.parse(cached)
-        // 只有确认有宠物数据才用缓存的
+        // 只有确认有宠物数据才用缓存
         if (parsed?.currentPet?.poolId || (parsed?.ownedPets?.length > 0)) {
           return parsed
         }
@@ -357,31 +359,48 @@ export default function App() {
     setActiveSubject(subjectId)
   }, [])
 
-  // 加载宠物游戏状态（合并策略：保留更完整的数据）
-  // 同时拉取云端学习数据（答题记录/SRS/XP/连续天数）→ 跨设备同步
+  // 加载宠物游戏状态 + 跨设备同步学习数据
+  // ★ 依赖 user?.id（字符串），不依赖 user 对象引用，防止 setUser({...u}) 触发二次拉取
   useEffect(() => {
     if (!user?.id) return
+    const uid = user.id
 
-    // 1. 拉取宠物养成状态
-    fetchMV1State(user.id).then((cloud) => {
+    // 1. 从云端拉取宠物状态（仅用于初始化，MV1Demo 自己也会拉取并做更细致的合并）
+    fetchMV1State(uid).then((cloud) => {
       if (!cloud) return
       setGameState(prev => {
-        const localHasPet = prev?.currentPet?.poolId
-        const cloudHasPet = cloud?.currentPet?.poolId
-        if (localHasPet && !cloudHasPet) {
-          return { ...cloud, currentPet: prev.currentPet, ownedPets: prev.ownedPets }
+        // 如果本地已有宠物数据，保留本地更完整的字段（petExpConsumed/inventory/furniture 等）
+        // 云端只用于补充没有的字段（跨设备场景：本地为 null）
+        if (prev?.currentPet?.poolId) {
+          // 本地有宠物，只补充本地没有的字段，不覆盖本地进度
+          return {
+            ...cloud,                              // 云端做底
+            petExpConsumed: prev.petExpConsumed ?? cloud.petExpConsumed,
+            inventory:      prev.inventory      ?? cloud.inventory,
+            ownedFurniture: prev.ownedFurniture ?? cloud.ownedFurniture,
+            ownedRoomThemes:prev.ownedRoomThemes ?? cloud.ownedRoomThemes,
+            currentRoomTheme: prev.currentRoomTheme ?? cloud.currentRoomTheme,
+            gameInventory:  prev.gameInventory  ?? cloud.gameInventory,
+            currentPet:     prev.currentPet,       // 始终保留本地宠物
+            ownedPets:      prev.ownedPets?.length > 0 ? prev.ownedPets : cloud.ownedPets,
+          }
         }
+        // 本地没有宠物（新设备/刚登录），完全使用云端数据
         return cloud
       })
     })
 
-    // 2. 跨设备同步：从云端拉取学习数据（答题记录/SRS/XP/streak等）
-    pullFromCloud(user.id).catch(function(err) {
+    // 2. 跨设备同步学习数据（答题记录/SRS/XP/streak）写入 localStorage
+    // 完成后 setUser({...u}) 触发重渲染，让 HomeHeader 读到最新 XP
+    // 因为依赖是 user?.id（字符串），setUser({...u}) 不会再次触发本 effect
+    pullFromCloud(uid).then(() => {
+      setUser(u => u ? { ...u } : u)
+    }).catch(function(err) {
       console.warn('Cloud pull failed (non-fatal):', err.message)
     })
 
-    setOverdueCount(storage.getOverdueWrongCount(user.id))
-  }, [user])
+    setOverdueCount(storage.getOverdueWrongCount(uid))
+  }, [user?.id])   // ← 只依赖 userId 字符串，不依赖 user 对象引用
 
   // 当回到主页时刷新积压数
   useEffect(() => {
@@ -404,9 +423,23 @@ export default function App() {
 
   function handleOnboarding(newUser) {
     storage.setUser(newUser)
+    // 同设备切换账号：先尝试从 localStorage 恢复该用户宠物状态，避免短暂蛋态
+    // 新设备/首次登录：localStorage 没有该用户数据，设 null 让云端异步恢复
+    let restoredPetState = null
+    try {
+      const petKey = newUser.id ? `mv1_pet_state_${newUser.id}` : null
+      if (petKey) {
+        const cached = localStorage.getItem(petKey)
+        if (cached) {
+          const parsed = JSON.parse(cached)
+          if (parsed?.currentPet?.poolId || parsed?.ownedPets?.length > 0) {
+            restoredPetState = parsed
+          }
+        }
+      }
+    } catch (_) {}
+    setGameState(restoredPetState)
     setUser(newUser)
-    // 切换账号时设为null，MV1Demo会先显示"加载中"再拉取云端数据（防止蛋态→自动抽卡覆盖云端）
-    setGameState(null)
     setPage('home')
     setActiveTab('home')
   }
@@ -647,7 +680,7 @@ export default function App() {
         />
       )}
       {showBottomNav && activeTab !== 'pet' && (
-        <GlobalPetDock gameState={gameState} />
+        <GlobalPetDock gameState={gameState} isLearning={activeTab === 'home'} />
       )}
     </div>
   )

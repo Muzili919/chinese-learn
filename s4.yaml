@@ -1,0 +1,11 @@
+- generic [ref=e6]:
+  - generic [ref=e7]:
+    - generic [ref=e8]: 🌟
+    - heading "汉字星球" [level=1] [ref=e9]
+    - paragraph [ref=e10]: 语文闯关 · 每天进步一点点
+  - generic [ref=e12]:
+    - heading "设置家长密码" [level=2] [ref=e17]
+    - paragraph [ref=e14]: 4位数字，用于查看学习报告（可跳过，默认 1234）
+    - spinbutton [ref=e18]
+    - button "开始探险 🚀" [ref=e19]
+    - button "← 返回" [ref=e20]
