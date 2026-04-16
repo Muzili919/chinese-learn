@@ -1,58 +1,84 @@
 /**
- * PetSpriteAvatar v2 — 支持所有宠物的PNG头像组件
+ * PetSpriteAvatar v3 — 支持所有11只宠物的PNG头像组件
  *
  * 直接使用各宠物的独立PNG表情图（非精灵图裁剪）
- * 每只宠物根据等级自动选择对应阶段的 normal/happy 图作为头像
+ * 每只宠物根据等级自动选择对应阶段的图片作为头像
  *
  * 支持的宠物：
- *   - pet_kitten: 3阶段PNG (stage1/stage2/stage3)
- *   - pet_shiba: 3阶段PNG
- *   - pet_fox: Stage1 PNG（高等级复用）
- *   - pet_toothless: SVG精灵图（原有）
+ *   - pet_kitten: 3阶段PNG (stage1/stage2/stage3) - 9动作
+ *   - pet_shiba: 3阶段PNG - 9动作
+ *   - pet_hamster: 3阶段PNG - 9动作
+ *   - pet_corgi: 3阶段PNG - 9动作
+ *   - pet_fox: 3阶段PNG - 9动作
+ *   - pet_butterfly: 3阶段PNG - 9动作
+ *   - pet_mantis: 3阶段PNG - 9动作
+ *   - pet_squirrel: 3阶段PNG - 9动作
+ *   - pet_kungfu: 3阶段PNG - 9动作
+ *   - pet_toothless: 3阶段PNG - 9动作
+ *
+ * pose映射: 0=reading 1=sleeping/happy 2=normal 3=excited 4=random_cute
  */
 
 import React from 'react'
 
 // ============================================================
-//  各宠物的头像图路径映射（按等级选阶段）
+//  所有宠物的prefix映射
 // ============================================================
-
-function getKittenAvatarSrc(level = 1) {
-  // 小橘猫：normal 或 happy 作为默认头像
-  if (!level || level < 10) return '/pets/kitten/stage1/normal.png'
-  if (level < 20) return '/pets/kitten/stage2/normal.png'
-  return '/pets/kitten/stage3/normal.png'
+const PET_PREFIX_MAP = {
+  pet_kitten: 'kitten',
+  pet_shiba: 'shiba',
+  pet_hamster: 'hamster',
+  pet_corgi: 'corgi',
+  pet_fox: 'fox',
+  pet_butterfly: 'butterfly',
+  pet_mantis: 'mantis',
+  pet_squirrel: 'squirrel',
+  pet_kungfu: 'kungfu',
+  pet_toothless: 'toothless',
 }
 
-function getShibaAvatarSrc(level = 1) {
-  if (!level || level < 10) return '/pets/shiba/stage1/normal.png'
-  if (level < 20) return '/pets/shiba/stage2/normal.png'
-  return '/pets/shiba/stage3/happy.png'    // S3缺normal，用happy
+// 根据等级获取stage目录
+function getStageDir(level) {
+  if (!level || level < 10) return 'stage1'
+  if (level < 20) return 'stage2'
+  return 'stage3'
 }
 
-function getFoxAvatarSrc() {
-  // 银月狐只有Stage1
-  return '/pets/fox/stage1/normal.png'
-}
+// pose数字→emotion名称的映射
+const POSE_TO_EMOTION = [
+  'reading',    // 0: 答题/学习
+  'happy',      // 1: 开心
+  'normal',     // 2: 正常
+  'excited',    // 3: 兴奋
+]
 
-function getToothlessAvatarSrc(level = 1) {
-  // 无牙仔用原有SVG等级图
-  if (!level || level < 10) return '/pets/pet-level-1-10.png'
-  if (level < 20) return '/pets/pet-level-11-20.png'
-  return '/pets/pet-level-21-30.png'
+// 可爱的随机动作池（用于抽卡展示等场景）
+const CUTE_POSES = ['happy', 'excited', 'wave', 'normal']
+
+/**
+ * 获取任意宠物的指定pose PNG路径
+ */
+function getPetSpriteSrc(poolId, level = 1, pose = 0) {
+  const prefix = PET_PREFIX_MAP[poolId]
+  if (!prefix) return null
+
+  const stageDir = getStageDir(level)
+
+  // pose >= 100 表示随机选一个可爱动作（用于抽卡展示）
+  if (pose >= 100) {
+    const cutePose = CUTE_POSES[Math.floor(Math.random() * CUTE_POSES.length)]
+    return `/pets/${prefix}/${stageDir}/${cutePose}.png`
+  }
+
+  const emotionName = POSE_TO_EMOTION[pose] || 'normal'
+  return `/pets/${prefix}/${stageDir}/${emotionName}.png`
 }
 
 /**
- * 根据poolId和等级获取头像PNG路径
+ * 根据poolId、等级和pose获取头像PNG路径
  */
-function getAvatarSrc(poolId, level = 1) {
-  switch (poolId) {
-    case 'pet_kitten':   return getKittenAvatarSrc(level)
-    case 'pet_shiba':    return getShibaAvatarSrc(level)
-    case 'pet_fox':      return getFoxAvatarSrc()
-    case 'pet_toothless':return getToothlessAvatarSrc(level)
-    default:             return null
-  }
+function getAvatarSrc(poolId, level = 1, pose = 0) {
+  return getPetSpriteSrc(poolId, level, pose)
 }
 
 /**
@@ -89,7 +115,7 @@ export function SpriteCell({ src, size = 50, borderRadius = '50%', style = {} })
  *   style: object (额外样式)
  */
 export default function PetSpriteAvatar({ poolId, level = 1, size = 50, pose = 0, emoji = '🥚', style = {} }) {
-  const src = getAvatarSrc(poolId, level)
+  const src = getAvatarSrc(poolId, level, pose)
 
   // 有PNG图 → 直接渲染
   if (src) {

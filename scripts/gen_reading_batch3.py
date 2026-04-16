@@ -181,8 +181,8 @@ B. My Busy Weekend Playing Video Games
 C. A Volunteer Experience That Taught Me a Lesson
 D. Why Nursing Homes Need More Workers""",
     "options": [],
-    "answer": "(1) C (2) C (3) C (4) B (5) C",
-    "analysis": "(1) C【细节理解】第一段at first, I was not excited和had planned to play games and sleep late——一开始不情愿，只想打游戏睡懒觉；A兴奋 eager 正好相反；B紧张但准备好面对新体验是到了养老院之后的感觉；D好奇养老院是什么样的也不是初始感受\n(2) C【细节理解】第三段an 82-year-old woman who used to be a Chinese teacher——她曾经是语文老师；A医生、B作家、D工程公司经理都是她的学生后来从事的职业\n(3) C【细节理解】第四段Grandpa Li说Losing is how we learn——输是学习的方式；A赢是唯一重要的事与原文矛盾；B老人太慢下不好不符合patently taught me的描述；D象棋比电子游戏简单没有提到\n(4) B【推理判断】最后一段they had given me far more—their wisdom, their stories, and their kindness——老人的智慧和善良改变了他对志愿者的看法；A额外学分、C大学申请用时、D父母强迫都未提及\n(5) C【主旨大意】全文讲述一次志愿者经历如何改变了作者的观念，核心在于从中获得的感悟；A怎么跟老人下棋只是一个细节；B玩电子游戏的周末与实际内容不符；D养老院需要更多工人并非文章讨论的主题"
+    "answer": "(1) C (2) C (3) C (4) B (5) A",
+    "analysis": "(1) C【细节理解】第一段at first, I was not excited和had planned to play games and sleep late——一开始不情愿，只想打游戏睡懒觉；A兴奋 eager 正好相反；B紧张但准备好面对新体验是到了养老院之后的感觉；D好奇养老院是什么样的也不是初始感受\n(2) C【细节理解】第三段an 82-year-old woman who used to be a Chinese teacher——她曾经是语文老师；A医生、B作家、D工程公司经理都是她的学生后来从事的职业\n(3) C【细节理解】第四段Grandpa Li说Losing is how we learn——输是学习的方式；A赢是唯一重要的事与原文矛盾；B老人太慢下不好不符合patently taught me的描述；D象棋比电子游戏简单没有提到\n(4) B【推理判断】最后一段they had given me far more—their wisdom, their stories, and their kindness——老人的智慧和善良改变了他对志愿者的看法；A额外学分、C大学申请用时、D父母强迫都未提及\n(5) A【主旨大意】全文讲述一次志愿者经历如何改变了作者的观念，标题应体现经历带来的转变；B玩电子游戏的周末与内容不符；C虽然也是合理标题但不如A准确传达了changed me的核心；D养老院需要更多工人不是讨论主题"
 }
 
 # ============================================================
@@ -240,8 +240,8 @@ B. It is only popular among elderly Chinese people
 C. It is a valuable tradition spreading worldwide
 D. It is less interesting than coffee culture""",
     "options": [],
-    "answer": "(1) B (2) C (3) C (4) C (5) C",
-    "analysis": "(1) B【细节理解】第二段some leaves from a wild tree fell into his pot——野树叶偶然掉进开水壶；A神农科学实验发现不对，是意外发现；C皇帝命令农民种茶和D旅行者从外国带来都不符合传说\n(2) C【细节理解】第三段green tea is not fermented——绿茶不发酵是其加工特点；A来自不同的树不对，同种茶树不同工艺；B黑茶加更多糖和D只在华南种植均未提及\n(3) C【细节理解】第四段serving tea shows respect、offer tea to elders show honor、weddings serve to thank parents、welcoming guests——总结为表达尊重/欢迎/感谢等多种场合；A拒绝客人请求和D只用于皇宫典礼都错；B快速吃完饭也不对\n(4) C【细节理解】第五段Pu'er tea...gets better with age——普洱越陈越香；A一周内喝完反了；B加奶加糖是西式喝茶方式不是普洱的特点；D云南唯一的茶也不对，云南还有其他茶\n(5) C【观点态度】最后一段spreading around the world、young people are learning、appreciating this healthy meaningful tradition——作者持积极肯定态度，认为这是有价值的正在全球传播的传统；A年轻人排斥的旧习和B只有老年人才喜欢都与最后一段矛盾；D不如咖啡有趣属于主观比较文中没有"
+    "answer": "(1) B (2) D (3) C (4) C (5) D",
+    "analysis": "(1) B【细节理解】第二段some leaves from a wild tree fell into his pot——野树叶偶然掉进开水壶；A神农科学实验发现不对，是意外发现；C皇帝命令农民种茶和D旅行者从外国带来都不符合传说\n(2) D【细节理解】第三段green tea is not fermented而黑茶经过完全发酵，这是两者加工工艺的核心区别；A来自不同的树不对，同种茶树不同工艺；B黑茶加更多糖不是加工特点；C只有绿茶不发酵太绝对，文中对比的是green vs black\n(3) C【细节理解】第四段serving tea shows respect、offer tea to elders show honor、weddings serve to thank parents、welcoming guests——总结为表达尊重/欢迎/感谢等多种场合；A拒绝客人请求和D只用于皇宫典礼都错；B快速吃完饭也不对\n(4) C【细节理解】第五段Pu'er tea...gets better with age——普洱越陈越香；A一周内喝完反了；B加奶加糖是西式喝茶方式不是普洱的特点；D云南唯一的茶也不对，云南还有其他茶\n(5) D【观点态度】最后一段spreading around the world、young people are learning、appreciating this healthy meaningful tradition——作者认为茶文化是有价值且在全球传播的积极传统；A年轻人排斥旧习与最后一段矛盾；B只受老年人欢迎不对（文中说young people are learning）；C有价值但不如咖啡有趣文中没有比较"
 }
 
 # ============================================================
@@ -316,16 +316,17 @@ def validate_article(a):
         if f not in a:
             errors.append(f"{a.get('id','?')}: 缺少字段 {f}")
     
-    # 检查answer格式
+    # 检查answer格式（用字符串分割代替正则，兼容Python 3.x所有版本）
     ans = a["answer"]
-    import re
-    expected_pattern = r"\((\d)\s+[A-D]\)"
-    matches = re.findall(expected_pattern, ans)
-    if len(matches) != 5:
-        errors.append(f"{a['id']}: answer应有5个小题答案，实际找到{len(matches)}个")
+    parts = ans.strip().split()
+    # parts 应为: ['(1)', 'B', '(2)', 'C', '(3)', 'C', '(4)', 'B', '(5)', 'C']
+    answer_letters = []
+    for p in parts:
+        if p in ['A', 'B', 'C', 'D']:
+            answer_letters.append(p)
     
-    # 提取各题答案字母
-    answer_letters = re.findall(r"\(\d+\s+([A-D])\)", ans)
+    if len(answer_letters) != 5:
+        errors.append(f"{a['id']}: answer应有5个小题答案，实际找到{len(answer_letters)}个")
     
     # 统计ABCD分布
     from collections import Counter

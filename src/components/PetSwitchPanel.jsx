@@ -6,8 +6,7 @@ import { PET_POOL } from '../utils/gamification'
  * PetSwitchPanel - 我的宠物面板
  * 包含：宠物列表/切换、抽卡入口、宠物数据总览、卖宠物功能
  *
- * 卖宠物: 非当前出战的重复宠物可卖掉 → 获得半张抽卡券(0.5)
- * 累积0.5+0.5=1张完整抽卡券后可用
+ * 卖宠物: 非当前出战的重复宠物可卖掉 → 获得250宠物成长经验
  */
 export default function PetSwitchPanel({ state, spendableXP, onSwitchPet, onDrawCard, totalXP, onSellPet }) {
   const [confirmSellId, setConfirmSellId] = useState(null)
@@ -154,7 +153,7 @@ export default function PetSwitchPanel({ state, spendableXP, onSwitchPet, onDraw
                               padding: '4px 10px', borderRadius: 8,
                               background: '#fef2f2', color: '#ef4444',
                               fontSize: 9, fontWeight: 700, border: '1px solid #fecaca', cursor: 'pointer'
-                            }}>💰 卖掉</button>
+                            }}>💰 +250经验</button>
                         )}
                       </>
                     ) : null}

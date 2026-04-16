@@ -301,9 +301,10 @@ export default function GachaAnimation({ pet, visible = false, onComplete }) {
                        }} />
                 </div>
                 
-                {/* 宠物PNG图片 - 用AI精美插图替代emoji */}
+                {/* 宠物PNG图片 - 抽卡展示用20-40级随机可爱动作图片 */}
                 <div className="z-10 drop-shadow-lg" style={{ width: 140, height: 140, margin: '0 auto' }}>
-                  <PetSpriteAvatar poolId={pet.poolId} level={1} size={140} pose={2} borderRadius="16px" />
+                  {/* 随机20-40级 + pose=100触发随机选一个可爱表情 */}
+                  <PetSpriteAvatar poolId={pet.poolId} level={20 + Math.floor(Math.random() * 21)} size={140} pose={100} borderRadius="16px" />
                 </div>
                 
                 {/* SSR彩虹边框 */}
