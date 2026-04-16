@@ -3534,5 +3534,5253 @@
     "grade": 6,
     "semester": "下册",
     "example": "他逆水行舟。"
+  },
+  {
+    "id": "cn_g7_001",
+    "word": "朗润",
+    "pinyin": "lǎng rùn",
+    "grade": 7,
+    "semester": "上册",
+    "example": "雨后的空气格外朗润，让人心情舒畅。\""
+  },
+  {
+    "id": "cn_g7_002",
+    "word": "酝酿",
+    "pinyin": "yùn niàng",
+    "grade": 7,
+    "semester": "上册",
+    "example": "春风吹过，田野里酝酿着丰收的希望。\""
+  },
+  {
+    "id": "cn_g7_003",
+    "word": "卖弄",
+    "pinyin": "mài nong",
+    "grade": 7,
+    "semester": "上册",
+    "example": "小鸟在枝头卖弄着清脆的喉咙。\""
+  },
+  {
+    "id": "cn_g7_004",
+    "word": "嘹亮",
+    "pinyin": "liáo liǎng",
+    "grade": 7,
+    "semester": "上册",
+    "example": "远处传来嘹亮的号角声。\""
+  },
+  {
+    "id": "cn_g7_005",
+    "word": "黄晕",
+    "pinyin": "huáng yùn",
+    "grade": 7,
+    "semester": "上册",
+    "example": "傍晚的灯光泛着柔和的黄晕。\""
+  },
+  {
+    "id": "cn_g7_006",
+    "word": "烘托",
+    "pinyin": "hōng tuō",
+    "grade": 7,
+    "semester": "上册",
+    "example": "绿叶红花相互烘托，构成一幅美丽的画。\""
+  },
+  {
+    "id": "cn_g7_007",
+    "word": "繁花嫩叶",
+    "pinyin": "fán huā nèn yè",
+    "grade": 7,
+    "semester": "上册",
+    "example": "春天到了，花园里繁花嫩叶，生机盎然。\""
+  },
+  {
+    "id": "cn_g7_008",
+    "word": "呼朋引伴",
+    "pinyin": "hū péng yǐn bàn",
+    "grade": 7,
+    "semester": "上册",
+    "example": "鸟儿在林间呼朋引伴，热闹极了。\""
+  },
+  {
+    "id": "cn_g7_009",
+    "word": "花枝招展",
+    "pinyin": "huā zhī zhāo zhǎn",
+    "grade": 7,
+    "semester": "上册",
+    "example": "春天来了，姑娘们打扮得花枝招展。\""
+  },
+  {
+    "id": "cn_g7_010",
+    "word": "欣欣然",
+    "pinyin": "xīn xīn rán",
+    "grade": 7,
+    "semester": "上册",
+    "example": "花儿欣欣然地张开了笑脸。\""
+  },
+  {
+    "id": "cn_g7_011",
+    "word": "温晴",
+    "pinyin": "wēn qíng",
+    "grade": 7,
+    "semester": "上册",
+    "example": "济南的冬天是温晴的，不像北方那么寒冷。\""
+  },
+  {
+    "id": "cn_g7_012",
+    "word": "安适",
+    "pinyin": "ān shì",
+    "grade": 7,
+    "semester": "上册",
+    "example": "老人们在阳光下安适地晒着太阳。\""
+  },
+  {
+    "id": "cn_g7_013",
+    "word": "慈善",
+    "pinyin": "cí shàn",
+    "grade": 7,
+    "semester": "上册",
+    "example": "冬天的阳光像一位慈祥的老人，十分慈善。\""
+  },
+  {
+    "id": "cn_g7_014",
+    "word": "秀气",
+    "pinyin": "xiù qi",
+    "grade": 7,
+    "semester": "上册",
+    "example": "这座小山太秀气了，像一件精美的艺术品。\""
+  },
+  {
+    "id": "cn_g7_015",
+    "word": "澄清",
+    "pinyin": "chéng qīng",
+    "grade": 7,
+    "semester": "上册",
+    "example": "湖水澄清见底，游鱼清晰可见。\""
+  },
+  {
+    "id": "cn_g7_016",
+    "word": "空灵",
+    "pinyin": "kōng líng",
+    "grade": 7,
+    "semester": "上册",
+    "example": "月光下的山水空灵而神秘。\""
+  },
+  {
+    "id": "cn_g7_017",
+    "word": "水墨画",
+    "pinyin": "shuǐ mò huà",
+    "grade": 7,
+    "semester": "上册",
+    "example": "雪后的济南像一幅淡雅的水墨画。\""
+  },
+  {
+    "id": "cn_g7_018",
+    "word": "蓝汪汪",
+    "pinyin": "lán wāng wāng",
+    "grade": 7,
+    "semester": "上册",
+    "example": "蓝汪汪的天空像一块透明的宝石。\""
+  },
+  {
+    "id": "cn_g7_019",
+    "word": "凄冷",
+    "pinyin": "qī lěng",
+    "grade": 7,
+    "semester": "上册",
+    "example": "秋雨带来了一丝凄冷的寒意。\""
+  },
+  {
+    "id": "cn_g7_020",
+    "word": "化妆",
+    "pinyin": "huà zhuāng",
+    "grade": 7,
+    "semester": "上册",
+    "example": "春雨给大地化了一个美丽的妆。\""
+  },
+  {
+    "id": "cn_g7_021",
+    "word": "莅临",
+    "pinyin": "lì lín",
+    "grade": 7,
+    "semester": "上册",
+    "example": "寒冬降临，雪花莅临人间。\""
+  },
+  {
+    "id": "cn_g7_022",
+    "word": "吝啬",
+    "pinyin": "lìn sè",
+    "grade": 7,
+    "semester": "上册",
+    "example": "夏天从不吝啬它的阳光和雨水。\""
+  },
+  {
+    "id": "cn_g7_023",
+    "word": "淅沥",
+    "pinyin": "xī lì",
+    "grade": 7,
+    "semester": "上册",
+    "example": "窗外淅沥沥地下着小雨。\""
+  },
+  {
+    "id": "cn_g7_024",
+    "word": "干涩",
+    "pinyin": "gān sè",
+    "grade": 7,
+    "semester": "上册",
+    "example": "干燥的天气让人的嘴唇感到干涩。\""
+  },
+  {
+    "id": "cn_g7_025",
+    "word": "咄咄逼人",
+    "pinyin": "duō duō bī rén",
+    "grade": 7,
+    "semester": "上册",
+    "example": "夏天的阳光咄咄逼人，热得让人喘不过气。\""
+  },
+  {
+    "id": "cn_g7_026",
+    "word": "东碣",
+    "pinyin": "dōng jié",
+    "grade": 7,
+    "semester": "上册",
+    "example": "东临碣石，以观沧海。\""
+  },
+  {
+    "id": "cn_g7_027",
+    "word": "竦峙",
+    "pinyin": "sǒng zhì",
+    "grade": 7,
+    "semester": "上册",
+    "example": "山岛竦峙在海边，气势雄伟。\""
+  },
+  {
+    "id": "cn_g7_028",
+    "word": "萧瑟",
+    "pinyin": "xiāo sè",
+    "grade": 7,
+    "semester": "上册",
+    "example": "秋风萧瑟，洪波涌起。\""
+  },
+  {
+    "id": "cn_g7_029",
+    "word": "夕阳西下",
+    "pinyin": "xī yáng xī xià",
+    "grade": 7,
+    "semester": "上册",
+    "example": "夕阳西下，断肠人在天涯。\""
+  },
+  {
+    "id": "cn_g7_030",
+    "word": "枯藤老树",
+    "pinyin": "kū téng lǎo shù",
+    "grade": 7,
+    "semester": "上册",
+    "example": "枯藤老树昏鸦，小桥流水人家。\""
+  },
+  {
+    "id": "cn_g7_031",
+    "word": "夜郎",
+    "pinyin": "yè láng",
+    "grade": 7,
+    "semester": "上册",
+    "example": "我寄愁心与明月，随君直到夜郎西。\""
+  },
+  {
+    "id": "cn_g7_032",
+    "word": "潮平两岸",
+    "pinyin": "cháo píng liǎng àn",
+    "grade": 7,
+    "semester": "上册",
+    "example": "潮平两岸阔，风正一帆悬。\""
+  },
+  {
+    "id": "cn_g7_033",
+    "word": "海日生残夜",
+    "pinyin": "hǎi rì shēng cán yè",
+    "grade": 7,
+    "semester": "上册",
+    "example": "海日生残夜，江春入旧年。\""
+  },
+  {
+    "id": "cn_g7_034",
+    "word": "归雁洛阳",
+    "pinyin": "guī yàn luò yáng",
+    "grade": 7,
+    "semester": "上册",
+    "example": "乡书何处达？归雁洛阳边。\""
+  },
+  {
+    "id": "cn_g7_035",
+    "word": "瘫痪",
+    "pinyin": "tān huàn",
+    "grade": 7,
+    "semester": "上册",
+    "example": "母亲照顾瘫痪的儿子，日夜操劳。\""
+  },
+  {
+    "id": "cn_g7_036",
+    "word": "暴怒",
+    "pinyin": "bào nù",
+    "grade": 7,
+    "semester": "上册",
+    "example": "他因为病情经常暴怒无常。\""
+  },
+  {
+    "id": "cn_g7_037",
+    "word": "沉寂",
+    "pinyin": "chén jì",
+    "grade": 7,
+    "semester": "上册",
+    "example": "病房里一片沉寂，只有仪器的滴答声。\""
+  },
+  {
+    "id": "cn_g7_038",
+    "word": "侍弄",
+    "pinyin": "shì nong",
+    "grade": 7,
+    "semester": "上册",
+    "example": "妈妈喜欢在院子里侍弄花草。\""
+  },
+  {
+    "id": "cn_g7_039",
+    "word": "憔悴",
+    "pinyin": "qiáo cuì",
+    "grade": 7,
+    "semester": "上册",
+    "example": "母亲的脸上写满了憔悴。\""
+  },
+  {
+    "id": "cn_g7_040",
+    "word": "央求",
+    "pinyin": "yāng qiú",
+    "grade": 7,
+    "semester": "上册",
+    "example": "孩子央求妈妈带他去公园玩。\""
+  },
+  {
+    "id": "cn_g7_041",
+    "word": "絮叨",
+    "pinyin": "xù dao",
+    "grade": 7,
+    "semester": "上册",
+    "example": "奶奶总是絮叨个不停，但都是关心的话。\""
+  },
+  {
+    "id": "cn_g7_042",
+    "word": "诀别",
+    "pinyin": "jué bié",
+    "grade": 7,
+    "semester": "上册",
+    "example": "没想到那次见面竟成了诀别。\""
+  },
+  {
+    "id": "cn_g7_043",
+    "word": "淡雅",
+    "pinyin": "dàn yǎ",
+    "grade": 7,
+    "semester": "上册",
+    "example": "她穿着一身淡雅的长裙，气质非凡。\""
+  },
+  {
+    "id": "cn_g7_044",
+    "word": "高洁",
+    "pinyin": "gāo jié",
+    "grade": 7,
+    "semester": "上册",
+    "example": "菊花象征着高洁的品格。\""
+  },
+  {
+    "id": "cn_g7_045",
+    "word": "烂漫",
+    "pinyin": "làn màn",
+    "grade": 7,
+    "semester": "上册",
+    "example": "春天的花朵开得烂漫无比。\""
+  },
+  {
+    "id": "cn_g7_046",
+    "word": "分歧",
+    "pinyin": "fēn qí",
+    "grade": 7,
+    "semester": "上册",
+    "example": "在去哪里散步的问题上，父子俩产生了分歧。\""
+  },
+  {
+    "id": "cn_g7_047",
+    "word": "一霎时",
+    "pinyin": "yī shà shí",
+    "grade": 7,
+    "semester": "上册",
+    "example": "一霎时，我感到了责任的重大。\""
+  },
+  {
+    "id": "cn_g7_048",
+    "word": "各得其所",
+    "pinyin": "gè dé qí suǒ",
+    "grade": 7,
+    "semester": "上册",
+    "example": "一家人散步，老人和孩子各得其所。\""
+  },
+  {
+    "id": "cn_g7_049",
+    "word": "水波粼粼",
+    "pinyin": "shuǐ bō lín lín",
+    "grade": 7,
+    "semester": "上册",
+    "example": "阳光下，湖面水波粼粼。\""
+  },
+  {
+    "id": "cn_g7_050",
+    "word": "委曲",
+    "pinyin": "wěi qu",
+    "grade": 7,
+    "semester": "上册",
+    "example": "他受了很大的委曲，却不说出来。\""
+  },
+  {
+    "id": "cn_g7_051",
+    "word": "匿笑",
+    "pinyin": "nì xiào",
+    "grade": 7,
+    "semester": "上册",
+    "example": "孩子躲在妈妈的身后匿笑。\""
+  },
+  {
+    "id": "cn_g7_052",
+    "word": "祷告",
+    "pinyin": "dǎo gào",
+    "grade": 7,
+    "semester": "上册",
+    "example": "她在心中默默祷告，希望一切顺利。\""
+  },
+  {
+    "id": "cn_g7_053",
+    "word": "并蒂",
+    "pinyin": "bìng dì",
+    "grade": 7,
+    "semester": "上册",
+    "example": "池塘里开着两朵并蒂莲花。\""
+  },
+  {
+    "id": "cn_g7_054",
+    "word": "梗概",
+    "pinyin": "gěng gài",
+    "grade": 7,
+    "semester": "上册",
+    "example": "请用几句话概括这篇文章的梗概。\""
+  },
+  {
+    "id": "cn_g7_055",
+    "word": "摇摆",
+    "pinyin": "yáo bǎi",
+    "grade": 7,
+    "semester": "上册",
+    "example": "柳树在风中轻轻摇摆。\""
+  },
+  {
+    "id": "cn_g7_056",
+    "word": "覆盖",
+    "pinyin": "fù gài",
+    "grade": 7,
+    "semester": "上册",
+    "example": "大雪覆盖了整个村庄。\""
+  },
+  {
+    "id": "cn_g7_057",
+    "word": "期行",
+    "pinyin": "qī xíng",
+    "grade": 7,
+    "semester": "上册",
+    "example": "陈太丘与友期行，约定的时间已到。\""
+  },
+  {
+    "id": "cn_g7_058",
+    "word": "舍去",
+    "pinyin": "shě qù",
+    "grade": 7,
+    "semester": "上册",
+    "example": "朋友没有按时来，陈太丘便舍去了。\""
+  },
+  {
+    "id": "cn_g7_059",
+    "word": "尊君在不",
+    "pinyin": "zūn jūn zài fǒu",
+    "grade": 7,
+    "semester": "上册",
+    "example": "尊君在不？——你爸爸在家吗？\""
+  },
+  {
+    "id": "cn_g7_060",
+    "word": "不入门户",
+    "pinyin": "bù rù mén hù",
+    "grade": 7,
+    "semester": "上册",
+    "example": "友人感到惭愧，下车想拉元方，元方不入门户。\""
+  },
+  {
+    "id": "cn_g7_061",
+    "word": "欣然",
+    "pinyin": "xīn rán",
+    "grade": 7,
+    "semester": "上册",
+    "example": "听到好消息，他欣然同意了。\""
+  },
+  {
+    "id": "cn_g7_062",
+    "word": "差可拟",
+    "pinyin": "chā kě nǐ",
+    "grade": 7,
+    "semester": "上册",
+    "example": "这朵花的形状跟柳絮差可拟。\""
+  },
+  {
+    "id": "cn_g7_063",
+    "word": "因风起",
+    "pinyin": "yīn fēng qǐ",
+    "grade": 7,
+    "semester": "上册",
+    "example": "未若柳絮因风起。\""
+  },
+  {
+    "id": "cn_g7_064",
+    "word": "骤雪",
+    "pinyin": "zhòu xuě",
+    "grade": 7,
+    "semester": "上册",
+    "example": "冬日骤雪纷纷扬扬地飘落下来。\""
+  },
+  {
+    "id": "cn_g7_065",
+    "word": "内集",
+    "pinyin": "nèi jí",
+    "grade": 7,
+    "semester": "上册",
+    "example": "谢太傅寒雪日内集，与儿女讲论文义。\""
+  },
+  {
+    "id": "cn_g7_066",
+    "word": "儿女",
+    "pinyin": "ér nǔ",
+    "grade": 7,
+    "semester": "上册",
+    "example": "古人称子侄辈为'儿女'。\""
+  },
+  {
+    "id": "cn_g7_067",
+    "word": "元勋",
+    "pinyin": "yuán xūn",
+    "grade": 7,
+    "semester": "下册",
+    "example": "邓稼先被誉为\"两弹元勋\\\"。\""
+  },
+  {
+    "id": "cn_g7_068",
+    "word": "至死不懈",
+    "pinyin": "zhì sǐ bù xiè",
+    "grade": 7,
+    "semester": "下册",
+    "example": "邓稼先至死不懈地工作，为祖国奉献了一生。\""
+  },
+  {
+    "id": "cn_g7_069",
+    "word": "鞠躬尽瘁",
+    "pinyin": "jū gōng jìn cuì",
+    "grade": 7,
+    "semester": "下册",
+    "example": "他鞠躬尽瘁，死而后已。\""
+  },
+  {
+    "id": "cn_g7_070",
+    "word": "选聘",
+    "pinyin": "xuǎn pìn",
+    "grade": 7,
+    "semester": "下册",
+    "example": "他被选聘为国家重要项目的负责人。\""
+  },
+  {
+    "id": "cn_g7_071",
+    "word": "殷红",
+    "pinyin": "yān hóng",
+    "grade": 7,
+    "semester": "下册",
+    "example": "鲜血把土地染成了殷红色。\""
+  },
+  {
+    "id": "cn_g7_072",
+    "word": "可歌可泣",
+    "pinyin": "kē gē kě qì",
+    "grade": 7,
+    "semester": "下册",
+    "example": "先烈们的事迹可歌可泣。\""
+  },
+  {
+    "id": "cn_g7_073",
+    "word": "鲜为人知",
+    "pinyin": "xiǎn wéi rén zhī",
+    "grade": 7,
+    "semester": "下册",
+    "example": "他的贡献长期鲜为人知。\""
+  },
+  {
+    "id": "cn_g7_074",
+    "word": "当之无愧",
+    "pinyin": "dāng zhī wú kuì",
+    "grade": 7,
+    "semester": "下册",
+    "example": "他是当之无愧的民族英雄。\""
+  },
+  {
+    "id": "cn_g7_075",
+    "word": "锋芒毕露",
+    "pinyin": "fēng máng bì lù",
+    "grade": 7,
+    "semester": "下册",
+    "example": "年轻人不要锋芒毕露，要谦虚谨慎。\""
+  },
+  {
+    "id": "cn_g7_076",
+    "word": "知人之明",
+    "pinyin": "zhī rén zhī míng",
+    "grade": 7,
+    "semester": "下册",
+    "example": "领导要有知人之明，善于发现人才。\""
+  },
+  {
+    "id": "cn_g7_077",
+    "word": "马革裹尸",
+    "pinyin": "má gé guǒ shī",
+    "grade": 7,
+    "semester": "下册",
+    "example": "战士们做好了马革裹尸的准备。\""
+  },
+  {
+    "id": "cn_g7_078",
+    "word": "层出不穷",
+    "pinyin": "céng chū bù qióng",
+    "grade": 7,
+    "semester": "下册",
+    "example": "科技领域的新发明层出不穷。\""
+  },
+  {
+    "id": "cn_g7_079",
+    "word": "锲而不舍",
+    "pinyin": "qiè ér bù shě",
+    "grade": 7,
+    "semester": "下册",
+    "example": "学习要锲而不舍，不能半途而废。\""
+  },
+  {
+    "id": "cn_g7_080",
+    "word": "兀兀穷年",
+    "pinyin": "wù wù qióng nián",
+    "grade": 7,
+    "semester": "下册",
+    "example": "闻一多先生兀兀穷年，潜心研究学问。\""
+  },
+  {
+    "id": "cn_g7_081",
+    "word": "沥尽心血",
+    "pinyin": "lì jìn xīn xuè",
+    "grade": 7,
+    "semester": "下册",
+    "example": "老师为我们沥尽心血。\""
+  },
+  {
+    "id": "cn_g7_082",
+    "word": "潜心贯注",
+    "pinyin": "qián xīn guàn zhù",
+    "grade": 7,
+    "semester": "下册",
+    "example": "他潜心贯注于科学研究。\""
+  },
+  {
+    "id": "cn_g7_083",
+    "word": "心会神凝",
+    "pinyin": "xīn huì shén níng",
+    "grade": 7,
+    "semester": "下册",
+    "example": "读书时要做到心会神凝。\""
+  },
+  {
+    "id": "cn_g7_084",
+    "word": "迥乎不同",
+    "pinyin": "jiǒng hū bù tóng",
+    "grade": 7,
+    "semester": "下册",
+    "example": "这两件事的结果迥乎不同。\""
+  },
+  {
+    "id": "cn_g7_085",
+    "word": "一反既往",
+    "pinyin": "yī fǎn jì wǎng",
+    "grade": 7,
+    "semester": "下册",
+    "example": "他一反既往的态度，开始认真学习了。\""
+  },
+  {
+    "id": "cn_g7_086",
+    "word": "慷慨淋漓",
+    "pinyin": "kāng kǎi lín lí",
+    "grade": 7,
+    "semester": "下册",
+    "example": "他的演讲慷慨淋漓，令人感动。\""
+  },
+  {
+    "id": "cn_g7_087",
+    "word": "气冲斗牛",
+    "pinyin": "qì chōng dǒu niú",
+    "grade": 7,
+    "semester": "下册",
+    "example": "他的怒气冲斗牛。\""
+  },
+  {
+    "id": "cn_g7_088",
+    "word": "目不窥园",
+    "pinyin": "mù bù kuī yuán",
+    "grade": 7,
+    "semester": "下册",
+    "example": "董仲舒专心读书，三年目不窥园。\""
+  },
+  {
+    "id": "cn_g7_089",
+    "word": "咳嗽",
+    "pinyin": "ké sou",
+    "grade": 7,
+    "semester": "下册",
+    "example": "爷爷年纪大了，经常咳嗽。\""
+  },
+  {
+    "id": "cn_g7_090",
+    "word": "调羹",
+    "pinyin": "tiáo gēng",
+    "grade": 7,
+    "semester": "下册",
+    "example": "她用调羹小心翼翼地喂药。\""
+  },
+  {
+    "id": "cn_g7_091",
+    "word": "绞肉",
+    "pinyin": "jiǎo ròu",
+    "grade": 7,
+    "semester": "下册",
+    "example": "妈妈在厨房里绞肉做饺子馅。\""
+  },
+  {
+    "id": "cn_g7_092",
+    "word": "韭菜",
+    "pinyin": "jiǔ cai",
+    "grade": 7,
+    "semester": "下册",
+    "example": "奶奶种的韭菜长得很好。\""
+  },
+  {
+    "id": "cn_g7_093",
+    "word": "薪金",
+    "pinyin": "xīn jīn",
+    "grade": 7,
+    "semester": "下册",
+    "example": "父亲的薪金不高，但足够养家。\""
+  },
+  {
+    "id": "cn_g7_094",
+    "word": "草率",
+    "pinyin": "cǎo shuài",
+    "grade": 7,
+    "semester": "下册",
+    "example": "做事不能草率，要认真对待每一件事。\""
+  },
+  {
+    "id": "cn_g7_095",
+    "word": "深恶痛绝",
+    "pinyin": "shēn wù tòng jué",
+    "grade": 7,
+    "semester": "下册",
+    "example": "他对欺骗行为深恶痛绝。\""
+  },
+  {
+    "id": "cn_g7_096",
+    "word": "不以为然",
+    "pinyin": "bù yǐ wéi rán",
+    "grade": 7,
+    "semester": "下册",
+    "example": "大家对他的说法不以为然。\""
+  },
+  {
+    "id": "cn_g7_097",
+    "word": "悠然",
+    "pinyin": "yōu rán",
+    "grade": 7,
+    "semester": "下册",
+    "example": "他悠然自得地坐在窗前看书。\""
+  },
+  {
+    "id": "cn_g7_098",
+    "word": "抹杀",
+    "pinyin": "mǒ shā",
+    "grade": 7,
+    "semester": "下册",
+    "example": "我们不能抹杀他的功劳。\""
+  },
+  {
+    "id": "cn_g7_099",
+    "word": "巅",
+    "pinyin": "diān",
+    "grade": 7,
+    "semester": "下册",
+    "example": "黄河发源于青藏高原的巴颜喀拉山之巅。\""
+  },
+  {
+    "id": "cn_g7_100",
+    "word": "劈",
+    "pinyin": "pī",
+    "grade": 7,
+    "semester": "下册",
+    "example": "黄河像一条巨龙劈开群山，奔腾向东。\""
+  },
+  {
+    "id": "cn_g7_101",
+    "word": "气魄",
+    "pinyin": "qì pò",
+    "grade": 7,
+    "semester": "下册",
+    "example": "黄河展现了中华民族伟大的气魄。\""
+  },
+  {
+    "id": "cn_g7_102",
+    "word": "狂澜",
+    "pinyin": "kuáng lán",
+    "grade": 7,
+    "semester": "下册",
+    "example": "无数英雄为了挽回国运的狂澜献出了生命。\""
+  },
+  {
+    "id": "cn_g7_103",
+    "word": "浊流",
+    "pinyin": "zhuó liú",
+    "grade": 7,
+    "semester": "下册",
+    "example": "黄河挟带着泥沙，浊流滚滚。\""
+  },
+  {
+    "id": "cn_g7_104",
+    "word": "宛转",
+    "pinyin": "wǎn zhuǎn",
+    "grade": 7,
+    "semester": "下册",
+    "example": "河水宛转曲折，流向远方。\""
+  },
+  {
+    "id": "cn_g7_105",
+    "word": "屏障",
+    "pinyin": "píng zhàng",
+    "grade": 7,
+    "semester": "下册",
+    "example": "高山形成了天然的屏障，阻挡了北方的寒风。\""
+  },
+  {
+    "id": "cn_g7_106",
+    "word": "哺育",
+    "pinyin": "bǔ yù",
+    "grade": 7,
+    "semester": "下册",
+    "example": "黄河哺育了中华民族。\""
+  },
+  {
+    "id": "cn_g7_107",
+    "word": "浩浩荡荡",
+    "pinyin": "hào hào dàng dàng",
+    "grade": 7,
+    "semester": "下册",
+    "example": "队伍浩浩荡荡地出发了。\""
+  },
+  {
+    "id": "cn_g7_108",
+    "word": "九曲连环",
+    "pinyin": "jiǔ qū lián huán",
+    "grade": 7,
+    "semester": "下册",
+    "example": "黄河九曲连环，蜿蜒万里。\""
+  },
+  {
+    "id": "cn_g7_109",
+    "word": "捂",
+    "pinyin": "wǔ",
+    "grade": 7,
+    "semester": "下册",
+    "example": "他用双手捂住了耳朵。\""
+  },
+  {
+    "id": "cn_g7_110",
+    "word": "踱步",
+    "pinyin": "duó bù",
+    "grade": 7,
+    "semester": "下册",
+    "example": "老师在教室里踱来踱去。\""
+  },
+  {
+    "id": "cn_g7_111",
+    "word": "惩罚",
+    "pinyin": "chéng fá",
+    "grade": 7,
+    "semester": "下册",
+    "example": "违反规则会受到相应的惩罚。\""
+  },
+  {
+    "id": "cn_g7_112",
+    "word": "钥匙",
+    "pinyin": "yào shi",
+    "grade": 7,
+    "semester": "下册",
+    "example": "这把钥匙能打开那扇神秘的门。\""
+  },
+  {
+    "id": "cn_g7_113",
+    "word": "督学",
+    "pinyin": "dū xué",
+    "grade": 7,
+    "semester": "下册",
+    "example": "督学来学校检查教学工作。\""
+  },
+  {
+    "id": "cn_g7_114",
+    "word": "郝叟",
+    "pinyin": "Hǎo sǒu",
+    "grade": 7,
+    "semester": "下册",
+    "example": "郝叟老头也来听最后一课了。\""
+  },
+  {
+    "id": "cn_g7_115",
+    "word": "祈祷",
+    "pinyin": "qí dǎo",
+    "grade": 7,
+    "semester": "下册",
+    "example": "人们在教堂里虔诚地祈祷。\""
+  },
+  {
+    "id": "cn_g7_116",
+    "word": "哽住",
+    "pinyin": "gěng zhù",
+    "grade": 7,
+    "semester": "下册",
+    "example": "他激动得说不出话来，喉咙哽住了。\""
+  },
+  {
+    "id": "cn_g7_117",
+    "word": "喧闹",
+    "pinyin": "xuān nào",
+    "grade": 7,
+    "semester": "下册",
+    "example": "课间操场上很喧闹。\""
+  },
+  {
+    "id": "cn_g7_118",
+    "word": "惨白",
+    "pinyin": "cǎn bái",
+    "grade": 7,
+    "semester": "下册",
+    "example": "听到这个消息，她的脸色变得惨白。\""
+  },
+  {
+    "id": "cn_g7_119",
+    "word": "碾",
+    "pinyin": "niǎn",
+    "grade": 7,
+    "semester": "下册",
+    "example": "车轮碾过了积雪覆盖的道路。\""
+  },
+  {
+    "id": "cn_g7_120",
+    "word": "誓言",
+    "pinyin": "shì yán",
+    "grade": 7,
+    "semester": "下册",
+    "example": "他在国旗下庄严地宣读誓言。\""
+  },
+  {
+    "id": "cn_g7_121",
+    "word": "胸膛",
+    "pinyin": "xiōng táng",
+    "grade": 7,
+    "semester": "下册",
+    "example": "战士们挺起胸膛向前冲锋。\""
+  },
+  {
+    "id": "cn_g7_122",
+    "word": "嗥鸣",
+    "pinyin": "háo míng",
+    "grade": 7,
+    "semester": "下册",
+    "example": "野兽在山谷中嗥鸣。\""
+  },
+  {
+    "id": "cn_g7_123",
+    "word": "山涧",
+    "pinyin": "shān jiàn",
+    "grade": 7,
+    "semester": "下册",
+    "example": "清澈的山涧从山间流淌而过。\""
+  },
+  {
+    "id": "cn_g7_124",
+    "word": "高粱",
+    "pinyin": "gāo liang",
+    "grade": 7,
+    "semester": "下册",
+    "example": "东北平原上长满了红彤彤的高粱。\""
+  },
+  {
+    "id": "cn_g7_125",
+    "word": "斑斓",
+    "pinyin": "bān lán",
+    "grade": 7,
+    "semester": "下册",
+    "example": "秋天树林里的色彩五彩斑斓。\""
+  },
+  {
+    "id": "cn_g7_126",
+    "word": "怪诞",
+    "pinyin": "guài dàn",
+    "grade": 7,
+    "semester": "下册",
+    "example": "这个故事情节怪诞离奇。\""
+  },
+  {
+    "id": "cn_g7_127",
+    "word": "亘古",
+    "pinyin": "gèn gǔ",
+    "grade": 7,
+    "semester": "下册",
+    "example": "这片土地亘古以来就是我们的家园。\""
+  },
+  {
+    "id": "cn_g7_128",
+    "word": "默契",
+    "pinyin": "mò qì",
+    "grade": 7,
+    "semester": "下册",
+    "example": "他们之间有着无需言语的默契。\""
+  },
+  {
+    "id": "cn_g7_129",
+    "word": "田垄",
+    "pinyin": "tián lǒng",
+    "grade": 7,
+    "semester": "下册",
+    "example": "农民们在田垄间辛勤劳作。\""
+  },
+  {
+    "id": "cn_g7_130",
+    "word": "蚱蜢",
+    "pinyin": "zhà měng",
+    "grade": 7,
+    "semester": "下册",
+    "example": "孩子们在草丛中追逐蚱蜢。\""
+  },
+  {
+    "id": "cn_g7_131",
+    "word": "污秽",
+    "pinyin": "wū huì",
+    "grade": 7,
+    "semester": "下册",
+    "example": "我们要保持环境的清洁，不制造污秽。\""
+  },
+  {
+    "id": "cn_g7_132",
+    "word": "机杼",
+    "pinyin": "jī zhù",
+    "grade": 7,
+    "semester": "下册",
+    "example": "不闻机杼声，唯闻女叹息。\""
+  },
+  {
+    "id": "cn_g7_133",
+    "word": "军帖",
+    "pinyin": "jūn tiě",
+    "grade": 7,
+    "semester": "下册",
+    "example": "昨夜见军帖，可汗大点兵。\""
+  },
+  {
+    "id": "cn_g7_134",
+    "word": "可汗",
+    "pinyin": "kè hán",
+    "grade": 7,
+    "semester": "下册",
+    "example": "木兰替父从军，征战沙场。\""
+  },
+  {
+    "id": "cn_g7_135",
+    "word": "鞍马",
+    "pinyin": "ān mǎ",
+    "grade": 7,
+    "semester": "下册",
+    "example": "木兰辞别父母，跨上鞍马奔赴战场。\""
+  },
+  {
+    "id": "cn_g7_136",
+    "word": "辔头",
+    "pinyin": "pèi tou",
+    "grade": 7,
+    "semester": "下册",
+    "example": "木兰东市买骏马，西市买鞍鞯，南市买辔头。\""
+  },
+  {
+    "id": "cn_g7_137",
+    "word": "溅溅",
+    "pinyin": "jiān jiān",
+    "grade": 7,
+    "semester": "下册",
+    "example": "旦辞爷娘去，暮宿黄河边，不闻爷娘唤女声，但闻黄河流水鸣溅溅。\""
+  },
+  {
+    "id": "cn_g7_138",
+    "word": "啾啾",
+    "pinyin": "jiū jiū",
+    "grade": 7,
+    "semester": "下册",
+    "example": "但闻燕山胡骑鸣啾啾。\""
+  },
+  {
+    "id": "cn_g7_139",
+    "word": "戎机",
+    "pinyin": "róng jī",
+    "grade": 7,
+    "semester": "下册",
+    "example": "万里赴戎机，关山度若飞。\""
+  },
+  {
+    "id": "cn_g7_140",
+    "word": "朔气",
+    "pinyin": "shuò qì",
+    "grade": 7,
+    "semester": "下册",
+    "example": "朔气传金柝，寒光照铁衣。\""
+  },
+  {
+    "id": "cn_g7_141",
+    "word": "金柝",
+    "pinyin": "jīn tuò",
+    "grade": 7,
+    "semester": "下册",
+    "example": "将军百战死，壮士十年归。\""
+  },
+  {
+    "id": "cn_g7_142",
+    "word": "策勋",
+    "pinyin": "cè xūn",
+    "grade": 7,
+    "semester": "下册",
+    "example": "策勋十二转，赏赐百千强。\""
+  },
+  {
+    "id": "cn_g7_143",
+    "word": "强扶",
+    "pinyin": "qiǎng fú",
+    "grade": 7,
+    "semester": "下册",
+    "example": "出门看火伴，火伴皆惊忙：同行十二年，不知木兰是女郎。\""
+  },
+  {
+    "id": "cn_g7_144",
+    "word": "云鬓",
+    "pinyin": "yún bìn",
+    "grade": 7,
+    "semester": "下册",
+    "example": "当窗理云鬓，对镜贴花黄。\""
+  },
+  {
+    "id": "cn_g7_145",
+    "word": "扑朔",
+    "pinyin": "pū shuò",
+    "grade": 7,
+    "semester": "下册",
+    "example": "雄兔脚扑朔，雌兔眼迷离。\""
+  },
+  {
+    "id": "cn_g7_146",
+    "word": "迷离",
+    "pinyin": "mí lí",
+    "grade": 7,
+    "semester": "下册",
+    "example": "双兔傍地走，安能辨我是雄雌？\""
+  },
+  {
+    "id": "cn_g8_001",
+    "word": "溃退",
+    "pinyin": "kuì tuì",
+    "grade": 8,
+    "semester": "上册",
+    "example": "敌军节节溃退，我军乘胜追击。\""
+  },
+  {
+    "id": "cn_g8_002",
+    "word": "泄气",
+    "pinyin": "xiè qì",
+    "grade": 8,
+    "semester": "上册",
+    "example": "遇到困难不能泄气，要坚持下去。\""
+  },
+  {
+    "id": "cn_g8_003",
+    "word": "督战",
+    "pinyin": "dū zhàn",
+    "grade": 8,
+    "semester": "上册",
+    "example": "指挥官亲自到前线督战。\""
+  },
+  {
+    "id": "cn_g8_004",
+    "word": "要塞",
+    "pinyin": "yào sài",
+    "grade": 8,
+    "semester": "上册",
+    "example": "这座城市是一个重要的军事要塞。\""
+  },
+  {
+    "id": "cn_g8_005",
+    "word": "业已",
+    "pinyin": "yè yǐ",
+    "grade": 8,
+    "semester": "上册",
+    "example": "敌军主力业已被歼灭。\""
+  },
+  {
+    "id": "cn_g8_006",
+    "word": "摧枯拉朽",
+    "pinyin": "cuī kū lā xiǔ",
+    "grade": 8,
+    "semester": "上册",
+    "example": "我军以摧枯拉朽之势攻占了敌人的阵地。\""
+  },
+  {
+    "id": "cn_g8_007",
+    "word": "锐不可当",
+    "pinyin": "ruì bù kě dāng",
+    "grade": 8,
+    "semester": "上册",
+    "example": "这支军队锐不可当，所向披靡。\""
+  },
+  {
+    "id": "cn_g8_008",
+    "word": "区域",
+    "pinyin": "qū yù",
+    "grade": 8,
+    "semester": "上册",
+    "example": "这个区域的交通非常便利。\""
+  },
+  {
+    "id": "cn_g8_009",
+    "word": "颁发",
+    "pinyin": "bān fǎ",
+    "grade": 8,
+    "semester": "上册",
+    "example": "学校举行了隆重的颁奖典礼。\""
+  },
+  {
+    "id": "cn_g8_010",
+    "word": "遗产",
+    "pinyin": "yí chǎn",
+    "grade": 8,
+    "semester": "上册",
+    "example": "长城是世界文化遗产。\""
+  },
+  {
+    "id": "cn_g8_011",
+    "word": "巨额",
+    "pinyin": "jù é",
+    "grade": 8,
+    "semester": "上册",
+    "example": "这笔巨额捐款将用于建设希望小学。\""
+  },
+  {
+    "id": "cn_g8_012",
+    "word": "建树",
+    "pinyin": "jiàn shù",
+    "grade": 8,
+    "semester": "上册",
+    "example": "这位科学家在物理领域有很大的建树。\""
+  },
+  {
+    "id": "cn_g8_013",
+    "word": "仲裁",
+    "pinyin": "zhòng cái",
+    "grade": 8,
+    "semester": "上册",
+    "example": "国际仲裁法庭解决了两国之间的争端。 \""
+  },
+  {
+    "id": "cn_g8_014",
+    "word": "渗透",
+    "pinyin": "shèn tòu",
+    "grade": 8,
+    "semester": "上册",
+    "example": "雨水慢慢渗透进了土壤里。\""
+  },
+  {
+    "id": "cn_g8_015",
+    "word": "遗嘱",
+    "pinyin": "yí zhǔ",
+    "grade": 8,
+    "semester": "上册",
+    "example": "他在遗嘱中将财产捐给了慈善机构。\""
+  },
+  {
+    "id": "cn_g8_016",
+    "word": "凌空",
+    "pinyin": "líng kōng",
+    "grade": 8,
+    "semester": "上册",
+    "example": "跳水运动员凌空一跃，姿态优美。\""
+  },
+  {
+    "id": "cn_g8_017",
+    "word": "翘首",
+    "pinyin": "qiáo shǒu",
+    "grade": 8,
+    "semester": "上册",
+    "example": "观众们翘首以待精彩的表演。\""
+  },
+  {
+    "id": "cn_g8_018",
+    "word": "轻盈",
+    "pinyin": "qīng yíng",
+    "grade": 8,
+    "semester": "上册",
+    "example": "芭蕾舞演员的动作轻盈优美。\""
+  },
+  {
+    "id": "cn_g8_019",
+    "word": "由衷",
+    "pinyin": "yóu zhōng",
+    "grade": 8,
+    "semester": "上册",
+    "example": "我对你的帮助表示由衷的感谢。\""
+  },
+  {
+    "id": "cn_g8_020",
+    "word": "如梦初醒",
+    "pinyin": "rú mèng chū xǐng",
+    "grade": 8,
+    "semester": "上册",
+    "example": "听了老师的讲解，他才如梦初醒。\""
+  },
+  {
+    "id": "cn_g8_021",
+    "word": "潇洒",
+    "pinyin": "xiāo sǎ",
+    "grade": 8,
+    "semester": "上册",
+    "example": "他的书法笔法潇洒飘逸。\""
+  },
+  {
+    "id": "cn_g8_022",
+    "word": "悄然",
+    "pinyin": "qiǎo rán",
+    "grade": 8,
+    "semester": "上册",
+    "example": "春天悄然而至。\""
+  },
+  {
+    "id": "cn_g8_023",
+    "word": "屏息敛声",
+    "pinyin": "bǐng xī liǎn shēng",
+    "grade": 8,
+    "semester": "上册",
+    "example": "全场观众屏息敛声，等待比赛结果。\""
+  },
+  {
+    "id": "cn_g8_024",
+    "word": "眼花缭乱",
+    "pinyin": "yǎn huā liáo luàn",
+    "grade": 8,
+    "semester": "上册",
+    "example": "货架上的商品琳琅满目，让人眼花缭乱。\""
+  },
+  {
+    "id": "cn_g8_025",
+    "word": "震耳欲聋",
+    "pinyin": "zhèn ěr yù lóng",
+    "grade": 8,
+    "semester": "上册",
+    "example": "欢呼声震耳欲聋。\""
+  },
+  {
+    "id": "cn_g8_026",
+    "word": "绷带",
+    "pinyin": "bēng dài",
+    "grade": 8,
+    "semester": "上册",
+    "example": "护士为他包扎伤口，缠上了绷带。\""
+  },
+  {
+    "id": "cn_g8_027",
+    "word": "咔嚓",
+    "pinyin": "kā chā",
+    "grade": 8,
+    "semester": "上册",
+    "example": "树枝\"咔嚓\\\"一声断了。\""
+  },
+  {
+    "id": "cn_g8_028",
+    "word": "撑开",
+    "pinyin": "chēng kāi",
+    "grade": 8,
+    "semester": "上册",
+    "example": "雨伞被风吹得撑开了伞骨。\""
+  },
+  {
+    "id": "cn_g8_029",
+    "word": "负荷",
+    "pinyin": "fù hè",
+    "grade": 8,
+    "semester": "上册",
+    "example": "这辆车的载重量已经达到了最大负荷。\""
+  },
+  {
+    "id": "cn_g8_030",
+    "word": "从容",
+    "pinyin": "cóng róng",
+    "grade": 8,
+    "semester": "上册",
+    "example": "面对困难，我们要保持从容的心态。\""
+  },
+  {
+    "id": "cn_g8_031",
+    "word": "镇定",
+    "pinyin": "zhèn dìng",
+    "grade": 8,
+    "semester": "上册",
+    "example": "遇到紧急情况要保持镇定。\""
+  },
+  {
+    "id": "cn_g8_032",
+    "word": "纹丝不动",
+    "pinyin": "wén sī bù dòng",
+    "grade": 8,
+    "semester": "上册",
+    "example": "士兵站岗时纹丝不动。\""
+  },
+  {
+    "id": "cn_g8_033",
+    "word": "一瞬间",
+    "pinyin": "yī shùn jiān",
+    "grade": 8,
+    "semester": "上册",
+    "example": "就在那一瞬间，他做出了决定。\""
+  },
+  {
+    "id": "cn_g8_034",
+    "word": "目不转睛",
+    "pinyin": "mù bù zhuǎn jīng",
+    "grade": 8,
+    "semester": "上册",
+    "example": "孩子们目不转睛地看着魔术师的表演。\""
+  },
+  {
+    "id": "cn_g8_035",
+    "word": "惊心动魄",
+    "pinyin": "jīng xīn dòng pò",
+    "grade": 8,
+    "semester": "上册",
+    "example": "这场足球比赛惊心动魄。\""
+  },
+  {
+    "id": "cn_g8_036",
+    "word": "樱花开",
+    "pinyin": "yīng huā kāi",
+    "grade": 8,
+    "semester": "上册",
+    "example": "日本的樱花盛开时节美不胜收。\""
+  },
+  {
+    "id": "cn_g8_037",
+    "word": "绯红",
+    "pinyin": "fēi hóng",
+    "grade": 8,
+    "semester": "上册",
+    "example": "天边的晚霞呈现出美丽的绯红色。\""
+  },
+  {
+    "id": "cn_g8_038",
+    "word": "宛如",
+    "pinyin": "wǎn rú",
+    "grade": 8,
+    "semester": "上册",
+    "example": "月亮宛如一面明镜悬挂在夜空中。\""
+  },
+  {
+    "id": "cn_g8_039",
+    "word": "掌故",
+    "pinyin": "zhǎng gù",
+    "grade": 8,
+    "semester": "上册",
+    "example": "老人们喜欢讲述过去的掌故。\""
+  },
+  {
+    "id": "cn_g8_040",
+    "word": "落第",
+    "pinyin": "luò dì",
+    "grade": 8,
+    "semester": "上册",
+    "example": "他科举考试落第后回家继续苦读。\""
+  },
+  {
+    "id": "cn_g8_041",
+    "word": "畸形",
+    "pinyin": "jī xíng",
+    "grade": 8,
+    "semester": "上册",
+    "example": "这种社会现象是一种畸形的产物。\""
+  },
+  {
+    "id": "cn_g8_042",
+    "word": "不逊",
+    "pinyin": "bù xùn",
+    "grade": 8,
+    "semester": "上册",
+    "example": "他的才华丝毫不逊色于任何人。\""
+  },
+  {
+    "id": "cn_g8_043",
+    "word": "匿名",
+    "pinyin": "nì míng",
+    "grade": 8,
+    "semester": "上册",
+    "example": "有人匿名举报了这个违法行为。\""
+  },
+  {
+    "id": "cn_g8_044",
+    "word": "诘责",
+    "pinyin": "jié zé",
+    "grade": 8,
+    "semester": "上册",
+    "example": "老师诘责他没有完成作业。\""
+  },
+  {
+    "id": "cn_g8_045",
+    "word": "呜呼",
+    "pinyin": "wū hū",
+    "grade": 8,
+    "semester": "上册",
+    "example": "呜呼！真是太可惜了。\""
+  },
+  {
+    "id": "cn_g8_046",
+    "word": "凄然",
+    "pinyin": "qī rán",
+    "grade": 8,
+    "semester": "上册",
+    "example": "想到逝去的亲人，他不禁凄然泪下。\""
+  },
+  {
+    "id": "cn_g8_047",
+    "word": "教诲",
+    "pinyin": "jiào huì",
+    "grade": 8,
+    "semester": "上册",
+    "example": "老师的教诲让我终生受益。\""
+  },
+  {
+    "id": "cn_g8_048",
+    "word": "油光可鉴",
+    "pinyin": "yóu guāng kě jiàn",
+    "grade": 8,
+    "semester": "上册",
+    "example": "他的头发油光可鉴。\""
+  },
+  {
+    "id": "cn_g8_049",
+    "word": "抑扬顿挫",
+    "pinyin": "yì yáng dùn cuò",
+    "grade": 8,
+    "semester": "上册",
+    "example": "他朗读课文抑扬顿挫，很有感情。\""
+  },
+  {
+    "id": "cn_g8_050",
+    "word": "深恶痛疾",
+    "pinyin": "shēn wù tòng jí",
+    "grade": 8,
+    "semester": "上册",
+    "example": "大家对这种不良风气深恶痛疾。\""
+  },
+  {
+    "id": "cn_g8_051",
+    "word": "杳无消息",
+    "pinyin": "yǎo wú xiāo xī",
+    "grade": 8,
+    "semester": "上册",
+    "example": "他离开后便杳无消息。\""
+  },
+  {
+    "id": "cn_g8_052",
+    "word": "正人君子",
+    "pinyin": "zhèng rén jūn zǐ",
+    "grade": 8,
+    "semester": "上册",
+    "example": "那些所谓的正人君子其实内心阴暗。\""
+  },
+  {
+    "id": "cn_g8_053",
+    "word": "溺爱",
+    "pinyin": "nù ài",
+    "grade": 8,
+    "semester": "上册",
+    "example": "家长不应该过分溺爱孩子。\""
+  },
+  {
+    "id": "cn_g8_054",
+    "word": "劳碌",
+    "pinyin": "láo lù",
+    "grade": 8,
+    "semester": "上册",
+    "example": "母亲一生都在不停地劳碌。\""
+  },
+  {
+    "id": "cn_g8_055",
+    "word": "私塾",
+    "pinyin": "sī shú",
+    "grade": 8,
+    "semester": "上册",
+    "example": "古代的孩子在私塾里读书识字。\""
+  },
+  {
+    "id": "cn_g8_056",
+    "word": "周济",
+    "pinyin": "zhōu jì",
+    "grade": 8,
+    "semester": "上册",
+    "example": "他经常周济生活困难的邻居。\""
+  },
+  {
+    "id": "cn_g8_057",
+    "word": "佃农",
+    "pinyin": "diàn nóng",
+    "grade": 8,
+    "semester": "上册",
+    "example": "祖父年轻时是个勤劳的佃农。\""
+  },
+  {
+    "id": "cn_g8_058",
+    "word": "慰勉",
+    "pinyin": "wèi miǎn",
+    "grade": 8,
+    "semester": "上册",
+    "example": "老师的话语给了我们莫大的慰勉。\""
+  },
+  {
+    "id": "cn_g8_059",
+    "word": "任劳任怨",
+    "pinyin": "rèn láo rèn yuàn",
+    "grade": 8,
+    "semester": "上册",
+    "example": "她任劳任怨地照顾着一家人。\""
+  },
+  {
+    "id": "cn_g8_060",
+    "word": "为富不仁",
+    "pinyin": "wéi fù bù rén",
+    "grade": 8,
+    "semester": "上册",
+    "example": "那些为富不仁的商人遭到人们的唾弃。\""
+  },
+  {
+    "id": "cn_g8_061",
+    "word": "节衣缩食",
+    "pinyin": "jié yī suō shí",
+    "grade": 8,
+    "semester": "上册",
+    "example": "为了供孩子上学，父母节衣缩食。\""
+  },
+  {
+    "id": "cn_g8_062",
+    "word": "宽厚仁慈",
+    "pinyin": "kuān hòu rén cí",
+    "grade": 8,
+    "semester": "上册",
+    "example": "祖母是一个宽厚仁慈的老人。\""
+  },
+  {
+    "id": "cn_g8_063",
+    "word": "聊叙",
+    "pinyin": "liáo xù",
+    "grade": 8,
+    "semester": "上册",
+    "example": "我们坐在一起聊叙往事。\""
+  },
+  {
+    "id": "cn_g8_064",
+    "word": "迁徙",
+    "pinyin": "qiān xǐ",
+    "grade": 8,
+    "semester": "上册",
+    "example": "远古人类不断迁徙寻找适宜居住的地方。\""
+  },
+  {
+    "id": "cn_g8_065",
+    "word": "祖籍",
+    "pinyin": "zǔ jí",
+    "grade": 8,
+    "semester": "上册",
+    "example": "我的祖籍在山东。\""
+  },
+  {
+    "id": "cn_g8_066",
+    "word": "衙门",
+    "pinyin": "yá men",
+    "grade": 8,
+    "semester": "上册",
+    "example": "古代百姓有事要去衙门告状。\""
+  },
+  {
+    "id": "cn_g8_067",
+    "word": "黝黑",
+    "pinyin": "yǒu hēi",
+    "grade": 8,
+    "semester": "上册",
+    "example": "他常年在外工作，皮肤被晒得黝黑。\""
+  },
+  {
+    "id": "cn_g8_068",
+    "word": "粗糙",
+    "pinyin": "cū cǎo",
+    "grade": 8,
+    "semester": "上册",
+    "example": "劳动让他的双手变得粗糙。\""
+  },
+  {
+    "id": "cn_g8_069",
+    "word": "崎岖",
+    "pinyin": "qí qū",
+    "grade": 8,
+    "semester": "上册",
+    "example": "这条山路崎岖难行。\""
+  },
+  {
+    "id": "cn_g8_070",
+    "word": "平庸",
+    "pinyin": "píng yōng",
+    "grade": 8,
+    "semester": "上册",
+    "example": "他不满足于做一个平庸的人。\""
+  },
+  {
+    "id": "cn_g8_071",
+    "word": "滞留",
+    "pinyin": "zhì liú",
+    "grade": 8,
+    "semester": "上册",
+    "example": "大雾导致航班滞留在机场。\""
+  },
+  {
+    "id": "cn_g8_072",
+    "word": "愚钝",
+    "pinyin": "yú dùn",
+    "grade": 8,
+    "semester": "上册",
+    "example": "小时候的他看起来有些愚钝。\""
+  },
+  {
+    "id": "cn_g8_073",
+    "word": "器宇",
+    "pinyin": "qì yǔ",
+    "grade": 8,
+    "semester": "上册",
+    "example": "这位将军器宇轩昂，气度不凡。\""
+  },
+  {
+    "id": "cn_g8_074",
+    "word": "禁锢",
+    "pinyin": "jìn gù",
+    "grade": 8,
+    "semester": "上册",
+    "example": "不要让传统观念禁锢了我们的思想。\""
+  },
+  {
+    "id": "cn_g8_075",
+    "word": "轩昂",
+    "pinyin": "xuān áng",
+    "grade": 8,
+    "semester": "上册",
+    "example": "他站姿挺拔，神采轩昂。\""
+  },
+  {
+    "id": "cn_g8_076",
+    "word": "酒肆",
+    "pinyin": "jiǔ sì",
+    "grade": 8,
+    "semester": "上册",
+    "example": "古代的酒肆里常有文人墨客聚会。\""
+  },
+  {
+    "id": "cn_g8_077",
+    "word": "尴尬",
+    "pinyin": "gān gà",
+    "grade": 8,
+    "semester": "上册",
+    "example": "这个问题让他感到十分尴尬。\""
+  },
+  {
+    "id": "cn_g8_078",
+    "word": "炽热",
+    "pinyin": "chì rè",
+    "grade": 8,
+    "semester": "上册",
+    "example": "他对祖国的热爱炽热而深沉。\""
+  },
+  {
+    "id": "cn_g8_079",
+    "word": "粗制滥造",
+    "pinyin": "cū zhì làn zào",
+    "grade": 8,
+    "semester": "上册",
+    "example": "这些产品粗制滥造，质量很差。\""
+  },
+  {
+    "id": "cn_g8_080",
+    "word": "藏污纳垢",
+    "pinyin": "cáng wū nà gòu",
+    "grade": 8,
+    "semester": "上册",
+    "example": "这个地方藏污纳垢，需要彻底清理。\""
+  },
+  {
+    "id": "cn_g8_081",
+    "word": "郁郁寡欢",
+    "pinyin": "yù yù guǎ huān",
+    "grade": 8,
+    "semester": "上册",
+    "example": "自从生病后，他便郁郁寡欢。\""
+  },
+  {
+    "id": "cn_g8_082",
+    "word": "诚惶诚恐",
+    "pinyin": "chéng huáng chéng kǒng",
+    "grade": 8,
+    "semester": "上册",
+    "example": "他诚惶诚恐地向皇帝请罪。\""
+  },
+  {
+    "id": "cn_g8_083",
+    "word": "入木三分",
+    "pinyin": "rù mù sān fēn",
+    "grade": 8,
+    "semester": "上册",
+    "example": "他的评论可谓入木三分。\""
+  },
+  {
+    "id": "cn_g8_084",
+    "word": "正襟危坐",
+    "pinyin": "zhēng jīn wēi zuò",
+    "grade": 8,
+    "semester": "上册",
+    "example": "同学们在课堂上正襟危坐，认真听讲。\""
+  },
+  {
+    "id": "cn_g8_085",
+    "word": "筋骨肌腱",
+    "pinyin": "jīn gǔ jī jiàn",
+    "grade": 8,
+    "semester": "上册",
+    "example": "运动前的热身活动可以防止筋骨肌腱受伤。\""
+  },
+  {
+    "id": "cn_g8_086",
+    "word": "意趣盎然",
+    "pinyin": "yì qù àng rán",
+    "grade": 8,
+    "semester": "上册",
+    "example": "这幅画的意境意趣盎然。\""
+  },
+  {
+    "id": "cn_g8_087",
+    "word": "广袤无垠",
+    "pinyin": "guǎng mào wú yín",
+    "grade": 8,
+    "semester": "上册",
+    "example": "广袤无垠的大草原让人心旷神怡。\""
+  },
+  {
+    "id": "cn_g8_088",
+    "word": "交卸",
+    "pinyin": "jiāo xiè",
+    "grade": 8,
+    "semester": "上册",
+    "example": "父亲交卸了差使，准备回老家。\""
+  },
+  {
+    "id": "cn_g8_089",
+    "word": "奔丧",
+    "pinyin": "bēn sāng",
+    "grade": 8,
+    "semester": "上册",
+    "example": "他接到电报后立刻赶回去奔丧。\""
+  },
+  {
+    "id": "cn_g8_090",
+    "word": "狼藉",
+    "pinyin": "láng jí",
+    "grade": 8,
+    "semester": "上册",
+    "example": "宴会结束后桌上杯盘狼藉。\""
+  },
+  {
+    "id": "cn_g8_091",
+    "word": "簌簌",
+    "pinyin": "sù sù",
+    "grade": 8,
+    "semester": "上册",
+    "example": "秋风扫过，树叶簌簌落下。\""
+  },
+  {
+    "id": "cn_g8_092",
+    "word": "赋闲",
+    "pinyin": "fù xián",
+    "grade": 8,
+    "semester": "上册",
+    "example": "父亲失业后赋闲在家。\""
+  },
+  {
+    "id": "cn_g8_093",
+    "word": "游荡",
+    "pinyin": "yóu dang",
+    "grade": 8,
+    "semester": "上册",
+    "example": "他整天在外面游荡，无所事事。\""
+  },
+  {
+    "id": "cn_g8_094",
+    "word": "踌躇",
+    "pinyin": "chóu chú",
+    "grade": 8,
+    "semester": "上册",
+    "example": "面对两个选择，他踌躇了很久。\""
+  },
+  {
+    "id": "cn_g8_095",
+    "word": "马褂",
+    "pinyin": "mǎ guà",
+    "grade": 8,
+    "semester": "上册",
+    "example": "爷爷穿了一件黑色的绸缎马褂。\""
+  },
+  {
+    "id": "cn_g8_096",
+    "word": "蹒跚",
+    "pinyin": "pán shān",
+    "grade": 8,
+    "semester": "上册",
+    "example": "老人拄着拐杖蹒跚前行。\""
+  },
+  {
+    "id": "cn_g8_097",
+    "word": "颓唐",
+    "pinyin": "tuí táng",
+    "grade": 8,
+    "semester": "上册",
+    "example": "考试失败后，他显得十分颓唐。\""
+  },
+  {
+    "id": "cn_g8_098",
+    "word": "琐屑",
+    "pinyin": "suǒ xiè",
+    "grade": 8,
+    "semester": "上册",
+    "example": "这些琐屑的小事不值得计较。\""
+  },
+  {
+    "id": "cn_g8_099",
+    "word": "触目伤怀",
+    "pinyin": "chù mù shāng huái",
+    "grade": 8,
+    "semester": "上册",
+    "example": "看到旧物，不禁触目伤怀。\""
+  },
+  {
+    "id": "cn_g8_100",
+    "word": "情郁于中",
+    "pinyin": "qíng yù yú zhōng",
+    "grade": 8,
+    "semester": "上册",
+    "example": "他情郁于中，无法表达。\""
+  },
+  {
+    "id": "cn_g8_101",
+    "word": "变卖典质",
+    "pinyin": "biàn mài diǎn zhì",
+    "grade": 8,
+    "semester": "上册",
+    "example": "父亲为了凑学费变卖典质了不少家产。\""
+  },
+  {
+    "id": "cn_g8_102",
+    "word": "光景",
+    "pinyin": "guāng jǐng",
+    "grade": 8,
+    "semester": "上册",
+    "example": "这几年家里的光景一天不如一天。\""
+  },
+  {
+    "id": "cn_g8_103",
+    "word": "触他之怒",
+    "pinyin": "chù tā zhī nù",
+    "grade": 8,
+    "semester": "上册",
+    "example": "我不想触他之怒。\""
+  },
+  {
+    "id": "cn_g8_104",
+    "word": "已是大去",
+    "pinyin": "yǐ shì dà qù",
+    "grade": 8,
+    "semester": "上册",
+    "example": "父亲身体已是大去之时。\""
+  },
+  {
+    "id": "cn_g8_105",
+    "word": "无边无垠",
+    "pinyin": "wú biān wú yín",
+    "grade": 8,
+    "semester": "上册",
+    "example": "无边无垠的麦田在风中翻滚。\""
+  },
+  {
+    "id": "cn_g8_106",
+    "word": "坦荡如砥",
+    "pinyin": "tǎn dàng rú dǐ",
+    "grade": 8,
+    "semester": "上册",
+    "example": "高原上的公路坦荡如砥。\""
+  },
+  {
+    "id": "cn_g8_107",
+    "word": "潜滋暗长",
+    "pinyin": "qián zī àn zhǎng",
+    "grade": 8,
+    "semester": "上册",
+    "example": "仇恨在他心中潜滋暗长。\""
+  },
+  {
+    "id": "cn_g8_108",
+    "word": "恹恹",
+    "pinyin": "yān yān",
+    "grade": 8,
+    "semester": "上册",
+    "example": "午后的阳光让人恹恹欲睡。\""
+  },
+  {
+    "id": "cn_g8_109",
+    "word": "旁逸斜出",
+    "pinyin": "páng yì xié chū",
+    "grade": 8,
+    "semester": "上册",
+    "example": "树枝旁逸斜出，姿态万千。\""
+  },
+  {
+    "id": "cn_g8_110",
+    "word": "婆娑",
+    "pinyin": "pó suō",
+    "grade": 8,
+    "semester": "上册",
+    "example": "微风吹过，竹林发出婆娑之声。\""
+  },
+  {
+    "id": "cn_g8_111",
+    "word": "伟岸",
+    "pinyin": "wěi àn",
+    "grade": 8,
+    "semester": "上册",
+    "example": "白杨树挺拔伟岸。\""
+  },
+  {
+    "id": "cn_g8_112",
+    "word": "参天",
+    "pinyin": "cān tiān",
+    "grade": 8,
+    "semester": "上册",
+    "example": "森林里长着许多参天大树。\""
+  },
+  {
+    "id": "cn_g8_113",
+    "word": "不折不挠",
+    "pinyin": "bù zhé bù náo",
+    "grade": 8,
+    "semester": "上册",
+    "example": "白杨树有不折不挠的精神。\""
+  },
+  {
+    "id": "cn_g8_114",
+    "word": "纵横决荡",
+    "pinyin": "zòng héng jué dàng",
+    "grade": 8,
+    "semester": "上册",
+    "example": "战士们在战场上纵横决荡。\""
+  },
+  {
+    "id": "cn_g8_115",
+    "word": "倦怠",
+    "pinyin": "juàn dài",
+    "grade": 8,
+    "semester": "上册",
+    "example": "长时间的工作使他感到倦怠。\""
+  },
+  {
+    "id": "cn_g8_116",
+    "word": "鄙视",
+    "pinyin": "bǐ shì",
+    "grade": 8,
+    "semester": "上册",
+    "example": "我们应该鄙视那种自私自利的行为。\""
+  },
+  {
+    "id": "cn_g8_117",
+    "word": "妙手偶得",
+    "pinyin": "miào shǒu ǒu dé",
+    "grade": 8,
+    "semester": "上册",
+    "example": "这首诗堪称妙手偶得的佳作。\""
+  },
+  {
+    "id": "cn_g8_118",
+    "word": "锤炼",
+    "pinyin": "chuí liàn",
+    "grade": 8,
+    "semester": "上册",
+    "example": "好的文章需要反复锤炼语言。\""
+  },
+  {
+    "id": "cn_g8_119",
+    "word": "主宰",
+    "pinyin": "zhǔ zǎi",
+    "grade": 8,
+    "semester": "上册",
+    "example": "命运掌握在自己手中，要做自己的主宰。\""
+  },
+  {
+    "id": "cn_g8_120",
+    "word": "虬枝",
+    "pinyin": "qiú zhī",
+    "grade": 8,
+    "semester": "上册",
+    "example": "古老的松树上长满了弯曲的虬枝。\""
+  },
+  {
+    "id": "cn_g8_121",
+    "word": "楠木",
+    "pinyin": "nán mù",
+    "grade": 8,
+    "semester": "上册",
+    "example": "紫檀和楠木都是珍贵的木材。\""
+  },
+  {
+    "id": "cn_g8_122",
+    "word": "避邪",
+    "pinyin": "bì xié",
+    "grade": 8,
+    "semester": "上册",
+    "example": "传说仙人掌可以避邪。\""
+  },
+  {
+    "id": "cn_g8_123",
+    "word": "新鲜",
+    "pinyin": "xīn xiān",
+    "grade": 8,
+    "semester": "上册",
+    "example": "菜市场里的蔬菜很新鲜。\""
+  },
+  {
+    "id": "cn_g8_124",
+    "word": "苔痕",
+    "pinyin": "tái hén",
+    "grade": 8,
+    "semester": "上册",
+    "example": "老旧的台阶上长满了青苔的痕迹。\""
+  },
+  {
+    "id": "cn_g8_125",
+    "word": "密集",
+    "pinyin": "mì jí",
+    "grade": 8,
+    "semester": "上册",
+    "example": "广场上聚集了密集的人群。\""
+  },
+  {
+    "id": "cn_g8_126",
+    "word": "瞭望",
+    "pinyin": "liào wàng",
+    "grade": 8,
+    "semester": "上册",
+    "example": "战士站在高山上瞭望远方。\""
+  },
+  {
+    "id": "cn_g8_127",
+    "word": "张皇",
+    "pinyin": "zhāng huáng",
+    "grade": 8,
+    "semester": "上册",
+    "example": "他张皇失措地跑出了房间。\""
+  },
+  {
+    "id": "cn_g8_128",
+    "word": "急躁",
+    "pinyin": "jí zào",
+    "grade": 8,
+    "semester": "上册",
+    "example": "遇事急躁往往容易出错。\""
+  },
+  {
+    "id": "cn_g8_129",
+    "word": "朦胧",
+    "pinyin": "méng lóng",
+    "grade": 8,
+    "semester": "上册",
+    "example": "清晨的山间笼罩着一层薄雾，景色朦胧。\""
+  },
+  {
+    "id": "cn_g8_130",
+    "word": "连绵不断",
+    "pinyin": "lián mián bù duàn",
+    "grade": 8,
+    "semester": "上册",
+    "example": "远处的山脉连绵不断。\""
+  },
+  {
+    "id": "cn_g8_131",
+    "word": "情味",
+    "pinyin": "qíng wèi",
+    "grade": 8,
+    "semester": "上册",
+    "example": "这首诗充满了浓浓的情味。\""
+  },
+  {
+    "id": "cn_g8_132",
+    "word": "孟夏",
+    "pinyin": "mèng xià",
+    "grade": 8,
+    "semester": "上册",
+    "example": "孟夏时节，草木茂盛。\""
+  },
+  {
+    "id": "cn_g8_133",
+    "word": "乍",
+    "pinyin": "zhà",
+    "grade": 8,
+    "semester": "上册",
+    "example": "他乍一看还认不出我来。\""
+  },
+  {
+    "id": "cn_g8_134",
+    "word": "釉",
+    "pinyin": "yòu",
+    "grade": 8,
+    "semester": "上册",
+    "example": "这只瓷碗的釉色非常漂亮。\""
+  },
+  {
+    "id": "cn_g8_135",
+    "word": "暮年",
+    "pinyin": "mù nián",
+    "grade": 8,
+    "semester": "上册",
+    "example": "爷爷在暮年时仍然坚持写作。\""
+  },
+  {
+    "id": "cn_g8_136",
+    "word": "润湿",
+    "pinyin": "rùn shī",
+    "grade": 8,
+    "semester": "上册",
+    "example": "清晨的露珠润湿了草地。\""
+  },
+  {
+    "id": "cn_g8_137",
+    "word": "稀疏",
+    "pinyin": "xī shū",
+    "grade": 8,
+    "semester": "上册",
+    "example": "稀疏的星星点缀在夜空中。\""
+  },
+  {
+    "id": "cn_g8_138",
+    "word": "饱满",
+    "pinyin": "bǎo mǎn",
+    "grade": 8,
+    "semester": "上册",
+    "example": "麦穗成熟了，颗粒饱满。\""
+  },
+  {
+    "id": "cn_g8_139",
+    "word": "洁白无瑕",
+    "pinyin": "jié bái wú xiá",
+    "grade": 8,
+    "semester": "上册",
+    "example": "雪花洁白无瑕，美丽动人。\""
+  },
+  {
+    "id": "cn_g8_140",
+    "word": "稍纵即逝",
+    "pinyin": "shāo zòng jí shì",
+    "grade": 8,
+    "semester": "上册",
+    "example": "时间稍纵即逝，要好好珍惜。\""
+  },
+  {
+    "id": "cn_g8_141",
+    "word": "惮",
+    "pinyin": "dàn",
+    "grade": 8,
+    "semester": "下册",
+    "example": "他毫不惧惮地走向前去。\""
+  },
+  {
+    "id": "cn_g8_142",
+    "word": "踱",
+    "pinyin": "duó",
+    "grade": 8,
+    "semester": "下册",
+    "example": "他在房间里来回踱步思考问题。\""
+  },
+  {
+    "id": "cn_g8_143",
+    "word": "棹",
+    "pinyin": "zhào",
+    "grade": 8,
+    "semester": "下册",
+    "example": "渔夫撑着长篙划动船棹。\""
+  },
+  {
+    "id": "cn_g8_144",
+    "word": "归省",
+    "pinyin": "guī xǐng",
+    "grade": 8,
+    "semester": "下册",
+    "example": "每年春节我都会回老家归省父母。\""
+  },
+  {
+    "id": "cn_g8_145",
+    "word": "行辈",
+    "pinyin": "háng bèi",
+    "grade": 8,
+    "semester": "下册",
+    "example": "按家族行辈，我应该叫他叔叔。\""
+  },
+  {
+    "id": "cn_g8_146",
+    "word": "撺掇",
+    "pinyin": "cuān duo",
+    "grade": 8,
+    "semester": "下册",
+    "example": "经不住朋友的撺掇，他还是去了。\""
+  },
+  {
+    "id": "cn_g8_147",
+    "word": "凫水",
+    "pinyin": "fú shuǐ",
+    "grade": 8,
+    "semester": "下册",
+    "example": "乡下孩子个个都会凫水游泳。\""
+  },
+  {
+    "id": "cn_g8_148",
+    "word": "潺潺",
+    "pinyin": "chán chán",
+    "grade": 8,
+    "semester": "下册",
+    "example": "溪水潺潺地从山中流过。\""
+  },
+  {
+    "id": "cn_g8_149",
+    "word": "弥散",
+    "pinyin": "mí sàn",
+    "grade": 8,
+    "semester": "下册",
+    "example": "饭菜的香气在空气中弥散开来。\""
+  },
+  {
+    "id": "cn_g8_150",
+    "word": "蕴藻",
+    "pinyin": "yùn zǎo",
+    "grade": 8,
+    "semester": "下册",
+    "example": "水中漂浮着绿色的蕴藻。\""
+  },
+  {
+    "id": "cn_g8_151",
+    "word": "矗立",
+    "pinyin": "chù lì",
+    "grade": 8,
+    "semester": "下册",
+    "example": "人民英雄纪念碑矗立在天安门广场上。\""
+  },
+  {
+    "id": "cn_g8_152",
+    "word": "家眷",
+    "pinyin": "jiā juàn",
+    "grade": 8,
+    "semester": "下册",
+    "example": "他带着家眷一起搬到了新城市。\""
+  },
+  {
+    "id": "cn_g8_153",
+    "word": "皎洁",
+    "pinyin": "jiǎo jié",
+    "grade": 8,
+    "semester": "下册",
+    "example": "一轮皎洁的明月挂在天空中。\""
+  },
+  {
+    "id": "cn_g8_154",
+    "word": "好歹",
+    "pinyin": "hǎo dǎi",
+    "grade": 8,
+    "semester": "下册",
+    "example": "不管好歹，先试试再说吧。\""
+  },
+  {
+    "id": "cn_g8_155",
+    "word": "踊跃",
+    "pinyin": "yǒng yuè",
+    "grade": 8,
+    "semester": "下册",
+    "example": "同学们踊跃举手回答问题。\""
+  },
+  {
+    "id": "cn_g8_156",
+    "word": "欺侮",
+    "pinyin": "qī wǔ",
+    "grade": 8,
+    "semester": "下册",
+    "example": "欺负弱小是一种可耻的欺侮行为。\""
+  },
+  {
+    "id": "cn_g8_157",
+    "word": "嘱咐",
+    "pinyin": "zhǔ fù",
+    "grade": 8,
+    "semester": "下册",
+    "example": "出门前妈妈再三嘱咐我要注意安全。\""
+  },
+  {
+    "id": "cn_g8_158",
+    "word": "怠慢",
+    "pinyin": "dài man",
+    "grade": 8,
+    "semester": "下册",
+    "example": "客人来了不能怠慢，要热情招待。\""
+  },
+  {
+    "id": "cn_g8_159",
+    "word": "礼数",
+    "pinyin": "lǐ shù",
+    "grade": 8,
+    "semester": "下册",
+    "example": "中国人讲究礼数，待客要周到。\""
+  },
+  {
+    "id": "cn_g8_160",
+    "word": "撺哄",
+    "pinyin": "cuān hong",
+    "grade": 8,
+    "semester": "下册",
+    "example": "大家在一起撺哄着玩游戏。\""
+  },
+  {
+    "id": "cn_g8_161",
+    "word": "羊肚巾",
+    "pinyin": "yáng dǔ jīn",
+    "grade": 8,
+    "semester": "下册",
+    "example": "陕北老乡头上戴着白羊肚手巾。\""
+  },
+  {
+    "id": "cn_g8_162",
+    "word": "油馍",
+    "pinyin": "yóu mó",
+    "grade": 8,
+    "semester": "下册",
+    "example": "延安的特色小吃油馍香脆可口。\""
+  },
+  {
+    "id": "cn_g8_163",
+    "word": "糜子",
+    "pinyin": "méi zi",
+    "grade": 8,
+    "semester": "下册",
+    "example": "陕北黄土高原上种植着糜子和谷子。\""
+  },
+  {
+    "id": "cn_g8_164",
+    "word": "脑畔",
+    "pinyin": "nǎo pàn",
+    "grade": 8,
+    "semester": "下册",
+    "example": "脑畔上响起了信天游的歌声。\""
+  },
+  {
+    "id": "cn_g8_165",
+    "word": "眼眶",
+    "pinyin": "yǎn kuàng",
+    "grade": 8,
+    "semester": "下册",
+    "example": "听到这个消息，她激动得眼眶湿润了。\""
+  },
+  {
+    "id": "cn_g8_166",
+    "word": "窑洞",
+    "pinyin": "yáo dong",
+    "grade": 8,
+    "semester": "下册",
+    "example": "延安的窑洞是中国革命的象征。\""
+  },
+  {
+    "id": "cn_g8_167",
+    "word": "赤卫军",
+    "pinyin": "chì wèi jūn",
+    "grade": 8,
+    "semester": "下册",
+    "example": "当年的赤卫军为革命事业作出了巨大贡献。\""
+  },
+  {
+    "id": "cn_g8_168",
+    "word": "白羊肚",
+    "pinyin": "bái yáng dǔ",
+    "grade": 8,
+    "semester": "下册",
+    "example": "白羊肚子毛巾是陕北人的标志性装扮。\""
+  },
+  {
+    "id": "cn_g8_169",
+    "word": "登时",
+    "pinyin": "dēng shí",
+    "grade": 8,
+    "semester": "下册",
+    "example": "消息一出，登时引起了轰动。\""
+  },
+  {
+    "id": "cn_g8_170",
+    "word": "几回回",
+    "pinyin": "jǐ huí huí",
+    "grade": 8,
+    "semester": "下册",
+    "example": "几回回梦里回延安，双手搂定宝塔山。\""
+  },
+  {
+    "id": "cn_g8_171",
+    "word": "满心话",
+    "pinyin": "mǎn xīn huà",
+    "grade": 8,
+    "semester": "下册",
+    "example": "满心话儿说不完。\""
+  },
+  {
+    "id": "cn_g8_172",
+    "word": "天南海北",
+    "pinyin": "tiān nán hǎi běi",
+    "grade": 8,
+    "semester": "下册",
+    "example": "来自天南海北的朋友们相聚在这里。\""
+  },
+  {
+    "id": "cn_g8_173",
+    "word": "米酒油馍",
+    "pinyin": "mǐ jiǔ yóu mó",
+    "grade": 8,
+    "semester": "下册",
+    "example": "米酒油馍木炭火，团围定炕上坐。\""
+  },
+  {
+    "id": "cn_g8_174",
+    "word": "一口口",
+    "pinyin": "yī kǒu kǒu",
+    "grade": 8,
+    "semester": "下册",
+    "example": "一口口的米酒千万句话。\""
+  },
+  {
+    "id": "cn_g8_175",
+    "word": "杨家岭",
+    "pinyin": "Yáng jiā lǐng",
+    "grade": 8,
+    "semester": "下册",
+    "example": "杨家岭是延安革命旧址之一。\""
+  },
+  {
+    "id": "cn_g8_176",
+    "word": "晦暗",
+    "pinyin": "huì àn",
+    "grade": 8,
+    "semester": "下册",
+    "example": "屋子里光线晦暗，看不清东西。\""
+  },
+  {
+    "id": "cn_g8_177",
+    "word": "束缚",
+    "pinyin": "shù fù",
+    "grade": 8,
+    "semester": "下册",
+    "example": "我们要打破传统观念的束缚。\""
+  },
+  {
+    "id": "cn_g8_178",
+    "word": "羁绊",
+    "pinyin": "jī bàn",
+    "grade": 8,
+    "semester": "下册",
+    "example": "不要让恐惧成为你前进道路上的羁绊。\""
+  },
+  {
+    "id": "cn_g8_179",
+    "word": "闭塞",
+    "pinyin": "bì sè",
+    "grade": 8,
+    "semester": "下册",
+    "example": "大山深处与外界几乎完全闭塞。\""
+  },
+  {
+    "id": "cn_g8_180",
+    "word": "冗杂",
+    "pinyin": "rǒng zá",
+    "grade": 8,
+    "semester": "下册",
+    "example": "他把文件中冗杂的内容删掉了。\""
+  },
+  {
+    "id": "cn_g8_181",
+    "word": "严峻",
+    "pinyin": "yán jùn",
+    "grade": 8,
+    "semester": "下册",
+    "example": "当前形势非常严峻，不容乐观。\""
+  },
+  {
+    "id": "cn_g8_182",
+    "word": "震撼",
+    "pinyin": "zhèn hàn",
+    "grade": 8,
+    "semester": "下册",
+    "example": "这场演出给观众带来了巨大的心灵震撼。\""
+  },
+  {
+    "id": "cn_g8_183",
+    "word": "磅礴",
+    "pinyin": "páng bó",
+    "grade": 8,
+    "semester": "下册",
+    "example": "瀑布从高处倾泻而下，气势磅礴。\""
+  },
+  {
+    "id": "cn_g8_184",
+    "word": "辐射",
+    "pinyin": "fú shè",
+    "grade": 8,
+    "semester": "下册",
+    "example": "太阳辐射是地球能量的重要来源。\""
+  },
+  {
+    "id": "cn_g8_185",
+    "word": "渺远",
+    "pinyin": "miǎo yuǎn",
+    "grade": 8,
+    "semester": "下册",
+    "example": "星空渺远而深邃，引人遐思。\""
+  },
+  {
+    "id": "cn_g8_186",
+    "word": "大彻大悟",
+    "pinyin": "dà chè dà wù",
+    "grade": 8,
+    "semester": "下册",
+    "example": "经历了这次挫折后，他终于大彻大悟。\""
+  },
+  {
+    "id": "cn_g8_187",
+    "word": "叹为观止",
+    "pinyin": "tàn wéi guān zhǐ",
+    "grade": 8,
+    "semester": "下册",
+    "example": "这场表演精彩绝伦，令人叹为观止。\""
+  },
+  {
+    "id": "cn_g8_188",
+    "word": "戛然而止",
+    "pinyin": "jiá rán ér zhǐ",
+    "grade": 8,
+    "semester": "下册",
+    "example": "音乐戛然而止，全场鸦雀无声。\""
+  },
+  {
+    "id": "cn_g8_189",
+    "word": "惊心动魄",
+    "pinyin": "jīng xīn dòng pò",
+    "grade": 8,
+    "semester": "下册",
+    "example": "这部电影中的战斗场面惊心动魄。\""
+  },
+  {
+    "id": "cn_g8_190",
+    "word": "元气淋漓",
+    "pinyin": "yuán qì lín lí",
+    "grade": 8,
+    "semester": "下册",
+    "example": "小伙子们跳起腰鼓来元气淋漓。\""
+  },
+  {
+    "id": "cn_g8_191",
+    "word": "惊涛骇浪",
+    "pinyin": "jīng tāo hài làng",
+    "grade": 8,
+    "semester": "下册",
+    "example": "船只在惊涛骇浪中颠簸前行。\""
+  },
+  {
+    "id": "cn_g8_192",
+    "word": "纷飞舞动",
+    "pinyin": "fēn fēi wǔ dòng",
+    "grade": 8,
+    "semester": "下册",
+    "example": "腰鼓声响起，尘土纷飞舞动。\""
+  },
+  {
+    "id": "cn_g8_193",
+    "word": "战栗",
+    "pinyin": "zhàn lì",
+    "grade": 8,
+    "semester": "下册",
+    "example": "寒冷让他全身不由自主地战栗起来。\""
+  },
+  {
+    "id": "cn_g8_194",
+    "word": "烧灼",
+    "pinyin": "shāo zhuó",
+    "grade": 8,
+    "semester": "下册",
+    "example": "烈日炎炎，仿佛要烧灼大地。\""
+  },
+  {
+    "id": "cn_g8_195",
+    "word": "威武",
+    "pinyin": "wēi wǔ",
+    "grade": 8,
+    "semester": "下册",
+    "example": "解放军战士步伐整齐威武。\""
+  },
+  {
+    "id": "cn_g8_196",
+    "word": "捶",
+    "pinyin": "chuí",
+    "grade": 8,
+    "semester": "下册",
+    "example": "他用拳头用力捶了一下桌子。\""
+  },
+  {
+    "id": "cn_g8_197",
+    "word": "翩然",
+    "pinyin": "piān rán",
+    "grade": 8,
+    "semester": "下册",
+    "example": "一只蝴蝶翩然飞过花丛。\""
+  },
+  {
+    "id": "cn_g8_198",
+    "word": "孕育",
+    "pinyin": "yùn yù",
+    "grade": 8,
+    "semester": "下册",
+    "example": "春天孕育着万物的生机。\""
+  },
+  {
+    "id": "cn_g8_199",
+    "word": "销声匿迹",
+    "pinyin": "xiāo shēng nì jì",
+    "grade": 8,
+    "semester": "下册",
+    "example": "青蛙到了冬天就销声匿迹了。\""
+  },
+  {
+    "id": "cn_g8_200",
+    "word": "衰草连天",
+    "pinyin": "shuāi cǎo lián tiān",
+    "grade": 8,
+    "semester": "下册",
+    "example": "深秋时节，衰草连天。\""
+  },
+  {
+    "id": "cn_g8_201",
+    "word": "风雪载途",
+    "pinyin": "fēng xuě zài tú",
+    "grade": 8,
+    "semester": "下册",
+    "example": "古人冒着风雪载途记录物候变化。\""
+  },
+  {
+    "id": "cn_g8_202",
+    "word": "周而复始",
+    "pinyin": "zhōu ér fù shǐ",
+    "grade": 8,
+    "semester": "下册",
+    "example": "四季更替，周而复始。\""
+  },
+  {
+    "id": "cn_g8_203",
+    "word": "草长莺飞",
+    "pinyin": "cǎo zhǎng yīng fēi",
+    "grade": 8,
+    "semester": "下册",
+    "example": "二月春风似剪刀，草长莺飞二月天。\""
+  },
+  {
+    "id": "cn_g8_204",
+    "word": "花香鸟语",
+    "pinyin": "huā xiāng niǎo yǔ",
+    "grade": 8,
+    "semester": "下册",
+    "example": "春天到了，到处是花香鸟语。\""
+  },
+  {
+    "id": "cn_g8_205",
+    "word": "农谚",
+    "pinyin": "nóng yàn",
+    "grade": 8,
+    "semester": "下册",
+    "example": "清明前后，种瓜点豆——这是一句流传已久的农谚。\""
+  },
+  {
+    "id": "cn_g8_206",
+    "word": "冰雪融化",
+    "pinyin": "bīng xuě róng huà",
+    "grade": 8,
+    "semester": "下册",
+    "example": "春天来了，冰雪融化了。\""
+  },
+  {
+    "id": "cn_g8_207",
+    "word": "簌簌",
+    "pinyin": "sù sù",
+    "grade": 8,
+    "semester": "下册",
+    "example": "花瓣簌簌地落在地上。\""
+  },
+  {
+    "id": "cn_g8_208",
+    "word": "悬殊",
+    "pinyin": "xuán shū",
+    "grade": 8,
+    "semester": "下册",
+    "example": "两队的实力相差悬殊。\""
+  },
+  {
+    "id": "cn_g8_209",
+    "word": "观测",
+    "pinyin": "guān cè",
+    "grade": 8,
+    "semester": "下册",
+    "example": "气象台每天都在观测天气变化。\""
+  },
+  {
+    "id": "cn_g8_210",
+    "word": "纬度",
+    "pinyin": "wěi dù",
+    "grade": 8,
+    "semester": "下册",
+    "example": "北京位于北纬40度左右。\""
+  },
+  {
+    "id": "cn_g8_211",
+    "word": "经度",
+    "pinyin": "jīng dù",
+    "grade": 8,
+    "semester": "下册",
+    "example": "地球表面的位置可以用经度和纬度来确定。\""
+  },
+  {
+    "id": "cn_g8_212",
+    "word": "差异",
+    "pinyin": "chā yì",
+    "grade": 8,
+    "semester": "下册",
+    "example": "每个人的学习方法存在差异。\""
+  },
+  {
+    "id": "cn_g8_213",
+    "word": "铸成",
+    "pinyin": "zhù chéng",
+    "grade": 8,
+    "semester": "下册",
+    "example": "一次小小的错误可能铸成大错。\""
+  },
+  {
+    "id": "cn_g8_214",
+    "word": "告诫",
+    "pinyin": "gào jiè",
+    "grade": 8,
+    "semester": "下册",
+    "example": "老师告诫我们要珍惜时间。\""
+  },
+  {
+    "id": "cn_g8_215",
+    "word": "推搡",
+    "pinyin": "tuī sǎng",
+    "grade": 8,
+    "semester": "下册",
+    "example": "拥挤的人群中互相推搡着。\""
+  },
+  {
+    "id": "cn_g8_216",
+    "word": "驰骋",
+    "pinyin": "chí chěng",
+    "grade": 8,
+    "semester": "下册",
+    "example": "少年壮志不言愁，愿在人生路上驰骋。\""
+  },
+  {
+    "id": "cn_g8_217",
+    "word": "寒噤",
+    "pinyin": "hán jìn",
+    "grade": 8,
+    "semester": "下册",
+    "example": "冰冷的河水让他忍不住打了个寒噤。\""
+  },
+  {
+    "id": "cn_g8_218",
+    "word": "迂回",
+    "pinyin": "yū huí",
+    "grade": 8,
+    "semester": "下册",
+    "example": "山路迂回曲折，很难行走。\""
+  },
+  {
+    "id": "cn_g8_219",
+    "word": "汩汩",
+    "pinyin": "gǔ gǔ",
+    "grade": 8,
+    "semester": "下册",
+    "example": "泉水从石缝中汩汩流出。\""
+  },
+  {
+    "id": "cn_g8_220",
+    "word": "打旋",
+    "pinyin": "dǎ xuán",
+    "grade": 8,
+    "semester": "下册",
+    "example": "落叶在水面上打旋。\""
+  },
+  {
+    "id": "cn_g8_221",
+    "word": "雾霭",
+    "pinyin": "wù ǎi",
+    "grade": 8,
+    "semester": "下册",
+    "example": "清晨的江面上弥漫着一层薄薄的雾霭。\""
+  },
+  {
+    "id": "cn_g8_222",
+    "word": "浸渍",
+    "pinyin": "jìn zì",
+    "grade": 8,
+    "semester": "下册",
+    "example": "衣服被汗水浸渍得变了颜色。\""
+  },
+  {
+    "id": "cn_g8_223",
+    "word": "震耳欲聋",
+    "pinyin": "zhèn ěr yù lóng",
+    "grade": 8,
+    "semester": "下册",
+    "example": "壶口瀑布的水声震耳欲聋。\""
+  },
+  {
+    "id": "cn_g8_224",
+    "word": "前呼后拥",
+    "pinyin": "ián hū hòu yōng",
+    "grade": 8,
+    "semester": "下册",
+    "example": "河水像千军万马般前呼后拥。\""
+  },
+  {
+    "id": "cn_g8_225",
+    "word": "怒不可遏",
+    "pinyin": "nù bù kè è",
+    "grade": 8,
+    "semester": "下册",
+    "example": "看到这种行为，他怒不可遏。\""
+  },
+  {
+    "id": "cn_g8_226",
+    "word": "挟而不服",
+    "pinyin": "xié ér bù fú",
+    "grade": 8,
+    "semester": "下册",
+    "example": "黄河之水挟而不服，勇往直前。\""
+  },
+  {
+    "id": "cn_g8_227",
+    "word": "趁隙而进",
+    "pinyin": "chèn xì ér jìn",
+    "grade": 8,
+    "semester": "下册",
+    "example": "水流趁隙而进，势不可挡。\""
+  },
+  {
+    "id": "cn_g8_228",
+    "word": "钻石取火",
+    "pinyin": "zuàn shí qǔ huǒ",
+    "grade": 8,
+    "semester": "下册",
+    "example": "古人钻木取火或钻石取火来获得火种。\""
+  },
+  {
+    "id": "cn_g8_229",
+    "word": "湿雾升腾",
+    "pinyin": "shī wù shēng téng",
+    "grade": 8,
+    "semester": "下册",
+    "example": "瀑布激起的水雾湿雾升腾。\""
+  },
+  {
+    "id": "cn_g8_230",
+    "word": "叮当作响",
+    "pinyin": "dīng dāng zuò xiǎng",
+    "grade": 8,
+    "semester": "下册",
+    "example": "风铃在风中叮当作响。\""
+  },
+  {
+    "id": "cn_g8_231",
+    "word": "驰骋天地",
+    "pinyin": "chí chěng tiān dì",
+    "grade": 8,
+    "semester": "下册",
+    "example": "年轻人应当有驰骋天地的志向。\""
+  },
+  {
+    "id": "cn_g8_232",
+    "word": "坚硬",
+    "pinyin": "jiān yìng",
+    "grade": 8,
+    "semester": "下册",
+    "example": "这块石头非常坚硬。\""
+  },
+  {
+    "id": "cn_g9_001",
+    "word": "莽莽",
+    "pinyin": "mǎng mǎng",
+    "grade": 9,
+    "semester": "上册",
+    "example": "千里冰封，万里雪飘，长城内外惟余莽莽。\""
+  },
+  {
+    "id": "cn_g9_002",
+    "word": "滔滔",
+    "pinyin": "tāo tāo",
+    "grade": 9,
+    "semester": "上册",
+    "example": "大河滔滔，奔流不息。\""
+  },
+  {
+    "id": "cn_g9_003",
+    "word": "妖娆",
+    "pinyin": "yāo ráo",
+    "grade": 9,
+    "semester": "上册",
+    "example": "雪后的江山分外妖娆。\""
+  },
+  {
+    "id": "cn_g9_004",
+    "word": "风流",
+    "pinyin": "fēng liú",
+    "grade": 9,
+    "semester": "上册",
+    "example": "数风流人物，还看今朝。\""
+  },
+  {
+    "id": "cn_g9_005",
+    "word": "一代天骄",
+    "pinyin": "yī dài tiān jiāo",
+    "grade": 9,
+    "semester": "上册",
+    "example": "成吉思汗是一代天骄。\""
+  },
+  {
+    "id": "cn_g9_006",
+    "word": "弯弓射雕",
+    "pinyin": "wān gōng shè diāo",
+    "grade": 9,
+    "semester": "上册",
+    "example": "只识弯弓射大雕。\""
+  },
+  {
+    "id": "cn_g9_007",
+    "word": "稍逊风骚",
+    "pinyin": "shǎo xùn fēng sāo",
+    "grade": 9,
+    "semester": "上册",
+    "example": "唐宗宋祖，稍逊风骚。\""
+  },
+  {
+    "id": "cn_g9_008",
+    "word": "输文采",
+    "pinyin": "shū wén cǎi",
+    "grade": 9,
+    "semester": "上册",
+    "example": "秦皇汉武，略输文采。\""
+  },
+  {
+    "id": "cn_g9_009",
+    "word": "俱往矣",
+    "pinyin": "jù wǎng yǐ",
+    "grade": 9,
+    "semester": "上册",
+    "example": "俱往矣，数风流人物，还看今朝。\""
+  },
+  {
+    "id": "cn_g9_010",
+    "word": "江山如此多娇",
+    "pinyin": "jiāng shān rú cǐ duō jiāo",
+    "grade": 9,
+    "semester": "上册",
+    "example": "江山如此多娇，引无数英雄竞折腰。\""
+  },
+  {
+    "id": "cn_g9_011",
+    "word": "红装素裹",
+    "pinyin": "hóng zhuāng sù guǒ",
+    "grade": 9,
+    "semester": "上册",
+    "example": "须晴日，看红装素裹，分外妖娆。\""
+  },
+  {
+    "id": "cn_g9_012",
+    "word": "原弛蜡象",
+    "pinyin": "yuán chí là xiàng",
+    "grade": 9,
+    "semester": "上册",
+    "example": "山舞银蛇，原驰蜡象。\""
+  },
+  {
+    "id": "cn_g9_013",
+    "word": "山舞银蛇",
+    "pinyin": "shān wǔ yín shé",
+    "grade": 9,
+    "semester": "上册",
+    "example": "山舞银蛇，原驰蜡象，欲与天公试比高。\""
+  },
+  {
+    "id": "cn_g9_014",
+    "word": "沁园春",
+    "pinyin": "qìn yuán chūn",
+    "grade": 9,
+    "semester": "上册",
+    "example": "《沁园春·雪》是毛泽东的经典诗词作品。\""
+  },
+  {
+    "id": "cn_g9_015",
+    "word": "嘶哑",
+    "pinyin": "sī yǎ",
+    "grade": 9,
+    "semester": "上册",
+    "example": "这只鸟的叫声已经嘶哑了。\""
+  },
+  {
+    "id": "cn_g9_016",
+    "word": "汹涌",
+    "pinyin": "xiōng yǒng",
+    "grade": 9,
+    "semester": "上册",
+    "example": "大海波涛汹涌，十分壮观。\""
+  },
+  {
+    "id": "cn_g9_017",
+    "word": "悲愤",
+    "pinyin": "bēi fèn",
+    "grade": 9,
+    "semester": "上册",
+    "example": "诗人怀着悲愤的心情写下这首诗。\""
+  },
+  {
+    "id": "cn_g9_018",
+    "word": "黎明",
+    "pinyin": "lí míng",
+    "grade": 9,
+    "semester": "上册",
+    "example": "我们在黎明时分出发登山。\""
+  },
+  {
+    "id": "cn_g9_019",
+    "word": "腐烂",
+    "pinyin": "fǔ làn",
+    "grade": 9,
+    "semester": "上册",
+    "example": "食物放置太久会腐烂变质。\""
+  },
+  {
+    "id": "cn_g9_020",
+    "word": "羽毛",
+    "pinyin": "yǔ máo",
+    "grade": 9,
+    "semester": "上册",
+    "example": "小鸟梳理着自己漂亮的羽毛。\""
+  },
+  {
+    "id": "cn_g9_021",
+    "word": "激流",
+    "pinyin": "jī liú",
+    "grade": 9,
+    "semester": "上册",
+    "example": "小船在激流中奋力前行。\""
+  },
+  {
+    "id": "cn_g9_022",
+    "word": "温柔",
+    "pinyin": "wēn róu",
+    "grade": 9,
+    "semester": "上册",
+    "example": "妈妈的笑容总是那么温柔。\""
+  },
+  {
+    "id": "cn_g9_023",
+    "word": "深沉",
+    "pinyin": "shēn chén",
+    "grade": 9,
+    "semester": "上册",
+    "example": "他对祖国的爱深沉而真挚。\""
+  },
+  {
+    "id": "cn_g9_024",
+    "word": "黎明的通知",
+    "pinyin": "lí míng de tōng zhī",
+    "grade": 9,
+    "semester": "上册",
+    "example": "《黎明的通知》是艾青的另一首名作。\""
+  },
+  {
+    "id": "cn_g9_025",
+    "word": "邮票",
+    "pinyin": "yóu piào",
+    "grade": 9,
+    "semester": "上册",
+    "example": "他收集世界各地的邮票。\""
+  },
+  {
+    "id": "cn_g9_026",
+    "word": "海峡",
+    "pinyin": "hǎi xiá",
+    "grade": 9,
+    "semester": "上册",
+    "example": "台湾海峡将大陆和台湾隔开。\""
+  },
+  {
+    "id": "cn_g9_027",
+    "word": "矮矮",
+    "pinyin": "ǎi ǎi",
+    "grade": 9,
+    "semester": "上册",
+    "example": "矮矮的围墙挡住了视线。\""
+  },
+  {
+    "id": "cn_g9_028",
+    "word": "窄窄",
+    "pinyin": "zhǎi zhǎi",
+    "grade": 9,
+    "semester": "上册",
+    "example": "这是一条窄窄的小巷。\""
+  },
+  {
+    "id": "cn_g9_029",
+    "word": "一方",
+    "pinyin": "yī fāng",
+    "grade": 9,
+    "semester": "上册",
+    "example": "一方水土养一方人。\""
+  },
+  {
+    "id": "cn_g9_030",
+    "word": "坟墓",
+    "pinyin": "fén mù",
+    "grade": 9,
+    "semester": "上册",
+    "example": "清明节人们去祖先的坟墓祭拜。\""
+  },
+  {
+    "id": "cn_g9_031",
+    "word": "乡愁",
+    "pinyin": "xiāng chóu",
+    "grade": 9,
+    "semester": "上册",
+    "example": "远离家乡的游子总有一种浓浓的乡愁。\""
+  },
+  {
+    "id": "cn_g9_032",
+    "word": "母子分离",
+    "pinyin": "mǔ zǐ fēn lí",
+    "grade": 9,
+    "semester": "上册",
+    "example": "一枚小小的邮票寄托着母子分离的思念。\""
+  },
+  {
+    "id": "cn_g9_033",
+    "word": "轻灵",
+    "pinyin": "qīng líng",
+    "grade": 9,
+    "semester": "上册",
+    "example": "燕子的身姿轻灵优美。\""
+  },
+  {
+    "id": "cn_g9_034",
+    "word": "娉婷",
+    "pinyin": "pīng tíng",
+    "grade": 9,
+    "semester": "上册",
+    "example": "她举止娉婷，气质优雅。\""
+  },
+  {
+    "id": "cn_g9_035",
+    "word": "鲜妍",
+    "pinyin": "xiān yán",
+    "grade": 9,
+    "semester": "上册",
+    "example": "四月的花朵鲜妍动人。\""
+  },
+  {
+    "id": "cn_g9_036",
+    "word": "冠冕",
+    "pinyin": "guān miǎn",
+    "grade": 9,
+    "semester": "上册",
+    "example": "他摘下了冠冕，回归平凡的生活。\""
+  },
+  {
+    "id": "cn_g9_037",
+    "word": "呢喃",
+    "pinyin": "ní nán",
+    "grade": 9,
+    "semester": "上册",
+    "example": "燕子在梁间呢喃。\""
+  },
+  {
+    "id": "cn_g9_038",
+    "word": "鹅黄",
+    "pinyin": "é huáng",
+    "grade": 9,
+    "semester": "上册",
+    "example": "初春的柳芽呈现出鹅黄色。\""
+  },
+  {
+    "id": "cn_g9_039",
+    "word": "柔嫩",
+    "pinyin": "róu nèn",
+    "grade": 9,
+    "semester": "上册",
+    "example": "刚发芽的小草柔嫩可爱。\""
+  },
+  {
+    "id": "cn_g9_040",
+    "word": "庄严",
+    "pinyin": "zhuāng yán",
+    "grade": 9,
+    "semester": "上册",
+    "example": "升旗仪式场面庄严隆重。\""
+  },
+  {
+    "id": "cn_g9_041",
+    "word": "新鲜初放",
+    "pinyin": "xīn xiān chū fàng",
+    "grade": 9,
+    "semester": "上册",
+    "example": "你是一树一树的花开，是燕在梁间呢喃。——你是爱，是暖，是希望，你是人间的四月天！\""
+  },
+  {
+    "id": "cn_g9_042",
+    "word": "雪化后",
+    "pinyin": "xuě huà hòu",
+    "grade": 9,
+    "semester": "上册",
+    "example": "雪化后的那片鹅黄，你像；新鲜初放芽的绿，你是。\""
+  },
+  {
+    "id": "cn_g9_043",
+    "word": "萧索",
+    "pinyin": "xiāo suǒ",
+    "grade": 9,
+    "semester": "上册",
+    "example": "深秋的乡村一片萧索景象。\""
+  },
+  {
+    "id": "cn_g9_044",
+    "word": "家景",
+    "pinyin": "jiā jǐng",
+    "grade": 9,
+    "semester": "上册",
+    "example": "近年来家里的家景不太好。\""
+  },
+  {
+    "id": "cn_g9_045",
+    "word": "祭祀",
+    "pinyin": "jì sì",
+    "grade": 9,
+    "semester": "上册",
+    "example": "春节时家家户户举行祭祀祖先的活动。\""
+  },
+  {
+    "id": "cn_g9_046",
+    "word": "伶俐",
+    "pinyin": "íng lì",
+    "grade": 9,
+    "semester": "上册",
+    "example": "这孩子聪明伶俐，惹人喜爱。\""
+  },
+  {
+    "id": "cn_g9_047",
+    "word": "应酬",
+    "pinyin": "yìng chou",
+    "grade": 9,
+    "semester": "上册",
+    "example": "社交场合少不了各种应酬。\""
+  },
+  {
+    "id": "cn_g9_048",
+    "word": "鄙夷",
+    "pinyin": "bǐ yí",
+    "grade": 9,
+    "semester": "上册",
+    "example": "他用鄙夷的目光看着那个骗子。\""
+  },
+  {
+    "id": "cn_g9_049",
+    "word": "嗤笑",
+    "pinyin": "chī xiào",
+    "grade": 9,
+    "semester": "上册",
+    "example": "他的愚蠢行为引来了大家的嗤笑。\""
+  },
+  {
+    "id": "cn_g9_050",
+    "word": "瑟索",
+    "pinyin": "sè suǒ",
+    "grade": 9,
+    "semester": "上册",
+    "example": "寒冷的天气让他瑟瑟发抖。\""
+  },
+  {
+    "id": "cn_g9_051",
+    "word": "惘然",
+    "pinyin": "wǎng rán",
+    "grade": 9,
+    "semester": "上册",
+    "example": "想起往事，他心中一阵惘然。\""
+  },
+  {
+    "id": "cn_g9_052",
+    "word": "隔膜",
+    "pinyin": "gé mó",
+    "grade": 9,
+    "semester": "上册",
+    "example": "长时间不见，两人之间产生了一些隔膜。\""
+  },
+  {
+    "id": "cn_g9_053",
+    "word": "恣睢",
+    "pinyin": "zì suī",
+    "grade": 9,
+    "semester": "上册",
+    "example": "他恣睢的行为让大家都很反感。\""
+  },
+  {
+    "id": "cn_g9_054",
+    "word": "偶像",
+    "pinyin": "ǒu xiàng",
+    "grade": 9,
+    "semester": "上册",
+    "example": "鲁迅先生是我心中的文学偶像。\""
+  },
+  {
+    "id": "cn_g9_055",
+    "word": "髀",
+    "pinyin": "bì",
+    "grade": 9,
+    "semester": "上册",
+    "example": "闰土的髀骨已经不再灵活了。\""
+  },
+  {
+    "id": "cn_g9_056",
+    "word": "祭祀器皿",
+    "pinyin": "jì sì qì mǐn",
+    "grade": 9,
+    "semester": "上册",
+    "example": "祖先留下的祭祀器皿十分珍贵。\""
+  },
+  {
+    "id": "cn_g9_057",
+    "word": "五行缺土",
+    "pinyin": "wǔ xíng quē tǔ",
+    "grade": 9,
+    "semester": "上册",
+    "example": "闰土因为五行缺土所以叫闰土。\""
+  },
+  {
+    "id": "cn_g9_058",
+    "word": "深黛",
+    "pinyin": "shēn dài",
+    "grade": 9,
+    "semester": "上册",
+    "example": "黄昏的天色变成深黛色。\""
+  },
+  {
+    "id": "cn_g9_059",
+    "word": "贝壳",
+    "pinyin": "bèi ké",
+    "grade": 9,
+    "semester": "上册",
+    "example": "海滩上有各种各样漂亮的贝壳。\""
+  },
+  {
+    "id": "cn_g9_060",
+    "word": "渺茫",
+    "pinyin": "miǎo máng",
+    "grade": 9,
+    "semester": "上册",
+    "example": "未来虽然渺茫，但我们不应放弃希望。\""
+  },
+  {
+    "id": "cn_g9_061",
+    "word": "玄虚",
+    "pinyin": "xuán xū",
+    "grade": 9,
+    "semester": "上册",
+    "example": "他的话听起来玄虚，实际上毫无道理。\""
+  },
+  {
+    "id": "cn_g9_062",
+    "word": "抹杀",
+    "pinyin": "mǒ shā",
+    "grade": 9,
+    "semester": "上册",
+    "example": "我们不能抹杀历史的事实。\""
+  },
+  {
+    "id": "cn_g9_063",
+    "word": "摧残",
+    "pinyin": "cuī cán",
+    "grade": 9,
+    "semester": "上册",
+    "example": "战争摧毁了无数美好的家园，摧残了无辜的生命。\""
+  },
+  {
+    "id": "cn_g9_064",
+    "word": "诓骗",
+    "pinyin": "kuāng piàn",
+    "grade": 9,
+    "semester": "上册",
+    "example": "骗子用各种手段诓骗老人购买假药。\""
+  },
+  {
+    "id": "cn_g9_065",
+    "word": "怀古伤今",
+    "pinyin": "huái gǔ shāng jīn",
+    "grade": 9,
+    "semester": "上册",
+    "example": "不必一味地怀古伤今，应该着眼未来。\""
+  },
+  {
+    "id": "cn_g9_066",
+    "word": "为民请命",
+    "pinyin": "wèi mín qǐng mìng",
+    "grade": 9,
+    "semester": "上册",
+    "example": "历史上有很多为民请命的好官。\""
+  },
+  {
+    "id": "cn_g9_067",
+    "word": "舍身求法",
+    "pinyin": "shě shēn qiú fǎ",
+    "grade": 9,
+    "semester": "上册",
+    "example": "玄奘法师舍身求法的精神值得敬佩。\""
+  },
+  {
+    "id": "cn_g9_068",
+    "word": "前仆后继",
+    "pinyin": "qián pū hòu jì",
+    "grade": 9,
+    "semester": "上册",
+    "example": "革命先烈们前仆后继，换来了今天的幸福生活。\""
+  },
+  {
+    "id": "cn_g9_069",
+    "word": "自欺欺人",
+    "pinyin": "zì qī qī rén",
+    "grade": 9,
+    "semester": "上册",
+    "example": "逃避现实只能是自欺欺人。\""
+  },
+  {
+    "id": "cn_g9_070",
+    "word": "脊梁",
+    "pinyin": "jǐ liáng",
+    "grade": 9,
+    "semester": "上册",
+    "example": "中国人民是有脊梁的，不会轻易屈服。\""
+  },
+  {
+    "id": "cn_g9_071",
+    "word": "状元宰相",
+    "pinyin": "zhuàng yuan zǎi xiàng",
+    "grade": 9,
+    "semester": "上册",
+    "example": "历史上的状元宰相未必都是真正的精英。\""
+  },
+  {
+    "id": "cn_g9_072",
+    "word": "地大物博",
+    "pinyin": "dì dà wù bó",
+    "grade": 9,
+    "semester": "上册",
+    "example": "中国地大物博，资源丰富。\""
+  },
+  {
+    "id": "cn_g9_073",
+    "word": "求神拜佛",
+    "pinyin": "qiú shén bài fó",
+    "grade": 9,
+    "semester": "上册",
+    "example": "遇到困难要求真务实，不能只靠求神拜佛。\""
+  },
+  {
+    "id": "cn_g9_074",
+    "word": "搽脂粉",
+    "pinyin": "chá zhī fěn",
+    "grade": 9,
+    "semester": "上册",
+    "example": "有些人只会用华丽的语言给自己搽脂粉。\""
+  },
+  {
+    "id": "cn_g9_075",
+    "word": "虽是",
+    "pinyin": "suī shì",
+    "grade": 9,
+    "semester": "上册",
+    "example": "虽是说谎的国人，也不能说失掉了自信力。\""
+  },
+  {
+    "id": "cn_g9_076",
+    "word": "只能",
+    "pinyin": "zhǐ néng",
+    "grade": 9,
+    "semester": "上册",
+    "example": "我们从古以来，就有埋头苦干的人，有拼命硬干的人……这就是中国的脊梁。\""
+  },
+  {
+    "id": "cn_g9_077",
+    "word": "并不",
+    "pinyin": "bìng bù",
+    "grade": 9,
+    "semester": "上册",
+    "example": "说中国人失掉了自信力，用以指一部分人则可，倘若加于全体，那简直是诬蔑。\""
+  },
+  {
+    "id": "cn_g9_078",
+    "word": "凶险",
+    "pinyin": "xiōng xiǎn",
+    "grade": 9,
+    "semester": "上册",
+    "example": "这条路十分凶险，要小心通行。\""
+  },
+  {
+    "id": "cn_g9_079",
+    "word": "视察",
+    "pinyin": "shì chá",
+    "grade": 9,
+    "semester": "上册",
+    "example": "市长亲临现场视察灾后重建情况。\""
+  },
+  {
+    "id": "cn_g9_080",
+    "word": "墨守",
+    "pinyin": "mò shǒu",
+    "grade": 9,
+    "semester": "上册",
+    "example": "我们不能墨守成规，要勇于创新。\""
+  },
+  {
+    "id": "cn_g9_081",
+    "word": "停滞",
+    "pinyin": "tíng zhì",
+    "grade": 9,
+    "semester": "上册",
+    "example": "经济发展如果停滞就会带来很多问题。\""
+  },
+  {
+    "id": "cn_g9_082",
+    "word": "堕落",
+    "pinyin": "duò luò",
+    "grade": 9,
+    "semester": "上册",
+    "example": "他曾经是个好人，后来却堕落了。\""
+  },
+  {
+    "id": "cn_g9_083",
+    "word": "腐草为萤",
+    "pinyin": "fǔ cǎo wéi yíng",
+    "grade": 9,
+    "semester": "上册",
+    "example": "古人认为腐草可以化为萤火虫，这是不科学的。\""
+  },
+  {
+    "id": "cn_g9_084",
+    "word": "盲从",
+    "pinyin": "máng cóng",
+    "grade": 9,
+    "semester": "上册",
+    "example": "学习要有独立思考能力，不能盲目盲从。\""
+  },
+  {
+    "id": "cn_g9_085",
+    "word": "辨别",
+    "pinyin": "biàn bié",
+    "grade": 9,
+    "semester": "上册",
+    "example": "我们需要学会辨别信息的真假。\""
+  },
+  {
+    "id": "cn_g9_086",
+    "word": "轻信",
+    "pinyin": "qīng xìn",
+    "grade": 9,
+    "semester": "上册",
+    "example": "对于网上的消息不要轻易相信和轻信。\""
+  },
+  {
+    "id": "cn_g9_087",
+    "word": "虚妄",
+    "pinyin": "xū wàng",
+    "grade": 9,
+    "semester": "上册",
+    "example": "那些荒诞的说法完全是虚妄的。\""
+  },
+  {
+    "id": "cn_g9_088",
+    "word": "步骤",
+    "pinyin": "bù zhòu",
+    "grade": 9,
+    "semester": "上册",
+    "example": "做实验要严格按照步骤进行。\""
+  },
+  {
+    "id": "cn_g9_089",
+    "word": "修正",
+    "pinyin": "xiū zhèng",
+    "grade": 9,
+    "semester": "上册",
+    "example": "发现错误要及时修正。\""
+  },
+  {
+    "id": "cn_g9_090",
+    "word": "启迪",
+    "pinyin": "qǐ dí",
+    "grade": 9,
+    "semester": "上册",
+    "example": "老师的教诲给了我很大的启迪。\""
+  },
+  {
+    "id": "cn_g9_091",
+    "word": "怀疑精神",
+    "pinyin": "huái yí jīng shén",
+    "grade": 9,
+    "semester": "上册",
+    "example": "治学需要有怀疑精神，不迷信权威。\""
+  },
+  {
+    "id": "cn_g9_092",
+    "word": "辨伪去妄",
+    "pinyin": "biàn wǒ qù wàng",
+    "grade": 9,
+    "semester": "上册",
+    "example": "做学问要学会辨伪去妄。\""
+  },
+  {
+    "id": "cn_g9_093",
+    "word": "汲取",
+    "pinyin": "jí qǔ",
+    "grade": 9,
+    "semester": "上册",
+    "example": "我们要从失败中汲取教训。\""
+  },
+  {
+    "id": "cn_g9_094",
+    "word": "根深蒂固",
+    "pinyin": "gēn shēn dì gù",
+    "grade": 9,
+    "semester": "上册",
+    "example": "这种思想根深蒂固，很难改变。\""
+  },
+  {
+    "id": "cn_g9_095",
+    "word": "行之有效",
+    "pinyin": "xíng zhī yǒu xiào",
+    "grade": 9,
+    "semester": "上册",
+    "example": "实践证明这种方法是行之有效的。\""
+  },
+  {
+    "id": "cn_g9_096",
+    "word": "孜孜不倦",
+    "pinyin": "zī zī bù juàn",
+    "grade": 9,
+    "semester": "上册",
+    "example": "他孜孜不倦地钻研业务。\""
+  },
+  {
+    "id": "cn_g9_097",
+    "word": "持之以恒",
+    "pinyin": "chí zhǐ yǐ héng",
+    "grade": 9,
+    "semester": "上册",
+    "example": "学习需要持之以恒的精神。\""
+  },
+  {
+    "id": "cn_g9_098",
+    "word": "不言而喻",
+    "pinyin": "bù yán ér yù",
+    "grade": 9,
+    "semester": "上册",
+    "example": "勤奋的重要性是不言而喻的。\""
+  },
+  {
+    "id": "cn_g9_099",
+    "word": "锲而不舍",
+    "pinyin": "qiè ér bù shě",
+    "grade": 9,
+    "semester": "上册",
+    "example": "成功属于那些锲而不舍的人。\""
+  },
+  {
+    "id": "cn_g9_100",
+    "word": "创意",
+    "pinyin": "chuàng yì",
+    "grade": 9,
+    "semester": "上册",
+    "example": "这个设计充满了独特的创意。\""
+  },
+  {
+    "id": "cn_g9_101",
+    "word": "模式",
+    "pinyin": "mó shì",
+    "grade": 9,
+    "semester": "上册",
+    "example": "我们要打破传统的思维模式。\""
+  },
+  {
+    "id": "cn_g9_102",
+    "word": "关键",
+    "pinyin": "guān jiàn",
+    "grade": 9,
+    "semester": "上册",
+    "example": "这是解决问题的关键所在。\""
+  },
+  {
+    "id": "cn_g9_103",
+    "word": "依赖",
+    "pinyin": "yī lài",
+    "grade": 9,
+    "semester": "上册",
+    "example": "孩子不能永远依赖父母。\""
+  },
+  {
+    "id": "cn_g9_104",
+    "word": "探察",
+    "pinyin": "tàn chá",
+    "grade": 9,
+    "semester": "上册",
+    "example": "科学家正在深入探察宇宙的奥秘。\""
+  },
+  {
+    "id": "cn_g9_105",
+    "word": "素材",
+    "pinyin": "sù cái",
+    "grade": 9,
+    "semester": "上册",
+    "example": "作家平时要注意收集写作素材。\""
+  },
+  {
+    "id": "cn_g9_106",
+    "word": "灵感",
+    "pinyin": "líng gǎn",
+    "grade": 9,
+    "semester": "上册",
+    "example": "艺术家需要灵感才能创作出动人的作品。\""
+  },
+  {
+    "id": "cn_g9_107",
+    "word": "练达",
+    "pinyin": "liàn dá",
+    "grade": 9,
+    "semester": "上册",
+    "example": "他为人处事十分练达。\""
+  },
+  {
+    "id": "cn_g9_108",
+    "word": "狡黠",
+    "pinyin": "iǎo xiá",
+    "grade": 9,
+    "semester": "上册",
+    "example": "他眼中闪过一丝狡黠的光芒。\""
+  },
+  {
+    "id": "cn_g9_109",
+    "word": "诘难",
+    "pinyin": "jié nàn",
+    "grade": 9,
+    "semester": "上册",
+    "example": "面对别人的诘难，他不慌不忙地回答。\""
+  },
+  {
+    "id": "cn_g9_110",
+    "word": "伦理",
+    "pinyin": "lún lǐ",
+    "grade": 9,
+    "semester": "上册",
+    "example": "做人要遵守基本的伦理道德。\""
+  },
+  {
+    "id": "cn_g9_111",
+    "word": "滞碍",
+    "pinyin": "zhì ài",
+    "grade": 9,
+    "semester": "上册",
+    "example": "学习中遇到滞碍要主动请教老师。\""
+  },
+  {
+    "id": "cn_g9_112",
+    "word": "寻章摘句",
+    "pinyin": "xún zhāng zhāi jù",
+    "grade": 9,
+    "semester": "上册",
+    "example": "读书不能只寻章摘句，要理解其精髓。\""
+  },
+  {
+    "id": "cn_g9_113",
+    "word": "味同嚼蜡",
+    "pinyin": "wèi tóng jiáo là",
+    "grade": 9,
+    "semester": "上册",
+    "example": "这篇文章写得枯燥乏味，读起来味同嚼蜡。\""
+  },
+  {
+    "id": "cn_g9_114",
+    "word": "吹毛求疵",
+    "pinyin": "chuī máo qiú cī",
+    "grade": 9,
+    "semester": "上册",
+    "example": "对别人不要过于苛刻，不要吹毛求疵。\""
+  },
+  {
+    "id": "cn_g9_115",
+    "word": "狂妄自大",
+    "pinyin": "kuáng wàng zì dà",
+    "grade": 9,
+    "semester": "上册",
+    "example": "取得一点成绩不要狂妄自大。\""
+  },
+  {
+    "id": "cn_g9_116",
+    "word": "开卷有益",
+    "pinyin": "kāi juàn yǒu yì",
+    "grade": 9,
+    "semester": "上册",
+    "example": "古人说开卷有益，读书总能有所收获。\""
+  },
+  {
+    "id": "cn_g9_117",
+    "word": "豁然贯通",
+    "pinyin": "huò rán guàn tōng",
+    "grade": 9,
+    "semester": "上册",
+    "example": "经过老师的指点，他顿时豁然贯通。\""
+  },
+  {
+    "id": "cn_g9_118",
+    "word": "咬文嚼字",
+    "pinyin": "yǎo wén jiáo zì",
+    "grade": 9,
+    "semester": "上册",
+    "example": "学习语文有时需要咬文嚼字。\""
+  },
+  {
+    "id": "cn_g9_119",
+    "word": "文采藻饰",
+    "pinyin": "wén cǎi zǎo shì",
+    "grade": 9,
+    "semester": "上册",
+    "example": "这篇文章文采藻饰太过，内容反而空洞。\""
+  },
+  {
+    "id": "cn_g9_120",
+    "word": "学究",
+    "pinyin": "xué jiū",
+    "grade": 9,
+    "semester": "上册",
+    "example": "不要做一个只知道死读书的老学究。\""
+  },
+  {
+    "id": "cn_g9_121",
+    "word": "蒸馏",
+    "pinyin": "zhēng liú",
+    "grade": 9,
+    "semester": "上册",
+    "example": "实验室里正在进行水的蒸馏实验。\""
+  },
+  {
+    "id": "cn_g9_122",
+    "word": "劝诫",
+    "pinyin": "quàn jiè",
+    "grade": 9,
+    "semester": "上册",
+    "example": "长辈的劝诫我们要认真听取。\""
+  },
+  {
+    "id": "cn_g9_123",
+    "word": "烦琐",
+    "pinyin": "fán suǒ",
+    "grade": 9,
+    "semester": "上册",
+    "example": "办事手续不要太烦琐。\""
+  },
+  {
+    "id": "cn_g9_124",
+    "word": "聪慧",
+    "pinyin": "cōng huì",
+    "grade": 9,
+    "semester": "上册",
+    "example": "这个孩子天资聪慧。\""
+  },
+  {
+    "id": "cn_g9_125",
+    "word": "博览",
+    "pinyin": "bó lǎn",
+    "grade": 9,
+    "semester": "上册",
+    "example": "我们要博览群书，增长见识。\""
+  },
+  {
+    "id": "cn_g9_126",
+    "word": "粗枝大叶",
+    "pinyin": "cū zhī dà yè",
+    "grade": 9,
+    "semester": "上册",
+    "example": "做题不能粗枝大叶，要仔细检查。\""
+  },
+  {
+    "id": "cn_g9_127",
+    "word": "朴刀",
+    "pinyin": "pǔ dāo",
+    "grade": 9,
+    "semester": "上册",
+    "example": "杨志一行人提着朴刀押送生辰纲。\""
+  },
+  {
+    "id": "cn_g9_128",
+    "word": "恁地",
+    "pinyin": "nèn de",
+    "grade": 9,
+    "semester": "上册",
+    "example": "你们怎地这般不晓事？\""
+  },
+  {
+    "id": "cn_g9_129",
+    "word": "怨怅",
+    "pinyin": "yuàn chàng",
+    "grade": 9,
+    "semester": "上册",
+    "example": "众军汉对杨志心生怨怅。\""
+  },
+  {
+    "id": "cn_g9_130",
+    "word": "逞辩",
+    "pinyin": "chěng biàn",
+    "grade": 9,
+    "semester": "上册",
+    "example": "你不要在这里逞辩了。\""
+  },
+  {
+    "id": "cn_g9_131",
+    "word": "颠倒",
+    "pinyin": "diān dǎo",
+    "grade": 9,
+    "semester": "上册",
+    "example": "是非黑白岂容颠倒！\""
+  },
+  {
+    "id": "cn_g9_132",
+    "word": "聒噪",
+    "pinyin": "guō zào",
+    "grade": 9,
+    "semester": "上册",
+    "example": "你们不要再这里聒噪了！\""
+  },
+  {
+    "id": "cn_g9_133",
+    "word": "勾当",
+    "pinyin": "gòu dang",
+    "grade": 9,
+    "semester": "上册",
+    "example": "这是什么见不得人的勾当！\""
+  },
+  {
+    "id": "cn_g9_134",
+    "word": "撇下",
+    "pinyin": "piē xià",
+    "grade": 9,
+    "semester": "上册",
+    "example": "他撇下众人独自走了。\""
+  },
+  {
+    "id": "cn_g9_135",
+    "word": "强人",
+    "pinyin": "qiáng rén",
+    "grade": 9,
+    "semester": "上册",
+    "example": "前面有一伙强人拦路。\""
+  },
+  {
+    "id": "cn_g9_136",
+    "word": "脱身",
+    "pinyin": "tuō shēn",
+    "grade": 9,
+    "semester": "上册",
+    "example": "他想找个机会脱身离开。。\""
+  },
+  {
+    "id": "cn_g9_137",
+    "word": "芭蕉扇",
+    "pinyin": "bā jiāo shàn",
+    "grade": 9,
+    "semester": "上册",
+    "example": "孙悟空借来了铁扇公主的芭蕉扇。\""
+  },
+  {
+    "id": "cn_g9_138",
+    "word": "生辰纲",
+    "pinyin": "shēng chén gāng",
+    "grade": 9,
+    "semester": "上册",
+    "example": "杨志奉命押送价值连城的生辰纲。\""
+  },
+  {
+    "id": "cn_g9_139",
+    "word": "黄泥冈",
+    "pinyin": "huáng ní gāng",
+    "grade": 9,
+    "semester": "上册",
+    "example": "智取生辰纲的故事发生在黄泥冈。\""
+  },
+  {
+    "id": "cn_g9_140",
+    "word": "吴用计谋",
+    "pinyin": "Wú yòng jì móu",
+    "grade": 9,
+    "semester": "上册",
+    "example": "吴用的计谋巧妙绝伦。\""
+  },
+  {
+    "id": "cn_g9_141",
+    "word": "蒙汗药",
+    "pinyin": "mēng hàn yào",
+    "grade": 9,
+    "semester": "上册",
+    "example": "白胜在酒里下了蒙汗药。\""
+  },
+  {
+    "id": "cn_g9_142",
+    "word": "杨家将",
+    "pinyin": "Yáng jiā jiàng",
+    "grade": 9,
+    "semester": "上册",
+    "example": "杨志自称是杨家将的后代。\""
+  },
+  {
+    "id": "cn_g9_143",
+    "word": "押送",
+    "pinyin": "yā sòng",
+    "grade": 9,
+    "semester": "上册",
+    "example": "官兵负责押送犯人和货物。\""
+  },
+  {
+    "id": "cn_g9_144",
+    "word": "熏黑",
+    "pinyin": "xūn hēi",
+    "grade": 9,
+    "semester": "下册",
+    "example": "煤油的灯火熏黑了我的脸。\""
+  },
+  {
+    "id": "cn_g9_145",
+    "word": "蜗行",
+    "pinyin": "wō xíng",
+    "grade": 9,
+    "semester": "下册",
+    "example": "蜗牛在墙上缓慢地蜗行。\""
+  },
+  {
+    "id": "cn_g9_146",
+    "word": "淤滩",
+    "pinyin": "yū tān",
+    "grade": 9,
+    "semester": "下册",
+    "example": "河流下游形成了大面积的淤滩。\""
+  },
+  {
+    "id": "cn_g9_147",
+    "word": "驳船",
+    "pinyin": "bó chuán",
+    "grade": 9,
+    "semester": "下册",
+    "example": "纤夫们拉着沉重的驳船逆流而上。\""
+  },
+  {
+    "id": "cn_g9_148",
+    "word": "簇新",
+    "pinyin": "cù xīn",
+    "grade": 9,
+    "semester": "下册",
+    "example": "新年到了，大家都穿上了簇新的衣服。\""
+  },
+  {
+    "id": "cn_g9_149",
+    "word": "笑涡",
+    "pinyin": "xiào wō",
+    "grade": 9,
+    "semester": "下册",
+    "example": "她的脸上露出了甜美的笑涡。\""
+  },
+  {
+    "id": "cn_g9_150",
+    "word": "喷薄",
+    "pinyin": "pēn bó",
+    "grade": 9,
+    "semester": "下册",
+    "example": "一轮红日喷薄而出。\""
+  },
+  {
+    "id": "cn_g9_151",
+    "word": "伤痕",
+    "pinyin": "shāng hén",
+    "grade": 9,
+    "semester": "下册",
+    "example": "时间可以治愈心灵的伤痕。\""
+  },
+  {
+    "id": "cn_g9_152",
+    "word": "富饶",
+    "pinyin": "fù ráo",
+    "grade": 9,
+    "semester": "下册",
+    "example": "我的祖国地大物博、资源富饶。\""
+  },
+  {
+    "id": "cn_g9_153",
+    "word": "累赘",
+    "pinyin": "léi zhui",
+    "grade": 9,
+    "semester": "下册",
+    "example": "这些东西太占地方，简直是累赘。\""
+  },
+  {
+    "id": "cn_g9_154",
+    "word": "绯红",
+    "pinyin": "fēi hóng",
+    "grade": 9,
+    "semester": "下册",
+    "example": "黎明时分东方天空呈现出一片绯红。\""
+  },
+  {
+    "id": "cn_g9_155",
+    "word": "稻穗",
+    "pinyin": "dào suì",
+    "grade": 9,
+    "semester": "下册",
+    "example": "沉甸甸的稻穗预示着丰收的季节。\""
+  },
+  {
+    "id": "cn_g9_156",
+    "word": "装饰",
+    "pinyin": "zhuāng shì",
+    "grade": 9,
+    "semester": "下册",
+    "example": "节日里大街小巷都做了漂亮的装饰。\""
+  },
+  {
+    "id": "cn_g9_157",
+    "word": "灵魂",
+    "pinyin": "líng hún",
+    "grade": 9,
+    "semester": "下册",
+    "example": "高尚的灵魂比外表更加重要。\""
+  },
+  {
+    "id": "cn_g9_158",
+    "word": "祖国",
+    "pinyin": "zǔ guó",
+    "grade": 9,
+    "semester": "下册",
+    "example": "我爱你，亲爱的祖国！\""
+  },
+  {
+    "id": "cn_g9_159",
+    "word": "迷惘",
+    "pinyin": "mí wǎng",
+    "grade": 9,
+    "semester": "下册",
+    "example": "年轻人在成长的过程中常常会感到迷惘。\""
+  },
+  {
+    "id": "cn_g9_160",
+    "word": "富足",
+    "pinyin": "fù zú",
+    "grade": 9,
+    "semester": "下册",
+    "example": "如今我们的生活越来越富足了。\""
+  },
+  {
+    "id": "cn_g9_161",
+    "word": "崭新",
+    "pinyin": "zhǎn xīn",
+    "grade": 9,
+    "semester": "下册",
+    "example": "这是一个崭新的时代。\""
+  },
+  {
+    "id": "cn_g9_162",
+    "word": "绯红的黎明",
+    "pinyin": "fēi hóng de lí míng",
+    "grade": 9,
+    "semester": "下册",
+    "example": "我是你簇新的理想，刚从神话的蛛网里挣脱；我是你雪被下古莲的胚芽；我是你挂着眼泪的笑涡；我是新刷出的雪白的起跑线；是绯红的黎明正在喷薄；——祖国啊！\""
+  },
+  {
+    "id": "cn_g9_163",
+    "word": "漫漫",
+    "pinyin": "màn màn",
+    "grade": 9,
+    "semester": "下册",
+    "example": "前路漫漫，但我不会放弃追求。\""
+  },
+  {
+    "id": "cn_g9_164",
+    "word": "装饰",
+    "pinyin": "zhuāng shì",
+    "grade": 9,
+    "semester": "下册",
+    "example": "明月装饰了你的窗户，你装饰了别人的梦。\""
+  },
+  {
+    "id": "cn_g9_165",
+    "word": "断章",
+    "pinyin": "duān zhāng",
+    "grade": 9,
+    "semester": "下册",
+    "example": "卞之琳的诗作《断章》意境深远。\""
+  },
+  {
+    "id": "cn_g9_166",
+    "word": "风雨吟",
+    "pinyin": "fēng yǔ yín",
+    "grade": 9,
+    "semester": "下册",
+    "example": "芦荻在风雨中吟唱。\""
+  },
+  {
+    "id": "cn_g9_167",
+    "word": "航行者",
+    "pinyin": "háng xíng zhě",
+    "grade": 9,
+    "semester": "下册",
+    "example": "勇敢的航行者乘风破浪。\""
+  },
+  {
+    "id": "cn_g9_168",
+    "word": "统一",
+    "pinyin": "tǒng yī",
+    "grade": 9,
+    "semester": "下册",
+    "example": "所有的河流最终都汇入大海，实现统一。\""
+  },
+  {
+    "id": "cn_g9_169",
+    "word": "谐奏",
+    "pinyin": "xié zòu",
+    "grade": 9,
+    "semester": "下册",
+    "example": "大自然的声音是最美的谐奏。\""
+  },
+  {
+    "id": "cn_g9_170",
+    "word": "郊原",
+    "pinyin": "iāo yuán",
+    "grade": 9,
+    "semester": "下册",
+    "example": "郊原上绿草如茵，风景宜人。\""
+  },
+  {
+    "id": "cn_g9_171",
+    "word": "茅屋",
+    "pinyin": "máo wū",
+    "grade": 9,
+    "semester": "下册",
+    "example": "杜甫的茅屋为秋风所破。\""
+  },
+  {
+    "id": "cn_g9_172",
+    "word": "舟子",
+    "pinyin": "zhōu zi",
+    "grade": 9,
+    "semester": "下册",
+    "example": "舟子在江上摆渡。\""
+  },
+  {
+    "id": "cn_g9_173",
+    "word": "阴霾",
+    "pinyin": "yīn mái",
+    "grade": 9,
+    "semester": "下册",
+    "example": "乌云散去，驱散了心中的阴霾。\""
+  },
+  {
+    "id": "cn_g9_174",
+    "word": "旷野",
+    "pinyin": "kuàng yě",
+    "grade": 9,
+    "semester": "下册",
+    "example": "辽阔的旷野上一片寂静。\""
+  },
+  {
+    "id": "cn_g9_175",
+    "word": "悲愤",
+    "pinyin": "bēi fèn",
+    "grade": 9,
+    "semester": "下册",
+    "example": "诗人以悲愤的心情写下了这首诗。\""
+  },
+  {
+    "id": "cn_g9_176",
+    "word": "和谐",
+    "pinyin": "hé xié",
+    "grade": 9,
+    "semester": "下册",
+    "example": "人与自然应该和谐共处。\""
+  },
+  {
+    "id": "cn_g9_177",
+    "word": "舵手",
+    "pinyin": "duò shou",
+    "grade": 9,
+    "semester": "下册",
+    "example": "党是社会主义现代化建设的舵手。\""
+  },
+  {
+    "id": "cn_g9_178",
+    "word": "臂膀",
+    "pinyin": "bì bǎng",
+    "grade": 9,
+    "semester": "下册",
+    "example": "母亲的臂膀是我们最温暖的港湾。\""
+  },
+  {
+    "id": "cn_g9_179",
+    "word": "拘泥",
+    "pinyin": "jū nì",
+    "grade": 9,
+    "semester": "下册",
+    "example": "学习知识不能拘泥于书本，要灵活运用。\""
+  },
+  {
+    "id": "cn_g9_180",
+    "word": "契合",
+    "pinyin": "qì hé",
+    "grade": 9,
+    "semester": "下册",
+    "example": "他们的想法不谋而合，非常契合。\""
+  },
+  {
+    "id": "cn_g9_181",
+    "word": "旷远",
+    "pinyin": "kuàng yuǎn",
+    "grade": 9,
+    "semester": "下册",
+    "example": "旷远的草原上散落着几座蒙古包。\""
+  },
+  {
+    "id": "cn_g9_182",
+    "word": "海图",
+    "pinyin": "hǎi tú",
+    "grade": 9,
+    "semester": "下册",
+    "example": "航海者根据海图确定航线。\""
+  },
+  {
+    "id": "cn_g9_183",
+    "word": "驱遣",
+    "pinyin": "qū qiǎn",
+    "grade": 9,
+    "semester": "下册",
+    "example": "想象力能够驱遣我们去探索未知的世界。\""
+  },
+  {
+    "id": "cn_g9_184",
+    "word": "意境",
+    "pinyin": "yì jìng",
+    "grade": 9,
+    "semester": "下册",
+    "example": "这首诗营造了一种宁静悠远的意境。\""
+  },
+  {
+    "id": "cn_g9_185",
+    "word": "愉悦",
+    "pinyin": "yú yuè",
+    "grade": 9,
+    "semester": "下册",
+    "example": "帮助他人能给我们带来内心的愉悦。\""
+  },
+  {
+    "id": "cn_g9_186",
+    "word": "接触",
+    "pinyin": "jiē chù",
+    "grade": 9,
+    "semester": "下册",
+    "example": "通过阅读我们可以接触到不同的思想和观点。\""
+  },
+  {
+    "id": "cn_g9_187",
+    "word": "受用",
+    "pinyin": "shòu yòng",
+    "grade": 9,
+    "semester": "下册",
+    "example": "良好的习惯会让你终身受用。\""
+  },
+  {
+    "id": "cn_g9_188",
+    "word": "捕捉",
+    "pinyin": "bǔ zhuō",
+    "grade": 9,
+    "semester": "下册",
+    "example": "摄影师善于捕捉生活中的美好瞬间。\""
+  },
+  {
+    "id": "cn_g9_189",
+    "word": "鉴赏",
+    "pinyin": "iàn shǎng",
+    "grade": 9,
+    "semester": "下册",
+    "example": "学会欣赏艺术作品可以提高我们的鉴赏能力。\""
+  },
+  {
+    "id": "cn_g9_190",
+    "word": "渲染",
+    "pinyin": "xuàn rǎn",
+    "grade": 9,
+    "semester": "下册",
+    "example": "画家用浓墨渲染了远山的轮廓。\""
+  },
+  {
+    "id": "cn_g9_191",
+    "word": "栩栩如生",
+    "pinyin": "xǔ xǔ rú shēng",
+    "grade": 9,
+    "semester": "下册",
+    "example": "他笔下的人物形象栩栩如生。\""
+  },
+  {
+    "id": "cn_g9_192",
+    "word": "身临其境",
+    "pinyin": "shēn lín qí jìng",
+    "grade": 9,
+    "semester": "下册",
+    "example": "读这本书让你有种身临其境的感觉。\""
+  },
+  {
+    "id": "cn_g9_193",
+    "word": "浮想联翩",
+    "pinyin": "fú xiǎng lián piān",
+    "grade": 9,
+    "semester": "下册",
+    "example": "看到这幅画，我不禁浮想联翩。\""
+  },
+  {
+    "id": "cn_g9_194",
+    "word": "文字的桥梁",
+    "pinyin": "wén zì de qiáo liáng",
+    "grade": 9,
+    "semester": "下册",
+    "example": "文字是连接作者与读者心灵的桥梁。\""
+  },
+  {
+    "id": "cn_g9_195",
+    "word": "情感的共鸣",
+    "pinyin": "qíng gǎn de gòng míng",
+    "grade": 9,
+    "semester": "下册",
+    "example": "优秀的文学作品能引起读者的情感共鸣。\""
+  },
+  {
+    "id": "cn_g9_196",
+    "word": "艺术的魅力",
+    "pinyin": "yì shù de mèi lì",
+    "grade": 9,
+    "semester": "下册",
+    "example": "艺术具有超越时空的魅力。\""
+  },
+  {
+    "id": "cn_g9_197",
+    "word": "直观感知",
+    "pinyin": "zhí guān gǎn zhī",
+    "grade": 9,
+    "semester": "下册",
+    "example": "阅读不仅是直观感知的过程，更是再创造的过程。\""
+  },
+  {
+    "id": "cn_g9_198",
+    "word": "行事",
+    "pinyin": "xíng shì",
+    "grade": 9,
+    "semester": "下册",
+    "example": "这个人行事鲁莽，不考虑后果。\""
+  },
+  {
+    "id": "cn_g9_199",
+    "word": "名望",
+    "pinyin": "míng wàng",
+    "grade": 9,
+    "semester": "下册",
+    "example": "他在学术界享有很高的名望。\""
+  },
+  {
+    "id": "cn_g9_200",
+    "word": "造作",
+    "pinyin": "zào zuò",
+    "grade": 9,
+    "semester": "下册",
+    "example": "他的表情看起来有些造作，不够自然。\""
+  },
+  {
+    "id": "cn_g9_201",
+    "word": "见教",
+    "pinyin": "iàn jiào",
+    "grade": 9,
+    "semester": "下册",
+    "example": "请多多见教。\""
+  },
+  {
+    "id": "cn_g9_202",
+    "word": "桑梓",
+    "pinyin": "sāng zǐ",
+    "grade": 9,
+    "semester": "下册",
+    "example": "他退休后回到了自己的桑梓之地。\""
+  },
+  {
+    "id": "cn_g9_203",
+    "word": "轩敞",
+    "pinyin": "xuān chǎng",
+    "grade": 9,
+    "semester": "下册",
+    "example": "这套房子宽敞明亮，十分轩敞。\""
+  },
+  {
+    "id": "cn_g9_204",
+    "word": "攥紧",
+    "pinyin": "zuàn jǐn",
+    "grade": 9,
+    "semester": "下册",
+    "example": "他紧紧攥着手中的信件。\""
+  },
+  {
+    "id": "cn_g9_205",
+    "word": "斋公",
+    "pinyin": "zhāi gōng",
+    "grade": 9,
+    "semester": "下册",
+    "example": "严监生被人称为严大育或是严二斋公。\""
+  },
+  {
+    "id": "cn_g9_206",
+    "word": "星宿",
+    "pinyin": "xīng xiù",
+    "grade": 9,
+    "semester": "下册",
+    "example": "古人认为每个人的命理都与天上星宿对应。\""
+  },
+  {
+    "id": "cn_g9_207",
+    "word": "相公",
+    "pinyin": "xiàng gong",
+    "grade": 9,
+    "semester": "下册",
+    "example": "范进中了举人后被称为范相公。\""
+  },
+  {
+    "id": "cn_g9_208",
+    "word": "解元",
+    "pinyin": "iè yuán",
+    "grade": 9,
+    "semester": "下册",
+    "example": "范进参加乡试中了广东省的解元。\""
+  },
+  {
+    "id": "cn_g9_209",
+    "word": "腆着",
+    "pinyin": "tiǎn zhe",
+    "grade": 9,
+    "semester": "下册",
+    "example": "他腆着肚子走来走去，一副得意洋洋的样子。\""
+  },
+  {
+    "id": "cn_g9_210",
+    "word": "啐",
+    "pinyin": "cuì",
+    "grade": 9,
+    "semester": "下册",
+    "example": "胡屠户往范进手上啐了一口唾沫。\""
+  },
+  {
+    "id": "cn_g9_211",
+    "word": "绾",
+    "pinyin": "wǎn",
+    "grade": 9,
+    "semester": "下册",
+    "example": "奶奶在脑后绾了个发髻。\""
+  },
+  {
+    "id": "cn_g9_212",
+    "word": "锭子",
+    "pinyin": "dìng zi",
+    "grade": 9,
+    "semester": "下册",
+    "example": "范进手里拿着一个银锭子。\""
+  },
+  {
+    "id": "cn_g9_213",
+    "word": "尖嘴猴腮",
+    "pinyin": "jiān zuǐ hóu sāi",
+    "grade": 9,
+    "semester": "下册",
+    "example": "胡屠户骂范进长得尖嘴猴腮。\""
+  },
+  {
+    "id": "cn_g9_214",
+    "word": "现世宝",
+    "pinyin": "xiàn shì bǎo",
+    "grade": 9,
+    "semester": "下册",
+    "example": "你是个现世宝，中不了举的！\""
+  },
+  {
+    "id": "cn_g9_215",
+    "word": "癞蛤蟆",
+    "pinyin": "là há ma",
+    "grade": 9,
+    "semester": "下册",
+    "example": "想吃天鹅肉的癞蛤蟆！\""
+  },
+  {
+    "id": "cn_g9_216",
+    "word": "体统",
+    "pinyin": "tǐ tǒng",
+    "grade": 9,
+    "semester": "下册",
+    "example": "你如今中了举，就要有个体统！\""
+  },
+  {
+    "id": "cn_g9_217",
+    "word": "局促",
+    "pinyin": "jú cù",
+    "grade": 9,
+    "semester": "下册",
+    "example": "他在陌生人面前显得有些局促不安。\""
+  },
+  {
+    "id": "cn_g9_218",
+    "word": "千恩万谢",
+    "pinyin": "qiān ēn wàn xiè",
+    "grade": 9,
+    "semester": "下册",
+    "example": "范进对胡屠户千恩万谢。\""
+  },
+  {
+    "id": "cn_g9_219",
+    "word": "不三不四",
+    "pinyin": "bù sān bù sì",
+    "grade": 9,
+    "semester": "下册",
+    "example": "这些不三不四的人少来往。\""
+  },
+  {
+    "id": "cn_g9_220",
+    "word": "果不其然",
+    "pinyin": "guǒ bù qí rán",
+    "grade": 9,
+    "semester": "下册",
+    "example": "果不其然，他真的考上了大学。\""
+  },
+  {
+    "id": "cn_g9_221",
+    "word": "唯唯连声",
+    "pinyin": "wéi wéi lián shēng",
+    "grade": 9,
+    "semester": "下册",
+    "example": "他唯唯连声地应承了下来。\""
+  },
+  {
+    "id": "cn_g9_222",
+    "word": "商酌",
+    "pinyin": "shāng zhuó",
+    "grade": 9,
+    "semester": "下册",
+    "example": "这件事还需要仔细商酌。\""
+  },
+  {
+    "id": "cn_g9_223",
+    "word": "充盈",
+    "pinyin": "chōng yíng",
+    "grade": 9,
+    "semester": "下册",
+    "example": "空气中充盈着淡淡的花香。\""
+  },
+  {
+    "id": "cn_g9_224",
+    "word": "门楣",
+    "pinyin": "mén méi",
+    "grade": 9,
+    "semester": "下册",
+    "example": "他出身名门，门楣显赫。\""
+  },
+  {
+    "id": "cn_g9_225",
+    "word": "彬彬有礼",
+    "pinyin": "bīn bīn yǒu lǐ",
+    "grade": 9,
+    "semester": "下册",
+    "example": "他对每个人都是彬彬有礼的。\""
+  },
+  {
+    "id": "cn_g9_226",
+    "word": "预言",
+    "pinyin": "yù yǎn",
+    "grade": 9,
+    "semester": "下册",
+    "example": "古代的预言有时候也会应验。\""
+  },
+  {
+    "id": "cn_g9_227",
+    "word": "寒战",
+    "pinyin": "hán zhàn",
+    "grade": 9,
+    "semester": "下册",
+    "example": "寒冷的夜晚让他忍不住打了几个寒战。\""
+  },
+  {
+    "id": "cn_g9_228",
+    "word": "怜悯",
+    "pinyin": "ián mǐn",
+    "grade": 9,
+    "semester": "下册",
+    "example": "我们应该对弱势群体抱有怜悯之心。\""
+  },
+  {
+    "id": "cn_g9_229",
+    "word": "抽噎",
+    "pinyin": "chōu yē",
+    "grade": 9,
+    "semester": "下册",
+    "example": "她伤心得抽噎不已。\""
+  },
+  {
+    "id": "cn_g9_230",
+    "word": "克制",
+    "pinyin": "kè zhì",
+    "grade": 9,
+    "semester": "下册",
+    "example": "学会控制情绪是一种重要的自制力。\""
+  },
+  {
+    "id": "cn_g9_231",
+    "word": "孤独",
+    "pinyin": "gū dú",
+    "grade": 9,
+    "semester": "下册",
+    "example": "老人独自一人生活在偏远的小村庄里，十分孤独。\""
+  },
+  {
+    "id": "cn_g9_232",
+    "word": "尊严",
+    "pinyin": "zūn yán",
+    "grade": 9,
+    "semester": "下册",
+    "example": "每个人都应该维护自己的人格尊严。\""
+  },
+  {
+    "id": "cn_g9_233",
+    "word": "平等",
+    "pinyin": "píng děng",
+    "grade": 9,
+    "semester": "下册",
+    "example": "法律面前人人平等。\""
+  },
+  {
+    "id": "cn_g9_234",
+    "word": "偏见",
+    "pinyin": "piān jiàn",
+    "grade": 9,
+    "semester": "下册",
+    "example": "我们要消除对他人的种族和性别偏见。\""
+  },
+  {
+    "id": "cn_g9_235",
+    "word": "独立",
+    "pinyin": "dú lì",
+    "grade": 9,
+    "semester": "下册",
+    "example": "经济独立是人格独立的基础。\""
+  },
+  {
+    "id": "cn_g9_236",
+    "word": "自尊",
+    "pinyin": "zì zūn",
+    "grade": 9,
+    "semester": "下册",
+    "example": "自尊不是傲慢，而是对自己的尊重。\""
+  },
+  {
+    "id": "cn_g9_237",
+    "word": "反抗",
+    "pinyin": "fǎn kàng",
+    "grade": 9,
+    "semester": "下册",
+    "example": "面对不公平的待遇要勇敢反抗。\""
+  },
+  {
+    "id": "cn_g9_238",
+    "word": "追求",
+    "pinyin": "zhuī qiú",
+    "grade": 9,
+    "semester": "下册",
+    "example": "年轻人应该勇敢追求自己的梦想。\""
+  },
+  {
+    "id": "cn_g9_239",
+    "word": "自由",
+    "pinyin": "zì yóu",
+    "grade": 9,
+    "semester": "下册",
+    "example": "自由是人类永恒的追求和向往。\""
+  },
+  {
+    "id": "cn_g9_240",
+    "word": "爱情",
+    "pinyin": "ài qíng",
+    "grade": 9,
+    "semester": "下册",
+    "example": "真正的爱情建立在平等和相互尊重的基础上。\""
+  },
+  {
+    "id": "cn_g9_241",
+    "word": "灵魂的平等",
+    "pinyin": "líng hún de píng děng",
+    "grade": 9,
+    "semester": "下册",
+    "example": "就像我们必须站在上帝面前一样——因为我们的精神是平等的！就像你我走过坟墓，同样地站在上帝脚跟前——因为我们是平等的！\""
+  },
+  {
+    "id": "cn_g9_242",
+    "word": "阔绰",
+    "pinyin": "kuò chuò",
+    "grade": 9,
+    "semester": "下册",
+    "example": "以前他出手阔绰，现在却穷困潦倒。\""
+  },
+  {
+    "id": "cn_g9_243",
+    "word": "羼水",
+    "pinyin": "chàn shuǐ",
+    "grade": 9,
+    "semester": "下册",
+    "example": "酒店老板在酒里羼水牟利。\""
+  },
+  {
+    "id": "cn_g9_244",
+    "word": "荐头",
+    "pinyin": "jiàn tou",
+    "grade": 9,
+    "semester": "下册",
+    "example": "他通过荐头找到了一份工作。\""
+  },
+  {
+    "id": "cn_g9_245",
+    "word": "伤疤",
+    "pinyin": "shāng bā",
+    "grade": 9,
+    "semester": "下册",
+    "example": "那次意外在他的手臂上留下了一道伤疤。\""
+  },
+  {
+    "id": "cn_g9_246",
+    "word": "打折",
+    "pinyin": "zhé shé",
+    "grade": 9,
+    "semester": "下册",
+    "example": "他的腿被打折了。\""
+  },
+  {
+    "id": "cn_g9_247",
+    "word": "惋惜",
+    "pinyin": "wǎn xī",
+    "grade": 9,
+    "semester": "下册",
+    "example": "这么好的人才被浪费了，实在令人惋惜。\""
+  },
+  {
+    "id": "cn_g9_248",
+    "word": "附和",
+    "pinyin": "fù hè",
+    "grade": 9,
+    "semester": "下册",
+    "example": "他从不随便附和别人的意见。\""
+  },
+  {
+    "id": "cn_g9_249",
+    "word": "不屑置辩",
+    "pinyin": "bù xiè zhì biàn",
+    "grade": 9,
+    "semester": "下册",
+    "example": "对于这种无聊的问题他不屑置辩。\""
+  },
+  {
+    "id": "cn_g9_250",
+    "word": "颓唐",
+    "pinyin": "tuí táng",
+    "grade": 9,
+    "semester": "下册",
+    "example": "孔乙己的神情越来越颓唐了。\""
+  },
+  {
+    "id": "cn_g9_251",
+    "word": "哄笑",
+    "pinyin": "hōng xiào",
+    "grade": 9,
+    "semester": "下册",
+    "example": "酒客们常常哄笑孔乙己。\""
+  },
+  {
+    "id": "cn_g9_252",
+    "word": "间或",
+    "pinyin": "iàn huò",
+    "grade": 9,
+    "semester": "下册",
+    "example": "他间或也会来看看老朋友。\""
+  },
+  {
+    "id": "cn_g9_253",
+    "word": "恳求",
+    "pinyin": "kěn qiú",
+    "grade": 9,
+    "semester": "下册",
+    "example": "孩子恳求妈妈给他买玩具。\""
+  },
+  {
+    "id": "cn_g9_254",
+    "word": "咸亨酒店",
+    "pinyin": "Xián hēng jiǔ diàn",
+    "grade": 9,
+    "semester": "下册",
+    "example": "孔乙己的故事发生在咸亨酒店。\""
+  },
+  {
+    "id": "cn_g9_255",
+    "word": "短衣帮",
+    "pinyin": "duǎn yī bāng",
+    "grade": 9,
+    "semester": "下册",
+    "example": "站在柜台外喝酒的是短衣帮。\""
+  },
+  {
+    "id": "cn_g9_256",
+    "word": "长衫主顾",
+    "pinyin": "cháng shān zhǔ gù",
+    "grade": 9,
+    "semester": "下册",
+    "example": "穿长衫的是阔绰的主顾。\""
+  },
+  {
+    "id": "cn_g9_257",
+    "word": "粉板",
+    "pinyin": "fěn bǎn",
+    "grade": 9,
+    "semester": "下册",
+    "example": "掌柜在粉板上记下了孔乙己欠的钱。\""
+  },
+  {
+    "id": "cn_g9_258",
+    "word": "茴香豆",
+    "pinyin": "huí xiāng dòu",
+    "grade": 9,
+    "semester": "下册",
+    "example": "孔乙己给孩子们分发茴香豆吃。\""
+  },
+  {
+    "id": "cn_g9_259",
+    "word": "窃书",
+    "pinyin": "qiè shū",
+    "grade": 9,
+    "semester": "下册",
+    "example": "孔乙己说：窃书不算偷！\""
+  },
+  {
+    "id": "cn_g9_260",
+    "word": "君子固穷",
+    "pinyin": "jūn zǐ gù qióng",
+    "grade": 9,
+    "semester": "下册",
+    "example": "孔乙己常说君子固穷之类的文言词语。\""
+  },
+  {
+    "id": "cn_g9_261",
+    "word": "无精打采",
+    "pinyin": "wú jīng dǎ cǎi",
+    "grade": 9,
+    "semester": "下册",
+    "example": "他今天看起来无精打采的。\""
+  },
+  {
+    "id": "cn_g9_262",
+    "word": "异想天开",
+    "pinyin": "yì xiǎng tiān kāi",
+    "grade": 9,
+    "semester": "下册",
+    "example": "你想一步登天，简直是异想天开。\""
+  },
+  {
+    "id": "cn_g9_263",
+    "word": "洋溢",
+    "pinyin": "yáng yì",
+    "grade": 9,
+    "semester": "下册",
+    "example": "孩子们的脸上洋溢着幸福的笑容。\""
+  },
+  {
+    "id": "cn_g9_264",
+    "word": "恐吓",
+    "pinyin": "kǒng hè",
+    "grade": 9,
+    "semester": "下册",
+    "example": "坏人用恐吓的手段威胁证人。\""
+  },
+  {
+    "id": "cn_g9_265",
+    "word": "径自",
+    "pinyin": "jìng zì",
+    "grade": 9,
+    "semester": "下册",
+    "example": "他没有跟任何人打招呼，径自离开了。\""
+  },
+  {
+    "id": "cn_g9_266",
+    "word": "魁梧",
+    "pinyin": "kuí wú",
+    "grade": 9,
+    "semester": "下册",
+    "example": "奥楚蔑洛夫穿着一件新的大衣，显得格外魁梧。\""
+  },
+  {
+    "id": "cn_g9_267",
+    "word": "伶俐",
+    "pinyin": "íng lì",
+    "grade": 9,
+    "semester": "下册",
+    "example": "赫留金声称自己是个伶俐的人，不肯吃亏。\""
+  },
+  {
+    "id": "cn_g9_268",
+    "word": "戳",
+    "pinyin": "chuō",
+    "grade": 9,
+    "semester": "下册",
+    "example": "小狗用牙齿把赫留金的手指头戳破了。\""
+  },
+  {
+    "id": "cn_g9_269",
+    "word": "赔偿",
+    "pinyin": "péi cháng",
+    "grade": 9,
+    "semester": "下册",
+    "example": "你必须赔偿我的损失！\""
+  },
+  {
+    "id": "cn_g9_270",
+    "word": "娇贵",
+    "pinyin": "iāo guì",
+    "grade": 9,
+    "semester": "下册",
+    "example": "这条名贵的狗非常娇贵。\""
+  },
+  {
+    "id": "cn_g9_271",
+    "word": "猪崽子",
+    "pinyin": "zū zǎi zi",
+    "grade": 9,
+    "semester": "下册",
+    "example": "你这猪崽子，竟敢咬人！\""
+  },
+  {
+    "id": "cn_g9_272",
+    "word": "荒唐",
+    "pinyin": "huāng táng",
+    "grade": 9,
+    "semester": "下册",
+    "example": "这件事太荒唐了，简直难以置信。\""
+  },
+  {
+    "id": "cn_g9_273",
+    "word": "下贱胚子",
+    "pinyin": "xià iàn pēi zi",
+    "grade": 9,
+    "semester": "下册",
+    "example": "奥楚蔑洛夫骂赫留金是下贱胚子。\""
+  },
+  {
+    "id": "cn_g9_274",
+    "word": "名字",
+    "pinyin": "míng zi",
+    "grade": 9,
+    "semester": "下册",
+    "example": "这条狗的名字叫什么来着？\""
+  },
+  {
+    "id": "cn_g9_275",
+    "word": "将军",
+    "pinyin": "iāng jūn",
+    "grade": 9,
+    "semester": "下册",
+    "example": "难道这是将军家的狗？\""
+  },
+  {
+    "id": "cn_g9_276",
+    "word": "野狗",
+    "pinyin": "yě gǒu",
+    "grade": 9,
+    "semester": "下册",
+    "example": "这不过是一条野狗罢了！\""
+  },
+  {
+    "id": "cn_g9_277",
+    "word": "法制",
+    "pinyin": "fǎ zhì",
+    "grade": 9,
+    "semester": "下册",
+    "example": "在一个健全的法制社会中，法律面前人人平等。\""
+  },
+  {
+    "id": "cn_g9_278",
+    "word": "媚上欺下",
+    "pinyin": "mèi shàng qī xià",
+    "grade": 9,
+    "semester": "下册",
+    "example": "奥楚蔑洛夫是一个典型的媚上欺下的小官僚形象。\""
   }
 ]

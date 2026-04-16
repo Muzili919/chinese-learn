@@ -74,8 +74,15 @@ function pickWords(subject, grade, semester, count) {
 // ═══════════════════════════════════════════════════════════════
 // 设置模式
 // ═══════════════════════════════════════════════════════════════
+// 根据来源确定可选年级范围（小学→4-6，初中→7-9）
+const GRADE_OPTIONS = {
+  chinese: [4, 5, 6],   // 小学语文入口
+  english: [7, 8, 9],   // 初中英语入口（EnglishHomePage）
+}
+
 function SetupMode({ onStart, subject }) {
-  const [grade, setGrade] = useState(4)
+  const grades = GRADE_OPTIONS[subject] || [4, 5, 6]
+  const [grade, setGrade] = useState(grades[0])
   const [semester, setSemester] = useState('all')
   const [count, setCount] = useState(20)
   const [speed, setSpeed] = useState(0.75)
@@ -98,12 +105,17 @@ function SetupMode({ onStart, subject }) {
       <div>
         <div className="text-xs font-semibold text-gray-500 mb-2">选择年级</div>
         <div className="flex gap-2">
-          {[4, 5, 6].map(g => (
-            <button key={g} onClick={() => { setGrade(g); setSemester('all') }}
-              className={`flex-1 py-3 rounded-2xl font-bold text-base transition-all active:scale-95 ${grade === g ? 'bg-gradient-to-r from-indigo-500 to-purple-600 text-white shadow-md' : 'bg-gray-100 text-gray-600'}`}>
-              {g}年级
-            </button>
-          ))}
+          {grades.map(g => {
+            const label = g >= 7
+              ? { 7: '初一', 8: '初二', 9: '初三' }[g] || `${g}年级`
+              : `${g}年级`
+            return (
+              <button key={g} onClick={() => { setGrade(g); setSemester('all') }}
+                className={`flex-1 py-3 rounded-2xl font-bold text-base transition-all active:scale-95 ${grade === g ? 'bg-gradient-to-r from-indigo-500 to-purple-600 text-white shadow-md' : 'bg-gray-100 text-gray-600'}`}>
+                {label}
+              </button>
+            )
+          })}
         </div>
       </div>
 

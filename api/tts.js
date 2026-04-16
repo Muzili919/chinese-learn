@@ -1,19 +1,18 @@
 // ═══════════════════════════════════════════════════════════════
-// Vercel Serverless Function — Edge TTS 代理
-// 接收 text, lang, rate 参数，返回 MP3 音频流
+// Vercel Serverless Function — Edge TTS 代理 v2
+// 使用 msedge-tts（比 edge-tts-node 更稳定，API 兼容当前微软服务）
 // ═══════════════════════════════════════════════════════════════
-import { MsEdgeTTS, OUTPUT_FORMAT } from 'edge-tts-node'
+import { MsEdgeTTS, OUTPUT_FORMAT, ProsodyOptions } from 'msedge-tts'
 
-// 语音映射
+// 语音映射 — 微软神经网络音色（自然、无机械感）
 const VOICES = {
-  'en-US': 'en-US-AriaNeural',      // 美式英语（女）
+  'en-US': 'en-US-AriaNeural',      // 美式英语（女，自然）
   'en-GB': 'en-GB-SoniaNeural',     // 英式英语（女）
-  'zh-CN': 'zh-CN-XiaoxiaoNeural',  // 普通话（女）
+  'zh-CN': 'zh-CN-XiaoxiaoNeural',  // 普通话（女，自然）
   'zh-TW': 'zh-TW-HsiaoChenNeural', // 台湾腔
 }
 
 export default async function handler(req, res) {
-  // 只允许 POST
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed' })
   }
@@ -24,7 +23,6 @@ export default async function handler(req, res) {
     return res.status(400).json({ error: 'Text is required' })
   }
 
-  // 限制文本长度
   if (text.length > 500) {
     return res.status(400).json({ error: 'Text too long (max 500 chars)' })
   }
@@ -35,14 +33,21 @@ export default async function handler(req, res) {
 
     await tts.setMetadata(voice, OUTPUT_FORMAT.AUDIO_24KHZ_48KBITRATE_MONO_MP3)
 
-    // edge-tts-node ProsodyOptions.rate 期望数值（1.0=正常速度），直接传入
-    const readable = tts.toStream(text, { rate: rate || 1.0 })
+    // msedge-tts v2 的 toStream() 返回 { audioStream, metadataStream, requestId }
+    // rate: 0.85 → "-15%"，1.0 → "+0%"，1.2 → "+20%"
+    const numRate = parseFloat(rate) || 1.0
+    const pct = Math.round((numRate - 1) * 100)
+    const rateStr = pct >= 0 ? `+${pct}%` : `${pct}%`
+    const prosody = new ProsodyOptions({ rate: rateStr })
+    const { audioStream } = tts.toStream(text, prosody)
 
-    // 收集所有 chunk 为 Buffer
+    // 收集所有 chunk
     const chunks = []
-    for await (const chunk of readable) {
-      chunks.push(chunk)
-    }
+    await new Promise((resolve, reject) => {
+      audioStream.on('data', chunk => chunks.push(chunk))
+      audioStream.on('end', resolve)
+      audioStream.on('error', reject)
+    })
 
     const audioBuffer = Buffer.concat(chunks)
 

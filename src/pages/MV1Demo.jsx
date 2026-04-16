@@ -576,12 +576,15 @@ export default function MV1Demo({ onBack, initialState, onStateChange }) {
       const resolvedCurrentPet = (() => {
         if (isGod) return initialState.currentPet  // 上帝模式：始终用本地（initGodModeState）
         if (cloud?.currentPet) {
-          return {
+          const merged = {
             ...(initialState?.currentPet || {}),
             ...cloud.currentPet,
             stats: cloud.currentPet.stats || {},
             equippedAccessories: cloud.currentPet.equippedAccessories || {},
           }
+          // 🔧 安全保护：确保宠物等级至少为1，防止云端脏数据导致异常初始等级
+          if (!merged.level || merged.level < 1) merged.level = 1
+          return merged
         }
         // 云端没有宠物数据，但本地有 → 保留本地（防止变蛋）
         if (localHasPet) return initialState.currentPet

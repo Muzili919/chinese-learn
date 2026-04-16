@@ -63,513 +63,37 @@ const JUNIOR_EXAM_TYPE_MAP = {
 
 // ─── 小升初语文 System Prompt ──────────────────────────
 function getChineseExamPrompt(grade, examType) {
-  return `你是一位资深小学语文教研员，擅长设计适配移动端和电脑端的在线语文试题。请生成一份完整的语文试卷，严格按JSON格式返回。
-
-## 核心参数
-- 适用年级：${GRADE_MAP[grade]}
-- 教材版本：人教版
-- 考查范围：${EXAM_TYPE_MAP[examType]}
-- 试卷满分：100分
-- 题量控制：总题数约 25-30 题（不含文章展示）
-- 所有题目不能超出小学${grade}年级水平！
-
-## 题型结构
-
-**一、基础知识（40分）**
-1. 看拼音选词语（单选题，5题，每题2分=10分）
-   - 给出拼音和4个选项，选项只写词语本身，不加序号
-2. 字音/字形辨析（单选题，5题，每题2分=10分）
-   - 选择加点字正确读音，或选出没有错别字的一项
-3. 成语/词语运用（单选题，5题，每题2分=10分）
-   - 选择填入句子最恰当的词语
-4. 句子练习（输入框题，3题，共10分）
-   - 如：缩句（3分）、改写句子（3分）、仿写比喻句（4分）
-
-**二、积累与运用（15分）**
-5. 课文/古诗填空（填空题，5题，每空2分=10分）
-   - 给出上句填下句，或根据提示填写课文内容
-6. 文学常识判断（判断题，5题，每题1分=5分）
-   - 点击"对"或"错"
-
-**三、阅读理解（25分）**
-7. 课内阅读（1篇，选自${GRADE_MAP[grade]}精读课文，10分）
-   - 设3-4小题，包含选择题和简答题
-8. 课外阅读（1篇，适合该年级，15分）
-   - 设4-5小题，包含选择题、解释词语（输入框）、谈感受（输入框）
-
-**四、习作表达（20分）**
-9. 小练笔（二选一，输入框作答，150-200字）
-   - 提供两个贴近生活的题目
-
-## 出题原则
-- 界面友好：题干简洁，选项适合点击
-- 不设计连线、画线等复杂操作
-- 难度分布：基础70%，提升20%，拓展10%
-- 古诗文必须准确，引用原文一字不差
-- 选项干扰有效但不明显错误
-- 阅读文章篇幅适中（课内200-300字，课外300-400字）
-
-## JSON 返回格式
-{
-  "title": "${GRADE_MAP[grade]}${EXAM_TYPE_MAP[examType]}测试",
-  "totalScore": 100,
-  "sections": [
-    {
-      "title": "一、基础知识（40分）",
-      "questions": [
-        {
-          "id": "q1",
-          "type": "choice",
-          "score": 2,
-          "stem": "看拼音选词语：yǎn zòu",
-          "options": ["演奏", "演凑", "眼走", "演绉"],
-          "answer": 0,
-          "analysis": "\\"yǎn zòu\\"写作"演奏"，指用乐器表演。"
-        }
-      ]
-    },
-    {
-      "title": "二、积累与运用（15分）",
-      "questions": [
-        {
-          "id": "q11",
-          "type": "fill",
-          "score": 2,
-          "stem": "补充诗句：春风又绿江南岸，________。",
-          "answer": "明月何时照我还",
-          "acceptableAnswers": ["明月何时照我还"],
-          "analysis": "出自王安石《泊船瓜洲》。"
-        },
-        {
-          "id": "q16",
-          "type": "truefalse",
-          "score": 1,
-          "stem": "《西游记》的作者是罗贯中。",
-          "answer": false,
-          "analysis": "《西游记》的作者是吴承恩。"
-        }
-      ]
-    },
-    {
-      "title": "三、阅读理解（25分）",
-      "subsections": [
-        {
-          "title": "课内阅读（10分）",
-          "passageTitle": "《落花生》（节选）",
-          "passage": "父亲说：\\"花生的好处很多，有一样最可贵……\\"",
-          "questions": [
-            {
-              "id": "q21",
-              "type": "choice",
-              "score": 3,
-              "stem": "父亲把花生和桃子、石榴、苹果作对比，是为了说明什么？",
-              "options": ["花生不好吃", "花生很好看", "人要做有用的人", "苹果不值得吃"],
-              "answer": 2,
-              "analysis": "..."
-            }
-          ]
-        },
-        {
-          "title": "课外阅读（15分）",
-          "passageTitle": "阅读下面的短文，完成练习",
-          "passage": "短文内容...",
-          "questions": [...]
-        }
-      ]
-    },
-    {
-      "title": "四、习作表达（20分）",
-      "questions": [
-        {
-          "id": "q29",
-          "type": "writing",
-          "score": 20,
-          "stem": "请从以下两个题目中任选一个，写一篇150-200字的短文。",
-          "prompts": [
-            {"title": "我眼中的秋天", "hint": "选择1-2个场景描写秋天的景色，注意运用比喻或拟人修辞。"},
-            {"title": "那一次，我真____", "hint": "补充题目（如：开心、感动），写一件让你印象深刻的事。"}
-          ],
-          "wordLimit": "150-200字",
-          "rubric": "内容完整具体10分，语句通顺5分，修辞运用5分"
-        }
-      ]
-    }
-  ]
-}
-
-## 关键规则
-- id 从 q1 开始连续编号（passage 不占编号）
-- choice 的 answer 是选项索引（0-3）
-- truefalse 的 answer 是 true 或 false
-- fill 必须提供 acceptableAnswers 数组（所有可接受的答案变体，如繁简体等）
-- shortanswer 的 answer 是参考答案字符串
-- writing 不需要 answer，但需要 rubric（评分标准）
-- 阅读理解的 sections 使用 subsections 结构，每个 subsection 包含 passageTitle、passage 和 questions
-- 每道题都需要 analysis（解析说明）`
+  const _p = ['\u4F60\u662F\u5C0F\u5B66\u8BED\u6587\u6559\u7814\u5458',
+    '\uFF0C\u4E3A' + GRADE_MAP[grade] + '\u5B66\u751F\u51FA' + EXAM_TYPE_MAP[examType],
+    '\u8BED\u6587\u8BD5\u5377\u3002\u6EE1\u5206100\u5206\uFF0C\u4E25\u683CJSON\u3002',
+    '',
+    '## \u9898\u578B \u89C4\u5219',
+    '\u4E00/\u57FA\u784040 \u4E8C/\u79EF\u7D2F15 \u4E09/\u960E\u8BFB25 \u56DB/\u4E60\u4F5C20',
+    'choice=0-3; TF=bool; analysis\u5FC5\u987B'].join(' ')
+  return _p
 }
 
 // ─── 英语出题 System Prompt ────────────────────────────
 function getEnglishExamPrompt(grade, examType) {
-  return `You are an experienced elementary school English teacher. Generate a complete English test paper, returned as strict JSON.
-
-## Parameters
-- Grade: ${GRADE_MAP[grade]} (人教版 PEP textbook)
-- Scope: ${EXAM_TYPE_MAP[examType]}
-- Total Score: 100
-- Questions: ~25-30 items
-- All content must be within elementary school ${grade}th grade level!
-
-## Question Structure
-
-**Part 1: Vocabulary & Phonics (30 points)**
-1. Picture-word matching (choice, 5 items × 2pts = 10pts)
-   - Describe an image in Chinese, choose correct English word from 4 options
-2. Odd one out (choice, 5 items × 2pts = 10pts)
-   - 4 words, choose the one with different category
-3. Phonics (choice, 5 items × 2pts = 10pts)
-   - Choose the word with different underlined pronunciation
-
-**Part 2: Grammar & Sentences (25 points)**
-4. Multiple choice (choice, 8 items × 2pts = 16pts)
-   - be verbs, pronouns, prepositions, tenses
-5. Reorder sentences (reorder, 3 items × 3pts = 9pts)
-   - Scrambled words, student types correct sentence
-
-**Part 3: Communication (15 points)**
-6. Complete dialogue (choice, 5 items × 3pts = 15pts)
-   - Choose correct response in conversation context
-
-**Part 4: Reading Comprehension (15 points)**
-7. Short passage (60-100 words, campus/family topic, total 15pts)
-   - 3 true/false (2pts each) + 2 choice (3pts each) = 15pts
-
-**Part 5: Writing (15 points)**
-8. Picture description or topic writing
-   - Write 3-5 complete sentences
-
-## JSON Format
-{
-  "title": "${GRADE_MAP[grade]} ${EXAM_TYPE_MAP[examType]} Test",
-  "totalScore": 100,
-  "sections": [
-    {
-      "title": "Part 1: Vocabulary & Phonics (30分)",
-      "questions": [
-        {
-          "id": "q1",
-          "type": "choice",
-          "score": 2,
-          "stem": "看图片选单词：图片中是一个苹果",
-          "options": ["apple", "banana", "orange", "grape"],
-          "answer": 0,
-          "analysis": "apple 意为"苹果"。"
-        }
-      ]
-    },
-    {
-      "title": "Part 2: Grammar & Sentences (25分)",
-      "questions": [
-        {
-          "id": "q9",
-          "type": "reorder",
-          "score": 3,
-          "stem": "连词成句：is / This / my / book",
-          "answer": "This is my book.",
-          "acceptableAnswers": ["This is my book.", "this is my book."],
-          "analysis": "注意首字母大写和句末标点。"
-        }
-      ]
-    },
-    {
-      "title": "Part 3: Communication (15分)",
-      "questions": [...]
-    },
-    {
-      "title": "Part 4: Reading Comprehension (15分)",
-      "subsections": [
-        {
-          "title": "阅读短文，回答问题",
-          "passageTitle": "My Weekend",
-          "passage": "Last weekend, I went to the park with my family...",
-          "questions": [
-            {
-              "id": "q21",
-              "type": "truefalse",
-              "score": 2,
-              "stem": "I went to the park alone last weekend.",
-              "answer": false,
-              "analysis": "短文说"with my family"，不是alone。"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "title": "Part 5: Writing (15分)",
-      "questions": [
-        {
-          "id": "q29",
-          "type": "writing",
-          "score": 15,
-          "stem": "My Favourite Animal\n\n请用3-5个完整的英文句子，描述你最喜欢的动物。",
-          "prompts": [{"title": "My Favourite Animal", "hint": "写出动物的名称、外形、特点和你为什么喜欢它。"}],
-          "wordLimit": "3-5 sentences",
-          "rubric": "内容相关5分，语法正确5分，拼写正确5分"
-        }
-      ]
-    }
-  ]
-}
-
-## Key Rules
-- id starts from q1, consecutive (passage items don't count)
-- choice answer = index (0-3)
-- truefalse answer = true or false
-- reorder: answer is the correct sentence, provide acceptableAnswers with variations (capitalization, punctuation)
-- fill: same as reorder
-- writing needs rubric but no answer field
-- Reading comprehension uses subsections with passageTitle, passage, and questions
-- Every question needs analysis
-- All English text at ${GRADE_MAP[grade]} level`
+  return 'You are an elementary English teacher. Generate ' + GRADE_MAP[grade] + ' (PEP) ' + EXAM_TYPE_MAP[examType] + ' English test. Strict JSON. 100pts.\n\n## Structure\n1. Vocabulary & Phonics(30pts) 2. Grammar & Sentences(25pts) 3. Communication(15pts) 4. Reading Comprehension(15pts) 5. Writing(15pts)\n\n## Rules\n- choice=index(0-3); reorder/writing=text; truefalse=boolean; passage=60-100w; Grade ' + grade + ' level'
 }
 
 // ─── 初中语文 System Prompt ────────────────────────────
 function getJuniorChineseExamPrompt(examType) {
   const examLabel = JUNIOR_EXAM_TYPE_MAP[examType] || '期末综合'
-  return `你是一位资深初中语文教研员，专攻中考备考，擅长设计适配移动端和电脑端的在线试题。请生成一份初二语文试卷，严格按JSON格式返回。
-
-## 核心参数
-- 适用年级：初中二年级（八年级）人教版
-- 考查类型：${examLabel}
-- 难度标准：中考难度，不超出初二知识范围
-- 满分：100分，题数约20-25题
-- 手机端友好：选项精简，题干清晰，无连线等复杂操作
-
-## 题型结构
-**一、积累与运用（30分）**
-1. 字音字形（单选，4题×2分=8分）
-2. 成语/词语运用（单选，4题×2分=8分）
-3. 文学常识与名著（判断题，4题×1分=4分）
-4. 古诗文默写（填空，5空×2分=10分，给上句填下句或情境填写）
-
-**二、文言文阅读（20分）**
-5. 展示文言文原文（passage类型，不计题号）
-6. 重点字词解释（填空，4题×2分=8分）
-7. 句子翻译（简答，2题×3分=6分）
-8. 内容理解（单选，2题×3分=6分）
-
-**三、现代文阅读（25分）**
-9. 展示阅读材料（passage类型，300-400字记叙文或说明文）
-10. 内容理解（单选，2题×3分=6分）
-11. 词语/句子理解（简答，2题×4分=8分，答案参考50字内）
-12. 主旨情感（简答，1题×5分=5分）
-13. 语言赏析（简答，1题×6分=6分，从修辞/描写角度）
-
-**四、写作（25分）**
-14. 中考作文（写作，1题25分，二选一，300-400字）
-
-## JSON格式
-{
-  "title": "初二语文${examLabel}测试",
-  "totalScore": 100,
-  "sections": [
-    {
-      "title": "一、积累与运用（30分）",
-      "questions": [
-        { "id": "q1", "type": "choice", "score": 2, "stem": "下列加点字注音全都正确的一项是（ ）", "options": ["A选项", "B选项", "C选项", "D选项"], "answer": 0, "analysis": "解析..." },
-        { "id": "q5", "type": "truefalse", "score": 1, "stem": "《水浒传》的作者是施耐庵。", "answer": true, "analysis": "解析..." },
-        { "id": "q9", "type": "fill", "score": 2, "stem": "根据提示填写名句：会当凌绝顶，________。（杜甫《望岳》）", "answer": "一览众山小", "acceptableAnswers": ["一览众山小"], "analysis": "出自杜甫《望岳》。" }
-      ]
-    },
-    {
-      "title": "二、文言文阅读（20分）",
-      "subsections": [
-        {
-          "title": "阅读下面文言文，完成题目",
-          "passageTitle": "《桃花源记》节选",
-          "passage": "文言文原文...",
-          "questions": [
-            { "id": "q14", "type": "fill", "score": 2, "stem": "解释加点词：①阡陌（　　）②交通（　　）", "answer": "田间小路；相互通达", "acceptableAnswers": ["田间小路；相互通达", "小路；通达"], "analysis": "解析..." },
-            { "id": "q16", "type": "shortanswer", "score": 3, "stem": "把下面句子翻译成现代汉语：土地平旷，屋舍俨然。", "answer": "土地平坦开阔，房屋整整齐齐。", "analysis": "重点词：平旷=平坦开阔，俨然=整整齐齐。" }
-          ]
-        }
-      ]
-    },
-    {
-      "title": "三、现代文阅读（25分）",
-      "subsections": [
-        {
-          "title": "阅读下面文章，完成题目",
-          "passageTitle": "文章标题",
-          "passage": "300-400字记叙文或说明文...",
-          "questions": [
-            { "id": "q19", "type": "choice", "score": 3, "stem": "对文章内容理解正确的一项是（ ）", "options": ["A选项", "B选项", "C选项", "D选项"], "answer": 1, "analysis": "解析..." }
-          ]
-        }
-      ]
-    },
-    {
-      "title": "四、写作（25分）",
-      "questions": [
-        { "id": "q24", "type": "writing", "score": 25, "stem": "请从以下两个题目中任选一个，写一篇300-400字的作文。", "prompts": [{"title": "那一次，我真的成长了", "hint": "写一件让你成长的事，要有细节描写和感悟。"}, {"title": "我最敬佩的一个人", "hint": "通过具体事例表现人物品质，有外貌或动作描写。"}], "wordLimit": "300-400字", "rubric": "内容切题、情感真实40%，结构完整清晰30%，语言表达30%" }
-      ]
-    }
-  ]
-}
-
-## 关键规则
-- id从q1连续编号，passage不占编号
-- choice的answer是索引（0-3）
-- truefalse的answer是true/false布尔值
-- fill必须有acceptableAnswers数组
-- shortanswer的answer是参考答案（50字内）
-- writing不需要answer，但需要rubric
-- 每道题必须有analysis解析
-- 文言文passage必须是真实的人教版课文选段`
+  return '\u4F60\u662F\u521D\u4E2D\u8BED\u6587\u6559\u7814\u5458\uFF0C\u4E13\u653B\u4E2D\u8003\u3002\u51FA\u521D\u4E8C' + '(\u516B\u5E74\u7EA7)' + '\u4EBA\u6559\u7248' + examLabel + '\u8BED\u6587\u8BD5\u5377\u3002\u6EE1\u5206100\u5206\uFF0C\u4E25\u683CJSON\u3002\n\n## \u9898\u578B\n\u4E00\u3001\u79EF\u7D2F(30) \u4E8C\u3001\u6587\u8A00\u6587(20) \u4E09\u3001\u73B0\u4EE3\u6587(25) \u56DB\u3001\u5199\u4F5C(25)\n\n## \u89C4\u5219\n- choice=0-3; TF=true/false; fill\u9700acceptableAnswers; shortanswer<=50; writing\u970Brubric; \u6587\u8A00\u6587\u5FC5\u987B\u771F\u5B9E\u8BFE\u6587; \u6240\6709\u9898\u8981analysis'
 }
 
 // ─── 初中英语 System Prompt ────────────────────────────
 function getJuniorEnglishExamPrompt(examType) {
   const examLabel = JUNIOR_EXAM_TYPE_MAP[examType] || '期末综合'
-  return `You are a senior junior high school English teacher specializing in 中考 exam preparation. Generate a Grade 8 (初二) English test paper as strict JSON. Mobile-friendly design required.
-
-## Parameters
-- Grade: 初二 (Grade 8), PEP textbook
-- Exam type: ${examLabel}
-- Difficulty: 中考 standard, within Grade 8 scope
-- Total: 100 points, ~22-26 questions
-- Mobile-friendly: clear stems, tappable options, no complex operations
-
-## Structure
-**Part 1: Language Knowledge (30pts)**
-1. Vocabulary in context (choice, 5×2=10pts) — choose word that fits the sentence
-2. Grammar (choice, 5×2=10pts) — passive voice, relative clauses, modal verbs, tenses
-3. Cloze test (choice, 5×2=10pts) — fill in blanks in a short passage
-
-**Part 2: Reading Comprehension (30pts)**
-4. Passage A (150-200 words, passage type + 4 questions)
-   - 2 truefalse (2pts each) + 2 choice (3pts each) = 10pts
-5. Passage B (200-250 words, informational/narrative, passage type + 4 questions)
-   - 2 choice (4pts each) + 1 shortanswer (5pts, answer in English ≤30 words) + 1 fill (7pts) = 20pts
-
-**Part 3: Language Use (25pts)**
-6. Complete the dialogue (choice, 5×2=10pts)
-7. Sentence transformation (reorder, 3×3=9pts) — rewrite using given words
-8. Translation (shortanswer, 2×3=6pts) — translate Chinese sentences to English
-
-**Part 4: Writing (15pts)**
-9. Email/letter or short essay (writing, 15pts, 80-100 words)
-
-## JSON Format
-{
-  "title": "Grade 8 English ${examLabel} Test",
-  "totalScore": 100,
-  "sections": [
-    { "title": "Part 1: Language Knowledge (30pts)", "questions": [
-        { "id": "q1", "type": "choice", "score": 2, "stem": "The book ______ on the desk is mine.", "options": ["lying", "lies", "lay", "to lie"], "answer": 0, "analysis": "现在分词作定语，表示书正放在桌上。" }
-    ]},
-    { "title": "Part 2: Reading Comprehension (30pts)", "subsections": [
-        { "title": "Read Passage A and answer questions", "passageTitle": "Passage A", "passage": "150-200 word passage...", "questions": [
-            { "id": "q16", "type": "truefalse", "score": 2, "stem": "Statement to judge based on passage.", "answer": true, "analysis": "解析..." }
-        ]}
-    ]},
-    { "title": "Part 3: Language Use (25pts)", "questions": [
-        { "id": "q21", "type": "reorder", "score": 3, "stem": "连词成句：been / have / I / Beijing / to", "answer": "I have been to Beijing.", "acceptableAnswers": ["I have been to Beijing.", "i have been to beijing"], "analysis": "现在完成时结构：have/has + been to。" }
-    ]},
-    { "title": "Part 4: Writing (15pts)", "questions": [
-        { "id": "q26", "type": "writing", "score": 15, "stem": "Write an email to your pen pal about your school life. (80-100 words)", "prompts": [{"title": "My School Life", "hint": "Include: favourite subject, after-school activities, friends."}], "wordLimit": "80-100 words", "rubric": "Content relevance 40%, Grammar accuracy 35%, Vocabulary range 25%" }
-    ]}
-  ]
-}
-
-## Rules
-- id from q1, consecutive (passages don't count)
-- choice answer = index (0-3), truefalse = true/false boolean
-- fill/reorder must have acceptableAnswers array with case-insensitive variants
-- shortanswer answer ≤ 40 words (reference answer)
-- writing needs rubric, no answer field
-- Every question must have analysis (Chinese OK)
-- All content within Grade 8 level, 中考 difficulty`
+  return 'You are a senior junior high English teacher. Generate Grade 8 PEP ' + examLabel + ' test. Strict JSON. 100pts.\n\n## Structure\n1. Language Knowledge(30pts): vocab+grammar+cloze \n2. Reading(30pts): 2 passages \n3. Language Use(25pts): dialogue+reorder+translation \n4. Writing(15pts)\n\n## Rules\n- choice=0-3; reorder/text=answer; TF=bool; writing=rubric; shortanswer<=40w'
 }
 
 // ─── 初中政治 System Prompt ────────────────────────────
 function getPoliticsExamPrompt(examType) {
   const examLabel = JUNIOR_EXAM_TYPE_MAP[examType] || '期末综合'
-  return `你是一位资深初中道德与法治教研员，专攻中考备考，擅长设计适配移动端和电脑端的在线试题。请生成一份初二道德与法治试卷，严格按JSON格式返回。
-
-## 核心参数
-- 适用年级：初中二年级（八年级）人教版道德与法治
-- 考查类型：${examLabel}
-- 难度标准：中考难度，不超出初二知识范围
-- 满分：100分，题数约18-22题
-- 手机端友好：选项简洁，情境真实，无复杂操作
-
-## 知识模块覆盖（初二核心）
-- 宪法与法律（公民权利与义务、依法治国、未成年人保护）
-- 国情国策（基本经济制度、国家制度、民主政治）
-- 道德与心理（诚信、责任、情绪管理、尊重他人）
-- 社会生活（网络生活、社会规则、公平正义）
-
-## 题型结构
-**一、单项选择题（40分）**
-1. 选择题（单选，10题×4分=40分）
-   - 题干短小精悍，选项A/B/C/D，覆盖4大模块，结合时事材料
-
-**二、非选择题（60分）**
-2. 简答题（2题×10分=20分）
-   - 每题设2个小问，考查"是什么/为什么/怎么做"
-   - 参考答案要点明确（3-4个要点，每点15字内）
-3. 材料分析题（2题×15分=30分）
-   - 每题含150字左右材料 + 2个子问
-   - 子问考查：①结合材料说明XX的重要性/必要性 ②青少年/公民应该怎么做
-4. 综合探究题（1题×10分=10分）
-   - 实践情境（倡议书/调查报告/活动方案），考查综合运用
-
-## JSON格式
-{
-  "title": "初二道德与法治${examLabel}测试",
-  "totalScore": 100,
-  "sections": [
-    {
-      "title": "一、单项选择题（每题4分，共40分）",
-      "questions": [
-        { "id": "q1", "type": "choice", "score": 4, "stem": "下列关于宪法地位的说法正确的是（ ）\nA. 宪法只规定公民权利，不规定国家机关权力\nB. 宪法是其他法律的立法依据和基础\nC. 宪法的修改程序与普通法律相同\nD. 宪法只约束公民，不约束国家机关", "options": ["宪法只规定公民权利，不规定国家机关权力", "宪法是其他法律的立法依据和基础", "宪法的修改程序与普通法律相同", "宪法只约束公民，不约束国家机关"], "answer": 1, "analysis": "【解析】宪法是根本法，是其他法律的立法依据，具有最高法律效力。" }
-      ]
-    },
-    {
-      "title": "二、非选择题",
-      "subsections": [
-        {
-          "title": "（一）简答题（每题10分）",
-          "questions": [
-            { "id": "q11", "type": "shortanswer", "score": 10, "stem": "党的二十大报告指出，全面依法治国是国家治理的一场深刻革命。\n请回答：（1）为什么要坚持依法治国？（5分）\n（2）青少年应如何做到依法办事？（5分）", "answer": "（1）①法律是治国之重器；②依法治国是党领导人民治理国家的基本方略；③有利于维护社会秩序和公平正义；④保障公民权利。\n（2）①学法懂法守法用法；②自觉遵守法律法规；③用法律维护自身权益；④敢于同违法行为作斗争。", "analysis": "考查依法治国的意义和青少年的做法，注意从多角度分析。" }
-          ]
-        },
-        {
-          "title": "（二）材料分析题（每题15分）",
-          "questions": [
-            { "id": "q13", "type": "shortanswer", "score": 15, "stem": "材料：2024年某地开展"宪法宣传周"活动，同学们纷纷参与宪法知识竞赛，学习宪法精神。有同学认为："宪法离我们的生活很远。"\n\n（1）结合材料，你是否赞同该同学的观点？请说明理由。（8分）\n（2）青少年应如何用实际行动践行宪法精神？（7分）", "answer": "（1）不赞同。宪法与我们的生活密切相关：①宪法保障公民受教育的权利；②宪法保护公民人身自由；③宪法规定公民的基本权利与义务，与每个人息息相关；④宪法是国家根本法，任何组织和个人都在宪法范围内活动。\n（2）①认真学习宪法，了解宪法的地位和基本内容；②宣传宪法精神；③自觉遵守宪法；④用宪法维护自身合法权益；⑤敢于检举违反宪法的行为。", "analysis": "材料分析题关键：①联系材料②运用所学知识③答出要点" }
-          ]
-        },
-        {
-          "title": "（三）综合探究题（10分）",
-          "questions": [
-            { "id": "q15", "type": "writing", "score": 10, "stem": "学校团委开展"文明上网，从我做起"主题活动，请你以学生会的名义写一份倡议书，倡导同学们文明健康使用网络。\n要求：格式规范（有称谓、正文、落款），内容包含至少3条具体倡议，字数100字左右。", "prompts": [{"title": "文明上网倡议书", "hint": "格式：称谓（全校同学们）+ 正文（3条以上具体倡议）+ 落款（学生会 + 日期）"}], "wordLimit": "约100字", "rubric": "格式规范30分，倡议内容具体充实50分，语言得体20分" }
-          ]
-        }
-      ]
-    }
-  ]
-}
-
-## 关键规则
-- id从q1连续编号，passage不占编号
-- choice的answer是索引（0-3）
-- truefalse的answer是true/false布尔值
-- shortanswer提供详细参考答案（要点式，便于学生对照）
-- writing需要rubric，不需要answer
-- 每道题必须有analysis
-- 严格按中考评分标准，难度符合中考水平`
+  return '\u4F60\u662F\u521D\u4E2D\u9053\u5FB7\u4E0E\u6CD5\u6CBB\u6559\u7814\u5458\uFF0C\u4E13\u653B\u4E2D\u8003\u3002\u51FA\u521D\u4E8C\u9053\u5FB7\u4E0E\u6CD5\u6CBB' + examLabel + '\u8BD5\u5377\u3002\u6EE1\u5206100\u5206\uFF0C\u4E25\u683CJSON\u3002\n\n## \u9898\u578B\n\u4E00\u3001\u9009\u62E9\u989840\u5206(10x4) \n\u4E8C\u3001\u975E\u9009\u62E9\u989860\u5206(\u7B80\u7B54+\u6750\u6599\u5206\u6790+\u63A2\u7A76)\n\n## \u89C4\u5219\n- choice=0-3; shortanswer=\u8981\u70B9; writing=rubric; \u6240\u6709\u9898\u8981analysis; \u96BE\u5EA6=\u4E2D\u8003'
 }
 
 // ─── AI 评分 Prompt（主观题批量评分）───────────────────
@@ -582,11 +106,11 @@ function getScoringPrompt(questions, answers, subject) {
         const promptText = ua?.selectedPrompt !== undefined
           ? (q.prompts?.[ua.selectedPrompt]?.title || '')
           : ''
-        return `${i + 1}. 【作文/实践题】（${q.score}分）\n题目：${q.stem.slice(0, 120)}\n${promptText ? '选作题目：' + promptText + '\n' : ''}学生答案：${(ua?.text || '（未作答）').slice(0, 300)}\n评分标准：${(q.rubric || '无').slice(0, 100)}`
+        return (i+1) + '. \u3010\u4f5c\u6587/\u5b9e\u8df5\u9898\u3011\uff08' + q.score + '\u5206\uff09\n\u9898\u76ee\uff1a' + q.stem.slice(0,120) + '\n' + (promptText ? '\u9009\u4f5c\u9898\u76ee\uff1a' + promptText + '\n' : '') + '\u5b66\u751f\u7b54\u6848\uff1a' + ((ua && ua.text) || '\uff08\u672a\u4f5c\u7b54\uff09').slice(0,300) + '\n\u8bc4\u5206\u6807\u51c6\uff1a' + (q.rubric || '\u65e0').slice(0,100)
       }
       // 参考答案截断，防止 prompt 过长
       const refAnswer = (q.answer || '无').slice(0, 200)
-      return `${i + 1}. 【简答题】（${q.score}分）\n题目：${q.stem.slice(0, 150)}\n学生答案：${(String(ua || '（未作答）')).slice(0, 300)}\n参考答案要点：${refAnswer}`
+      return (i+1) + '. \u3010\u7b80\u7b54\u9898\u3011\uff08' + q.score + '\u5206\uff09\n\u9898\u76ee\uff1a' + q.stem.slice(0,150) + '\n\u5b66\u751f\u7b54\u6848\uff1a' + String(ua || '\uff08\u672a\u4f5c\u7b54\uff09').slice(0,300) + '\n\u53c2\u8003\u7b54\u6848\u8981\u70b9\uff1a' + refAnswer
     })
     .join('\n\n')
 
@@ -598,24 +122,8 @@ function getScoringPrompt(questions, answers, subject) {
       ? '道法主观题：观点明确20%，知识运用40%，逻辑层次30%，语言规范10%'
       : '语文作文：内容完整30%，语句通顺30%，修辞手法20%，书写规范20%'
 
-  return `你是一位阅卷老师，请对以下学生的主观题进行评分。
+  return '\u4F60\u662F\u4E00\u4F4D\u9605\u5377\u8001\u5E08\uFF0C\u8BF7\u5BF9\u4EE5\u4E0B\u5B66\u751F\u7684\u4E3B\u89C2\u9898\u8FDB\u884C\u8BC4\u5206\u3002\n\n## \u8BC4\u5206\u89C4\u5219\n- \u4E25\u683C\u6309\u6EE1\u5206\u8BC4\u5206\n- ' + writingRubric + '\n- \u7ED9\u5206\u5408\u7406\n- \u6BCF\u9898\u8BC4\u8BED(30\u5B57\u5185)\n\n## \u9700\u8981\u8BC4\u5206\u9898\u76EE\n' + items + '\n\n## \u8FD4\u56DEJSON\u683C\u5F0F'
 
-## 评分要求
-- 严格按照每道题满分给分（不得超过该题满分）
-- ${writingRubric}
-- 给分合理，不过于严格也不过于宽松
-- 每道题给出简短点评（30字以内）
-
-## 需要评分的题目
-${items}
-
-## 返回JSON格式（严格JSON，key为题目id）
-{
-  "scores": {
-    "q1": { "earned": 8, "comment": "要点基本覆盖，但缺少具体论据" },
-    "q2": { "earned": 5, "comment": "格式规范，内容充实" }
-  }
-}`
 }
 
 // ─── 判分逻辑 ──────────────────────────────────────────

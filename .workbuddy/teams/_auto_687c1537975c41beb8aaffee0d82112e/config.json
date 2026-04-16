@@ -1,0 +1,18 @@
+{
+  "name": "_auto_687c1537975c41beb8aaffee0d82112e",
+  "leadAgentId": "687c1537975c41beb8aaffee0d82112e",
+  "workspacePath": "/Volumes/ORICO/xinwen/claudecode/chinese-learn",
+  "createdAt": "2026-04-16T03:44:04.998Z",
+  "options": {
+    "workspacePath": "/Volumes/ORICO/xinwen/claudecode/chinese-learn",
+    "isAutoTeam": true
+  },
+  "members": [
+    {
+      "memberId": "team-lead@_auto_687c1537975c41beb8aaffee0d82112e",
+      "name": "team-lead",
+      "role": "Team Lead - coordinates the team and interacts with the user"
+    }
+  ],
+  "isAutoTeam": true
+}
