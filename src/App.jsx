@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback, useMemo } from 'react'
+import ErrorBoundary from './ErrorBoundary'
 import { storage, calcLevel, calcLevelProgress } from './utils/storage'
 import OnboardingPage from './pages/OnboardingPage'
 import HomePage from './pages/HomePage'
@@ -631,14 +632,17 @@ export default function App() {
           </>
         )
       }
+      // ★ 宠物页用 ErrorBoundary 包裹：防止子组件崩溃导致整个应用白屏 + 数据丢失
       if (activeTab === 'pet') return (
-        <MV1Demo
-          key={user?.id || 'no-user'}
-          onBack={() => setActiveTab('home')}
-          initialState={gameState}
-          onStateChange={setGameState}
-          grade={grade}
-        />
+        <ErrorBoundary>
+          <MV1Demo
+            key={user?.id || 'no-user'}
+            onBack={() => setActiveTab('home')}
+            initialState={gameState}
+            onStateChange={setGameState}
+            grade={grade}
+          />
+        </ErrorBoundary>
       )
       if (activeTab === 'rank') return <LeaderboardPage user={user} gameState={gameState} onStateChange={setGameState} />
       if (activeTab === 'wrong') return (
