@@ -95,6 +95,8 @@ export default function WordCannonGame({ state, onGameStateUpdate }) {
 
   /* ── 状态 ── */
   const [phase, setPhase] = useState('idle'); // idle | playing | paused | gameOver
+  const phaseRef = useRef('idle'); // 同步版 phase，供 rAF 回调读取（避免 stale closure）
+  const setPhaseSync = (p) => { phaseRef.current = p; setPhase(p); };
   const [score, setScore] = useState(0);
   const [combo, setCombo] = useState(0);
   const [hp, setHp] = useState(3);
@@ -216,7 +218,7 @@ export default function WordCannonGame({ state, onGameStateUpdate }) {
 
   /* ── 游戏主循环 ── */
   const gameLoop = useCallback(() => {
-    if (phase !== 'playing') return;
+    if (phaseRef.current !== 'playing') return;
 
     const slowMult = slowModeActiveRef.current ? 0.45 : 1;
     let needUpdate = false;
@@ -271,7 +273,7 @@ export default function WordCannonGame({ state, onGameStateUpdate }) {
     }
 
     rafRef.current = requestAnimationFrame(gameLoop);
-  }, [phase, spawnBubble]);
+  }, [spawnBubble]);
 
   /* ── 创建爆炸粒子 ── */
   const createParticles = useCallback((x, y, color) => {
@@ -299,7 +301,7 @@ export default function WordCannonGame({ state, onGameStateUpdate }) {
 
   /* ── 处理答案选择 ── */
   const handleAnswer = useCallback((opt) => {
-    if (phase !== 'playing' || !activeBubbleRef.current) return;
+    if (phaseRef.current !== 'playing' || !activeBubbleRef.current) return;
 
     const targetId = activeBubbleRef.current;
     const targetBubble = bubblesRef.current.find(b => b.id === targetId);
@@ -389,11 +391,11 @@ export default function WordCannonGame({ state, onGameStateUpdate }) {
         return;
       }
     }
-  }, [phase, spawnBubble, createParticles]);
+  }, [spawnBubble, createParticles]);
 
   /* ── 结束游戏 ── */
   const endGame = useCallback(() => {
-    setPhase('gameOver');
+    setPhaseSync('gameOver');
 
     if (rafRef.current) cancelAnimationFrame(rafRef.current);
     if (spawnTimerRef.current) clearInterval(spawnTimerRef.current);
@@ -470,7 +472,7 @@ export default function WordCannonGame({ state, onGameStateUpdate }) {
     setSlowMode(false);
     setShieldActive(false);
     setGameOverData(null);
-    setPhase('playing');
+    setPhaseSync('playing');
 
     // 启动冷却倒计时
     cooldownIntervalRef.current = setInterval(() => {
@@ -748,7 +750,7 @@ export default function WordCannonGame({ state, onGameStateUpdate }) {
 
       {/* 护盾指示器 */}
       {shieldActive && (
-        <div style={styles.shieldIndicator}>
+        <div style={getShieldIndicator(slowMode)}>
           🛡️ 护盾激活
         </div>
       )}
@@ -1238,7 +1240,7 @@ const slowIndicator = {
   whiteSpace: 'nowrap',
 };
 
-const shieldIndicator = {
+const getShieldIndicator = (slowMode) => ({
   position: 'absolute',
   top: slowMode ? 72 : 46,
   left: '50%',
@@ -1251,4 +1253,15 @@ const shieldIndicator = {
   borderRadius: 12,
   zIndex: 15,
   whiteSpace: 'nowrap',
-};
+});
+
+const styles = {
+  container, starsBg, centerContent, title, subtitle,
+  statCard, statItem, statNum, statLabel,
+  resultCard, resultRow, startBtn, startBtnDisabled,
+  flashOverlay, bottomWarning, slowIndicator,
+  infoBar, infoItem, infoLabel, gameArea, bubble,
+  optionsArea, optionBtn, skillBar,
+  skillBtnSlow, skillBtnShield, skillBtnUlt, skillBtnDisabled,
+  petContainer, petGlow, petImage,
+}

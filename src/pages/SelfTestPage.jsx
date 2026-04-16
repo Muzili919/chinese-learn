@@ -81,7 +81,7 @@ function getEnglishExamPrompt(grade, examType) {
 // ─── 初中语文 System Prompt ────────────────────────────
 function getJuniorChineseExamPrompt(examType) {
   const examLabel = JUNIOR_EXAM_TYPE_MAP[examType] || '期末综合'
-  return '\u4F60\u662F\u521D\u4E2D\u8BED\u6587\u6559\u7814\u5458\uFF0C\u4E13\u653B\u4E2D\u8003\u3002\u51FA\u521D\u4E8C' + '(\u516B\u5E74\u7EA7)' + '\u4EBA\u6559\u7248' + examLabel + '\u8BED\u6587\u8BD5\u5377\u3002\u6EE1\u5206100\u5206\uFF0C\u4E25\u683CJSON\u3002\n\n## \u9898\u578B\n\u4E00\u3001\u79EF\u7D2F(30) \u4E8C\u3001\u6587\u8A00\u6587(20) \u4E09\u3001\u73B0\u4EE3\u6587(25) \u56DB\u3001\u5199\u4F5C(25)\n\n## \u89C4\u5219\n- choice=0-3; TF=true/false; fill\u9700acceptableAnswers; shortanswer<=50; writing\u970Brubric; \u6587\u8A00\u6587\u5FC5\u987B\u771F\u5B9E\u8BFE\u6587; \u6240\6709\u9898\u8981analysis'
+  return '\u4F60\u662F\u521D\u4E2D\u8BED\u6587\u6559\u7814\u5458\uFF0C\u4E13\u653B\u4E2D\u8003\u3002\u51FA\u521D\u4E8C' + '(\u516B\u5E74\u7EA7)' + '\u4EBA\u6559\u7248' + examLabel + '\u8BED\u6587\u8BD5\u5377\u3002\u6EE1\u5206100\u5206\uFF0C\u4E25\u683CJSON\u3002\n\n## \u9898\u578B\n\u4E00\u3001\u79EF\u7D2F(30) \u4E8C\u3001\u6587\u8A00\u6587(20) \u4E09\u3001\u73B0\u4EE3\u6587(25) \u56DB\u3001\u5199\u4F5C(25)\n\n## \u89C4\u5219\n- choice=0-3; TF=true/false; fill\u9700acceptableAnswers; shortanswer<=50; writing\u970Brubric; \u6587\u8A00\u6587\u5FC5\u987B\u771F\u5B9E\u8BFE\u6587; \u6240\u6709\u9898\u8981analysis'
 }
 
 // ─── 初中英语 System Prompt ────────────────────────────

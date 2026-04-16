@@ -521,7 +521,7 @@ function FriendsPanel({ state, userId, onStateChange }) {
 }
 
 // ====== 主组件 ======
-export default function MV1Demo({ onBack, initialState, onStateChange }) {
+export default function MV1Demo({ onBack, initialState, onStateChange, grade }) {
   // 初始状态：优先用传入的（上帝模式/缓存），否则默认
   const [state, setState] = useState(() => {
     // 如果传入的initialState有宠物，直接用它（防止刷新后变蛋）
@@ -546,7 +546,13 @@ export default function MV1Demo({ onBack, initialState, onStateChange }) {
   // 依赖 currentUserId：当 App.jsx 切换账号导致 gameState 变化时重新拉取云端数据
   useEffect(() => {
     const user = storage.getUser();
-    if (!user?.id) return;
+    if (!user?.id) {
+      // 没有登录用户（如god模式本地测试），直接用initialState标记初始化完成
+      if (initialState) setState(initialState);
+      initializedRef.current = true;
+      setIsInitialized(true);
+      return;
+    }
 
     fetchMV1State(user.id).then((cloud) => {
       const base = initGamificationState();
@@ -621,6 +627,12 @@ export default function MV1Demo({ onBack, initialState, onStateChange }) {
       initializedRef.current = true;
       setState(merged);
       setIsInitialized(true);  // 标记云端数据已加载完成
+    }).catch((err) => {
+      console.warn('[MV1] 云端加载失败，使用本地状态:', err);
+      // 云端失败也要标记初始化完成，否则页面永远转圈
+      initializedRef.current = true;
+      if (initialState) setState(initialState);
+      setIsInitialized(true);
     });
   }, [currentUserId]);  // 切换账号时重新拉取云端宠物数据
 

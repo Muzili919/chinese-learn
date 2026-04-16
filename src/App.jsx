@@ -615,6 +615,7 @@ export default function App() {
           onBack={() => setActiveTab('home')}
           initialState={gameState}
           onStateChange={setGameState}
+          grade={grade}
         />
       )
       if (activeTab === 'rank') return <LeaderboardPage user={user} gameState={gameState} onStateChange={setGameState} />
