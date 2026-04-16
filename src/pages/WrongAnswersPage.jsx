@@ -11,12 +11,17 @@ import enListenQ from '../data/questions_en_listen.json'
 import enGrammarQ from '../data/questions_en_grammar.json'
 import enReadingQ from '../data/questions_en_reading.json'
 import enWritingQ from '../data/questions_en_writing.json'
+import politicsQ from '../data/questions_politics_choice.json'
 
 const ALL_QUESTIONS = [...vocabQ, ...poetryQ, ...idiomQ, ...sentenceQ, ...litQ]
 const Q_MAP = Object.fromEntries(ALL_QUESTIONS.map(q => [q.id, q]))
 
 const EN_ALL_QUESTIONS = [...enVocabQ, ...enListenQ, ...enGrammarQ, ...enReadingQ, ...enWritingQ]
 const EN_Q_MAP = Object.fromEntries(EN_ALL_QUESTIONS.map(q => [q.id, q]))
+
+// 政治选择题
+const POLITICS_ALL = Array.isArray(politicsQ) ? politicsQ : (politicsQ.questions || [])
+const POLITICS_Q_MAP = Object.fromEntries(POLITICS_ALL.map(q => [q.id, q]))
 
 // 合并拍照上传的题目
 function getAllQMap(subject) {
@@ -27,6 +32,7 @@ function getAllQMap(subject) {
       return !q.subject || q.subject === 'chinese'
     })
   )
+  if (subject === 'politics' || subject === '道法') return { ...photoFiltered, ...POLITICS_Q_MAP }
   return { ...photoFiltered, ...(subject === 'english' ? EN_Q_MAP : Q_MAP) }
 }
 
@@ -59,6 +65,7 @@ export default function WrongAnswersPage({ user, subject = 'chinese', onStartWro
     // 按科目过滤：英语题有 subject==='english'，语文题没有 subject 或 subject==='chinese'
     const records = allRecords.filter(r => {
       if (subject === 'english') return r.subject === 'english'
+      if (subject === 'politics') return r.subject === 'politics' || r.subject === '道法'
       return !r.subject || r.subject === 'chinese'
     })
     const srsStates = storage.getSrsState(user.id)
@@ -166,7 +173,7 @@ export default function WrongAnswersPage({ user, subject = 'chinese', onStartWro
         <div className="flex items-center gap-3 mb-3">
           <button onClick={onBack} className="text-gray-400 text-xl p-1">✕</button>
           <div className="flex-1">
-            <h1 className="text-xl font-bold text-gray-800">💥 错题本{subject === 'english' ? '（英语）' : '（语文）'}</h1>
+            <h1 className="text-xl font-bold text-gray-800">💥 错题本{subject === 'english' ? '（英语）' : subject === 'politics' || subject === '道法' ? '（道法）' : '（语文）'}</h1>
             <p className="text-xs text-gray-400">错误 → 复盘 → 攻克，共 {wrongCards.length} 道错题</p>
           </div>
           <button

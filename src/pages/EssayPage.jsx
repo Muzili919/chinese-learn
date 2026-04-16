@@ -46,6 +46,13 @@ export default function EssayPage({ user, onBack, onFinish }) {
   const [isEvaluating, setIsEvaluating] = useState(false)
   const [evaluation, setEvaluation] = useState(null)
 
+  // 每日限制：检查今天是否已练过作文
+  const practicedToday = useMemo(() => {
+    if (!user?.id) return false
+    const completed = storage.getCompletedPlanetsToday(user.id)
+    return completed.includes('essay') || completed.includes('作文星球')
+  }, [user?.id])
+
   const filteredPrompts = activeCategory === '全部' 
     ? prompts 
     : prompts.filter(p => p.category === activeCategory)
@@ -96,7 +103,27 @@ export default function EssayPage({ user, onBack, onFinish }) {
         // Sync to cloud - pass userId, not 'essay'
         if (userData.id) {
           syncAfterSession(userData.id)
+
+          // < 80分 → 判错，写入records进入错题集
+          if (result.overall < 80) {
+            storage.addRecord(userData.id, {
+              card_id: `essay_${Date.now()}`,
+              correct: false,
+              time_spent: 0,
+              selected_answer: userEssay.slice(0, 100),
+              ability_tag: '写作表达',
+              knowledge_tag: currentPrompt?.category || '作文',
+              subject: 'chinese',
+              timestamp: new Date().toISOString(),
+              source: 'essay',
+              question_data: { title: currentPrompt?.title, score: result.overall },
+            })
+          }
         }
+
+        // 标记今日已完成（每日1次限制）
+        storage.markPlanetComplete(user.id, 'essay')
+        storage.markPlanetComplete(user.id, '作文星球')
       }
     } catch (error) {
       console.error('评分失败:', error)
@@ -132,10 +159,18 @@ export default function EssayPage({ user, onBack, onFinish }) {
         {!currentPrompt ? (
           /* Topic Selection */
           <div className="bg-white rounded-2xl shadow-lg p-6">
+            {practicedToday ? (
+              <div className="text-center py-8">
+                <div className="text-5xl mb-3">✅</div>
+                <h2 className="text-xl font-bold text-gray-800 mb-2">今日作文练习已完成</h2>
+                <p className="text-sm text-gray-500 mb-4">每天限写1篇，明天再来吧！</p>
+              </div>
+            ) : (
+            <>
             <h2 className="text-lg font-bold text-gray-800 mb-4">选择作文类型</h2>
-            
+
             {/* Category Tabs */}
-            <div className="flex flex-wrap gap-2 mb-6">
+            <div className="flex-wrap gap-2 mb-6">
               {CATEGORIES.map(category => (
                 <button
                   key={category}
@@ -154,7 +189,7 @@ export default function EssayPage({ user, onBack, onFinish }) {
             {/* Prompt List */}
             <div className="space-y-3 max-h-96 overflow-y-auto">
               {filteredPrompts.map(prompt => (
-                <div 
+                <div
                   key={prompt.id}
                   className="p-4 bg-gray-50 rounded-xl border border-gray-200 hover:border-indigo-300 hover:bg-indigo-50 transition-colors cursor-pointer"
                   onClick={() => setCurrentPrompt(prompt)}
@@ -182,8 +217,10 @@ export default function EssayPage({ user, onBack, onFinish }) {
             >
               随机选题
             </button>
+            </>
+            )}
           </div>
-        ) : evaluation ? (
+        ): evaluation ? (
           /* Evaluation Result */
           <div className="bg-white rounded-2xl shadow-lg p-6">
             {evaluation.isError ? (

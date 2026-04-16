@@ -553,6 +553,25 @@ function ResultMode({ results, subject, onDone }) {
   function handleDone() {
     // 加 XP
     storage.addXP(null, XP_DICTATION)
+    // 错题写入records（让听写错误也能进入错题集）
+    if (user?.id) {
+      results.forEach(r => {
+        if (!r.correct) {
+          storage.addRecord(user.id, {
+            card_id: r.id,
+            correct: false,
+            time_spent: 0,
+            selected_answer: '',
+            ability_tag: '听写',
+            knowledge_tag: `dictation_${subject}`,
+            subject: subject,
+            timestamp: new Date().toISOString(),
+            source: 'dictation',
+            question_data: { word: r.word, meaning: r.meaning },
+          })
+        }
+      })
+    }
     // 云端同步（跨设备学习数据同步）
     if (user?.id) syncAfterSession(user.id)
     onDone()
@@ -615,7 +634,8 @@ function ResultMode({ results, subject, onDone }) {
 // 词库浏览模式
 // ═══════════════════════════════════════════════════════════════
 function WordBankMode({ subject, setSubject }) {
-  const [grade, setGrade] = useState(4)
+  const grades = GRADE_OPTIONS[subject] || [4, 5, 6]
+  const [grade, setGrade] = useState(grades[0])
   const [filter, setFilter] = useState('all') // all / new / learning / mastered
 
   const pool = subject === 'english' ? enWords : cnWords
@@ -665,10 +685,10 @@ function WordBankMode({ subject, setSubject }) {
 
       {/* 年级 */}
       <div className="flex gap-2">
-        {[4, 5, 6].map(g => (
+        {grades.map(g => (
           <button key={g} onClick={() => setGrade(g)}
             className={`flex-1 py-2.5 rounded-xl font-bold text-sm transition-all active:scale-95 ${grade === g ? 'bg-indigo-500 text-white' : 'bg-gray-100 text-gray-600'}`}>
-            {g}年级
+            {g >= 7 ? { 7: '初一', 8: '初二', 9: '初三' }[g] || `${g}年级` : `${g}年级`}
           </button>
         ))}
       </div>
