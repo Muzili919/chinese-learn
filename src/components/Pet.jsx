@@ -348,17 +348,23 @@ function renderSpriteCell(type, level, emotionKey, size, style) {
 // 用户可点击切换的动作集合（这些pose应该直接透传，不走状态判断）
 const USER_CYCLING_POSES = ['happy', 'excited', 'wave', 'eating', 'normal', 'sleeping']
 
+// 系统强制动作（由父组件明确指定的状态动作，必须透传，不被四维属性覆盖）
+const SYSTEM_FORCED_POSES = ['sad_cry', 'angry', 'reading']
+
 function resolveEmotion(pose, stats) {
-  // === P0: 用户点击切换的显式动作 → 直接透传，不被四维属性覆盖 ===
+  // === P0: 系统强制动作 → 直接透传（不受属性影响） ===
+  if (SYSTEM_FORCED_POSES.includes(pose)) return pose
+
+  // === P1: 用户点击切换的显式动作 → 直接透传，不被四维属性覆盖 ===
   if (USER_CYCLING_POSES.includes(pose)) return pose
 
-  // === P1: 系统特殊动作直接映射 ===
-  if (pose === 'reading' || pose === 'quiz') return 'reading'     // 📖 读书 = 答题默认
+  // === P2: 其他特殊动作映射 ===
+  if (pose === 'quiz') return 'reading'     // 📖 答题默认
   if (pose === 'upgrade' || pose === 'petting') return 'excited'   // 升级/抚摸
   if (pose === 'laugh') return 'happy'
   if (pose === 'bathing') return 'wave'
 
-  // === P2: 仅在 pose 未明确指定时（normal/null），根据四维状态自动判断 ===
+  // === P3: 仅在 pose 未明确指定时（null/undefined），根据四维状态自动判断 ===
   const intimacy = stats?.intimacy ?? 50
   const energy = stats?.energy ?? 80
   const hunger = stats?.hunger ?? 70
