@@ -237,6 +237,7 @@ reading(答题默认) / sleeping(Dock默认) / happy / wave / excited / angry / 
 15. **星球打卡刷新后消失（2026-04-17）** → sync.js的pullFromCloud和syncAfterSession完全缺失completedPlanets同步！只加markPlanetComplete不修云同步=治标不治本。必须追踪写入→存储→读取→云同步完整链路
 16. **SelfTestPage无打卡** → 评分完成后只有syncAfterSession没有markPlanetComplete，自测星球永远无法打勾
 17. **Tag映射缺项** → 入口页TAG_TO_PLANET必须覆盖所有答题页写入的tag，否则写了也读不到
+18. **非小橘猫宠物点击切换失败（2026-04-17）** → getEmotionSprite()中stageDir初始值为''，但只有小橘猫stage1图片在根目录，其他14只都在stage1/子目录。路径404→图片加载失败→fallback错误图。修复：默认'stage1'+小橘猫特判为空串
 
 ---
 

@@ -12,14 +12,13 @@ function isGodMode() {
 }
 
 // ★★★ 统一经验获取函数（Bug #7a 彻底修复 + 无敌上帝模式）★★★
-// 上帝模式无用户时 storage.getXP(null) 永远返回 0，会导致：
-//   - 经验显示为0、商店不能买、抽卡不能用、宠物不能升级
+// ⚠️ 分支顺序至关重要：上帝模式必须最先检查！否则已登录用户的storage.getXP()会覆盖上帝模式经验
 // 所有获取经验的地方都必须走这个函数，不再散落调用 storage.getXP()
 function getEffectiveXP(state, user) {
+  // ★ 上帝模式优先！（不管是否登录，上帝模式始终返回无限）
+  if (state?._isGodMode) return Infinity;
   // 有正常登录用户 → 读 storage（真实数据源）
   if (user?.id) return storage.getXP(user.id) || state?.exp || 0;
-  // ★ 上帝模式 → 返回 Infinity（无限金钱！所有价格检查 < Infinity 自动通过）
-  if (state?._isGodMode) return Infinity;
   // 其他情况 fallback
   return state?.exp || 0;
 }
@@ -593,20 +592,33 @@ export default function MV1Demo({ onBack, initialState, onStateChange, grade, cu
       }
 
       // 以 storage XP 为权威（答题时 storage.addXP 已实时更新）
-      const storageXP = uid ? storage.getXP(uid) : (isGodMode() && initialState?.exp ? initialState.exp : 0);
+      // ★ 上帝模式：不管是否登录，经验始终为无限（Infinity）
+      const isGod = isGodMode()
+      const storageXP = isGod ? Infinity : (uid ? storage.getXP(uid) : 0);
 
       // 同步今日答题到任务进度
       const records = storage.getRecords(uid);
       const todayRecords = records.filter(r => r.timestamp?.startsWith(todayStr));
       dailyTasks = syncTasksFromRecords(dailyTasks, todayRecords);
 
-      // 好友列表：优先用云端数据，若云端为空则保留 initialState 中的好友（避免初始化空态覆盖）
-      const friends = cloud?.friends?.length
-        ? cloud.friends
-        : (initialState?.friends || []);
+      // 好友列表：三路合并（优先级从高到低）
+      //   1. localStorage 快照（LeaderboardPage 添加好友后持久化到本地，MV1Demo 可能还不知道）
+      //   2. 云端数据（跨设备同步的权威源）
+      //   3. initialState（App.jsx 传入的最新状态，包含 LeaderboardPage 的更新）
+      // ★ Fix C: 必须取三者中最长的列表！因为 LeaderboardPage 和 FriendsPanel 都能添加好友，
+      //   它们写入的位置不同（Supabase / App.gameState / localStorage），任何一个都可能比其他的新
+      const localFriends = localSnapshot?.friends
+      const cloudFriends = (Array.isArray(cloud?.friends) && cloud.friends.length > 0) ? cloud.friends : null
+      const initFriends = (Array.isArray(initialState?.friends) && initialState.friends.length > 0) ? initialState.friends : null
+      
+      // 取三者中最长的（最新的）
+      let friends = []
+      if (localFriends?.length > friends.length) friends = localFriends
+      if (cloudFriends?.length > friends.length) friends = cloudFriends
+      if (initFriends?.length > friends.length) friends = initFriends
 
       // 宠物数据：优先级 — 上帝模式 > 云端 > initialState > 默认(蛋)
-      const isGod = isGodMode()
+      // （isGod 已在上面 storageXP 处声明）
       const localHasPet = (initialState?.currentPet?.poolId && initialState?.ownedPets?.length > 0)
       const cloudHasPet = cloud?.currentPet?.poolId
       const resolvedCurrentPet = (() => {
@@ -646,6 +658,7 @@ export default function MV1Demo({ onBack, initialState, onStateChange, grade, cu
         ...base,
         ...(cloud || {}),
         exp: storageXP,
+        _isGodMode: isGod,  // ★ 上帝模式标志必须保留到merged state中！否则后续getEffectiveXP无法识别
         petExpConsumed: localSnapshot?.petExpConsumed ?? (cloud?.petExpConsumed || 0),
         currentPet: resolvedCurrentPet,
         ownedPets: resolvedOwnedPets,
@@ -699,6 +712,19 @@ export default function MV1Demo({ onBack, initialState, onStateChange, grade, cu
   }, [state?.pendingEncouragements?.length]);
 
   // 持久化（跳过初始化前的渲染，防止空好友列表覆盖云端数据）
+  // ★ Fix C/D: 防止 MV1Demo 的旧状态覆盖 LeaderboardPage 写入的好友数据
+  //   问题根因：LeaderboardPage 添加好友后通过 onStateChange 更新了 App.gameState，
+  //   但 MV1Demo 有独立内部 state，不知道好友变化。MV1Demo 的 persist effect 定期触发，
+  //   把内部 state（不含新好友）写入 Supabase → 覆盖掉 LeaderboardPage 刚写的好友！
+  //   修复：persist 前从最新的 initialState（App.gameState）合并 friends 字段
+  const latestFriendsRef = React.useRef(initialState?.friends || null)
+  // 跟踪外部传入的 gameState 变化（LeaderboardPage 添加好友时会更新 App.gameState）
+  React.useEffect(() => {
+    if (initialState?.friends && Array.isArray(initialState.friends)) {
+      latestFriendsRef.current = initialState.friends
+    }
+  }, [initialState?.friends])
+
   useEffect(() => {
     if (!initializedRef.current) return;
     const user = storage.getUser();
@@ -706,13 +732,28 @@ export default function MV1Demo({ onBack, initialState, onStateChange, grade, cu
     //   1. state != null：防止 null 写入
     //   2. cloudLoadedRef.current：只有云端数据成功加载后才允许推送 Supabase，
     //      防止网络故障（catch 分支）时用兜底空蛋状态覆盖云端真实数据
-    if (user?.id && state != null && cloudLoadedRef.current) upsertMV1State(user.id, state);
+    
+    // ★ Fix C: 在持久化前，确保使用最新的好友列表
+    //   如果外部(App.gameState)有比当前state更新的好友数据，优先用外部的
+    let stateToPersist = state
+    if (latestFriendsRef.current && Array.isArray(latestFriendsRef.current)) {
+      const externalFriends = latestFriendsRef.current
+      const internalFriends = state?.friends || []
+      // 外部好友数更多 或 内部为空但外部不为空 → 用外部的
+      if (externalFriends.length > internalFriends.length ||
+          (externalFriends.length > 0 && internalFriends.length === 0)) {
+        stateToPersist = { ...state, friends: externalFriends }
+        console.log('[persist] 使用外部好友列表:', externalFriends.length, '个 (内部仅', internalFriends.length, '个)')
+      }
+    }
+
+    if (user?.id && stateToPersist != null && cloudLoadedRef.current) upsertMV1State(user.id, stateToPersist);
     // ★ 关键：同时持久化到localStorage（key 含 userId，防止跨账号污染）
     try {
       const petKey = currentUserId ? `mv1_pet_state_${currentUserId}` : 'mv1_pet_state';
-      if (state != null) localStorage.setItem(petKey, JSON.stringify(state));
+      if (stateToPersist != null) localStorage.setItem(petKey, JSON.stringify(stateToPersist));
     } catch(e) {}
-    if (onStateChange) onStateChange(state);
+    if (onStateChange) onStateChange(stateToPersist);
     // ★ Fix: currentUserId 必须在依赖数组中，否则切换账号后可能写入旧的 localStorage key
   }, [state, onStateChange, currentUserId]);
 
@@ -812,6 +853,9 @@ export default function MV1Demo({ onBack, initialState, onStateChange, grade, cu
       setTimeout(() => setLevelUpAnim(false), 2000);
 
       const newPetLevel = petLevel + 1;
+      // ★ 变量声明移到条件外，避免上帝模式跳过if块后 consumed/totalXP 未定义
+      const totalXP = getEffectiveXP(s, storage.getUser());
+      const consumed = s.petExpConsumed || 0;
       return {
         ...s,
         exp: totalXP,

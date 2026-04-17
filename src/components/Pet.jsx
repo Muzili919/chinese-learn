@@ -274,10 +274,11 @@ function getEmotionSprite(emotionKey, type, level = 1) {
 
   // 通用3阶段PNG宠物（hasPngEmotions + useLevelBasedEmotion）
   if (petCfg?.useLevelBasedEmotion) {
-    let stageDir = ''
+    let stageDir = 'stage1'  // ★ 修复：所有非小橘猫宠物的stage1图片都存放在stage1/子目录中
     if (level >= 20) stageDir = 'stage3'
     else if (level >= 10) stageDir = 'stage2'
-    // stage1: 空字符串（根目录）
+    // 小橘猫特殊处理：stage1图片在根目录（不是stage1/子目录）
+    if (type === 'pet_kitten' && stageDir === 'stage1') stageDir = ''
 
     // 根据prefix生成路径
     const prefixMap = {

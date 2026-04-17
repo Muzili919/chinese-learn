@@ -3,6 +3,7 @@ import Pet from './Pet'
 import PetEgg from './PetEgg'
 import PetSpriteAvatar from './PetSpriteAvatar'
 import { isEggState } from '../utils/gamification'
+import { storage } from '../utils/storage'
 
 /**
  * GlobalPetDock - 全局悬浮宠物窗
@@ -22,13 +23,37 @@ export default function GlobalPetDock({ gameState, isLearning }) {
   const [tapCount, setTapCount] = useState(0)          // 累计点击（用于3次换动作）
   const [consecutiveCount, setConsecutiveCount] = useState(0) // 连续点击（用于20次生气）
   const [isAngry, setIsAngry] = useState(false)
+  // ★ 经验刷新计数器：让组件能感知 storage.getXP() 的变化并重新渲染 exp 值
+  // 没有 gameState 变化时（答题/刷新后），这是唯一能让 GlobalPetDock 重渲染的机制
+  const [, xpTick] = useState(0)
 
   const resetTimerRef = useRef(null)   // 连续点击5秒无操作 → 重置
   const angryTimerRef = useRef(null)   // 生气5秒后恢复
 
+  // ★ 每5秒强制重渲染一次，确保 exp（从storage.getXP()实时读取）保持最新
+  // 这与 MV1Demo 的 L1 定时器（3秒）配合，覆盖用户在任何页面答题后的经验同步
+  useEffect(() => {
+    const iv = setInterval(() => xpTick(t => t + 1), 5000)
+    return () => clearInterval(iv)
+  }, [])
+
+  // ★ 页面可见性变化时立即刷新（用户切回时立刻看到最新经验）
+  useEffect(() => {
+    const onVisible = () => {
+      if (!document.hidden) xpTick(t => t + 1)
+    }
+    document.addEventListener('visibilitychange', onVisible)
+    return () => document.removeEventListener('visibilitychange', onVisible)
+  }, [])
+
   const currentPet = gameState?.currentPet || {}
   const level = currentPet?.level || 1
-  const exp   = currentPet?.exp   || 0
+  // ★ 根治修复：统一使用共享池经验计算（与主面板MV1Demo一致）
+  // 不再使用 currentPet.exp（独立内存字段，答题后永远不增长）
+  // 改用 totalXP - petExpConsumed 的共享池模式（与 storage.addXP 同步）
+  const totalXP = storage.getXP(storage.getUser()?.id || '') || gameState?.exp || 0
+  const petExpConsumed = gameState?.petExpConsumed || 0
+  const exp   = Math.max(0, totalXP - petExpConsumed)
   const stats = currentPet?.stats || {}
 
   const eggMode = isEggState(gameState)
@@ -154,6 +179,7 @@ export default function GlobalPetDock({ gameState, isLearning }) {
             soundEnabled={gameState?.settings?.soundEnabled !== false}
             showStatsCompact={true}
             onTap={handlePetTap}
+            isGodMode={!!gameState?._isGodMode}
           />
         </div>
       )}

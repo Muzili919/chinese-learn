@@ -384,7 +384,10 @@ export default function App() {
             gameInventory:  prev.gameInventory  ?? cloud.gameInventory,
             currentPet:     prev.currentPet,       // 始终保留本地宠物
             ownedPets:      prev.ownedPets?.length > 0 ? prev.ownedPets : cloud.ownedPets,
-            friends:         prev.friends?.length > 0 ? prev.friends : (cloud.friends || []),  // ★ Fix #1: 保留好友列表，防止云端空值覆盖
+            // ★ Fix A: 好友列表以云端为权威源（因为 LeaderbookPage 在 rank tab 写入云端，
+            //    但 MV1Demo 未挂载时不会更新 localStorage。如果优先用本地会丢失新加的好友）
+            //    只有当云端完全没有 friends 字段时才降级到本地
+            friends:         (Array.isArray(cloud?.friends)) ? cloud.friends : (prev.friends || []),
           }
         }
         // 本地没有宠物（新设备/刚登录），完全使用云端数据

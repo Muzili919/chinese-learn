@@ -313,5 +313,14 @@
     "content": "## Bug#3 补充验证：宠物等级→次数映射不受影响\n\n老板追问后做了额外验证：\n\n### 公式未改动（安全）\n```\nmaxDailyAttempts = baseAttempts(Lv<10→3/Lv10-19→5/Lv20+→8) + rarityBonus(SSR+3/SR+2/R+1/N+0)\n```\n所有4处改动都不触碰这个公式。跨天重置时用的是 `maxDailyAttempts` 动态变量值。\n\n### 额外发现并修复\n初始化 useEffect 的依赖数组缺少 `state?.currentPet` 监听，已补充。\n确保切换宠物后组件能正确响应（虽然同一天内走保存值不变，但防御性编程）。\n\n### 最终状态\n- 修改文件：MV1Demo.jsx(1处) + WordCannonGame.jsx(3处)\n- ESLint: 0错误\n- vite build: 通过",
     "timestamp": "2026-04-17T00:40:28.646Z",
     "read": true
+  },
+  {
+    "id": "msg-1776386602645-vi1vnt",
+    "from": "team-lead",
+    "to": "team-lead",
+    "type": "message",
+    "content": "## Bug #2 根治修复完成（第二次迭代 — 彻底重做）\n\n### 之前的问题\n\n第一轮修复是**错误的补丁式修改**，只改了局部表面现象（给 `currentPet.exp` 加值），引入了3个新问题：\n1. 初始化回填被云端旧数据覆盖 + 防重复key阻止重算 → 刷新后经验丢失\n2. L1/L2/L3定时器可能对同一笔XP重复计算\n3. `gainExpForLearning` 仍然是死代码但变得更复杂\n\n### 真正的根因（架构级双轨制混乱）\n\n系统中存在**两个完全独立的\"宠物经验\"数据源**：\n\n| 显示位置 | 使用的值 | 数据来源 | 是否正常 |\n|---------|---------|---------|--------|\n| **主面板(Pet组件)** | `petExp = totalXP - petExpConsumed` | storage.getXP() 实时读 | ✅ 能工作 |\n| **悬浮窗(GlobalPetDock)** | `currentPet.exp` | state内存字段 | ❌ **永远不增长！** |\n\n**唯一断裂点在 GlobalPetDock.jsx 第31行**：它读的是 `currentPet?.exp || 0`（一个只在内存中存在、答题后从不更新的字段）。而主面板用的是共享池派生值 `totalXP - petExpConsumed`（从 storage.getXP() 实时计算）。\n\n### 根治方案（3个文件）\n\n#### 1. `src/components/GlobalPetDock.jsx` — ★ 唯一真正需要的改动\n\n```diff\n+ import { storage } from '../utils/storage'\n  \n- const exp = currentPet?.exp || 0\n+ const totalXP = storage.getXP(storage.getUser()?.id || '') || gameState?.exp || 0\n+ const petExpConsumed = gameState?.petExpConsumed || 0\n+ const exp = Math.max(0, totalXP - petExpConsumed)\n```\n\n让悬浮窗使用与主面板**完全相同**的共享池计算方式。这是唯一的断裂点，修这里就够了。\n\n#### 2. `src/utils/gamification.js` — 撤回补丁，恢复原始逻辑\n\n`gainExpForLearning` 恢复为原始版本（不操作 `currentPet.exp`），只保留宠物属性更新（energy/intimacy），并添加注释说明经验通过共享池统一管理。\n\n#### 3. `src/pages/MV1Demo.jsx` — 撤回所有有问题的补丁\n\n- 删除初始化 useEffect 中的答题记录→currentPet.exp 回填逻辑（34行）\n- 删除 L1/L2/L3 同步定时器中的 currentPet.exp 更新代码（~25行）\n- `resolvedCurrentPet` 从 `let` 改回 `const`\n\n### 为什么这次是根治\n\n| 场景 | 第一轮补丁 | 本次根治 |\n|------|----------|---------|\n| 答题后切回宠物页看主面板 | ⚠️ 靠L2同步可能延迟 | ✅ 共享池直接反映storage |\n| 答题后看悬浮窗(GlobalPetDock) | ❌ currentPet.exp永远不变 | ✅ 与主面板同源 |\n| 刷新浏览器页面 | ❌ 回填逻辑被云端覆盖+防重复key阻止 | ✅ 无需回填，直接读storage |\n| 切换账号 | ❌ 新账号没有currentPet.exp | ✅ 共享池自动跟随新用户storage |\n| 长时间使用不重复/不丢失 | ❌ 定时器可能重复计算 | ✅ 纯派生值，无状态可污染 |\n\n### 构建验证\n✅ `vite build` 通过，0错误 0警告",
+    "timestamp": "2026-04-17T00:43:22.645Z",
+    "read": true
   }
 ]
