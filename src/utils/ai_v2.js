@@ -10,20 +10,21 @@
 // 通过 Vercel Serverless Function 代理调用 DeepSeek API（保护 Key 安全）
 const API_URL = '/api/ai'
 
+// ★ 客户端超时要比服务端（8.5s）稍长，让服务端先返回可读错误而不是网络中断
+const CLIENT_TIMEOUT_MS = 12000
+
 async function callDeepSeek(systemPrompt, userPrompt, options = {}) {
   const controller = new AbortController()
-  const timeout = setTimeout(() => {
-    console.warn('⏰ AI请求超时(25s), 自动中止')
+  const timeoutMs = options.timeout || CLIENT_TIMEOUT_MS
+  const timer = setTimeout(() => {
+    console.warn(`⏰ AI请求客户端超时(${timeoutMs}ms)`)
     controller.abort()
-  }, options.timeout || 25000)
+  }, timeoutMs)
 
   try {
     const res = await fetch(API_URL, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        ...(controller.signal ? { 'X-Abort': 'true' } : {}),
-      },
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         model: options.model || 'deepseek-chat',
         messages: [
@@ -32,20 +33,49 @@ async function callDeepSeek(systemPrompt, userPrompt, options = {}) {
         ],
         response_format: { type: 'json_object' },
         temperature: options.temperature ?? 0.7,
-        max_tokens: options.max_tokens || 1024,  // 默认限制token数
+        // ★ 默认 400 token（评分够用），复杂任务调用方自行传 max_tokens
+        max_tokens: options.max_tokens || 400,
       }),
       signal: controller.signal,
     })
-    clearTimeout(timeout)
+    clearTimeout(timer)
+
     if (!res.ok) {
       const errData = await res.json().catch(() => ({}))
-      throw new Error(errData.error || `AI request failed (${res.status})`)
+      // 超时错误给用户友好提示
+      if (res.status === 504 || errData.error === 'AI_TIMEOUT') {
+        throw new Error('AI响应超时，请稍后重试（建议减少题目数量）')
+      }
+      if (res.status === 429) {
+        throw new Error('AI服务繁忙，请等待几秒后重试')
+      }
+      throw new Error(errData.error || errData.message || `AI请求失败 (${res.status})`)
     }
+
     const data = await res.json()
-    return JSON.parse(data.choices[0].message.content)
+    const content = data.choices?.[0]?.message?.content
+    if (!content) throw new Error('AI返回了空内容，请重试')
+    return JSON.parse(content)
   } catch (e) {
-    clearTimeout(timeout)
-    if (e.name === 'AbortError') throw new Error('AI评分超时（25秒），请检查网络后重试')
+    clearTimeout(timer)
+    if (e.name === 'AbortError') {
+      throw new Error('AI响应超时，请检查网络后重试')
+    }
+    throw e
+  }
+}
+
+// ★ 带一次自动重试的包装（网络抖动时自动恢复）
+async function callDeepSeekWithRetry(systemPrompt, userPrompt, options = {}) {
+  try {
+    return await callDeepSeek(systemPrompt, userPrompt, options)
+  } catch (e) {
+    // 超时或服务繁忙时等 2s 重试一次
+    if (e.message.includes('超时') || e.message.includes('繁忙')) {
+      console.warn('[AI] 第一次请求失败，2s 后自动重试...', e.message)
+      await new Promise(r => setTimeout(r, 2000))
+      return await callDeepSeek(systemPrompt, userPrompt, options)
+    }
     throw e
   }
 }
@@ -93,47 +123,19 @@ export async function evaluateQuestion(question, studentAnswer, subject = 'chine
 
   const subjectName = { chinese: '语文', english: '英语', politics: '道德与法治' }[subject] || '语文'
 
-  const system = `你是一位严格的${subjectName}老师，正在批改学生的答题。
+  // ★ 精简 schema：从 9 个字段减到 6 个核心字段，减少约 40% 输出 token
+  const system = `你是一位${subjectName}老师，批改学生答题。严格评分，不放水。
 ${subjectInstruction}
 
-## 评分纪律
-1. 对就是对，错就是错，不要放水
-2. "差不多"不等于"对了"，关键信息遗漏必须扣分
-3. 不做"鼓励式批改"，不好就是不好
-4. 评分要具体、可操作，不说空话
-
-## 返回 JSON Schema
-{
-  "score": number,              // 0-100
-  "correct": boolean,           // score >= 60
-  "errorType": string,          // 错误归因："审题错误"|"知识缺失"|"理解偏差"|"表达不当"|"完全正确"
-  "scoringPoints": [            // 得分点拆解
-    {
-      "point": string,          // 得分点名称
-      "earned": number,         // 学生在此点得分(0-满分)
-      "total": number,          // 此点满分
-      "matched": boolean        // 学生是否答到此点
-    }
-  ],
-  "studentAnalysis": string,    // 学生作答分析（50字内）
-  "errorCause": string,         // 错误归因详解（30字内，答对时为空）
-  "teachingTip": string,        // 教学讲解（60字内，告诉学生为什么这么答）
-  "keyTechnique": string,       // 关键技巧/口诀（30字内）
-  "commonMistake": string,      // 易错点提醒（20字内）
-  "fullAnswer": string,         // 满分答案示范
-  "reinforceSuggestion": string // 强化训练建议（30字内）
-}`
+只返回JSON，字段：
+{"score":0-100,"correct":bool,"errorType":"审题错误|知识缺失|理解偏差|表达不当|完全正确","teachingTip":"为什么这么答(40字内)","keyTechnique":"技巧口诀(20字内)","fullAnswer":"满分示范答案"}`
 
   const user = `题目：${question.question || question.question_text || ''}
-正确答案：${question.answer || ''}
-知识点：${question.knowledge_tag || ''} / ${question.ability_tag || ''}
-${question.analysis ? '解析：' + question.analysis : ''}
+答案：${question.answer || ''}
+知识点：${question.knowledge_tag || ''}${question.ability_tag ? ' / ' + question.ability_tag : ''}
+学生答：${studentAnswer}`
 
-学生答案：${studentAnswer}
-
-请严格按 v2.0 Schema 评分。`
-
-  return callDeepSeek(system, user)
+  return callDeepSeekWithRetry(system, user, { max_tokens: 350 })
 }
 
 // ───────────────────────────────────────────────────────────────
@@ -147,57 +149,28 @@ ${question.analysis ? '解析：' + question.analysis : ''}
  * @param {'chinese'|'english'} subject - 学科
  * @returns {{ variants: Array<object> }}
  */
-export async function generateVariants(question, count = 3, subject = 'chinese') {
+// ★ 优化策略：一次只生成 1 道题（原来最多3道），大幅降低 token 数量和响应时间
+// 调用方如果需要多道，请循环调用本函数（逐道生成，每道单独显示，体验更好）
+export async function generateVariants(question, count = 1, subject = 'chinese') {
   const subjectInstruction = SUBJECT_INSTRUCTIONS[subject] || ''
+  // 安全上限：单次最多生成 1 道（避免超时）
+  const safeCount = 1
 
-  const system = `你是一位经验丰富的${subject === 'english' ? '英语' : '语文'}出题老师。
-学生刚做错了一道题，请生成 ${count} 道变式练习题，帮助学生真正掌握该知识点。
+  const system = `你是${subject === 'english' ? '英语' : '语文'}出题老师。针对学生做错的题生成1道变式练习题。
 ${subjectInstruction}
+规则：考查相同知识点、换语境、选择题4个选项ABCD、answer必须与options某项完全一致。
+只返回JSON：{"variants":[{"id":"v1","type":"single_choice","question":"题干","options":["A.","B.","C.","D."],"answer":"完整正确选项","analysis":"解析30字内","teachingTip":"提示20字内"}]}`
 
-## 出题规则
-1. 每道题必须考查与原题完全相同的知识点
-2. 必须更换语境/句子/选项，不能让学生靠记忆作答
-3. 难度与原题相当，不偏不怪
-4. 选择题必须有4个选项ABCD
-5. 填空题答案要简短明确
-6. ⚠️ answer 字段必须与 options 数组中的某一项完全一致（一字不差），请先确定正确答案再编写选项
+  const user = `原题：${question.question || question.question_text || ''}
+答案：${question.answer || ''}  知识点：${question.knowledge_tag || ''}${question.ability_tag ? '/' + question.ability_tag : ''}${question.options ? '\n选项：' + JSON.stringify(question.options) : ''}
+生成1道变式题。`
 
-## 返回 JSON Schema
-{
-  "variants": [
-    {
-      "id": "variant_1",
-      "type": "single_choice",          // 或 "fill_blank"
-      "question": "题目文本",
-      "options": ["A. 选项1", "B. 选项2", "C. 选项3", "D. 选项4"],  // 填空题不需要
-      "answer": "正确答案",
-      "analysis": "50字内解析",
-      "scoringPoints": [                // 简化版得分点
-        { "point": "得分点", "total": 50 }
-      ],
-      "commonMistake": "易错点提醒（20字内）",
-      "teachingTip": "教学提示（30字内）"
-    }
-  ]
-}`
+  const result = await callDeepSeekWithRetry(system, user, { max_tokens: 500 })
 
-  const user = `原题信息：
-题目：${question.question || question.question_text || ''}
-正确答案：${question.answer || ''}
-知识点：${question.knowledge_tag || ''} / ${question.ability_tag || ''}
-${question.analysis ? '解析：' + question.analysis : ''}
-${question.options ? '选项：' + JSON.stringify(question.options) : ''}
-
-请生成 ${count} 道变式题，让学生举一反三。`
-
-  const result = await callDeepSeek(system, user)
-
-  // 确保返回结构正确
   if (!result.variants || !Array.isArray(result.variants)) {
     throw new Error('AI 返回格式错误：缺少 variants 数组')
   }
 
-  // 补充 id 和知识点信息
   return {
     variants: result.variants.map((v, i) => ({
       ...v,

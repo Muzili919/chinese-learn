@@ -1,29 +1,45 @@
 // 通过 Vercel Serverless Function 代理调用 DeepSeek API（保护 Key 安全）
 const API_URL = '/api/ai'
+const CLIENT_TIMEOUT_MS = 12000
 
 async function callDeepSeek(systemPrompt, userPrompt, options = {}) {
-  const res = await fetch(API_URL, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-      model: options.model || 'deepseek-chat',
-      messages: [
-        { role: 'system', content: systemPrompt },
-        { role: 'user', content: userPrompt },
-      ],
-      response_format: { type: 'json_object' },
-      temperature: options.temperature ?? 0.7,
-      max_tokens: options.max_tokens,
-    }),
-  })
-  if (!res.ok) {
-    const errData = await res.json().catch(() => ({}))
-    throw new Error(errData.error || `AI request failed (${res.status})`)
+  const controller = new AbortController()
+  const timer = setTimeout(() => controller.abort(), options.timeout || CLIENT_TIMEOUT_MS)
+
+  try {
+    const res = await fetch(API_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: options.model || 'deepseek-chat',
+        messages: [
+          { role: 'system', content: systemPrompt },
+          { role: 'user', content: userPrompt },
+        ],
+        response_format: { type: 'json_object' },
+        temperature: options.temperature ?? 0.7,
+        max_tokens: options.max_tokens || 400,
+      }),
+      signal: controller.signal,
+    })
+    clearTimeout(timer)
+    if (!res.ok) {
+      const errData = await res.json().catch(() => ({}))
+      if (res.status === 504 || errData.error === 'AI_TIMEOUT') {
+        throw new Error('AI响应超时，请稍后重试')
+      }
+      if (res.status === 429) throw new Error('AI服务繁忙，请等待几秒后重试')
+      throw new Error(errData.error || errData.message || `AI请求失败 (${res.status})`)
+    }
+    const data = await res.json()
+    const content = data.choices?.[0]?.message?.content
+    if (!content) throw new Error('AI返回了空内容，请重试')
+    return JSON.parse(content)
+  } catch (e) {
+    clearTimeout(timer)
+    if (e.name === 'AbortError') throw new Error('AI响应超时，请检查网络后重试')
+    throw e
   }
-  const data = await res.json()
-  return JSON.parse(data.choices[0].message.content)
 }
 
 /**
