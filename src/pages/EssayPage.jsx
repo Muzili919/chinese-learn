@@ -89,12 +89,13 @@ export default function EssayPage({ user, onBack, onFinish }) {
       // evaluateEssay returns { total, structure, content, language, summary, suggestion, ... }
       // Normalize to component's expected format, clamp scores to 0-10
       const result = {
-        overall: Math.max(0, Math.min(10, Math.round((raw.total || 0) / 10))), // convert 0-100 to 0-10 scale
-        content: Math.max(0, Math.min(10, Math.round((raw.content || 0) / 4))), // 0-40 -> 0-10
-        language: Math.max(0, Math.min(10, Math.round((raw.language || 0) / 3))), // 0-30 -> 0-10
-        structure: Math.max(0, Math.min(10, Math.round((raw.structure || 0) / 3))), // 0-30 -> 0-10
-        feedback: raw.summary || raw.suggestion || '作文已评分，继续加油！',
         ...raw,
+        // ★ 换算后的值放在 ...raw 之后，防止被原始字段覆盖
+        overall: Math.max(0, Math.min(10, Math.round((raw.total || 0) / 10))), // 0-100 → 0-10
+        content: Math.max(0, Math.min(10, Math.round((raw.content || 0) / 4))), // 0-40 → 0-10
+        language: Math.max(0, Math.min(10, Math.round((raw.language || 0) / 3))), // 0-30 → 0-10
+        structure: Math.max(0, Math.min(10, Math.round((raw.structure || 0) / 3))), // 0-30 → 0-10
+        feedback: raw.summary || raw.suggestion || '作文已评分，继续加油！',
       }
       setEvaluation(result)
       

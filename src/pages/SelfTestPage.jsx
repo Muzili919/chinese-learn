@@ -62,38 +62,60 @@ const JUNIOR_EXAM_TYPE_MAP = {
 }
 
 // ─── 小升初语文 System Prompt ──────────────────────────
+// JSON schema 说明（所有学科共用）
+const EXAM_JSON_SCHEMA = `
+## 必须返回的JSON格式（sections数组）
+{"sections":[{"title":"一、基础知识（40分）","questions":[
+  {"id":"q1","type":"choice","stem":"题干","options":["A.选项","B.选项","C.选项","D.选项"],"answer":0,"score":2,"analysis":"解析"},
+  {"id":"q2","type":"truefalse","stem":"判断：...","answer":true,"score":2,"analysis":"解析"},
+  {"id":"q3","type":"fill","stem":"填空：___","answer":"答案","acceptableAnswers":["答案","别名"],"score":2,"analysis":"解析"},
+  {"id":"q4","type":"reorder","stem":"连词成句：...","answer":"正确句子","score":3,"analysis":"解析"},
+  {"id":"q5","type":"shortanswer","stem":"简答：...","answer":"参考答案要点","score":5,"analysis":"解析"},
+  {"type":"passage","text":"阅读文章内容（不含id和score）"},
+  {"id":"q6","type":"writing","stem":"写作要求","score":20,"rubric":"评分标准","prompts":[{"title":"题目A"},{"title":"题目B"}]}
+]}]}
+规则：choice的answer=选项下标(0-3)；truefalse的answer=布尔值；passage紧接其相关题目前放置，不含id/score；所有题必须有analysis。`
+
 function getChineseExamPrompt(grade, examType) {
-  const _p = ['\u4F60\u662F\u5C0F\u5B66\u8BED\u6587\u6559\u7814\u5458',
-    '\uFF0C\u4E3A' + GRADE_MAP[grade] + '\u5B66\u751F\u51FA' + EXAM_TYPE_MAP[examType],
-    '\u8BED\u6587\u8BD5\u5377\u3002\u6EE1\u5206100\u5206\uFF0C\u4E25\u683CJSON\u3002',
-    '',
-    '## \u9898\u578B \u89C4\u5219',
-    '\u4E00/\u57FA\u784040 \u4E8C/\u79EF\u7D2F15 \u4E09/\u960E\u8BFB25 \u56DB/\u4E60\u4F5C20',
-    'choice=0-3; TF=bool; analysis\u5FC5\u987B'].join(' ')
-  return _p
+  return `你是小学语文教研员，为${GRADE_MAP[grade]}学生出${EXAM_TYPE_MAP[examType]}语文试卷。满分100分。
+题型结构：一/基础知识40分(选择+判断+填空) 二/积累运用15分(古诗填空+判断) 三/阅读理解25分(passage+题目) 四/习作20分(writing二选一)
+难度：基础70%提升20%拓展10%。古诗文一字不差。
+${EXAM_JSON_SCHEMA}`
 }
 
 // ─── 英语出题 System Prompt ────────────────────────────
 function getEnglishExamPrompt(grade, examType) {
-  return 'You are an elementary English teacher. Generate ' + GRADE_MAP[grade] + ' (PEP) ' + EXAM_TYPE_MAP[examType] + ' English test. Strict JSON. 100pts.\n\n## Structure\n1. Vocabulary & Phonics(30pts) 2. Grammar & Sentences(25pts) 3. Communication(15pts) 4. Reading Comprehension(15pts) 5. Writing(15pts)\n\n## Rules\n- choice=index(0-3); reorder/writing=text; truefalse=boolean; passage=60-100w; Grade ' + grade + ' level'
+  return `You are an elementary English teacher. Generate Grade ${grade} (PEP) ${EXAM_TYPE_MAP[examType]} English test. 100pts total.
+Structure: 1.Vocabulary&Phonics(30pts) 2.Grammar&Sentences(25pts) 3.Communication(15pts) 4.Reading(15pts) 5.Writing(15pts)
+Level: Grade ${grade} elementary. Reading passage 60-100 words.
+${EXAM_JSON_SCHEMA}`
 }
 
 // ─── 初中语文 System Prompt ────────────────────────────
 function getJuniorChineseExamPrompt(examType) {
   const examLabel = JUNIOR_EXAM_TYPE_MAP[examType] || '期末综合'
-  return '\u4F60\u662F\u521D\u4E2D\u8BED\u6587\u6559\u7814\u5458\uFF0C\u4E13\u653B\u4E2D\u8003\u3002\u51FA\u521D\u4E8C' + '(\u516B\u5E74\u7EA7)' + '\u4EBA\u6559\u7248' + examLabel + '\u8BED\u6587\u8BD5\u5377\u3002\u6EE1\u5206100\u5206\uFF0C\u4E25\u683CJSON\u3002\n\n## \u9898\u578B\n\u4E00\u3001\u79EF\u7D2F(30) \u4E8C\u3001\u6587\u8A00\u6587(20) \u4E09\u3001\u73B0\u4EE3\u6587(25) \u56DB\u3001\u5199\u4F5C(25)\n\n## \u89C4\u5219\n- choice=0-3; TF=true/false; fill\u9700acceptableAnswers; shortanswer<=50; writing\u970Brubric; \u6587\u8A00\u6587\u5FC5\u987B\u771F\u5B9E\u8BFE\u6587; \u6240\u6709\u9898\u8981analysis'
+  return `你是初中语文教研员，专攻中考。出初二(八年级)人教版${examLabel}语文试卷。满分100分。
+题型：一/积累与运用30分(字词+古诗默写+名著) 二/文言文阅读20分(passage+翻译+简答) 三/现代文阅读25分(passage+题目) 四/写作25分(命题或材料作文)
+文言文必须选真实课文原文。所有题目需有analysis。
+${EXAM_JSON_SCHEMA}`
 }
 
 // ─── 初中英语 System Prompt ────────────────────────────
 function getJuniorEnglishExamPrompt(examType) {
   const examLabel = JUNIOR_EXAM_TYPE_MAP[examType] || '期末综合'
-  return 'You are a senior junior high English teacher. Generate Grade 8 PEP ' + examLabel + ' test. Strict JSON. 100pts.\n\n## Structure\n1. Language Knowledge(30pts): vocab+grammar+cloze \n2. Reading(30pts): 2 passages \n3. Language Use(25pts): dialogue+reorder+translation \n4. Writing(15pts)\n\n## Rules\n- choice=0-3; reorder/text=answer; TF=bool; writing=rubric; shortanswer<=40w'
+  return `You are a junior high English teacher. Generate Grade 8 PEP ${examLabel} English test. 100pts total.
+Structure: 1.Language Knowledge(30pts):vocab+grammar+cloze 2.Reading(30pts):2 passages 3.Language Use(25pts):dialogue+reorder+translation 4.Writing(15pts)
+Grade 8 level. Reading passages 80-120 words each.
+${EXAM_JSON_SCHEMA}`
 }
 
 // ─── 初中政治 System Prompt ────────────────────────────
 function getPoliticsExamPrompt(examType) {
   const examLabel = JUNIOR_EXAM_TYPE_MAP[examType] || '期末综合'
-  return '\u4F60\u662F\u521D\u4E2D\u9053\u5FB7\u4E0E\u6CD5\u6CBB\u6559\u7814\u5458\uFF0C\u4E13\u653B\u4E2D\u8003\u3002\u51FA\u521D\u4E8C\u9053\u5FB7\u4E0E\u6CD5\u6CBB' + examLabel + '\u8BD5\u5377\u3002\u6EE1\u5206100\u5206\uFF0C\u4E25\u683CJSON\u3002\n\n## \u9898\u578B\n\u4E00\u3001\u9009\u62E9\u989840\u5206(10x4) \n\u4E8C\u3001\u975E\u9009\u62E9\u989860\u5206(\u7B80\u7B54+\u6750\u6599\u5206\u6790+\u63A2\u7A76)\n\n## \u89C4\u5219\n- choice=0-3; shortanswer=\u8981\u70B9; writing=rubric; \u6240\u6709\u9898\u8981analysis; \u96BE\u5EA6=\u4E2D\u8003'
+  return `你是初中道德与法治教研员，专攻中考。出初二道德与法治${examLabel}试卷。满分100分。
+题型：一/选择题40分(10题×4分,单选) 二/非选择题60分(简答+材料分析+探究各20分)
+难度=中考水平。材料分析题需提供真实材料。所有题目必须有analysis。
+${EXAM_JSON_SCHEMA}`
 }
 
 // ─── AI 评分 Prompt（主观题批量评分）───────────────────
