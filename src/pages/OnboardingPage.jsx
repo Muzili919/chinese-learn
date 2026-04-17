@@ -153,7 +153,7 @@ export default function OnboardingPage({ onDone }) {
               type="text"
               value={inviteCode}
               onChange={(e) => { setInviteCode(e.target.value); setError('') }}
-              placeholder="例如：LOVE1234"
+              placeholder="请输入邀请码"
               maxLength={16}
               autoComplete="off"
               autoCapitalize="characters"
