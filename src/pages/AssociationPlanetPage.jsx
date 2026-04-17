@@ -541,9 +541,10 @@ function WordTree({ wordObj, visible, onNodeClick, onConfusableClick, masterySta
               const obj = allWordsMap[w] || allWordsMap[w.toLowerCase()]
               const extMeaning = (!obj) ? (EXTERNAL_WORD_MEANINGS[w] || EXTERNAL_WORD_MEANINGS[w.toLowerCase()] || null) : null
               return (
-                <span
+                <button
                   key={w}
-                  className="inline-flex items-center px-3 py-1.5 rounded-xl text-sm font-medium"
+                  onClick={() => onNodeClick(w)}
+                  className="inline-flex items-center px-3 py-1.5 rounded-xl text-sm font-medium active:scale-95 transition-transform"
                   style={{
                     background: 'linear-gradient(135deg, #dbeafe, #bfdbfe)',
                     color: '#1e40af',
@@ -561,7 +562,7 @@ function WordTree({ wordObj, visible, onNodeClick, onConfusableClick, masterySta
                       : null}
                   <span className="text-blue-600 mx-0.5">→</span>
                   <span className="text-xs font-bold text-blue-700">{wordObj.meaning}</span>
-                </span>
+                </button>
               )
             })}
           </div>

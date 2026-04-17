@@ -45,12 +45,12 @@ const TAG_COLORS = {
   文学常识: 'bg-rose-100 text-rose-700',
 }
 
-// 学科配置（错题页内部切换用）
-const SUBJECT_TABS = [
-  { id: 'chinese', label: '语文', emoji: '📖' },
-  { id: 'english', label: '英语', emoji: '🌎' },
-  { id: 'politics', label: '道法', emoji: '⚖️' },
-]
+// 学科配置（用于显示当前学科标签）
+const SUBJECT_LABELS = {
+  chinese: { label: '语文', emoji: '📖' },
+  english: { label: '英语', emoji: '🌎' },
+  politics: { label: '道法', emoji: '⚖️' },
+}
 
 function daysDiff(dateStr) {
   if (!dateStr) return 999
@@ -129,8 +129,8 @@ export default function WrongAnswersPage({ user, subject = 'chinese', onStartWro
   const [showPhotoUpload, setShowPhotoUpload] = useState(false)
   const fileInputRef = useRef(null)
 
-  // ★ 内部学科状态：以 prop 为初始值，但允许用户在页面内自由切换
-  const [currentSubject, setCurrentSubject] = useState(subject)
+  // ★ 直接使用传入的 subject，不在页面内切换（跟随用户年级/科目）
+  const currentSubject = subject
 
   const allQMap = useMemo(() => getAllQMap(currentSubject), [currentSubject])
 
@@ -140,17 +140,7 @@ export default function WrongAnswersPage({ user, subject = 'chinese', onStartWro
     return { wrongCards: result.cards, overdueCount: result.overdueCount }
   }, [user.id, currentSubject, allQMap])
 
-  // ★ 为每个学科计算错题数量（用于标签页角标显示）
-  const subjectCounts = useMemo(() => {
-    const counts = {}
-    for (const tab of SUBJECT_TABS) {
-      const qMap = tab.id === 'english' ? EN_Q_MAP : tab.id === 'politics' ? POLITICS_Q_MAP : Q_MAP
-      const { cards } = computeWrongCards(user.id, tab.id, qMap)
-      counts[tab.id] = cards.length
-    }
-    return counts
-  }, [user.id])
-
+  // ★ 筛选后的错题列表
   const filtered = filter === 'overdue'
     ? wrongCards.filter(c => c.isOverdue)
     : filter === 'pending'
@@ -170,15 +160,6 @@ export default function WrongAnswersPage({ user, subject = 'chinese', onStartWro
   }
   const selectAll = () => setSelectedIds(new Set(filtered.map(c => c.id)))
   const clearSelection = () => setSelectedIds(new Set())
-
-  // ★ 切换学科时清空选择和筛选状态
-  const handleSubjectChange = (newSubject) => {
-    setCurrentSubject(newSubject)
-    setFilter('all')
-    setSelectedIds(new Set())
-    // 通知父组件同步 activeSubject（可选回调）
-    if (onSubjectChange) onSubjectChange(newSubject)
-  }
 
   // 拍照上传
   const handlePhotoUpload = async (e) => {
@@ -238,33 +219,12 @@ export default function WrongAnswersPage({ user, subject = 'chinese', onStartWro
           />
         </div>
 
-        {/* ★ 学科切换标签栏（核心新增：让用户能在错题页内切换不同学科） */}
-        <div className="flex gap-2 mt-1">
-          {SUBJECT_TABS.map(tab => {
-            const count = subjectCounts[tab.id] || 0
-            const isActive = currentSubject === tab.id
-            return (
-              <button
-                key={tab.id}
-                onClick={() => handleSubjectChange(tab.id)}
-                className={`flex items-center gap-1 px-3 py-1.5 rounded-xl text-xs font-semibold transition-all ${
-                  isActive
-                    ? 'bg-red-500 text-white shadow-sm'
-                    : 'bg-gray-100 text-gray-500 active:bg-gray-200'
-                }`}
-              >
-                <span>{tab.emoji}</span>
-                <span>{tab.label}</span>
-                {count > 0 && (
-                  <span className={`px-1.5 py-0.5 rounded-full text-[10px] font-bold ${
-                    isActive ? 'bg-white/30 text-white' : 'bg-red-100 text-red-600'
-                  }`}>
-                    {count}
-                  </span>
-                )}
-              </button>
-            )
-          })}
+        {/* ★ 当前学科标签（静态显示，不切换） */}
+        <div className="flex items-center gap-2 mt-1">
+          <span className="inline-flex items-center gap-1 px-3 py-1.5 rounded-xl text-xs font-semibold bg-red-500 text-white shadow-sm">
+            <span>{SUBJECT_LABELS[currentSubject]?.emoji || '📖'}</span>
+            <span>{SUBJECT_LABELS[currentSubject]?.label || '语文'}</span>
+          </span>
         </div>
 
         {/* 积压警告 */}

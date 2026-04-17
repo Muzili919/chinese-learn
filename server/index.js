@@ -379,30 +379,40 @@ app.post('/api/essays/upsert', async (req, res) => {
   }
 })
 
-// ========== 排行榜 ==========
+// ========== 排行榜（增强版：含答题数、炮台高分）==========
 app.get('/api/leaderboard', async (req, res) => {
   try {
     const result = await pool.query(`
-      SELECT u.id, u.name, u.xp, u.streak_count, p.state_data->'currentPet' as current_pet
+      SELECT u.id, u.name, u.xp, u.streak_count, p.state_data as pet_state
       FROM users u LEFT JOIN pet_states p ON u.id = p.user_id
-      WHERE u.xp > 0
-      ORDER BY u.xp DESC LIMIT 100
+      ORDER BY COALESCE(u.xp, 0) DESC LIMIT 100
     `)
-    return json(res, result.rows.map(row => ({
-      id: row.id,
-      name: row.name,
-      xp: row.xp || 0,
-      streakCount: row.streak_count || 0,
-      petName: row.current_pet?.poolId || null,
-      petLevel: row.current_pet?.level || 1,
-    })))
+    return json(res, result.rows.map(row => {
+      const ps = row.pet_state || {}
+      const pet = ps.currentPet || {}
+      const gs = ps.gameState || {}
+      return {
+        id: row.id,
+        name: row.name,
+        xp: row.xp || 0,
+        streakCount: row.streak_count || 0,
+        petName: pet.poolId || null,
+        petLevel: pet.level || 1,
+        // ★ 新增：答题统计
+        totalLearnQuestions: ps.totalLearnQuestions || 0,
+        totalCorrectAnswers: ps.totalCorrectAnswers || 0,
+        weeklyQuestions: ps.weeklyQuestions || 0,
+        daysActive: ps.daysActive || row.streak_count || 1,
+        wordCannonHighScore: gs.wordCannonHighScore || 0,
+      }
+    }))
   } catch (err) {
     console.error('排行榜查询失败:', err.message)
     return error(res, '查询失败', 500)
   }
 })
 
-// ========== 好友预览 ==========
+// ========== 好友预览（增强版：含答题数、炮台高分）==========
 app.post('/api/friends/preview', async (req, res) => {
   const { friendIds } = req.body
   if (!Array.isArray(friendIds)) return error(res, '缺少好友列表')
@@ -416,6 +426,7 @@ app.post('/api/friends/preview', async (req, res) => {
     return json(res, result.rows.map(row => {
       const ps = row.pet_state || {}
       const pet = ps.currentPet || {}
+      const gs = ps.gameState || {}
       return {
         playerId: row.id,
         playerName: row.name,
@@ -424,11 +435,153 @@ app.post('/api/friends/preview', async (req, res) => {
         petPoolId: pet.poolId || 'pet_kitten',
         petLevel: pet.level || 1,
         petExp: pet.exp || 0,
+        // ★ 新增字段，与 Vercel api/friend-preview 对齐
+        totalLearnQuestions: ps.totalLearnQuestions || 0,
+        totalCorrectAnswers: ps.totalCorrectAnswers || 0,
+        weeklyQuestions: ps.weeklyQuestions || 0,
+        daysActive: ps.daysActive || row.streak_count || 1,
+        wordCannonHighScore: gs.wordCannonHighScore || 0,
       }
     }))
   } catch (err) {
     console.error('好友预览查询失败:', err.message)
     return error(res, '查询失败', 500)
+  }
+})
+
+// ★ 路由别名：前端 LeaderboardPage 请求 /api/friend-preview（兼容 Vercel 路径）
+app.post('/api/friend-preview', async (req, res) => {
+  // 前端传 { userIds: [...] }，转成统一格式
+  const friendIds = req.body.userIds
+  if (!Array.isArray(friendIds)) return error(res, '缺少 userIds 列表')
+  
+  try {
+    const result = await pool.query(`
+      SELECT u.id, u.name, p.state_data as pet_state
+      FROM users u LEFT JOIN pet_states p ON u.id = p.user_id
+      WHERE u.id = ANY($1)
+    `, [friendIds])
+    // 返回格式与 Vercel api/friend-preview 完全一致（previews 数组）
+    return json(res, { previews: result.rows.map(row => {
+      const ps = row.pet_state || {}
+      const pet = ps.currentPet || {}
+      const gs = ps.gameState || {}
+      const poolItem = null // PET_POOL 不在 Node 端，前端会补全
+      return {
+        userId: row.id,
+        playerName: row.name || row.id.slice(0, 8),
+        petPoolId: pet.poolId || null,
+        petName: row.name || row.id.slice(0, 8),
+        petEmoji: '🥚',
+        petRarity: pet.rarity || 'N',
+        petLevel: pet.level || 1,
+        petStage: pet.level >= 20 ? '成熟体' : pet.level >= 10 ? '成长期' : '幼年',
+        totalLearnQuestions: ps.totalLearnQuestions || 0,
+        totalCorrectAnswers: ps.totalCorrectAnswers || 0,
+        daysActive: ps.daysActive || 1,
+        weeklyQuestions: ps.weeklyQuestions || 0,
+        wordCannonHighScore: gs.wordCannonHighScore || 0,
+      }
+    })})
+  } catch (err) {
+    console.error('friend-preview 查询失败:', err.message)
+    return error(res, '查询失败', 500)
+  }
+})
+
+// ========== AI 中转路由（DeepSeek API 代理） ==========
+// 前端通过 /api/ai 调用，服务端转发到 DeepSeek，保护 API Key
+const DEEPSEEK_API_KEY = process.env.DEEPSEEK_API_KEY || ''
+const DEEPSEEK_BASE_URL = process.env.DEEPSEEK_BASE_URL || 'https://api.deepseek.com'
+
+app.post('/api/ai', async (req, res) => {
+  const { model, messages, response_format, temperature, max_tokens } = req.body
+  if (!messages || !Array.isArray(messages)) return error(res, '缺少 messages 参数')
+
+  try {
+    const fetchBody = {
+      model: model || 'deepseek-chat',
+      messages,
+      temperature: temperature ?? 0.7,
+      max_tokens: max_tokens || 1024,
+    }
+    if (response_format) fetchBody.response_format = response_format
+
+    // ★ 支持两种认证方式：Bearer Token（DeepSeek）或自定义 Header
+    const headers = {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${DEEPSEEK_API_KEY}`,
+    }
+
+    const controller = new AbortController()
+    const timer = setTimeout(() => controller.abort(), 60000)
+
+    const aiRes = await fetch(`${DEEPSEEK_BASE_URL}/chat/completions`, {
+      method: 'POST',
+      headers,
+      body: JSON.stringify(fetchBody),
+      signal: controller.signal,
+    })
+    clearTimeout(timer)
+
+    if (!aiRes.ok) {
+      const errText = await aiRes.text()
+      console.error('[AI] DeepSeek 返回错误:', aiRes.status, errText.slice(0, 200))
+      if (aiRes.status === 429) return error(res, 'AI服务繁忙，请等待几秒后重试', 429)
+      if (aiRes.status === 401) return error(res, 'AI认证失败', 502)
+      return error(res, `AI请求失败 (${aiRes.status})`, 502)
+    }
+
+    const data = await aiRes.json()
+    return json(res, data)
+  } catch (err) {
+    if (err.name === 'AbortError') return error(res, 'AI响应超时，请稍后重试（建议减少题目数量）', 504)
+    console.error('[AI] 请求异常:', err.message)
+    return error(res, 'AI请求失败: ' + err.message, 500)
+  }
+})
+
+// ========== TTS 文字转语音路由（Edge TTS） ==========
+app.post('/api/tts', async (req, res) => {
+  const { text, lang = 'zh-CN', rate = '+0%' } = req.body
+  if (!text || text.trim().length === 0) return error(res, '缺少文本内容')
+  if (text.length > 500) return error(res, '文本过长（最大500字符）')
+
+  try {
+    // 使用 Edge TTS REST API（无需额外依赖）
+    const voiceMap = {
+      'zh-CN': 'zh-CN-XiaoxiaoNeural',
+      'en-US': 'en-US-AriaNeural',
+      'en-GB': 'en-GB-SoniaNeural',
+    }
+    const voice = voiceMap[lang] || voiceMap['zh-CN']
+
+    const ssml = `<speak version="1.0" xmlns="http://www.w3.org/2001/10/synthesis" xmlns:mstts="https://www.w3.org/2001/mstts" xml:lang="${lang}">
+      <voice name="${voice}"><prosody rate="${rate}">${text.replace(/["&<>]/g, c => ({'"': '&amp;quot;', '&': '&amp;amp;', '<': '&amp;lt;', '>': '&amp;gt;'})[c])}</prosody></voice></speak>`
+
+    const ttsRes = await fetch('https://speech.platform.bing.com/synthesize', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/ssml+xml',
+        'X-Microsoft-OutputFormat': 'audio-24khz-48kbitrate-mono-mp3',
+        'User-Agent': 'Mozilla/5.0',
+      },
+      body: ssml,
+    })
+
+    if (!ttsRes.ok) {
+      console.error('[TTS] Edge TTS 失败:', ttsRes.status)
+      return error(res, 'TTS生成失败', 500)
+    }
+
+    const buffer = Buffer.from(await ttsRes.arrayBuffer())
+    res.setHeader('Content-Type', 'audio/mpeg')
+    res.setHeader('Content-Length', buffer.length)
+    res.setHeader('Cache-Control', 'public, max-age=31536000')
+    res.status(200).send(buffer)
+  } catch (err) {
+    console.error('[TTS] 异常:', err.message)
+    return error(res, 'TTS生成失败', 500)
   }
 })
 

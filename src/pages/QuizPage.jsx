@@ -12,8 +12,23 @@ import poetryQ from '../data/questions_poetry.json'
 import idiomQ from '../data/questions_idiom.json'
 import sentenceQ from '../data/questions_sentence.json'
 import litQ from '../data/questions_literature.json'
+import enVocabQ from '../data/questions_en_vocab.json'
+import enListenQ from '../data/questions_en_listen.json'
+import enGrammarQ from '../data/questions_en_grammar.json'
+import enReadingQ from '../data/questions_en_reading.json'
+import enWritingQ from '../data/questions_en_writing.json'
+import enClozeQ from '../data/questions_en_j2_cloze.json'
+import politicsQ from '../data/questions_politics_choice.json'
 
-const ALL_QUESTIONS = [...vocabQ, ...poetryQ, ...idiomQ, ...sentenceQ, ...litQ]
+const CHINESE_QUESTIONS = [...vocabQ, ...poetryQ, ...idiomQ, ...sentenceQ, ...litQ]
+const ENGLISH_QUESTIONS = [...enVocabQ, ...enListenQ, ...enGrammarQ, ...enReadingQ, ...enWritingQ, ...enClozeQ]
+const POLITICS_ALL = Array.isArray(politicsQ) ? politicsQ : (politicsQ.questions || [])
+// ★ 全学科合并映射（错题练习需要跨学科查找）
+const ALL_SUBJECTS_MAP = Object.fromEntries(
+  [...CHINESE_QUESTIONS, ...ENGLISH_QUESTIONS, ...POLITICS_ALL].map(q => [q.id, q])
+)
+
+const ALL_QUESTIONS = CHINESE_QUESTIONS
 const DEFAULT_SESSION_SIZE = 20
 
 // 各星球每次答题数
@@ -59,7 +74,10 @@ export default function QuizPage({ user, options = {}, onFinish, onBack }) {
   const questions = useMemo(() => {
     if (wrongCardIds?.length) {
       const idSet = new Set(wrongCardIds)
-      const pool = ALL_QUESTIONS.filter(q => idSet.has(q.id))
+      // ★ 错题练习：从全学科映射表中查找（支持语文/英语/道法错题）
+      const pool = wrongCardIds
+        .map(id => ALL_SUBJECTS_MAP[id])
+        .filter(Boolean)
       return shuffle(pool).slice(0, sessionSize).map(shuffleOptions)
     }
     let pool = ALL_QUESTIONS

@@ -275,7 +275,6 @@ export default function LeaderboardPage({ user, gameState, onStateChange }) {
   }
 
   const metrics = [
-    { key: 'totalLearnQuestions', label: '答题数', icon: '📝' },
     { key: 'wordCannonHighScore', label: '炮台高分', icon: '🎯' },
   ]
 
