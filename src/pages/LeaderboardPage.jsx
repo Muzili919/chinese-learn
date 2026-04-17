@@ -95,33 +95,6 @@ export default function LeaderboardPage({ user, gameState, onStateChange }) {
     if (activeTab === 'rank') loadRankings()
   }, [activeTab, friends])  // friends 变化时也重新加载，确保好友出现在排行榜
 
-  // ── Bug D 修复：页面切回时自动刷新 ────────────────────────────
-  // 问题：停在排行榜页时好友升级了，但你看不到，要手动点刷新
-  // 修复：visibilitychange（浏览器切回）+ 2分钟轮询（长时间停留）
-  useEffect(() => {
-    const onVisible = () => {
-      if (!document.hidden) {
-        // 切回页面时，根据当前激活 Tab 刷新对应数据
-        if (activeTab === 'rank') loadRankings()
-        else if (activeTab === 'friends') loadFriendPreviews(friends)
-      }
-    }
-    document.addEventListener('visibilitychange', onVisible)
-
-    // 长时间停留时每2分钟自动轮询一次（覆盖"一直开着排行榜"场景）
-    const iv = setInterval(() => {
-      if (!document.hidden) {
-        if (activeTab === 'rank') loadRankings()
-        else if (activeTab === 'friends') loadFriendPreviews(friends)
-      }
-    }, 2 * 60 * 1000)
-
-    return () => {
-      document.removeEventListener('visibilitychange', onVisible)
-      clearInterval(iv)
-    }
-  }, [activeTab, friends, loadRankings, loadFriendPreviews])
-
   // ── 加载好友预览 ───────────────────────────────────────────
   const loadFriendPreviews = useCallback(async (list) => {
     if (list.length === 0) { setFriendPreviews({}); return }
@@ -177,6 +150,29 @@ export default function LeaderboardPage({ user, gameState, onStateChange }) {
   useEffect(() => {
     if (activeTab === 'friends') loadFriendPreviews(friends)
   }, [activeTab, friends])
+
+  // ── Bug D 修复：页面切回时自动刷新 ────────────────────────────
+  // ★ 必须放在 loadRankings / loadFriendPreviews 声明之后，否则 let TDZ 报错
+  useEffect(() => {
+    const onVisible = () => {
+      if (!document.hidden) {
+        if (activeTab === 'rank') loadRankings()
+        else if (activeTab === 'friends') loadFriendPreviews(friends)
+      }
+    }
+    document.addEventListener('visibilitychange', onVisible)
+    const iv = setInterval(() => {
+      if (!document.hidden) {
+        if (activeTab === 'rank') loadRankings()
+        else if (activeTab === 'friends') loadFriendPreviews(friends)
+      }
+    }, 2 * 60 * 1000)
+    return () => {
+      document.removeEventListener('visibilitychange', onVisible)
+      clearInterval(iv)
+    }
+  // loadRankings/loadFriendPreviews 是 useCallback([]}) 稳定引用，不加入依赖避免重复注册
+  }, [activeTab, friends]) // eslint-disable-line react-hooks/exhaustive-deps
 
   // ── 保存好友列表到云端 ─────────────────────────────────────
   const saveFriends = useCallback(async (newList) => {
