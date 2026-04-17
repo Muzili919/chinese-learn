@@ -2,7 +2,7 @@
 // /api/proxy/user/create  →  http://47.108.174.249:3001/api/user/create
 // /api/proxy/pet-state/123 → http://47.108.174.249:3001/api/pet-state/123
 
-const BACKEND = 'http://47.108.174.249:3001'
+const BACKEND = 'http://47.108.174.249:3000'
 const TIMEOUT_MS = 9000
 
 export default async function handler(req, res) {

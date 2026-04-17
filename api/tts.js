@@ -1,70 +1,65 @@
 // ═══════════════════════════════════════════════════════════════
-// Vercel Serverless Function — Edge TTS 代理 v2
-// 使用 msedge-tts（比 edge-tts-node 更稳定，API 兼容当前微软服务）
+// Vercel Edge Function — TTS 中转层（二进制流）
+// 架构：浏览器 → Vercel Edge → 阿里云后端 → msedge-tts → 返回 MP3
 // ═══════════════════════════════════════════════════════════════
-import { MsEdgeTTS, OUTPUT_FORMAT, ProsodyOptions } from 'msedge-tts'
 
-// 语音映射 — 微软神经网络音色（自然、无机械感）
-const VOICES = {
-  'en-US': 'en-US-AriaNeural',      // 美式英语（女，自然）
-  'en-GB': 'en-GB-SoniaNeural',     // 英式英语（女）
-  'zh-CN': 'zh-CN-XiaoxiaoNeural',  // 普通话（女，自然）
-  'zh-TW': 'zh-TW-HsiaoChenNeural', // 台湾腔
+const BACKEND = 'http://47.108.174.249:3000/api/tts'
+const TIMEOUT_MS = 10000
+
+export const config = {
+  runtime: 'edge',
 }
 
-export default async function handler(req, res) {
+export default async function handler(req) {
   if (req.method !== 'POST') {
-    return res.status(405).json({ error: 'Method not allowed' })
-  }
-
-  const { text, lang = 'en-US', rate = 1.0 } = req.body
-
-  if (!text || text.trim().length === 0) {
-    return res.status(400).json({ error: 'Text is required' })
-  }
-
-  if (text.length > 500) {
-    return res.status(400).json({ error: 'Text too long (max 500 chars)' })
+    return new Response(JSON.stringify({ error: 'Method not allowed' }), { status: 405 })
   }
 
   try {
-    const voice = VOICES[lang] || VOICES['en-US']
-    const tts = new MsEdgeTTS()
+    const body = await req.text()
 
-    await tts.setMetadata(voice, OUTPUT_FORMAT.AUDIO_24KHZ_48KBITRATE_MONO_MP3)
+    const controller = new AbortController()
+    const timer = setTimeout(() => controller.abort(), TIMEOUT_MS)
 
-    // msedge-tts v2 的 toStream() 返回 { audioStream, metadataStream, requestId }
-    // rate: 0.85 → "-15%"，1.0 → "+0%"，1.2 → "+20%"
-    const numRate = parseFloat(rate) || 1.0
-    const pct = Math.round((numRate - 1) * 100)
-    const rateStr = pct >= 0 ? `+${pct}%` : `${pct}%`
-    const prosody = new ProsodyOptions({ rate: rateStr })
-    const { audioStream } = tts.toStream(text, prosody)
-
-    // 收集所有 chunk
-    const chunks = []
-    await new Promise((resolve, reject) => {
-      audioStream.on('data', chunk => chunks.push(chunk))
-      audioStream.on('end', resolve)
-      audioStream.on('error', reject)
+    const upstream = await fetch(BACKEND, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body,
+      signal: controller.signal,
     })
 
-    const audioBuffer = Buffer.concat(chunks)
+    clearTimeout(timer)
 
-    res.setHeader('Content-Type', 'audio/mpeg')
-    res.setHeader('Content-Length', audioBuffer.length)
-    res.setHeader('Cache-Control', 'public, max-age=31536000, immutable')
-    res.status(200).send(audioBuffer)
+    // ★ 关键：TTS 返回二进制 MP3 数据，不能用 .json()！
+    if (!upstream.ok) {
+      const errText = await upstream.text()
+      return new Response(JSON.stringify({ error: 'TTS_FAILED', detail: errText.slice(0, 200) }), {
+        status: upstream.status,
+        headers: { 'Content-Type': 'application/json' },
+      })
+    }
+
+    const buffer = await upstream.arrayBuffer()
+
+    return new Response(buffer, {
+      status: 200,
+      headers: {
+        'Content-Type': 'audio/mpeg',
+        'Content-Length': buffer.byteLength,
+        'Cache-Control': 'public, max-age=31536000',
+      },
+    })
   } catch (err) {
-    console.error('Edge TTS error:', err)
-    res.status(500).json({ error: 'TTS generation failed', detail: err.message })
+    clearTimeout(timer)
+    if (err.name === 'AbortError') {
+      return new Response(JSON.stringify({ error: 'TTS_TIMEOUT', message: '语音生成超时，请稍后重试' }), {
+        status: 504,
+        headers: { 'Content-Type': 'application/json' },
+      })
+    }
+    return new Response(JSON.stringify({ error: 'TTS_ERROR', detail: err.message }), {
+      status: 500,
+      headers: { 'Content-Type': 'application/json' },
+    })
   }
-}
-
-export const config = {
-  api: {
-    bodyParser: {
-      sizeLimit: '1kb',
-    },
-  },
 }

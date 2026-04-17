@@ -57,7 +57,7 @@ export default async function handler(req, res) {
       const poolItem = PET_POOL.find(p => p.poolId === pet.poolId) || { name: '神秘宠物', emoji: '🥚', rarity: 'N' }
       return {
         userId: row.user_id,
-        playerName: userNameMap[row.user_id] || '匿名同学',
+        playerName: userNameMap[row.user_id] || row.user_id.slice(0, 8),
         petPoolId: pet.poolId || null,
         petName: poolItem.name,
         petEmoji: poolItem.emoji,

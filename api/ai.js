@@ -4,7 +4,7 @@
 // 架构：浏览器 → Vercel Edge（HTTPS）→ 阿里云成都节点（HTTP）→ DeepSeek
 // ═══════════════════════════════════════════════════════════════
 
-const RELAY_URL = 'http://47.108.174.249:3001/api/ai'
+const RELAY_URL = 'http://47.108.174.249:3000/api/ai'
 const RELAY_TIMEOUT_MS = 23000  // 23s，留 2s 缓冲
 
 export const config = {
