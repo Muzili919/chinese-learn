@@ -970,12 +970,12 @@ export function hasFreeCard(state) {
   return state && state.hasReceivedFreeCard && !state.freeCardUsed;
 }
 
-function drawCard(state) {
-  // 免费券 → 不消耗经验
-  const isFree = !state.freeCardUsed && state.hasReceivedFreeCard;
-  
+function drawCard(state, opts = {}) {
+  // 免费券（首次赠送） 或 背包卡券（已花钱买，不再检查经验）
+  const isFree = opts.fromTicket || (!state.freeCardUsed && state.hasReceivedFreeCard);
+
   // ★ 上帝模式：始终免费抽卡（不检查经验）
-  if (!isFree && !state._isGodMode && (state.exp || 0) < 500) 
+  if (!isFree && !state._isGodMode && (state.exp || 0) < 500)
     return { state, pet: null }; // 经验不足
 
   // 按累计抽卡次数选择权重表（方案B：累计抽卡驱动）
@@ -1007,7 +1007,7 @@ function drawCard(state) {
   
   const newState = {
     ...state,
-    // ★ 上帝模式不扣经验（免费抽卡）
+    // ★ 上帝模式/背包卡券/首次赠送：不扣经验
     exp: (isFree || state._isGodMode) ? state.exp : state.exp - 500,
     ownedPets: owned,
     currentPet: { poolId: finalChosen, level: 1, exp: 0, mood: 'neutral', tapCount: 0, stats: defaultStats(), equippedAccessories: {} },

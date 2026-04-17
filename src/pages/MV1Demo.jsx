@@ -868,23 +868,22 @@ export default function MV1Demo({ onBack, initialState, onStateChange, grade, cu
       // 特殊处理：抽卡券 → 商店购买（花500经验买1张卡券放入背包）
       if (actionId === 'card_draw') {
         setState(s => {
+          const consumed = s.petExpConsumed || 0; // ★ 声明在外部，上帝模式也能访问
           // ★ 上帝模式免费获取，不检查
           if (!isGodModeState(s)) {
             const totalXP = getEffectiveXP(s, storage.getUser());
-            const consumed = s.petExpConsumed || 0;
             const petSpendable = Math.max(0, totalXP - consumed);
             if (petSpendable < 500) return s;
           }
 
-        // 购买成功：扣经验 + 加1张卡券到背包
-        // ★ buyItem 直接返回 state 对象，不要解构 { state: xxx }
-        const newS = buyItem(s, 'card_draw');
-        if (newS === s) return s;  // buyItem 内部校验失败（不应该发生）
-        return {
-          ...newS,
-          petExpConsumed: (s.petExpConsumed || consumed) + 500,
-        };
-      });
+          // 购买成功：扣经验 + 加1张卡券到背包
+          const newS = buyItem(s, 'card_draw');
+          if (newS === s) return s;
+          return {
+            ...newS,
+            petExpConsumed: consumed + 500,
+          };
+        });
       return;
     }
 
@@ -972,7 +971,7 @@ export default function MV1Demo({ onBack, initialState, onStateChange, grade, cu
         if (!isGodModeState(s) && currentCards < 1) return s;
 
         // 直接触发抽卡（卡券本身已花钱买，使用时不再扣经验）
-        const { state: newS, pet } = drawCard(s);
+        const { state: newS, pet } = drawCard(s, { fromTicket: true });
         if (!pet) return s;
 
         setGachaResult(pet);
@@ -1357,7 +1356,9 @@ export default function MV1Demo({ onBack, initialState, onStateChange, grade, cu
       </div>
 
       {/* 内容区 */}
-      <div style={{ flex: 1, padding: 16, overflowY: 'auto', paddingBottom: 28, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+      <div style={activeTab === 'game'
+        ? { flex: 1, display: 'flex', flexDirection: 'column', overflow: 'hidden', padding: 0 }
+        : { flex: 1, padding: 16, overflowY: 'auto', paddingBottom: 28, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
 
         {activeTab === 'interact' && (
           <>
@@ -1512,7 +1513,15 @@ export default function MV1Demo({ onBack, initialState, onStateChange, grade, cu
           <WordCannonGame
             state={state}
             grade={grade}
-            onGameStateUpdate={(patch) => setState(s => s ? ({ ...s, ...patch }) : s)}
+            onGameStateUpdate={(patch) => setState(s => {
+              if (!s) return s;
+              if (patch._gameStatePartial) {
+                // ★ partial merge：游戏结束只更新 gameState 字段，不覆盖其他 state
+                const { _gameStatePartial, gameState: newGS, ...rest } = patch;
+                return { ...s, ...rest, gameState: { ...(s.gameState || {}), ...newGS } };
+              }
+              return { ...s, ...patch };
+            })}
           />
         )}
 

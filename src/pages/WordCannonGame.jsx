@@ -127,6 +127,7 @@ export default function WordCannonGame({ state, onGameStateUpdate, grade }) {
   const [flashRed, setFlashRed] = useState(false);
   const [bottomFlash, setBottomFlash] = useState(false);
   const [dailyAttempts, setDailyAttempts] = useState(5);
+  const dailyAttemptsRef = useRef(5); // ★ 始终同步最新值，供 endGame 闭包读取
   const [highScore, setHighScore] = useState(0);
   const [totalBubblesCleared, setTotalBubblesCleared] = useState(0);
   const [skillCooldowns, setSkillCooldowns] = useState({ slow: 0, shield: 0, clearAll: 0 });
@@ -195,6 +196,7 @@ export default function WordCannonGame({ state, onGameStateUpdate, grade }) {
     }
 
     setDailyAttempts(attempts);
+    dailyAttemptsRef.current = attempts; // ★ 同步 ref
     setHighScore(gs?.wordCannonHighScore || 0);
     setTotalBubblesCleared(gs?.totalBubblesCleared || 0);
     setPetReady(true);
@@ -569,17 +571,21 @@ export default function WordCannonGame({ state, onGameStateUpdate, grade }) {
       remaining,
     });
 
-    // 回调更新状态（只更新分数和记录，不再重复扣减次数）
+    // 回调更新状态（用 onGameStateUpdate 函数式写法，避免旧闭包覆盖 dailyAttempts）
     if (onGameStateUpdate) {
       onGameStateUpdate({
         gameState: {
-          ...(state.gameState || {}),
+          // ★ 不依赖闭包里可能已过期的 state.gameState，改用函数式更新
+          // 通过 dailyAttemptsRef.current 读取最新次数，防止 endGame 旧闭包把已扣的次数覆盖回去
+          _wordCannonDate: new Date().toDateString(),
+          dailyAttempts: dailyAttemptsRef.current,
           wordCannonHighScore: newHigh,
           totalBubblesCleared: newTotalCleared,
         },
+        _gameStatePartial: true, // 标记：父组件需用 merge 而非覆盖
       });
     }
-  }, [highScore, dailyAttempts, totalBubblesCleared, onGameStateUpdate, state?.gameState]);
+  }, [highScore, totalBubblesCleared, onGameStateUpdate]);
 
   /* ── 开始游戏 ── */
   const startGame = useCallback(() => {
@@ -592,6 +598,7 @@ export default function WordCannonGame({ state, onGameStateUpdate, grade }) {
     // ★ 上帝模式：不扣减次数
     const newAttempts = state?._isGodMode ? dailyAttempts : (dailyAttempts - 1);
     setDailyAttempts(newAttempts);
+    dailyAttemptsRef.current = Math.max(0, newAttempts); // ★ 立即同步 ref
     if (onGameStateUpdate) {
       onGameStateUpdate({
         gameState: {
@@ -1098,13 +1105,13 @@ const container = {
   width: '100%',
   maxWidth: 420,
   margin: '0 auto',
-  // ★ 手机端适配：使用100dvh填满可视区域，不再固定高度
-  height: '100dvh',
-  maxHeight: '100dvh',
+  // ★ 填满父容器（父容器 flex:1 撑满剩余高度），不再用 100dvh（会超出 tab 内容区）
+  flex: '1 1 0',
+  minHeight: 0,
   display: 'flex',
   flexDirection: 'column',
   background: 'linear-gradient(180deg, #0f0c29 0%, #1a1a3e 35%, #24243e 70%, #302b63 100%)',
-  borderRadius: 16,
+  borderRadius: 0,
   overflow: 'hidden',
 };
 
