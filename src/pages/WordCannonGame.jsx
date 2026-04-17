@@ -198,7 +198,10 @@ export default function WordCannonGame({ state, onGameStateUpdate, grade }) {
     setHighScore(gs?.wordCannonHighScore || 0);
     setTotalBubblesCleared(gs?.totalBubblesCleared || 0);
     setPetReady(true);
-  }, [state?.gameState]);
+  // ★ Bug#3 修复：依赖必须包含 gameState + 当前宠物信息
+  // 因为 maxDailyAttempts 由 petLevel + rarity 动态计算，
+  // 切换宠物后需要重新评估（如低级宠玩完→换高级宠应恢复更多次数）
+  }, [state?.gameState, state?.currentPet?.level, state?.currentPet?.poolId]);
 
   /* ── 动态测量游戏区域高度 ── */
   useEffect(() => {
@@ -581,11 +584,13 @@ export default function WordCannonGame({ state, onGameStateUpdate, grade }) {
   /* ── 开始游戏 ── */
   const startGame = useCallback(() => {
     // ★ Bug#3 修复：次数检查 — 没有剩余次数则拒绝开始
-    if (dailyAttempts <= 0) return;
+    // ★ 上帝模式：无限次数，跳过检查
+    if (dailyAttempts <= 0 && !state?._isGodMode) return;
 
     // ★ Bug#3 修复：开始时立即扣减一次次数（而非等到结束时才扣）
     // 这样即使中途刷新/崩溃，次数也已消耗
-    const newAttempts = dailyAttempts - 1;
+    // ★ 上帝模式：不扣减次数
+    const newAttempts = state?._isGodMode ? dailyAttempts : (dailyAttempts - 1);
     setDailyAttempts(newAttempts);
     if (onGameStateUpdate) {
       onGameStateUpdate({

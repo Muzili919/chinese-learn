@@ -27,7 +27,9 @@ export default function ShopPanel({ state, onBuy, onUseItem, spendableXP }) {
   const [showBuyConfirm, setShowBuyConfirm] = useState(null)
 
   // 使用 spendableXP（当前等级内可消费经验）如果传入，否则回退到 state.exp
-  const coins = spendableXP !== undefined ? spendableXP : (state?.exp || 0)
+  // ★ 上帝模式：coins=Infinity → 所有 canAfford 检查自动为 true
+  const isGodMode = state?._isGodMode === true
+  const coins = isGodMode ? Infinity : (spendableXP !== undefined ? spendableXP : (state?.exp || 0))
   const inventory = state?.inventory || {}
 
   return (

@@ -118,10 +118,21 @@ export async function pushCompletedPlanetsToCloud(userId) {
   // Only push non-empty data
   const keys = Object.keys(completedMap)
   if (keys.length === 0) return
-  await supabase.from('users').upsert({
-    id: userId,
-    completed_planets: completedMap,
-  }, { onConflict: 'id' })
+  try {
+    const { error } = await supabase.from('users').upsert({
+      id: userId,
+      completed_planets: completedMap,
+    }, { onConflict: 'id' })
+    if (error) {
+      console.error('⚠️ 星球打卡云同步失败（可能缺少 completed_planets 列）:', error.message, error.code)
+    }
+  } catch (e) {
+    // 如果是 "column does not exist" 错误，给出明确提示
+    if (e?.message && e.message.includes('completed_planets')) {
+      console.error('🔴 数据库缺少 completed_planets 列！请在Supabase SQL Editor运行迁移脚本：docs/migrations/add_completed_planets_column.sql')
+    }
+    throw e  // 向上层传播，让 syncAfterSession 的 catch 记录
+  }
 }
 
 /**
@@ -290,7 +301,7 @@ export async function syncAfterSession(userId) {
       pushCompletedPlanetsToCloud(userId),  // ★ 同步星球打卡数据
     ])
   } catch (e) {
-    console.warn('Sync failed (will retry next time):', e)
+    console.warn('⚠️ 云端同步失败 (will retry next time):', e?.message || e)
   }
 }
 

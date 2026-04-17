@@ -295,5 +295,23 @@
     "content": "## Bug#3 最终确认 — 修复完整，6个场景走查全部通过\n\n老板追问后做了完整的端到端走查，确认修复无遗漏。\n\n### 修改文件（2个，4处改动）\n1. **MV1Demo.jsx 第707行**：merged 对象新增 gameState 三层优先级（核心根因修复）\n2. **WordCannonGame.jsx 第169-201行**：初始化逻辑重构（兼容日期字段+首次用户满额）\n3. **WordCannonGame.jsx 第582-598行**：startGame 守卫+立即扣次\n4. **WordCannonGame.jsx 第540-578行**：endGame 去除重复扣次\n\n### 走查通过的6个场景\n1. ✅ 新用户首次进入 — 给满额可玩\n2. ✅ 玩一局后刷新 — localStorage 值正确保留\n3. ✅ 次数耗尽 — 按钮禁用+函数守卫双保险\n4. ✅ 跨天重置 — 日期判断正确恢复满额\n5. ✅ 切换账号 — 不串号，各用户独立\n6. ✅ localStorage清空回退云端 — 跨天也能正确重置\n\n### 构建\n- ✅ ESLint 0错误\n- ✅ vite build 通过",
     "timestamp": "2026-04-17T00:37:57.813Z",
     "read": true
+  },
+  {
+    "id": "msg-1776386333615-rbtp9f",
+    "from": "team-lead",
+    "to": "team-lead",
+    "type": "message",
+    "content": "## Bug#8 最终加固完成，已部署\n\n新增 2 层防御性加固：\n1. **storage.addRecord 兜底** — 未来任何页面忘写 subject 时自动按 card_id 前缀推断学科\n2. **sync.js 合并优化** — 冲突时优先保留有 subject 字段的记录\n\n已 commit + push（673b25d），Vercel 自动部署中。",
+    "timestamp": "2026-04-17T00:38:53.615Z",
+    "read": true
+  },
+  {
+    "id": "msg-1776386428646-adl962",
+    "from": "team-lead",
+    "to": "team-lead",
+    "type": "message",
+    "content": "## Bug#3 补充验证：宠物等级→次数映射不受影响\n\n老板追问后做了额外验证：\n\n### 公式未改动（安全）\n```\nmaxDailyAttempts = baseAttempts(Lv<10→3/Lv10-19→5/Lv20+→8) + rarityBonus(SSR+3/SR+2/R+1/N+0)\n```\n所有4处改动都不触碰这个公式。跨天重置时用的是 `maxDailyAttempts` 动态变量值。\n\n### 额外发现并修复\n初始化 useEffect 的依赖数组缺少 `state?.currentPet` 监听，已补充。\n确保切换宠物后组件能正确响应（虽然同一天内走保存值不变，但防御性编程）。\n\n### 最终状态\n- 修改文件：MV1Demo.jsx(1处) + WordCannonGame.jsx(3处)\n- ESLint: 0错误\n- vite build: 通过",
+    "timestamp": "2026-04-17T00:40:28.646Z",
+    "read": true
   }
 ]

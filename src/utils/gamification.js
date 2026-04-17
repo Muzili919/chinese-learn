@@ -444,7 +444,8 @@ export function unequipAccessory(state, slot) {
 export function buyAccessory(state, accessoryId) {
   const acc = ACCESSORY_SHOP.find(a => a.id === accessoryId);
   if (!acc) return state;
-  if ((state.exp || 0) < acc.price) return state;
+  // ★ 上帝模式跳过价格检查
+  if (!state._isGodMode && (state.exp || 0) < acc.price) return state;
   
   const owned = [...(state.inventory?.accessories || [])];
   if (owned.includes(accessoryId)) return state; // 已拥有
@@ -520,7 +521,8 @@ export function useItemOnPet(state, itemId) {
 export function buyItem(state, itemId) {
   const item = SHOP_ITEMS.find(i => i.id === itemId);
   if (!item) return state;
-  if ((state.exp || 0) < item.price) return state;
+  // ★ 上帝模式跳过价格检查
+  if (!state._isGodMode && (state.exp || 0) < item.price) return state;
   
   const inv = { ...state.inventory };
   // 加入对应库存分类
@@ -767,7 +769,8 @@ function gainExpForLearning(state, accuracy, multiplier = 1) {
 // 🔧 新增：手动升级函数
 export function manualLevelUp(state) {
   const currentThreshold = getCurrentLevelThreshold(state.level);
-  if (state.exp < currentThreshold) {
+  // ★ 上帝模式跳过经验阈值检查
+  if (!state._isGodMode && state.exp < currentThreshold) {
     return state; // 经验不足，无法升级
   }
   
@@ -962,6 +965,8 @@ export function isEggState(state) {
 
 // ---- 是否有免费抽卡券可用 ----
 export function hasFreeCard(state) {
+  // ★ 上帝模式：永远有"免费券"
+  if (state?._isGodMode) return true;
   return state && state.hasReceivedFreeCard && !state.freeCardUsed;
 }
 
@@ -969,7 +974,8 @@ function drawCard(state) {
   // 免费券 → 不消耗经验
   const isFree = !state.freeCardUsed && state.hasReceivedFreeCard;
   
-  if (!isFree && (state.exp || 0) < 500) 
+  // ★ 上帝模式：始终免费抽卡（不检查经验）
+  if (!isFree && !state._isGodMode && (state.exp || 0) < 500) 
     return { state, pet: null }; // 经验不足
 
   // 按累计抽卡次数选择权重表（方案B：累计抽卡驱动）
@@ -1001,7 +1007,8 @@ function drawCard(state) {
   
   const newState = {
     ...state,
-    exp: isFree ? state.exp : state.exp - 500,
+    // ★ 上帝模式不扣经验（免费抽卡）
+    exp: (isFree || state._isGodMode) ? state.exp : state.exp - 500,
     ownedPets: owned,
     currentPet: { poolId: finalChosen, level: 1, exp: 0, mood: 'neutral', tapCount: 0, stats: defaultStats(), equippedAccessories: {} },
     freeCardUsed: true,

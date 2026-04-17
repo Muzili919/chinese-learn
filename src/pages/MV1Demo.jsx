@@ -600,11 +600,6 @@ export default function MV1Demo({ onBack, initialState, onStateChange, grade, cu
       const todayRecords = records.filter(r => r.timestamp?.startsWith(todayStr));
       dailyTasks = syncTasksFromRecords(dailyTasks, todayRecords);
 
-      // ★ Bug #2 修复：根据今日答题记录计算宠物应得经验
-      // 答题页只调用 storage.addXP（写 localStorage），不会调用 gainExpForLearning
-      // 所以需要在这里根据答题记录回填宠物经验 (currentPet.exp)
-      // 具体实现在 resolvedCurrentPet 定义之后（下方）
-
       // 好友列表：优先用云端数据，若云端为空则保留 initialState 中的好友（避免初始化空态覆盖）
       const friends = cloud?.friends?.length
         ? cloud.friends
@@ -614,7 +609,7 @@ export default function MV1Demo({ onBack, initialState, onStateChange, grade, cu
       const isGod = isGodMode()
       const localHasPet = (initialState?.currentPet?.poolId && initialState?.ownedPets?.length > 0)
       const cloudHasPet = cloud?.currentPet?.poolId
-      let resolvedCurrentPet = (() => {
+      const resolvedCurrentPet = (() => {
         if (isGod) return initialState.currentPet  // 上帝模式：始终用本地（initGodModeState）
         if (cloud?.currentPet) {
           const merged = {
@@ -632,41 +627,6 @@ export default function MV1Demo({ onBack, initialState, onStateChange, grade, cu
         // 都没有 → 蛋态
         return null
       })()
-
-      // ★ Bug #2 修复：根据今日答题记录回填宠物成长经验
-      if (resolvedCurrentPet && todayRecords.length > 0) {
-        const petExpKey = `mv1_pet_exp_sync_${uid}_${todayStr}`;
-        const lastSyncCount = parseInt(localStorage.getItem(petExpKey) || '0');
-        const newRecords = todayRecords.length - lastSyncCount;
-
-        if (newRecords > 0) {
-          const newRecs = todayRecords.slice(-newRecords);
-          let petExpGain = 0;
-          let correctCount = 0;
-          for (const r of newRecs) {
-            const xp = r.correct ? 5 : 1;
-            petExpGain += Math.round(xp * 0.8);
-            if (r.correct) correctCount++;
-          }
-
-          if (petExpGain > 0) {
-            resolvedCurrentPet = {
-              ...resolvedCurrentPet,
-              exp: (resolvedCurrentPet.exp || 0) + petExpGain,
-            };
-            if (resolvedCurrentPet.stats) {
-              const stats = { ...resolvedCurrentPet.stats };
-              stats.energy = Math.max(0, (stats.energy || 80) - 2 * newRecs.length);
-              if (correctCount > 0) {
-                stats.intimacy = Math.min(100, (stats.intimacy || 30) + 2 * correctCount);
-              }
-              resolvedCurrentPet = { ...resolvedCurrentPet, stats };
-            }
-            console.log(`[MV1] 🐾 Bug#2修复: 今日${newRecords}道新答题 → 宠物+${petExpGain}经验`);
-          }
-          localStorage.setItem(petExpKey, String(todayRecords.length));
-        }
-      }
 
       const resolvedOwnedPets = (() => {
         if (isGod) return initialState.ownedPets || []  // 上帝模式：始终用本地全解锁列表
@@ -782,18 +742,7 @@ export default function MV1Demo({ onBack, initialState, onStateChange, grade, cu
         if (!storage.getUser()?.id && s._isGodMode) return s;
         const freshXP = getEffectiveXP(s, storage.getUser());
         if (freshXP !== s.exp && freshXP > 0) {
-          // ★ Bug #2 修复：XP变化时同时更新宠物经验
-          const xpDiff = freshXP - (s.exp || 0);
-          const petGain = Math.round(xpDiff * 0.8);
-          const updated = { ...s, exp: freshXP };
-          if (petGain > 0 && updated.currentPet) {
-            updated.currentPet = {
-              ...updated.currentPet,
-              exp: (updated.currentPet.exp || 0) + petGain,
-            };
-            console.log(`[MV1] 🐾 Bug#2 L1同步: XP+${xpDiff} → 宠物经验+${petGain}`);
-          }
-          return updated;
+          return { ...s, exp: freshXP };
         }
         return s;
       });
@@ -811,18 +760,9 @@ export default function MV1Demo({ onBack, initialState, onStateChange, grade, cu
           // 只要storage的值更大（说明刚答完题），就立即同步
           if (freshXP !== s.exp && freshXP > 0) {
             console.log('[MV1] 🔄 页面可见性切换，强制刷新XP:', s.exp, '→', freshXP);
-            // ★ Bug #2 修复：切回宠物页时同时更新宠物经验
+            return { ...s, exp: freshXP };
             const xpDiff = freshXP - (s.exp || 0);
-            const petGain = Math.round(xpDiff * 0.8);
-            const updated = { ...s, exp: freshXP };
-            if (petGain > 0 && updated.currentPet) {
-              updated.currentPet = {
-                ...updated.currentPet,
-                exp: (updated.currentPet.exp || 0) + petGain,
-              };
-              console.log(`[MV1] 🐾 Bug#2 L2同步(切回): XP+${xpDiff} → 宠物经验+${petGain}`);
-            }
-            return updated;
+            return { ...s, exp: freshXP };
           }
           return s;
         });
@@ -841,17 +781,7 @@ export default function MV1Demo({ onBack, initialState, onStateChange, grade, cu
         const freshXP = getEffectiveXP(s, user);
         if (freshXP !== s.exp && freshXP > 0) {
           console.log('[MV1] 🔥 挂载后兜底刷新XP:', s.exp, '→', freshXP);
-          // ★ Bug #2 修复：挂载后同步也更新宠物经验
-          const xpDiff = freshXP - (s.exp || 0);
-          const petGain = Math.round(xpDiff * 0.8);
-          const updated = { ...s, exp: freshXP };
-          if (petGain > 0 && updated.currentPet) {
-            updated.currentPet = {
-              ...updated.currentPet,
-              exp: (updated.currentPet.exp || 0) + petGain,
-            };
-          }
-          return updated;
+          return { ...s, exp: freshXP };
         }
         return s;
       });
@@ -1000,8 +930,9 @@ export default function MV1Demo({ onBack, initialState, onStateChange, grade, cu
     // 抽卡券 → 使用背包中的卡券触发抽卡
     if (itemId === 'card_draw') {
       setState(s => {
+        // ★ 上帝模式：卡券无限，不检查数量
         const currentCards = s.inventory?.cards || 0;
-        if (currentCards < 1) return s;  // 没有卡券
+        if (!isGodModeState(s) && currentCards < 1) return s;
 
         // 直接触发抽卡（卡券本身已花钱买，使用时不再扣经验）
         const { state: newS, pet } = drawCard(s);
@@ -1024,21 +955,23 @@ export default function MV1Demo({ onBack, initialState, onStateChange, grade, cu
 
     setState(s => {
       const inv = { ...(s.inventory || {}) };
+      // ★ 上帝模式：道具无限，不检查库存
+      const _isGod = isGodModeState(s);
       // 检查库存并扣减
       if (realId === 'food_basic') {
-        if (!inv.foods?.basic) return s;
+        if (!_isGod && !inv.foods?.basic) return s;
         inv.foods = { ...inv.foods, basic: inv.foods.basic - 1 };
       } else if (realId === 'food_advanced') {
-        if (!inv.foods?.advanced) return s;
+        if (!_isGod && !inv.foods?.advanced) return s;
         inv.foods = { ...inv.foods, advanced: inv.foods.advanced - 1 };
       } else if (realId === 'clean_basic') {
-        if (!inv.cleanItems) return s;
+        if (!_isGod && !inv.cleanItems) return s;
         inv.cleanItems = inv.cleanItems - 1;
       } else if (realId === 'energy_drink') {
-        if (!inv.energyItems) return s;
+        if (!_isGod && !inv.energyItems) return s;
         inv.energyItems = inv.energyItems - 1;
       } else if (realId === 'gift_toy') {
-        if (!inv.giftItems) return s;
+        if (!_isGod && !inv.giftItems) return s;
         inv.giftItems = inv.giftItems - 1;
       } else {
         return s; // 未知道具
@@ -1050,26 +983,35 @@ export default function MV1Demo({ onBack, initialState, onStateChange, grade, cu
   }, [handleShopAction]);
 
   // 互动
+  // 互动
   const handleInteract = useCallback((actionType) => {
     setState(s => {
       const inv = s.inventory || {};
       let ns = s;
+      const _isGod = isGodModeState(s);
       switch (actionType) {
         case 'feed': {
           if ((inv.foods?.advanced || 0) > 0) {
             ns = useItemOnPet({ ...s, inventory: { ...inv, foods: { ...inv.foods, advanced: inv.foods.advanced - 1 } } }, 'food_advanced');
           } else if ((inv.foods?.basic || 0) > 0) {
             ns = useItemOnPet({ ...s, inventory: { ...inv, foods: { ...inv.foods, basic: inv.foods.basic - 1 } } }, 'food_basic');
+          } else if (_isGod) {
+            // ★ 上帝模式：无道具也允许喂食（直接加饱食度）
+            ns = useItemOnPet(s, 'food_basic');
           } else return s;
           return updateTaskByType(ns, 'care', 1);
         }
         case 'clean': {
-          if ((inv.cleanItems || 0) <= 0) return s;
-          return useItemOnPet({ ...s, inventory: { ...inv, cleanItems: inv.cleanItems - 1 } }, 'clean_basic');
+          if ((inv.cleanItems || 0) <= 0) {
+            if (_isGod) ns = useItemOnPet(s, 'clean_basic'); // ★ 上帝模式无道具也允许
+            else return s;
+          } else ns = useItemOnPet({ ...s, inventory: { ...inv, cleanItems: inv.cleanItems - 1 } }, 'clean_basic');
         }
         case 'rest': {
-          if ((inv.energyItems || 0) <= 0) return s;
-          return useItemOnPet({ ...s, inventory: { ...inv, energyItems: inv.energyItems - 1 } }, 'energy_drink');
+          if ((inv.energyItems || 0) <= 0) {
+            if (_isGod) ns = useItemOnPet(s, 'energy_drink'); // ★ 上帝模式无道具也允许
+            else return s;
+          } else ns = useItemOnPet({ ...s, inventory: { ...inv, energyItems: inv.energyItems - 1 } }, 'energy_drink');
         }
         case 'pet': {
           const pet = { ...s.currentPet };
@@ -1456,6 +1398,7 @@ export default function MV1Demo({ onBack, initialState, onStateChange, grade, cu
                     onTap={handlePetInteractTap}
                     isLocked={isPetLocked}
                     spriteWalkOffset={petWalkOffset}
+                    isGodMode={isGodModeState(state)}
                   />
                 </div>
               )

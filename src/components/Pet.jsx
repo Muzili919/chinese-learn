@@ -518,6 +518,8 @@ export default function Pet({
   // ---- 新增：动作状态机 ----
   isLocked = false,         // 锁定状态（答题中/低血量）→ 点击无任何反馈和切换
   spriteWalkOffset = 0,     // 精灵左右踱步偏移量（只影响图片，不动状态栏/按钮）
+  // ---- 上帝模式 ----
+  isGodMode = false,       // ★ 无限道具/不检查库存
 }) {
   const typeProp = type  // 用于对话系统区分不同宠物
   const [internalPose, setInternalPose] = useState('normal')
@@ -717,6 +719,8 @@ export default function Pet({
 
   /** 检查是否有足够道具执行某个互动 */
   const canInteract = useCallback((actionType) => {
+    // ★ 上帝模式：所有互动都允许（道具无限）
+    if (isGodMode) return true
     if (!inventory) return false
     switch (actionType) {
       case 'feed': return (inventory.foods?.basic || 0) > 0 || (inventory.foods?.advanced || 0) > 0
@@ -725,7 +729,7 @@ export default function Pet({
       case 'pet': return true // 抚摸不消耗道具
       default: return false
     }
-  }, [inventory])
+  }, [inventory, isGodMode])
 
   // 点击 → 心形粒子 + 开心姿态
 // ---- 点击处理（通知父组件，由父组件决定pose切换逻辑）----
