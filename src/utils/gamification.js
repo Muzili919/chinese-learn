@@ -560,56 +560,56 @@ const ALL_ACCESSORIES = [
 
 export function initGodModeState() {
   return {
-    level: 50,
-    exp: 99999,
+    level: 999,              // ★ 人物经验满级
+    exp: 999999,            // ★ 经验≈无限（花钱用不完）
     totalStars: 9999,
     coins: 99999,
     petPool: PET_POOL,
     ownedPets: ['pet_kitten', 'pet_shiba', 'pet_hamster', 'pet_corgi', 'pet_fox', 'pet_butterfly', 'pet_mantis', 'pet_squirrel', 'pet_kungfu', 'pet_toothless', 'pet_petal_fairy', 'pet_mecha_dragon', 'pet_phoenix', 'pet_starpony'],  // 15只全解锁
     currentPet: {
-      poolId: 'pet_kitten',   // 默认小橘猫（有精美PNG）
-      level: 35,
-      exp: 50000,
+      poolId: 'pet_kitten',   // 默认小橘猫
+      level: 3,               // ★ 宠物初始低级（你可以用无限经验自己升级，观察每个阶段状态）
+      exp: 0,                 // ★ 宠物经验从0开始
       mood: 'happy',
-      tapCount: 99,
+      tapCount: 0,
       stats: { hunger: 100, cleanliness: 100, energy: 100, intimacy: 100 },
-      equippedAccessories: { head: 'acc_crown', neck: 'acc_cape', back: 'acc_wings' },
+      equippedAccessories: {},  // ★ 不预装备配饰（你自己去装备/卸下测试）
       lastAction: null,
       lastFeedTime: Date.now(),
     },
     dailyTasks: initDailyTasks(),
     dailyLastResetDate: new Date().toDateString(),
     taskCounters: {
-      learnCount: 999,
-      feedCount: 99,
-      interactCount: 99,
-      streakCount: 99,
+      learnCount: 0,
+      feedCount: 0,
+      interactCount: 0,
+      streakCount: 0,
     },
     achievements: [],
     inventory: {
-      foods: { basic: 99, advanced: 99, gourmet: 99, superGourmet: 99 },
-      cleanItems: 99,
-      energyItems: 99,
-      giftItems: 99,
-      cards: 50,
+      foods: { basic: 999, advanced: 999, gourmet: 999, superGourmet: 999 },  // ★ 道具无限
+      cleanItems: 999,
+      energyItems: 999,
+      giftItems: 999,
+      cards: 999,             // ★ 抽卡券无限
       accessories: ALL_ACCESSORIES,
     },
     settings: { soundEnabled: true, notificationsEnabled: true },
-    totalLearnQuestions: 9999,
-    totalCorrectAnswers: 8888,
+    totalLearnQuestions: 0,   // ★ 从0开始（真实体验）
+    totalCorrectAnswers: 0,
     daysActive: 365,
     lastActiveDate: new Date().toDateString(),
     friends: [],
     pendingEncouragements: [],
-    weeklyQuestions: 9999,
+    weeklyQuestions: 0,
     weeklyResetDate: new Date().toISOString().slice(0, 10),
-    // 游戏系统
+    // 游戏系统 — ★ 次数无限
     gameState: {
-      dailyAttempts: 99,
+      dailyAttempts: 999999,
       dailyGameDate: new Date().toDateString(),
-      wordCannonHighScore: 9999,
-      totalBubblesCleared: 9999,
-      maxCombo: 15,
+      wordCannonHighScore: 0,
+      totalBubblesCleared: 0,
+      maxCombo: 0,
     },
     titles: ['beginner','hundred_q','vocab_star','grammar_master','cannon_newbie','cannon_elite','combo_king','week_warrior'],
     activeTitle: 'cannon_elite',
@@ -618,11 +618,11 @@ export function initGodModeState() {
     roomTheme: 'aurora',
     ownedRoomThemes: ['starlight','forest','city','aurora','volcano'],
     
-    // 游戏背包
+    // 游戏背包 — 无限道具
     ownedFurniture: FURNITURE_ITEMS.map(f => f.id),
     gameInventory: {
-      time_freeze: 10,
-      shield_potion: 10,
+      time_freeze: 999,
+      shield_potion: 999,
     },
 
     _isGodMode: true,
@@ -728,14 +728,14 @@ function gainExpForLearning(state, accuracy, multiplier = 1) {
   const gain = calcLearnExp(accuracy) * multiplier;
   let newExp = state.exp + gain;
   let newLevel = state.level;
-  
-  // 🔧 修复：使用新的经验计算方式，但不自动升级
+
+  // 使用新的经验计算方式，但不自动升级
   // 用户需要手动点击升级按钮
-  
+
   const s = { ...state, exp: newExp };
   s.totalLearnQuestions = (s.totalLearnQuestions || 0) + 1;
   if (accuracy >= 0.8) s.totalCorrectAnswers = (s.totalCorrectAnswers || 0) + 1;
-  
+
   // 更新学习任务计数
   s.taskCounters = { ...(s.taskCounters || {}) };
   s.taskCounters.learnCount = (s.taskCounters.learnCount || 0) + 1;
@@ -746,8 +746,10 @@ function gainExpForLearning(state, accuracy, multiplier = 1) {
   }
   s.dailyTasks = updateTaskProgress(s.dailyTasks, 'daily_learn', 1);
   s.dailyTasks = updateTaskProgress(s.dailyTasks, 'daily_streak', accuracy >= 1.0 ? 1 : 0);
-  
-  // 答题影响宠物属性
+
+  // 答题影响宠物属性（活力消耗+亲密度变化）
+  // 注意：宠物成长经验通过共享池模式统一管理（totalXP - petExpConsumed）
+  // 不在此处单独维护 currentPet.exp 字段，避免双轨制混乱
   if (s.currentPet?.stats) {
     const stats = { ...s.currentPet.stats };
     stats.energy = clamp(stats.energy - 2, 0, 100); // 答题消耗活力
@@ -758,7 +760,7 @@ function gainExpForLearning(state, accuracy, multiplier = 1) {
       s.currentPet = { ...s.currentPet, stats, lastAction: 'wrongAnswer' };
     }
   }
-  
+
   return s;
 }
 

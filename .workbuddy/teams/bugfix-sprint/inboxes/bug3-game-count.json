@@ -1,0 +1,20 @@
+[
+  {
+    "id": "msg-1776385011437-dehof2",
+    "from": "team-lead",
+    "to": "bug3-game-count",
+    "type": "message",
+    "content": "请汇报你的当前进度。如果已完成，汇报完整结果（改了哪些文件、为什么）。如果还在进行中，说明进展到哪里了。",
+    "timestamp": "2026-04-17T00:16:51.437Z",
+    "read": true
+  },
+  {
+    "id": "shutdown-1776385146139",
+    "from": "team-lead",
+    "to": "bug3-game-count",
+    "type": "shutdown_request",
+    "content": "{\"type\":\"shutdown_request\",\"request_id\":\"shutdown-1776385146139\",\"reason\":\"任务已完成，请关闭。\",\"from\":\"team-lead\",\"timestamp\":\"2026-04-17T00:19:06.139Z\"}",
+    "timestamp": "2026-04-17T00:19:06.139Z",
+    "read": true
+  }
+]

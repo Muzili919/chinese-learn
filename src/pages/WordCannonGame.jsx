@@ -170,20 +170,29 @@ export default function WordCannonGame({ state, onGameStateUpdate, grade }) {
   useEffect(() => {
     const gs = state?.gameState;
     const today = new Date().toDateString();
-    const savedDate = gs?._wordCannonDate;
+    // ★ Bug#3 修复：兼容两种日期字段名（_wordCannonDate / dailyGameDate）
+    // 历史数据用 dailyGameDate，新版本写入 _wordCannonDate
+    const savedDate = gs?._wordCannonDate || gs?.dailyGameDate || null;
 
-    // ★ 修复（防止无限次）：
-    //   1. 默认给0（state未加载时不能玩）
-    //   2. 只有"有保存日期且不是今天"才重置满额（跨天逻辑）
-    //   3. 有保存的dailyAttempts就用它（同一天内多次打开保持扣减状态）
-    let attempts = gs?.dailyAttempts ?? 0;
+    // ★ 核心逻辑：
+    //   1. 有保存的 dailyAttempts 且同一天 → 直接用它（保持扣减状态）
+    //   2. 有保存日期但跨天了 → 重置为满额
+    //   3. 完全没有 gameState 数据（首次/未加载）→ 用默认值 maxDailyAttempts
+    let attempts;
 
-    if (savedDate && savedDate !== today) {
-      // 新的一天（之前玩过，但日期变了）→ 满额重置
+    if (gs && typeof gs.dailyAttempts === 'number') {
+      // 有 gameState 数据
+      if (savedDate && savedDate !== today) {
+        // 跨天重置
+        attempts = maxDailyAttempts;
+      } else {
+        // 同一天内，使用已保存的值
+        attempts = gs.dailyAttempts;
+      }
+    } else {
+      // 无 gameState 数据：给满额（新用户首次进入应该能玩）
       attempts = maxDailyAttempts;
     }
-    // 如果没有保存日期且没有dailyAttempts，说明从未玩过或数据未加载
-    // 保持0即可，等持久化useEffect写入初始值后再由用户触发
 
     setDailyAttempts(attempts);
     setHighScore(gs?.wordCannonHighScore || 0);
@@ -542,7 +551,8 @@ export default function WordCannonGame({ state, onGameStateUpdate, grade }) {
     const prevHigh = highScore;
     const newHigh = Math.max(finalScore, prevHigh);
     const newTotalCleared = totalBubblesCleared + sessionClearedRef.current;
-    const remaining = dailyAttempts - 1;
+    // ★ Bug#3 修复：remaining 直接取当前 dailyAttempts（已在 startGame 时扣减过，不再重复扣）
+    const remaining = dailyAttempts;
     const title = getTitle(newTotalCleared);
 
     setGameOverData({
@@ -556,13 +566,11 @@ export default function WordCannonGame({ state, onGameStateUpdate, grade }) {
       remaining,
     });
 
-    // 回调更新状态
+    // 回调更新状态（只更新分数和记录，不再重复扣减次数）
     if (onGameStateUpdate) {
       onGameStateUpdate({
         gameState: {
           ...(state.gameState || {}),
-          _wordCannonDate: new Date().toDateString(),
-          dailyAttempts: Math.max(0, remaining),
           wordCannonHighScore: newHigh,
           totalBubblesCleared: newTotalCleared,
         },
@@ -572,6 +580,23 @@ export default function WordCannonGame({ state, onGameStateUpdate, grade }) {
 
   /* ── 开始游戏 ── */
   const startGame = useCallback(() => {
+    // ★ Bug#3 修复：次数检查 — 没有剩余次数则拒绝开始
+    if (dailyAttempts <= 0) return;
+
+    // ★ Bug#3 修复：开始时立即扣减一次次数（而非等到结束时才扣）
+    // 这样即使中途刷新/崩溃，次数也已消耗
+    const newAttempts = dailyAttempts - 1;
+    setDailyAttempts(newAttempts);
+    if (onGameStateUpdate) {
+      onGameStateUpdate({
+        gameState: {
+          ...(state.gameState || {}),
+          _wordCannonDate: new Date().toDateString(),
+          dailyAttempts: Math.max(0, newAttempts),
+        },
+      });
+    }
+
     // 重置所有状态
     bubblesRef.current = [];
     optionsRef.current = [];
@@ -636,7 +661,7 @@ export default function WordCannonGame({ state, onGameStateUpdate, grade }) {
 
     // 启动游戏循环
     rafRef.current = requestAnimationFrame(gameLoop);
-  }, [maxHp, totalBubblesCleared, spawnBubble, gameLoop]);
+  }, [dailyAttempts, maxHp, totalBubblesCleared, spawnBubble, gameLoop, onGameStateUpdate, state?.gameState]);
 
   /* ── 技能：时间减速 ── */
   const useSlowSkill = useCallback(() => {

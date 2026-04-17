@@ -456,6 +456,7 @@ export default function ReadingPage({ user, onFinish, onBack }) {
       selected_answer: answer,
       ability_tag: current.ability_tag,
       knowledge_tag: current.knowledge_tag,
+      subject: 'chinese',
       timestamp: new Date().toISOString(),
     }
     storage.addRecord(user.id, record)
@@ -472,8 +473,8 @@ export default function ReadingPage({ user, onFinish, onBack }) {
       durationSec: totalSec,
     }
     storage.addSession(user.id, session)
-    // 标记星球完成（只有做完才算打卡）
-    if (current?.knowledge_tag) storage.markPlanetComplete(user.id, current.knowledge_tag)
+    // 标记星球完成（只有做完才算打卡，统一用'阅读星球'tag）
+    storage.markPlanetComplete(user.id, '阅读星球')
     updateStreak(user.id)
     syncAfterSession(user.id)
     onFinish({ session, records })

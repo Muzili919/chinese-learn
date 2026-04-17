@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef, useMemo, useCallback } from 'react'
-import { storage } from '../utils/storage'
+import { storage, updateStreak } from '../utils/storage'
 import { syncAfterSession } from '../utils/sync'
 import { speakEnglish, speakChinese, stop, initTTS } from '../utils/tts'
 import enWords from '../data/dictation_en_words.json'
@@ -551,8 +551,8 @@ function ResultMode({ results, subject, onDone }) {
   }
 
   function handleDone() {
-    // 加 XP
-    storage.addXP(null, XP_DICTATION)
+    // 加 XP（★ Fix: 原来传 null，导致 XP 写入 cl_xp_null 键永远拿不到）
+    storage.addXP(user?.id || '', XP_DICTATION)
     // 错题写入records（让听写错误也能进入错题集）
     if (user?.id) {
       results.forEach(r => {
@@ -794,6 +794,14 @@ export default function DictationPage({ user, subject: subjectProp, onBack }) {
 
   function handleGradingResult(results) {
     setGradingResults(results)
+    // 标记星球完成（完成听写+批改全流程才算打卡）
+    if (user?.id) {
+      const dictationTag = subject === 'english' ? '英语听写' : '听写'
+      storage.markPlanetComplete(user.id, dictationTag)
+      storage.markPlanetComplete(user.id, 'dictation')  // 与HomePage的planet.id对齐
+      updateStreak(user.id)
+      syncAfterSession(user.id)
+    }
     setMode('result')
   }
 

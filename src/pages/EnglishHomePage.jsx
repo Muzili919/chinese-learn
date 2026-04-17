@@ -62,16 +62,20 @@ export default function EnglishHomePage({ user, grade = 'primary', onStartQuiz, 
     return new Set(completed)
   }, [user?.id, records, refreshKey])
 
-  // knowledge_tag -> planet id 映射
+  // knowledge_tag -> planet id 映射（与各答题页 markPlanetComplete 的 tag 对齐）
   const TAG_TO_PLANET = {
     '英语联想': 'en_association',
     '联想星球': 'en_association',
     '英语词汇': 'en_vocab',
+    '初中单词星球': 'en_vocab',       // WordPlanetPage 写入的 tag
     '英语听力': 'en_listen',
     '英语语法': 'en_grammar',
     '英语阅读': 'en_reading',
     '英语写作': 'en_writing',
     '完形填空': 'en_cloze',
+    '闪电测验': 'en_lightning',         // LightningQuizPage 写入的 tag
+    '英语听写': 'en_dictation',         // DictationPage(english) 写入的 tag
+    '自测星球': 'en_self_test',          // SelfTestPage(english) 写入的 tag
   }
 
   function isPracticed(planet) {

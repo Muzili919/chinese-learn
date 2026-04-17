@@ -1,0 +1,23 @@
+{
+  "name": "bugfix-sprint",
+  "leadAgentId": "d85acfd69bd04a41a3aef3a8736a1951",
+  "workspacePath": "/Volumes/ORICO/xinwen/claudecode/chinese-learn",
+  "createdAt": "2026-04-17T00:04:19.641Z",
+  "options": {
+    "workspacePath": "/Volumes/ORICO/xinwen/claudecode/chinese-learn",
+    "isAutoTeam": false
+  },
+  "members": [
+    {
+      "memberId": "team-lead@bugfix-sprint",
+      "name": "team-lead",
+      "role": "Team Lead - coordinates the team and interacts with the user"
+    },
+    {
+      "memberId": "feature5-composition@bugfix-sprint",
+      "name": "feature5-composition",
+      "role": "Feature5:小学语文作文星球"
+    }
+  ],
+  "isAutoTeam": false
+}

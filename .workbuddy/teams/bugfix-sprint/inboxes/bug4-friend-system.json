@@ -1,0 +1,20 @@
+[
+  {
+    "id": "msg-1776385014072-tus3bm",
+    "from": "team-lead",
+    "to": "bug4-friend-system",
+    "type": "message",
+    "content": "请汇报你的当前进度。如果已完成，汇报完整结果。如果还在进行中，说明进展到哪里了。",
+    "timestamp": "2026-04-17T00:16:54.072Z",
+    "read": true
+  },
+  {
+    "id": "shutdown-1776385147876",
+    "from": "team-lead",
+    "to": "bug4-friend-system",
+    "type": "shutdown_request",
+    "content": "{\"type\":\"shutdown_request\",\"request_id\":\"shutdown-1776385147876\",\"reason\":\"任务已完成，请关闭。\",\"from\":\"team-lead\",\"timestamp\":\"2026-04-17T00:19:07.876Z\"}",
+    "timestamp": "2026-04-17T00:19:07.876Z",
+    "read": true
+  }
+]

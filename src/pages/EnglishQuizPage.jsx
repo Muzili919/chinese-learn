@@ -32,12 +32,13 @@ const EN_SESSION_SIZES = {
 
 // 星球ID → 今日已练标记用的规范Tag（与 EnglishHomePage.TAG_TO_PLANET 对应）
 const EN_PLANET_CANONICAL_TAG = {
-  en_vocab:   '英语词汇',
-  en_listen:  '英语听力',
-  en_grammar: '英语语法',
-  en_reading: '英语阅读',
-  en_writing: '英语写作',
-  en_cloze:   '完形填空',
+  en_vocab:      '英语词汇',
+  en_listen:     '英语听力',
+  en_grammar:    '英语语法',
+  en_reading:    '英语阅读',
+  en_writing:    '英语写作',
+  en_cloze:      '完形填空',
+  en_association: '联想星球',       // 兜底（通常走AssociationPlanetPage单独路径）
 }
 
 const EN_QUESTION_MAP = {

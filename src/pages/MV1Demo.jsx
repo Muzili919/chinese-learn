@@ -10,6 +10,24 @@ function isGodMode() {
   const hash = new URLSearchParams(window.location.hash.split('?')[1] || '')
   return params.get('god') === '1' || hash.get('god') === '1'
 }
+
+// ★★★ 统一经验获取函数（Bug #7a 彻底修复 + 无敌上帝模式）★★★
+// 上帝模式无用户时 storage.getXP(null) 永远返回 0，会导致：
+//   - 经验显示为0、商店不能买、抽卡不能用、宠物不能升级
+// 所有获取经验的地方都必须走这个函数，不再散落调用 storage.getXP()
+function getEffectiveXP(state, user) {
+  // 有正常登录用户 → 读 storage（真实数据源）
+  if (user?.id) return storage.getXP(user.id) || state?.exp || 0;
+  // ★ 上帝模式 → 返回 Infinity（无限金钱！所有价格检查 < Infinity 自动通过）
+  if (state?._isGodMode) return Infinity;
+  // 其他情况 fallback
+  return state?.exp || 0;
+}
+
+// ★★★ 上帝模式检测辅助函数 ★★★
+function isGodModeState(state) {
+  return !!state?._isGodMode;
+}
 import {
   initGamificationState,
   gainExpForLearning,
@@ -523,7 +541,7 @@ function FriendsPanel({ state, userId, onStateChange }) {
 }
 
 // ====== 主组件 ======
-export default function MV1Demo({ onBack, initialState, onStateChange, grade }) {
+export default function MV1Demo({ onBack, initialState, onStateChange, grade, currentUserId: propUserId }) {
   // 初始状态：优先用传入的（上帝模式/缓存），否则默认
   const [state, setState] = useState(() => {
     // 如果传入的initialState有宠物，直接用它（防止刷新后变蛋）
@@ -543,16 +561,19 @@ export default function MV1Demo({ onBack, initialState, onStateChange, grade }) 
   // 标记本次初始化是否成功从云端加载（false 时持久化 effect 不推送到 Supabase）
   const cloudLoadedRef = React.useRef(false);
 
-  // ★ 用真实 user.id 作为用户变化信号（切换账号时重新拉取云端）
-  const currentUserId = storage.getUser()?.id || null
+  // ★ 用传入的 propUserId 作为用户变化信号（由 App.jsx 层保证切换账号时更新）
+  // fallback 到 storage.getUser() 仅用于向后兼容（非 key 驱动挂载场景）
+  const currentUserId = propUserId || storage.getUser()?.id || null
 
   // 初始化：云端加载 + 同步 storage XP + 同步今日任务
   // 依赖 currentUserId：当 App.jsx 切换账号导致 gameState 变化时重新拉取云端数据
   useEffect(() => {
     // 每次重新初始化时重置 cloudLoadedRef，防止上一次成功状态被沿用到新账号的错误推送
     cloudLoadedRef.current = false;
-    const user = storage.getUser();
-    if (!user?.id) {
+    // ★ 使用 propUserId（从 App.jsx props 传入），不再调用 storage.getUser()
+    // 防止 init effect 闭包捕获到旧 userId（切换账号场景）
+    const uid = currentUserId || storage.getUser()?.id || null;
+    if (!uid) {
       // 没有登录用户（如god模式本地测试），直接用initialState标记初始化完成
       if (initialState) setState(initialState);
       initializedRef.current = true;
@@ -560,7 +581,7 @@ export default function MV1Demo({ onBack, initialState, onStateChange, grade }) 
       return;
     }
 
-    fetchMV1State(user.id).then((cloud) => {
+    fetchMV1State(uid).then((cloud) => {
       const base = initGamificationState();
       const today = new Date().toDateString();
       const todayStr = new Date().toISOString().slice(0, 10);
@@ -572,12 +593,17 @@ export default function MV1Demo({ onBack, initialState, onStateChange, grade }) 
       }
 
       // 以 storage XP 为权威（答题时 storage.addXP 已实时更新）
-      const storageXP = storage.getXP(user.id);
+      const storageXP = uid ? storage.getXP(uid) : (isGodMode() && initialState?.exp ? initialState.exp : 0);
 
       // 同步今日答题到任务进度
-      const records = storage.getRecords(user.id);
+      const records = storage.getRecords(uid);
       const todayRecords = records.filter(r => r.timestamp?.startsWith(todayStr));
       dailyTasks = syncTasksFromRecords(dailyTasks, todayRecords);
+
+      // ★ Bug #2 修复：根据今日答题记录计算宠物应得经验
+      // 答题页只调用 storage.addXP（写 localStorage），不会调用 gainExpForLearning
+      // 所以需要在这里根据答题记录回填宠物经验 (currentPet.exp)
+      // 具体实现在 resolvedCurrentPet 定义之后（下方）
 
       // 好友列表：优先用云端数据，若云端为空则保留 initialState 中的好友（避免初始化空态覆盖）
       const friends = cloud?.friends?.length
@@ -588,7 +614,7 @@ export default function MV1Demo({ onBack, initialState, onStateChange, grade }) 
       const isGod = isGodMode()
       const localHasPet = (initialState?.currentPet?.poolId && initialState?.ownedPets?.length > 0)
       const cloudHasPet = cloud?.currentPet?.poolId
-      const resolvedCurrentPet = (() => {
+      let resolvedCurrentPet = (() => {
         if (isGod) return initialState.currentPet  // 上帝模式：始终用本地（initGodModeState）
         if (cloud?.currentPet) {
           const merged = {
@@ -606,6 +632,41 @@ export default function MV1Demo({ onBack, initialState, onStateChange, grade }) 
         // 都没有 → 蛋态
         return null
       })()
+
+      // ★ Bug #2 修复：根据今日答题记录回填宠物成长经验
+      if (resolvedCurrentPet && todayRecords.length > 0) {
+        const petExpKey = `mv1_pet_exp_sync_${uid}_${todayStr}`;
+        const lastSyncCount = parseInt(localStorage.getItem(petExpKey) || '0');
+        const newRecords = todayRecords.length - lastSyncCount;
+
+        if (newRecords > 0) {
+          const newRecs = todayRecords.slice(-newRecords);
+          let petExpGain = 0;
+          let correctCount = 0;
+          for (const r of newRecs) {
+            const xp = r.correct ? 5 : 1;
+            petExpGain += Math.round(xp * 0.8);
+            if (r.correct) correctCount++;
+          }
+
+          if (petExpGain > 0) {
+            resolvedCurrentPet = {
+              ...resolvedCurrentPet,
+              exp: (resolvedCurrentPet.exp || 0) + petExpGain,
+            };
+            if (resolvedCurrentPet.stats) {
+              const stats = { ...resolvedCurrentPet.stats };
+              stats.energy = Math.max(0, (stats.energy || 80) - 2 * newRecs.length);
+              if (correctCount > 0) {
+                stats.intimacy = Math.min(100, (stats.intimacy || 30) + 2 * correctCount);
+              }
+              resolvedCurrentPet = { ...resolvedCurrentPet, stats };
+            }
+            console.log(`[MV1] 🐾 Bug#2修复: 今日${newRecords}道新答题 → 宠物+${petExpGain}经验`);
+          }
+          localStorage.setItem(petExpKey, String(todayRecords.length));
+        }
+      }
 
       const resolvedOwnedPets = (() => {
         if (isGod) return initialState.ownedPets || []  // 上帝模式：始终用本地全解锁列表
@@ -638,6 +699,10 @@ export default function MV1Demo({ onBack, initialState, onStateChange, grade }) 
         ownedRoomThemes: localSnapshot?.ownedRoomThemes ?? (cloud?.ownedRoomThemes || base.ownedRoomThemes || []),
         currentRoomTheme: localSnapshot?.currentRoomTheme ?? (cloud?.currentRoomTheme || base.currentRoomTheme || 'default'),
         ownedFurniture: localSnapshot?.ownedFurniture ?? (cloud?.ownedFurniture || base.ownedFurniture || []),
+        // ★ Bug#3 修复：gameState 必须从 localStorage 优先恢复（同 gameInventory 模式）
+        // 原来只靠 ...base + ...(cloud||{})，导致本地最新扣减的 dailyAttempts 被云端旧数据/默认值覆盖
+        // 刷新页面后次数重置回默认值的根本原因就在这里
+        gameState: localSnapshot?.gameState ?? (cloud?.gameState || base.gameState || {}),
         dailyTasks,
         dailyLastResetDate: today,
         taskCounters: cloud?.taskCounters || base.taskCounters,
@@ -688,7 +753,8 @@ export default function MV1Demo({ onBack, initialState, onStateChange, grade }) 
       if (state != null) localStorage.setItem(petKey, JSON.stringify(state));
     } catch(e) {}
     if (onStateChange) onStateChange(state);
-  }, [state, onStateChange]);
+    // ★ Fix: currentUserId 必须在依赖数组中，否则切换账号后可能写入旧的 localStorage key
+  }, [state, onStateChange, currentUserId]);
 
   // 时间衰减
   useEffect(() => {
@@ -712,9 +778,22 @@ export default function MV1Demo({ onBack, initialState, onStateChange, grade }) 
     const iv = setInterval(() => {
       setState(s => {
         if (!s) return s;
-        const freshXP = storage.getXP(storage.getUser()?.id || '');
+        // ★ 上帝模式无用户时跳过（getEffectiveXP 会返回 s.exp，无需同步）
+        if (!storage.getUser()?.id && s._isGodMode) return s;
+        const freshXP = getEffectiveXP(s, storage.getUser());
         if (freshXP !== s.exp && freshXP > 0) {
-          return { ...s, exp: freshXP };
+          // ★ Bug #2 修复：XP变化时同时更新宠物经验
+          const xpDiff = freshXP - (s.exp || 0);
+          const petGain = Math.round(xpDiff * 0.8);
+          const updated = { ...s, exp: freshXP };
+          if (petGain > 0 && updated.currentPet) {
+            updated.currentPet = {
+              ...updated.currentPet,
+              exp: (updated.currentPet.exp || 0) + petGain,
+            };
+            console.log(`[MV1] 🐾 Bug#2 L1同步: XP+${xpDiff} → 宠物经验+${petGain}`);
+          }
+          return updated;
         }
         return s;
       });
@@ -725,11 +804,25 @@ export default function MV1Demo({ onBack, initialState, onStateChange, grade }) 
       if (!document.hidden) {
         setState(s => {
           if (!s) return s;
-          const freshXP = storage.getXP(storage.getUser()?.id || '');
+          // ★ 上帝模式无用户时跳过
+          const user = storage.getUser();
+          if (!user?.id && s._isGodMode) return s;
+          const freshXP = getEffectiveXP(s, user);
           // 只要storage的值更大（说明刚答完题），就立即同步
           if (freshXP !== s.exp && freshXP > 0) {
             console.log('[MV1] 🔄 页面可见性切换，强制刷新XP:', s.exp, '→', freshXP);
-            return { ...s, exp: freshXP };
+            // ★ Bug #2 修复：切回宠物页时同时更新宠物经验
+            const xpDiff = freshXP - (s.exp || 0);
+            const petGain = Math.round(xpDiff * 0.8);
+            const updated = { ...s, exp: freshXP };
+            if (petGain > 0 && updated.currentPet) {
+              updated.currentPet = {
+                ...updated.currentPet,
+                exp: (updated.currentPet.exp || 0) + petGain,
+              };
+              console.log(`[MV1] 🐾 Bug#2 L2同步(切回): XP+${xpDiff} → 宠物经验+${petGain}`);
+            }
+            return updated;
           }
           return s;
         });
@@ -742,10 +835,23 @@ export default function MV1Demo({ onBack, initialState, onStateChange, grade }) 
     const t = setTimeout(() => {
       setState(s => {
         if (!s) return s;
-        const freshXP = storage.getXP(storage.getUser()?.id || '');
+        // ★ 上帝模式无用户时跳过
+        const user = storage.getUser();
+        if (!user?.id && s._isGodMode) return s;
+        const freshXP = getEffectiveXP(s, user);
         if (freshXP !== s.exp && freshXP > 0) {
           console.log('[MV1] 🔥 挂载后兜底刷新XP:', s.exp, '→', freshXP);
-          return { ...s, exp: freshXP };
+          // ★ Bug #2 修复：挂载后同步也更新宠物经验
+          const xpDiff = freshXP - (s.exp || 0);
+          const petGain = Math.round(xpDiff * 0.8);
+          const updated = { ...s, exp: freshXP };
+          if (petGain > 0 && updated.currentPet) {
+            updated.currentPet = {
+              ...updated.currentPet,
+              exp: (updated.currentPet.exp || 0) + petGain,
+            };
+          }
+          return updated;
         }
         return s;
       });
@@ -764,10 +870,13 @@ export default function MV1Demo({ onBack, initialState, onStateChange, grade }) 
       const pet = s.currentPet;
       const petLevel = pet?.level || 1;
       const threshold = petLevel * 100;
-      const totalXP = storage.getXP(storage.getUser()?.id || '') || s.exp || 0;
-      const consumed = s.petExpConsumed || 0;
-      const petExp = Math.max(0, totalXP - consumed);
-      if (petExp < threshold) return s;
+      // ★ 上帝模式：无限经验直接通过，不检查阈值
+      if (!isGodModeState(s)) {
+        const totalXP = getEffectiveXP(s, storage.getUser());
+        const consumed = s.petExpConsumed || 0;
+        const petExp = Math.max(0, totalXP - consumed);
+        if (petExp < threshold) return s;
+      }
 
       setLevelUpAnim(true);
       setTimeout(() => setLevelUpAnim(false), 2000);
@@ -788,16 +897,17 @@ export default function MV1Demo({ onBack, initialState, onStateChange, grade }) 
   }, []);
 
     // ★ 商店使用宠物可支配经验池（总经验-已消耗升级），不影响人物学习等级
-  const handleShopAction = useCallback((actionId) => {
-    // 特殊处理：抽卡券 → 商店购买（花500经验买1张卡券放入背包）
-    if (actionId === 'card_draw') {
-      setState(s => {
-        const totalXP = storage.getXP(storage.getUser()?.id || '') || s.exp || 0;
-        const consumed = s.petExpConsumed || 0;
-        const petSpendable = Math.max(0, totalXP - consumed);
-
-        // 购买检查：可支配经验 >= 500
-        if (petSpendable < 500) return s;
+    const handleShopAction = useCallback((actionId) => {
+      // 特殊处理：抽卡券 → 商店购买（花500经验买1张卡券放入背包）
+      if (actionId === 'card_draw') {
+        setState(s => {
+          // ★ 上帝模式免费获取，不检查
+          if (!isGodModeState(s)) {
+            const totalXP = getEffectiveXP(s, storage.getUser());
+            const consumed = s.petExpConsumed || 0;
+            const petSpendable = Math.max(0, totalXP - consumed);
+            if (petSpendable < 500) return s;
+          }
 
         // 购买成功：扣经验 + 加1张卡券到背包
         // ★ buyItem 直接返回 state 对象，不要解构 { state: xxx }
@@ -812,9 +922,10 @@ export default function MV1Demo({ onBack, initialState, onStateChange, grade }) 
     }
 
     setState(s => {
-      const totalXP = storage.getXP(storage.getUser()?.id || '') || s.exp || 0;
+      // ★ 上帝模式：petSpendable = Infinity，所有价格自动通过
+      const totalXP = getEffectiveXP(s, storage.getUser());
       const consumed = s.petExpConsumed || 0;
-      const petSpendable = Math.max(0, totalXP - consumed);
+      const petSpendable = isGodModeState(s) ? Infinity : Math.max(0, totalXP - consumed);
 
       if (actionId.startsWith('buy_acc_')) {
         const accId = actionId.replace('buy_acc_', '');
@@ -983,7 +1094,7 @@ export default function MV1Demo({ onBack, initialState, onStateChange, grade }) 
       const user = storage.getUser();
       if (user?.id && task.reward?.exp) storage.addXP(user.id, task.reward.exp);
       const newS = claimTaskReward(s, taskId);
-      return { ...newS, exp: storage.getXP(user?.id || '') };
+      return { ...newS, exp: getEffectiveXP(newS, user) };
     });
   }, []);
 
@@ -1112,16 +1223,20 @@ export default function MV1Demo({ onBack, initialState, onStateChange, grade }) 
       }
       
       // 正常抽卡
-      const totalXP = storage.getXP(storage.getUser()?.id || '') || s.exp || 0;
-      if (totalXP < 500 && !hasFreeCard(s)) return s;
+      // ★ 上帝模式：免费无限抽卡，跳过费用检查
+      const _isGod = isGodModeState(s);
+      if (!_isGod) {
+        const totalXP = getEffectiveXP(s, storage.getUser());
+        if (totalXP < 500 && !hasFreeCard(s)) return s;
+      }
       
       const { state: newS, pet } = drawCard(s);
       if (pet && newS !== s) {
         setGachaResult(pet);
         setShowGacha(true);
-        if (storage.getUser()?.id && !hasFreeCard(s)) {
+        if (!_isGod && storage.getUser()?.id && !hasFreeCard(s)) {  // ★ 上帝模式不扣费
           storage.addXP(storage.getUser().id, -500);
-          return { ...newS, exp: Math.max(0, totalXP - 500) };
+          return { ...newS, exp: Math.max(0, getEffectiveXP(s, storage.getUser()) - 500) };
         }
         return newS;
       }
@@ -1169,7 +1284,8 @@ export default function MV1Demo({ onBack, initialState, onStateChange, grade }) 
   const latestXPRef = useRef(0);
 
   // 每次渲染都读storage，确保绝对最新
-  const _freshTotalXP = storage.getXP(storage.getUser()?.id || '') || state?.exp || 0;
+  // ★ 统一用 getEffectiveXP()（上帝模式自动走 state.exp）
+  const _freshTotalXP = getEffectiveXP(state, storage.getUser());
   if (_freshTotalXP !== latestXPRef.current) {
     latestXPRef.current = _freshTotalXP;
   }

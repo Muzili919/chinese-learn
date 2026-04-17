@@ -1,0 +1,20 @@
+[
+  {
+    "id": "msg-1776385002561-k6w93u",
+    "from": "team-lead",
+    "to": "bug1-auth-switch",
+    "type": "message",
+    "content": "请汇报你的当前进度和发现，如果已经完成请汇报完整结果（改了哪些文件、改了什么、为什么），如果还在进行中请说明进展到哪里了。",
+    "timestamp": "2026-04-17T00:16:42.561Z",
+    "read": true
+  },
+  {
+    "id": "shutdown-1776385125721",
+    "from": "team-lead",
+    "to": "bug1-auth-switch",
+    "type": "shutdown_request",
+    "content": "{\"type\":\"shutdown_request\",\"request_id\":\"shutdown-1776385125721\",\"reason\":\"任务已完成，请关闭。\",\"from\":\"team-lead\",\"timestamp\":\"2026-04-17T00:18:45.721Z\"}",
+    "timestamp": "2026-04-17T00:18:45.721Z",
+    "read": true
+  }
+]

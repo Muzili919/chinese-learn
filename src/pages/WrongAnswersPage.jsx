@@ -45,6 +45,13 @@ const TAG_COLORS = {
   文学常识: 'bg-rose-100 text-rose-700',
 }
 
+// 学科配置（错题页内部切换用）
+const SUBJECT_TABS = [
+  { id: 'chinese', label: '语文', emoji: '📖' },
+  { id: 'english', label: '英语', emoji: '🌎' },
+  { id: 'politics', label: '道法', emoji: '⚖️' },
+]
+
 function daysDiff(dateStr) {
   if (!dateStr) return 999
   const diff = Math.floor(
@@ -54,69 +61,94 @@ function daysDiff(dateStr) {
   return diff
 }
 
-export default function WrongAnswersPage({ user, subject = 'chinese', onStartWrongQuiz, onVariantTraining, onBack }) {
+/**
+ * 核心计算逻辑：根据 userId + subject 过滤出该学科的错题卡片
+ * 提取为独立函数，方便为每个学科分别计算数量
+ */
+function computeWrongCards(userId, subject, qMap) {
+  const allRecords = storage.getRecords(userId)
+  // 按科目过滤
+  const records = allRecords.filter(r => {
+    if (subject === 'english') return r.subject === 'english'
+    if (subject === 'politics') return r.subject === 'politics' || r.subject === '道法'
+    return !r.subject || r.subject === 'chinese'
+  })
+  const srsStates = storage.getSrsState(userId)
+
+  // 每张卡最新一条记录
+  const latest = {}
+  const wrongCount = {}
+  for (const r of records) {
+    if (!latest[r.card_id] || r.timestamp > latest[r.card_id].timestamp) {
+      latest[r.card_id] = r
+    }
+    if (!r.correct) wrongCount[r.card_id] = (wrongCount[r.card_id] || 0) + 1
+  }
+
+  const today = new Date().toISOString().split('T')[0]
+  const cutoff = new Date()
+  cutoff.setDate(cutoff.getDate() - 3)
+  const cutoffStr = cutoff.toISOString().split('T')[0]
+
+  const cards = []
+  let overdueCount = 0
+
+  for (const [cardId, rec] of Object.entries(latest)) {
+    if (rec.correct) continue  // 最近一次答对了，不算错题
+    const q = qMap[cardId]
+    if (!q) continue
+
+    const srs = srsStates[cardId]
+    const nextReview = srs?.nextReview || today
+    const isOverdue = nextReview <= cutoffStr
+    const isDueToday = nextReview <= today
+
+    if (isOverdue) overdueCount++
+
+    cards.push({
+      id: cardId,
+      question: q,
+      lastWrongDate: rec.timestamp?.split('T')[0] || today,
+      wrongTimes: wrongCount[cardId] || 1,
+      nextReview,
+      isOverdue,
+      isDueToday,
+      daysSinceDue: daysDiff(nextReview),
+    })
+  }
+
+  // 按积压程度排序：积压最久的排最前
+  cards.sort((a, b) => b.daysSinceDue - a.daysSinceDue)
+
+  return { cards, overdueCount }
+}
+
+export default function WrongAnswersPage({ user, subject = 'chinese', onStartWrongQuiz, onVariantTraining, onBack, onSubjectChange }) {
   const [filter, setFilter] = useState('all')  // all | overdue | pending
   const [selectedIds, setSelectedIds] = useState(new Set())
   const [showPhotoUpload, setShowPhotoUpload] = useState(false)
   const fileInputRef = useRef(null)
-  const allQMap = useMemo(() => getAllQMap(subject), [subject])
 
+  // ★ 内部学科状态：以 prop 为初始值，但允许用户在页面内自由切换
+  const [currentSubject, setCurrentSubject] = useState(subject)
+
+  const allQMap = useMemo(() => getAllQMap(currentSubject), [currentSubject])
+
+  // ★ 核心错题数据（依赖 currentSubject 和 user.id）
   const { wrongCards, overdueCount } = useMemo(() => {
-    const allRecords = storage.getRecords(user.id)
-    // 按科目过滤：英语题有 subject==='english'，语文题没有 subject 或 subject==='chinese'
-    const records = allRecords.filter(r => {
-      if (subject === 'english') return r.subject === 'english'
-      if (subject === 'politics') return r.subject === 'politics' || r.subject === '道法'
-      return !r.subject || r.subject === 'chinese'
-    })
-    const srsStates = storage.getSrsState(user.id)
+    const result = computeWrongCards(user.id, currentSubject, allQMap)
+    return { wrongCards: result.cards, overdueCount: result.overdueCount }
+  }, [user.id, currentSubject, allQMap])
 
-    // 每张卡最新一条记录
-    const latest = {}
-    const wrongCount = {}
-    for (const r of records) {
-      if (!latest[r.card_id] || r.timestamp > latest[r.card_id].timestamp) {
-        latest[r.card_id] = r
-      }
-      if (!r.correct) wrongCount[r.card_id] = (wrongCount[r.card_id] || 0) + 1
+  // ★ 为每个学科计算错题数量（用于标签页角标显示）
+  const subjectCounts = useMemo(() => {
+    const counts = {}
+    for (const tab of SUBJECT_TABS) {
+      const qMap = tab.id === 'english' ? EN_Q_MAP : tab.id === 'politics' ? POLITICS_Q_MAP : Q_MAP
+      const { cards } = computeWrongCards(user.id, tab.id, qMap)
+      counts[tab.id] = cards.length
     }
-
-    const today = new Date().toISOString().split('T')[0]
-    const cutoff = new Date()
-    cutoff.setDate(cutoff.getDate() - 3)
-    const cutoffStr = cutoff.toISOString().split('T')[0]
-
-    const cards = []
-    let overdueCount = 0
-
-    for (const [cardId, rec] of Object.entries(latest)) {
-      if (rec.correct) continue  // 最近一次答对了，不算错题
-      const q = allQMap[cardId]
-      if (!q) continue
-
-      const srs = srsStates[cardId]
-      const nextReview = srs?.nextReview || today
-      const isOverdue = nextReview <= cutoffStr
-      const isDueToday = nextReview <= today
-
-      if (isOverdue) overdueCount++
-
-      cards.push({
-        id: cardId,
-        question: q,
-        lastWrongDate: rec.timestamp?.split('T')[0] || today,
-        wrongTimes: wrongCount[cardId] || 1,
-        nextReview,
-        isOverdue,
-        isDueToday,
-        daysSinceDue: daysDiff(nextReview),
-      })
-    }
-
-    // 按积压程度排序：积压最久的排最前
-    cards.sort((a, b) => b.daysSinceDue - a.daysSinceDue)
-
-    return { wrongCards: cards, overdueCount }
+    return counts
   }, [user.id])
 
   const filtered = filter === 'overdue'
@@ -138,6 +170,15 @@ export default function WrongAnswersPage({ user, subject = 'chinese', onStartWro
   }
   const selectAll = () => setSelectedIds(new Set(filtered.map(c => c.id)))
   const clearSelection = () => setSelectedIds(new Set())
+
+  // ★ 切换学科时清空选择和筛选状态
+  const handleSubjectChange = (newSubject) => {
+    setCurrentSubject(newSubject)
+    setFilter('all')
+    setSelectedIds(new Set())
+    // 通知父组件同步 activeSubject（可选回调）
+    if (onSubjectChange) onSubjectChange(newSubject)
+  }
 
   // 拍照上传
   const handlePhotoUpload = async (e) => {
@@ -167,14 +208,17 @@ export default function WrongAnswersPage({ user, subject = 'chinese', onStartWro
     if (fileInputRef.current) fileInputRef.current.value = ''
   }
 
+  // 当前学科的标题后缀
+  const subjectLabel = currentSubject === 'english' ? '（英语）' : currentSubject === 'politics' ? '（道法）' : '（语文）'
+
   return (
     <div className="flex flex-col min-h-screen bg-gradient-to-b from-red-50 to-orange-50">
       {/* Header */}
-      <div className="bg-white px-4 pt-10 pb-4 shadow-sm">
+      <div className="bg-white px-4 pt-10 pb-3 shadow-sm">
         <div className="flex items-center gap-3 mb-3">
           <button onClick={onBack} className="text-gray-400 text-xl p-1">✕</button>
           <div className="flex-1">
-            <h1 className="text-xl font-bold text-gray-800">💥 错题本{subject === 'english' ? '（英语）' : subject === 'politics' || subject === '道法' ? '（道法）' : '（语文）'}</h1>
+            <h1 className="text-xl font-bold text-gray-800">💥 错题本{subjectLabel}</h1>
             <p className="text-xs text-gray-400">错误 → 复盘 → 攻克，共 {wrongCards.length} 道错题</p>
           </div>
           <button
@@ -194,9 +238,38 @@ export default function WrongAnswersPage({ user, subject = 'chinese', onStartWro
           />
         </div>
 
+        {/* ★ 学科切换标签栏（核心新增：让用户能在错题页内切换不同学科） */}
+        <div className="flex gap-2 mt-1">
+          {SUBJECT_TABS.map(tab => {
+            const count = subjectCounts[tab.id] || 0
+            const isActive = currentSubject === tab.id
+            return (
+              <button
+                key={tab.id}
+                onClick={() => handleSubjectChange(tab.id)}
+                className={`flex items-center gap-1 px-3 py-1.5 rounded-xl text-xs font-semibold transition-all ${
+                  isActive
+                    ? 'bg-red-500 text-white shadow-sm'
+                    : 'bg-gray-100 text-gray-500 active:bg-gray-200'
+                }`}
+              >
+                <span>{tab.emoji}</span>
+                <span>{tab.label}</span>
+                {count > 0 && (
+                  <span className={`px-1.5 py-0.5 rounded-full text-[10px] font-bold ${
+                    isActive ? 'bg-white/30 text-white' : 'bg-red-100 text-red-600'
+                  }`}>
+                    {count}
+                  </span>
+                )}
+              </button>
+            )
+          })}
+        </div>
+
         {/* 积压警告 */}
         {overdueCount > 0 && (
-          <div className="bg-red-50 border border-red-200 rounded-xl p-3 flex items-center justify-between">
+          <div className="bg-red-50 border border-red-200 rounded-xl p-3 flex items-center justify-between mt-3">
             <div>
               <p className="text-sm font-semibold text-red-700">🚨 {overdueCount} 道错题积压超过3天！</p>
               <p className="text-xs text-red-500">快来消灭它们吧</p>

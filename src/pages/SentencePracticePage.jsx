@@ -1,6 +1,6 @@
 import { useState, useMemo } from 'react'
 import { evaluateSentence } from '../utils/ai'
-import { storage } from '../utils/storage'
+import { storage, updateStreak } from '../utils/storage'
 import { syncAfterSession } from '../utils/sync'
 import allWords from '../data/sentence_words.json'
 
@@ -62,6 +62,7 @@ export default function SentencePracticePage({ user, onBack }) {
         selected_answer: sentence,
         ability_tag: '造句练习',
         knowledge_tag: '造句',
+        subject: 'chinese',
         timestamp: new Date().toISOString(),
       })
       storage.addXP(user.id, res.correct ? 10 : 3)
@@ -74,6 +75,12 @@ export default function SentencePracticePage({ user, onBack }) {
   function handleNext() {
     setSessionResults(prev => [...prev, { word: current.word, sentence, score: result?.score || 0, correct: result?.correct || false }])
     if (isLast) {
+      // 标记星球完成（做完全部造句才算打卡）
+      if (user?.id) {
+        storage.markPlanetComplete(user.id, '造句练习')
+        storage.markPlanetComplete(user.id, 'sentence_practice')  // 与HomePage的planet.id对齐
+        updateStreak(user.id)
+      }
       setStep('summary')
       syncAfterSession(user.id)
     } else {

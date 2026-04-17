@@ -1,0 +1,20 @@
+[
+  {
+    "id": "msg-1776385023624-1xjc55",
+    "from": "team-lead",
+    "to": "bug7-god-mode",
+    "type": "message",
+    "content": "请汇报你的当前进度。如果已完成，汇报完整结果。如果还在进行中，说明进展到哪里了。",
+    "timestamp": "2026-04-17T00:17:03.624Z",
+    "read": true
+  },
+  {
+    "id": "shutdown-1776385148862",
+    "from": "team-lead",
+    "to": "bug7-god-mode",
+    "type": "shutdown_request",
+    "content": "{\"type\":\"shutdown_request\",\"request_id\":\"shutdown-1776385148862\",\"reason\":\"任务已完成，请关闭。\",\"from\":\"team-lead\",\"timestamp\":\"2026-04-17T00:19:08.862Z\"}",
+    "timestamp": "2026-04-17T00:19:08.862Z",
+    "read": true
+  }
+]

@@ -27,7 +27,7 @@
 
 # 🐱 宠物系统完整架构文档
 
-## 当前宠物池（11只）
+## 当前宠物池（15只）
 
 | poolId | 中文名 | 稀有度 | spritePrefix | 阶段 | 特点 |
 |--------|--------|--------|-------------|------|------|
@@ -41,6 +41,10 @@
 | pet_squirrel | 机械松鼠 | R | squirrel | 三阶段 | 活泼机敏科技萌 |
 | pet_kungfu | 功夫滚滚 | R | kungfu | 三阶段 | 沉稳睿智武学宗师 |
 | pet_toothless | 无牙仔 | SR | toothless | 黑龙→成长→完全体 | 高稀有度，保底必出 |
+| **pet_petal_fairy** | **花瓣精灵** | **SR** | **petal_fairy** | **花苞→绽放→金色铠甲** | **温柔治愈(2026-04-17新增)** |
+| **pet_mecha_dragon** | **机械翼龙** | **SR** | **mecha_dragon** | **机械幼崽→装甲→量子形态** | **赛博科技(2026-04-17新增)** |
+| **pet_phoenix** | **小凤凰** | **SR** | **phoenix** | **彩虹雏鸟→绚羽→涅槃重生** | **七彩渐变(2026-04-17新增)** |
+| **pet_starpony** | **星光小马** | **SR** | **starpony** | **紫粉宝宝→星云鬃毛→星座印记** | **梦幻可爱(2026-04-17新增)** |
 
 ### 宠物图片规格
 - 存放路径: `public/pets/{spritePrefix}/{stage1,stage2,stage3}/`
@@ -230,10 +234,41 @@ reading(答题默认) / sleeping(Dock默认) / happy / wave / excited / angry / 
 12. **答题后宠物经验不动** → totalXP只在初始化读storage一次，后续storage.addXP不自动同步。需要定时刷新useEffect或用useMemo
 13. **useMemo依赖数组缓存导致经验值卡住** → 即使3秒interval更新了state.exp，totalXP的useMemo可能因React渲染优化跳过重算。最终方案：改用useRef+每渲染直接读storage
 14. **页面切换时经验不同步** → 需要监听visibilitychange事件，从答题页切回时立即刷新，不等定时器
+15. **星球打卡刷新后消失（2026-04-17）** → sync.js的pullFromCloud和syncAfterSession完全缺失completedPlanets同步！只加markPlanetComplete不修云同步=治标不治本。必须追踪写入→存储→读取→云同步完整链路
+16. **SelfTestPage无打卡** → 评分完成后只有syncAfterSession没有markPlanetComplete，自测星球永远无法打勾
+17. **Tag映射缺项** → 入口页TAG_TO_PLANET必须覆盖所有答题页写入的tag，否则写了也读不到
 
 ---
 
-## 听写词库系统（DictationPage）
+## 星球打卡系统（Bug#6 彻底修复版，2026-04-17）
+
+### 数据流完整链路（必须全部打通）
+```
+答题页完成 → markPlanetComplete(tag) → localStorage(cl_completed_{uid}) → syncAfterSession → 云端(users.completed_planets)
+                                                                              ↑
+入口页显示 ← getCompletedPlanetsToday() ← localStorage ← pullFromCloud(并集合并)
+```
+
+### 关键规则
+- **统一标准**：必须完成当次学习全部题目才算打卡（不是答1题就算）
+- **双Tag策略**：每个星球写两个tag——功能名(如'造句练习') + planet.id(如'sentence_practice')
+- **云同步**：sync.js的pushCompletedPlanetsToCloud + pullFromCloud(并集合并)，缺一不可
+- **SelfTestPage**：评分完成后也需调用markPlanetComplete
+
+### 各页面写入tag对照表
+| 页面 | 写入tag | 入口页读取 | 状态 |
+|------|---------|-----------|------|
+| QuizPage | knowledge_tag(字词/古诗词/成语/句子/文学常识) | HomePage QUIZ_PLANET_IDS | ✅ |
+| ReadingPage | '阅读星球' | HomePage '阅读星球' | ✅ |
+| EssayPage | 'essay'+'作文星球' | HomePage 'essay'(planet.id) | ✅ |
+| DictationPage | '听写'/'英语听写'+ 'dictation' | HomePage 'dictation' + EnglishHomePage '英语听写' | ✅ |
+| SentencePracticePage | '造句练习'+'sentence_practice' | HomePage 'sentence_practice' | ✅ |
+| AssociationPlanetPage | '联想星球' | EnglishHomePage '联想星球' | ✅ |
+| WordPlanetPage | '英语词汇' | EnglishHomePage '英语词汇'/'初中单词星球' | ✅ |
+| EnglishQuizPage | EN_PLANET_CANONICAL_TAG(英语词汇/听力/语法等) | EnglishHomePage TAG_TO_PLANET | ✅ |
+| PoliticsQuizPage | ability_tag(选择题/简答题等) | PoliticsHomePage TAG_TO_PLANET | ✅ |
+| LightningQuizPage | '闪电测验' | EnglishHomePage '闪电测验' | ✅ |
+| SelfTestPage | '自测星球'+'self_test' / '模拟考场'+'pol_self_test' | EnglishHomePage/PoliticsHomePage | ✅ 新增 |
 - 英语词库 `dictation_en_words.json`：816条，覆盖4-9年级（小学316+初中500）
 - 语文词库 `dictation_cn_words.json`：1098条，覆盖4-9年级（小学442+初中656）
 - **年级范围按入口动态切换**：小学入口(HomePage)→显示4/5/6年级；初中入口(EnglishHomePage)→显示7(初一)/8(初二)/9(初三)

@@ -1109,6 +1109,8 @@ export default function AssociationPlanetPage({ user, grade = 'primary', onFinis
         </div>
         <button
           onClick={() => {
+            // 标记星球完成（做完session全部词才算打卡）
+            if (user?.id) storage.markPlanetComplete(user.id, '联想星球')
             // SRS 同步 + streak 更新
             if (user?.id) {
               updateStreak(user.id)

@@ -327,7 +327,12 @@ export default function App() {
         return parsed
       }
     } catch (e) { /* 缓存无效，用默认 */ }
-    return initGamificationState()
+    // ★ 关键：返回 null 而非 initGamificationState()！
+    // 如果这里返回了蛋态对象（exp:100, friends:[], ownedPets:[]），
+    // 它会通过 initialState 传给 MV1Demo，虽然 MV1Demo 的 useState 会拒绝它（因为 currentPet=null），
+    // 但 persist effect 会把 null-state 通过 onStateChange 回写到 App 的 gameState → 污染 Leaderboard 等消费者
+    // 让 MV1Demo 自己的 init effect 从云端拉取真实数据
+    return null
   })
   const [overdueCount, setOverdueCount] = useState(0)
   const [englishQuizOptions, setEnglishQuizOptions] = useState({})
@@ -379,6 +384,7 @@ export default function App() {
             gameInventory:  prev.gameInventory  ?? cloud.gameInventory,
             currentPet:     prev.currentPet,       // 始终保留本地宠物
             ownedPets:      prev.ownedPets?.length > 0 ? prev.ownedPets : cloud.ownedPets,
+            friends:         prev.friends?.length > 0 ? prev.friends : (cloud.friends || []),  // ★ Fix #1: 保留好友列表，防止云端空值覆盖
           }
         }
         // 本地没有宠物（新设备/刚登录），完全使用云端数据
@@ -432,6 +438,14 @@ export default function App() {
     setUser(newUser)
     setPage('home')
     setActiveTab('home')
+    // ★ 关键：切换账号后强制触发 pullFromCloud 立即拉取新用户的 XP/records/SRS/streak 数据
+    // 原来依赖 user?.id 的 useEffect 会拉取宠物状态，但学习数据（XP等）需要显式拉取
+    // 不 await：让它在后台跑，不阻塞 UI
+    if (newUser?.id) {
+      pullFromCloud(newUser.id).then(() => {
+        setUser(u => u ? { ...u } : u) // 触发 HomeHeader 刷新
+      }).catch(() => {})
+    }
   }
 
   function startQuiz(opts = {}) {
@@ -558,6 +572,7 @@ export default function App() {
         onStartWrongQuiz={(ids) => { setQuizOptions({ wrongCardIds: ids }); setPage('quiz') }}
         onVariantTraining={startVariantTraining}
         onBack={goHome}
+        onSubjectChange={setActiveSubject}
       />
     )
     if (page === 'result') return <ResultPage result={sessionResult} user={user} onHome={goHome} onRetry={() => startQuiz(quizOptions)} />
@@ -643,6 +658,7 @@ export default function App() {
             initialState={gameState}
             onStateChange={setGameState}
             grade={grade}
+            currentUserId={user?.id || null}
           />
         </ErrorBoundary>
       )
@@ -654,6 +670,7 @@ export default function App() {
           onStartWrongQuiz={(ids) => { setQuizOptions({ wrongCardIds: ids }); setPage('quiz') }}
           onVariantTraining={startVariantTraining}
           onBack={() => setActiveTab('home')}
+          onSubjectChange={setActiveSubject}
         />
       )
     }

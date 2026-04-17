@@ -67,6 +67,7 @@ export default function PoliticsHomePage({ user, onStartQuiz, onBack, onWrongAns
   const TAG_TO_PLANET = {
     '选择题': 'pol_choice', '简答题': 'pol_answer',
     '材料分析题': 'pol_analysis', '实践探究题': 'pol_explore',
+    '模拟考场': 'pol_self_test',          // SelfTestPage(politics) 写入的 tag
   }
 
   function isPracticed(planet) {

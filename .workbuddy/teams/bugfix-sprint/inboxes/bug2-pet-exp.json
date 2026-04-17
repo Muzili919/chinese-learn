@@ -1,0 +1,29 @@
+[
+  {
+    "id": "msg-1776385008327-4m73fc",
+    "from": "team-lead",
+    "to": "bug2-pet-exp",
+    "type": "message",
+    "content": "请汇报你的当前进度。如果已完成，汇报完整结果（改了哪些文件、为什么）。如果还在进行中，说明进展到哪里了。",
+    "timestamp": "2026-04-17T00:16:48.327Z",
+    "read": true
+  },
+  {
+    "id": "shutdown-1776385128227",
+    "from": "team-lead",
+    "to": "bug2-pet-exp",
+    "type": "shutdown_request",
+    "content": "{\"type\":\"shutdown_request\",\"request_id\":\"shutdown-1776385128227\",\"reason\":\"任务已完成，请关闭。\",\"from\":\"team-lead\",\"timestamp\":\"2026-04-17T00:18:48.227Z\"}",
+    "timestamp": "2026-04-17T00:18:48.227Z",
+    "read": true
+  },
+  {
+    "id": "shutdown-1776385145839",
+    "from": "team-lead",
+    "to": "bug2-pet-exp",
+    "type": "shutdown_request",
+    "content": "{\"type\":\"shutdown_request\",\"request_id\":\"shutdown-1776385145839\",\"reason\":\"任务已完成，请关闭。\",\"from\":\"team-lead\",\"timestamp\":\"2026-04-17T00:19:05.839Z\"}",
+    "timestamp": "2026-04-17T00:19:05.839Z",
+    "read": false
+  }
+]

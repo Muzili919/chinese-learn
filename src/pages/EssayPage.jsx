@@ -1,9 +1,11 @@
-import { useState } from 'react'
+import { useState, useMemo, useCallback } from 'react'
 import { evaluateEssay } from '../utils/ai'
 import { storage } from '../utils/storage'
 import { syncAfterSession } from '../utils/sync'
 import prompts from '../data/essay_prompts.json'
 
+// ─── 常量 ────────────────────────────────────────────────────────────────
+const XP_REWARD = 200 // 完成一篇作文奖励的经验值
 const CATEGORIES = ['全部', '写人', '写事', '写景', '写物', '想象']
 const CATEGORY_COLORS = {
   写人: 'from-pink-400 to-rose-500',
@@ -31,15 +33,28 @@ function ScoreBar({ label, score, max, color }) {
 }
 
 function ScoreBadge({ score }) {
-  const color = score >= 9 ? 'bg-green-500' : score >= 7 ? 'bg-blue-500' : 'bg-orange-500'
+  const clampedScore = Math.max(0, Math.min(10, score || 0))
+  const color = clampedScore >= 9 ? 'bg-green-500' : clampedScore >= 7 ? 'bg-blue-500' : 'bg-orange-500'
   return (
     <div className={`px-3 py-1 rounded-full text-white font-bold text-sm ${color}`}>
-      {score.toFixed(1)}分
+      {clampedScore.toFixed(1)}分
     </div>
   )
 }
 
 export default function EssayPage({ user, onBack, onFinish }) {
+  // 切换账号/刷新时user可能为null，显示加载状态防止白屏
+  if (!user) {
+    return (
+      <div className="min-h-screen bg-gradient-to-b from-indigo-50 to-purple-50 flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin text-4xl mb-3">⏳</div>
+          <p className="text-gray-500 text-sm">正在加载...</p>
+        </div>
+      </div>
+    )
+  }
+
   const [activeCategory, setActiveCategory] = useState('全部')
   const [currentPrompt, setCurrentPrompt] = useState(null)
   const [userEssay, setUserEssay] = useState('')
@@ -72,12 +87,12 @@ export default function EssayPage({ user, onBack, onFinish }) {
     try {
       const raw = await evaluateEssay(currentPrompt.title, userEssay)
       // evaluateEssay returns { total, structure, content, language, summary, suggestion, ... }
-      // Normalize to component's expected format
+      // Normalize to component's expected format, clamp scores to 0-10
       const result = {
-        overall: Math.round((raw.total || 0) / 10), // convert 0-100 to 0-10 scale
-        content: Math.round((raw.content || 0) / 4), // 0-40 -> 0-10
-        language: Math.round((raw.language || 0) / 3), // 0-30 -> 0-10
-        structure: Math.round((raw.structure || 0) / 3), // 0-30 -> 0-10
+        overall: Math.max(0, Math.min(10, Math.round((raw.total || 0) / 10))), // convert 0-100 to 0-10 scale
+        content: Math.max(0, Math.min(10, Math.round((raw.content || 0) / 4))), // 0-40 -> 0-10
+        language: Math.max(0, Math.min(10, Math.round((raw.language || 0) / 3))), // 0-30 -> 0-10
+        structure: Math.max(0, Math.min(10, Math.round((raw.structure || 0) / 3))), // 0-30 -> 0-10
         feedback: raw.summary || raw.suggestion || '作文已评分，继续加油！',
         ...raw,
       }
@@ -124,6 +139,16 @@ export default function EssayPage({ user, onBack, onFinish }) {
         // 标记今日已完成（每日1次限制）
         storage.markPlanetComplete(user.id, 'essay')
         storage.markPlanetComplete(user.id, '作文星球')
+
+        // 奖励经验（根据评分高低乘以系数）
+        if (user?.id) {
+          const score = result.overall || 0
+          let multiplier = 0.5 // <6分: 基础50%
+          if (score >= 9) multiplier = 1.5 // 优秀: 150%
+          else if (score >= 7) multiplier = 1.0 // 良好: 100%
+          else if (score >= 6) multiplier = 0.8 // 及格: 80%
+          storage.addXP(user.id, Math.round(XP_REWARD * multiplier))
+        }
       }
     } catch (error) {
       console.error('评分失败:', error)
@@ -304,7 +329,7 @@ export default function EssayPage({ user, onBack, onFinish }) {
                     重新选题
                   </button>
                   <button
-                    onClick={() => onFinish({ type: 'essay', score: evaluation.overall })}
+                    onClick={onBack}
                     className="flex-1 py-3 bg-indigo-600 text-white rounded-xl font-semibold hover:bg-indigo-700 transition-colors"
                   >
                     返回首页
@@ -382,11 +407,11 @@ export default function EssayPage({ user, onBack, onFinish }) {
         )}
 
         {/* Progress Info */}
-        {storage.getUser() && (
+        {user && (
           <div className="mt-6 bg-white rounded-2xl shadow-lg p-4 text-center">
             <div className="text-sm text-gray-600">
-              已完成 {storage.getUser().essaysSubmitted || 0} 篇作文 • 
-              平均分 {(storage.getUser().averageScore || 0).toFixed(1)}
+              已完成 {(user.essaysSubmitted || 0)} 篇作文 • 
+              平均分 {user.averageScore ? user.averageScore.toFixed(1) : '-'}
             </div>
           </div>
         )}

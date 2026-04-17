@@ -35,6 +35,18 @@ export const storage = {
   getRecords: (userId) =>
     JSON.parse(localStorage.getItem(P + 'records_' + userId) || '[]'),
   addRecord: (userId, record) => {
+    // ★ 防御性兜底：如果调用方忘记传 subject，自动推断
+    // 这样即使未来新增答题页漏写了 subject，错题分类也不会出问题
+    if (!record.subject) {
+      const cid = record.card_id || ''
+      if (cid.startsWith('en_') || cid.startsWith('j2_') || cid.startsWith('ep_')) {
+        record.subject = 'english'
+      } else if (cid.startsWith('pol_') || cid.startsWith('pp_')) {
+        record.subject = 'politics'
+      } else {
+        record.subject = 'chinese'  // 默认归入语文
+      }
+    }
     const records = storage.getRecords(userId);
     records.push(record);
     localStorage.setItem(P + 'records_' + userId, JSON.stringify(records));

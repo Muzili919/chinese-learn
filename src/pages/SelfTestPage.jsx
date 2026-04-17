@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef, useCallback } from 'react'
-import { storage } from '../utils/storage'
+import { storage, updateStreak } from '../utils/storage'
 import { syncAfterSession } from '../utils/sync'
 
 // ─── DeepSeek API（通过 Vercel Serverless Function 代理）─────
@@ -781,7 +781,14 @@ ${sectionScores.map(s => `- ${s.title}：${s.earned}/${s.total}分（${s.total >
       })
       setSavedCount(saved)
       setScoring(false)
-      // 云端同步（跨设备学习数据同步：错题记录+SRS+XP）
+      // ★ 标记星球完成（自测交卷评分完毕才算打卡）
+      if (user?.id) {
+        const selfTestTag = subject === 'politics' ? '模拟考场' : '自测星球'
+        storage.markPlanetComplete(user.id, selfTestTag)
+        storage.markPlanetComplete(user.id, subject === 'politics' ? 'pol_self_test' : 'self_test')  // 与入口页planet.id对齐
+        updateStreak(user.id)
+      }
+      // 云端同步（跨设备学习数据同步：错题记录+SRS+XP+打卡数据）
       if (user?.id) syncAfterSession(user.id)
     }
     scoreAll()

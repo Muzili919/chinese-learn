@@ -300,7 +300,7 @@ export default function HomePage({ user, onStartQuiz, hideHeader, activeSubject:
             <span className="text-[10px] bg-indigo-100 text-indigo-600 px-1.5 py-0.5 rounded-md font-medium">👆 核心闯关</span>
           </div>
           <span className="text-xs text-gray-400">
-            今日已练 {QUIZ_PLANET_IDS.filter(id => practicedToday.has(id)).length + (practicedToday.has('reading') ? 1 : 0)}/{QUIZ_PLANET_IDS.length + 1} 个星球
+            今日已练 {QUIZ_PLANET_IDS.filter(id => practicedToday.has(id)).length + (practicedToday.has('阅读星球') ? 1 : 0)}/{QUIZ_PLANET_IDS.length + 1} 个星球
           </span>
         </div>
 
@@ -324,7 +324,7 @@ export default function HomePage({ user, onStartQuiz, hideHeader, activeSubject:
               {/* 核心星球区 - 3列网格（前8个，排3行，最后2个居中占位） */}
               <div className="grid grid-cols-3 gap-2 mb-3">
                 {corePlanets.map((planet) => {
-                  const tagId = planet.reading ? 'reading' : planet.id
+                  const tagId = planet.reading ? '阅读星球' : planet.id
                   const donedToday = practicedToday.has(tagId)
                   return (
                     <button
