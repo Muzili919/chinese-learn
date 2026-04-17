@@ -5,7 +5,7 @@ import PetSpriteAvatar from './PetSpriteAvatar'
  * PetDrawPanel - 宠物抽卡面板
  * 展示抽卡动画和结果，消耗500经验抽一次
  */
-export default function PetDrawPanel({ spendableXP, onDrawCard, ownedPets = [], petPool = [] }) {
+export default function PetDrawPanel({ spendableXP, onDrawCard, ownedPets = [], petPool = [], gameState = {} }) {
   const [drawing, setDrawing] = useState(false)
   const [result, setResult] = useState(null)
   const [showResult, setShowResult] = useState(false)
@@ -96,7 +96,7 @@ export default function PetDrawPanel({ spendableXP, onDrawCard, ownedPets = [], 
                 </div>
                 <div style={{
                   fontSize: 9, fontWeight: 700, marginTop: 2,
-                  color: pet.rarity === 'SSR' ? '#a855f7' : pet.rarity === 'SR' ? '#f59e0b' : pet.rarity === 'R' ? '#3b82f6' : '#6b7280',
+                  color: pet.rarity === 'XR' ? '#ef4444' : pet.rarity === 'SSR' ? '#a855f7' : pet.rarity === 'SR' ? '#f59e0b' : pet.rarity === 'R' ? '#3b82f6' : '#6b7280',
                 }}>
                   {pet.rarity}
                 </div>
@@ -180,17 +180,50 @@ export default function PetDrawPanel({ spendableXP, onDrawCard, ownedPets = [], 
         )}
       </div>
 
+      {/* 三档保底进度 */}
+      {(() => {
+        const pitySR  = gameState?.pitySR  || gameState?.pityCount || 0
+        const pitySSR = gameState?.pitySSR || 0
+        const pityXR  = gameState?.pityXR  || 0
+        const bars = [
+          { label: 'SR 保底', cur: pitySR,  max: 20,  color: '#f59e0b', bg: '#fef3c7', rarity: 'SR' },
+          { label: 'SSR 保底', cur: pitySSR, max: 50,  color: '#a855f7', bg: '#f3e8ff', rarity: 'SSR' },
+          { label: 'XR 保底',  cur: pityXR,  max: 100, color: '#ef4444', bg: '#fee2e2', rarity: 'XR' },
+        ]
+        return (
+          <div style={{ marginTop: 16, padding: '12px 14px', background: '#f9fafb', borderRadius: 12 }}>
+            <p style={{ margin: '0 0 10px', fontWeight: 700, fontSize: 12, color: '#374151' }}>🎯 保底进度</p>
+            {bars.map(b => (
+              <div key={b.rarity} style={{ marginBottom: 8 }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 10, color: '#6b7280', marginBottom: 3 }}>
+                  <span style={{ fontWeight: 600 }}>{b.label}</span>
+                  <span style={{ color: b.color, fontWeight: 700 }}>{b.cur}/{b.max} 抽</span>
+                </div>
+                <div style={{ width: '100%', background: '#e5e7eb', borderRadius: 4, height: 6, overflow: 'hidden' }}>
+                  <div style={{
+                    width: `${Math.min(100, (b.cur / b.max) * 100)}%`,
+                    height: '100%', borderRadius: 4,
+                    background: b.color,
+                    transition: 'width 0.4s',
+                  }} />
+                </div>
+              </div>
+            ))}
+          </div>
+        )
+      })()}
+
       {/* 抽卡规则 */}
       <div style={{
-        marginTop: 20, padding: '12px 14px',
+        marginTop: 12, padding: '12px 14px',
         background: '#f9fafb', borderRadius: 12,
         fontSize: 11, color: '#6b7280', lineHeight: 1.7,
       }}>
         <p style={{ margin: '0 0 4px', fontWeight: 600, color: '#374151' }}>📜 抽卡规则</p>
         <p style={{ margin: 0 }}>• 每次消耗 <strong>500经验</strong> 抽取一只宠物</p>
-        <p style={{ margin: 0 }}>• 已拥有的宠物不会重复出现（自动替换为新宠物）</p>
+        <p style={{ margin: 0 }}>• <span style={{color:'#f59e0b',fontWeight:700}}>SR 10%</span> · <span style={{color:'#a855f7',fontWeight:700}}>SSR 2.5%</span> · <span style={{color:'#ef4444',fontWeight:700}}>XR 0.5%</span></p>
+        <p style={{ margin: 0 }}>• 20/50/100 抽未出对应稀有度时触发保底</p>
         <p style={{ margin: 0 }}>• 等级越高，稀有宠物概率越大</p>
-        <p style={{ margin: 0 }}>• 答题获得经验 → 来这里抽宠物吧！</p>
       </div>
 
       <style>{`

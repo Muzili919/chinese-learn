@@ -63,7 +63,7 @@ export const PET_POOL = [
     desc: '来自云巅武学的功夫熊猫，手持竹棍，气定神闲间蕴含着毁天灭地的力量',
     stages: ['一个画着太极图的竹笋状蛋', '戴着红色腰带的小熊猫宝宝，抱着比它还大的竹棍', '黑衣武者形态，手持青竹棍，眼神中透着武术家的沉稳', '脚踏祥云的大宗师，掌心凝聚着蓝色气劲，一招一式皆是绝学', '传说中的武神熊猫！周身环绕雷电与八卦阵，举手投足可开山裂石！'],
   },
-  // === SR级 超稀 ===
+  // === SR级 超稀有 ===
   {
     poolId: 'pet_toothless', name: '无牙仔', emoji: '🐉', rarity: 'SR', personality: 'tsundere',
     desc: '月光下鳞片泛出幽蓝光芒的夜翼龙，嘴里终于长出四颗小牙，脸上还带着得意的笑',
@@ -92,6 +92,26 @@ export const PET_POOL = [
     spritePrefix: 'starpony',
     desc: '梦幻紫粉渐变的小马驹，鬃毛和尾巴是星空般的蓝紫渐变，额头的星星印记蕴含着宇宙之力',
     stages: ['一颗淡紫色的小马蛋，表面有星点微光闪烁', '星光小马宝宝，紫粉色毛发配蓝紫渐变鬃毛，额头有一颗小星星印记', '毛发更加蓬松柔软，鬃毛开始泛出银河般的光泽，走路时蹄下有星尘', '完全体！周身环绕星云光环，额头的星星变成闪耀的星座印记，每一步踏出都是一道流星'],
+  },
+  // === SSR级 传说 ===
+  {
+    poolId: 'pet_moonwolf', name: '月魄白狼', emoji: '🐺', rarity: 'SSR', personality: 'noble',
+    spritePrefix: 'moonwolf',
+    desc: '太古月神之灵所化的白狼，月圆之夜毛发如白玉生辉，双瞳倒映整片星河，踏过之处寒霜凝结',
+    stages: ['一颗乳白色的狼蛋，月光下会透出幽蓝内光，触之清凉如玉', '小小的白狼幼崽，眼睛是淡蓝色的星芒，耳尖已有银色月纹显现', '银白色的少年白狼，脊背流动月华光带，咆哮时有月芒如刃', '月魄白狼成年体！周身月辉如铠甲，爪踏虚空，嗥声震九天', '完全体 · 月神降世！全身化为流动的月华，双眼是两轮满月，所到之处永夜长明'],
+  },
+  {
+    poolId: 'pet_abyssal_raven', name: '深渊乌鸦', emoji: '🦅', rarity: 'SSR', personality: 'mysterious',
+    spritePrefix: 'abyssal_raven',
+    desc: '来自混沌深渊的神秘乌鸦，羽毛吸收光线却能折射出彩虹，眼中燃烧着不属于这个世界的火焰',
+    stages: ['一枚黑曜石般的蛋，摸起来有轻微的灼热感，表面隐约有紫金纹路', '小乌鸦雏鸟，全身羽毛漆黑如墨，眼睛是两团幽紫火焰，翅膀末端透着深红', '羽翼渐丰，黑羽中夹杂紫金光纹，展翅时深渊之力隐隐流动', '深渊乌鸦成年！六翼展开遮天蔽日，羽毛可吞噬一切光线，爪握虚空可撕裂次元', '完全体 · 深渊使者！虚空之翼覆盖星空，所过之处时间静止，混沌之焰与宇宙共鸣'],
+  },
+  // === XR级 神话 ===
+  {
+    poolId: 'pet_chaos_dragon', name: '混沌神龙', emoji: '🐲', rarity: 'XR', personality: 'ancient',
+    spritePrefix: 'chaos_dragon',
+    desc: '诞生于宇宙混沌之初的太古神龙，鳞片由凝固的星尘铸成，每一口吐息都是一个新星系的诞生',
+    stages: ['一枚浮于空中的蛋，表面流转着五色混沌之光，触之有电流穿透全身', '混沌龙幼崽！小小身体却能感受到压迫人心的古老气息，五色鳞片随心情变换', '龙角初现，鳞甲开始流动混沌之光，周身虚空开始扭曲，时空在其周围微微颤抖', '神龙觉醒！五色混沌之力汇聚，四爪踏碎虚空，龙吟一声九天震颤，山海变色', '完全体 · 混沌神龙！鳞片是宇宙本源，双角贯穿时空，一吐一息间星系生灭，与天地同寿'],
   },
 ];
 
@@ -885,73 +905,51 @@ export function tickPetStats(state, minutes = 1) {
 }
 
 // ============================================================
-//  抽卡（保持原有逻辑）- 🔧 修复：改为500经验值
+//  抽卡系统 v2 - 三档保底 + 等级加成
 // ============================================================
-// 抽卡权重配置（8只宠物，根据等级调整稀有度概率）
-// 抽卡概率配置 - 按累计抽卡次数（方案B）
-// 类似原神/崩铁的怜悯机制(pity)：抽得越多，高稀有度概率越高
-// base: 基础权重(前3次), warmup: 4-10次, boosted: 11+次触发怜悯
-const DRAW_WEIGHTS_BY_DRAW = {
-  // 前3次：N偏多，让新用户体验基础宠物
-  base: [
-    { poolId: 'pet_kitten',      weight: 20 },
-    { poolId: 'pet_shiba',       weight: 16 },
-    { poolId: 'pet_hamster',     weight: 12 },
-    { poolId: 'pet_corgi',       weight: 10 },
-    { poolId: 'pet_fox',         weight: 9 },
-    { poolId: 'pet_butterfly',   weight: 5 },
-    { poolId: 'pet_mantis',      weight: 4 },
-    { poolId: 'pet_squirrel',    weight: 4 },
-    { poolId: 'pet_kungfu',      weight: 4 },
-    { poolId: 'pet_toothless',   weight: 3 },
-    { poolId: 'pet_petal_fairy', weight: 7 },
-    { poolId: 'pet_mecha_dragon',weight: 3 },
-    { poolId: 'pet_phoenix',     weight: 2 },
-    { poolId: 'pet_starpony',    weight: 1 },
-  ],
-  // 第4-10次：R/SR概率逐步提升
-  warmup: [
-    { poolId: 'pet_kitten',      weight: 13 },
-    { poolId: 'pet_shiba',       weight: 11 },
-    { poolId: 'pet_hamster',     weight: 8 },
-    { poolId: 'pet_corgi',       weight: 7 },
-    { poolId: 'pet_fox',         weight: 12 },
-    { poolId: 'pet_butterfly',   weight: 7 },
-    { poolId: 'pet_mantis',      weight: 6 },
-    { poolId: 'pet_squirrel',    weight: 6 },
-    { poolId: 'pet_kungfu',      weight: 6 },
-    { poolId: 'pet_toothless',   weight: 6 },
-    { poolId: 'pet_petal_fairy', weight: 10 },
-    { poolId: 'pet_mecha_dragon',weight: 5 },
-    { poolId: 'pet_phoenix',     weight: 5 },
-    { poolId: 'pet_starpony',    weight: 4 },
-  ],
-  // 第11次+：怜悯模式，SR/SSR占比接近一半
-  boosted: [
-    { poolId: 'pet_kitten',      weight: 8 },
-    { poolId: 'pet_shiba',       weight: 7 },
-    { poolId: 'pet_hamster',     weight: 5 },
-    { poolId: 'pet_corgi',       weight: 4 },
-    { poolId: 'pet_fox',         weight: 12 },
-    { poolId: 'pet_butterfly',   weight: 9 },
-    { poolId: 'pet_mantis',      weight: 8 },
-    { poolId: 'pet_squirrel',    weight: 7 },
-    { poolId: 'pet_kungfu',      weight: 8 },
-    { poolId: 'pet_toothless',   weight: 12 },
-    { poolId: 'pet_petal_fairy', weight: 8 },
-    { poolId: 'pet_mecha_dragon',weight: 5 },
-    { poolId: 'pet_phoenix',     weight: 4 },
-    { poolId: 'pet_starpony',    weight: 3 },
-  ],
+// 稀有度等级：N < R < SR < SSR < XR
+// 保底阈值：SR保底20抽，SSR保底50抽，XR保底100抽
+// 基础概率（低概率，体现稀有性）：
+//   XR: 0.5%  SSR: 2.5%  SR: 10%  R: 27%  N: 60%
+// 等级加成（每10级）：SR+0.5%  SSR+0.2%  XR+0.08%
+
+const PITY_SR  = 20;   // 20抽未出SR+ → 必出SR
+const PITY_SSR = 50;   // 50抽未出SSR+ → 必出SSR
+const PITY_XR  = 100;  // 100抽未出XR → 必出XR
+
+// 按稀有度分桶（方便随机抽取）
+const POOL_BY_RARITY = {
+  N:   PET_POOL.filter(p => p.rarity === 'N'),
+  R:   PET_POOL.filter(p => p.rarity === 'R'),
+  SR:  PET_POOL.filter(p => p.rarity === 'SR'),
+  SSR: PET_POOL.filter(p => p.rarity === 'SSR'),
+  XR:  PET_POOL.filter(p => p.rarity === 'XR'),
 };
 
-// 保底机制：连续N次未出SR → 下次必定出SR
-const PITY_SR_THRESHOLD = 5;  // 连续5次没出SR，第6次必出
+/**
+ * 根据玩家等级计算本次抽卡各稀有度的概率
+ * @param {number} level - 宠物当前等级（等级越高概率略高）
+ */
+function getRarityProbs(level = 1) {
+  const lvBonus = Math.floor((level - 1) / 10); // 每10级加成一档
+  const xr  = Math.min(0.05, 0.005 + lvBonus * 0.0008); // 0.5% → 最高5%
+  const ssr = Math.min(0.15, 0.025 + lvBonus * 0.002);  // 2.5% → 最高15%
+  const sr  = Math.min(0.30, 0.100 + lvBonus * 0.005);  // 10%  → 最高30%
+  const r   = 0.27;
+  // n = 余数
+  return { xr, ssr, sr, r, n: Math.max(0, 1 - xr - ssr - sr - r) };
+}
 
-function getDrawWeights(totalDraws) {
-  if (totalDraws <= 3) return DRAW_WEIGHTS_BY_DRAW.base;
-  if (totalDraws <= 10) return DRAW_WEIGHTS_BY_DRAW.warmup;
-  return DRAW_WEIGHTS_BY_DRAW.boosted;
+/**
+ * 根据概率随机选一个稀有度
+ */
+function rollRarity(probs) {
+  const rand = Math.random();
+  if (rand < probs.xr)  return 'XR';
+  if (rand < probs.xr + probs.ssr) return 'SSR';
+  if (rand < probs.xr + probs.ssr + probs.sr) return 'SR';
+  if (rand < probs.xr + probs.ssr + probs.sr + probs.r) return 'R';
+  return 'N';
 }
 
 /**
@@ -971,40 +969,49 @@ export function hasFreeCard(state) {
 }
 
 function drawCard(state, opts = {}) {
-  // 免费券（首次赠送） 或 背包卡券（已花钱买，不再检查经验）
+  // 免费券（首次赠送）或 背包卡券（已花钱买，不扣经验）
   const isFree = opts.fromTicket || (!state.freeCardUsed && state.hasReceivedFreeCard);
 
-  // ★ 上帝模式：始终免费抽卡（不检查经验）
+  // ★ 上帝模式：始终免费
   if (!isFree && !state._isGodMode && (state.exp || 0) < 500)
     return { state, pet: null }; // 经验不足
 
-  // 按累计抽卡次数选择权重表（方案B：累计抽卡驱动）
   const totalDraws = (state.totalDraws || 0) + 1;
-  let w = getDrawWeights(totalDraws);
-  
-  const totalWeight = w.reduce((a, it) => a + it.weight, 0) || 1;
-  let r = Math.random() * totalWeight;
-  let chosen = w[0].poolId;
-  for (const it of w) { if (r < it.weight) { chosen = it.poolId; break; } r -= it.weight; }
-  
-  // 保底机制：连续5次未出SR → 必出SR
-  const pityCount = (state.pityCount || 0) + 1;
-  const petInfo = PET_POOL.find(p => p.poolId === chosen) || { poolId: chosen, name: '未知', emoji: '\u2753', rarity: 'N' };
-  
-  let finalChosen = chosen;
-  let newPityCount = pityCount;
-  if (pityCount >= PITY_SR_THRESHOLD && petInfo.rarity !== 'SR' && petInfo.rarity !== 'SSR') {
-    finalChosen = 'pet_toothless';
-    newPityCount = 0;
-  } else if (petInfo.rarity === 'SR' || petInfo.rarity === 'SSR') {
-    newPityCount = 0;
+  const curLevel   = state.currentPet?.level || 1;
+
+  // ── 三档保底计数（各自独立）──
+  const pitySR  = (state.pitySR  || 0) + 1; // 距上次 SR+ 的抽数
+  const pitySSR = (state.pitySSR || 0) + 1; // 距上次 SSR+ 的抽数
+  const pityXR  = (state.pityXR  || 0) + 1; // 距上次 XR 的抽数
+
+  // ── 决定本次稀有度 ──
+  let rarity;
+  if (pityXR >= PITY_XR) {
+    rarity = 'XR';                          // 100抽保底 XR
+  } else if (pitySSR >= PITY_SSR) {
+    rarity = 'SSR';                         // 50抽保底 SSR
+  } else if (pitySR >= PITY_SR) {
+    rarity = 'SR';                          // 20抽保底 SR
+  } else {
+    const probs = getRarityProbs(curLevel);
+    rarity = rollRarity(probs);
   }
-  
+
+  // ── 从对应稀有度随机选一只宠物 ──
+  const bucket = POOL_BY_RARITY[rarity] || POOL_BY_RARITY['N'];
+  const petInfo = bucket[Math.floor(Math.random() * bucket.length)];
+  const finalChosen = petInfo.poolId;
+
+  // ── 更新保底计数（出了高稀有度，低档保底同时重置）──
+  const rarityRank = { N: 0, R: 0, SR: 1, SSR: 2, XR: 3 };
+  const rank = rarityRank[rarity] || 0;
+  const newPitySR  = rank >= 1 ? 0 : pitySR;   // SR+ 出了就重置SR保底
+  const newPitySSR = rank >= 2 ? 0 : pitySSR;  // SSR+ 出了就重置SSR保底
+  const newPityXR  = rank >= 3 ? 0 : pityXR;   // XR 出了就重置XR保底
+
   const owned = Array.isArray(state.ownedPets) ? [...state.ownedPets] : [];
   if (!owned.includes(finalChosen)) owned.push(finalChosen);
-  
-  const finalPetInfo = PET_POOL.find(p => p.poolId === finalChosen) || { poolId: finalChosen, name: '未知', emoji: '\u2753', rarity: 'N' };
-  
+
   const newState = {
     ...state,
     // ★ 上帝模式/背包卡券/首次赠送：不扣经验
@@ -1012,11 +1019,15 @@ function drawCard(state, opts = {}) {
     ownedPets: owned,
     currentPet: { poolId: finalChosen, level: 1, exp: 0, mood: 'neutral', tapCount: 0, stats: defaultStats(), equippedAccessories: {} },
     freeCardUsed: true,
-    totalDraws: totalDraws,
-    pityCount: newPityCount,
+    totalDraws,
+    // 旧字段兼容（部分界面读 pityCount 显示进度）
+    pityCount: newPitySR,
+    pitySR: newPitySR,
+    pitySSR: newPitySSR,
+    pityXR: newPityXR,
   };
 
-  return { state: newState, pet: finalPetInfo };
+  return { state: newState, pet: petInfo };
 }
 
 /**
