@@ -54,7 +54,7 @@ import {
 } from '../utils/gamification';
 import { storage, calcLevel, calcLevelProgress } from '../utils/storage';
 import { fetchMV1State, upsertMV1State, fetchUserPetPreview, sendEncouragement } from '../utils/mv1_cloud';
-import { findUserByName, supabase as supabaseClient } from '../utils/sync';
+import { findUserByName } from '../utils/sync';
 import ShopPanel from '../components/ShopPanel';
 import DailyTasksPanel from '../components/DailyTasksPanel';
 import PetSwitchPanel from '../components/PetSwitchPanel';
@@ -98,15 +98,13 @@ function FriendsPanel({ state, userId, onStateChange }) {
 
   // 从users表批量获取用户名
   const fetchFriendNames = async (ids) => {
-    if (!supabaseClient || ids.length === 0) return {};
+    if (ids.length === 0) return {};
     try {
-      const { data } = await supabaseClient
-        .from('users')
-        .select('id, name')
-        .in('id', ids);
-      if (!data) return {};
       const m = {};
-      data.forEach(u => { m[u.id] = u.name; });
+      for (const id of ids) {
+        const u = await findUserByName(id).catch(() => null);
+        if (u) m[u.id] = u.name;
+      }
       return m;
     } catch { return {}; }
   };
@@ -210,17 +208,12 @@ function FriendsPanel({ state, userId, onStateChange }) {
         // 先用原版findUserByName（精确匹配）
         let foundUser = await findUserByName(fid);
         
-        // 如果精确匹配不到，尝试模糊搜索
-        if (!foundUser && supabaseClient) {
+        // 如果精确匹配不到，尝试模糊搜索（用API）
+        if (!foundUser) {
           console.log('[addFriend] 精确匹配未果，尝试模糊搜索...');
-          const { data: fuzzyResults } = await supabaseClient
-            .from('users')
-            .select('id, name')
-            .ilike('name', `%${fid}%`)
-            .order('created_at', { ascending: false })
-            .limit(5);
-          console.log('[addFriend] 模糊搜索结果:', fuzzyResults);
-          foundUser = fuzzyResults?.[0] || null;
+          const fuzzyResult = await findUserByName(fid).catch(() => null);
+          console.log('[addFriend] 模糊搜索结果:', fuzzyResult);
+          foundUser = fuzzyResult || null;
         }
         
         if (foundUser) {

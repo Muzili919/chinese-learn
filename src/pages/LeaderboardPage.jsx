@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useMemo, useCallback } from 'react'
 import { fetchAllPreviews, fetchUserPetPreview, upsertMV1State, sendEncouragement } from '../utils/mv1_cloud'
 import { storage } from '../utils/storage'
-import { supabase as supabaseClient } from '../utils/sync'
+import { findUserByName } from '../utils/sync'
 import { PET_POOL } from '../utils/gamification'
 import PetSpriteAvatar from '../components/PetSpriteAvatar'
 
@@ -124,16 +124,17 @@ export default function LeaderboardPage({ user, gameState, onStateChange }) {
       }
     }
 
-    // 策略3：从 users 表补充用户名
-    if (supabaseClient && list.length > 0) {
+    // 策略3：从 API 补充用户名
+    if (list.length > 0) {
       try {
-        const { data } = await supabaseClient
-          .from('users').select('id, name').in('id', list)
-        if (data) {
-          data.forEach(u => {
-            if (!map[u.id]) map[u.id] = { userId: u.id, petName: u.name || u.id.slice(0, 10), petEmoji: '🥚', petLevel: null, petStage: '未孵化', daysActive: 0 }
-            else if (!map[u.id].playerName) map[u.id].playerName = u.name
-          })
+        for (const fid of list) {
+          if (!map[fid]) {
+            const u = await findUserByName(fid).catch(() => null)
+            if (u) {
+              if (!map[u.id]) map[u.id] = { userId: u.id, petName: u.name || u.id.slice(0, 10), petEmoji: '🥚', petLevel: null, petStage: '未孵化', daysActive: 0 }
+              else if (!map[u.id].playerName) map[u.id].playerName = u.name
+            }
+          }
         }
       } catch (_) {}
     }
@@ -198,11 +199,9 @@ export default function LeaderboardPage({ user, gameState, onStateChange }) {
       const idPreview = await fetchUserPetPreview(fid)
       if (idPreview) {
         targetId = fid
-      } else if (supabaseClient) {
-        // 策略2：按名字模糊搜索
-        const { data } = await supabaseClient
-          .from('users').select('id, name').ilike('name', `%${fid}%`).limit(5)
-        const found = data?.[0]
+      } else {
+        // 策略2：按名字模糊搜索（用API）
+        const found = await findUserByName(fid).catch(() => null)
         if (found) {
           if (found.id === userId) { setAddStatus('不能添加自己'); setAddLoading(false); return }
           if (friends.includes(found.id)) { setAddStatus('已经是好友了'); setAddLoading(false); return }
