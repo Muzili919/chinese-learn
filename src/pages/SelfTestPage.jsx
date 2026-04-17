@@ -62,60 +62,106 @@ const JUNIOR_EXAM_TYPE_MAP = {
 }
 
 // ─── 小升初语文 System Prompt ──────────────────────────
-// JSON schema 说明（所有学科共用）
-const EXAM_JSON_SCHEMA = `
-## 必须返回的JSON格式（sections数组）
-{"sections":[{"title":"一、基础知识（40分）","questions":[
-  {"id":"q1","type":"choice","stem":"题干","options":["A.选项","B.选项","C.选项","D.选项"],"answer":0,"score":2,"analysis":"解析"},
-  {"id":"q2","type":"truefalse","stem":"判断：...","answer":true,"score":2,"analysis":"解析"},
-  {"id":"q3","type":"fill","stem":"填空：___","answer":"答案","acceptableAnswers":["答案","别名"],"score":2,"analysis":"解析"},
-  {"id":"q4","type":"reorder","stem":"连词成句：...","answer":"正确句子","score":3,"analysis":"解析"},
-  {"id":"q5","type":"shortanswer","stem":"简答：...","answer":"参考答案要点","score":5,"analysis":"解析"},
-  {"type":"passage","text":"阅读文章内容（不含id和score）"},
-  {"id":"q6","type":"writing","stem":"写作要求","score":20,"rubric":"评分标准","prompts":[{"title":"题目A"},{"title":"题目B"}]}
-]}]}
-规则：choice的answer=选项下标(0-3)；truefalse的answer=布尔值；passage紧接其相关题目前放置，不含id/score；所有题必须有analysis。`
+// ─── 通用 JSON Schema（所有学科复用）────────────────────
+const EXAM_SCHEMA = `
+返回严格JSON，顶层只有sections数组：
+{"sections":[
+  {"title":"一、基础知识（40分）","questions":[
+    {"id":"q1","type":"choice","stem":"下列词语书写正确的是","options":["A.清澈","B.清彻","C.清辙","D.清澈"],"answer":0,"score":2,"analysis":"清澈正确"},
+    {"id":"q2","type":"truefalse","stem":"'春眠不觉晓'出自李白的诗。","answer":false,"score":2,"analysis":"出自孟浩然"},
+    {"id":"q3","type":"fill","stem":"床前明月光，___。","answer":"疑是地上霜","acceptableAnswers":["疑是地上霜"],"score":2,"analysis":"李白静夜思"},
+    {"type":"passage","text":"阅读短文内容写在这里（无id无score）"},
+    {"id":"q4","type":"shortanswer","stem":"文中'他'是谁？","answer":"参考答案要点","score":4,"analysis":"解析"},
+    {"id":"q5","type":"writing","stem":"从下面题目中选一个写作（150字以上）","score":20,"rubric":"内容充实20%，语句通顺30%，表达生动30%，书写规范20%","prompts":[{"title":"题目A"},{"title":"题目B"}]}
+  ]}
+]}
+⚠️ 关键规则：choice的answer=正确选项下标0-3；truefalse的answer=true/false；passage不含id和score，紧放在阅读题之前；每题必须有analysis字段。`
 
 function getChineseExamPrompt(grade, examType) {
-  return `你是小学语文教研员，为${GRADE_MAP[grade]}学生出${EXAM_TYPE_MAP[examType]}语文试卷。满分100分。
-题型结构：一/基础知识40分(选择+判断+填空) 二/积累运用15分(古诗填空+判断) 三/阅读理解25分(passage+题目) 四/习作20分(writing二选一)
-难度：基础70%提升20%拓展10%。古诗文一字不差。
-${EXAM_JSON_SCHEMA}`
+  return `你是小学语文出卷老师，参照小升初难度，为${GRADE_MAP[grade]}学生出一份${EXAM_TYPE_MAP[examType]}语文卷，满分100分。
+
+题型与分值：
+- 一、基础知识（40分）：字音字形选择题×5(2分/题)＋成语词语运用选择题×5(2分/题)＋判断题×5(2分/题)
+- 二、积累运用（15分）：古诗名句填空×5(2分/题)＋课文内容判断×5(1分/题)
+- 三、阅读理解（25分）：一篇200字短文＋选择题×3＋简答题×2
+- 四、习作表达（20分）：二选一作文（150字以上）
+
+要求：
+- 所有题型均适合手机文字输入，不设连线/画图题
+- 古诗引用必须原文准确
+- 简答题有参考答案要点，作文有评分标准
+${EXAM_SCHEMA}`
 }
 
-// ─── 英语出题 System Prompt ────────────────────────────
+// ─── 小学英语出题 ────────────────────────────────────────
 function getEnglishExamPrompt(grade, examType) {
-  return `You are an elementary English teacher. Generate Grade ${grade} (PEP) ${EXAM_TYPE_MAP[examType]} English test. 100pts total.
-Structure: 1.Vocabulary&Phonics(30pts) 2.Grammar&Sentences(25pts) 3.Communication(15pts) 4.Reading(15pts) 5.Writing(15pts)
-Level: Grade ${grade} elementary. Reading passage 60-100 words.
-${EXAM_JSON_SCHEMA}`
+  return `You are a primary school English teacher. Generate a Grade ${grade} PEP ${EXAM_TYPE_MAP[examType]} English test paper (100 points total), difficulty level: primary-to-middle-school transition.
+
+Sections:
+- Part 1: Vocabulary & Phonics (30pts): word choice ×8 + spelling judgment ×6
+- Part 2: Grammar & Sentences (25pts): grammar choice ×6 + sentence transformation fill ×4
+- Part 3: Reading Comprehension (30pts): one passage (80-100 words) + choice ×4 + short answer ×2
+- Part 4: Writing (15pts): guided writing task (60+ words, 2 topic options)
+
+Requirements:
+- All questions answerable by typing/tapping on mobile (no drawing/matching)
+- Grade ${grade} vocabulary level
+- Reading passage must be provided as a "passage" type question
+${EXAM_SCHEMA}`
 }
 
-// ─── 初中语文 System Prompt ────────────────────────────
+// ─── 初中语文出题 ────────────────────────────────────────
 function getJuniorChineseExamPrompt(examType) {
   const examLabel = JUNIOR_EXAM_TYPE_MAP[examType] || '期末综合'
-  return `你是初中语文教研员，专攻中考。出初二(八年级)人教版${examLabel}语文试卷。满分100分。
-题型：一/积累与运用30分(字词+古诗默写+名著) 二/文言文阅读20分(passage+翻译+简答) 三/现代文阅读25分(passage+题目) 四/写作25分(命题或材料作文)
-文言文必须选真实课文原文。所有题目需有analysis。
-${EXAM_JSON_SCHEMA}`
+  return `你是初中语文出卷老师，参照中考难度，为初二（八年级）人教版学生出一份${examLabel}语文试卷，满分100分。
+
+题型与分值：
+- 一、积累与运用（30分）：字词音形辨析选择×4(2分)＋古诗文默写填空×6(2分)＋名著判断×3(2分)
+- 二、文言文阅读（20分）：真实教材课文原文（passage）＋翻译简答×2＋内容理解×3
+- 三、现代文阅读（25分）：记叙文或说明文（passage，200字）＋选择×2＋简答×3
+- 四、写作（25分）：命题作文或材料作文（二选一，不少于500字）
+
+要求：
+- 文言文必须选自八年级人教版真实课文
+- 所有题目适合手机输入，不设连线题
+- 每道题必须有详细解析
+${EXAM_SCHEMA}`
 }
 
-// ─── 初中英语 System Prompt ────────────────────────────
+// ─── 初中英语出题 ────────────────────────────────────────
 function getJuniorEnglishExamPrompt(examType) {
   const examLabel = JUNIOR_EXAM_TYPE_MAP[examType] || '期末综合'
-  return `You are a junior high English teacher. Generate Grade 8 PEP ${examLabel} English test. 100pts total.
-Structure: 1.Language Knowledge(30pts):vocab+grammar+cloze 2.Reading(30pts):2 passages 3.Language Use(25pts):dialogue+reorder+translation 4.Writing(15pts)
-Grade 8 level. Reading passages 80-120 words each.
-${EXAM_JSON_SCHEMA}`
+  return `You are a junior high English teacher. Generate a Grade 8 PEP ${examLabel} English test paper (100 points total), difficulty level: middle school exam standard.
+
+Sections:
+- Part 1: Language Knowledge (30pts): vocabulary choice ×6 + grammar choice ×6 + cloze fill ×3
+- Part 2: Reading Comprehension (30pts): two passages (100-120 words each) + choice ×4 + true/false ×3 per passage
+- Part 3: Language Use (25pts): dialogue fill ×4 + sentence reorder ×3 + translation fill ×3
+- Part 4: Writing (15pts): guided composition (80+ words, 2 topic options)
+
+Requirements:
+- All questions answerable by typing/tapping on mobile
+- Grade 8 vocabulary and grammar level
+- Each passage must be a "passage" type question placed before its questions
+${EXAM_SCHEMA}`
 }
 
-// ─── 初中政治 System Prompt ────────────────────────────
+// ─── 初中政治出题 ────────────────────────────────────────
 function getPoliticsExamPrompt(examType) {
   const examLabel = JUNIOR_EXAM_TYPE_MAP[examType] || '期末综合'
-  return `你是初中道德与法治教研员，专攻中考。出初二道德与法治${examLabel}试卷。满分100分。
-题型：一/选择题40分(10题×4分,单选) 二/非选择题60分(简答+材料分析+探究各20分)
-难度=中考水平。材料分析题需提供真实材料。所有题目必须有analysis。
-${EXAM_JSON_SCHEMA}`
+  return `你是初中道德与法治出卷老师，参照中考难度，为初二学生出一份${examLabel}道法试卷，满分100分。
+
+题型与分值：
+- 一、单项选择题（40分）：10题×4分，结合时事和教材
+- 二、简答题（30分）：3题×10分，考查知识点理解与运用
+- 三、材料分析题（30分）：提供真实社会热点材料（passage），设2-3道分析题
+
+要求：
+- 选择题答案均匀分布
+- 材料分析题必须提供真实背景材料（passage类型）
+- 简答题需有详细参考答案要点
+- 所有题适合手机文字输入
+${EXAM_SCHEMA}`
 }
 
 // ─── AI 评分 Prompt（主观题批量评分）───────────────────
@@ -803,12 +849,26 @@ ${sectionScores.map(s => `- ${s.title}：${s.earned}/${s.total}分（${s.total >
       })
       setSavedCount(saved)
       setScoring(false)
-      // ★ 标记星球完成（自测交卷评分完毕才算打卡）
+      // ★ 标记星球完成 + 奖励XP（得分×4）
       if (user?.id) {
         const selfTestTag = subject === 'politics' ? '模拟考场' : '自测星球'
         storage.markPlanetComplete(user.id, selfTestTag)
-        storage.markPlanetComplete(user.id, subject === 'politics' ? 'pol_self_test' : 'self_test')  // 与入口页planet.id对齐
+        storage.markPlanetComplete(user.id, subject === 'politics' ? 'pol_self_test' : 'self_test')
         updateStreak(user.id)
+        // 计算得分并奖励XP（只计算客观题，主观题0.7系数估算）
+        const allQsForXP = getAnswerableQuestions(answers ? examData?.sections : [])
+        let rawScore = 0, rawPossible = 0
+        ;(examData?.sections || []).forEach(sec => {
+          const qs = sec.subsections ? sec.subsections.flatMap(s => s.questions || []) : (sec.questions || [])
+          qs.filter(q => q.type !== 'passage').forEach(q => {
+            rawPossible += q.score || 0
+            const auto = autoScoreQuestion(q, answers[q.id])
+            rawScore += auto.auto ? (auto.earned || 0) : (q.score || 0) * 0.7
+          })
+        })
+        const earnedPct = rawPossible > 0 ? Math.round(rawScore / rawPossible * 100) : 60
+        const xpReward = earnedPct * 4 // 满分100分 → 400XP
+        storage.addXP(user.id, xpReward)
       }
       // 云端同步（跨设备学习数据同步：错题记录+SRS+XP+打卡数据）
       if (user?.id) syncAfterSession(user.id)
@@ -927,8 +987,11 @@ ${sectionScores.map(s => `- ${s.title}：${s.earned}/${s.total}分（${s.total >
           </div>
         </div>
 
-        {/* 用时 */}
-        <p className="text-center text-xs text-gray-400 mb-4">⏱ 用时 {formatTime(elapsed)}</p>
+        {/* 用时 + XP奖励 */}
+        <div className="flex justify-center items-center gap-4 mb-4">
+          <p className="text-xs text-gray-400">⏱ 用时 {formatTime(elapsed)}</p>
+          <p className="text-xs font-bold text-yellow-600">+{pct * 4} XP 🌟</p>
+        </div>
 
         {/* 分项得分 */}
         <div className="space-y-2">

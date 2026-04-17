@@ -61,12 +61,14 @@ export default function EssayPage({ user, onBack, onFinish }) {
   const [isEvaluating, setIsEvaluating] = useState(false)
   const [evaluation, setEvaluation] = useState(null)
 
-  // 每日限制：检查今天是否已练过作文
-  const practicedToday = useMemo(() => {
-    if (!user?.id) return false
-    const completed = storage.getCompletedPlanetsToday(user.id)
-    return completed.includes('essay') || completed.includes('作文星球')
-  }, [user?.id])
+  // 每日限制：最多写3篇作文
+  const DAILY_ESSAY_LIMIT = 3
+  const todayEssayCount = useMemo(() => {
+    const today = new Date().toDateString()
+    const data = JSON.parse(localStorage.getItem(`essay_daily_${user?.id}`) || '{}')
+    return data.date === today ? (data.count || 0) : 0
+  }, [user?.id, evaluation]) // evaluation变化时重新计算（提交后更新）
+  const practicedToday = todayEssayCount >= DAILY_ESSAY_LIMIT
 
   const filteredPrompts = activeCategory === '全部' 
     ? prompts 
@@ -137,9 +139,16 @@ export default function EssayPage({ user, onBack, onFinish }) {
           }
         }
 
-        // 标记今日已完成（每日1次限制）
-        storage.markPlanetComplete(user.id, 'essay')
-        storage.markPlanetComplete(user.id, '作文星球')
+        // 记录每日作文次数（每日最多3篇）
+        const today = new Date().toDateString()
+        const essayKey = `essay_daily_${user.id}`
+        const existingData = JSON.parse(localStorage.getItem(essayKey) || '{}')
+        const newCount = (existingData.date === today ? (existingData.count || 0) : 0) + 1
+        localStorage.setItem(essayKey, JSON.stringify({ date: today, count: newCount }))
+        if (newCount === 1) {
+          storage.markPlanetComplete(user.id, 'essay')
+          storage.markPlanetComplete(user.id, '作文星球')
+        }
 
         // 奖励经验（根据评分高低乘以系数）
         if (user?.id) {
@@ -188,8 +197,8 @@ export default function EssayPage({ user, onBack, onFinish }) {
             {practicedToday ? (
               <div className="text-center py-8">
                 <div className="text-5xl mb-3">✅</div>
-                <h2 className="text-xl font-bold text-gray-800 mb-2">今日作文练习已完成</h2>
-                <p className="text-sm text-gray-500 mb-4">每天限写1篇，明天再来吧！</p>
+                <h2 className="text-xl font-bold text-gray-800 mb-2">今日作文已写满 {DAILY_ESSAY_LIMIT} 篇</h2>
+                <p className="text-sm text-gray-500 mb-4">每天最多写 {DAILY_ESSAY_LIMIT} 篇，明天再来继续练习吧！</p>
               </div>
             ) : (
             <>
@@ -411,7 +420,7 @@ export default function EssayPage({ user, onBack, onFinish }) {
         {user && (
           <div className="mt-6 bg-white rounded-2xl shadow-lg p-4 text-center">
             <div className="text-sm text-gray-600">
-              已完成 {(user.essaysSubmitted || 0)} 篇作文 • 
+              今日已写 {todayEssayCount}/{DAILY_ESSAY_LIMIT} 篇 • 累计 {(user.essaysSubmitted || 0)} 篇 •
               平均分 {user.averageScore ? user.averageScore.toFixed(1) : '-'}
             </div>
           </div>
