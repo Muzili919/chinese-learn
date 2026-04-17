@@ -319,3 +319,53 @@ export async function findUserByName(name) {
     .limit(1)
   return data?.[0] || null
 }
+
+/**
+ * Validate an invitation code against the invitation_codes table.
+ * Returns { valid: true } or { valid: false, reason: string }
+ */
+export async function validateInviteCode(code) {
+  if (!supabase) {
+    // No Supabase configured — allow all codes (dev mode)
+    return { valid: true }
+  }
+
+  try {
+    const { data, error } = await supabase
+      .from('invitation_codes')
+      .select('*')
+      .ilike('code', code.trim())
+      .eq('is_active', true)
+    .maybeSingle()
+
+    if (error) {
+      console.error('邀请码查询错误:', error.message)
+      return { valid: false, reason: '验证服务暂时不可用，请稍后再试' }
+    }
+
+    if (!data) {
+      return { valid: false, reason: '邀请码无效，请检查后重新输入' }
+    }
+
+    // Check usage limit
+    if (data.max_uses !== null && data.used_count >= data.max_uses) {
+      return { valid: false, reason: '该邀请码使用人数已达上限' }
+    }
+
+    // Increment used_count
+    const { error: updateError } = await supabase
+      .from('invitation_codes')
+      .update({ used_count: data.used_count + 1 })
+      .eq('id', data.id)
+
+    if (updateError) {
+      // Non-fatal: code is still valid, just count didn't increment
+      console.warn('⚠️ 邀请码计数更新失败（不影响使用）:', updateError.message)
+    }
+
+    return { valid: true }
+  } catch (err) {
+    console.error('邀请码验证异常:', err)
+    return { valid: false, reason: '网络错误，请检查连接后重试' }
+  }
+}
