@@ -542,13 +542,49 @@ app.post('/api/ai', async (req, res) => {
 })
 
 // ========== TTS 文字转语音路由（Edge TTS） ==========
+let MsEdgeTTS = null
+try {
+  MsEdgeTTS = require('msedge-tts').MsEdgeTTS
+} catch { /* fallback to REST */ }
+
 app.post('/api/tts', async (req, res) => {
-  const { text, lang = 'zh-CN', rate = '+0%' } = req.body
+  const { text, lang = 'zh-CN', rate = 1.0 } = req.body
   if (!text || text.trim().length === 0) return error(res, '缺少文本内容')
   if (text.length > 500) return error(res, '文本过长（最大500字符）')
 
   try {
-    // 使用 Edge TTS REST API（无需额外依赖）
+    // ★ 方案1：优先用 msedge-tts 库（更可靠）
+    if (MsEdgeTTS) {
+      const voiceMap = {
+        'zh-CN': 'zh-CN-XiaoxiaoNeural',
+        'en-US': 'en-US-AriaNeural',
+        'en-GB': 'en-GB-SoniaNeural',
+      }
+      const voice = voiceMap[lang] || voiceMap['zh-CN']
+      const tts = new MsEdgeTTS()
+      await tts.setMetadata(voice, require('msedge-tts').OUTPUT_FORMAT.AUDIO_24KHZ_48KBITRATE_MONO_MP3)
+
+      const pct = Math.round((parseFloat(rate) - 1) * 100)
+      const rateStr = pct >= 0 ? `+${pct}%` : `${pct}%`
+      const prosody = new (require('msedge-tts').ProsodyOptions)({ rate: rateStr })
+      const { audioStream } = tts.toStream(text, prosody)
+
+      const chunks = []
+      await new Promise((resolve, reject) => {
+        audioStream.on('data', chunk => chunks.push(chunk))
+        audioStream.on('end', resolve)
+        audioStream.on('error', reject)
+      })
+
+      const buffer = Buffer.concat(chunks)
+      res.setHeader('Content-Type', 'audio/mpeg')
+      res.setHeader('Content-Length', buffer.length)
+      res.setHeader('Cache-Control', 'public, max-age=31536000')
+      res.status(200).send(buffer)
+      return
+    }
+
+    // ★ 方案2：降级到 Edge TTS REST API（不需要额外依赖）
     const voiceMap = {
       'zh-CN': 'zh-CN-XiaoxiaoNeural',
       'en-US': 'en-US-AriaNeural',
@@ -556,8 +592,8 @@ app.post('/api/tts', async (req, res) => {
     }
     const voice = voiceMap[lang] || voiceMap['zh-CN']
 
-    const ssml = `<speak version="1.0" xmlns="http://www.w3.org/2001/10/synthesis" xmlns:mstts="https://www.w3.org/2001/mstts" xml:lang="${lang}">
-      <voice name="${voice}"><prosody rate="${rate}">${text.replace(/["&<>]/g, c => ({'"': '&amp;quot;', '&': '&amp;amp;', '<': '&amp;lt;', '>': '&amp;gt;'})[c])}</prosody></voice></speak>`
+    const ssml = `<speak version="1.0" xmlns="http://www.w3.org/2001/10/synthesis" xml:lang="${lang}">
+      <voice name="${voice}"><prosody rate="${rate > 1 ? '+' : ''}${Math.round((rate-1)*100)}%">${text.replace(/["&<>]/g, c => ({'"': '&quot;', '&': '&amp;', '<': '&lt;', '>': '&gt;'})[c])}</prosody></voice></speak>`
 
     const ttsRes = await fetch('https://speech.platform.bing.com/synthesize', {
       method: 'POST',
@@ -569,19 +605,15 @@ app.post('/api/tts', async (req, res) => {
       body: ssml,
     })
 
-    if (!ttsRes.ok) {
-      console.error('[TTS] Edge TTS 失败:', ttsRes.status)
-      return error(res, 'TTS生成失败', 500)
-    }
+    if (!ttsRes.ok) return error(res, 'TTS生成失败', 500)
 
     const buffer = Buffer.from(await ttsRes.arrayBuffer())
     res.setHeader('Content-Type', 'audio/mpeg')
     res.setHeader('Content-Length', buffer.length)
-    res.setHeader('Cache-Control', 'public, max-age=31536000')
     res.status(200).send(buffer)
   } catch (err) {
     console.error('[TTS] 异常:', err.message)
-    return error(res, 'TTS生成失败', 500)
+    return error(res, 'TTS生成失败: ' + err.message, 500)
   }
 })
 
