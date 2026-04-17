@@ -1,189 +1,157 @@
-// Cloud-based MV1 persistence using Supabase (client-side)
+/**
+ * 宠物状态云端持久化 — Supabase 版本
+ * 使用 pet_states 表存储完整的 MV1 状态 JSON
+ */
+
 import { createClient } from '@supabase/supabase-js'
 import { PET_POOL } from './gamification'
 
-let supabase = null
+const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL
+const SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY
 
-function getClient() {
-  if (!supabase) {
-    const url = import.meta.env.VITE_SUPABASE_URL
-    const key = import.meta.env.VITE_SUPABASE_ANON_KEY
-    if (!url || !key) {
-      console.warn('MV1 cloud: Supabase env vars not found, falling back to local storage')
-      return null
-    }
-    supabase = createClient(url, key)
-  }
-  return supabase
-}
+const supabase = (SUPABASE_URL && SUPABASE_ANON_KEY)
+  ? createClient(SUPABASE_URL, SUPABASE_ANON_KEY)
+  : null
 
 export async function fetchMV1State(userId) {
-  if (!userId) return null
-  const client = getClient()
-  if (!client) return null
+  if (!supabase || !userId) return null
   try {
-    const { data, error } = await client
-      .from('mv1_state')
-      .select('state')
+    const { data, error } = await supabase
+      .from('pet_states')
+      .select('state_data')
       .eq('user_id', userId)
-      .maybeSingle()
-    if (error) {
-      console.error('MV1 fetch error', error)
-      return null
-    }
-    return data?.state ?? null
+      .single()
+    if (error || !data) return null
+    return data.state_data || null
   } catch (e) {
-    console.error('MV1 fetch exception', e)
+    console.warn('[mv1_cloud] fetchMV1State error:', e?.message)
     return null
   }
 }
 
 export async function upsertMV1State(userId, state) {
-  if (!userId) return
-  const client = getClient()
-  if (!client) return
+  if (!supabase || !userId || !state) return
   try {
-    await client.from('mv1_state').upsert(
-      { user_id: userId, state },
-      { onConflict: 'user_id' }
-    )
+    await supabase.from('pet_states').upsert({
+      user_id: userId,
+      state_data: state,
+      updated_at: new Date().toISOString(),
+    }, { onConflict: 'user_id' })
   } catch (e) {
-    console.error('MV1 upsert error', e)
-  }
-  // 同步宠物预览到 users 表（无 RLS 限制，好友列表 + 排行榜共用）
-  try {
-    const pet = state.currentPet || {}
-    const poolItem = PET_POOL.find(p => p.poolId === pet.poolId) || {}
-    const preview = {
-      petPoolId: pet.poolId || null,
-      petName: poolItem.name || '神秘宠物',
-      petEmoji: poolItem.emoji || '🥚',
-      petRarity: poolItem.rarity || 'N',
-      petLevel: pet.level || 1,
-      petStage: !pet.level || pet.level < 2 ? '蛋' : pet.level < 10 ? '幼年' : pet.level < 20 ? '成长期' : pet.level < 30 ? '成熟体' : '完全体',
-      totalLearnQuestions: state.totalLearnQuestions || 0,
-      totalCorrectAnswers: state.totalCorrectAnswers || 0,
-      daysActive: state.daysActive || 1,
-      weeklyQuestions: state.weeklyQuestions || 0,
-      wordCannonHighScore: state.gameState?.wordCannonHighScore || 0,
-      updatedAt: new Date().toISOString(),
-    }
-    await client.from('users').upsert({ id: userId, pet_preview: preview }, { onConflict: 'id' })
-  } catch (e) {
-    // 忽略：users 表可能暂未添加 pet_preview 列
+    console.warn('[mv1_cloud] upsertMV1State error:', e?.message)
   }
 }
 
-/**
- * 获取用户宠物预览信息（好友列表用）
- * 优先读 users.pet_preview（匿名密钥可跨用户访问），
- * 降级读 mv1_state（可能被 RLS 拦截）
- */
 export async function fetchUserPetPreview(userId) {
-  if (!userId) return null
-  const client = getClient()
-  if (!client) return null
-
-  // 策略1：读 users.pet_preview（无 RLS 限制），同时取用户名
+  if (!supabase || !userId) return null
   try {
-    const { data } = await client
-      .from('users')
-      .select('name, pet_preview')
-      .eq('id', userId)
-      .maybeSingle()
-    if (data?.pet_preview?.petEmoji) {
-      return { userId, playerName: data.name || '匿名同学', ...data.pet_preview }
-    }
-  } catch (_) {}
-
-  // 策略2：直接读 mv1_state（可能被 RLS 拦截，静默失败）
-  try {
-    const { data, error } = await client
-      .from('mv1_state')
-      .select('state')
-      .eq('user_id', userId)
-      .maybeSingle()
-    if (error || !data?.state) return null
-    const s = data.state
-    const pet = s.currentPet || {}
+    const [petRes, userRes] = await Promise.all([
+      supabase.from('pet_states').select('state_data').eq('user_id', userId).single(),
+      supabase.from('users').select('name, xp, streak_count').eq('id', userId).single(),
+    ])
+    const petState = petRes.data?.state_data || {}
+    const user = userRes.data || {}
+    const pet = petState.currentPet || {}
     const poolItem = PET_POOL.find(p => p.poolId === pet.poolId) || { name: '神秘宠物', emoji: '🥚', rarity: 'N' }
+
     return {
       userId,
+      playerName: user.name || '匿名同学',
       petPoolId: pet.poolId || null,
       petName: poolItem.name,
       petEmoji: poolItem.emoji,
       petRarity: poolItem.rarity,
       petLevel: pet.level || 1,
       petStage: !pet.level || pet.level < 2 ? '蛋' : pet.level < 10 ? '幼年' : pet.level < 20 ? '成长期' : pet.level < 30 ? '成熟体' : '完全体',
-      totalLearnQuestions: s.totalLearnQuestions || 0,
-      daysActive: s.daysActive || 1,
-      weeklyQuestions: s.weeklyQuestions || 0,
+      totalLearnQuestions: petState.totalLearnQuestions || 0,
+      totalCorrectAnswers: petState.totalCorrectAnswers || 0,
+      daysActive: user.streak_count || 1,
+      weeklyQuestions: petState.weeklyQuestions || 0,
+      wordCannonHighScore: petState.gameState?.wordCannonHighScore || 0,
     }
   } catch (e) {
+    console.warn('[mv1_cloud] fetchUserPetPreview error:', e?.message)
     return null
   }
 }
 
-/**
- * 向好友发送鼓励（写入好友state的pendingEncouragements）
- */
 export async function sendEncouragement(fromUserId, fromName, toUserId) {
-  if (!fromUserId || !toUserId) return false
-  const client = getClient()
-  if (!client) return false
+  if (!supabase || !fromUserId || !toUserId) return false
   try {
-    const { data } = await client
-      .from('mv1_state')
-      .select('state')
+    const { data } = await supabase
+      .from('pet_states')
+      .select('state_data')
       .eq('user_id', toUserId)
-      .maybeSingle()
-    if (!data?.state) return false
-    const state = data.state
-    if (!state.pendingEncouragements) state.pendingEncouragements = []
-    // 检查今天是否已发过
+      .single()
+    if (!data) return false
+
+    const petState = data.state_data || {}
+    if (!petState.pendingEncouragements) petState.pendingEncouragements = []
+
     const today = new Date().toISOString().slice(0, 10)
-    const alreadySent = state.pendingEncouragements.some(
+    const alreadySent = petState.pendingEncouragements.some(
       e => e.from === fromUserId && e.date === today
     )
     if (alreadySent) return false
-    state.pendingEncouragements.push({
-      from: fromUserId,
-      name: fromName || '匿名好友',
-      date: today,
-      time: new Date().toISOString(),
+
+    petState.pendingEncouragements.push({
+      from: fromUserId, name: fromName || '匿名好友',
+      date: today, time: new Date().toISOString(),
     })
-    await client.from('mv1_state').upsert({ user_id: toUserId, state }).eq('user_id', toUserId)
+
+    await supabase.from('pet_states').upsert({
+      user_id: toUserId,
+      state_data: petState,
+      updated_at: new Date().toISOString(),
+    }, { onConflict: 'user_id' })
     return true
   } catch (e) {
-    console.error('MV1 send encouragement error', e)
+    console.warn('[mv1_cloud] sendEncouragement error:', e?.message)
     return false
   }
 }
 
-/**
- * 获取所有用户的宠物预览（排行榜用）
- * 读 users.pet_preview —— anon key 无 RLS 限制，可跨用户访问
- */
 export async function fetchAllPreviews() {
-  const client = getClient()
-  if (!client) return []
+  if (!supabase) return []
   try {
-    const { data, error } = await client
+    const { data: users } = await supabase
       .from('users')
-      .select('id, name, pet_preview')
-      .not('pet_preview', 'is', null)
-      .limit(100)
-    if (error || !data) return []
+      .select('id, name, xp, streak_count')
+      .order('xp', { ascending: false })
+      .limit(50)
+    if (!users?.length) return []
 
-    return data
-      .filter(row => row.pet_preview?.petEmoji)   // 过滤掉空预览
-      .map(row => ({
-        userId: row.id,
-        playerName: row.name || '匿名同学',
-        ...row.pet_preview,
-      }))
+    const userIds = users.map(u => u.id)
+    const { data: pets } = await supabase
+      .from('pet_states')
+      .select('user_id, state_data')
+      .in('user_id', userIds)
+
+    const petMap = {}
+    for (const p of (pets || [])) petMap[p.user_id] = p.state_data || {}
+
+    return users.map(u => {
+      const petState = petMap[u.id] || {}
+      const pet = petState.currentPet || {}
+      const poolItem = PET_POOL.find(p => p.poolId === pet.poolId) || { name: '神秘宠物', emoji: '🥚', rarity: 'N' }
+      return {
+        userId: u.id,
+        playerName: u.name || '匿名同学',
+        petPoolId: pet.poolId || null,
+        petName: poolItem.name,
+        petEmoji: poolItem.emoji,
+        petRarity: poolItem.rarity,
+        petLevel: pet.level || 1,
+        petStage: !pet.level || pet.level < 2 ? '蛋' : pet.level < 10 ? '幼年' : pet.level < 20 ? '成长期' : pet.level < 30 ? '成熟体' : '完全体',
+        totalLearnQuestions: petState.totalLearnQuestions || 0,
+        totalCorrectAnswers: petState.totalCorrectAnswers || 0,
+        daysActive: u.streak_count || 1,
+        weeklyQuestions: petState.weeklyQuestions || 0,
+        wordCannonHighScore: petState.gameState?.wordCannonHighScore || 0,
+      }
+    })
   } catch (e) {
-    console.error('MV1 fetch all previews error', e)
+    console.warn('[mv1_cloud] fetchAllPreviews error:', e?.message)
     return []
   }
 }
