@@ -585,6 +585,15 @@ export default function MV1Demo({ onBack, initialState, onStateChange, grade, cu
       const today = new Date().toDateString();
       const todayStr = new Date().toISOString().slice(0, 10);
 
+      // ★★★ localSnapshot 必须最先声明！
+      // 之前放在函数中部导致 let TDZ（暂时性死区）报错：
+      //   ReferenceError: Cannot access 'localSnapshot' before initialization
+      // 每次都走 catch → cloudLoadedRef 永远 false → Supabase 从未更新
+      let localSnapshot = null;
+      try {
+        localSnapshot = storage.readPetState(currentUserId);
+      } catch (_) {}
+
       // 每日任务重置
       let dailyTasks = cloud?.dailyTasks || base.dailyTasks;
       if ((cloud?.dailyLastResetDate || '') !== today) {
@@ -601,80 +610,70 @@ export default function MV1Demo({ onBack, initialState, onStateChange, grade, cu
       const todayRecords = records.filter(r => r.timestamp?.startsWith(todayStr));
       dailyTasks = syncTasksFromRecords(dailyTasks, todayRecords);
 
-      // 好友列表：三路合并（优先级从高到低）
-      //   1. localStorage 快照（LeaderboardPage 添加好友后持久化到本地，MV1Demo 可能还不知道）
-      //   2. 云端数据（跨设备同步的权威源）
-      //   3. initialState（App.jsx 传入的最新状态，包含 LeaderboardPage 的更新）
-      // ★ Fix C: 必须取三者中最长的列表！因为 LeaderboardPage 和 FriendsPanel 都能添加好友，
-      //   它们写入的位置不同（Supabase / App.gameState / localStorage），任何一个都可能比其他的新
+      // 好友列表：三路合并，取最长的（最新的）
       const localFriends = localSnapshot?.friends
       const cloudFriends = (Array.isArray(cloud?.friends) && cloud.friends.length > 0) ? cloud.friends : null
       const initFriends = (Array.isArray(initialState?.friends) && initialState.friends.length > 0) ? initialState.friends : null
-      
-      // 取三者中最长的（最新的）
       let friends = []
       if (localFriends?.length > friends.length) friends = localFriends
       if (cloudFriends?.length > friends.length) friends = cloudFriends
       if (initFriends?.length > friends.length) friends = initFriends
 
-      // 宠物数据：优先级 — 上帝模式 > 云端 > initialState > 默认(蛋)
-      // （isGod 已在上面 storageXP 处声明）
-      const localHasPet = (initialState?.currentPet?.poolId && initialState?.ownedPets?.length > 0)
-      const cloudHasPet = cloud?.currentPet?.poolId
+      // ★ 本地宠物优先用 localStorage 快照，其次用 App.jsx 传入的 initialState
+      // localStorage 是同步写入（始终最新），Supabase 是异步保存（可能落后几秒到几分钟）
+      const localPet = localSnapshot?.currentPet || initialState?.currentPet || null
+      const localHasPet = !!(localPet?.poolId)
+
+      // ★ Bug A 修复：宠物合并策略 — 本地覆盖云端（而非云端覆盖本地）
       const resolvedCurrentPet = (() => {
-        if (isGod) return initialState.currentPet  // 上帝模式：始终用本地（initGodModeState）
+        if (isGod) return initialState.currentPet
         if (cloud?.currentPet) {
           const merged = {
-            ...(initialState?.currentPet || {}),
-            ...cloud.currentPet,
-            stats: cloud.currentPet.stats || {},
-            equippedAccessories: cloud.currentPet.equippedAccessories || {},
+            ...cloud.currentPet,           // 云端做底（确保所有字段都在）
+            ...(localPet || {}),           // 本地覆盖（stats/tapCount 等最新数据）
+            // level 取最大值：防止云端旧数据把本地已升的级别回滚
+            level: Math.max(localPet?.level || 1, cloud.currentPet.level || 1),
+            // stats 优先用本地：时间衰减在本地实时运行，云端存的是上次推送时的快照
+            stats: localPet?.stats || cloud.currentPet.stats || {},
+            equippedAccessories: localPet?.equippedAccessories || cloud.currentPet.equippedAccessories || {},
           }
-          // 🔧 安全保护：确保宠物等级至少为1，防止云端脏数据导致异常初始等级
           if (!merged.level || merged.level < 1) merged.level = 1
           return merged
         }
-        // 云端没有宠物数据，但本地有 → 保留本地（防止变蛋）
-        if (localHasPet) return initialState.currentPet
-        // 都没有 → 蛋态
+        // 云端没有宠物，但本地有 → 保留本地（防止变蛋）
+        if (localHasPet) return localPet
         return null
       })()
 
+      // ★ ownedPets 取并集：本地 + 云端都拥有的宠物全部保留，防止跨设备丢失
       const resolvedOwnedPets = (() => {
-        if (isGod) return initialState.ownedPets || []  // 上帝模式：始终用本地全解锁列表
-        if (cloud?.ownedPets?.length > 0) return cloud.ownedPets
-        if (initialState?.ownedPets?.length > 0) return initialState.ownedPets
-        return []
+        if (isGod) return initialState.ownedPets || []
+        const localOwned = localSnapshot?.ownedPets || initialState?.ownedPets || []
+        const cloudOwned = cloud?.ownedPets || []
+        const union = [...new Set([...localOwned, ...cloudOwned])]
+        return union.length > 0 ? union : []
       })()
-
-      // localStorage 是同步保存（始终最新），Supabase 是异步保存（可能滞后）
-      // ★ 使用 storage.readPetState 自动处理新旧 key 迁移
-      let localSnapshot = null;
-      try {
-        localSnapshot = storage.readPetState(currentUserId);
-      } catch (_) {}
 
       const merged = {
         ...base,
         ...(cloud || {}),
         exp: storageXP,
-        _isGodMode: isGod,  // ★ 上帝模式标志必须保留到merged state中！否则后续getEffectiveXP无法识别
-        petExpConsumed: localSnapshot?.petExpConsumed ?? (cloud?.petExpConsumed || 0),
+        _isGodMode: isGod,
+        // ★ petExpConsumed 取最大值：已消耗的经验只增不减，防止云端旧值把本地消费记录回滚
+        petExpConsumed: Math.max(
+          localSnapshot?.petExpConsumed ?? 0,
+          cloud?.petExpConsumed ?? 0
+        ),
         currentPet: resolvedCurrentPet,
         ownedPets: resolvedOwnedPets,
         // 背包：localStorage 最新，防止刷新后数量回滚
         inventory: localSnapshot?.inventory
           ? { ...base.inventory, ...(cloud?.inventory || {}), ...localSnapshot.inventory }
           : { ...base.inventory, ...(cloud?.inventory || {}) },
-        // 游戏道具背包
         gameInventory: localSnapshot?.gameInventory ?? (cloud?.gameInventory || base.gameInventory || {}),
-        // 小屋主题
         ownedRoomThemes: localSnapshot?.ownedRoomThemes ?? (cloud?.ownedRoomThemes || base.ownedRoomThemes || []),
         currentRoomTheme: localSnapshot?.currentRoomTheme ?? (cloud?.currentRoomTheme || base.currentRoomTheme || 'default'),
         ownedFurniture: localSnapshot?.ownedFurniture ?? (cloud?.ownedFurniture || base.ownedFurniture || []),
-        // ★ Bug#3 修复：gameState 必须从 localStorage 优先恢复（同 gameInventory 模式）
-        // 原来只靠 ...base + ...(cloud||{})，导致本地最新扣减的 dailyAttempts 被云端旧数据/默认值覆盖
-        // 刷新页面后次数重置回默认值的根本原因就在这里
         gameState: localSnapshot?.gameState ?? (cloud?.gameState || base.gameState || {}),
         dailyTasks,
         dailyLastResetDate: today,
@@ -685,17 +684,20 @@ export default function MV1Demo({ onBack, initialState, onStateChange, grade, cu
         weeklyResetDate: cloud?.weeklyResetDate || todayStr,
       };
       initializedRef.current = true;
-      cloudLoadedRef.current = true;  // 云端加载成功，允许持久化 effect 推送 Supabase
+      cloudLoadedRef.current = true;
       setState(merged);
-      setIsInitialized(true);  // 标记云端数据已加载完成
+      setIsInitialized(true);
     }).catch((err) => {
       console.warn('[MV1] 云端加载失败，使用本地状态:', err);
-      // 云端失败也要标记初始化完成，否则页面永远转圈
-      // ★ cloudLoadedRef 保持 false：catch 分支用的是 initialState 或空蛋态兜底，
-      //    不能推送到 Supabase，防止网络故障时覆盖云端真实数据
       initializedRef.current = true;
-      if (initialState) setState(initialState);
-      else setState(initGamificationState());  // 兜底：用默认初始化状态
+      // catch 分支：cloudLoadedRef 保持 false，不推送到 Supabase（防止网络故障覆盖云端真实数据）
+      // 但仍优先用 localStorage 快照（比 initialState 更新），确保本地数据不丢失
+      let fallback = initialState;
+      try {
+        const snap = storage.readPetState(currentUserId);
+        if (snap?.currentPet?.poolId || snap?.ownedPets?.length > 0) fallback = snap;
+      } catch (_) {}
+      setState(fallback ?? initGamificationState());
       setIsInitialized(true);
     });
   }, [currentUserId]);  // 切换账号时重新拉取云端宠物数据
@@ -801,8 +803,6 @@ export default function MV1Demo({ onBack, initialState, onStateChange, grade, cu
           // 只要storage的值更大（说明刚答完题），就立即同步
           if (freshXP !== s.exp && freshXP > 0) {
             console.log('[MV1] 🔄 页面可见性切换，强制刷新XP:', s.exp, '→', freshXP);
-            return { ...s, exp: freshXP };
-            const xpDiff = freshXP - (s.exp || 0);
             return { ...s, exp: freshXP };
           }
           return s;
