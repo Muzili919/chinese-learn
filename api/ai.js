@@ -1,19 +1,22 @@
 // ═══════════════════════════════════════════════════════════════
-// Vercel Serverless Function — AI 中转层
-// 架构：浏览器 → Vercel（HTTPS）→ 阿里云成都节点（HTTP）→ DeepSeek
-// 好处：阿里云→DeepSeek 全程国内网络，延迟 50-100ms，彻底解决超时
+// Vercel Edge Function — AI 中转层
+// Edge 函数超时 25s（远超普通函数 10s），适合作文评分等长请求
+// 架构：浏览器 → Vercel Edge（HTTPS）→ 阿里云成都节点（HTTP）→ DeepSeek
 // ═══════════════════════════════════════════════════════════════
 
-// 阿里云 AI 代理地址（国内节点直连 DeepSeek）
 const RELAY_URL = 'http://47.108.174.249:3001/api/ai'
+const RELAY_TIMEOUT_MS = 23000  // 23s，留 2s 缓冲
 
-// Vercel Hobby 上限 10s，这里给 9s，留 1s 缓冲
-const RELAY_TIMEOUT_MS = 9000
+export const config = {
+  runtime: 'edge',
+}
 
-export default async function handler(req, res) {
+export default async function handler(req) {
   if (req.method !== 'POST') {
-    return res.status(405).json({ error: 'Method not allowed' })
+    return new Response(JSON.stringify({ error: 'Method not allowed' }), { status: 405 })
   }
+
+  const body = await req.text()
 
   const controller = new AbortController()
   const timeoutId = setTimeout(() => controller.abort(), RELAY_TIMEOUT_MS)
@@ -22,29 +25,27 @@ export default async function handler(req, res) {
     const relayRes = await fetch(RELAY_URL, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(req.body),
+      body,
       signal: controller.signal,
     })
     clearTimeout(timeoutId)
 
-    const data = await relayRes.json().catch(() => ({}))
-    return res.status(relayRes.status).json(data)
+    const data = await relayRes.text()
+    return new Response(data, {
+      status: relayRes.status,
+      headers: { 'Content-Type': 'application/json' },
+    })
   } catch (err) {
     clearTimeout(timeoutId)
     if (err.name === 'AbortError') {
-      console.warn('Relay timeout after', RELAY_TIMEOUT_MS, 'ms')
-      return res.status(504).json({
-        error: 'AI_TIMEOUT',
-        message: 'AI响应超时，请稍后重试',
+      return new Response(JSON.stringify({ error: 'AI_TIMEOUT', message: 'AI响应超时，请稍后重试' }), {
+        status: 504,
+        headers: { 'Content-Type': 'application/json' },
       })
     }
-    console.error('Relay error:', err.message)
-    return res.status(500).json({ error: 'AI request failed', detail: err.message })
+    return new Response(JSON.stringify({ error: 'AI request failed', detail: err.message }), {
+      status: 500,
+      headers: { 'Content-Type': 'application/json' },
+    })
   }
-}
-
-export const config = {
-  api: {
-    bodyParser: { sizeLimit: '4mb' },
-  },
 }
