@@ -62,105 +62,54 @@ const JUNIOR_EXAM_TYPE_MAP = {
 }
 
 // ─── 小升初语文 System Prompt ──────────────────────────
-// ─── 通用 JSON Schema（所有学科复用）────────────────────
+// ─── 通用 JSON Schema（精简版，减少token占用）────────────
 const EXAM_SCHEMA = `
-返回严格JSON，顶层只有sections数组：
-{"sections":[
-  {"title":"一、基础知识（40分）","questions":[
-    {"id":"q1","type":"choice","stem":"下列词语书写正确的是","options":["A.清澈","B.清彻","C.清辙","D.清澈"],"answer":0,"score":2,"analysis":"清澈正确"},
-    {"id":"q2","type":"truefalse","stem":"'春眠不觉晓'出自李白的诗。","answer":false,"score":2,"analysis":"出自孟浩然"},
-    {"id":"q3","type":"fill","stem":"床前明月光，___。","answer":"疑是地上霜","acceptableAnswers":["疑是地上霜"],"score":2,"analysis":"李白静夜思"},
-    {"type":"passage","text":"阅读短文内容写在这里（无id无score）"},
-    {"id":"q4","type":"shortanswer","stem":"文中'他'是谁？","answer":"参考答案要点","score":4,"analysis":"解析"},
-    {"id":"q5","type":"writing","stem":"从下面题目中选一个写作（150字以上）","score":20,"rubric":"内容充实20%，语句通顺30%，表达生动30%，书写规范20%","prompts":[{"title":"题目A"},{"title":"题目B"}]}
-  ]}
-]}
-⚠️ 关键规则：choice的answer=正确选项下标0-3；truefalse的answer=true/false；passage不含id和score，紧放在阅读题之前；每题必须有analysis字段。`
+只返回JSON，格式：
+{"sections":[{"title":"一、xxx（xx分）","questions":[
+{"id":"q1","type":"choice","stem":"题干","options":["A.","B.","C.","D."],"answer":0,"score":4,"analysis":"简析"},
+{"id":"q2","type":"truefalse","stem":"判断句","answer":true,"score":4,"analysis":"简析"},
+{"id":"q3","type":"fill","stem":"填空___","answer":"答案","acceptableAnswers":["答案"],"score":5,"analysis":"简析"},
+{"type":"passage","text":"短文（80字内）"},
+{"id":"q4","type":"shortanswer","stem":"简答题","answer":"要点","score":8,"analysis":"简析"},
+{"id":"q5","type":"writing","stem":"写作要求","score":30,"rubric":"评分标准","prompts":[{"title":"题A"},{"title":"题B"}]}
+]}]}
+规则：choice的answer=下标0-3；truefalse的answer=布尔；passage无id无score且紧放阅读题前；analysis≤15字。`
 
 function getChineseExamPrompt(grade, examType) {
-  return `你是小学语文出卷老师，参照小升初难度，为${GRADE_MAP[grade]}学生出一份${EXAM_TYPE_MAP[examType]}语文卷，满分100分。
-
-题型与分值：
-- 一、基础知识（40分）：字音字形选择题×5(2分/题)＋成语词语运用选择题×5(2分/题)＋判断题×5(2分/题)
-- 二、积累运用（15分）：古诗名句填空×5(2分/题)＋课文内容判断×5(1分/题)
-- 三、阅读理解（25分）：一篇200字短文＋选择题×3＋简答题×2
-- 四、习作表达（20分）：二选一作文（150字以上）
-
-要求：
-- 所有题型均适合手机文字输入，不设连线/画图题
-- 古诗引用必须原文准确
-- 简答题有参考答案要点，作文有评分标准
+  return `你是小学语文出卷老师，为${GRADE_MAP[grade]}出${EXAM_TYPE_MAP[examType]}语文卷，满分100分，共12题左右。
+题型：选择题×4(4分/题)＋判断×2(5分/题)＋填空古诗×2(5分/题)＋阅读理解(passage80字+简答×2,共20分)＋写作1题(30分)
+要求：手机可输入，古诗准确，analysis不超过15字。
 ${EXAM_SCHEMA}`
 }
 
-// ─── 小学英语出题 ────────────────────────────────────────
 function getEnglishExamPrompt(grade, examType) {
-  return `You are a primary school English teacher. Generate a Grade ${grade} PEP ${EXAM_TYPE_MAP[examType]} English test paper (100 points total), difficulty level: primary-to-middle-school transition.
-
-Sections:
-- Part 1: Vocabulary & Phonics (30pts): word choice ×8 + spelling judgment ×6
-- Part 2: Grammar & Sentences (25pts): grammar choice ×6 + sentence transformation fill ×4
-- Part 3: Reading Comprehension (30pts): one passage (80-100 words) + choice ×4 + short answer ×2
-- Part 4: Writing (15pts): guided writing task (60+ words, 2 topic options)
-
-Requirements:
-- All questions answerable by typing/tapping on mobile (no drawing/matching)
-- Grade ${grade} vocabulary level
-- Reading passage must be provided as a "passage" type question
+  return `Elementary English teacher. Grade ${grade} PEP ${EXAM_TYPE_MAP[examType]} test, 100pts, ~12 questions.
+Parts: vocabulary choice×4(4pts) + grammar choice×3(4pts) + fill×2(5pts) + passage(80w)+choice×3(4pts) + writing(25pts,2 topics)
+Mobile-friendly. analysis≤10 words.
 ${EXAM_SCHEMA}`
 }
 
-// ─── 初中语文出题 ────────────────────────────────────────
 function getJuniorChineseExamPrompt(examType) {
   const examLabel = JUNIOR_EXAM_TYPE_MAP[examType] || '期末综合'
-  return `你是初中语文出卷老师，参照中考难度，为初二（八年级）人教版学生出一份${examLabel}语文试卷，满分100分。
-
-题型与分值：
-- 一、积累与运用（30分）：字词音形辨析选择×4(2分)＋古诗文默写填空×6(2分)＋名著判断×3(2分)
-- 二、文言文阅读（20分）：真实教材课文原文（passage）＋翻译简答×2＋内容理解×3
-- 三、现代文阅读（25分）：记叙文或说明文（passage，200字）＋选择×2＋简答×3
-- 四、写作（25分）：命题作文或材料作文（二选一，不少于500字）
-
-要求：
-- 文言文必须选自八年级人教版真实课文
-- 所有题目适合手机输入，不设连线题
-- 每道题必须有详细解析
+  return `初中语文出卷老师，初二人教版${examLabel}，满分100分，共12题左右。
+题型：选择×3(4分)+填空古诗×3(4分)+文言文(passage60字+简答×2,15分)+现代文(passage80字+简答×2,18分)+写作(25分)
+文言文选真实课文。analysis≤15字。
 ${EXAM_SCHEMA}`
 }
 
-// ─── 初中英语出题 ────────────────────────────────────────
 function getJuniorEnglishExamPrompt(examType) {
   const examLabel = JUNIOR_EXAM_TYPE_MAP[examType] || '期末综合'
-  return `You are a junior high English teacher. Generate a Grade 8 PEP ${examLabel} English test paper (100 points total), difficulty level: middle school exam standard.
-
-Sections:
-- Part 1: Language Knowledge (30pts): vocabulary choice ×6 + grammar choice ×6 + cloze fill ×3
-- Part 2: Reading Comprehension (30pts): two passages (100-120 words each) + choice ×4 + true/false ×3 per passage
-- Part 3: Language Use (25pts): dialogue fill ×4 + sentence reorder ×3 + translation fill ×3
-- Part 4: Writing (15pts): guided composition (80+ words, 2 topic options)
-
-Requirements:
-- All questions answerable by typing/tapping on mobile
-- Grade 8 vocabulary and grammar level
-- Each passage must be a "passage" type question placed before its questions
+  return `Junior high English teacher. Grade 8 PEP ${examLabel} test, 100pts, ~12 questions.
+Parts: vocab+grammar choice×5(4pts) + fill×2(5pts) + passage(100w)+choice×3(4pts) + reorder×1(5pts) + writing(25pts,2 topics)
+Grade 8 level. analysis≤10 words.
 ${EXAM_SCHEMA}`
 }
 
-// ─── 初中政治出题 ────────────────────────────────────────
 function getPoliticsExamPrompt(examType) {
   const examLabel = JUNIOR_EXAM_TYPE_MAP[examType] || '期末综合'
-  return `你是初中道德与法治出卷老师，参照中考难度，为初二学生出一份${examLabel}道法试卷，满分100分。
-
-题型与分值：
-- 一、单项选择题（40分）：10题×4分，结合时事和教材
-- 二、简答题（30分）：3题×10分，考查知识点理解与运用
-- 三、材料分析题（30分）：提供真实社会热点材料（passage），设2-3道分析题
-
-要求：
-- 选择题答案均匀分布
-- 材料分析题必须提供真实背景材料（passage类型）
-- 简答题需有详细参考答案要点
-- 所有题适合手机文字输入
+  return `初中道法出卷老师，初二${examLabel}，满分100分，共12题左右。
+题型：单选×6(4分/题)+简答×2(10分/题)+材料分析(passage100字+shortanswer×2,12分/题)
+analysis≤15字。
 ${EXAM_SCHEMA}`
 }
 
@@ -281,7 +230,7 @@ function SetupMode({ onStart, subject, grade: gradeProp, onBack }) {
     ? '中考难度 · 不超出初二范围'
     : '基础70% · 提升20% · 拓展10%'
 
-  const questionCount = isPolitics ? '18-22 题' : isJunior ? '20-26 题' : '25-30 题'
+  const questionCount = '10-12 题'
 
   return (
     <div className="flex flex-col gap-5 px-4 py-5">
@@ -351,7 +300,7 @@ function SetupMode({ onStart, subject, grade: gradeProp, onBack }) {
         </div>
         <div className="flex justify-between text-sm">
           <span className="text-gray-500">预计时间</span>
-          <span className="font-bold text-gray-800">40-60 分钟</span>
+          <span className="font-bold text-gray-800">15-25 分钟</span>
         </div>
         <div className="flex justify-between text-sm">
           <span className="text-gray-500">难度</span>
@@ -1224,7 +1173,7 @@ export default function SelfTestPage({ user, subject, grade: gradeProp = 'primar
         userPrompt = `请生成一份${GRADE_MAP[grade]}${EXAM_TYPE_MAP[examType]}语文测试卷。严格按照要求的题型结构和分值出题，确保总分100分。`
       }
 
-      const result = await callDeepSeek(systemPrompt, userPrompt, { temperature: 0.8, max_tokens: 3500 })
+      const result = await callDeepSeek(systemPrompt, userPrompt, { temperature: 0.7, max_tokens: 4000 })
 
       if (!result.sections || !Array.isArray(result.sections)) {
         throw new Error('AI 返回格式异常，请重试')
