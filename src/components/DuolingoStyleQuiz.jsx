@@ -1,5 +1,7 @@
 import { useState, useRef, useEffect, useMemo } from 'react'
 import { generateVariant, evaluateClassicalTranslation } from '../utils/ai'
+import { checkAiUsage, getAiUsage } from '../hooks/usePlan'
+import { storage } from '../utils/storage'
 
 // ─── 工具函数 ─────────────────────────────────────────────
 
@@ -234,7 +236,7 @@ function isMultiSubQ(q) {
 // ─── 底部反馈面板 ─────────────────────────────────────────
 
 function FeedbackPanel({ correct, analysis, answer, onContinue, variantState }) {
-  // variantState = { phase, question, selected, onSelect, onGenerate, showButton }
+  // variantState = { phase, question, selected, onSelect, onGenerate, showButton, remaining }
   const vs = variantState || {}
 
   return (
@@ -262,13 +264,28 @@ function FeedbackPanel({ correct, analysis, answer, onContinue, variantState }) 
           {/* 举一反三区域 - 在面板内部 */}
           {vs.showButton && !correct && vs.phase === 'idle' && (
             <button onClick={vs.onGenerate}
-              className="w-full mb-3 py-3 rounded-2xl font-bold text-violet-600 bg-white border-2 border-violet-300 text-sm active:scale-95">
-              🔀 举一反三（AI出题）
+              className="w-full mb-3 py-3 rounded-2xl font-bold text-violet-600 bg-white border-2 border-violet-300 text-sm active:scale-95 flex items-center justify-center gap-2">
+              <span>🔀 举一反三（AI出题）</span>
+              {vs.remaining !== null && vs.remaining !== 9999 && (
+                <span className="text-xs font-normal text-violet-400">今日剩余 {vs.remaining} 次</span>
+              )}
             </button>
           )}
           {vs.showButton && vs.phase === 'loading' && (
             <div className="w-full mb-3 py-3 rounded-2xl bg-violet-50 border-2 border-violet-100 text-center text-sm text-violet-400">
               AI 正在出题...
+            </div>
+          )}
+          {/* 次数用完：升级提示 */}
+          {vs.showButton && !correct && vs.phase === 'blocked' && (
+            <div className="w-full mb-3 rounded-2xl bg-amber-50 border-2 border-amber-200 px-4 py-3">
+              <p className="text-sm font-bold text-amber-700 mb-1">今日 AI 出题次数已用完 😮‍💨</p>
+              <p className="text-xs text-amber-600">升级 Premium 可每日无限使用举一反三</p>
+              <button
+                onClick={() => window.dispatchEvent(new CustomEvent('cl_show_premium'))}
+                className="mt-2 text-xs font-bold text-violet-600 underline">
+                查看 Premium 权益 →
+              </button>
             </div>
           )}
           {vs.showButton && (vs.phase === 'answering' || vs.phase === 'done') && vs.question && (
@@ -1329,8 +1346,20 @@ export default function DuolingoStyleQuiz({ question, onAnswerSubmit, showVarian
   const [phase, setPhase] = useState('answering') // 'answering'|'correct'|'wrong'
   const [chosenAnswer, setChosenAnswer] = useState(null)
   const [variantQ, setVariantQ] = useState(null)
-  const [variantPhase, setVariantPhase] = useState('idle') // 'idle'|'loading'|'answering'|'done'
+  const [variantPhase, setVariantPhase] = useState('idle') // 'idle'|'loading'|'answering'|'done'|'blocked'
   const [variantSel, setVariantSel] = useState(null)
+  // AI 使用次数（今日剩余）
+  const [variantRemaining, setVariantRemaining] = useState(null)  // null=未知, 数字=已知
+
+  // 组件挂载/题目切换时查一次剩余次数（不消费，仅展示）
+  useEffect(() => {
+    if (!showVariantButton) return
+    const userId = storage.getUser()?.id
+    if (!userId) return
+    getAiUsage(userId, 'ai_variant').then(({ remaining }) => {
+      setVariantRemaining(remaining)
+    }).catch(() => {})
+  }, [question?.id, showVariantButton])
 
   function handleDone(answer, correct) {
     setChosenAnswer(answer)
@@ -1347,6 +1376,16 @@ export default function DuolingoStyleQuiz({ question, onAnswerSubmit, showVarian
   }
 
   async function handleVariant() {
+    const userId = storage.getUser()?.id
+    if (userId) {
+      const check = await checkAiUsage(userId, 'ai_variant')
+      if (!check.ok) {
+        setVariantPhase('blocked')
+        setVariantRemaining(0)
+        return
+      }
+      setVariantRemaining(check.remaining)
+    }
     setVariantPhase('loading')
     try {
       const v = await generateVariant(question)
@@ -1457,6 +1496,7 @@ export default function DuolingoStyleQuiz({ question, onAnswerSubmit, showVarian
             phase: variantPhase,
             question: variantQ,
             selected: variantSel,
+            remaining: variantRemaining,
             onSelect: (opt) => { setVariantSel(opt); setVariantPhase('done') },
             onGenerate: handleVariant,
           }}

@@ -60,6 +60,7 @@ import DailyTasksPanel from '../components/DailyTasksPanel';
 import PetSwitchPanel from '../components/PetSwitchPanel';
 import PetSpriteAvatar from '../components/PetSpriteAvatar';
 import WordCannonGame from './WordCannonGame';
+import PremiumCard from '../components/PremiumCard';
 
 // 从今日答题记录同步每日任务进度
 function syncTasksFromRecords(tasks, todayRecords) {
@@ -1561,22 +1562,36 @@ export default function MV1Demo({ onBack, initialState, onStateChange, grade, cu
         )}
 
         {activeTab === 'my' && (
-          <PetSwitchPanel
-            state={state}
-            spendableXP={spendableXP}
-            onSwitchPet={handleSwitchPet}
-            onDrawCard={handleDrawCard}
-            totalXP={totalXP}
-            onSellPet={(petPoolId) => {
-              const result = sellPet(state, petPoolId);
-              if (result.success) {
-                setState(result.state);
-              } else {
-                // 可以显示toast提示
-                console.warn('卖宠物失败:', result.error);
-              }
-            }}
-          />
+          <div>
+            {/* Premium 卡片 */}
+            <div style={{ padding: '12px 16px 0' }}>
+              <PremiumCard
+                user={currentUserId ? { id: currentUserId, plan: storage.getUser()?.plan } : null}
+                compact={storage.getUser()?.plan === 'premium'}
+                onUpgraded={(plan) => {
+                  // 更新 localStorage 里的 user，触发全局刷新
+                  const u = storage.getUser()
+                  if (u) storage.setUser({ ...u, plan })
+                  window.dispatchEvent(new CustomEvent('cl_plan_changed', { detail: { plan } }))
+                }}
+              />
+            </div>
+            <PetSwitchPanel
+              state={state}
+              spendableXP={spendableXP}
+              onSwitchPet={handleSwitchPet}
+              onDrawCard={handleDrawCard}
+              totalXP={totalXP}
+              onSellPet={(petPoolId) => {
+                const result = sellPet(state, petPoolId);
+                if (result.success) {
+                  setState(result.state);
+                } else {
+                  console.warn('卖宠物失败:', result.error);
+                }
+              }}
+            />
+          </div>
         )}
       </div>
 

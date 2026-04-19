@@ -617,6 +617,141 @@ app.post('/api/tts', async (req, res) => {
   }
 })
 
+// ========== Plan / 付费功能开关 ==========
+
+// 每日 AI 使用限额配置（free 用户）
+const FREE_DAILY_LIMITS = {
+  ai_variant:  3,   // 举一反三
+  ai_analysis: 2,   // 错题AI分析
+  ai_selftest: 2,   // AI自测出题
+}
+
+/** 获取用户 plan */
+app.get('/api/user/plan/:userId', async (req, res) => {
+  const { userId } = req.params
+  try {
+    const r = await pool.query('SELECT plan FROM users WHERE id = $1', [userId])
+    return json(res, { plan: r.rows[0]?.plan || 'free' })
+  } catch (err) {
+    return json(res, { plan: 'free' })
+  }
+})
+
+/**
+ * 检查并消费一次 AI 使用次数
+ * POST /api/ai/usage/check
+ * body: { userId, feature }
+ * returns: { ok, used, limit, remaining, plan }
+ * 429 if over limit
+ */
+app.post('/api/ai/usage/check', async (req, res) => {
+  const { userId, feature } = req.body
+  if (!userId || !feature) return error(res, '缺少参数')
+
+  try {
+    const planR = await pool.query('SELECT plan FROM users WHERE id = $1', [userId])
+    const plan  = planR.rows[0]?.plan || 'free'
+
+    // Premium 无限制
+    if (plan === 'premium') {
+      return json(res, { ok: true, used: 0, limit: 9999, remaining: 9999, plan })
+    }
+
+    const limit = FREE_DAILY_LIMITS[feature] ?? 3
+    const today = new Date().toISOString().slice(0, 10)
+
+    // 读当日用量
+    const usageR = await pool.query(
+      'SELECT count FROM ai_daily_usage WHERE user_id=$1 AND feature=$2 AND date=$3',
+      [userId, feature, today]
+    )
+    const used = usageR.rows[0]?.count || 0
+
+    if (used >= limit) {
+      return res.status(429).json({
+        error: 'PLAN_LIMIT',
+        used, limit, remaining: 0, plan,
+        upgradeHint: `今日 ${feature} 已用 ${used}/${limit} 次，升级 Premium 可无限使用`,
+      })
+    }
+
+    // 消费一次
+    await pool.query(`
+      INSERT INTO ai_daily_usage (user_id, feature, date, count)
+      VALUES ($1, $2, $3, 1)
+      ON CONFLICT (user_id, feature, date)
+      DO UPDATE SET count = ai_daily_usage.count + 1
+    `, [userId, feature, today])
+
+    return json(res, { ok: true, used: used + 1, limit, remaining: limit - used - 1, plan })
+  } catch (err) {
+    console.error('[AI usage check]', err.message)
+    // 服务出错时放行（不影响体验）
+    return json(res, { ok: true, used: 0, limit: 99, remaining: 99, plan: 'free' })
+  }
+})
+
+/**
+ * 查询今日某功能已用次数（不消费）
+ * GET /api/ai/usage?userId=xxx&feature=yyy
+ */
+app.get('/api/ai/usage', async (req, res) => {
+  const { userId, feature } = req.query
+  if (!userId || !feature) return error(res, '缺少参数')
+
+  try {
+    const planR = await pool.query('SELECT plan FROM users WHERE id = $1', [userId])
+    const plan  = planR.rows[0]?.plan || 'free'
+    if (plan === 'premium') return json(res, { used: 0, limit: 9999, remaining: 9999, plan })
+
+    const limit = FREE_DAILY_LIMITS[feature] ?? 3
+    const today = new Date().toISOString().slice(0, 10)
+    const r = await pool.query(
+      'SELECT count FROM ai_daily_usage WHERE user_id=$1 AND feature=$2 AND date=$3',
+      [userId, feature, today]
+    )
+    const used = r.rows[0]?.count || 0
+    return json(res, { used, limit, remaining: Math.max(0, limit - used), plan })
+  } catch (err) {
+    return json(res, { used: 0, limit: 3, remaining: 3, plan: 'free' })
+  }
+})
+
+/**
+ * 管理员：修改用户 plan
+ * POST /api/admin/set-plan
+ * body: { userId, plan, adminKey }
+ */
+const ADMIN_KEY = process.env.ADMIN_KEY || 'cl_admin_2026'
+
+app.post('/api/admin/set-plan', async (req, res) => {
+  const { userId, plan, adminKey } = req.body
+  if (adminKey !== ADMIN_KEY) return error(res, '无权限', 403)
+  if (!userId || !plan) return error(res, '缺少参数')
+  if (!['free', 'premium'].includes(plan)) return error(res, '无效的 plan 值')
+
+  try {
+    await pool.query('UPDATE users SET plan=$1 WHERE id=$2', [plan, userId])
+    return json(res, { ok: true, userId, plan })
+  } catch (err) {
+    return error(res, '更新失败', 500)
+  }
+})
+
+/** 管理员：列出所有用户+plan（便于查看） */
+app.get('/api/admin/users', async (req, res) => {
+  const { adminKey } = req.query
+  if (adminKey !== ADMIN_KEY) return error(res, '无权限', 403)
+  try {
+    const r = await pool.query(
+      'SELECT id, name, plan, xp, streak_count, created_at FROM users ORDER BY created_at DESC'
+    )
+    return json(res, r.rows)
+  } catch (err) {
+    return error(res, '查询失败', 500)
+  }
+})
+
 // ========== 健康检查 ==========
 app.get('/api/health', async (req, res) => {
   try {

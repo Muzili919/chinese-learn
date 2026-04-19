@@ -26,6 +26,8 @@ import { initGamificationState, initGodModeState } from './utils/gamification'
 import { fetchMV1State, upsertMV1State } from './utils/mv1_cloud'
 import { pullFromCloud } from './utils/sync'
 import { unlockAudio } from './utils/tts'
+import { fetchAndMergePlan } from './hooks/usePlan'
+import PremiumCard from './components/PremiumCard'
 
 // 检查上帝模式：URL 带 ?god=1 或 #god=1
 function isGodMode() {
@@ -339,6 +341,7 @@ export default function App() {
   const [englishQuizOptions, setEnglishQuizOptions] = useState({})
   const [grade, setGrade] = useState(() => storage.getGrade())
   const [variantQuestion, setVariantQuestion] = useState(null)
+  const [showPremiumModal, setShowPremiumModal] = useState(false)
 
   // 科目状态（切换时只更新内容区，HomeHeader 不卸载）
   const [activeSubject, setActiveSubject] = useState(() => {
@@ -396,7 +399,12 @@ export default function App() {
       })
     })
 
-    // 2. 跨设备同步学习数据（答题记录/SRS/XP/streak）写入 localStorage
+    // 2. 拉取用户 plan（付费状态）并合并到 user 对象
+    fetchAndMergePlan({ id: uid }).then(merged => {
+      setUser(u => u ? { ...u, plan: merged.plan } : u)
+    }).catch(() => {/* 网络出错时保留当前 plan */})
+
+    // 3. 跨设备同步学习数据（答题记录/SRS/XP/streak）写入 localStorage
     // 完成后 setUser({...u}) 触发重渲染，让 HomeHeader 读到最新 XP
     // 因为依赖是 user?.id（字符串），setUser({...u}) 不会再次触发本 effect
     pullFromCloud(uid).then(() => {
@@ -425,6 +433,23 @@ export default function App() {
       window.removeEventListener('touchstart', handler)
       window.removeEventListener('click', handler)
     }
+  }, [])
+
+  // 全局 Premium 弹窗事件监听（任意组件可触发 cl_show_premium）
+  useEffect(() => {
+    const handler = () => setShowPremiumModal(true)
+    window.addEventListener('cl_show_premium', handler)
+    return () => window.removeEventListener('cl_show_premium', handler)
+  }, [])
+
+  // plan 变更后同步 App 的 user state（MV1Demo 内更改 plan 后触发）
+  useEffect(() => {
+    const handler = (e) => {
+      const plan = e.detail?.plan
+      if (plan) setUser(u => u ? { ...u, plan } : u)
+    }
+    window.addEventListener('cl_plan_changed', handler)
+    return () => window.removeEventListener('cl_plan_changed', handler)
   }, [])
 
   function handleOnboarding(newUser) {
@@ -736,6 +761,32 @@ export default function App() {
             overdueCount={overdueCount}
           />
         )}
+        {/* ── 全局 Premium 弹窗（任意组件 dispatchEvent('cl_show_premium') 触发）── */}
+        {showPremiumModal && (
+          <div
+            className="fixed inset-0 z-50 bg-black/50 flex items-end justify-center"
+            onClick={() => setShowPremiumModal(false)}>
+            <div
+              className="w-full max-w-md bg-white rounded-t-3xl pb-safe overflow-y-auto max-h-[85vh]"
+              onClick={e => e.stopPropagation()}>
+              <div className="flex justify-between items-center px-5 pt-4 pb-2">
+                <span className="text-base font-bold text-gray-800">Premium 会员</span>
+                <button onClick={() => setShowPremiumModal(false)}
+                  className="text-gray-400 text-xl w-8 h-8 flex items-center justify-center">✕</button>
+              </div>
+              <div className="px-4 pb-6">
+                <PremiumCard
+                  user={user}
+                  onUpgraded={(plan) => {
+                    setUser(u => u ? { ...u, plan } : u)
+                    setShowPremiumModal(false)
+                  }}
+                />
+              </div>
+            </div>
+          </div>
+        )}
+
         {showBottomNav && activeTab !== 'pet' && (
           <GlobalPetDock gameState={gameState} isLearning={activeTab === 'home'} />
         )}
