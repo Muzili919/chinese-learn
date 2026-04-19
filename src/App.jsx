@@ -486,7 +486,11 @@ export default function App() {
   }
 
   function finishQuiz(result) {
-    setSessionResult(result)
+    // 保存 quizOptions 到 result 中，以便"再来一轮"时使用
+    setSessionResult({
+      ...result,
+      quizOptions: quizOptions // 保存当前的答题参数
+    })
     setPage('result')
   }
 
@@ -533,7 +537,7 @@ export default function App() {
     if (page === 'lightning_quiz') return (
       <LightningQuizPage
         user={user}
-        onFinish={(result) => { setSessionResult(result); setPage('result') }}
+        onFinish={(result) => { setSessionResult({ ...result, quizOptions }); setPage('result') }}
         onBack={() => { setPage('home'); setActiveSubject('english') }}
       />
     )
@@ -564,7 +568,7 @@ export default function App() {
       <PoliticsQuizPage
         user={user}
         options={quizOptions}
-        onFinish={(result) => { setSessionResult(result); setPage('result'); setActiveSubject('politics') }}
+        onFinish={(result) => { setSessionResult({ ...result, quizOptions }); setPage('result'); setActiveSubject('politics') }}
         onBack={() => { setPage('home'); setActiveSubject('politics') }}
       />
     )
@@ -578,13 +582,13 @@ export default function App() {
         onSubjectChange={setActiveSubject}
       />
     )
-    if (page === 'result') return <ResultPage result={sessionResult} user={user} onHome={goHome} onRetry={() => startQuiz(quizOptions)} />
+    if (page === 'result') return <ResultPage result={sessionResult} user={user} onHome={goHome} onRetry={() => startQuiz(sessionResult?.quizOptions || quizOptions)} />
     if (page === 'report') return <ReportPage user={user} onBack={goHome} />
     if (page === 'englishQuiz' && englishQuizOptions.englishTag === 'en_association') return (
       <AssociationPlanetPage
         user={user}
         grade={grade}
-        onFinish={(result) => { setSessionResult(result); setPage('result') }}
+        onFinish={(result) => { setSessionResult({ ...result, quizOptions: englishQuizOptions }); setPage('result') }}
         onBack={() => { setPage('home'); setActiveSubject('english') }}
         onRetry={() => startQuiz({ ...englishQuizOptions, englishTag: 'en_association' })}
       />
@@ -593,7 +597,7 @@ export default function App() {
       <WordPlanetPage
         user={user}
         grade="j2"
-        onFinish={(result) => { setSessionResult(result); setPage('result') }}
+        onFinish={(result) => { setSessionResult({ ...result, quizOptions: englishQuizOptions }); setPage('result') }}
         onBack={() => { setPage('home'); setActiveSubject('english') }}
         onRetry={() => startQuiz({ ...englishQuizOptions, englishTag: 'en_association_j2' })}
       />
@@ -602,7 +606,7 @@ export default function App() {
       <EnglishQuizPage
         user={user}
         options={{ ...englishQuizOptions, grade }}
-        onFinish={(result) => { setSessionResult(result); setPage('result') }}
+        onFinish={(result) => { setSessionResult({ ...result, quizOptions: englishQuizOptions }); setPage('result') }}
         onBack={() => { setPage('home'); setActiveSubject('english') }}
       />
     )
