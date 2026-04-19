@@ -317,6 +317,8 @@ app.post('/api/sessions/sync', async (req, res) => {
   
   try {
     for (const s of sessions) {
+      // 兜底：date 为空时用今天
+      const sessionDate = s.date || new Date().toISOString().slice(0, 10)
       await pool.query(`
         INSERT INTO sessions (user_id, date, total, correct, subject, duration_seconds)
         VALUES ($1, $2::date, $3, $4, $5, $6)
@@ -324,7 +326,7 @@ app.post('/api/sessions/sync', async (req, res) => {
           total = EXCLUDED.total,
           correct = EXCLUDED.correct,
           duration_seconds = EXCLUDED.duration_seconds
-      `, [userId, s.date, s.total, s.correct, s.subject || 'chinese', s.durationSeconds || 0])
+      `, [userId, sessionDate, s.total, s.correct, s.subject || 'chinese', s.durationSeconds || 0])
     }
     return json(res, { ok: true, count: sessions.length })
   } catch (err) {
@@ -538,6 +540,89 @@ app.post('/api/ai', async (req, res) => {
     if (err.name === 'AbortError') return error(res, 'AI响应超时，请稍后重试（建议减少题目数量）', 504)
     console.error('[AI] 请求异常:', err.message)
     return error(res, 'AI请求失败: ' + err.message, 500)
+  }
+})
+
+// ========== AI SSE 流式响应 ==========
+app.post('/api/ai/stream', async (req, res) => {
+  const { model, messages, response_format, temperature, max_tokens } = req.body
+  if (!messages || !Array.isArray(messages)) return error(res, '缺少 messages 参数')
+
+  // SSE headers
+  res.writeHead(200, {
+    'Content-Type': 'text/event-stream',
+    'Cache-Control': 'no-cache',
+    'Connection': 'keep-alive',
+    'X-Accel-Buffering': 'no', // 禁止 Nginx 缓冲
+  })
+
+  try {
+    const fetchBody = {
+      model: model || 'deepseek-chat',
+      messages,
+      temperature: temperature ?? 0.7,
+      max_tokens: max_tokens || 1024,
+      stream: true, // ★ DeepSeek 流式
+    }
+    if (response_format) fetchBody.response_format = response_format
+
+    const headers = {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${DEEPSEEK_API_KEY}`,
+    }
+
+    const aiRes = await fetch(`${DEEPSEEK_BASE_URL}/chat/completions`, {
+      method: 'POST',
+      headers,
+      body: JSON.stringify(fetchBody),
+    })
+
+    if (!aiRes.ok) {
+      const errText = await aiRes.text()
+      console.error('[AI-STREAM] DeepSeek 返回错误:', aiRes.status, errText.slice(0, 200))
+      res.write(`data: ${JSON.stringify({ error: `AI请求失败 (${aiRes.status})` })}\n\n`)
+      res.end()
+      return
+    }
+
+    // 流式转发 DeepSeek 的 SSE 数据
+    const reader = aiRes.body.getReader()
+    const decoder = new TextDecoder()
+    let buffer = ''
+
+    while (true) {
+      const { done, value } = await reader.read()
+      if (done) break
+
+      buffer += decoder.decode(value, { stream: true })
+      const lines = buffer.split('\n')
+      buffer = lines.pop() || '' // 保留未完成的行
+
+      for (const line of lines) {
+        const trimmed = line.trim()
+        if (!trimmed || !trimmed.startsWith('data:')) continue
+        const data = trimmed.slice(5).trim()
+        if (data === '[DONE]') {
+          res.write('data: [DONE]\n\n')
+          res.end()
+          return
+        }
+        try {
+          const parsed = JSON.parse(data)
+          // 转发给前端，保持格式一致
+          res.write(`data: ${JSON.stringify(parsed)}\n\n`)
+        } catch (e) {
+          // 忽略解析失败的行
+        }
+      }
+    }
+
+    res.write('data: [DONE]\n\n')
+    res.end()
+  } catch (err) {
+    console.error('[AI-STREAM] 请求异常:', err.message)
+    res.write(`data: ${JSON.stringify({ error: err.message })}\n\n`)
+    res.end()
   }
 })
 

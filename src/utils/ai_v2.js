@@ -9,9 +9,78 @@
 
 // 通过 Vercel Serverless Function 代理调用 DeepSeek API（保护 Key 安全）
 const API_URL = '/api/ai'
+const API_STREAM_URL = '/api/ai/stream'
 
 // ★ 客户端超时要比服务端（8.5s）稍长，让服务端先返回可读错误而不是网络中断
 const CLIENT_TIMEOUT_MS = 50000  // 阿里云国内直连，支持长请求
+
+/**
+ * SSE 流式调用 DeepSeek（体感更快，用户看到文字逐步出现）
+ * 
+ * @returns {AsyncGenerator<{delta: string, fullText: string}>} 异步生成器，每次 yield 一个 token 片段
+ */
+async function* callDeepSeekStream(systemPrompt, userPrompt, options = {}) {
+  const res = await fetch(API_STREAM_URL, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      model: options.model || 'deepseek-chat',
+      messages: [
+        { role: 'system', content: systemPrompt },
+        { role: 'user', content: userPrompt },
+      ],
+      response_format: { type: 'json_object' },
+      temperature: options.temperature ?? 0.7,
+      max_tokens: options.max_tokens || 400,
+    }),
+  })
+
+  if (!res.ok) {
+    const errData = await res.json().catch(() => ({}))
+    throw new Error(errData.error || `AI流式请求失败 (${res.status})`)
+  }
+
+  const reader = res.body.getReader()
+  const decoder = new TextDecoder()
+  let buffer = ''
+  let fullText = ''
+
+  while (true) {
+    const { done, value } = await reader.read()
+    if (done) break
+
+    buffer += decoder.decode(value, { stream: true })
+    const lines = buffer.split('\n')
+    buffer = lines.pop() || ''
+
+    for (const line of lines) {
+      const trimmed = line.trim()
+      if (!trimmed.startsWith('data:')) continue
+      const data = trimmed.slice(5).trim()
+      if (data === '[DONE]') return
+      try {
+        const parsed = JSON.parse(data)
+        // DeepSeek 流式格式：choices[0].delta.content
+        const delta = parsed.choices?.[0]?.delta?.content || ''
+        if (delta) {
+          fullText += delta
+          yield { delta, fullText }
+        }
+      } catch (e) {
+        // 忽略解析失败的行
+      }
+    }
+  }
+
+  // 最终返回完整文本供解析
+  if (fullText) {
+    try {
+      yield { final: true, parsed: JSON.parse(fullText) }
+    } catch (e) {
+      throw new Error('AI返回的JSON不完整或格式错误')
+    }
+  }
+}
 
 async function callDeepSeek(systemPrompt, userPrompt, options = {}) {
   const controller = new AbortController()
@@ -112,12 +181,41 @@ const SUBJECT_INSTRUCTIONS = {
 }
 
 /**
- * 通用 AI 评分
+ * 通用 AI 评分（流式版，用户看到文字逐步出现）
  * @param {object} question - 题目对象
  * @param {string} studentAnswer - 学生答案
  * @param {'chinese'|'english'|'politics'} subject - 学科
- * @returns {object} v2.0 评分结果
+ * @param {function} onChunk - 可选回调：(delta, fullText) => void，用于实时显示进度
+ * @returns {object} v2.0 评分结果（完整返回，和同步版兼容）
  */
+export async function evaluateQuestionStream(question, studentAnswer, subject = 'chinese', onChunk) {
+  const subjectInstruction = SUBJECT_INSTRUCTIONS[subject] || ''
+  const subjectName = { chinese: '语文', english: '英语', politics: '道德与法治' }[subject] || '语文'
+
+  const system = `你是一位${subjectName}老师，批改学生答题。严格评分，不放水。
+${subjectInstruction}
+
+只返回JSON，字段：
+{"score":0-100,"correct":bool,"errorType":"审题错误|知识缺失|理解偏差|表达不当|完全正确","teachingTip":"为什么这么答(40字内)","keyTechnique":"技巧口诀(20字内)","fullAnswer":"满分示范答案"}`
+
+  const user = `题目：${question.question || question.question_text || ''}
+答案：${question.answer || ''}
+知识点：${question.knowledge_tag || ''}${question.ability_tag ? ' / ' + question.ability_tag : ''}
+学生答：${studentAnswer}`
+
+  // 使用流式调用
+  let finalResult = null
+  for await (const chunk of callDeepSeekStream(system, user, { max_tokens: 350 })) {
+    if (chunk.final) {
+      finalResult = chunk.parsed
+    }
+    if (onChunk && chunk.delta) onChunk(chunk.delta, chunk.fullText)
+  }
+
+  if (!finalResult) throw new Error('AI流式响应不完整')
+  return finalResult
+}
+
 export async function evaluateQuestion(question, studentAnswer, subject = 'chinese') {
   const subjectInstruction = SUBJECT_INSTRUCTIONS[subject] || ''
 
@@ -151,6 +249,45 @@ ${subjectInstruction}
  */
 // ★ 优化策略：一次只生成 1 道题（原来最多3道），大幅降低 token 数量和响应时间
 // 调用方如果需要多道，请循环调用本函数（逐道生成，每道单独显示，体验更好）
+/**
+ * 生成举一反三变式题（流式版）
+ * @param {object} question - 原题
+ * @param {number} count - 生成数量，默认1
+ * @param {'chinese'|'english'} subject - 学科
+ * @param {function} onChunk - 可选回调：(delta, fullText) => void
+ * @returns {{ variants: Array<object> }}
+ */
+export async function generateVariantsStream(question, count = 1, subject = 'chinese', onChunk) {
+  const subjectInstruction = SUBJECT_INSTRUCTIONS[subject] || ''
+
+  const system = `你是${subject === 'english' ? '英语' : '语文'}出题老师。针对学生做错的题生成1道变式练习题。
+${subjectInstruction}
+规则：考查相同知识点、换语境、选择题4个选项ABCD、answer必须与options某项完全一致。
+只返回JSON：{"variants":[{"id":"v1","type":"single_choice","question":"题干","options":["A.","B.","C.","D."],"answer":"完整正确选项","analysis":"解析30字内","teachingTip":"提示20字内"}]}`
+
+  const user = `原题：${question.question || question.question_text || ''}
+答案：${question.answer || ''}  知识点：${question.knowledge_tag || ''}${question.ability_tag ? '/' + question.ability_tag : ''}${question.options ? '\n选项：' + JSON.stringify(question.options) : ''}
+生成1道变式题。`
+
+  let finalResult = null
+  for await (const chunk of callDeepSeekStream(system, user, { max_tokens: 500 })) {
+    if (chunk.final) finalResult = chunk.parsed
+    if (onChunk && chunk.delta) onChunk(chunk.delta, chunk.fullText)
+  }
+
+  if (!finalResult || !finalResult.variants) throw new Error('AI流式返回格式错误')
+
+  return {
+    variants: finalResult.variants.map((v, i) => ({
+      ...v,
+      id: v.id || `variant_${question.id || 'q'}_${i + 1}`,
+      knowledge_tag: question.knowledge_tag,
+      ability_tag: question.ability_tag,
+      isVariant: true,
+    }))
+  }
+}
+
 export async function generateVariants(question, count = 1, subject = 'chinese') {
   const subjectInstruction = SUBJECT_INSTRUCTIONS[subject] || ''
   // 安全上限：单次最多生成 1 道（避免超时）
