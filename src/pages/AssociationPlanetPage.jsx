@@ -8,7 +8,20 @@ import j2WordsNetwork from '../data/words_network_j2.json'
 
 // ─── 常量 ───────────────────────────────────────────────────────────────
 const SESSION_SIZE = 10
-const XP_CORRECT = 10
+const XP_CORRECT = 10  // base XP per correct answer
+
+// ★ 灵活XP计算：根据词的难度、全对奖励、连续全对连击奖励
+function calcWordXP(correct, total, wordObj, streakCount) {
+  if (correct === 0) return 0
+  const tier = wordObj?.tier || 2
+  // 词根难度加成：tier1(常用简单)=×1, tier2=×1.2, 无tier=×1
+  const tierMul = tier === 1 ? 1.0 : tier === 2 ? 1.2 : 1.0
+  // 全对奖励 +50%
+  const allCorrectBonus = correct === total ? 1.5 : 1.0
+  // 连击加成（连续3个词全对 → ×1.2, 连续5个词 → ×1.5）
+  const comboMul = streakCount >= 5 ? 1.5 : streakCount >= 3 ? 1.2 : 1.0
+  return Math.round(correct * XP_CORRECT * tierMul * allCorrectBonus * comboMul)
+}
 
 // ─── TTS ──────────────────────────────────────────────────────────────────
 function speakEnglish(text) {
@@ -947,6 +960,7 @@ export default function AssociationPlanetPage({ user, grade = 'primary', onFinis
   const [sessionResults, setSessionResults] = useState([])
   const [totalXP, setTotalXP] = useState(0)
   const [done, setDone] = useState(false)
+  const [perfectStreak, setPerfectStreak] = useState(0)  // 连续全对词数
   const [toast, setToast] = useState(null)
   const scrollContainerRef = useRef(null)
   // ─── SRS 状态 ──────────────────────────────────────────────
@@ -1042,6 +1056,8 @@ export default function AssociationPlanetPage({ user, grade = 'primary', onFinis
       const info = getExternalWordInfo(key)
       setExternalWord(info)
     } else {
+      // 未收录也播放发音，让用户知道怎么读
+      speakEnglish(wordKey)
       showToast(`"${wordKey}" 暂未收录`)
     }
   }
@@ -1051,12 +1067,16 @@ export default function AssociationPlanetPage({ user, grade = 'primary', onFinis
   }
 
   function handleWordDone(correct, total) {
-    const xpGained = correct * XP_CORRECT
+    const allRight = correct === total && total > 0
+    const newStreak = allRight ? perfectStreak + 1 : 0
+    setPerfectStreak(newStreak)
+    // ★ 灵活XP：难度×全对奖励×连击加成
+    const xpGained = calcWordXP(correct, total, currentWord, newStreak)
     if (xpGained > 0 && user?.id) {
       try { storage.addXP(user.id, xpGained) } catch {}
     }
     setTotalXP(prev => prev + xpGained)
-    const newResults = [...sessionResults, { correct, total }]
+    const newResults = [...sessionResults, { correct, total, xp: xpGained }]
     setSessionResults(newResults)
 
     // ─── SRS 记录 ──────────────────────────────

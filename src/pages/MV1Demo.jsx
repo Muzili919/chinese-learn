@@ -659,6 +659,20 @@ export default function MV1Demo({ onBack, initialState, onStateChange, grade, cu
         ),
         currentPet: resolvedCurrentPet,
         ownedPets: resolvedOwnedPets,
+        // ★ petLevels: 每个宠物等级独立（合并本地+云端，取最大值）
+        petLevels: (() => {
+          const localPL = localSnapshot?.petLevels || {}
+          const cloudPL = cloud?.petLevels || {}
+          // migration: 将当前宠物等级写入 petLevels（老数据兼容）
+          const merged = { ...cloudPL, ...localPL }
+          if (resolvedCurrentPet?.poolId && resolvedCurrentPet?.level > 1) {
+            merged[resolvedCurrentPet.poolId] = Math.max(
+              merged[resolvedCurrentPet.poolId] || 1,
+              resolvedCurrentPet.level || 1
+            )
+          }
+          return merged
+        })(),
         // 背包：localStorage 最新，防止刷新后数量回滚
         inventory: localSnapshot?.inventory
           ? { ...base.inventory, ...(cloud?.inventory || {}), ...localSnapshot.inventory }
@@ -849,10 +863,14 @@ export default function MV1Demo({ onBack, initialState, onStateChange, grade, cu
       // ★ 变量声明移到条件外，避免上帝模式跳过if块后 consumed/totalXP 未定义
       const totalXP = getEffectiveXP(s, storage.getUser());
       const consumed = s.petExpConsumed || 0;
-      return {
+      // ★ 同步更新 petLevels（每个宠物的等级独立存储）
+      const petLevels = { ...(s.petLevels || {}) }
+      if (pet?.poolId) petLevels[pet.poolId] = newPetLevel
+      const newState = {
         ...s,
         exp: totalXP,
         petExpConsumed: consumed + threshold,
+        petLevels,
         currentPet: {
           ...pet,
           level: newPetLevel,
@@ -860,8 +878,15 @@ export default function MV1Demo({ onBack, initialState, onStateChange, grade, cu
           lastAction: 'levelUp',
         },
       };
+      // ★ 立即写 localStorage，不等 save effect（防止快速刷新丢失等级）
+      try {
+        const uid = currentUserId;
+        const petKey = uid ? `mv1_pet_state_${uid}` : 'mv1_pet_state';
+        localStorage.setItem(petKey, JSON.stringify(newState));
+      } catch (_) {}
+      return newState;
     });
-  }, []);
+  }, [currentUserId]);
 
     // ★ 商店使用宠物可支配经验池（总经验-已消耗升级），不影响人物学习等级
     const handleShopAction = useCallback((actionId) => {
@@ -1228,17 +1253,23 @@ export default function MV1Demo({ onBack, initialState, onStateChange, grade, cu
     setGachaResult(null);
   }, []);
 
-  // 切换宠物
+  // 切换宠物（★ 每个宠物等级独立：从 petLevels 恢复该宠物自己的等级）
   const handleSwitchPet = useCallback((poolId) => {
     setState(s => {
       const owned = s.ownedPets || [];
       if (!owned.includes(poolId)) return s;
       const pet = s.currentPet || {};
+      // ★ 保存当前宠物的等级到 petLevels
+      const petLevels = { ...(s.petLevels || {}) }
+      if (pet.poolId) petLevels[pet.poolId] = pet.level || 1
+      // ★ 恢复目标宠物自己的等级（初次上阵从1级开始）
+      const targetLevel = petLevels[poolId] || 1
       return {
         ...s,
+        petLevels,
         currentPet: {
           poolId,
-          level: pet.level || 1,
+          level: targetLevel,
           exp: pet.exp || 0,
           mood: 'neutral',
           tapCount: 0,

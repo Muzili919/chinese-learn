@@ -28,10 +28,24 @@ function isAnswerCorrect(userAnswer, correctAnswer, options) {
   const ua = normalizeAnswer(userAnswer)
   const ca = normalizeAnswer(correctAnswer)
 
-  // 直接匹配
+  // 直接匹配（已归一化，大小写/空格/标点均已处理）
   if (ua === ca) return true
 
-  // 如果 correctAnswer 是字母（A/B/C/D），匹配选项内容
+  // ★ 用户只输入字母（a/b/c/d）而正确答案是 "B. xxx" 形式 → 字母对应即正确
+  if (/^[a-d]$/i.test(userAnswer.trim())) {
+    const letter = userAnswer.trim().toUpperCase()
+    // 正确答案以该字母开头（如 "B. 精致" / "B、精致" / "b精致"）
+    if (new RegExp(`^${letter}[.、．\\s]`, 'i').test(correctAnswer.trim())) return true
+    // 如果有选项数组，取对应下标比较内容
+    if (options && options.length) {
+      const idx = letter.charCodeAt(0) - 65
+      if (idx >= 0 && idx < options.length) {
+        return ua === normalizeAnswer(options[idx])
+      }
+    }
+  }
+
+  // 如果 correctAnswer 是单字母（A/B/C/D），匹配选项内容
   if (/^[a-d]$/i.test(correctAnswer.trim()) && options && options.length) {
     const idx = correctAnswer.trim().toUpperCase().charCodeAt(0) - 65
     if (idx >= 0 && idx < options.length) {
@@ -39,7 +53,7 @@ function isAnswerCorrect(userAnswer, correctAnswer, options) {
     }
   }
 
-  // 如果 userAnswer 是字母，反向匹配
+  // 如果 userAnswer 是字母且有选项数组，反向匹配内容
   if (/^[a-d]$/i.test(userAnswer.trim()) && options && options.length) {
     const idx = userAnswer.trim().toUpperCase().charCodeAt(0) - 65
     if (idx >= 0 && idx < options.length) {
@@ -47,8 +61,7 @@ function isAnswerCorrect(userAnswer, correctAnswer, options) {
     }
   }
 
-  // 填空题：correctAnswer 可能是 "（5）xxx" 而 ua 是 "5xxx"
-  // 去除所有非核心字符后比较
+  // 填空题：去除所有非核心字符后比较（容错标点/空格）
   if (ua && ca) {
     const stripCore = s => s.replace(/[^a-z0-9\u4e00-\u9fff]/g, '')
     if (stripCore(ua) === stripCore(ca)) return true
@@ -99,9 +112,13 @@ function isJudgmentQ(q) {
 }
 
 function isTypoQ(q) {
+  // 需要"错别字"关键词 + 答案含"→" + 答案无序号圆圈
+  // 同时要求题目中有 "（n）汉字..." 格式（至少紧跟2个汉字），
+  // 排除"段落找错别字"题（格式为 （n）（　）→（　），括号后无汉字词语）
   return q.question.includes('错别字') &&
     q.answer.includes('→') &&
-    !/[①②③④⑤⑥]/.test(q.answer)
+    !/[①②③④⑤⑥]/.test(q.answer) &&
+    /（[1-9]）[\s\u3000]*[\u4e00-\u9fff]{2}/.test(q.question)
 }
 
 function isOrderQ(q) {
@@ -342,19 +359,57 @@ function ChoiceQuestion({ question, onDone }) {
     )
   }
 
+  // 解析选项：检测 "A. " / "A、" 前缀，分离字母和正文
+  const LETTER_RE = /^([A-Da-d])[.、．\s]\s*/
+  const hasLetterPrefix = question.options.some(o => LETTER_RE.test(String(o)))
+  const maxOptLen = Math.max(...question.options.map(o => String(o).length))
+  // 4选项且都很短（≤6字）→ 2×2 网格布局
+  const use2Col = question.options.length === 4 && maxOptLen <= 8 && !hasLetterPrefix
+  // 超长选项（>30字）使用更小字号
+  const useSmallOptText = maxOptLen > 30
+
+  function parseOpt(opt) {
+    const s = String(opt)
+    const m = s.match(LETTER_RE)
+    if (m) return { letter: m[1].toUpperCase(), text: s.slice(m[0].length) }
+    return { letter: null, text: s }
+  }
+
   return (
-    <div className="flex flex-col gap-3">
+    <div className={use2Col ? 'grid grid-cols-2 gap-2.5' : 'flex flex-col gap-2.5'}>
       {question.options.map(opt => {
-        let cls = 'bg-white border-2 border-gray-200 text-gray-800'
+        let border = 'border-gray-200'
+        let bg = 'bg-white'
+        let textColor = 'text-gray-800'
         if (selected) {
-          if (isAnswerCorrect(opt, question.answer, question.options)) cls = 'bg-green-100 border-2 border-green-500 text-green-800'
-          else if (opt === selected) cls = 'bg-red-100 border-2 border-red-400 text-red-700'
-          else cls = 'bg-white border-2 border-gray-100 text-gray-300'
+          if (isAnswerCorrect(opt, question.answer, question.options)) {
+            border = 'border-green-500'; bg = 'bg-green-100'; textColor = 'text-green-800'
+          } else if (opt === selected) {
+            border = 'border-red-400'; bg = 'bg-red-100'; textColor = 'text-red-700'
+          } else {
+            border = 'border-gray-100'; bg = 'bg-white'; textColor = 'text-gray-300'
+          }
         }
+        const { letter, text } = parseOpt(opt)
+        const isLong = text.length > 20
         return (
           <button key={opt} onClick={() => handleSelect(opt)} disabled={!!selected}
-            className={`${cls} rounded-2xl px-5 py-4 text-left text-base leading-snug font-medium transition-all active:scale-[0.98] shadow-sm`}>
-            {opt}
+            className={`${bg} border-2 ${border} ${textColor} rounded-2xl text-left leading-snug font-medium transition-all active:scale-[0.98] shadow-sm ${
+              use2Col ? 'px-3 py-4 flex flex-col items-center justify-center text-center' :
+              letter ? 'px-3 py-3 flex items-start gap-2.5' :
+              isLong ? 'px-4 py-3' : 'px-5 py-4'
+            }`}>
+            {letter && (
+              <span className={`flex-shrink-0 w-7 h-7 rounded-full flex items-center justify-center text-sm font-bold ${
+                selected && isAnswerCorrect(opt, question.answer, question.options) ? 'bg-green-500 text-white' :
+                selected && opt === selected ? 'bg-red-400 text-white' :
+                'bg-indigo-100 text-indigo-700'
+              }`}>{letter}</span>
+            )}
+            <span className={letter ? 'flex-1' : ''}
+              style={{ fontSize: (isLong && !letter) || useSmallOptText ? '0.82rem' : undefined }}>
+              {text}
+            </span>
           </button>
         )
       })}
@@ -1345,7 +1400,10 @@ export default function DuolingoStyleQuiz({ question, onAnswerSubmit, showVarian
       {/* 题干（选择题单独显示，填空题由子组件内部显示） */}
       {question.type === 'single_choice' && (
         <div className="bg-white rounded-3xl px-5 py-5 shadow-sm border border-gray-100">
-          <p className="text-lg text-gray-800 leading-relaxed font-medium">{question.question}</p>
+          <p className={`leading-relaxed font-medium text-gray-800 ${
+            question.question.length > 120 ? 'text-sm' :
+            question.question.length > 60  ? 'text-base' : 'text-lg'
+          }`}>{question.question}</p>
         </div>
       )}
 
@@ -1353,7 +1411,10 @@ export default function DuolingoStyleQuiz({ question, onAnswerSubmit, showVarian
       {question.type === 'multiple_choice' && (
         <div className="bg-white rounded-3xl px-5 py-5 shadow-sm border border-gray-100">
           <div className="flex items-start gap-2">
-            <p className="text-lg text-gray-800 leading-relaxed font-medium flex-1 whitespace-pre-wrap">{question.question}</p>
+            <p className={`leading-relaxed font-medium flex-1 whitespace-pre-wrap text-gray-800 ${
+              question.question.length > 120 ? 'text-sm' :
+              question.question.length > 60  ? 'text-base' : 'text-lg'
+            }`}>{question.question}</p>
             {onSpeak && (
               <button
                 onClick={() => onSpeak(question.question)}

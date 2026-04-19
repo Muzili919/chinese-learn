@@ -84,15 +84,17 @@ export async function fetchAllPreviews() {
     return data.map(row => ({
       userId: row.id,
       playerName: row.name || '匿名同学',
-      petPoolId: null,
+      petPoolId: row.petName || null,
       petName: row.petName || '神秘宠物',
-      petEmoji: '🥚',
+      petEmoji: '🥚',  // 排行榜不返回 emoji，由前端 PET_POOL 补全
       petRarity: 'N',
       petLevel: row.petLevel || 1,
-      petStage: !row.petLevel || row.petLevel < 2 ? '蛋' : row.petLevel < 10 ? '幼年' : '成长期',
-      totalLearnQuestions: 0,
-      daysActive: row.streakCount || 1,
-      weeklyQuestions: 0,
+      petStage: !row.petLevel || row.petLevel < 2 ? '蛋' : row.petLevel < 10 ? '幼年' : row.petLevel < 20 ? '成长期' : '成熟体',
+      // ★ 从增强版 /api/leaderboard 获取
+      totalLearnQuestions: row.totalLearnQuestions || 0,
+      totalCorrectAnswers: row.totalCorrectAnswers || 0,
+      daysActive: row.daysActive || row.streakCount || 1,
+      weeklyQuestions: row.weeklyQuestions || 0,
       wordCannonHighScore: row.wordCannonHighScore || 0,
     }))
   } catch (e) {

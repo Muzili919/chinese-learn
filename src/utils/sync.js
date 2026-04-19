@@ -18,19 +18,31 @@ async function apiFetch(method, path, body) {
       headers: { 'Content-Type': 'application/json' },
       body: body !== undefined ? JSON.stringify(body) : undefined,
     })
-    if (!res.ok) return null
-    return await res.json()
+    // ★ 无论成功失败都尝试读body（服务端错误也可能包含有用信息）
+    try {
+      const data = await res.json()
+      return res.ok ? data : { __status: res.status, ...data }
+    } catch {
+      return res.ok ? {} : null
+    }
   } catch (e) {
     console.warn('[sync] API error:', e?.message)
-    return null
+    return null  // 真正的网络故障
   }
 }
 
 // ── 邀请码 ──
 export async function validateInviteCode(code) {
   const result = await apiFetch('POST', '/invite/validate', { code })
-  if (result === null) return { valid: true } // 网络故障放行
-  return result
+  // null = 真正的网络故障（服务器不可达），不放行
+  if (result === null) return { valid: false, reason: '无法连接服务器，请检查网络后重试' }
+  // 服务端明确返回 valid 字段
+  if (result.valid === true) return { valid: true }
+  if (result.valid === false) return { valid: false, reason: result.reason || '邀请码无效' }
+  // 服务端返回 error 字段（旧格式兼容）
+  if (result.error) return { valid: false, reason: result.error }
+  // 未知格式，拒绝
+  return { valid: false, reason: '邀请码验证失败，请重试' }
 }
 
 // ── 用户 ──

@@ -11,7 +11,7 @@
 const API_URL = '/api/ai'
 
 // ★ 客户端超时要比服务端（8.5s）稍长，让服务端先返回可读错误而不是网络中断
-const CLIENT_TIMEOUT_MS = 12000
+const CLIENT_TIMEOUT_MS = 50000  // 阿里云国内直连，支持长请求
 
 async function callDeepSeek(systemPrompt, userPrompt, options = {}) {
   const controller = new AbortController()

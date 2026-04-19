@@ -223,8 +223,8 @@ export default function QuizPage({ user, options = {}, onFinish, onBack }) {
         </span>
       </div>
 
-      {/* Question area */}
-      <div className="flex-1 flex flex-col px-4 py-6">
+      {/* Question area — overflow-y-auto 保证超长题目可以滚动 */}
+      <div className="flex-1 overflow-y-auto px-4 py-6">
         <DuolingoStyleQuiz
           key={current.id}
           question={current}

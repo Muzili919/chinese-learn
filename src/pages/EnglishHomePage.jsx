@@ -79,8 +79,9 @@ export default function EnglishHomePage({ user, grade = 'primary', onStartQuiz, 
   }
 
   function isPracticed(planet) {
-    const tag = Object.entries(TAG_TO_PLANET).find(([, pid]) => pid === planet.id)?.[0]
-    return tag ? practicedToday.has(tag) : false
+    // ★ 修复：一个星球可能有多个 tag（如联想星球有 '英语联想' 和 '联想星球'）
+    // 只要任意一个 tag 被标记为完成，就算打卡
+    return Object.entries(TAG_TO_PLANET).some(([tag, pid]) => pid === planet.id && practicedToday.has(tag))
   }
 
   // 英语弱项建议（筛选 subject === 'english' 的记录）

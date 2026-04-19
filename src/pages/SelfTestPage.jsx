@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef, useCallback } from 'react'
 import { storage, updateStreak } from '../utils/storage'
 import { syncAfterSession } from '../utils/sync'
+import { speakEnglish } from '../utils/tts'
 
 // ─── DeepSeek API（通过 Vercel Serverless Function 代理）─────
 const API_URL = '/api/ai'
@@ -45,10 +46,10 @@ function getAnswerableQuestions(sections) {
   sections.forEach(sec => {
     if (sec.subsections) {
       sec.subsections.forEach(sub => {
-        sub.questions.forEach(q => { if (q.type !== 'passage') qs.push(q) })
+        sub.questions.forEach(q => { if (q.type !== 'passage' && q.type !== 'listenPassage') qs.push(q) })
       })
     } else {
-      (sec.questions || []).forEach(q => { if (q.type !== 'passage') qs.push(q) })
+      (sec.questions || []).forEach(q => { if (q.type !== 'passage' && q.type !== 'listenPassage') qs.push(q) })
     }
   })
   return qs
@@ -62,54 +63,112 @@ const JUNIOR_EXAM_TYPE_MAP = {
 }
 
 // ─── 小升初语文 System Prompt ──────────────────────────
-// ─── 通用 JSON Schema（精简版，减少token占用）────────────
+// ─── 通用 JSON Schema（语文/政治）────────────────────────
 const EXAM_SCHEMA = `
-只返回JSON，格式：
-{"sections":[{"title":"一、xxx（xx分）","questions":[
-{"id":"q1","type":"choice","stem":"题干","options":["A.","B.","C.","D."],"answer":0,"score":4,"analysis":"简析"},
-{"id":"q2","type":"truefalse","stem":"判断句","answer":true,"score":4,"analysis":"简析"},
-{"id":"q3","type":"fill","stem":"填空___","answer":"答案","acceptableAnswers":["答案"],"score":5,"analysis":"简析"},
-{"type":"passage","text":"短文（80字内）"},
-{"id":"q4","type":"shortanswer","stem":"简答题","answer":"要点","score":8,"analysis":"简析"},
-{"id":"q5","type":"writing","stem":"写作要求","score":30,"rubric":"评分标准","prompts":[{"title":"题A"},{"title":"题B"}]}
+只返回JSON，顶层只有sections数组：
+{"sections":[{"title":"一、选择题（32分）","questions":[
+{"id":"q1","type":"choice","stem":"题干","options":["A.选项","B.选项","C.选项","D.选项"],"answer":0,"score":4,"analysis":"简析≤15字"},
+{"id":"q2","type":"truefalse","stem":"判断对错","answer":true,"score":4,"analysis":"简析"},
+{"id":"q3","type":"fill","stem":"___填空","answer":"答案","acceptableAnswers":["答案","别名"],"score":5,"analysis":"简析"},
+{"type":"passage","text":"阅读短文正文（勿省略，100字以上）"},
+{"id":"q4","type":"shortanswer","stem":"根据短文回答","answer":"参考要点","score":8,"analysis":"简析"},
+{"id":"q5","type":"writing","stem":"写作要求，二选一","score":20,"rubric":"评分标准","prompts":[{"title":"题目A"},{"title":"题目B"}]}
 ]}]}
-规则：choice的answer=下标0-3；truefalse的answer=布尔；passage无id无score且紧放阅读题前；analysis≤15字。`
+⚠️规则：choice的answer=正确选项下标(0-3)；truefalse的answer=true或false；passage必须包含text字段，无id无score，放在对应阅读题之前；每题必须有analysis字段（≤15字）。`
 
+// ─── 英语专用 JSON Schema（含听力 listenPassage）──────────
+const EN_EXAM_SCHEMA = `
+Only return JSON with top-level "sections" array. Use this exact structure:
+{"sections":[
+{"title":"Part 1. Listening Comprehension (16pts)","questions":[
+{"type":"listenPassage","text":"Short dialogue or monologue (3-5 sentences, grade-appropriate English)"},
+{"id":"l1","type":"listen","stem":"question about passage","options":["A.option","B.option","C.option","D.option"],"answer":0,"score":4,"analysis":"brief≤10words"},
+{"id":"l2","type":"listen","stem":"question 2","options":["A.option","B.option","C.option","D.option"],"answer":1,"score":4,"analysis":"brief"},
+{"id":"l3","type":"listen","stem":"question 3","options":["A.option","B.option","C.option","D.option"],"answer":2,"score":4,"analysis":"brief"},
+{"id":"l4","type":"listen","stem":"question 4","options":["A.option","B.option","C.option","D.option"],"answer":3,"score":4,"analysis":"brief"}
+]},
+{"title":"Part 2. Multiple Choice (32pts)","questions":[
+{"id":"q1","type":"choice","stem":"stem","options":["A.opt","B.opt","C.opt","D.opt"],"answer":0,"score":4,"analysis":"brief≤10words"},
+{"id":"q2","type":"choice",...}, ...8 choice questions total
+]},
+{"title":"Part 3. True or False (8pts)","questions":[
+{"id":"t1","type":"truefalse","stem":"statement","answer":true,"score":4,"analysis":"brief"},
+{"id":"t2","type":"truefalse",...} ...2 truefalse questions
+]},
+{"title":"Part 4. Fill in the Blank (12pts)","questions":[
+{"id":"f1","type":"fill","stem":"Fill: ___ blank","answer":"word","acceptableAnswers":["word","alt"],"score":4,"analysis":"brief"},
+...3 fill questions
+]},
+{"title":"Part 5. Reading Comprehension (12pts)","questions":[
+{"type":"passage","text":"Reading passage (100+ words)"},
+{"id":"r1","type":"shortanswer","stem":"question","answer":"key points","score":6,"analysis":"brief"},
+{"id":"r2","type":"shortanswer","stem":"question 2","answer":"key points","score":6,"analysis":"brief"}
+]},
+{"title":"Part 6. Writing (20pts)","questions":[
+{"id":"w1","type":"writing","stem":"Writing task","score":20,"rubric":"criteria","prompts":[{"title":"Topic A","hint":"hint"},{"title":"Topic B","hint":"hint"}]}
+]}
+]}
+⚠️Rules: listen/choice answer=correct index(0-3); truefalse answer=true/false; listenPassage must have "text" field, no id/score, placed BEFORE listen questions; passage same rule before shortanswer; every question must have "analysis" field.
+Total: 4 listen + 8 choice + 2 truefalse + 3 fill + 1passage+2shortanswer + 1writing = 21 items, 100pts.`
+
+// ─── 小学语文 ──────────────────────────────────────────
 function getChineseExamPrompt(grade, examType) {
-  return `你是小学语文出卷老师，为${GRADE_MAP[grade]}出${EXAM_TYPE_MAP[examType]}语文卷，满分100分，共12题左右。
-题型：选择题×4(4分/题)＋判断×2(5分/题)＋填空古诗×2(5分/题)＋阅读理解(passage80字+简答×2,共20分)＋写作1题(30分)
-要求：手机可输入，古诗准确，analysis不超过15字。
+  return `你是小学语文出卷老师，为${GRADE_MAP[grade]}出${EXAM_TYPE_MAP[examType]}语文卷，满分100分。
+【难度要求】有一定难度，避免过于简单，选择题干扰项要有迷惑性，填空题不提示汉字数量。
+题型结构（严格按此出题）：
+- 选择题×8，每题4分=32分（字音字形×3[易错多音字/同音字]、词语运用×3[近义词辨析/成语活用]、句子语法×2[病句修改/关联词]）
+- 判断题×4，每题4分=16分（古诗文常识×2、修辞手法×2，避免过于明显的对错）
+- 填空题×4，每题5分=20分（古诗名句2道[下一句/上一句均可]、词语/成语填空2道）
+- 阅读理解：先放一段150字以上短文（passage），再出2道简答题要求概括+分析，共12分
+- 写作×1，20分（命题+选题二选一，字数要求不低于250字）
+共19道题，合计100分。古诗必须选用人教版${GRADE_MAP[grade]}教材原文。所有题目手机可输入。
 ${EXAM_SCHEMA}`
 }
 
+// ─── 小学英语 ──────────────────────────────────────────
 function getEnglishExamPrompt(grade, examType) {
-  return `Elementary English teacher. Grade ${grade} PEP ${EXAM_TYPE_MAP[examType]} test, 100pts, ~12 questions.
-Parts: vocabulary choice×4(4pts) + grammar choice×3(4pts) + fill×2(5pts) + passage(80w)+choice×3(4pts) + writing(25pts,2 topics)
-Mobile-friendly. analysis≤10 words.
-${EXAM_SCHEMA}`
+  return `You are a primary school English teacher. Generate Grade ${grade} PEP ${EXAM_TYPE_MAP[examType]} test, 100pts total. Include a listening comprehension section with TTS-readable passage.
+⚠️ Difficulty: Make questions challenging for grade ${grade} level — avoid overly simple vocabulary; use grade-appropriate grammar structures; reading passage must be 100+ words; writing must require 60+ words.
+Exact structure: Listening×4(16pts) + Choice×8(32pts) + TrueFalse×2(8pts) + Fill×3(12pts) + Reading passage+2shortanswer(12pts) + Writing×1(20pts) = 100pts.
+Grade ${grade} vocabulary (PEP textbook units covered). All questions mobile-friendly.
+${EN_EXAM_SCHEMA}`
 }
 
+// ─── 初中语文 ──────────────────────────────────────────
 function getJuniorChineseExamPrompt(examType) {
   const examLabel = JUNIOR_EXAM_TYPE_MAP[examType] || '期末综合'
-  return `初中语文出卷老师，初二人教版${examLabel}，满分100分，共12题左右。
-题型：选择×3(4分)+填空古诗×3(4分)+文言文(passage60字+简答×2,15分)+现代文(passage80字+简答×2,18分)+写作(25分)
-文言文选真实课文。analysis≤15字。
+  return `你是初中语文出卷老师，为初二（八年级）人教版出${examLabel}语文卷，满分100分。
+题型结构：
+- 选择题×8，每题4分=32分（字词音形×3、成语运用×2、语法×3）
+- 判断题×4，每题4分=16分（文学常识/名著判断）
+- 填空题×4，每题5分=20分（古诗文默写，给出提示填写）
+- 阅读理解：先放一段100字以上现代文短文（passage），再出2道简答题，共12分
+- 写作×1，20分（命题作文二选一）
+共19题，合计100分。文言文若涉及需选真实课文。所有题目手机可输入。
 ${EXAM_SCHEMA}`
 }
 
+// ─── 初中英语 ──────────────────────────────────────────
 function getJuniorEnglishExamPrompt(examType) {
   const examLabel = JUNIOR_EXAM_TYPE_MAP[examType] || '期末综合'
-  return `Junior high English teacher. Grade 8 PEP ${examLabel} test, 100pts, ~12 questions.
-Parts: vocab+grammar choice×5(4pts) + fill×2(5pts) + passage(100w)+choice×3(4pts) + reorder×1(5pts) + writing(25pts,2 topics)
-Grade 8 level. analysis≤10 words.
-${EXAM_SCHEMA}`
+  return `You are a Grade 8 English teacher. Generate PEP ${examLabel} test, 100pts total. Include listening comprehension section.
+⚠️ Difficulty: This must be Grade 8 (junior high) level — use complex sentence structures, reported speech, passive voice, conditionals; reading passage 150+ words with inference questions; writing 100+ words with clear rubric.
+Exact structure: Listening×4(16pts) + Choice×8(32pts) + TrueFalse×2(8pts) + Fill×3(12pts) + Reading passage+2shortanswer(12pts) + Writing×1(20pts) = 100pts.
+Grade 8 PEP vocabulary & grammar (units covered: tenses, modal verbs, comparatives, reported speech, etc).
+${EN_EXAM_SCHEMA}`
 }
 
+// ─── 初中政治（无写作题）──────────────────────────────
 function getPoliticsExamPrompt(examType) {
   const examLabel = JUNIOR_EXAM_TYPE_MAP[examType] || '期末综合'
-  return `初中道法出卷老师，初二${examLabel}，满分100分，共12题左右。
-题型：单选×6(4分/题)+简答×2(10分/题)+材料分析(passage100字+shortanswer×2,12分/题)
-analysis≤15字。
+  return `你是初中道德与法治出卷老师，为初二出${examLabel}道法卷，满分100分。政治学科不出写作题。
+题型结构：
+- 单项选择×8，每题4分=32分（结合教材知识点）
+- 判断题×4，每题4分=16分（对教材观点进行判断）
+- 填空题×4，每题5分=20分（关键术语、政策名称填写）
+- 材料分析：先放一段100字以上时事材料（passage），再出2道简答题，共12分（每题6分，答要点）
+- 综合简答×1，20分（结合多个知识点作答）
+共19题，合计100分。选择题4个选项，answer为正确下标0-3。
 ${EXAM_SCHEMA}`
 }
 
@@ -134,12 +193,24 @@ function getScoringPrompt(questions, answers, subject) {
   if (!items) return null
 
   const writingRubric = subject === 'english'
-    ? '英语作文：内容相关30%，语法正确35%，拼写正确35%'
+    ? '英语作文评分标准（严格）：\n  ⚠️ 关键规则：答案少于20个英文单词必须给0分；答案是数字/乱码/无意义内容必须给0分\n  内容切题30%（偏题扣至0分），语法正确35%，词汇丰富拼写准确35%\n  优秀80分以上：内容充实、结构完整、无语法错误；60-79分：基本完整有少量错误；60分以下：内容不足/严重语法错误/偏题'
     : subject === 'politics'
-      ? '道法主观题：观点明确20%，知识运用40%，逻辑层次30%，语言规范10%'
-      : '语文作文：内容完整30%，语句通顺30%，修辞手法20%，书写规范20%'
+      ? '道法主观题：观点明确20%，知识运用40%，逻辑层次30%，语言规范10%\n  ⚠️ 答案为乱码/数字/单字必须给0分'
+      : '语文作文：内容完整30%，语句通顺30%，修辞手法20%，书写规范20%\n  ⚠️ 答案少于30字必须给0分；答案是乱码/数字必须给0分'
 
-  return '\u4F60\u662F\u4E00\u4F4D\u9605\u5377\u8001\u5E08\uFF0C\u8BF7\u5BF9\u4EE5\u4E0B\u5B66\u751F\u7684\u4E3B\u89C2\u9898\u8FDB\u884C\u8BC4\u5206\u3002\n\n## \u8BC4\u5206\u89C4\u5219\n- \u4E25\u683C\u6309\u6EE1\u5206\u8BC4\u5206\n- ' + writingRubric + '\n- \u7ED9\u5206\u5408\u7406\n- \u6BCF\u9898\u8BC4\u8BED(30\u5B57\u5185)\n\n## \u9700\u8981\u8BC4\u5206\u9898\u76EE\n' + items + '\n\n## \u8FD4\u56DEJSON\u683C\u5F0F'
+  return `你是一位严格负责的阅卷老师，请对以下学生的主观题进行评分。
+
+## 评分规则
+- 严格按满分评分，不能因为"态度好"就多给分
+- ${writingRubric}
+- 每题评语30字以内
+
+## 需要评分题目
+${items}
+
+## 返回JSON格式
+{"scores":{"题目id":{"earned":得分数字,"comment":"评语"},...}}
+只返回JSON，不要其他内容。`
 
 }
 
@@ -149,15 +220,34 @@ function autoScoreQuestion(q, userAnswer) {
 
   switch (q.type) {
     case 'choice':
+    case 'listen':  // 听力选择题同 choice，按选项下标判断
       return { earned: Number(userAnswer) === Number(q.answer) ? q.score : 0, auto: true }
 
     case 'truefalse':
       return { earned: userAnswer === q.answer ? q.score : 0, auto: true }
 
     case 'fill': {
-      const ua = String(userAnswer).trim()
+      const ua = String(userAnswer).trim().toLowerCase()
       const accepted = q.acceptableAnswers || [q.answer].filter(Boolean)
-      const match = accepted.some(a => String(a).trim() === ua)
+      // ★ 弹性匹配：精确 > 去标点 > 关键词（AI复核更准，但填空尽量auto判）
+      const normalize = s => String(s).trim().toLowerCase()
+        .replace(/[，。！？、；：""''《》（）\s]/g, '')
+      const uaNorm = normalize(ua)
+      const match = accepted.some(a => {
+        const caNorm = normalize(a)
+        if (uaNorm === caNorm) return true
+        // 短答案（≤6字）要求精确；长答案允许包含关键词
+        const cjkLen = String(a).replace(/[^\u4e00-\u9fff]/g, '').length
+        if (cjkLen > 6) {
+          const keywords = caNorm.split(/[,，/、]+/).filter(k => k.length >= 2)
+          if (keywords.length > 0) {
+            const matched = keywords.filter(k => uaNorm.includes(k)).length
+            return matched / keywords.length >= 0.6
+          }
+        }
+        return false
+      })
+      // 部分分：如果答案有多个可接受项且用户只对了部分（如古诗有上下句，答对一句给半分）
       return { earned: match ? q.score : 0, auto: true }
     }
 
@@ -230,7 +320,7 @@ function SetupMode({ onStart, subject, grade: gradeProp, onBack }) {
     ? '中考难度 · 不超出初二范围'
     : '基础70% · 提升20% · 拓展10%'
 
-  const questionCount = '10-12 题'
+  const questionCount = '选择8＋判断4＋填空4＋阅读2＋作文1'
 
   return (
     <div className="flex flex-col gap-5 px-4 py-5">
@@ -341,7 +431,26 @@ function QuestionItem({ q, globalNum, answer, onChange, subject }) {
         {q.passageTitle && (
           <h4 className="text-sm font-bold text-blue-800 mb-2">📖 {q.passageTitle}</h4>
         )}
-        <div className="text-sm text-gray-700 leading-relaxed whitespace-pre-line">{q.passage}</div>
+        <div className="text-sm text-gray-700 leading-relaxed whitespace-pre-line">{q.text || q.passage}</div>
+      </div>
+    )
+  }
+
+  // 听力材料（英语自测）
+  if (q.type === 'listenPassage') {
+    return (
+      <div className="bg-indigo-50 border border-indigo-200 rounded-2xl p-4 my-3">
+        <div className="flex items-center gap-2 mb-2">
+          <span className="text-sm font-bold text-indigo-700">🎧 听力材料</span>
+          <button
+            onClick={() => speakEnglish(q.text)}
+            className="ml-auto flex items-center gap-1 px-3 py-1.5 rounded-full bg-indigo-600 text-white text-xs font-bold active:scale-95 transition-all"
+          >
+            ▶ 播放
+          </button>
+        </div>
+        <div className="text-sm text-gray-700 leading-relaxed bg-white rounded-xl p-3">{q.text}</div>
+        <p className="text-xs text-indigo-500 mt-2">💡 点击"播放"收听，可反复播放后回答下方问题</p>
       </div>
     )
   }
@@ -357,6 +466,7 @@ function QuestionItem({ q, globalNum, answer, onChange, subject }) {
           {q.score}分
         </span>
         {q.type === 'choice' && <span className="text-xs text-gray-400">（单选）</span>}
+        {q.type === 'listen' && <span className="text-xs text-indigo-500 font-medium">🎧（听力）</span>}
         {q.type === 'truefalse' && <span className="text-xs text-gray-400">（判断）</span>}
         {q.type === 'fill' && <span className="text-xs text-gray-400">（填空）</span>}
         {q.type === 'reorder' && <span className="text-xs text-gray-400">（连词成句）</span>}
@@ -368,8 +478,8 @@ function QuestionItem({ q, globalNum, answer, onChange, subject }) {
         {q.stem}
       </p>
 
-      {/* 选项 - 选择题 */}
-      {q.type === 'choice' && q.options && (
+      {/* 选项 - 选择题 / 听力题 */}
+      {(q.type === 'choice' || q.type === 'listen') && q.options && (
         <div className="flex flex-col gap-2">
           {q.options.map((opt, i) => {
             const isSelected = answer === i
@@ -609,7 +719,7 @@ function ExamMode({ examData, subject, onBack, onSubmit }) {
             {/* 直接题目 */}
             {!sec.subsections && (sec.questions || []).map(q => (
               <div key={q.id} id={`q-${q.id}`}>
-                <QuestionItem q={q} globalNum={q.type === 'passage' ? '' : nextNum()}
+                <QuestionItem q={q} globalNum={(q.type === 'passage' || q.type === 'listenPassage') ? '' : nextNum()}
                   answer={answers[q.id]} onChange={handleChange} subject={subject} />
               </div>
             ))}
@@ -630,7 +740,7 @@ function ExamMode({ examData, subject, onBack, onSubmit }) {
                 {/* 子章节下的题目 */}
                 {(sub.questions || []).map(q => (
                   <div key={q.id} id={`q-${q.id}`}>
-                    <QuestionItem q={q} globalNum={q.type === 'passage' ? '' : nextNum()}
+                    <QuestionItem q={q} globalNum={(q.type === 'passage' || q.type === 'listenPassage') ? '' : nextNum()}
                       answer={answers[q.id]} onChange={handleChange} subject={subject} />
                   </div>
                 ))}
@@ -679,7 +789,8 @@ function ExamMode({ examData, subject, onBack, onSubmit }) {
 // ═══════════════════════════════════════════════════════
 function ResultMode({ examData, answers, elapsed, subject, user, onBack, onRetry }) {
   const [scoring, setScoring] = useState(true)
-  const [aiScores, setAiScores] = useState({})
+  const [aiScores, setAiScores] = useState({})    // qId → comment string
+  const [earnedScores, setEarnedScores] = useState({}) // ★ qId → earned points (after AI)
   const [aiAnalysis, setAiAnalysis] = useState(null)
   const [currentQIdx, setCurrentQIdx] = useState(0)
   const [showAnalysis, setShowAnalysis] = useState(false)
@@ -758,8 +869,13 @@ ${sectionScores.map(s => `- ${s.title}：${s.earned}/${s.total}分（${s.total >
         })
         setAiScores({ ...aiScores })
       } else {
+        // AI评分失败：主观题按70%估算
+        needAI.forEach(q => { if (results[q.id] === 0) results[q.id] = Math.round((q.score || 0) * 0.7) })
         console.error('AI scoring error:', scoringResult.reason)
       }
+
+      // ★ 保存最终得分（含AI评分）供显示层使用
+      setEarnedScores({ ...results })
 
       // 处理分析结果
       if (analysisResult.status === 'fulfilled' && analysisResult.value) {
@@ -798,26 +914,37 @@ ${sectionScores.map(s => `- ${s.title}：${s.earned}/${s.total}分（${s.total >
       })
       setSavedCount(saved)
       setScoring(false)
-      // ★ 标记星球完成 + 奖励XP（得分×4）
+      // ★ 标记星球完成 + 奖励XP（用完整 results 含AI评分算分）
+      const allPossible = allQs.reduce((s, q) => s + (q.score || 0), 0)
+      const allEarned = allQs.reduce((s, q) => s + (results[q.id] || 0), 0)
+      let earnedPct = allPossible > 0 ? Math.round(allEarned / allPossible * 100) : 60
       if (user?.id) {
         const selfTestTag = subject === 'politics' ? '模拟考场' : '自测星球'
         storage.markPlanetComplete(user.id, selfTestTag)
         storage.markPlanetComplete(user.id, subject === 'politics' ? 'pol_self_test' : 'self_test')
         updateStreak(user.id)
-        // 计算得分并奖励XP（只计算客观题，主观题0.7系数估算）
-        const allQsForXP = getAnswerableQuestions(answers ? examData?.sections : [])
-        let rawScore = 0, rawPossible = 0
-        ;(examData?.sections || []).forEach(sec => {
-          const qs = sec.subsections ? sec.subsections.flatMap(s => s.questions || []) : (sec.questions || [])
-          qs.filter(q => q.type !== 'passage').forEach(q => {
-            rawPossible += q.score || 0
-            const auto = autoScoreQuestion(q, answers[q.id])
-            rawScore += auto.auto ? (auto.earned || 0) : (q.score || 0) * 0.7
-          })
-        })
-        const earnedPct = rawPossible > 0 ? Math.round(rawScore / rawPossible * 100) : 60
-        const xpReward = earnedPct * 4 // 满分100分 → 400XP
+        const xpReward = earnedPct * 3  // 100分 = 300XP（适当降低以免刷分）
         storage.addXP(user.id, xpReward)
+      }
+      // ★ 保存考试记录到 localStorage（家长报告可查看）
+      if (user?.id) {
+        try {
+          const histKey = `exam_history_${user.id}`
+          const hist = JSON.parse(localStorage.getItem(histKey) || '[]')
+          hist.unshift({
+            id: Date.now(),
+            date: new Date().toISOString(),
+            subject,
+            title: examData.title || '自测试卷',
+            score: earnedPct,
+            examData,
+            answers,
+            aiScores,          // qId → comment string
+            earnedScores: results, // ★ qId → actual earned points（含AI评分）
+          })
+          // 最多保留20份
+          localStorage.setItem(histKey, JSON.stringify(hist.slice(0, 20)))
+        } catch (e) { /* ignore */ }
       }
       // 云端同步（跨设备学习数据同步：错题记录+SRS+XP+打卡数据）
       if (user?.id) syncAfterSession(user.id)
@@ -837,60 +964,29 @@ ${sectionScores.map(s => `- ${s.title}：${s.earned}/${s.total}分（${s.total >
 
   // 计算分数
   const allQs = getAnswerableQuestions(examData.sections)
-  const results = {}
-  allQs.forEach(q => {
-    const auto = autoScoreQuestion(q, answers[q.id])
-    results[q.id] = auto.auto ? auto.earned : (aiScores[q.id] !== undefined ? null : 0)
-  })
-  // Fill in AI scores
-  allQs.forEach(q => {
-    if (results[q.id] === null || results[q.id] === 0) {
-      const r = autoScoreQuestion(q, answers[q.id])
-      if (!r.auto && aiScores[q.id] !== undefined) {
-        // The aiScores stores comments, actual scores were already applied
-      }
-    }
-  })
 
-  // Recompute: auto score first, then override with AI scores
-  const finalScores = {}
-  allQs.forEach(q => {
-    const auto = autoScoreQuestion(q, answers[q.id])
-    if (auto.auto) {
-      finalScores[q.id] = auto.earned
-    } else {
-      finalScores[q.id] = 0 // placeholder, AI already scored
-    }
-  })
-  // We need to recompute with the actual AI scores... let me simplify
-  // Actually the AI scores were already applied in the effect. Let me just compute from the stored results.
-  // Hmm, the architecture is a bit messy. Let me compute inline.
-
+  // ★ 优先使用 earnedScores（含AI评分），fallback 到自动判分
   const computeScore = (q) => {
+    if (earnedScores[q.id] !== undefined) return earnedScores[q.id]
     const auto = autoScoreQuestion(q, answers[q.id])
-    if (auto.auto) return auto.earned
-    // Subjective - AI scored, we'll approximate from AI comments
-    return q.score * 0.7 // placeholder - AI scored in the effect
+    return auto.auto ? (auto.earned || 0) : Math.round((q.score || 0) * 0.7)
   }
 
-  const totalScore = allQs.reduce((sum, q) => {
-    const auto = autoScoreQuestion(q, answers[q.id])
-    return sum + (auto.auto ? auto.earned : 0)
-  }, 0)
-  const totalPossible = allQs.reduce((sum, q) => sum + q.score, 0)
+  const totalPossible = allQs.reduce((sum, q) => sum + (q.score || 0), 0)
+  const totalScore = allQs.reduce((sum, q) => sum + computeScore(q), 0)
   const pct = totalPossible > 0 ? Math.round((totalScore / totalPossible) * 100) : 0
 
   // Section scores
   const sectionResults = examData.sections.map(sec => {
     const secQs = (sec.subsections || []).length > 0
-      ? sec.subsections.flatMap(s => (s.questions || []).filter(q => q.type !== 'passage'))
-      : (sec.questions || []).filter(q => q.type !== 'passage')
+      ? sec.subsections.flatMap(s => (s.questions || []).filter(q => q.type !== 'passage' && q.type !== 'listenPassage'))
+      : (sec.questions || []).filter(q => q.type !== 'passage' && q.type !== 'listenPassage')
     const earned = secQs.reduce((sum, q) => sum + computeScore(q), 0)
-    const total = secQs.reduce((sum, q) => sum + q.score, 0)
+    const total = secQs.reduce((sum, q) => sum + (q.score || 0), 0)
     return { ...sec, earned, total, pct: total > 0 ? Math.round(earned / total * 100) : 0, questions: secQs }
   })
 
-  const wrongQs = allQs.filter(q => computeScore(q) < q.score)
+  const wrongQs = allQs.filter(q => computeScore(q) < (q.score || 0))
   const grade = pct >= 90 ? '优秀 ⭐⭐⭐⭐⭐' : pct >= 80 ? '良好 ⭐⭐⭐⭐' : pct >= 70 ? '中等 ⭐⭐⭐' : pct >= 60 ? '及格 ⭐⭐' : '需努力 ⭐'
 
   // 当前查看的错题

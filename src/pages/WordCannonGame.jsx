@@ -104,6 +104,8 @@ export default function WordCannonGame({ state, onGameStateUpdate, grade }) {
   // 技能冷却
   const skillCooldownsRef = useRef({ slow: 0, shield: 0, clearAll: 0 });
   const cooldownIntervalRef = useRef(null);
+  // 技能使用次数（每局重置）
+  const skillUsesLeftRef = useRef({ slow: 0, shield: 0, clearAll: 0 });
   const shakeRef = useRef(false);
   const flashRedRef = useRef(false);
   // ★ 动态游戏区域高度（替代固定GAME_AREA_HEIGHT常量）
@@ -131,6 +133,7 @@ export default function WordCannonGame({ state, onGameStateUpdate, grade }) {
   const [highScore, setHighScore] = useState(0);
   const [totalBubblesCleared, setTotalBubblesCleared] = useState(0);
   const [skillCooldowns, setSkillCooldowns] = useState({ slow: 0, shield: 0, clearAll: 0 });
+  const [skillUsesLeft, setSkillUsesLeft] = useState({ slow: 0, shield: 0, clearAll: 0 });
   const [slowMode, setSlowMode] = useState(false);
   const [shieldActive, setShieldActive] = useState(false);
   const [gameOverData, setGameOverData] = useState(null);
@@ -158,11 +161,14 @@ export default function WordCannonGame({ state, onGameStateUpdate, grade }) {
   const baseAttempts = petLevel < 10 ? 3 : petLevel < 20 ? 5 : 8;
   const maxDailyAttempts = baseAttempts + rarityBonusAttempts;
 
-  // 宠物技能可用性
-  const hasSlowSkill = rarity === 'R' || rarity === 'SR' || rarity === 'SSR';
-  const hasShieldSkill = rarity === 'SR' || rarity === 'SSR';
-  const hasClearAllSkill = rarity === 'SSR';
+  // 宠物技能可用性（XR同SSR一样有所有技能）
+  const hasSlowSkill = rarity === 'R' || rarity === 'SR' || rarity === 'SSR' || rarity === 'XR';
+  const hasShieldSkill = rarity === 'SR' || rarity === 'SSR' || rarity === 'XR';
+  const hasClearAllSkill = rarity === 'SSR' || rarity === 'XR';
   const hasAnySkill = hasSlowSkill || hasShieldSkill || hasClearAllSkill;
+
+  // 每局技能最大使用次数（N无技能，其他按等级）
+  const maxSkillUses = rarity === 'N' ? 0 : (petLevel >= 20 ? 3 : petLevel >= 10 ? 2 : 1);
 
   // 宠物图片URL
   const petImgUrl = `/pets/${spritePrefix}/${stage}/reading.png`;
@@ -626,6 +632,9 @@ export default function WordCannonGame({ state, onGameStateUpdate, grade }) {
     slowModeActiveRef.current = false;
     doubleFireRef.current = false;
     skillCooldownsRef.current = { slow: 0, shield: 0, clearAll: 0 };
+    // 重置技能使用次数（根据当前等级）
+    const usesPerGame = rarity === 'N' ? 0 : (petLevel >= 20 ? 3 : petLevel >= 10 ? 2 : 1);
+    skillUsesLeftRef.current = { slow: usesPerGame, shield: usesPerGame, clearAll: usesPerGame };
     shakeRef.current = false;
     flashRedRef.current = false;
 
@@ -643,6 +652,7 @@ export default function WordCannonGame({ state, onGameStateUpdate, grade }) {
     setFlashRed(false);
     setBottomFlash(false);
     setSkillCooldowns({ slow: 0, shield: 0, clearAll: 0 });
+    setSkillUsesLeft({ slow: usesPerGame, shield: usesPerGame, clearAll: usesPerGame });
     setSlowMode(false);
     setShieldActive(false);
     setGameOverData(null);
@@ -678,6 +688,9 @@ export default function WordCannonGame({ state, onGameStateUpdate, grade }) {
   /* ── 技能：时间减速 ── */
   const useSlowSkill = useCallback(() => {
     if (skillCooldownsRef.current.slow > 0) return;
+    if (skillUsesLeftRef.current.slow <= 0) return;
+    skillUsesLeftRef.current.slow -= 1;
+    setSkillUsesLeft({ ...skillUsesLeftRef.current });
     slowModeActiveRef.current = true;
     setSlowMode(true);
     const baseCd = SKILL_BASE_COOLDOWN.slow;
@@ -693,6 +706,9 @@ export default function WordCannonGame({ state, onGameStateUpdate, grade }) {
   /* ── 技能：护盾 ── */
   const useShieldSkill = useCallback(() => {
     if (skillCooldownsRef.current.shield > 0) return;
+    if (skillUsesLeftRef.current.shield <= 0) return;
+    skillUsesLeftRef.current.shield -= 1;
+    setSkillUsesLeft({ ...skillUsesLeftRef.current });
     shieldActiveRef.current = true;
     setShieldActive(true);
     const baseCd = SKILL_BASE_COOLDOWN.shield;
@@ -703,6 +719,9 @@ export default function WordCannonGame({ state, onGameStateUpdate, grade }) {
   /* ── 技能：清屏大招 ── */
   const useClearAllSkill = useCallback(() => {
     if (skillCooldownsRef.current.clearAll > 0) return;
+    if (skillUsesLeftRef.current.clearAll <= 0) return;
+    skillUsesLeftRef.current.clearAll -= 1;
+    setSkillUsesLeft({ ...skillUsesLeftRef.current });
     const baseCd = SKILL_BASE_COOLDOWN.clearAll;
     skillCooldownsRef.current.clearAll = Math.ceil(baseCd * (1 - levelCDReduce));
     setSkillCooldowns({ ...skillCooldownsRef.current });
@@ -1045,39 +1064,51 @@ export default function WordCannonGame({ state, onGameStateUpdate, grade }) {
           {hasSlowSkill && (
             <button
               onClick={useSlowSkill}
-              disabled={skillCooldowns.slow > 0}
+              disabled={skillCooldowns.slow > 0 || skillUsesLeft.slow <= 0}
               style={{
-                ...(skillCooldowns.slow > 0 ? styles.skillBtnDisabled : styles.skillBtnSlow),
-                opacity: skillCooldowns.slow > 0 ? 0.5 : 1,
+                ...(skillCooldowns.slow > 0 || skillUsesLeft.slow <= 0 ? styles.skillBtnDisabled : styles.skillBtnSlow),
+                opacity: skillCooldowns.slow > 0 || skillUsesLeft.slow <= 0 ? 0.5 : 1,
               }}
             >
-              {skillCooldowns.slow > 0 ? `⏱️ ${skillCooldowns.slow}s` : '⏱️ 减速'}
+              {skillCooldowns.slow > 0
+                ? `⏱️ ${skillCooldowns.slow}s`
+                : skillUsesLeft.slow <= 0
+                  ? '⏱️ 已用完'
+                  : `⏱️ 减速 ×${skillUsesLeft.slow}`}
             </button>
           )}
 
-          {(rarity === 'SR' || rarity === 'SSR') && (
+          {hasShieldSkill && (
             <button
               onClick={useShieldSkill}
-              disabled={skillCooldowns.shield > 0}
+              disabled={skillCooldowns.shield > 0 || skillUsesLeft.shield <= 0}
               style={{
-                ...(skillCooldowns.shield > 0 ? styles.skillBtnDisabled : styles.skillBtnShield),
-                opacity: skillCooldowns.shield > 0 ? 0.5 : 1,
+                ...(skillCooldowns.shield > 0 || skillUsesLeft.shield <= 0 ? styles.skillBtnDisabled : styles.skillBtnShield),
+                opacity: skillCooldowns.shield > 0 || skillUsesLeft.shield <= 0 ? 0.5 : 1,
               }}
             >
-              {skillCooldowns.shield > 0 ? `🛡️ ${skillCooldowns.shield}s` : '🛡️ 护盾'}
+              {skillCooldowns.shield > 0
+                ? `🛡️ ${skillCooldowns.shield}s`
+                : skillUsesLeft.shield <= 0
+                  ? '🛡️ 已用完'
+                  : `🛡️ 护盾 ×${skillUsesLeft.shield}`}
             </button>
           )}
 
-          {rarity === 'SSR' && (
+          {hasClearAllSkill && (
             <button
               onClick={useClearAllSkill}
-              disabled={skillCooldowns.clearAll > 0}
+              disabled={skillCooldowns.clearAll > 0 || skillUsesLeft.clearAll <= 0}
               style={{
-                ...(skillCooldowns.clearAll > 0 ? styles.skillBtnDisabled : styles.skillBtnUlt),
-                opacity: skillCooldowns.clearAll > 0 ? 0.5 : 1,
+                ...(skillCooldowns.clearAll > 0 || skillUsesLeft.clearAll <= 0 ? styles.skillBtnDisabled : styles.skillBtnUlt),
+                opacity: skillCooldowns.clearAll > 0 || skillUsesLeft.clearAll <= 0 ? 0.5 : 1,
               }}
             >
-              {skillCooldowns.clearAll > 0 ? `💥 ${skillCooldowns.clearAll}s` : '💥 清屏'}
+              {skillCooldowns.clearAll > 0
+                ? `💥 ${skillCooldowns.clearAll}s`
+                : skillUsesLeft.clearAll <= 0
+                  ? '💥 已用完'
+                  : `💥 清屏 ×${skillUsesLeft.clearAll}`}
             </button>
           )}
         </div>

@@ -1,6 +1,6 @@
 // 通过 Vercel Serverless Function 代理调用 DeepSeek API（保护 Key 安全）
 const API_URL = '/api/ai'
-const CLIENT_TIMEOUT_MS = 12000
+const CLIENT_TIMEOUT_MS = 50000  // 阿里云国内直连，支持长请求
 
 async function callDeepSeek(systemPrompt, userPrompt, options = {}) {
   const controller = new AbortController()
