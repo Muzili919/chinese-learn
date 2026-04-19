@@ -73,10 +73,44 @@ export default function QuizPage({ user, options = {}, onFinish, onBack }) {
 
   const questions = useMemo(() => {
     if (wrongCardIds?.length) {
-      const idSet = new Set(wrongCardIds)
-      // ★ 错题练习：从全学科映射表中查找（支持语文/英语/道法错题）
+      // ★ 错题练习：优先从静态题库找，找不到时从答题记录的 question_data 重建（AI自测题）
+      const records = storage.getRecords(user.id)
+      const recMap = {}
+      for (const r of records) {
+        if (r.question_data && !recMap[r.card_id]) recMap[r.card_id] = r
+      }
+
       const pool = wrongCardIds
-        .map(id => ALL_SUBJECTS_MAP[id])
+        .map(id => {
+          // 1. 静态题库
+          if (ALL_SUBJECTS_MAP[id]) return ALL_SUBJECTS_MAP[id]
+          // 2. AI自测题 → 从记录里重建题目对象
+          const rec = recMap[id]
+          if (rec?.question_data) {
+            const qd = rec.question_data
+            return {
+              id,
+              type: qd.type === 'writing' ? 'fill_blank'        // 写作题在复习时当填空处理
+                  : qd.type === 'shortanswer' ? 'fill_blank'
+                  : qd.type === 'choice' ? 'single_choice'
+                  : qd.type === 'truefalse' ? 'fill_blank'
+                  : qd.type || 'fill_blank',
+              question: qd.stem || '（题目内容已保存）',
+              answer: qd.answer || '',
+              options: qd.options,
+              knowledge_tag: rec.knowledge_tag || '自测',
+              ability_tag: rec.ability_tag || '综合',
+              analysis: [
+                qd.analysis,
+                qd.aiComment ? `AI评语：${qd.aiComment}` : '',
+                qd.earned !== undefined ? `本次得分：${qd.earned}/${qd.score}` : '',
+              ].filter(Boolean).join('\n'),
+              source: 'self_test',
+              difficulty: 2,
+            }
+          }
+          return null
+        })
         .filter(Boolean)
       return shuffle(pool).slice(0, sessionSize).map(shuffleOptions)
     }

@@ -19,9 +19,8 @@ export const FREE_DAILY_LIMITS = {
 }
 
 // ── 功能开关定义 ─────────────────────────────────────────────
-//   () => true/false            完全开放 / 完全关闭
-//   (plan) => boolean           按 plan 决定
-//   (plan) => number|Infinity   限额（返回每日可用次数）
+// 当前：内测阶段全部功能免费开放
+// 要启用付费限制，把 () => true/Infinity 改回 (plan) => plan === 'premium' 即可
 
 export const FEATURES = {
   // ── 永远免费 ──────────────────────────────────────────────
@@ -32,16 +31,16 @@ export const FEATURES = {
   EXAM_CALENDAR:         () => true,
   WORD_CANNON_GAME:      () => true,
 
-  // ── 限额功能（free=N次/天, premium=无限）─────────────────���
-  AI_VARIANT_QUESTION:   (plan) => plan === 'premium' ? Infinity : FREE_DAILY_LIMITS.ai_variant,
-  AI_WRONG_ANALYSIS:     (plan) => plan === 'premium' ? Infinity : FREE_DAILY_LIMITS.ai_analysis,
-  AI_SELFTEST:           (plan) => plan === 'premium' ? Infinity : FREE_DAILY_LIMITS.ai_selftest,
+  // ── 内测全开放（原限额功能）───────────────────────────────
+  AI_VARIANT_QUESTION:   () => Infinity,
+  AI_WRONG_ANALYSIS:     () => Infinity,
+  AI_SELFTEST:           () => Infinity,
 
-  // ── 付费专属（premium only）────────────────────────────────
-  WXPUSHER_REPORT:       (plan) => plan === 'premium',   // 家长 WeChat 周报
-  SPRINT_AI_EXPAND:      (plan) => plan === 'premium',   // 冲刺模式额外 AI 扩题
-  PARENT_WEEKLY_PDF:     (plan) => plan === 'premium',   // 周报 PDF 导出（未来）
-  UNLIMITED_AI_ESSAY:    (plan) => plan === 'premium',   // 作文 AI 批改不限次数
+  // ── 内测全开放（原付费专属）───────────────────────────────
+  WXPUSHER_REPORT:       () => true,
+  SPRINT_AI_EXPAND:      () => true,
+  PARENT_WEEKLY_PDF:     () => true,
+  UNLIMITED_AI_ESSAY:    () => true,
 }
 
 // ── 权益说明（用于升级卡片展示）─────────────────────────────

@@ -95,7 +95,30 @@ function computeWrongCards(userId, subject, qMap) {
 
   for (const [cardId, rec] of Object.entries(latest)) {
     if (rec.correct) continue  // 最近一次答对了，不算错题
-    const q = qMap[cardId]
+
+    // ★ 优先从静态题库找，找不到时用 question_data 重建（AI自测题）
+    let q = qMap[cardId]
+    if (!q && rec.question_data) {
+      const qd = rec.question_data
+      q = {
+        id: cardId,
+        type: qd.type || 'fill_blank',
+        question: qd.stem || '',
+        answer: qd.answer || '',
+        options: qd.options,
+        knowledge_tag: rec.knowledge_tag || '自测',
+        ability_tag: rec.ability_tag || '综合',
+        analysis: qd.analysis || '',
+        source: 'self_test',
+        // 额外字段供显示用
+        _selfTest: true,
+        _score: qd.score,
+        _earned: qd.earned,
+        _aiComment: qd.aiComment || '',
+        _examTitle: qd.examTitle || 'AI自测',
+        _rubric: qd.rubric || '',
+      }
+    }
     if (!q) continue
 
     const srs = srsStates[cardId]
@@ -114,6 +137,7 @@ function computeWrongCards(userId, subject, qMap) {
       isOverdue,
       isDueToday,
       daysSinceDue: daysDiff(nextReview),
+      source: rec.source || 'quiz',
     })
   }
 
@@ -344,6 +368,12 @@ export default function WrongAnswersPage({ user, subject = 'chinese', onStartWro
                       <span className="text-xs px-2 py-0.5 rounded-full bg-gray-100 text-gray-500">
                         {card.question.ability_tag}
                       </span>
+                      {/* AI自测来源标识 */}
+                      {card.source === 'self_test' && (
+                        <span className="text-xs px-2 py-0.5 rounded-full bg-blue-50 text-blue-600 font-medium">
+                          📝 自测
+                        </span>
+                      )}
                     </div>
                     <div className="text-right flex-shrink-0 flex items-center gap-1">
                       {/* 举一反三按钮 */}
@@ -377,6 +407,19 @@ export default function WrongAnswersPage({ user, subject = 'chinese', onStartWro
                   <p className="text-sm text-gray-700 leading-relaxed mb-2 line-clamp-2">
                     {card.question.question}
                   </p>
+                  {/* AI自测：显示得分和评语 */}
+                  {card.question._selfTest && card.question._score && (
+                    <div className="flex items-center gap-2 mb-1">
+                      <span className="text-xs text-red-500 font-medium">
+                        {card.question._earned ?? 0}/{card.question._score}分
+                      </span>
+                      {card.question._aiComment && (
+                        <span className="text-xs text-gray-400 line-clamp-1">
+                          · {card.question._aiComment}
+                        </span>
+                      )}
+                    </div>
+                  )}
 
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-3">

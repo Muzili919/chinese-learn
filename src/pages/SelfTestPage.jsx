@@ -861,18 +861,67 @@ ${sectionScores.map(s => `- ${s.title}：${s.earned}/${s.total}分（${s.total >
         ),
       ])
 
+      // ── 代码层防呆：写作题/简答题在AI评分前先过滤明显无效答案 ──
+      // 目的：避免AI对"1"/"随便写"之类的垃圾输入给出高分
+      function isObviouslyWrongWriting(q, ua) {
+        if (q.type !== 'writing' && q.type !== 'shortanswer') return false
+        const text = typeof ua === 'object' ? (ua?.text || '') : String(ua || '')
+        if (!text.trim()) return true
+        if (subject === 'english') {
+          // 英语写作：有效英文单词少于10个 → 直接判0
+          const wordCount = text.trim().split(/\s+/).filter(w => /[a-zA-Z]/.test(w)).length
+          if (wordCount < 10) return true
+        } else {
+          // 中文写作/简答：汉字少于15个 → 直接判0
+          const charCount = (text.match(/[\u4e00-\u9fff]/g) || []).length
+          if (charCount < 15) return true
+        }
+        return false
+      }
+
+      // 提前为明显错误的写作题设置0分，不送 AI 评分
+      needAI.forEach(q => {
+        if (isObviouslyWrongWriting(q, answers[q.id])) {
+          results[q.id] = 0
+          aiScores[q.id] = subject === 'english'
+            ? 'Too short / invalid content (0 marks)'
+            : '内容不足，无法评分（0分）'
+        }
+      })
+      const needAIFiltered = needAI.filter(q => results[q.id] === 0 && !aiScores[q.id])
+
       // 处理评分结果
       if (scoringResult.status === 'fulfilled' && scoringResult.value?.scores) {
         Object.entries(scoringResult.value.scores).forEach(([qId, score]) => {
-          if (score.earned !== undefined) results[qId] = score.earned
-          aiScores[qId] = score.comment || ''
+          if (score.earned !== undefined) {
+            // ★ 二次保险：AI返回分数超过满分时截断；写作垃圾输入不得高于满分20%
+            const q = needAI.find(q => q.id === qId)
+            const cap = q?.score || 0
+            let earned = Math.min(Number(score.earned) || 0, cap)
+            // 如果已被代码层判为0，不允许AI覆盖
+            if (aiScores[qId] && results[qId] === 0) earned = 0
+            results[qId] = earned
+          }
+          if (!aiScores[qId]) aiScores[qId] = score.comment || ''
         })
         setAiScores({ ...aiScores })
       } else {
-        // AI评分失败：主观题按70%估算
-        needAI.forEach(q => { if (results[q.id] === 0) results[q.id] = Math.round((q.score || 0) * 0.7) })
-        console.error('AI scoring error:', scoringResult.reason)
+        // AI评分失败：写作题给0（不给估分，避免误导），简答题给50%
+        needAIFiltered.forEach(q => {
+          if (results[q.id] === 0 && !aiScores[q.id]) {
+            results[q.id] = q.type === 'writing' ? 0 : Math.round((q.score || 0) * 0.5)
+            aiScores[q.id] = 'AI评分暂时不可用'
+          }
+        })
+        if (scoringResult.status === 'rejected') console.error('AI scoring error:', scoringResult.reason)
       }
+
+      // ★ 再次验证：确保没有任何写作题的得分超过其满分
+      needAI.forEach(q => {
+        if (results[q.id] !== undefined && results[q.id] > (q.score || 0)) {
+          results[q.id] = q.score || 0
+        }
+      })
 
       // ★ 保存最终得分（含AI评分）供显示层使用
       setEarnedScores({ ...results })
@@ -889,23 +938,46 @@ ${sectionScores.map(s => `- ${s.title}：${s.earned}/${s.total}分（${s.total >
       allQs.forEach(q => {
         if ((results[q.id] || 0) < q.score) {
           try {
+            // 为AI自测错题选择更精准的标签，保证进入薄弱点分析
+            const abilityTagMap = {
+              writing: subject === 'english' ? '英语写作' : '写作表达',
+              shortanswer: subject === 'english' ? '英语阅读' : '阅读理解',
+              fill: subject === 'english' ? '英语填空' : '语文填空',
+              choice: subject === 'english' ? '英语选择' : '语文选择',
+              listen: '英语听力',
+              truefalse: '判断辨析',
+              reorder: '句子排列',
+            }
+            const knowledgeTagMap = {
+              writing: subject === 'english' ? '英语写作' : '写作',
+              shortanswer: subject === 'english' ? '阅读理解' : '阅读理解',
+              fill: subject === 'english' ? '词汇语法' : '综合填空',
+              choice: subject === 'english' ? '语法词汇' : '综合理解',
+              listen: '听力理解',
+              truefalse: '正误判断',
+              reorder: '语序排列',
+            }
             storage.addRecord(user.id, {
-              card_id: q.id,
+              card_id: `selftest_${q.id}_${Date.now()}`,  // 唯一id避免覆盖
               correct: false,
               time_spent: 0,
               selected_answer: typeof answers[q.id] === 'object' ? (answers[q.id]?.text || '') : String(answers[q.id] || ''),
-              ability_tag: q.type === 'writing' ? '表达' : '综合',
-              knowledge_tag: q.type,
+              ability_tag: abilityTagMap[q.type] || '综合',
+              knowledge_tag: knowledgeTagMap[q.type] || q.type,
               subject: subject,
               timestamp: new Date().toISOString(),
               source: 'self_test',
               question_data: {
+                type: q.type,          // ★ 保存题型，WrongAnswersPage 渲染需要
                 stem: q.stem,
                 answer: q.answer,
                 options: q.options,
                 score: q.score,
                 earned: results[q.id],
                 analysis: q.analysis,
+                rubric: q.rubric,
+                aiComment: aiScores[q.id] || '',
+                examTitle: examData.title || '自测试卷',
               },
             })
             saved++
