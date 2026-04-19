@@ -198,12 +198,18 @@ function getScoringPrompt(questions, answers, subject) {
       ? '道法主观题：观点明确20%，知识运用40%，逻辑层次30%，语言规范10%\n  ⚠️ 答案为乱码/数字/单字必须给0分'
       : '语文作文：内容完整30%，语句通顺30%，修辞手法20%，书写规范20%\n  ⚠️ 答案少于30字必须给0分；答案是乱码/数字必须给0分'
 
-  return `你是一位严格负责的阅卷老师，请对以下学生的主观题进行评分。
+  return `你是一位经验丰富、公平负责的阅卷老师，请对以下学生的主观题进行评分。
 
-## 评分规则
-- 严格按满分评分，不能因为"态度好"就多给分
+## 核心评分原则
 - ${writingRubric}
-- 每题评语30字以内
+- 【弹性给分】简答题必须按知识点命中度给部分分，不允许仅给0分或满分：
+  • 答出核心要点≥80% → 满分
+  • 答出要点60-79% → 70%分数
+  • 答出要点40-59% → 50%分数
+  • 答出要点20-39% → 30%分数
+  • 完全不沾边/空白/乱写 → 0分
+- 【写作题】按内容完整性、语言表达、切题程度综合给分，有内容但表达差可给40-60%
+- 每题评语30字以内，说明扣分原因
 
 ## 需要评分题目
 ${items}
@@ -888,17 +894,17 @@ ${sectionScores.map(s => `- ${s.title}：${s.earned}/${s.total}分（${s.total >
             : '内容不足，无法评分（0分）'
         }
       })
-      const needAIFiltered = needAI.filter(q => results[q.id] === 0 && !aiScores[q.id])
+      // needAIFiltered：AI评分失败时的降级处理列表（排除已预判为0的明显错误）
+      const needAIFiltered = needAI.filter(q => results[q.id] === undefined && !aiScores[q.id])
 
       // 处理评分结果
       if (scoringResult.status === 'fulfilled' && scoringResult.value?.scores) {
         Object.entries(scoringResult.value.scores).forEach(([qId, score]) => {
           if (score.earned !== undefined) {
-            // ★ 二次保险：AI返回分数超过满分时截断；写作垃圾输入不得高于满分20%
             const q = needAI.find(q => q.id === qId)
             const cap = q?.score || 0
             let earned = Math.min(Number(score.earned) || 0, cap)
-            // 如果已被代码层判为0，不允许AI覆盖
+            // ★ 保险：已被代码层预判为0的（显然错误/空白），不允许AI覆盖
             if (aiScores[qId] && results[qId] === 0) earned = 0
             results[qId] = earned
           }
@@ -906,9 +912,9 @@ ${sectionScores.map(s => `- ${s.title}：${s.earned}/${s.total}分（${s.total >
         })
         setAiScores({ ...aiScores })
       } else {
-        // AI评分失败：写作题给0（不给估分，避免误导），简答题给50%
+        // AI评分失败：写作给0分，简答给50%（兜底）
         needAIFiltered.forEach(q => {
-          if (results[q.id] === 0 && !aiScores[q.id]) {
+          if (results[q.id] === undefined && !aiScores[q.id]) {
             results[q.id] = q.type === 'writing' ? 0 : Math.round((q.score || 0) * 0.5)
             aiScores[q.id] = 'AI评分暂时不可用'
           }

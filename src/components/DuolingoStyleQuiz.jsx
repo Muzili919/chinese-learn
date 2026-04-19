@@ -216,10 +216,32 @@ function parseExpectedAnswers(answerText) {
 function smartCheck(input, expected) {
   const n = normalize(input)
   const ne = normalize(expected)
-  if (n === ne) return true
-  // 长答案：去中文标点后字数 > 5，用关键词匹配
+
+  // ① 精确匹配（大小写不敏感）
+  if (n.toLowerCase() === ne.toLowerCase()) return true
+
+  // ② 多义答案（A/B 或 甲/乙）：任意一个匹配即可
+  const alts = ne.split(/\//)
+  if (alts.length > 1) {
+    if (alts.some(alt => n.toLowerCase() === alt.trim().toLowerCase())) return true
+  }
+
   const cjkLen = expected.replace(/[^\u4e00-\u9fff]/g, '').length
-  if (cjkLen <= 5) return false
+
+  // ③ 极短答案（0~2汉字，如字母/数字/单字）：必须精确，上面已处理
+  if (cjkLen <= 2) return false
+
+  // ④ 中短答案（3~8汉字，如成语、解释意思）：允许最多1个字不一样（≥75%字符匹配）
+  if (cjkLen <= 8) {
+    const cjkN = n.replace(/[^\u4e00-\u9fff]/g, '')
+    const cjkNe = ne.replace(/[^\u4e00-\u9fff]/g, '')
+    if (cjkNe.length > 0) {
+      const matchLen = [...cjkNe].filter(c => cjkN.includes(c)).length
+      if (matchLen / cjkNe.length >= 0.75) return true
+    }
+  }
+
+  // ⑤ 长答案（>8汉字）：关键词命中≥60%
   const keywords = expected.split(/[，。！？、；：""''《》（）\s]+/).filter(w => w.length >= 2)
   if (keywords.length === 0) return n.length > 0
   const matched = keywords.filter(kw => n.includes(kw)).length

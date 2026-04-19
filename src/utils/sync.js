@@ -5,7 +5,9 @@
 
 import { storage } from './storage'
 
-const API_BASE = import.meta.env.VITE_API_BASE || `${window.location.origin}/api`
+// Vercel 函数在 /api/proxy/[...path] 转发到阿里云；阿里云 nginx 把 /api/proxy/ 也代理到 Express
+// 这样无论在 Vercel 还是阿里云直接访问，路径都一致
+const API_BASE = import.meta.env.VITE_API_BASE || `${window.location.origin}/api/proxy`
 
 export const supabase = null
 
