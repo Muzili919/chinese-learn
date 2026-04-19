@@ -22,6 +22,8 @@ import SelfTestPage from './pages/SelfTestPage'
 import LightningQuizPage from './pages/LightningQuizPage'
 import PoliticsHomePage from './pages/PoliticsHomePage'
 import PoliticsQuizPage from './pages/PoliticsQuizPage'
+import MathHomePage from './pages/MathHomePage'
+import MathFormulaPage from './pages/MathFormulaPage'
 import { initGamificationState, initGodModeState } from './utils/gamification'
 import { fetchMV1State, upsertMV1State } from './utils/mv1_cloud'
 import { pullFromCloud } from './utils/sync'
@@ -44,11 +46,12 @@ const SUBJECTS_BY_GRADE = {
   primary: [
     { id: 'chinese', label: '语文', emoji: '📖', available: true },
     { id: 'english',  label: '英语', emoji: '🌎', available: true },
+    { id: 'math',     label: '数学', emoji: '🔢', available: true },
   ],
   junior2: [
     { id: 'english',  label: '英语', emoji: '🌎', available: true },
     { id: 'politics', label: '道法', emoji: '⚖️', available: true },
-    { id: 'math',     label: '数学', emoji: '🔢', available: false },
+    { id: 'math',     label: '数学', emoji: '🔢', available: true },
   ],
 }
 
@@ -481,6 +484,11 @@ export default function App() {
     if (opts.selfTest) {
       setQuizOptions(opts)
       setPage('self_test')
+    } else if (opts.mathFormula) {
+      setPage('math_formula')
+    } else if (opts.mathTopic) {
+      setQuizOptions(opts)
+      setPage('quiz')
     } else if (opts.politicsTag) {
       setQuizOptions(opts)
       setPage('politicsQuiz')
@@ -568,6 +576,7 @@ export default function App() {
       case 'politicsQuiz':      startQuiz({ ...opts }); break
       case 'variantTraining':   startVariantTraining(opts.question); break
       case 'politicsHome':      setPage('politics_home'); break
+      case 'mathFormula':       setPage('math_formula'); break
       default:
         console.warn('[navigate] unknown dest:', dest)
     }
@@ -624,6 +633,12 @@ export default function App() {
         onStartQuiz={startQuiz}
         onBack={() => { setPage('home'); setActiveSubject('politics') }}
         onWrongAnswers={() => { setActiveSubject('politics'); setActiveTab('wrong') }}
+      />
+    )
+    if (page === 'math_formula') return (
+      <MathFormulaPage
+        user={user}
+        onBack={() => { setPage('home'); setActiveSubject('math') }}
       />
     )
     if (page === 'politicsQuiz') return (
@@ -712,6 +727,13 @@ export default function App() {
                   user={user}
                   onStartQuiz={startQuiz}
                   onWrongAnswers={() => setActiveTab('wrong')}
+                />
+              )}
+              {activeSubject === 'math' && (
+                <MathHomePage
+                  user={user}
+                  onStartQuiz={startQuiz}
+                  onStartFormula={() => setPage('math_formula')}
                 />
               )}
             </div>

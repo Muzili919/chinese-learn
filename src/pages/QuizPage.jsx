@@ -19,13 +19,17 @@ import enReadingQ from '../data/questions_en_reading.json'
 import enWritingQ from '../data/questions_en_writing.json'
 import enClozeQ from '../data/questions_en_j2_cloze.json'
 import politicsQ from '../data/questions_politics_choice.json'
+import mathBasicQ from '../data/questions_math_basic.json'
+import mathGeoQ from '../data/questions_math_geometry.json'
+import mathOlympiadQ from '../data/questions_math_olympiad.json'
 
 const CHINESE_QUESTIONS = [...vocabQ, ...poetryQ, ...idiomQ, ...sentenceQ, ...litQ]
 const ENGLISH_QUESTIONS = [...enVocabQ, ...enListenQ, ...enGrammarQ, ...enReadingQ, ...enWritingQ, ...enClozeQ]
 const POLITICS_ALL = Array.isArray(politicsQ) ? politicsQ : (politicsQ.questions || [])
+const MATH_ALL = [...mathBasicQ, ...mathGeoQ, ...mathOlympiadQ]
 // ★ 全学科合并映射（错题练习需要跨学科查找）
 const ALL_SUBJECTS_MAP = Object.fromEntries(
-  [...CHINESE_QUESTIONS, ...ENGLISH_QUESTIONS, ...POLITICS_ALL].map(q => [q.id, q])
+  [...CHINESE_QUESTIONS, ...ENGLISH_QUESTIONS, ...POLITICS_ALL, ...MATH_ALL].map(q => [q.id, q])
 )
 
 const ALL_QUESTIONS = CHINESE_QUESTIONS
@@ -60,7 +64,7 @@ function shuffleOptions(question) {
 }
 
 export default function QuizPage({ user, options = {}, onFinish, onBack }) {
-  const { focusTag = null, knowledgeTag = null, wrongCardIds = null } = options
+  const { focusTag = null, knowledgeTag = null, wrongCardIds = null, mathTopic = null } = options
 
   // 根据星球确定每次答题数
   const sessionSize = (wrongCardIds?.length)
@@ -114,6 +118,12 @@ export default function QuizPage({ user, options = {}, onFinish, onBack }) {
         .filter(Boolean)
       return shuffle(pool).slice(0, sessionSize).map(shuffleOptions)
     }
+    // 数学专题
+    if (mathTopic) {
+      const mathPool = MATH_ALL.filter(q => q.topic === mathTopic)
+      return shuffle(mathPool).slice(0, sessionSize).map(shuffleOptions)
+    }
+
     let pool = ALL_QUESTIONS
     if (knowledgeTag) pool = pool.filter((q) => q.knowledge_tag === knowledgeTag)
     const isMixed = !knowledgeTag && !focusTag
@@ -152,7 +162,8 @@ export default function QuizPage({ user, options = {}, onFinish, onBack }) {
       selected_answer: chosenAnswer,
       ability_tag: current.ability_tag,
       knowledge_tag: current.knowledge_tag,
-      subject: 'chinese',
+      topic: current.topic,
+      subject: mathTopic ? 'math' : 'chinese',
       timestamp: new Date().toISOString(),
     }
     storage.addRecord(user.id, record)
