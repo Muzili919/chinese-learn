@@ -36,7 +36,17 @@ async function callAI(systemPrompt, userPrompt) {
   } catch { return null }
 }
 
-export default function ReportPage({ user, onBack }) {
+// 能力标签 → 知识领域（星球）映射
+const ABILITY_TO_KNOWLEDGE = {
+  '字音辨析': '字词', '字形辨析': '字词', '词语含义': '字词', '近反义词': '字词',
+  '词语搭配': '字词', '多音字': '字词', '看拼音写字': '字词',
+  '诗句默写': '古诗词', '作者朝代': '古诗词', '诗句含义': '古诗词', '诗歌赏析': '古诗词',
+  '成语含义': '成语', '成语用法': '成语', '成语辨析': '成语', '成语故事': '成语', '近义成语': '成语',
+  '修辞手法': '句子', '句式转换': '句子', '病句辨析': '句子', '关联词': '句子',
+  '四大名著': '文学常识', '标点符号': '文学常识', '体裁文体': '文学常识', '作家作品': '文学常识',
+}
+
+export default function ReportPage({ user, onBack, onStartQuiz }) {
   const [pinInput, setPinInput] = useState('')
   const [unlocked, setUnlocked] = useState(false)
   const [pinError, setPinError] = useState(false)
@@ -461,23 +471,37 @@ export default function ReportPage({ user, onBack }) {
                 <div className="bg-white rounded-2xl p-4 shadow-sm border border-gray-100">
                   <h2 className="text-sm font-semibold text-gray-500 mb-3">⚠️ 重点关注</h2>
                   <div className="space-y-3">
-                    {weakPoints.map(({ tag, accuracy: acc, avgTime, total, status }) => (
-                      <div key={tag} className="flex items-center gap-3 p-3 bg-gray-50 rounded-xl">
-                        <div className="w-2 h-10 rounded-full flex-shrink-0" style={{ backgroundColor: STATUS_COLOR[status] }} />
-                        <div className="flex-1">
-                          <div className="flex items-center justify-between">
-                            <span className="font-medium text-gray-800 text-sm">{tag}</span>
-                            <span className="text-xs px-2 py-0.5 rounded-full font-medium"
-                              style={{ color: STATUS_COLOR[status], backgroundColor: STATUS_COLOR[status] + '20' }}>
-                              {STATUS_LABEL[status]}
-                            </span>
+                    {weakPoints.map(({ tag, accuracy: acc, avgTime, total, status }) => {
+                      const knowledgeTag = ABILITY_TO_KNOWLEDGE[tag]
+                      return (
+                        <div key={tag} className="p-3 bg-gray-50 rounded-xl">
+                          <div className="flex items-center gap-3">
+                            <div className="w-2 h-10 rounded-full flex-shrink-0" style={{ backgroundColor: STATUS_COLOR[status] }} />
+                            <div className="flex-1 min-w-0">
+                              <div className="flex items-center justify-between">
+                                <span className="font-medium text-gray-800 text-sm">{tag}</span>
+                                <span className="text-xs px-2 py-0.5 rounded-full font-medium"
+                                  style={{ color: STATUS_COLOR[status], backgroundColor: STATUS_COLOR[status] + '20' }}>
+                                  {STATUS_LABEL[status]}
+                                </span>
+                              </div>
+                              <p className="text-xs text-gray-400 mt-0.5">正确率 {acc}% · 平均用时 {avgTime}秒 · 共{total}题</p>
+                              {status === 'weak' && <p className="text-xs text-red-500 mt-0.5">建议多做强化练习</p>}
+                              {status === 'slow' && <p className="text-xs text-amber-500 mt-0.5">答对但反应慢，需要熟练度练习</p>}
+                            </div>
                           </div>
-                          <p className="text-xs text-gray-400 mt-0.5">正确率 {acc}% · 平均用时 {avgTime}秒 · 共{total}题</p>
-                          {status === 'weak' && <p className="text-xs text-red-500 mt-0.5">建议多做强化练习</p>}
-                          {status === 'slow' && <p className="text-xs text-amber-500 mt-0.5">答对但反应慢，需要熟练度练习</p>}
+                          {/* 专项练习快捷入口 */}
+                          {onStartQuiz && knowledgeTag && (
+                            <button
+                              onClick={() => { onStartQuiz({ knowledgeTag, focusTag: tag }); onBack() }}
+                              className="mt-2 w-full flex items-center justify-center gap-1.5 bg-indigo-50 hover:bg-indigo-100 text-indigo-600 text-xs font-bold py-2 rounded-lg transition-colors active:scale-95"
+                            >
+                              🎯 专项练习 · {knowledgeTag}
+                            </button>
+                          )}
                         </div>
-                      </div>
-                    ))}
+                      )
+                    })}
                   </div>
                 </div>
               )}

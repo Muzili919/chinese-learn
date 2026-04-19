@@ -75,7 +75,7 @@ const EXAM_URGENCY_STYLE = (days) => {
 }
 
 // ── 今日任务卡片 ────────────────────────────────────────
-function TodayTaskCard({ task, userId, onStartTask, onClearAnchor, sprintMode }) {
+function TodayTaskCard({ task, userId, onStartTask, onClearAnchor, sprintMode, wrongCount }) {
   const { mandatory, anchor, optional, exam, isEmpty, modes } = task
   const doneTasks = getTodayDoneTasks(userId)
 
@@ -147,6 +147,25 @@ function TodayTaskCard({ task, userId, onStartTask, onClearAnchor, sprintMode })
 
       {/* 任务列表 */}
       <div className="bg-white divide-y divide-gray-50">
+
+        {/* 🔴 强提醒：积压错题 */}
+        {wrongCount > 0 && (
+          <button
+            onClick={() => onStartTask({ type: 'wrong_review' })}
+            className="w-full flex items-center gap-3 px-4 py-3 bg-red-50 active:bg-red-100 transition-colors text-left"
+          >
+            <span className="flex-shrink-0 w-6 h-6 rounded-full bg-red-500 text-white text-xs flex items-center justify-center font-bold animate-pulse">
+              ⚠
+            </span>
+            <div className="flex-1 min-w-0">
+              <p className="text-sm font-bold text-red-700">错题待消灭！</p>
+              <p className="text-xs text-red-400">{wrongCount} 道错题还没攻克，趁热打铁！</p>
+            </div>
+            <span className="text-xs font-bold text-white bg-red-500 px-2.5 py-1 rounded-full flex-shrink-0">
+              立即练习 →
+            </span>
+          </button>
+        )}
 
         {/* 必做：SRS复习 */}
         <button
@@ -344,6 +363,11 @@ export default function HomePage({ user, onStartQuiz, hideHeader, activeSubject:
   const totalAccuracy = records.length > 0
     ? Math.round(records.filter(r => r.correct).length / records.length * 100) : 0
 
+  // ── 错题数（用于强提醒）──
+  const wrongCount = useMemo(() => {
+    return storage.getWrongCardIds(user.id).size
+  }, [user.id, records, refreshKey])
+
   // ── 今日任务（只在语文/英语时计算） ──
   const todayTask = useMemo(() => {
     return getRecommendedTask(user.id, activeSubject)
@@ -380,6 +404,9 @@ export default function HomePage({ user, onStartQuiz, hideHeader, activeSubject:
           ...(ABILITY_TO_QUIZ[todayTask.anchor?.tag] || { knowledgeTag: todayTask.anchor?.knowledge || '字词' }),
           maxQuestions,
         })
+        break
+      case 'wrong_review':
+        onStartQuiz({ wrongReview: true })
         break
       default:
         onStartQuiz({ knowledgeTag: '字词' })
@@ -510,6 +537,7 @@ export default function HomePage({ user, onStartQuiz, hideHeader, activeSubject:
           onStartTask={handleStartTask}
           onClearAnchor={handleClearAnchor}
           sprintMode={sprintMode}
+          wrongCount={wrongCount}
         />
       )}
 
