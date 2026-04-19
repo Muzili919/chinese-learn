@@ -1,17 +1,16 @@
 import React, { useState } from 'react'
 import {
   SHOP_ITEMS, GAME_SHOP_ITEMS, ROOM_THEMES, FURNITURE_ITEMS,
-  ACCESSORY_SHOP, ACCESSORY_SLOTS, getEquippedAccessory,
 } from '../utils/gamification'
 
 /**
- * ShopPanel v2 - 完整商店面板
- * 
- * 包含：
- *  - 食物/清洁/活力/道具商店（带emoji图片）
- *  - 配饰装扮商店（头部/颈部/背部三个槽位）
- *  - 已购商品使用功能
- *  - 当前装备预览
+ * ShopPanel v3 - 重构商店面板
+ *
+ * Tab 结构（计划重构后）：
+ *  🛒 道具店    — 食物/清洁/能量/礼物
+ *  🏠 小屋装饰  — 壁纸/地板/家具
+ *  ⚡ 游戏道具  — 额外次数/时间冻结/护盾药水
+ *  🎒 背包      — 已购道具使用
  */
 
 const RARITY_COLORS = {
@@ -22,7 +21,7 @@ const RARITY_COLORS = {
 }
 
 export default function ShopPanel({ state, onBuy, onUseItem, spendableXP }) {
-  const [activeTab, setActiveTab] = useState('items') // items | dress | house | game_items | bag
+  const [activeTab, setActiveTab] = useState('items') // items | house | game_items | bag
   const [selectedItemId, setSelectedItemId] = useState(null)
   const [showBuyConfirm, setShowBuyConfirm] = useState(null)
 
@@ -48,11 +47,10 @@ export default function ShopPanel({ state, onBuy, onUseItem, spendableXP }) {
       {/* Tab 切换 */}
       <div style={{ display: 'flex', gap: 6, marginBottom: 12 }}>
         {[
-          { key: 'items', label: '🛒 道具店', icon: '🛒' },
-          { key: 'dress', label: '👗 装扮', icon: '👗' },
-          { key: 'house', label: '🏠 小屋装饰', icon: '🏠' },
+          { key: 'items',      label: '🛒 道具店',   icon: '🛒' },
+          { key: 'house',      label: '🏠 小屋装饰', icon: '🏠' },
           { key: 'game_items', label: '⚡ 游戏道具', icon: '⚡' },
-          { key: 'bag', label: '🎒 背包', icon: '🎒' },
+          { key: 'bag',        label: '🎒 背包',     icon: '🎒' },
         ].map(tab => (
           <button
             key={tab.key}
@@ -142,122 +140,6 @@ export default function ShopPanel({ state, onBuy, onUseItem, spendableXP }) {
                 </button>
               </div>
             )
-          })}
-        </div>
-      )}
-
-      {/* ====== 配饰装扮（Bug #7b 修复：新增完整配饰UI） ====== */}
-      {activeTab === 'dress' && (
-        <div>
-          {/* 当前装备预览 */}
-          <h3 style={{ fontSize: 14, fontWeight: 700, color: '#4c1d95', marginBottom: 10 }}>👗 当前装备</h3>
-          <div style={{ display: 'flex', gap: 8, marginBottom: 14 }}>
-            {ACCESSORY_SLOTS.map(slot => {
-              const equipped = getEquippedAccessory(state?.currentPet, slot);
-              return (
-                <div key={slot} style={{
-                  flex: 1, background: equipped ? 'linear-gradient(135deg,#fef3c7,#fde68a)' : '#f9fafb',
-                  borderRadius: 12, padding: 10, textAlign: 'center',
-                  border: equipped ? '2px solid #f59e0b' : '1px dashed #d1d5db',
-                }}>
-                  <div style={{ fontSize: 24, marginBottom: 2 }}>
-                    {equipped ? equipped.icon : '⬜'}
-                  </div>
-                  <div style={{ fontSize: 10, fontWeight: 600, color: '#374151' }}>
-                    {equipped ? equipped.name : { head: '头部', neck: '颈部', back: '背部' }[slot]}
-                  </div>
-                  {equipped && (
-                    <button
-                      onClick={() => onBuy?.(`unequip_${slot}`)}
-                      style={{
-                        marginTop: 4, padding: '2px 10px', borderRadius: 6,
-                        border: 'none', background: '#fee2e2', color: '#dc2626',
-                        fontSize: 10, fontWeight: 600, cursor: 'pointer',
-                      }}
-                    >卸下</button>
-                  )}
-                </div>
-              );
-            })}
-          </div>
-
-          {/* 配饰商店列表 — 按槽位分组 */}
-          <h3 style={{ fontSize: 14, fontWeight: 700, color: '#4c1d95', margin: '14px 0 8px' }}>🛍️ 配饰商店</h3>
-          {ACCESSORY_SLOTS.map(slot => {
-            const slotName = { head: '🎩 头部', neck: '🧣 颈部', back: '🎒 背部' }[slot];
-            const slotAccessories = ACCESSORY_SHOP.filter(a => a.slot === slot);
-            const owned = state?.inventory?.accessories || [];
-            const equippedAcc = state?.currentPet?.equippedAccessories?.[slot] || null;
-
-            return (
-              <div key={slot} style={{ marginBottom: 12 }}>
-                <p style={{ margin: '0 0 6px', fontSize: 12, fontWeight: 600, color: '#6b7280' }}>{slotName}</p>
-                <div style={{ display: 'flex', gap: 6, overflowX: 'auto', paddingBottom: 4 }}>
-                  {slotAccessories.map(acc => {
-                    const isOwned = owned.includes(acc.id);
-                    const isEquipped = equippedAcc === acc.id;
-                    const rarity = RARITY_COLORS[acc.rarity] || RARITY_COLORS.N;
-                    
-                    return (
-                      <div key={acc.id} style={{
-                        minWidth: 88, background: rarity.bg,
-                        borderRadius: 10, padding: 8, textAlign: 'center',
-                        border: isEquipped ? '2.5px solid #10b981' : `1.5px solid ${rarity.border}`,
-                        flexShrink: 0,
-                        position: 'relative',
-                      }}>
-                        {/* 稀度标签 */}
-                        <div style={{
-                          position: 'absolute', top: -1, right: 4,
-                          fontSize: 8, fontWeight: 700, color: rarity.text,
-                          padding: '0 4px', borderRadius: 3,
-                          background: rarity.bg,
-                        }}>{acc.rarity}</div>
-                        
-                        <div style={{ fontSize: 26, marginBottom: 2 }}>{acc.icon}</div>
-                        <div style={{ fontSize: 10, fontWeight: 600, color: '#374151', marginBottom: 4 }}>{acc.name}</div>
-                        
-                        {!isOwned && (
-                          // 未拥有 → 购买按钮
-                          <button
-                            onClick={() => onBuy?.(`buy_acc_${acc.id}`)}
-                            disabled={coins < acc.price}
-                            style={{
-                              width: '100%', padding: '3px 0', borderRadius: 6, border: 'none',
-                              background: coins >= acc.price ? 'linear-gradient(135deg,#6366f1,#8b5cf6)' : '#e5e7eb',
-                              color: coins >= acc.price ? 'white' : '#9ca3af',
-                              fontSize: 10, fontWeight: 600, cursor: coins >= acc.price ? 'pointer' : 'not-allowed',
-                            }}
-                          >{acc.price}💰</button>
-                        )}
-                        {isOwned && !isEquipped && (
-                          // 已拥有未装备 → 装备按钮
-                          <button
-                            onClick={() => onBuy?.(`equip_${acc.id}`)}
-                            style={{
-                              width: '100%', padding: '3px 0', borderRadius: 6, border: 'none',
-                              background: 'linear-gradient(135deg,#10b981,#059669)',
-                              color: 'white', fontSize: 10, fontWeight: 600, cursor: 'pointer',
-                            }}
-                          >装备</button>
-                        )}
-                        {isEquipped && (
-                          // 已装备 → 卸下按钮
-                          <button
-                            onClick={() => onBuy?.(`unequip_${slot}`)}
-                            style={{
-                              width: '100%', padding: '3px 0', borderRadius: 6, border: 'none',
-                              background: '#ef4444', color: 'white', fontSize: 10,
-                              fontWeight: 600, cursor: 'pointer',
-                            }}
-                          >卸下</button>
-                        )}
-                      </div>
-                    );
-                  })}
-                </div>
-              </div>
-            );
           })}
         </div>
       )}

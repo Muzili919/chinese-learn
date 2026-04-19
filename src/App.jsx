@@ -1,5 +1,6 @@
 import { useState, useEffect, useCallback, useMemo } from 'react'
 import ErrorBoundary from './ErrorBoundary'
+import { NavigationContext } from './context/NavigationContext'
 import { storage, calcLevel, calcLevelProgress } from './utils/storage'
 import OnboardingPage from './pages/OnboardingPage'
 import HomePage from './pages/HomePage'
@@ -523,6 +524,42 @@ export default function App() {
     setPage('variant_training')
   }
 
+  // ── 统一导航函数（供 NavigationContext 使用）────────────
+  // 解决"props 回调随页面数线性增长"：新增页面只需 useNavigation()
+  // 支持的 dest 值见 NavigationContext.jsx 注释
+  const navigate = useCallback((dest, opts = {}) => {
+    switch (dest) {
+      case 'home':              goHome(); break
+      case 'report':            setPage('report'); break
+      case 'quiz':              startQuiz(opts); break
+      case 'selfTest':          startQuiz({ ...opts, selfTest: true }); break
+      case 'reading':           startQuiz({ ...opts, reading: true }); break
+      case 'essay':             startQuiz({ ...opts, essay: true }); break
+      case 'dictation':         startQuiz({ ...opts, dictation: true }); break
+      case 'lightningQuiz':     startQuiz({ ...opts, lightningQuiz: true }); break
+      case 'wrongAnswers':      startQuiz({ ...opts, wrongReview: true }); break
+      case 'sentencePractice':  startQuiz({ ...opts, sentencePractice: true }); break
+      case 'englishQuiz':       startQuiz({ ...opts }); break
+      case 'politicsQuiz':      startQuiz({ ...opts }); break
+      case 'variantTraining':   startVariantTraining(opts.question); break
+      case 'politicsHome':      setPage('politics_home'); break
+      default:
+        console.warn('[navigate] unknown dest:', dest)
+    }
+  }, []) // eslint-disable-line react-hooks/exhaustive-deps
+
+  // NavigationContext value — 所有组件均可 useNavigation() 获取
+  const navContextValue = {
+    navigate,
+    back:         goHome,
+    setTab:       handleTabChange,
+    startQuiz,
+    user,
+    grade,
+    activeSubject,
+    setActiveSubject,
+  }
+
   // 是否显示底部导航（仅主界面）
   const showBottomNav = page === 'home' && user
 
@@ -685,22 +722,24 @@ export default function App() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-indigo-50 to-purple-50" style={{ position: 'relative' }}>
-      <div className="max-w-md mx-auto min-h-screen">
-        <div style={{ paddingBottom: showBottomNav ? 64 : 0 }}>
-          {mainContent()}
+    <NavigationContext.Provider value={navContextValue}>
+      <div className="min-h-screen bg-gradient-to-b from-indigo-50 to-purple-50" style={{ position: 'relative' }}>
+        <div className="max-w-md mx-auto min-h-screen">
+          <div style={{ paddingBottom: showBottomNav ? 64 : 0 }}>
+            {mainContent()}
+          </div>
         </div>
+        {showBottomNav && (
+          <BottomNav
+            activeTab={activeTab}
+            onTabChange={handleTabChange}
+            overdueCount={overdueCount}
+          />
+        )}
+        {showBottomNav && activeTab !== 'pet' && (
+          <GlobalPetDock gameState={gameState} isLearning={activeTab === 'home'} />
+        )}
       </div>
-      {showBottomNav && (
-        <BottomNav
-          activeTab={activeTab}
-          onTabChange={handleTabChange}
-          overdueCount={overdueCount}
-        />
-      )}
-      {showBottomNav && activeTab !== 'pet' && (
-        <GlobalPetDock gameState={gameState} isLearning={activeTab === 'home'} />
-      )}
-    </div>
+    </NavigationContext.Provider>
   )
 }
