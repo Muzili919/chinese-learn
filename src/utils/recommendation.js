@@ -10,7 +10,7 @@
 
 import { storage } from './storage'
 import { diagnose } from './diagnosis'
-import { getNextExam, getExamUrgency, getDaysUntil, getCountdownLabel } from './examCalendar'
+import { getNextExam, getExamUrgency, getDaysUntil, getCountdownLabel, getFrequentErrorTags } from './examCalendar'
 
 const ANCHOR_KEY   = (uid) => `cl_anchor_${uid}`
 const ANCHOR_DAYS  = 3   // 主攻锚定天数
@@ -51,23 +51,39 @@ export function clearAnchor(userId) {
  *   1. accuracy < 50%（严重薄弱）
  *   2. accuracy 50-70%（一般薄弱）
  *   3. accuracy >= 80% 但耗时高（理解慢）
+ *
+ * 考试错题权重加成：
+ *   最近5次考试中标记为错题的知识点，排序分数额外 -1（越小越优先）
+ *   让考试错点在推荐时自动"被看见"
  */
 export function getWeakAbilityTags(userId) {
   const records = storage.getRecords(userId)
   if (records.length < 3) return []
 
   const diag = diagnose(records)
+  // 考试错题知识点：{ '字词': 2, '成语': 1, ... }
+  const examErrors = getFrequentErrorTags(userId, 5)
+
   return Object.entries(diag)
     .filter(([, d]) => d.total >= 3)
     .sort((a, b) => {
-      const [, da] = a; const [, db] = b
-      // 严重薄弱优先
+      const [tagA, da] = a; const [tagB, db] = b
+      // 严重薄弱优先（0/1/2）
       const aScore = da.accuracy < 50 ? 0 : da.accuracy < 70 ? 1 : 2
       const bScore = db.accuracy < 50 ? 0 : db.accuracy < 70 ? 1 : 2
-      if (aScore !== bScore) return aScore - bScore
+      // 考试错题加成：出现在错题中的扣1分（排得更前）
+      const aExam = examErrors[tagA] ? -1 : 0
+      const bExam = examErrors[tagB] ? -1 : 0
+      const aFinal = aScore + aExam
+      const bFinal = bScore + bExam
+      if (aFinal !== bFinal) return aFinal - bFinal
       return da.accuracy - db.accuracy
     })
-    .map(([tag, data]) => ({ tag, ...data }))
+    .map(([tag, data]) => ({
+      tag,
+      ...data,
+      examErrorCount: examErrors[tag] || 0,  // 透出给 UI 显示"考试错过X次"
+    }))
 }
 
 /** 各科目最近7天题目数和时间，用于平衡提示 */
