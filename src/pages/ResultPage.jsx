@@ -7,7 +7,7 @@ const GRADE_EMOJI = { good: '🌟', slow: '⏰', weak: '💪' }
 const GRADE_LABEL = { good: '掌握良好', slow: '知道但不熟', weak: '需要加强' }
 const GRADE_COLOR = { good: 'text-green-600', slow: 'text-amber-600', weak: 'text-red-500' }
 
-export default function ResultPage({ result, user, onHome, onRetry }) {
+export default function ResultPage({ result, user, onHome, onRetry, onAIReinforce }) {
   // 兼容两种格式：{ session, records } 或 { correct, total, xpGained }（英语页面）
   const session = result?.session || {
     total: result?.total || 0,
@@ -32,6 +32,7 @@ export default function ResultPage({ result, user, onHome, onRetry }) {
   const weakPoints = useMemo(() => getWeakPoints(diagnose(records || [])), [records])
 
   const durationMin = Math.round((session.durationSec || 0) / 60)
+  const wrongQuestions = result?.wrongQuestions || []
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -112,6 +113,18 @@ export default function ResultPage({ result, user, onHome, onRetry }) {
 
         {/* Action buttons — 底部安全区域避开 iOS Home 指示器 */}
         <div className="flex flex-col gap-3" style={{ paddingBottom: 'max(env(safe-area-inset-bottom, 0px), 16px)' }}>
+          {/* AI 强化练习入口 — 有错题时显示 */}
+          {wrongQuestions.length > 0 && onAIReinforce && (
+            <button
+              onClick={() => onAIReinforce(wrongQuestions[0])}
+              className="w-full bg-gradient-to-r from-violet-500 to-purple-600 text-white font-semibold py-4 rounded-2xl text-base active:scale-95 transition-all shadow-md flex items-center justify-center gap-2"
+            >
+              <span>🔀 AI出题强化</span>
+              <span className="bg-white/20 text-xs font-bold px-2 py-0.5 rounded-full">
+                {wrongQuestions.length}道错题 · 针对性练习
+              </span>
+            </button>
+          )}
           <button
             onClick={onRetry}
             className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-4 rounded-2xl text-base transition-colors active:scale-95"

@@ -327,8 +327,9 @@ function FeedbackPanel({ correct, analysis, answer, onContinue, variantState }) 
             </button>
           )}
           {vs.showButton && vs.phase === 'loading' && (
-            <div className="w-full mb-3 py-3 rounded-2xl bg-violet-50 border-2 border-violet-100 text-center text-sm text-violet-400">
-              AI 正在出题...
+            <div className="w-full mb-3 py-2.5 rounded-2xl bg-violet-50 border-2 border-violet-100 flex items-center justify-center gap-2">
+              <div className="w-3.5 h-3.5 border-2 border-violet-300 border-t-violet-500 rounded-full animate-spin flex-shrink-0" />
+              <span className="text-sm text-violet-500 font-medium">AI 正在出一道同类题…</span>
             </div>
           )}
           {/* 次数用完：升级提示 */}
@@ -1530,6 +1531,10 @@ export default function DuolingoStyleQuiz({ question, onAnswerSubmit, showVarian
   function handleDone(answer, correct) {
     setChosenAnswer(answer)
     setPhase(correct ? 'correct' : 'wrong')
+    // 答错时：后台自动出变式题，用户读分析的同时 AI 已在生成，无需等待
+    if (!correct && showVariantButton && variantPhase === 'idle') {
+      handleVariant(true) // isAuto=true，配额用完时静默跳过
+    }
   }
 
   function handleContinue() {
@@ -1541,12 +1546,15 @@ export default function DuolingoStyleQuiz({ question, onAnswerSubmit, showVarian
     setVariantSel(null)
   }
 
-  async function handleVariant() {
+  async function handleVariant(isAuto = false) {
     const userId = storage.getUser()?.id
     if (userId) {
       const check = await checkAiUsage(userId, 'ai_variant')
       if (!check.ok) {
-        setVariantPhase('blocked')
+        // 自动触发时静默跳过；手动点击时才显示"配额已用完"提示
+        if (!isAuto) {
+          setVariantPhase('blocked')
+        }
         setVariantRemaining(0)
         return
       }
@@ -1667,7 +1675,7 @@ export default function DuolingoStyleQuiz({ question, onAnswerSubmit, showVarian
             selected: variantSel,
             remaining: variantRemaining,
             onSelect: (opt) => { setVariantSel(opt); setVariantPhase('done') },
-            onGenerate: handleVariant,
+            onGenerate: () => handleVariant(false),
           }}
         />
       )}

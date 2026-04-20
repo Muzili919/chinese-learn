@@ -197,7 +197,14 @@ export default function QuizPage({ user, options = {}, onFinish, onBack }) {
         storage.markSeenToday(user.id, questions.map(q => q.id))
         syncAfterSession(user.id)
 
-        onFinish({ session, records: allRecords })
+        // 收集本次答错的完整题目对象（供 ResultPage 的 AI 强化入口使用）
+        const wrongQuestions = allRecords
+          .filter(r => !r.correct)
+          .map(r => questions.find(q => q.id === r.card_id))
+          .filter(Boolean)
+          .slice(0, 5)
+
+        onFinish({ session, records: allRecords, wrongQuestions })
       } else {
         setIndex((i) => i + 1)
       }
@@ -280,7 +287,7 @@ export default function QuizPage({ user, options = {}, onFinish, onBack }) {
           key={current.id}
           question={current}
           onAnswerSubmit={handleAnswerSubmit}
-          showVariantButton={isWrongReview}
+          showVariantButton={true}
           onGenerateVariant={handleGenerateVariant}
         />
       </div>
