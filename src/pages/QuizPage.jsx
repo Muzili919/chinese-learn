@@ -44,6 +44,9 @@ const PLANET_SESSION_SIZES = {
   文学常识: 10,
 }
 
+// 数学各专题每次答题数（统一10题/次）
+const MATH_SESSION_SIZE = 10
+
 function shuffle(arr) {
   const a = [...arr]
   for (let i = a.length - 1; i > 0; i--) {
@@ -69,7 +72,9 @@ export default function QuizPage({ user, options = {}, onFinish, onBack }) {
   // 根据星球确定每次答题数
   const sessionSize = (wrongCardIds?.length)
     ? DEFAULT_SESSION_SIZE
-    : (PLANET_SESSION_SIZES[knowledgeTag] || DEFAULT_SESSION_SIZE)
+    : (mathTopic
+        ? MATH_SESSION_SIZE
+        : (PLANET_SESSION_SIZES[knowledgeTag] || DEFAULT_SESSION_SIZE))
 
   const srsStates = useRef(storage.getSrsState(user.id))
   const startTime = useRef(Date.now())

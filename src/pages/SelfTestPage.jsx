@@ -172,6 +172,50 @@ function getPoliticsExamPrompt(examType) {
 ${EXAM_SCHEMA}`
 }
 
+// ─── 小学数学（小升初难度）─────────────────────────────
+const MATH_EXAM_TYPE_MAP = { xsc: '小升初模拟', unit: '单元综合', final: '期末综合', review: '总复习' }
+
+function getMathExamPrompt(examType) {
+  const examLabel = MATH_EXAM_TYPE_MAP[examType] || '小升初模拟'
+  return `你是资深小学数学教研员，为六年级学生出一份${examLabel}数学试卷，满分100分。目标难度：小升初真题级别，比平时测验难20%左右。
+
+【核心原则】
+- 应用题必须贴近生活场景（购物折扣、行程规划、工程分配、银行利息等），避免"水池注水""鸡兔同笼"等过度套路化的老题目
+- 计算题要有技巧空间（简便运算、凑整、裂项），不是纯硬算
+- 几何题要考组合图形或割补法思路
+- 选择题干扰项必须对应典型错误（单位换算错、公式记反、漏看条件）
+
+【题型结构（严格按此）】
+- 一、计算题×4道，每题6分=24分：
+  ① 四则混合运算（含分数/小数/百分数混合）—— 要求写出关键步骤
+  ② 简便运算（利用运算律巧算）—— 考交换律/结合律/分配律
+  ③ 解方程或比例（含分数系数）—— 如 (2/3)x + 1/4 = 5/6 或 x:8 = 3:4
+  ④ 列式计算（文字描述列综合算式）—— 如 "一个数的40%比它的1/4多15，求这个数"
+
+- 二、选择题×6道，每题4分=24分（每题4个选项A/B/C/D，answer为正确选项字母）：
+  数与代数2道（比例应用/百分数陷阱/正反比例辨析）
+  图形与几何2道（组合图形面积/立体图形表体积/展开图判断）
+  统计与概率1道（平均数中位数众数辨析/可能性计算）
+  奥数思维1道（行程追及/工程优化/逻辑推理，难度中等偏上）
+
+- 三、填空题×4道，每题4分=16分：
+  ① 单位换算进率（如 2.5小时=( )分, 3050mL=( )L ）
+  ② 比和比例性质（如 a:b=3:5 则 (a+10):(b+10)=? ）
+  ③ 规律探究（数列找规律/图形计数规律）
+  ④ 实际应用填空（折扣/利率/浓度等概念理解）
+
+- 四、操作与应用×2道，每题9分=18分（以passage形式给出情境+图示，再出简答要求列式解答并写答案）：
+  ① 几何操作：给组合图形求阴影面积或制作长方体框架所需材料长度
+  ② 统计图表分析：给折线图/条形图/扇形图，回答2-3个子问题
+
+- 五、解决问题（综合应用题）×2道，每题9分=18分（passage形式给出复杂情境，多步推理）：
+  ① 行程/工程/经济类：至少2步推理，需画线段图辅助理解
+  ② 分数/比例综合：涉及多对象比较或变化过程
+
+共18道题，合计100分。所有数值设计合理（答案为整数或简单分数，不出现无限循环小数）。所有题目手机可输入答案。选择题answer为"A"/"B"/"C"/"D"。填空和解答题answer为最终答案字符串。
+${EXAM_SCHEMA}`
+}
+
 // ─── AI 评分 Prompt（主观题批量评分）───────────────────
 function getScoringPrompt(questions, answers, subject) {
   const items = questions
@@ -299,34 +343,49 @@ function getGlobalIndex(sections, targetId) {
 function SetupMode({ onStart, subject, grade: gradeProp, onBack }) {
   // 小学：年级 4/5/6 可选；初中：固定 'junior2'
   const isJunior = gradeProp === 'junior2'
-  const [selectedGrade, setSelectedGrade] = useState(isJunior ? 'junior2' : 5)
-  const [examType, setExamType] = useState('final')
+  const isMath = subject === 'math'
+  const [selectedGrade, setSelectedGrade] = useState(isJunior ? 'junior2' : (isMath ? 6 : 5))
+  const [examType, setExamType] = useState(isMath ? 'xsc' : 'final')
 
   const isPolitics = subject === 'politics'
   const themeGradient = isPolitics
     ? 'from-red-500 to-orange-600'
     : subject === 'english'
       ? 'from-blue-500 to-indigo-600'
-      : 'from-amber-500 to-orange-600'
+      : subject === 'math'
+        ? 'from-indigo-500 to-purple-600'
+        : 'from-amber-500 to-orange-600'
 
-  const subjectLabel = isPolitics ? '道德与法治' : subject === 'english' ? '英语' : '语文'
+  const subjectLabel = isPolitics ? '道德与法治' : subject === 'english' ? '英语' : subject === 'math' ? '数学' : '语文'
 
-  const examTypes = isJunior
+  // 数学专属考试类型
+  const examTypes = isMath
     ? [
-        { key: 'midterm', label: '期中综合', emoji: '📖' },
-        { key: 'final',   label: '期末综合', emoji: '🎯' },
-        { key: 'mock',    label: '中考模拟', emoji: '🏆' },
+        { key: 'xsc',    label: '小升初模拟', emoji: '🏆' },
+        { key: 'unit',   label: '单元综合',   emoji: '📖' },
+        { key: 'final',  label: '期末综合',   emoji: '🎯' },
+        { key: 'review', label: '总复习',     emoji: '📋' },
       ]
-    : [
-        { key: 'midterm', label: '期中综合', emoji: '📖' },
-        { key: 'final',   label: '期末综合', emoji: '🎯' },
-      ]
+    : isJunior
+      ? [
+          { key: 'midterm', label: '期中综合', emoji: '📖' },
+          { key: 'final',   label: '期末综合', emoji: '🎯' },
+          { key: 'mock',    label: '中考模拟', emoji: '🏆' },
+        ]
+      : [
+          { key: 'midterm', label: '期中综合', emoji: '📖' },
+          { key: 'final',   label: '期末综合', emoji: '🎯' },
+        ]
 
-  const difficultyText = isJunior
-    ? '中考难度 · 不超出初二范围'
-    : '基础70% · 提升20% · 拓展10%'
+  const difficultyText = isMath
+    ? '小升初真题难度 · 比平时测验难20%'
+    : isJunior
+      ? '中考难度 · 不超出初二范围'
+      : '基础70% · 提升20% · 拓展10%'
 
-  const questionCount = '选择8＋判断4＋填空4＋阅读2＋作文1'
+  const questionCount = isMath
+    ? '计算4＋选择6＋填空4＋操作应用2＋解决问题2'
+    : '选择8＋判断4＋填空4＋阅读2＋作文1'
 
   return (
     <div className="flex flex-col gap-5 px-4 py-5">
@@ -338,7 +397,7 @@ function SetupMode({ onStart, subject, grade: gradeProp, onBack }) {
       </div>
 
       {/* 年级选择（仅小学显示） */}
-      {!isJunior && (
+      {!isJunior && !isMath && (
         <div>
           <div className="text-xs font-semibold text-gray-500 mb-2">选择年级</div>
           <div className="flex gap-2">
@@ -363,6 +422,17 @@ function SetupMode({ onStart, subject, grade: gradeProp, onBack }) {
           <div>
             <div className="font-bold text-base">初中二年级（八年级）</div>
             <div className="text-xs opacity-80">人教版 · 中考备考</div>
+          </div>
+        </div>
+      )}
+
+      {/* 数学：小升初定位 */}
+      {isMath && (
+        <div className={`rounded-2xl p-4 bg-gradient-to-r ${themeGradient} text-white flex items-center gap-3`}>
+          <span className="text-2xl">🎓</span>
+          <div>
+            <div className="font-bold text-base">小学六年级（升学冲刺）</div>
+            <div className="text-xs opacity-80">人教版 · 小升初真题难度</div>
           </div>
         </div>
       )}
@@ -1319,8 +1389,8 @@ export default function SelfTestPage({ user, subject, grade: gradeProp = 'primar
   const [elapsed, setElapsed] = useState(0)
   const [error, setError] = useState(null)
 
-  const themeColor = subject === 'politics' ? 'from-red-500 to-orange-600' : subject === 'english' ? 'from-blue-500 to-indigo-600' : 'from-amber-500 to-orange-600'
-  const themeBg = subject === 'politics' ? 'from-red-50 to-orange-50' : subject === 'english' ? 'from-blue-50 to-indigo-50' : 'from-amber-50 to-orange-50'
+  const themeColor = subject === 'politics' ? 'from-red-500 to-orange-600' : subject === 'english' ? 'from-blue-500 to-indigo-600' : subject === 'math' ? 'from-indigo-500 to-purple-600' : 'from-amber-500 to-orange-600'
+  const themeBg = subject === 'politics' ? 'from-red-50 to-orange-50' : subject === 'english' ? 'from-blue-50 to-indigo-50' : subject === 'math' ? 'from-indigo-50 to-purple-50' : 'from-amber-50 to-orange-50'
 
   async function handleStart({ grade, examType }) {
     setMode('loading')
@@ -1333,6 +1403,9 @@ export default function SelfTestPage({ user, subject, grade: gradeProp = 'primar
       if (subject === 'politics') {
         systemPrompt = getPoliticsExamPrompt(examType)
         userPrompt = `请生成一份初二道德与法治${JUNIOR_EXAM_TYPE_MAP[examType] || '期末综合'}测试卷。严格按照要求的题型结构和分值出题，确保总分100分。`
+      } else if (subject === 'math') {
+        systemPrompt = getMathExamPrompt(examType)
+        userPrompt = `请生成一份${MATH_EXAM_TYPE_MAP[examType] || '小升初模拟'}数学试卷，满分100分。严格按照要求的题型结构出题，确保难度达到小升初真题级别。`
       } else if (isJunior && subject === 'chinese') {
         systemPrompt = getJuniorChineseExamPrompt(examType)
         userPrompt = `请生成一份初二语文${JUNIOR_EXAM_TYPE_MAP[examType] || '期末综合'}测试卷。严格按照要求的题型结构和分值出题，确保总分100分。`
@@ -1398,7 +1471,7 @@ export default function SelfTestPage({ user, subject, grade: gradeProp = 'primar
   // ─── 设置界面 ───
   if (mode === 'setup') {
     return (
-      <div className={`min-h-screen flex flex-col ${subject === 'english' ? 'bg-gradient-to-b from-blue-50 to-indigo-50' : 'bg-gradient-to-b from-amber-50 to-orange-50'}`}>
+      <div className={`min-h-screen flex flex-col ${subject === 'english' ? 'bg-gradient-to-b from-blue-50 to-indigo-50' : subject === 'math' ? 'bg-gradient-to-b from-indigo-50 to-purple-50' : 'bg-gradient-to-b from-amber-50 to-orange-50'}`}>
         <div className={`sticky top-0 z-10 bg-gradient-to-r ${themeColor} text-white shadow-sm`}
           style={{ paddingTop: 'env(safe-area-inset-top, 12px)' }}>
           <div className="flex items-center gap-3 px-4 pt-3 pb-3">
@@ -1406,7 +1479,7 @@ export default function SelfTestPage({ user, subject, grade: gradeProp = 'primar
               className="w-9 h-9 flex items-center justify-center bg-white/20 rounded-xl text-lg font-bold active:bg-white/30">
               ←
             </button>
-            <h1 className="flex-1 text-xl font-bold">📝 {subject === 'politics' ? '道德与法治' : subject === 'english' ? '英语' : '语文'}自测小考</h1>
+            <h1 className="flex-1 text-xl font-bold">📝 {subject === 'politics' ? '道德与法治' : subject === 'english' ? '英语' : subject === 'math' ? '数学' : '语文'}自测小考</h1>
           </div>
         </div>
         {error && (

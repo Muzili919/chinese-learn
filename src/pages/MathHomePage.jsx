@@ -18,7 +18,7 @@ const MATH_TOPICS = [
     emoji: '📐',
     color: 'from-green-400 to-teal-600',
     desc: '平面图形·立体图形·面积·体积·单位换算',
-    questionCount: 50,
+    questionCount: 35,
   },
   {
     id: 'math_olympiad',
@@ -27,7 +27,7 @@ const MATH_TOPICS = [
     emoji: '🏆',
     color: 'from-orange-400 to-red-500',
     desc: '行程追及·工程问题·鸡兔同笼·植树·年龄',
-    questionCount: 35,
+    questionCount: 50,
   },
 ]
 
@@ -71,7 +71,7 @@ export default function MathHomePage({ user, onStartQuiz, onStartFormula }) {
           <span className="text-2xl">🔢</span>
           <h2 className="text-xl font-bold text-gray-800">数学星图</h2>
         </div>
-        <p className="text-xs text-gray-400">小学 5-6 年级 · 125道题 · 挑战模式已解锁</p>
+        <p className="text-xs text-gray-400">小学 5-6 年级 · 125道题 · 每次练习10题</p>
       </div>
 
       {/* 快速统计卡片 */}
@@ -146,7 +146,7 @@ export default function MathHomePage({ user, onStartQuiz, onStartFormula }) {
             <div className="flex items-center gap-2">
               <span className="font-bold text-base">公式速记</span>
               <span className="text-[10px] bg-white/25 text-white px-1.5 py-0.5 rounded-full font-medium">
-                50张
+                50张 · 10题/次
               </span>
             </div>
             <div className="text-xs text-white/80 mt-0.5">SRS 闪卡 · 面积·体积·运算定律·分数法则</div>
@@ -157,17 +157,17 @@ export default function MathHomePage({ user, onStartQuiz, onStartFormula }) {
         {/* AI自测入口 */}
         <button
           onClick={() => onStartQuiz({ selfTest: true, selfTestSubject: 'math' })}
-          className="bg-gradient-to-br from-amber-400 to-orange-500 text-white rounded-2xl p-4 flex items-center gap-4 shadow-sm active:scale-95 transition-transform text-left"
+          className="bg-gradient-to-br from-indigo-500 to-purple-600 text-white rounded-2xl p-4 flex items-center gap-4 shadow-sm active:scale-95 transition-transform text-left"
         >
           <span className="text-4xl leading-none">🧪</span>
           <div className="flex-1 min-w-0">
             <div className="flex items-center gap-2">
               <span className="font-bold text-base">AI 模拟测试</span>
               <span className="text-[10px] bg-white/25 text-white px-1.5 py-0.5 rounded-full font-medium">
-                AI出卷
+                小升初
               </span>
             </div>
-            <div className="text-xs text-white/80 mt-0.5">智能组题 · 查漏补缺 · 应用题解析</div>
+            <div className="text-xs text-white/80 mt-0.5">小升初真题难度 · 18题100分 · 计算＋应用＋综合</div>
           </div>
           <span className="text-white/60 text-xl flex-shrink-0">›</span>
         </button>

@@ -26,6 +26,7 @@ const FALLBACK_FORMULAS = [
 ]
 
 const CATEGORIES = ['全部', '平面图形', '立体图形', '分数法则', '运算定律', '单位换算']
+const FORMULA_SESSION_SIZE = 10 // 每次练习10张
 
 export default function MathFormulaPage({ user, onBack }) {
   const FORMULAS = formulasRaw.length > 0 ? formulasRaw : FALLBACK_FORMULAS
@@ -56,9 +57,9 @@ export default function MathFormulaPage({ user, onBack }) {
     setQuizResult(null)
     setShowExample(false)
     if (mode === 'quiz') {
-      // 打乱顺序开始闯关
+      // 打乱顺序，每次取10张开始闯关
       const shuffled = [...filtered].sort(() => Math.random() - 0.5)
-      setSession(shuffled)
+      setSession(shuffled.slice(0, FORMULA_SESSION_SIZE))
     }
   }, [activeCategory, mode])
 
