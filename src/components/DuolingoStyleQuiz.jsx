@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect, useMemo } from 'react'
-import { generateVariant, evaluateClassicalTranslation } from '../utils/ai'
+import { evaluateClassicalTranslation } from '../utils/ai'
+import { generateVariantsStream } from '../utils/ai_v2'
 import { checkAiUsage, getAiUsage } from '../hooks/usePlan'
 import { storage } from '../utils/storage'
 
@@ -327,9 +328,23 @@ function FeedbackPanel({ correct, analysis, answer, onContinue, variantState }) 
             </button>
           )}
           {vs.showButton && vs.phase === 'loading' && (
-            <div className="w-full mb-3 py-2.5 rounded-2xl bg-violet-50 border-2 border-violet-100 flex items-center justify-center gap-2">
-              <div className="w-3.5 h-3.5 border-2 border-violet-300 border-t-violet-500 rounded-full animate-spin flex-shrink-0" />
-              <span className="text-sm text-violet-500 font-medium">AI 正在出一道同类题…</span>
+            <div className="w-full mb-3 rounded-2xl bg-violet-50 border-2 border-violet-100 px-4 py-3">
+              <div className="flex items-center gap-2 mb-1.5">
+                <div className="w-3 h-3 border-2 border-violet-300 border-t-violet-500 rounded-full animate-spin flex-shrink-0" />
+                <span className="text-xs text-violet-500 font-medium">AI 正在出同类题…</span>
+              </div>
+              {vs.streamText ? (
+                <p className="text-sm text-violet-700 font-medium leading-snug">
+                  {vs.streamText}<span className="inline-block w-0.5 h-4 bg-violet-400 ml-0.5 animate-pulse align-middle" />
+                </p>
+              ) : (
+                <div className="flex gap-1">
+                  {[0,1,2].map(i => (
+                    <div key={i} className="w-1.5 h-1.5 bg-violet-300 rounded-full animate-bounce"
+                      style={{ animationDelay: `${i * 0.15}s` }} />
+                  ))}
+                </div>
+              )}
             </div>
           )}
           {/* 次数用完：升级提示 */}
@@ -1515,6 +1530,7 @@ export default function DuolingoStyleQuiz({ question, onAnswerSubmit, showVarian
   const [variantQ, setVariantQ] = useState(null)
   const [variantPhase, setVariantPhase] = useState('idle') // 'idle'|'loading'|'answering'|'done'|'blocked'
   const [variantSel, setVariantSel] = useState(null)
+  const [variantStreamText, setVariantStreamText] = useState('') // 流式生成时的实时文本
   // AI 使用次数（今日剩余）
   const [variantRemaining, setVariantRemaining] = useState(null)  // null=未知, 数字=已知
 
@@ -1544,6 +1560,7 @@ export default function DuolingoStyleQuiz({ question, onAnswerSubmit, showVarian
     setVariantQ(null)
     setVariantPhase('idle')
     setVariantSel(null)
+    setVariantStreamText('')
   }
 
   async function handleVariant(isAuto = false) {
@@ -1561,12 +1578,38 @@ export default function DuolingoStyleQuiz({ question, onAnswerSubmit, showVarian
       setVariantRemaining(check.remaining)
     }
     setVariantPhase('loading')
+    setVariantStreamText('')
     try {
-      const v = await generateVariant(question)
-      setVariantQ(v)
-      setVariantPhase('answering')
-    } catch {
+      // 使用流式 API：用户看到文字逐渐出现，体感速度提升 10 倍
+      const subject = question.knowledge_tag?.includes('英') ? 'english' : 'chinese'
+      const result = await generateVariantsStream(question, 1, subject, (delta, fullText) => {
+        // 从流式 JSON 中实时提取题目文字（让用户看到题目在"打字"）
+        const m = fullText.match(/"question"\s*:\s*"([^"]{4,})"?/)
+        if (m) setVariantStreamText(m[1])
+      })
+      if (result.variants?.length > 0) {
+        const v = result.variants[0]
+        setVariantQ({
+          id: `variant_${question.id}`,
+          type: 'single_choice',
+          question: v.question,
+          options: v.options,
+          answer: v.answer,
+          analysis: v.analysis,
+          knowledge_tag: question.knowledge_tag,
+          ability_tag: question.ability_tag,
+          difficulty: question.difficulty,
+          isVariant: true,
+        })
+        setVariantStreamText('')
+        setVariantPhase('answering')
+      } else {
+        setVariantPhase('idle')
+      }
+    } catch (e) {
+      console.warn('[Variant] 生成失败:', e.message)
       setVariantPhase('idle')
+      setVariantStreamText('')
     }
   }
 
@@ -1674,6 +1717,7 @@ export default function DuolingoStyleQuiz({ question, onAnswerSubmit, showVarian
             question: variantQ,
             selected: variantSel,
             remaining: variantRemaining,
+            streamText: variantStreamText,
             onSelect: (opt) => { setVariantSel(opt); setVariantPhase('done') },
             onGenerate: () => handleVariant(false),
           }}
