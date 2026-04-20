@@ -671,6 +671,7 @@ export default function App() {
       <WrongAnswersPage
         user={user}
         subject={activeSubject}
+        grade={grade}
         onStartWrongQuiz={(ids) => { setQuizOptions({ wrongCardIds: ids }); setPage('quiz') }}
         onVariantTraining={startVariantTraining}
         onBack={goHome}
@@ -805,6 +806,7 @@ export default function App() {
         <WrongAnswersPage
           user={user}
           subject={activeSubject}
+          grade={grade}
           onStartWrongQuiz={(ids) => { setQuizOptions({ wrongCardIds: ids }); setPage('quiz') }}
           onVariantTraining={startVariantTraining}
           onBack={() => setActiveTab('home')}

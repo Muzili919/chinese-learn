@@ -1541,21 +1541,47 @@ export default function MV1Demo({ onBack, initialState, onStateChange, grade, cu
           <DailyTasksPanel state={state} onClaim={handleClaimTask} />
         )}
 
-        {activeTab === 'game' && (
-          <WordCannonGame
-            state={state}
-            grade={grade}
-            onGameStateUpdate={(patch) => setState(s => {
-              if (!s) return s;
-              if (patch._gameStatePartial) {
-                // ★ partial merge：游戏结束只更新 gameState 字段，不覆盖其他 state
-                const { _gameStatePartial, gameState: newGS, ...rest } = patch;
-                return { ...s, ...rest, gameState: { ...(s.gameState || {}), ...newGS } };
-              }
-              return { ...s, ...patch };
-            })}
-          />
-        )}
+        {activeTab === 'game' && (() => {
+          // ★ 错题积压锁：有错题时不能玩游戏
+          const wrongCount = currentUserId ? storage.getWrongCardIds(currentUserId).size : 0
+          if (wrongCount > 0) {
+            return (
+              <div style={{ padding: '48px 24px', textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', minHeight: 300 }}>
+                <div style={{ fontSize: 56, marginBottom: 12 }}>🔒</div>
+                <div style={{ fontSize: 18, fontWeight: 700, color: '#374151', marginBottom: 8 }}>错题未清，游戏锁定</div>
+                <div style={{ fontSize: 13, color: '#6b7280', lineHeight: 1.7, maxWidth: 280, marginBottom: 20 }}>
+                  还有 <span style={{ color: '#ef4444', fontWeight: 700, fontSize: 16 }}>{wrongCount}</span> 道错题待攻克<br />
+                  先消灭它们，再回来玩吧！
+                </div>
+                <button
+                  onClick={() => { if (onBack) onBack() }}
+                  style={{
+                    background: 'linear-gradient(135deg, #ef4444, #f97316)',
+                    color: 'white', border: 'none', borderRadius: 14,
+                    padding: '12px 32px', fontSize: 14, fontWeight: 700,
+                    cursor: 'pointer', boxShadow: '0 4px 14px rgba(239,68,68,0.25)',
+                  }}
+                >
+                  去消灭错题 →
+                </button>
+              </div>
+            )
+          }
+          return (
+            <WordCannonGame
+              state={state}
+              grade={grade}
+              onGameStateUpdate={(patch) => setState(s => {
+                if (!s) return s;
+                if (patch._gameStatePartial) {
+                  const { _gameStatePartial, gameState: newGS, ...rest } = patch;
+                  return { ...s, ...rest, gameState: { ...(s.gameState || {}), ...newGS } };
+                }
+                return { ...s, ...patch };
+              })}
+            />
+          )
+        })()}
 
         {activeTab === 'shop' && (
           <ShopPanel state={state} onBuy={handleShopAction} onUseItem={handleUseItem} spendableXP={spendableXP} />

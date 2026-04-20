@@ -27,6 +27,16 @@
       "memberId": "add-pythagorean@_auto_42748c2e202a48cf900b31f48557dfc6",
       "name": "add-pythagorean",
       "role": "补充勾股定理题目至10道"
+    },
+    {
+      "memberId": "vocab-fixer@_auto_42748c2e202a48cf900b31f48557dfc6",
+      "name": "vocab-fixer",
+      "role": "修复/重写字词题库中的不合适题目"
+    },
+    {
+      "memberId": "vocab-generator@_auto_42748c2e202a48cf900b31f48557dfc6",
+      "name": "vocab-generator",
+      "role": "为字词星球生成高质量新题"
     }
   ],
   "isAutoTeam": true

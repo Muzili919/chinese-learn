@@ -13,6 +13,14 @@ import enReadingQ from '../data/questions_en_reading.json'
 import enWritingQ from '../data/questions_en_writing.json'
 import enClozeQ from '../data/questions_en_j2_cloze.json'
 import politicsQ from '../data/questions_politics_choice.json'
+// 数学题库
+import mathBasicQ from '../data/questions_math_basic.json'
+import mathGeometryQ from '../data/questions_math_geometry.json'
+import mathOlympiadQ from '../data/questions_math_olympiad.json'
+import mathEquationQ from '../data/questions_math_junior_equation.json'
+import mathFunctionQ from '../data/questions_math_junior_function.json'
+import mathAlgebraQ from '../data/questions_math_junior_algebra.json'
+import mathGeoQ from '../data/questions_math_junior_geo.json'
 
 const ALL_QUESTIONS = [...vocabQ, ...poetryQ, ...idiomQ, ...sentenceQ, ...litQ]
 const Q_MAP = Object.fromEntries(ALL_QUESTIONS.map(q => [q.id, q]))
@@ -24,32 +32,70 @@ const EN_Q_MAP = Object.fromEntries(EN_ALL_QUESTIONS.map(q => [q.id, q]))
 const POLITICS_ALL = Array.isArray(politicsQ) ? politicsQ : (politicsQ.questions || [])
 const POLITICS_Q_MAP = Object.fromEntries(POLITICS_ALL.map(q => [q.id, q]))
 
+// 数学题库合并（所有专题）
+const MATH_ALL_QUESTIONS = [
+  ...(Array.isArray(mathBasicQ) ? mathBasicQ : []),
+  ...(Array.isArray(mathGeometryQ) ? mathGeometryQ : []),
+  ...(Array.isArray(mathOlympiadQ) ? mathOlympiadQ : []),
+  ...(Array.isArray(mathEquationQ) ? mathEquationQ : []),
+  ...(Array.isArray(mathFunctionQ) ? mathFunctionQ : []),
+  ...(Array.isArray(mathAlgebraQ) ? mathAlgebraQ : []),
+  ...(Array.isArray(mathGeoQ) ? mathGeoQ : []),
+]
+const MATH_Q_MAP = Object.fromEntries(MATH_ALL_QUESTIONS.map(q => [q.id, q]))
+
 // 合并拍照上传的题目
 function getAllQMap(subject) {
   const photoQs = getPhotoQuestions()
   const photoFiltered = Object.fromEntries(
     Object.entries(photoQs).filter(([, q]) => {
       if (subject === 'english') return q.subject === 'english'
+      if (subject === 'math') return q.subject === 'math'
+      if (subject === 'politics' || subject === '道法') return q.subject === 'politics' || q.subject === '道法'
       return !q.subject || q.subject === 'chinese'
     })
   )
   if (subject === 'politics' || subject === '道法') return { ...photoFiltered, ...POLITICS_Q_MAP }
+  if (subject === 'math') return { ...photoFiltered, ...MATH_Q_MAP }
   return { ...photoFiltered, ...(subject === 'english' ? EN_Q_MAP : Q_MAP) }
 }
 
 const TAG_COLORS = {
+  // 语文
   字词: 'bg-blue-100 text-blue-700',
   古诗词: 'bg-green-100 text-green-700',
   成语: 'bg-orange-100 text-orange-700',
   句子: 'bg-violet-100 text-violet-700',
   文学常识: 'bg-rose-100 text-rose-700',
+  // 数学
+  '数与运算': 'bg-blue-100 text-blue-700',
+  '图形与空间': 'bg-emerald-100 text-emerald-700',
+  '奥数专题': 'bg-orange-100 text-orange-700',
+  '方程与不等式': 'bg-indigo-100 text-indigo-700',
+  '函数与图像': 'bg-pink-100 text-pink-700',
+  '整式运算': 'bg-teal-100 text-teal-700',
+  '几何证明': 'bg-amber-100 text-amber-700',
+  // 英语
+  vocabulary: 'bg-sky-100 text-sky-700',
+  grammar: 'bg-green-100 text-green-700',
+  listening: 'bg-violet-100 text-violet-700',
+  reading: 'bg-orange-100 text-orange-700',
+  writing: 'bg-pink-100 text-pink-700',
+  cloze: 'bg-indigo-100 text-indigo-700',
 }
 
 // 学科配置（用于显示当前学科标签）
 const SUBJECT_LABELS = {
   chinese: { label: '语文', emoji: '📖' },
   english: { label: '英语', emoji: '🌎' },
+  math:    { label: '数学', emoji: '🔢' },
   politics: { label: '道法', emoji: '⚖️' },
+}
+
+// 按学段的可用学科列表
+const GRADE_SUBJECTS = {
+  primary: ['chinese', 'english', 'math'],
+  junior2: ['english', 'politics', 'math'],
 }
 
 function daysDiff(dateStr) {
@@ -71,6 +117,7 @@ function computeWrongCards(userId, subject, qMap) {
   const records = allRecords.filter(r => {
     if (subject === 'english') return r.subject === 'english'
     if (subject === 'politics') return r.subject === 'politics' || r.subject === '道法'
+    if (subject === 'math') return r.subject === 'math'
     return !r.subject || r.subject === 'chinese'
   })
   const srsStates = storage.getSrsState(userId)
@@ -147,14 +194,17 @@ function computeWrongCards(userId, subject, qMap) {
   return { cards, overdueCount }
 }
 
-export default function WrongAnswersPage({ user, subject = 'chinese', onStartWrongQuiz, onVariantTraining, onBack, onSubjectChange }) {
+export default function WrongAnswersPage({ user, subject = 'chinese', onStartWrongQuiz, onVariantTraining, onBack, onSubjectChange, grade = 'primary' }) {
   const [filter, setFilter] = useState('all')  // all | overdue | pending
   const [selectedIds, setSelectedIds] = useState(new Set())
   const [showPhotoUpload, setShowPhotoUpload] = useState(false)
   const fileInputRef = useRef(null)
 
-  // ★ 直接使用传入的 subject，不在页面内切换（跟随用户年级/科目）
-  const currentSubject = subject
+  // ★ 当前学段可用的学科列表（用于切换标签）
+  const availableSubjects = GRADE_SUBJECTS[grade] || GRADE_SUBJECTS.primary
+
+  // ★ 直接使用传入的 subject，不在页面内切换到其他学段的学科
+  const currentSubject = availableSubjects.includes(subject) ? subject : (availableSubjects[0] || 'chinese')
 
   const allQMap = useMemo(() => getAllQMap(currentSubject), [currentSubject])
 
@@ -214,7 +264,9 @@ export default function WrongAnswersPage({ user, subject = 'chinese', onStartWro
   }
 
   // 当前学科的标题后缀
-  const subjectLabel = currentSubject === 'english' ? '（英语）' : currentSubject === 'politics' ? '（道法）' : '（语文）'
+  const subjectLabel = SUBJECT_LABELS[currentSubject]
+    ? `（${SUBJECT_LABELS[currentSubject].label}）`
+    : '（语文）'
 
   return (
     <div className="flex flex-col min-h-screen bg-gradient-to-b from-red-50 to-orange-50">
@@ -243,12 +295,26 @@ export default function WrongAnswersPage({ user, subject = 'chinese', onStartWro
           />
         </div>
 
-        {/* ★ 当前学科标签（静态显示，不切换） */}
-        <div className="flex items-center gap-2 mt-1">
-          <span className="inline-flex items-center gap-1 px-3 py-1.5 rounded-xl text-xs font-semibold bg-red-500 text-white shadow-sm">
-            <span>{SUBJECT_LABELS[currentSubject]?.emoji || '📖'}</span>
-            <span>{SUBJECT_LABELS[currentSubject]?.label || '语文'}</span>
-          </span>
+        {/* ★ 当前学段的学科切换标签（可点击切换，不跨学段） */}
+        <div className="flex items-center gap-2 mt-1 overflow-x-auto scrollbar-hide pb-1">
+          {availableSubjects.map(subj => {
+            const info = SUBJECT_LABELS[subj] || SUBJECT_LABELS.chinese
+            const isActive = subj === currentSubject
+            return (
+              <button
+                key={subj}
+                onClick={() => onSubjectChange && onSubjectChange(subj)}
+                className={`inline-flex items-center gap-1 px-3 py-1.5 rounded-xl text-xs font-semibold transition-all flex-shrink-0 ${
+                  isActive
+                    ? 'bg-red-500 text-white shadow-sm'
+                    : 'bg-white text-gray-500 border border-gray-200 active:bg-gray-50'
+                }`}
+              >
+                <span>{info.emoji}</span>
+                <span>{info.label}</span>
+              </button>
+            )
+          })}
         </div>
 
         {/* 积压警告 */}

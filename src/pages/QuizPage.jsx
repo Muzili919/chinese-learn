@@ -200,8 +200,9 @@ export default function QuizPage({ user, options = {}, onFinish, onBack }) {
         }
         storage.addSession(user.id, session)
         // 标记星球完成（至少答5题且完成全部，才算打卡）
-        if (allRecords.length >= 5 && current?.knowledge_tag) {
-          storage.markPlanetComplete(user.id, current.knowledge_tag)
+        if (allRecords.length >= 5) {
+          const tag = current?.knowledge_tag || (mathTopic ? ('🔢 ' + (current?.topic || mathTopic)) : null)
+          if (tag) storage.markPlanetComplete(user.id, tag)
         }
         updateStreak(user.id)
         // 今日已见：记录本 session 所有题 id
@@ -251,8 +252,9 @@ export default function QuizPage({ user, options = {}, onFinish, onBack }) {
         }
         storage.addSession(user.id, session)
         // 标记星球完成（至少答5题且完成全部，才算打卡）
-        if (allRecords.length >= 5 && current?.knowledge_tag) {
-          storage.markPlanetComplete(user.id, current.knowledge_tag)
+        if (allRecords.length >= 5) {
+          const tag = current?.knowledge_tag || (mathTopic ? ('🔢 ' + (current?.topic || mathTopic)) : null)
+          if (tag) storage.markPlanetComplete(user.id, tag)
         }
         updateStreak(user.id)
         syncAfterSession(user.id)
