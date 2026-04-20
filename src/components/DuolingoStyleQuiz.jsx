@@ -317,13 +317,14 @@ function FeedbackPanel({ correct, analysis, answer, onContinue, variantState }) 
             </div>
           )}
 
-          {/* 举一反三区域 - 在面板内部 */}
+          {/* 举一反三区域 - 答错时显示（用户看完解析后手动触发） */}
           {vs.showButton && !correct && vs.phase === 'idle' && (
             <button onClick={vs.onGenerate}
-              className="w-full mb-3 py-3 rounded-2xl font-bold text-violet-600 bg-white border-2 border-violet-300 text-sm active:scale-95 flex items-center justify-center gap-2">
-              <span>🔀 举一反三（AI出题）</span>
+              className="w-full mb-3 py-3.5 rounded-2xl font-bold text-white bg-gradient-to-r from-violet-500 to-purple-600 text-sm active:scale-[0.98] transition-all flex items-center justify-center gap-2 shadow-lg">
+              <span className="text-base">🔀</span>
+              <span>举一反三（AI出同类题）</span>
               {vs.remaining !== null && vs.remaining !== 9999 && (
-                <span className="text-xs font-normal text-violet-400">今日剩余 {vs.remaining} 次</span>
+                <span className="text-xs font-normal text-violet-200">今日剩余 {vs.remaining} 次</span>
               )}
             </button>
           )}
@@ -360,12 +361,21 @@ function FeedbackPanel({ correct, analysis, answer, onContinue, variantState }) 
             </div>
           )}
           {vs.showButton && (vs.phase === 'answering' || vs.phase === 'done') && vs.question && (
-            <div className="mb-3 bg-violet-50 border-2 border-violet-200 rounded-2xl p-4">
-              <div className="flex items-center gap-2 mb-3">
-                <span className="text-violet-600 text-sm font-bold">🔀 举一反三</span>
-                <span className="bg-violet-100 text-violet-600 text-xs px-2 py-0.5 rounded-full">AI 出题</span>
-                {vs.question.isListeningVariant && (
-                  <span className="bg-amber-100 text-amber-600 text-xs px-2 py-0.5 rounded-full">听力题</span>
+            <div className="mb-3 bg-gradient-to-br from-violet-50 to-purple-50 border-2 border-violet-200 rounded-2xl p-4">
+              <div className="flex items-center justify-between mb-3">
+                <div className="flex items-center gap-2">
+                  <span className="text-violet-600 text-sm font-bold">🔀 举一反三</span>
+                  <span className="bg-violet-100 text-violet-600 text-xs px-2 py-0.5 rounded-full">AI 出题</span>
+                  {vs.question.isListeningVariant && (
+                    <span className="bg-amber-100 text-amber-600 text-xs px-2 py-0.5 rounded-full">听力题</span>
+                  )}
+                </div>
+                {/* 变式题完成后：显示"再出一题"按钮 */}
+                {vs.phase === 'done' && vs.onRegenerate && (
+                  <button onClick={vs.onRegenerate}
+                    className="text-xs font-bold text-violet-500 underline flex-shrink-0 active:text-violet-700">
+                    🔄 再出一题
+                  </button>
                 )}
               </div>
               {/* ★ 听力变体题：隐藏文字题目，用TTS播放 + 选项作答 */}
@@ -1629,10 +1639,8 @@ export default function DuolingoStyleQuiz({ question, onAnswerSubmit, showVarian
   function handleDone(answer, correct) {
     setChosenAnswer(answer)
     setPhase(correct ? 'correct' : 'wrong')
-    // 答错时：后台自动出变式题，用户读分析的同时 AI 已在生成，无需等待
-    if (!correct && showVariantButton && variantPhase === 'idle') {
-      handleVariant(true) // isAuto=true，配额用完时静默跳过
-    }
+    // ★ 修复：不再自动后台出变式题！用户需要先看完解析，再手动点击"举一反三"
+    // 这样用户可以：1) 看到正确答案 2) 阅读解析 3) 决定是否要做变式题
   }
 
   function handleContinue() {
@@ -1823,6 +1831,15 @@ export default function DuolingoStyleQuiz({ question, onAnswerSubmit, showVarian
             remaining: variantRemaining,
             streamText: variantStreamText,
             onSelect: (opt) => { setVariantSel(opt); setVariantPhase('done') },
+            // ★ 再出一题：重置当前变式题状态，重新生成
+            onRegenerate: () => {
+              setVariantSel(null)
+              setVariantPhase('idle')
+              setVariantQ(null)
+              setVariantStreamText('')
+              // 延迟一帧触发生成
+              setTimeout(() => handleVariant(false), 50)
+            },
             onGenerate: () => handleVariant(false),
             // ★ 听力变体题：TTS播放回调
             onSpeakVariant: variantQ?.isListeningVariant ? () => {
