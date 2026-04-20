@@ -491,36 +491,95 @@ app.post('/api/friend-preview', async (req, res) => {
   }
 })
 
-// ========== AI 中转路由（DeepSeek API 代理） ==========
-// 前端通过 /api/ai 调用，服务端转发到 DeepSeek，保护 API Key
+// ========== AI 中转路由（多模型 API 代理） ==========
+// 前端通过 /api/ai 调用，服务端转发到不同AI服务，保护 API Key
 const DEEPSEEK_API_KEY = process.env.DEEPSEEK_API_KEY || ''
 const DEEPSEEK_BASE_URL = process.env.DEEPSEEK_BASE_URL || 'https://api.deepseek.com'
+
+// 千问API配置
+const QWEN_API_KEY = process.env.QWEN_API_KEY || ''
+const QWEN_BASE_URL = process.env.QWEN_BASE_URL || 'https://dashscope.aliyuncs.com/compatible-mode/v1'
+const QWEN_MODEL = process.env.QWEN_MODEL || 'qwen-max'
+
+// 默认模型配置
+const DEFAULT_MODEL = process.env.DEFAULT_AI_MODEL || 'deepseek-chat'
+
+// 判断是否为千问模型
+function isQwenModel(modelName) {
+  return modelName && modelName.toLowerCase().includes('qwen')
+}
+
+// 获取模型配置
+function getModelConfig(modelName) {
+  const model = modelName || DEFAULT_MODEL
+  
+  if (isQwenModel(model)) {
+    return {
+      baseUrl: QWEN_BASE_URL,
+      apiKey: QWEN_API_KEY,
+      endpoint: '/chat/completions',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${QWEN_API_KEY}`,
+      },
+      modelName: QWEN_MODEL,
+      provider: 'qwen'
+    }
+  } else {
+    // 默认使用DeepSeek
+    return {
+      baseUrl: DEEPSEEK_BASE_URL,
+      apiKey: DEEPSEEK_API_KEY,
+      endpoint: '/chat/completions',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${DEEPSEEK_API_KEY}`,
+      },
+      modelName: model || 'deepseek-chat',
+      provider: 'deepseek'
+    }
+  }
+}
 
 app.post('/api/ai', async (req, res) => {
   const { model, messages, response_format, temperature, max_tokens } = req.body
   if (!messages || !Array.isArray(messages)) return error(res, '缺少 messages 参数')
 
   try {
+    const modelConfig = getModelConfig(model)
+    
+    // 检查API密钥
+    if (!modelConfig.apiKey) {
+      console.error(`[AI] ${modelConfig.provider} API密钥未配置`)
+      return error(res, `AI服务配置错误: ${modelConfig.provider} API密钥缺失`, 500)
+    }
+
+    // 构建请求体（适配不同API格式）
     const fetchBody = {
-      model: model || 'deepseek-chat',
+      model: modelConfig.modelName,
       messages,
       temperature: temperature ?? 0.7,
       max_tokens: max_tokens || 1024,
     }
-    if (response_format) fetchBody.response_format = response_format
-
-    // ★ 支持两种认证方式：Bearer Token（DeepSeek）或自定义 Header
-    const headers = {
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${DEEPSEEK_API_KEY}`,
+    
+    // 千问API可能需要不同的参数格式
+    if (modelConfig.provider === 'qwen') {
+      // 千问API可能需要stream参数
+      if (req.body.stream) {
+        fetchBody.stream = true
+      }
     }
+    
+    if (response_format) fetchBody.response_format = response_format
 
     const controller = new AbortController()
     const timer = setTimeout(() => controller.abort(), 60000)
 
-    const aiRes = await fetch(`${DEEPSEEK_BASE_URL}/chat/completions`, {
+    console.log(`[AI] 使用模型: ${modelConfig.provider} - ${modelConfig.modelName}`)
+    
+    const aiRes = await fetch(`${modelConfig.baseUrl}${modelConfig.endpoint}`, {
       method: 'POST',
-      headers,
+      headers: modelConfig.headers,
       body: JSON.stringify(fetchBody),
       signal: controller.signal,
     })
@@ -528,10 +587,10 @@ app.post('/api/ai', async (req, res) => {
 
     if (!aiRes.ok) {
       const errText = await aiRes.text()
-      console.error('[AI] DeepSeek 返回错误:', aiRes.status, errText.slice(0, 200))
+      console.error(`[AI] ${modelConfig.provider} 返回错误:`, aiRes.status, errText.slice(0, 200))
       if (aiRes.status === 429) return error(res, 'AI服务繁忙，请等待几秒后重试', 429)
       if (aiRes.status === 401) return error(res, 'AI认证失败', 502)
-      return error(res, `AI请求失败 (${aiRes.status})`, 502)
+      return error(res, `${modelConfig.provider}请求失败 (${aiRes.status})`, 502)
     }
 
     const data = await aiRes.json()
@@ -543,7 +602,7 @@ app.post('/api/ai', async (req, res) => {
   }
 })
 
-// ========== AI SSE 流式响应 ==========
+// ========== AI SSE 流式响应（多模型支持） ==========
 app.post('/api/ai/stream', async (req, res) => {
   const { model, messages, response_format, temperature, max_tokens } = req.body
   if (!messages || !Array.isArray(messages)) return error(res, '缺少 messages 参数')
@@ -557,35 +616,42 @@ app.post('/api/ai/stream', async (req, res) => {
   })
 
   try {
+    const modelConfig = getModelConfig(model)
+    
+    // 检查API密钥
+    if (!modelConfig.apiKey) {
+      console.error(`[AI-STREAM] ${modelConfig.provider} API密钥未配置`)
+      res.write(`data: ${JSON.stringify({ error: `AI服务配置错误: ${modelConfig.provider} API密钥缺失` })}\\n\\n`)
+      res.end()
+      return
+    }
+
     const fetchBody = {
-      model: model || 'deepseek-chat',
+      model: modelConfig.modelName,
       messages,
       temperature: temperature ?? 0.7,
       max_tokens: max_tokens || 1024,
-      stream: true, // ★ DeepSeek 流式
+      stream: true,
     }
     if (response_format) fetchBody.response_format = response_format
 
-    const headers = {
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${DEEPSEEK_API_KEY}`,
-    }
-
-    const aiRes = await fetch(`${DEEPSEEK_BASE_URL}/chat/completions`, {
+    console.log(`[AI-STREAM] 使用模型: ${modelConfig.provider} - ${modelConfig.modelName}`)
+    
+    const aiRes = await fetch(`${modelConfig.baseUrl}${modelConfig.endpoint}`, {
       method: 'POST',
-      headers,
+      headers: modelConfig.headers,
       body: JSON.stringify(fetchBody),
     })
 
     if (!aiRes.ok) {
       const errText = await aiRes.text()
-      console.error('[AI-STREAM] DeepSeek 返回错误:', aiRes.status, errText.slice(0, 200))
-      res.write(`data: ${JSON.stringify({ error: `AI请求失败 (${aiRes.status})` })}\n\n`)
+      console.error(`[AI-STREAM] ${modelConfig.provider} 返回错误:`, aiRes.status, errText.slice(0, 200))
+      res.write(`data: ${JSON.stringify({ error: `${modelConfig.provider}请求失败 (${aiRes.status})` })}\\n\\n`)
       res.end()
       return
     }
 
-    // 流式转发 DeepSeek 的 SSE 数据
+    // 流式转发 AI 服务的 SSE 数据
     const reader = aiRes.body.getReader()
     const decoder = new TextDecoder()
     let buffer = ''
@@ -595,7 +661,7 @@ app.post('/api/ai/stream', async (req, res) => {
       if (done) break
 
       buffer += decoder.decode(value, { stream: true })
-      const lines = buffer.split('\n')
+      const lines = buffer.split('\\n')
       buffer = lines.pop() || '' // 保留未完成的行
 
       for (const line of lines) {

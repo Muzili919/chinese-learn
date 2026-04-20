@@ -287,7 +287,7 @@ export default function QuizPage({ user, options = {}, onFinish, onBack }) {
           key={current.id}
           question={current}
           onAnswerSubmit={handleAnswerSubmit}
-          showVariantButton={true}
+          showVariantButton={false}
           onGenerateVariant={handleGenerateVariant}
         />
       </div>
