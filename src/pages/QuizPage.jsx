@@ -120,7 +120,8 @@ export default function QuizPage({ user, options = {}, onFinish, onBack }) {
     }
     // 数学专题
     if (mathTopic) {
-      const mathPool = MATH_ALL.filter(q => q.topic === mathTopic)
+      let mathPool = MATH_ALL.filter(q => q.topic === mathTopic)
+      if (minDifficulty) mathPool = mathPool.filter(q => (q.difficulty || 0) >= minDifficulty)
       return shuffle(mathPool).slice(0, sessionSize).map(shuffleOptions)
     }
 
@@ -129,7 +130,7 @@ export default function QuizPage({ user, options = {}, onFinish, onBack }) {
     const isMixed = !knowledgeTag && !focusTag
     const seenToday = new Set(storage.getSeenToday(user.id))
     return scheduleSession(pool, srsStates.current, sessionSize, focusTag, isMixed, seenToday).map(shuffleOptions)
-  }, [focusTag, knowledgeTag, wrongCardIds, sessionSize])
+  }, [focusTag, knowledgeTag, wrongCardIds, sessionSize, mathTopic, minDifficulty])
 
   const isWrongReview = !!(wrongCardIds?.length)
 
