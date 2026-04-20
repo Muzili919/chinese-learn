@@ -133,11 +133,43 @@ function splitAtNums(str) {
 
 // 从子题文字中提取 A/B/C/D 选项
 function extractInlineOptions(text) {
-  // "A. small B. large C. new D. old" 格式（选项同行排列）
+  // 模式1: "A. small B. large C. new D. old" 格式（选项同行排列）
   const matches = [...text.matchAll(/([A-D])\.\s*(.+?)(?=\s+[A-D]\.\s|$)/g)]
   if (matches.length >= 2) {
     return matches.map(m => ({ letter: m[1], text: m[2].trim() }))
   }
+  
+  // 模式2: 多行选项（每行一个）
+    // A. listen to
+    // B. look at
+    // ...
+  const lineMatches = [...text.matchAll(/^([A-D])\.\s*(.+)$/gm)]
+  if (lineMatches.length >= 2) {
+    return lineMatches.map(m => ({ letter: m[1], text: m[2].trim() }))
+  }
+  
+  return null
+}
+
+// 从题干(preamble)中提取前置选项（用于"先给选项再填空"的题型）
+function extractPreambleOptions(preamble) {
+  if (!preamble) return null
+  // 检查 preamble 是否包含 A.B.C.D. 格式的选项列表
+  const opts = extractInlineOptions(preamble)
+  if (opts && opts.length >= 2) return opts
+  
+  // 检查括号内选项: (opt1 / opt2 / opt3 / opt4)
+  const parenMatch = preamble.match(/\(([^)]+)\)/)
+  if (parenMatch) {
+    const items = parenMatch[1].split('/').map(s => s.trim()).filter(Boolean)
+    if (items.length >= 2) {
+      return items.slice(0, 4).map((t, i) => ({
+        letter: ['A','B','C','D'][i],
+        text: t
+      }))
+    }
+  }
+  
   return null
 }
 
@@ -146,6 +178,10 @@ function parseSubParts(q) {
   const { parts: aParts } = splitAtNums(q.answer || '')
   const answerMap = Object.fromEntries(aParts.map(p => [p.num, p.text]))
 
+  // 预先提取preamble中的选项（供所有子题复用）
+  const preambleOptions = extractPreambleOptions(passage) || (q.options && q.options.length >= 2 ? 
+    q.options.map((o, i) => ({ letter: ['A','B','C','D'][i], text: o.replace(/^[A-D]\.\s*/i, '').trim() })) : null)
+
   const subQuestions = qParts.map(part => {
     const rawAnswer = (answerMap[part.num] || '').trim()
 
@@ -153,31 +189,53 @@ function parseSubParts(q) {
     let options = null
     let displayText = part.text
 
-    if (/^[TtFf]$/.test(rawAnswer)) {
+    // 清理答案：去掉可能的题号前缀如 "1-B" → "B"
+    let cleanAnswer = rawAnswer.replace(/^[\d\s\-]+([A-Da-d]).*$/i, '$1').trim()
+
+    if (/^[TtFf]$/.test(cleanAnswer)) {
       type = 'tf'
-      // 去掉判断括号 (　) (  )
       displayText = part.text.replace(/\s*[（(][　\s]*[）)]/g, '').trim()
-    } else if (/^[A-Da-d]$/.test(rawAnswer)) {
+    } else if (/^[A-Da-d]$/.test(cleanAnswer)) {
       type = 'choice'
       options = extractInlineOptions(part.text)
+      if (!options && preambleOptions) {
+        options = preambleOptions
+      }
       if (!options && q.options && q.options.length >= 2) {
         options = q.options.map((o, i) => ({
           letter: ['A','B','C','D'][i],
           text: o.replace(/^[A-D]\.\s*/i, '').trim(),
         }))
       }
-      // 去掉所有选项行（统一处理单行/多行选项，修复选项跨两行时第二行残留的 bug）
+      // 去掉所有选项行（统一处理单行/多行选项）
       displayText = part.text
         .split('\n')
         .filter(line => !/^[A-D]\.\s/.test(line.trim()))
         .join('\n')
         .trim()
+    } else if (/^[A-Da-d]$/.test(rawAnswer.charAt(0)) && preambleOptions) {
+      // 答案以字母开头且preamble有选项 → 当选择题处理
+      type = 'choice'
+      options = preambleOptions
+      cleanAnswer = rawAnswer.charAt(0).toUpperCase()
+    }
+
+    // ★ 关键修复：text类型但有preamble选项 → 提升为选择题（截图#3的bug）
+    if (type === 'text' && preambleOptions && preambleOptions.length >= 2) {
+      // 检查答案是否匹配某个选项的字母或内容
+      const answerUpper = rawAnswer.toUpperCase().trim()
+      const matchedLetter = preambleOptions.find(o => o.letter === answerUpper || o.text.toUpperCase() === answerUpper)
+      if (matchedLetter || /^[A-D]$/.test(answerUpper)) {
+        type = 'choice'
+        options = preambleOptions
+        cleanAnswer = matchedLetter ? matchedLetter.letter : answerUpper
+      }
     }
 
     return {
       num: part.num,
       displayText,
-      rawAnswer,
+      rawAnswer: cleanAnswer || rawAnswer,
       type,
       options,
     }
@@ -291,7 +349,10 @@ function MultiSubQuiz({ question: q, onSubmit, englishTag }) {
       {/* 当前子题 */}
       <div className="bg-white rounded-2xl p-4 shadow-sm">
         <div className="text-xs font-bold text-sky-500 mb-2">（{current.num}）</div>
-        <p className="text-gray-800 text-sm leading-relaxed">{current.displayText}</p>
+        <p 
+          className="text-gray-800 text-sm leading-relaxed"
+          dangerouslySetInnerHTML={{ __html: current.displayText }}
+        />
       </div>
 
       {/* T/F 按钮（英语用 A/B 标签） */}
@@ -361,51 +422,52 @@ function MultiSubQuiz({ question: q, onSubmit, englishTag }) {
         </div>
       )}
 
-      {/* 文本输入（开放式问答） */}
+      {/* 文本输入（单词填空 — 自动批改模式） */}
       {current.type === 'text' && !submitted && (
         <div className="flex flex-col gap-2">
-          <textarea
+          <input
+            type="text"
             value={textInput}
             onChange={e => setTextInput(e.target.value)}
-            placeholder="用英语写出答案..."
-            rows={2}
-            className="border-2 border-gray-200 rounded-xl px-4 py-3 text-sm focus:border-sky-400 outline-none bg-white resize-none"
+            onKeyDown={e => e.key === 'Enter' && textInput.trim() && handleText()}
+            placeholder="输入答案..."
+            className="border-2 border-gray-200 rounded-xl px-4 py-3 text-sm font-mono font-bold text-center focus:border-sky-400 outline-none bg-white"
             autoFocus
             autoComplete="off" autoCorrect="off" spellCheck="false"
+            inputMode="text"
           />
           <button
-            onClick={() => { if (textInput.trim()) setSubmitted(true) }}
+            onClick={handleText}
             disabled={!textInput.trim()}
             className="bg-sky-500 disabled:bg-gray-200 text-white font-bold py-3 rounded-xl active:scale-95"
           >
-            查看参考答案
+            提交答案
           </button>
         </div>
       )}
 
-      {/* 开放式：查看参考答案后自评 */}
-      {current.type === 'text' && submitted && !currentCorrect && (
+      {/* 文本输入 — 答案反馈（自动批改结果） */}
+      {current.type === 'text' && submitted && (
         <div className="flex flex-col gap-2">
-          <div className="bg-sky-50 border border-sky-200 rounded-xl p-3">
-            <div className="text-xs font-semibold text-sky-600 mb-1">📖 参考答案</div>
-            <div className="text-sm text-gray-700">{current.rawAnswer}</div>
-          </div>
-          {textInput && (
-            <div className="bg-gray-50 border border-gray-200 rounded-xl p-3">
-              <div className="text-xs font-semibold text-gray-400 mb-1">你的答案</div>
-              <div className="text-sm text-gray-600">{textInput}</div>
+          <div className={`rounded-xl p-3 border ${currentCorrect ? 'bg-green-50 border-green-300' : 'bg-red-50 border-red-300'}`}>
+            <div className={`text-xs font-semibold mb-1 ${currentCorrect ? 'text-green-600' : 'text-red-500'}`}>
+              {currentCorrect ? '✅ 回答正确！' : '❌ 答错了'}
             </div>
-          )}
-          <div className="grid grid-cols-2 gap-2">
-            <button onClick={() => { setCurrentCorrect(true) }}
-              className="py-3 rounded-xl border-2 border-green-300 bg-green-50 text-green-700 font-bold active:scale-95">
-              ✓ 答对了
-            </button>
-            <button onClick={() => { setCurrentCorrect(false); advance() }}
-              className="py-3 rounded-xl border-2 border-amber-300 bg-amber-50 text-amber-700 font-bold active:scale-95">
-              需再学
-            </button>
+            {!currentCorrect && (
+              <>
+                <div className="text-xs text-gray-400 mt-1">你的答案</div>
+                <div className="text-sm font-medium text-gray-600 line-through">{textInput}</div>
+                <div className="text-xs text-green-600 font-semibold mt-2">正确答案</div>
+                <div className="text-sm font-bold text-green-700">{current.rawAnswer}</div>
+              </>
+            )}
           </div>
+          <button
+            onClick={advance}
+            className="w-full py-3 rounded-xl bg-gradient-to-r from-sky-400 to-blue-500 text-white font-bold active:scale-95"
+          >
+            下一题 →
+          </button>
         </div>
       )}
 

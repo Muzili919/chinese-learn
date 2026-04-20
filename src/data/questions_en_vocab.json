@@ -4,9 +4,14 @@
     "subject": "english",
     "knowledge_tag": "英语词汇",
     "ability_tag": "语音辨析",
-    "type": "multiple_choice",
-    "question": "找出下列单词中划线部分发音不同的一项。\n\nA. cat\nB. bag\nC. name\nD. map",
-    "options": [],
+    "type": "single_choice",
+    "question": "找出下列单词中划线部分发音不同的一项。\n\nA. <u>cat</u>\nB. <u>bag</u>\nC. <u>name</u>\nD. <u>map</u>",
+    "options": [
+      "cat",
+      "bag",
+      "name",
+      "map"
+    ],
     "answer": "C",
     "analysis": "【考点】本题考查元音字母a在闭音节和开音节中的发音。\n【解题思路】判断每个单词中a的发音。\n【总结】开音节中元音字母发字母本身音，闭音节中发短音。",
     "difficulty": 0.3
@@ -45,7 +50,8 @@
     "options": [],
     "answer": "（1）have （2）likes （3）go （4）are",
     "analysis": "【考点】本题考查主谓一致和动词形式。\n【解题思路】根据主语人称和数选择动词形式。\n【总结】I用have/am；第三人称单数用likes；Let's后跟动词原形；复数主语用are。",
-    "difficulty": 0.3
+    "difficulty": 0.3,
+    "inline_choices": true
   },
   {
     "id": "en_vocab_005",
@@ -64,9 +70,14 @@
     "subject": "english",
     "knowledge_tag": "英语词汇",
     "ability_tag": "语音辨析",
-    "type": "multiple_choice",
-    "question": "找出下列单词中划线部分发音不同的一项。\n\nA. tea\nB. bread\nC. meat\nD. sea",
-    "options": [],
+    "type": "single_choice",
+    "question": "找出下列单词中划线部分发音不同的一项。\n\nA. <u>tea</u>\nB. <u>bread</u>\nC. <u>meat</u>\nD. <u>sea</u>",
+    "options": [
+      "tea",
+      "bread",
+      "meat",
+      "sea"
+    ],
     "answer": "B",
     "analysis": "【考点】本题考查字母组合ea的发音。\n【解题思路】判断ea在不同单词中的发音。\n【总结】ea可发/iː/或/e/，需要记忆常见例词。",
     "difficulty": 0.5
@@ -105,7 +116,8 @@
     "options": [],
     "answer": "（1）my （2）Whose （3）us （4）in",
     "analysis": "【考点】本题考查代词和介词的用法。\n【解题思路】分析句子成分。\n【总结】形容词性物主代词后跟名词；Whose询问所属；介词后用人称代词宾格；in表示在里面。",
-    "difficulty": 0.5
+    "difficulty": 0.5,
+    "inline_choices": true
   },
   {
     "id": "en_vocab_010",
@@ -124,9 +136,14 @@
     "subject": "english",
     "knowledge_tag": "英语词汇",
     "ability_tag": "语音辨析",
-    "type": "multiple_choice",
-    "question": "找出下列单词中划线部分发音不同的一项。\n\nA. cat\nB. cake\nC. hat\nD. map",
-    "options": [],
+    "type": "single_choice",
+    "question": "找出下列单词中划线部分发音不同的一项。\n\nA. <u>cat</u>\nB. <u>cake</u>\nC. <u>hat</u>\nD. <u>map</u>",
+    "options": [
+      "cat",
+      "cake",
+      "hat",
+      "map"
+    ],
     "answer": "B",
     "analysis": "【考点】本题考查元音字母a在开音节和闭音节中的发音。\n【解题思路】A、C、D中的a发/æ/，B中的a发/eɪ/。\n【总结】开音节中元音发字母本音，闭音节中发短音。",
     "difficulty": 0.5
@@ -165,7 +182,8 @@
     "options": [],
     "answer": "（1）likes （2）shopping （3）an （4）taller",
     "analysis": "【考点】本题考查主谓一致、固定搭配、冠词用法、比较级。\n【解题思路】（1）主语She第三人称单数，动词加s；（2）go shopping固定搭配；（3）orange元音音素开头用an；（4）than提示比较级。\n【总结】综合运用语法规则。",
-    "difficulty": 0.5
+    "difficulty": 0.5,
+    "inline_choices": true
   },
   {
     "id": "en_vocab_015",
@@ -184,9 +202,14 @@
     "subject": "english",
     "knowledge_tag": "英语词汇",
     "ability_tag": "语音辨析",
-    "type": "multiple_choice",
-    "question": "找出下列单词中划线部分发音不同的一项。\n\nA. three\nB. that\nC. thin\nD. thank",
-    "options": [],
+    "type": "single_choice",
+    "question": "找出下列单词中划线部分发音不同的一项。\n\nA. <u>three</u>\nB. <u>that</u>\nC. <u>thin</u>\nD. <u>thank</u>",
+    "options": [
+      "three",
+      "that",
+      "thin",
+      "thank"
+    ],
     "answer": "B",
     "analysis": "【考点】本题考查th字母组合的两种发音。\n【解题思路】A、C、D中th发/θ/，B中th发/ð/。\n【总结】th在实词（名词、动词、形容词）中多读/θ/，在虚词（冠词、代词、连词）中多读/ð/。",
     "difficulty": 0.5
@@ -225,7 +248,8 @@
     "options": [],
     "answer": "（1）is （2）dance （3）go （4）for",
     "analysis": "【考点】本题考查There be就近原则、情态动词后动词原形、let's后动词原形、固定搭配it's time for。\n【解题思路】（1）be动词与最近的主语a pen一致用is；（2）can后接动词原形；（3）let's后接动词原形；（4）it's time for + 名词。\n【总结】记忆常见句型结构。",
-    "difficulty": 0.5
+    "difficulty": 0.5,
+    "inline_choices": true
   },
   {
     "id": "en_vocab_020",
@@ -244,9 +268,14 @@
     "subject": "english",
     "knowledge_tag": "英语词汇",
     "ability_tag": "语音辨析",
-    "type": "multiple_choice",
-    "question": "找出下列单词中划线部分发音不同的一项。\n\nA. book\nB. good\nC. school\nD. look",
-    "options": [],
+    "type": "single_choice",
+    "question": "找出下列单词中划线部分发音不同的一项。\n\nA. <u>book</u>\nB. <u>good</u>\nC. <u>school</u>\nD. <u>look</u>",
+    "options": [
+      "book",
+      "good",
+      "school",
+      "look"
+    ],
     "answer": "C",
     "analysis": "【考点】本题考查字母组合oo的发音。\n【解题思路】A、B、D中oo发/ʊ/，C中oo发/uː/。\n【总结】oo在k前多读短音/ʊ/，但school例外。",
     "difficulty": 0.7
@@ -285,7 +314,8 @@
     "options": [],
     "answer": "（1）my （2）does （3）are （4）an",
     "analysis": "【考点】本题考查形容词性物主代词、第三人称单数、现在进行时、冠词用法。\n【解题思路】（1）后面有名词book用my；（2）主语She三单；（3）主语They复数；（4）hour元音音素开头。\n【总结】形容词性物主代词后跟名词。",
-    "difficulty": 0.7
+    "difficulty": 0.7,
+    "inline_choices": true
   },
   {
     "id": "en_vocab_025",
@@ -304,9 +334,14 @@
     "subject": "english",
     "knowledge_tag": "英语词汇",
     "ability_tag": "语音辨析",
-    "type": "multiple_choice",
-    "question": "找出下列单词中划线部分发音不同的一项。\n\nA. what\nB. who\nC. where\nD. white",
-    "options": [],
+    "type": "single_choice",
+    "question": "找出下列单词中划线部分发音不同的一项。\n\nA. <u>what</u>\nB. <u>who</u>\nC. <u>where</u>\nD. <u>white</u>",
+    "options": [
+      "what",
+      "who",
+      "where",
+      "white"
+    ],
     "answer": "B",
     "analysis": "【考点】本题考查wh字母组合的发音。\n【解题思路】A、C、D中wh发/w/，B中wh发/h/。\n【总结】wh后接o时多读/h/，其余多读/w/。",
     "difficulty": 0.3
@@ -345,7 +380,8 @@
     "options": [],
     "answer": "（1）younger （2）swimming （3）doesn't （4）Does",
     "analysis": "【考点】本题考查比较级、固定搭配、否定句和疑问句。\n【解题思路】（1）than提示比较级；（2）go swimming；（3）主语He三单；（4）主语She三单。\n【总结】助动词do/does后接动词原形。",
-    "difficulty": 0.3
+    "difficulty": 0.3,
+    "inline_choices": true
   },
   {
     "id": "en_vocab_030",
@@ -364,9 +400,14 @@
     "subject": "english",
     "knowledge_tag": "英语词汇",
     "ability_tag": "语音辨析",
-    "type": "multiple_choice",
-    "question": "找出下列单词中划线部分发音不同的一项。\n\nA. now\nB. know\nC. how\nD. brown",
-    "options": [],
+    "type": "single_choice",
+    "question": "找出下列单词中划线部分发音不同的一项。\n\nA. <u>now</u>\nB. <u>know</u>\nC. <u>how</u>\nD. <u>brown</u>",
+    "options": [
+      "now",
+      "know",
+      "how",
+      "brown"
+    ],
     "answer": "B",
     "analysis": "【考点】本题考查ow字母组合的两种发音。\n【解题思路】A、C、D中ow发/aʊ/，B中ow发/əʊ/。\n【总结】ow在词尾常发/aʊ/，但在know, snow, grow中发/əʊ/。",
     "difficulty": 0.5
@@ -405,7 +446,8 @@
     "options": [],
     "answer": "（1）many （2）wants （3）am （4）good",
     "analysis": "【考点】本题考查many/much区别、第三人称单数、be动词、be good at短语。\n【解题思路】（1）books可数复数用many；（2）主语She三单；（3）主语I用am；（4）be good at固定搭配。\n【总结】much修饰不可数名词。",
-    "difficulty": 0.5
+    "difficulty": 0.5,
+    "inline_choices": true
   },
   {
     "id": "en_vocab_035",
@@ -424,9 +466,14 @@
     "subject": "english",
     "knowledge_tag": "英语词汇",
     "ability_tag": "语音辨析",
-    "type": "multiple_choice",
-    "question": "找出下列单词中划线部分发音不同的一项。\n\nA. bread\nB. eat\nC. tea\nD. meat",
-    "options": [],
+    "type": "single_choice",
+    "question": "找出下列单词中划线部分发音不同的一项。\n\nA. <u>bread</u>\nB. <u>eat</u>\nC. <u>tea</u>\nD. <u>meat</u>",
+    "options": [
+      "bread",
+      "eat",
+      "tea",
+      "meat"
+    ],
     "answer": "A",
     "analysis": "【考点】本题考查ea字母组合的发音。\n【解题思路】B、C、D中ea发/iː/，A中ea发/e/。\n【总结】ea常发/iː/，但在bread, breakfast, heavy中发/e/。",
     "difficulty": 0.5
@@ -465,7 +512,8 @@
     "options": [],
     "answer": "（1）Whose （2）meet （3）has （4）sleeping",
     "analysis": "【考点】本题考查疑问词、let's句型、第三人称单数、现在进行时。\n【解题思路】（1）询问谁的用whose；（2）let's后动词原形；（3）主语She三单；（4）is + doing现在进行时。\n【总结】whose提问所有格。",
-    "difficulty": 0.5
+    "difficulty": 0.5,
+    "inline_choices": true
   },
   {
     "id": "en_vocab_040",
@@ -484,9 +532,14 @@
     "subject": "english",
     "knowledge_tag": "英语词汇",
     "ability_tag": "语音辨析",
-    "type": "multiple_choice",
-    "question": "找出下列单词中划线部分发音不同的一项。\n\nA. bike\nB. kite\nC. big\nD. like",
-    "options": [],
+    "type": "single_choice",
+    "question": "找出下列单词中划线部分发音不同的一项。\n\nA. <u>bike</u>\nB. <u>kite</u>\nC. <u>big</u>\nD. <u>like</u>",
+    "options": [
+      "bike",
+      "kite",
+      "big",
+      "like"
+    ],
     "answer": "C",
     "analysis": "【考点】本题考查元音字母i在开音节和闭音节中的发音。\n【解题思路】A、B、D中i发/aɪ/，C中i发/ɪ/。\n【总结】开音节中元音发字母本音，闭音节中发短音。",
     "difficulty": 0.5
@@ -525,7 +578,8 @@
     "options": [],
     "answer": "（1）apples （2）goes （3）is （4）speak",
     "analysis": "【考点】本题考查名词复数、第三人称单数、There be句型、情态动词。\n【解题思路】（1）How many后接可数名词复数；（2）主语My brother三单；（3）milk不可数名词用is；（4）can后动词原形。\n【总结】不可数名词前不能用many，要用much。",
-    "difficulty": 0.5
+    "difficulty": 0.5,
+    "inline_choices": true
   },
   {
     "id": "en_vocab_045",
@@ -544,9 +598,14 @@
     "subject": "english",
     "knowledge_tag": "英语词汇",
     "ability_tag": "语音辨析",
-    "type": "multiple_choice",
-    "question": "找出下列单词中划线部分发音不同的一项。\n\nA. house\nB. mouse\nC. young\nD. cloud",
-    "options": [],
+    "type": "single_choice",
+    "question": "找出下列单词中划线部分发音不同的一项。\n\nA. <u>house</u>\nB. <u>mouse</u>\nC. <u>young</u>\nD. <u>cloud</u>",
+    "options": [
+      "house",
+      "mouse",
+      "young",
+      "cloud"
+    ],
     "answer": "C",
     "analysis": "【考点】本题考查ea字母组合的发音。\n【解题思路】B、C、D中ea发/e/，A中read（原形）发/iː/。\n【总结】ea常发/iː/，但在head, bread, breakfast, heavy中发/e/。注意read过去式读/red/，与原形/riːd/不同。",
     "difficulty": 0.7
@@ -585,7 +644,8 @@
     "options": [],
     "answer": "（1）my; yours （2）clean （3）is （4）watching",
     "analysis": "【考点】本题考查物主代词、let's句型、主谓一致、enjoy doing。\n【解题思路】（1）后跟名词用形容词性物主代词，不跟名词用名词性物主代词；（2）let's后动词原形；（3）主语She三单；（4）enjoy后接doing。\n【总结】名词性物主代词=形容词性物主代词+名词。",
-    "difficulty": 0.7
+    "difficulty": 0.7,
+    "inline_choices": true
   },
   {
     "id": "en_vocab_050",
@@ -604,9 +664,14 @@
     "subject": "english",
     "knowledge_tag": "英语词汇",
     "ability_tag": "语音辨析",
-    "type": "multiple_choice",
-    "question": "找出下列单词中划线部分发音不同的一项。\n\nA. chair\nB. school\nC. watch\nD. much",
-    "options": [],
+    "type": "single_choice",
+    "question": "找出下列单词中划线部分发音不同的一项。\n\nA. <u>chair</u>\nB. <u>school</u>\nC. <u>watch</u>\nD. <u>much</u>",
+    "options": [
+      "chair",
+      "school",
+      "watch",
+      "much"
+    ],
     "answer": "B",
     "analysis": "【考点】本题考查ch字母组合的发音。\n【解题思路】A、C、D中ch发/tʃ/，B中ch发/k/。\n【总结】ch在大多数单词中发/tʃ/，但在school, Christmas, chemistry中发/k/。",
     "difficulty": 0.3
@@ -645,7 +710,8 @@
     "options": [],
     "answer": "（1）Who （2）doesn't （3）are （4）go",
     "analysis": "【考点】本题考查疑问词、否定句、There be句型、let's句型。\n【解题思路】（1）提问主语用who；（2）主语She三单，否定用doesn't；（3）people是集合名词，复数概念用are；（4）let's后动词原形。\n【总结】people作“人们”解时是复数，作“民族”解时有单复数变化。",
-    "difficulty": 0.3
+    "difficulty": 0.3,
+    "inline_choices": true
   },
   {
     "id": "en_vocab_055",
@@ -664,9 +730,14 @@
     "subject": "english",
     "knowledge_tag": "英语词汇",
     "ability_tag": "语音辨析",
-    "type": "multiple_choice",
-    "question": "找出下列单词中划线部分发音不同的一项。\n\nA. read（原形）\nB. head\nC. bread\nD. heavy",
-    "options": [],
+    "type": "single_choice",
+    "question": "找出下列单词中划线部分发音不同的一项。\n\nA. <u>read（原形）</u>\nB. <u>head</u>\nC. <u>bread</u>\nD. <u>heavy</u>",
+    "options": [
+      "read（原形）",
+      "head",
+      "bread",
+      "heavy"
+    ],
     "answer": "A",
     "analysis": "【考点】本题考查ea字母组合的发音。\n【解题思路】B、C、D中ea发/e/，A中read（原形）发/iː/。\n【总结】ea常发/iː/，但在head, bread, breakfast, heavy中发/e/。注意read过去式读/red/，与原形/riːd/发音不同。",
     "difficulty": 0.5
@@ -705,7 +776,8 @@
     "options": [],
     "answer": "（1）interested （2）most （3）knives （4）spends",
     "analysis": "【考点】本题考查ed/ing形容词、最高级、名词复数、第三人称单数。\n【解题思路】（1）be interested in固定搭配；（2）最高级前加the most；（3）knife变复数f变ves；（4）主语She三单。\n【总结】形容词最高级前加the，副词最高级前the可省略。",
-    "difficulty": 0.5
+    "difficulty": 0.5,
+    "inline_choices": true
   },
   {
     "id": "en_vocab_060",
@@ -724,9 +796,14 @@
     "subject": "english",
     "knowledge_tag": "英语词汇",
     "ability_tag": "语音辨析",
-    "type": "multiple_choice",
-    "question": "找出下列单词中划线部分发音不同的一项。\n\nA. teacher\nB. Chinese\nC. school\nD. chair",
-    "options": [],
+    "type": "single_choice",
+    "question": "找出下列单词中划线部分发音不同的一项。\n\nA. <u>teacher</u>\nB. <u>Chinese</u>\nC. <u>school</u>\nD. <u>chair</u>",
+    "options": [
+      "teacher",
+      "Chinese",
+      "school",
+      "chair"
+    ],
     "answer": "C",
     "analysis": "【考点】本题考查ch和tch的发音区别。\n【解题思路】A、B、D中ch/tch发/tʃ/，C中ch发/k/。\n【总结】ch在school, Christmas, chemistry中发/k/，其他多数发/tʃ/。",
     "difficulty": 0.5
@@ -765,7 +842,8 @@
     "options": [],
     "answer": "（1）a （2）are （3）have （4）does",
     "analysis": "【考点】本题考查冠词、主谓一致、let's句型、第三人称单数。\n【解题思路】（1）useful以辅音音素开头用a；（2）parents复数用are；（3）let's后动词原形；（4）主语She三单。\n【总结】useful虽以u开头，但读音是/juː/，辅音音素。",
-    "difficulty": 0.5
+    "difficulty": 0.5,
+    "inline_choices": true
   },
   {
     "id": "en_vocab_065",
@@ -784,9 +862,14 @@
     "subject": "english",
     "knowledge_tag": "英语词汇",
     "ability_tag": "语音辨析",
-    "type": "multiple_choice",
-    "question": "找出下列单词中划线部分发音不同的一项。\n\nA. play\nB. day\nC. says\nD. wait",
-    "options": [],
+    "type": "single_choice",
+    "question": "找出下列单词中划线部分发音不同的一项。\n\nA. <u>play</u>\nB. <u>day</u>\nC. <u>says</u>\nD. <u>wait</u>",
+    "options": [
+      "play",
+      "day",
+      "says",
+      "wait"
+    ],
     "answer": "D",
     "analysis": "【考点】本题考查s在词中的发音。\n【解题思路】A中news的s读/z/，B中newspaper的s读/z/，C中nose的s读/z/，D中nurse的s读/s/。\n【总结】s在元音后常读/z/（如news, nose），在辅音后常读/s/（如nurse, first）。",
     "difficulty": 0.5
@@ -825,7 +908,8 @@
     "options": [],
     "answer": "（1）on （2）a few （3）well （4）excited",
     "analysis": "【考点】本题考查介词、修饰可数/不可数名词、副词、ed/ing形容词。\n【解题思路】（1）具体日期用on；（2）eggs可数复数用a few；（3）修饰动词sings用副词well；（4）人感到兴奋用excited。\n【总结】a few修饰可数，a little修饰不可数。",
-    "difficulty": 0.5
+    "difficulty": 0.5,
+    "inline_choices": true
   },
   {
     "id": "en_vocab_070",
@@ -844,9 +928,14 @@
     "subject": "english",
     "knowledge_tag": "英语词汇",
     "ability_tag": "语音辨析",
-    "type": "multiple_choice",
-    "question": "找出下列单词中划线部分发音不同的一项。\n\nA. cough\nB. enough\nC. through\nD. laugh",
-    "options": [],
+    "type": "single_choice",
+    "question": "找出下列单词中划线部分发音不同的一项。\n\nA. <u>cough</u>\nB. <u>enough</u>\nC. <u>through</u>\nD. <u>laugh</u>",
+    "options": [
+      "cough",
+      "enough",
+      "through",
+      "laugh"
+    ],
     "answer": "C",
     "analysis": "【考点】本题考查gh字母组合的发音。\n【解题思路】A、B、D中gh发/f/，C中gh不发音。\n【总结】gh在词尾常发/f/，但在though, through, thought中不发音。",
     "difficulty": 0.7
@@ -885,7 +974,8 @@
     "options": [],
     "answer": "（1）What （2）teaches （3）is （4）doesn't",
     "analysis": "【考点】本题考查感叹句、第三人称单数、There be句型、否定句。\n【解题思路】（1）What + a/an + 形容词 + 名词结构；（2）主语She三单；（3）water不可数用is；（4）主语He三单。\n【总结】感叹句：What修饰名词，How修饰形容词/副词。",
-    "difficulty": 0.7
+    "difficulty": 0.7,
+    "inline_choices": true
   },
   {
     "id": "en_vocab_075",
@@ -904,9 +994,14 @@
     "subject": "english",
     "knowledge_tag": "英语词汇",
     "ability_tag": "语音辨析",
-    "type": "multiple_choice",
-    "question": "找出下列单词中划线部分发音不同的一项。\n\nA. news\nB. newspaper\nC. nose\nD. nurse",
-    "options": [],
+    "type": "single_choice",
+    "question": "找出下列单词中划线部分发音不同的一项。\n\nA. <u>news</u>\nB. <u>newspaper</u>\nC. <u>nose</u>\nD. <u>nurse</u>",
+    "options": [
+      "news",
+      "newspaper",
+      "nose",
+      "nurse"
+    ],
     "answer": "D",
     "analysis": "【考点】本题考查s在词中的发音。\n【解题思路】A中news的s读/z/，B中newspaper的s读/z/，C中nose的s读/z/，D中nurse的s读/s/。\n【总结】s在元音后常读/z/（如news, nose），在辅音后常读/s/（如nurse, first）。",
     "difficulty": 0.3
@@ -945,7 +1040,8 @@
     "options": [],
     "answer": "（1）best （2）some （3）is （4）sing",
     "analysis": "【考点】本题考查最高级、some/any用法、be going to、let's句型。\n【解题思路】（1）ever seen提示最高级用best；（2）疑问句期待肯定回答用some；（3）主语He用is；（4）let's后动词原形。\n【总结】最高级前加the，副词最高级the可省略。",
-    "difficulty": 0.3
+    "difficulty": 0.3,
+    "inline_choices": true
   },
   {
     "id": "en_vocab_080",
@@ -964,9 +1060,14 @@
     "subject": "english",
     "knowledge_tag": "英语词汇",
     "ability_tag": "语音辨析",
-    "type": "multiple_choice",
-    "question": "找出下列单词中划线部分发音不同的一项。\n\nA. father\nB. mother\nC. brother\nD. thank",
-    "options": [],
+    "type": "single_choice",
+    "question": "找出下列单词中划线部分发音不同的一项。\n\nA. <u>father</u>\nB. <u>mother</u>\nC. <u>brother</u>\nD. <u>thank</u>",
+    "options": [
+      "father",
+      "mother",
+      "brother",
+      "thank"
+    ],
     "answer": "D",
     "analysis": "【考点】本题考查th字母组合的两种发音。\n【解题思路】A、B、C中th发/ð/，D中th发/θ/。\n【总结】th在冠词、代词、连词、部分亲属名词中多读/ð/，在实词（名词、动词、形容词）中多读/θ/。",
     "difficulty": 0.5
@@ -1005,7 +1106,8 @@
     "options": [],
     "answer": "（1）my （2）are （3）much （4）could",
     "analysis": "【考点】本题考查物主代词、主谓一致、可数/不可数名词、情态动词过去式。\n【解题思路】（1）后面有名词room用my；（2）主语They复数用are；（3）water不可数用much；（4）过去时间用could。\n【总结】can的过去式是could，表示过去的能力。",
-    "difficulty": 0.5
+    "difficulty": 0.5,
+    "inline_choices": true
   },
   {
     "id": "en_vocab_085",
@@ -1024,9 +1126,14 @@
     "subject": "english",
     "knowledge_tag": "英语词汇",
     "ability_tag": "语音辨析",
-    "type": "multiple_choice",
-    "question": "找出下列单词中划线部分发音不同的一项。\n\nA. where\nB. there\nC. here\nD. care",
-    "options": [],
+    "type": "single_choice",
+    "question": "找出下列单词中划线部分发音不同的一项。\n\nA. <u>where</u>\nB. <u>there</u>\nC. <u>here</u>\nD. <u>care</u>",
+    "options": [
+      "where",
+      "there",
+      "here",
+      "care"
+    ],
     "answer": "C",
     "analysis": "【考点】本题考查ere/are/ere字母组合的发音。\n【解题思路】A、B、D中ere/are发/eə/，C中here发/ɪə/。\n【总结】here, mere发/ɪə/；where, there发/eə/；care, dare发/eə/。",
     "difficulty": 0.5
@@ -1065,7 +1172,8 @@
     "options": [],
     "answer": "（1）faster （2）Does （3）seeing （4）went",
     "analysis": "【考点】本题考查比较级、疑问句、look forward to后接动名词、一般过去时。\n【解题思路】（1）than提示比较级；（2）主语brother三单用Does；（3）look forward to中to是介词；（4）yesterday提示过去时。\n【总结】look forward to doing，to是介词不是不定式符号。",
-    "difficulty": 0.5
+    "difficulty": 0.5,
+    "inline_choices": true
   },
   {
     "id": "en_vocab_090",
@@ -1084,9 +1192,14 @@
     "subject": "english",
     "knowledge_tag": "英语词汇",
     "ability_tag": "语音辨析",
-    "type": "multiple_choice",
-    "question": "找出下列单词中划线部分发音不同的一项。\n\nA. good\nB. food\nC. cool\nD. school",
-    "options": [],
+    "type": "single_choice",
+    "question": "找出下列单词中划线部分发音不同的一项。\n\nA. <u>good</u>\nB. <u>food</u>\nC. <u>cool</u>\nD. <u>school</u>",
+    "options": [
+      "good",
+      "food",
+      "cool",
+      "school"
+    ],
     "answer": "A",
     "analysis": "【考点】本题考查字母组合oo的发音。\n【解题思路】B、C、D中oo发/uː/，A中oo发/ʊ/。\n【总结】oo在k前常发短音/ʊ/（book, look），但在food, school中发长音/uː/。",
     "difficulty": 0.5
@@ -1125,7 +1238,8 @@
     "options": [],
     "answer": "（1）interesting （2）many （3）go （4）studies",
     "analysis": "【考点】本题考查ed/ing形容词、可数/不可数名词、let's句型、第三人称单数。\n【解题思路】（1）修饰物用interesting；（2）eggs可数复数用many；（3）let's后动词原形；（4）主语She三单。\n【总结】interesting修饰物，interested修饰人。",
-    "difficulty": 0.5
+    "difficulty": 0.5,
+    "inline_choices": true
   },
   {
     "id": "en_vocab_095",
@@ -1144,9 +1258,14 @@
     "subject": "english",
     "knowledge_tag": "英语词汇",
     "ability_tag": "语音辨析",
-    "type": "multiple_choice",
-    "question": "找出下列单词中划线部分发音不同的一项。\n\nA. wear\nB. hear\nC. near\nD. dear",
-    "options": [],
+    "type": "single_choice",
+    "question": "找出下列单词中划线部分发音不同的一项。\n\nA. <u>wear</u>\nB. <u>hear</u>\nC. <u>near</u>\nD. <u>dear</u>",
+    "options": [
+      "wear",
+      "hear",
+      "near",
+      "dear"
+    ],
     "answer": "A",
     "analysis": "【考点】本题考查ear字母组合的发音。\n【解题思路】B、C、D中ear发/ɪə/，A中wear发/eə/。\n【总结】ear常发/ɪə/，但在wear, bear, pear中发/eə/。",
     "difficulty": 0.7
@@ -1185,7 +1304,8 @@
     "options": [],
     "answer": "（1）an （2）is （3）has （4）good",
     "analysis": "【考点】本题考查冠词、There be就近原则、have to三单、be good at。\n【解题思路】（1）honest以元音音素开头用an；（2）与a pen就近用is；（3）主语She三单用has；（4）be good at固定搭配。\n【总结】honest首字母h不发音，读作/ˈɒnɪst/，元音音素开头。",
-    "difficulty": 0.7
+    "difficulty": 0.7,
+    "inline_choices": true
   },
   {
     "id": "en_vocab_100",
@@ -1204,9 +1324,14 @@
     "subject": "english",
     "knowledge_tag": "英语词汇",
     "ability_tag": "语音辨析",
-    "type": "multiple_choice",
-    "question": "找出下列单词中划线部分发音不同的一项。\n\nA. think\nB. thank\nC. they\nD. three",
-    "options": [],
+    "type": "single_choice",
+    "question": "找出下列单词中划线部分发音不同的一项。\n\nA. <u>think</u>\nB. <u>thank</u>\nC. <u>they</u>\nD. <u>three</u>",
+    "options": [
+      "think",
+      "thank",
+      "they",
+      "three"
+    ],
     "answer": "C",
     "analysis": "【考点】本题考查th字母组合的两种发音。\n【解题思路】A、B、D中th发/θ/，C中th发/ð/。\n【总结】they是代词，th发浊辅音/ð/；think、thank、three是动词/名词，th发清辅音/θ/。",
     "difficulty": 0.3
@@ -1245,7 +1370,8 @@
     "options": [],
     "answer": "（1）Whose （2）doesn't （3）is （4）meet",
     "analysis": "【考点】本题考查疑问词、否定句、There be句型、let's句型。\n【解题思路】（1）询问物主用Whose；（2）主语He三单用doesn't；（3）milk不可数用is；（4）let's后动词原形。\n【总结】Whose与Who's（=Who is）区别：Whose询问所属关系。",
-    "difficulty": 0.3
+    "difficulty": 0.3,
+    "inline_choices": true
   },
   {
     "id": "en_vocab_105",
@@ -1264,9 +1390,14 @@
     "subject": "english",
     "knowledge_tag": "英语词汇",
     "ability_tag": "语音辨析",
-    "type": "multiple_choice",
-    "question": "找出下列单词中划线部分发音不同的一项。\n\nA. mouth\nB. month\nC. smooth\nD. tooth",
-    "options": [],
+    "type": "single_choice",
+    "question": "找出下列单词中划线部分发音不同的一项。\n\nA. <u>mouth</u>\nB. <u>month</u>\nC. <u>smooth</u>\nD. <u>tooth</u>",
+    "options": [
+      "mouth",
+      "month",
+      "smooth",
+      "tooth"
+    ],
     "answer": "C",
     "analysis": "【考点】本题考查th字母组合的发音。\n【解题思路】A、B、D中th发/θ/，C中th发/ð/。\n【总结】smooth中的th发浊辅音/ð/，其他为清辅音/θ/。",
     "difficulty": 0.5
@@ -1305,7 +1436,8 @@
     "options": [],
     "answer": "（1）most （2）some （3）went （4）good",
     "analysis": "【考点】本题考查最高级、some/any用法、一般过去时、be good at。\n【解题思路】（1）I've read提示最高级用most；（2）疑问句期待肯定回答用some；（3）last summer提示过去时；（4）be good at固定搭配。\n【总结】最高级前加the，副词最高级the可省略。",
-    "difficulty": 0.5
+    "difficulty": 0.5,
+    "inline_choices": true
   },
   {
     "id": "en_vocab_110",
@@ -1324,9 +1456,14 @@
     "subject": "english",
     "knowledge_tag": "英语词汇",
     "ability_tag": "语音辨析",
-    "type": "multiple_choice",
-    "question": "找出下列单词中划线部分发音不同的一项。\n\nA. apple\nB. map\nC. cake\nD. cat",
-    "options": [],
+    "type": "single_choice",
+    "question": "找出下列单词中划线部分发音不同的一项。\n\nA. <u>apple</u>\nB. <u>map</u>\nC. <u>cake</u>\nD. <u>cat</u>",
+    "options": [
+      "apple",
+      "map",
+      "cake",
+      "cat"
+    ],
     "answer": "C",
     "analysis": "【考点】本题考查元音字母a在开音节和闭音节中的发音。\n【解题思路】A、B、D中a发/æ/，C中a发/eɪ/。\n【总结】闭音节中a发短音/æ/，开音节中a发字母本音/eɪ/。",
     "difficulty": 0.5
@@ -1365,7 +1502,8 @@
     "options": [],
     "answer": "（1）taller （2）What （3）is （4）doesn't",
     "analysis": "【考点】本题考查比较级、感叹句、There be句型、否定句。\n【解题思路】（1）than提示比较级；（2）What + a + 形容词 + 名词；（3）juice不可数用is；（4）主语He三单。\n【总结】比较级后常接than，感叹句what修饰名词。",
-    "difficulty": 0.5
+    "difficulty": 0.5,
+    "inline_choices": true
   },
   {
     "id": "en_vocab_115",
@@ -1384,9 +1522,14 @@
     "subject": "english",
     "knowledge_tag": "英语词汇",
     "ability_tag": "语音辨析",
-    "type": "multiple_choice",
-    "question": "找出下列单词中划线部分发音不同的一项。\n\nA. music\nB. student\nC. computer\nD. bus",
-    "options": [],
+    "type": "single_choice",
+    "question": "找出下列单词中划线部分发音不同的一项。\n\nA. <u>music</u>\nB. <u>student</u>\nC. <u>computer</u>\nD. <u>bus</u>",
+    "options": [
+      "music",
+      "student",
+      "computer",
+      "bus"
+    ],
     "answer": "D",
     "analysis": "【考点】本题考查元音字母u的发音。\n【解题思路】A、B、C中u发/juː/，D中u发/ʌ/。\n【总结】u在开音节中常发/juː/，在闭音节中发/ʌ/。",
     "difficulty": 0.5
@@ -1425,7 +1568,8 @@
     "options": [],
     "answer": "（1）good （2）are （3）much （4）play",
     "analysis": "【考点】本题考查be good at、主谓一致、可数/不可数名词、let's句型。\n【解题思路】（1）be good at固定搭配；（2）主语They复数用are；（3）bread不可数用much；（4）let's后动词原形。\n【总结】bread, rice, water, milk等不可数名词用much修饰。",
-    "difficulty": 0.5
+    "difficulty": 0.5,
+    "inline_choices": true
   },
   {
     "id": "en_vocab_120",
