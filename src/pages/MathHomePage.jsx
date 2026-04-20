@@ -71,7 +71,7 @@ const MATH_TOPICS = [
     emoji: '📐',
     color: 'from-amber-400 to-orange-600',
     desc: '全等三角形·勾股定理·四边形·相似·圆',
-    questionCount: 65,
+    questionCount: 78,
     level: 'junior',
   },
 ]
@@ -116,7 +116,7 @@ export default function MathHomePage({ user, onStartQuiz, onStartFormula }) {
           <span className="text-2xl">🔢</span>
           <h2 className="text-xl font-bold text-gray-800">数学星图</h2>
         </div>
-        <p className="text-xs text-gray-400">小学 5-6 年级 · 初中 7-9 年级 · 515道题 · 每次练习10题</p>
+        <p className="text-xs text-gray-400">小学 5-6 年级 · 初中 7-9 年级 · 528道题 · 每次练习10题</p>
       </div>
 
       {/* 快速统计卡片 */}

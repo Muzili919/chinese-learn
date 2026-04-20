@@ -3,7 +3,28 @@
 ## chinese-learn 项目
 - 初中学习辅助Web应用，包含选择题练习功能
 - 技术栈：React + Vite + Tailwind
-- 部署在 Vercel
+
+## 🚀 部署架构（双环境）
+
+### 阿里云服务器（主环境）
+- **地址**: `http://47.108.174.249`
+- **nginx 静态托管**: `/var/www/chinese-learn/`（纯静态SPA，try_files $uri /index.html）
+- **Express 后端**: pm2 守护跑在 3000 端口，提供 `/api/` 接口
+- **nginx 反向代理**: `/api/proxy/` → `localhost:3000`
+
+### Vercel（CDN 加速）
+- **地址**: `*.vercel.app`
+- **Edge Function 代理 API**: `/api/proxy/[...path].js` → 转发到阿里云 Express
+- 两个域名都能用同一套后端
+
+### 部署脚本：`deploy-all.sh`
+```bash
+# Step 1: npm run build → dist/
+# Step 2: tar czf dist/ → scp 到阿里云 /tmp/
+# Step 3: ssh 解压到 /var/www/chinese-learn/ + chmod/chown
+# Step 4: git add -A && commit && push origin main → 触发 Vercel 自动构建
+```
+**注意**: `deploy.sh` 只做 Step 4（git push→Vercel），`deploy-all.sh` 才是完整双环境部署
 
 ## 题库文件
 - `src/data/questions_politics_choice.json` — 初中政治选择题120题
