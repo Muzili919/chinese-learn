@@ -198,8 +198,9 @@ export default function DashboardPage({
       })
     }
 
-    // 3. AI针对练习（有薄弱科目时显示）
-    const aiSubjects = Object.keys(weaksBySubject)
+    // 3. AI针对练习（只显示当前学段的薄弱科目，初中不显示语文等）
+    const currentGradeSubjects = (SUBJECTS_CONFIG[grade] || SUBJECTS_CONFIG.primary).map(s => s.id)
+    const aiSubjects = Object.keys(weaksBySubject).filter(s => currentGradeSubjects.includes(s))
     if (aiSubjects.length > 0) {
       list.push({ id: 'ai_practice', priority: 45 })
     }
@@ -464,7 +465,8 @@ function SmartCard({
 }) {
   // ── AI针对练习卡 ─────────────────────────────────────────
   if (cardId === 'ai_practice') {
-    const aiSubjects = Object.keys(weaksBySubject)
+    const currentGradeSubjects = (SUBJECTS_CONFIG[grade] || SUBJECTS_CONFIG.primary).map(s => s.id)
+    const aiSubjects = Object.keys(weaksBySubject).filter(s => currentGradeSubjects.includes(s))
     const subjectConfigs = {
       chinese: { label: '语文', emoji: '📖', color: '#6366f1', bg: '#eef2ff' },
       english: { label: '英语', emoji: '🌎', color: '#059669', bg: '#ecfdf5' },

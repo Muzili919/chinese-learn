@@ -25,13 +25,22 @@ import {
 } from 'recharts'
 
 // ── 学科配置 ─────────────────────────────────────────────────
-const SUBJECTS = [
-  { id: 'overview', label: '总览',  emoji: '📊' },
-  { id: 'chinese',  label: '语文',  emoji: '📖' },
-  { id: 'english',  label: '英语',  emoji: '🌎' },
-  { id: 'math',     label: '数学',  emoji: '🔢' },
-  { id: 'exams',    label: '考试',  emoji: '📋' },
-]
+const GRADE_SUBJECTS = {
+  primary: [
+    { id: 'overview', label: '总览',  emoji: '📊' },
+    { id: 'chinese',  label: '语文',  emoji: '📖' },
+    { id: 'english', label: '英语',  emoji: '🌎' },
+    { id: 'math',     label: '数学',  emoji: '🔢' },
+    { id: 'exams',    label: '考试',  emoji: '📋' },
+  ],
+  junior2: [
+    { id: 'overview', label: '总览',  emoji: '📊' },
+    { id: 'english', label: '英语',  emoji: '🌎' },
+    { id: 'politics', label: '道法',  emoji: '⚖︁' },
+    { id: 'math',     label: '数学',  emoji: '🔢' },
+    { id: 'exams',    label: '考试',  emoji: '📋' },
+  ],
+}
 
 // 语文：knowledge_tag → 图标
 const CHINESE_KNOWLEDGE_ICON = {
@@ -122,11 +131,14 @@ function genParentAdvice(subject, weakItems) {
 }
 
 // ── 主组件 ────────────────────────────────────────────────────
-export default function ReportPage({ user, onBack, onStartQuiz }) {
+export default function ReportPage({ user, onBack, onStartQuiz, grade = 'primary' }) {
   const [pinInput, setPinInput] = useState('')
   const [unlocked, setUnlocked] = useState(false)
   const [pinError, setPinError] = useState(false)
   const [activeTab, setActiveTab] = useState('overview')
+
+  // ★ 按学段过滤学科Tab
+  const subjects = GRADE_SUBJECTS[grade] || GRADE_SUBJECTS.primary
 
   // 考试日历
   const [examCalRefresh, setExamCalRefresh] = useState(0)
@@ -239,9 +251,7 @@ export default function ReportPage({ user, onBack, onStartQuiz }) {
       {/* ── Tab 栏（横向滚动）── */}
       <div className="bg-white border-b border-gray-200 sticky top-0 z-10 shadow-sm overflow-x-auto">
         <div className="flex min-w-max px-1">
-          {SUBJECTS.filter(s =>
-            s.id !== 'math' || hasMath || mathRecords.length > 0
-          ).map(tab => (
+          {subjects.map(tab => (
             <button key={tab.id} onClick={() => setActiveTab(tab.id)}
               className={`px-4 py-3 text-sm font-semibold whitespace-nowrap transition-colors border-b-2 ${
                 activeTab === tab.id

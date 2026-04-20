@@ -3,6 +3,7 @@ import { storage, calcLevel, calcLevelProgress } from '../utils/storage'
 import { diagnose, getWeakPoints } from '../utils/diagnosis'
 
 const EN_PLANETS = [
+  // ★ 核心8个学习星球（含完形填空+闪电自测）
   { id: 'en_association', label: '联想星球', emoji: '🌐', color: 'from-emerald-400 to-teal-600',   desc: '词根树·联想记忆·举一反三' },
   { id: 'en_vocab',   label: '词汇星球', emoji: '📝', color: 'from-sky-400 to-blue-600',     desc: '拼写·翻译·辨音' },
   { id: 'en_listen',  label: '听力星球', emoji: '🎧', color: 'from-violet-400 to-purple-600', desc: 'TTS听音·判断·选择' },
@@ -10,9 +11,10 @@ const EN_PLANETS = [
   { id: 'en_reading', label: '阅读星球', emoji: '📚', color: 'from-orange-400 to-amber-500',  desc: '短文阅读·信息提取' },
   { id: 'en_writing', label: '写作星球', emoji: '✏️', color: 'from-pink-400 to-rose-600',    desc: 'AI批改·句子作文' },
   { id: 'en_cloze',   label: '完形填空', emoji: '📝', color: 'from-indigo-400 to-blue-600',  desc: '10空选择·上下文推理·语法综合' },
+  { id: 'en_lightning',label: '闪电测验', emoji: '⚡', color: 'from-yellow-400 to-orange-500', desc: '5题快测·纯回忆·约30秒', isLightning: true },
+  // 更多功能（听写、自测等）
   { id: 'en_dictation', label: '听写星球', emoji: '✍️', color: 'from-cyan-400 to-blue-500', desc: 'TTS听写·拍照批改·词库管理', isDictation: true },
   { id: 'en_self_test', label: '自测星球', emoji: '📝', color: 'from-blue-500 to-indigo-600', desc: 'AI出卷·小升初难度·查漏补缺', isSelfTest: true },
-  { id: 'en_lightning', label: '闪电测验', emoji: '⚡', color: 'from-yellow-400 to-orange-500', desc: '5题快测·纯回忆·约30秒', isLightning: true },
 ]
 
 // 英语弱项 tag -> englishTag 映射
@@ -79,7 +81,10 @@ export default function EnglishHomePage({ user, grade = 'primary', onStartQuiz, 
   }
 
   function isPracticed(planet) {
-    // ★ 修复：一个星球可能有多个 tag（如联想星球有 '英语联想' 和 '联想星球'）
+    // ★ 联想星球永远不显示打卡（每次做都是随机练习，不算固定星球任务）
+    if (planet.id === 'en_association') return false
+    
+    // 一个星球可能有多个 tag（如词汇星球有 '英语词汇' 和 '初中单词星球'）
     // 只要任意一个 tag 被标记为完成，就算打卡
     return Object.entries(TAG_TO_PLANET).some(([tag, pid]) => pid === planet.id && practicedToday.has(tag))
   }
@@ -92,9 +97,9 @@ export default function EnglishHomePage({ user, grade = 'primary', onStartQuiz, 
     return getWeakPoints(d).filter(w => EN_WEAK_TAG_MAP[w.tag])
   }, [records])
 
-  // 核心闯关6个 + 特殊功能2个
-  const corePlanets = EN_PLANETS.slice(0, 6)
-  const specialPlanets = EN_PLANETS.slice(6)
+  // ★ 核心8个学习星球 + 更多功能
+  const corePlanets = EN_PLANETS.slice(0, 8)
+  const specialPlanets = EN_PLANETS.slice(8)
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -143,12 +148,12 @@ export default function EnglishHomePage({ user, grade = 'primary', onStartQuiz, 
         <div className="flex items-center justify-between mb-3">
           <h2 className="text-base font-semibold text-gray-600">🌟 英语学习星球</h2>
           <span className="text-xs text-gray-400">
-            今日已练 {corePlanets.filter(p => isPracticed(p)).length}/{corePlanets.length} 个星球
+            今日已练 {corePlanets.filter(p => p.id !== 'en_association' && isPracticed(p)).length}/{corePlanets.length - 1} 个星球
           </span>
         </div>
 
-        {/* 核心6个 - 2×3 网格布局 */}
-        <div className="grid grid-cols-3 gap-2.5 mb-3">
+        {/* 核心8个 - 4×2 网格布局 */}
+        <div className="grid grid-cols-4 gap-2 mb-3">
           {corePlanets.map((planet) => {
             const done = isPracticed(planet)
             return (

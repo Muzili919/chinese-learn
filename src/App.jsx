@@ -678,7 +678,7 @@ export default function App() {
       />
     )
     if (page === 'result') return <ResultPage result={sessionResult} user={user} onHome={goHome} onRetry={() => startQuiz(sessionResult?.quizOptions || quizOptions)} onAIReinforce={startVariantTraining} />
-    if (page === 'report') return <ReportPage user={user} onBack={goHome} onStartQuiz={startQuiz} />
+    if (page === 'report') return <ReportPage user={user} grade={grade} onBack={goHome} onStartQuiz={startQuiz} />
     if (page === 'englishQuiz' && englishQuizOptions.englishTag === 'en_association') return (
       <AssociationPlanetPage
         user={user}
