@@ -1662,6 +1662,24 @@ export default function DuolingoStyleQuiz({ question, onAnswerSubmit, showVarian
             question.question.length > 120 ? 'text-sm' :
             question.question.length > 60  ? 'text-base' : 'text-lg'
           }`}>{question.question}</p>
+          {/* 配图渲染：支持 SVG 字符串 / 图片 URL / base64 */}
+          {question.image && (
+            <div className="mt-4 flex justify-center">
+              {question.image.startsWith('<svg') ? (
+                <div
+                  className="max-w-full rounded-xl overflow-hidden bg-white"
+                  dangerouslySetInnerHTML={{ __html: question.image }}
+                />
+              ) : (
+                <img
+                  src={question.image}
+                  alt="题目配图"
+                  className="max-w-full h-auto rounded-xl shadow-sm"
+                  loading="lazy"
+                />
+              )}
+            </div>
+          )}
         </div>
       )}
 
