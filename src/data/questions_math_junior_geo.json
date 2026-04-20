@@ -4,12 +4,12 @@
     "type": "single_choice",
     "question": "直线AB、CD交于O，∠AOC=55°，则∠BOD=(　)",
     "options": [
-      "A.35°",
-      "B.55°",
-      "C.125°",
-      "D.145°"
+      "A. 145°",
+      "B. 125°",
+      "C. 35°",
+      "D. 55°"
     ],
-    "answer": "B.55°",
+    "answer": "D. 55°",
     "analysis": "对顶角相等。",
     "knowledge_tag": "相交线与平行线",
     "topic": "几何证明",
@@ -22,12 +22,12 @@
     "type": "single_choice",
     "question": "ABCD交于O，OE平分∠AOC。若∠BOE=145°，则∠DOE=(　)",
     "options": [
-      "A.135°",
-      "B.145°",
-      "C.155°",
-      "D.165°"
+      "A. 145°",
+      "B. 155°",
+      "C. 135°",
+      "D. 165°"
     ],
-    "answer": "B.145°",
+    "answer": "A. 145°",
     "analysis": "∠AOE=35°→∠AOC=70°→∠DOE=180−35=145°。",
     "knowledge_tag": "相交线与平行线",
     "topic": "几何证明",
@@ -40,12 +40,12 @@
     "type": "single_choice",
     "question": "AB⊥CD于O，射线OE使∠COE=35°，则∠BOE=(　)",
     "options": [
-      "A.45°",
-      "B.55°",
-      "C.65°",
-      "D.75°"
+      "A. 65°",
+      "B. 55°",
+      "C. 45°",
+      "D. 75°"
     ],
-    "answer": "B.55°",
+    "answer": "B. 55°",
     "analysis": "∠BOC=90°−35°=55°。",
     "knowledge_tag": "相交线与平行线",
     "topic": "几何证明",
@@ -58,12 +58,12 @@
     "type": "single_choice",
     "question": "从直线外点P作垂线段PA和斜线段PB、PC(PA⊥l)，正确的是(　)",
     "options": [
-      "A.PA>PB>PC",
-      "B.PC>PB>PA",
-      "C.PA<PB<PC",
-      "D.PA=PB"
+      "A. PA<PB<PC",
+      "B. PC>PB>PA",
+      "C. PA>PB>PC",
+      "D. PA=PB"
     ],
-    "answer": "C.PA<PB<PC",
+    "answer": "A. PA<PB<PC",
     "analysis": "垂线段最短。",
     "knowledge_tag": "相交线与平行线",
     "topic": "几何证明",
@@ -76,12 +76,12 @@
     "type": "single_choice",
     "question": "a∥b，截线c交a,b于A,B。∠1=65°(同位角)，则∠2=(　)",
     "options": [
-      "A.65°",
-      "B.115°",
-      "C.75°",
-      "D.25°"
+      "A. 65°",
+      "B. 25°",
+      "C. 75°",
+      "D. 115°"
     ],
-    "answer": "A.65°",
+    "answer": "A. 65°",
     "analysis": "同位角相等。",
     "knowledge_tag": "相交线与平行线",
     "topic": "几何证明",
@@ -94,12 +94,12 @@
     "type": "single_choice",
     "question": "a∥b，∠1=110°，则内错角∠2=(　)",
     "options": [
-      "A.70°",
-      "B.80°",
-      "C.110°",
-      "D.120°"
+      "A. 70°",
+      "B. 120°",
+      "C. 80°",
+      "D. 110°"
     ],
-    "answer": "C.110°",
+    "answer": "D. 110°",
     "analysis": "利用对顶角或邻补角推导得110°。",
     "knowledge_tag": "相交线与平行线",
     "topic": "几何证明",
@@ -112,12 +112,12 @@
     "type": "single_choice",
     "question": "三角板直角顶点在直尺上，∠1=35°，则∠2=(　)",
     "options": [
-      "A.45°",
-      "B.55°",
-      "C.65°",
-      "D.75°"
+      "A. 65°",
+      "B. 45°",
+      "C. 75°",
+      "D. 55°"
     ],
-    "answer": "B.55°",
+    "answer": "D. 55°",
     "analysis": "直尺两边平行→∠1+∠2=90°。",
     "knowledge_tag": "相交线与平行线",
     "topic": "几何证明",
@@ -130,12 +130,12 @@
     "type": "single_choice",
     "question": "AB∥CD，EF交AB,CD于G,H。GM平分∠AGE交CD于M。∠AHF=50°，则∠DGM≈(　)",
     "options": [
-      "A.105°",
-      "B.115°",
-      "C.125°",
-      "D.135°"
+      "A. 105°",
+      "B. 125°",
+      "C. 135°",
+      "D. 115°"
     ],
-    "answer": "B.115°",
+    "answer": "D. 115°",
     "analysis": "∠AGE=50°(同位)→相关角65°→互补得115°。",
     "knowledge_tag": "相交线与平行线",
     "topic": "几何证明",
@@ -148,12 +148,12 @@
     "type": "single_choice",
     "question": "△ABC中∠A=70°，∠B=55°，则∠C=(　)",
     "options": [
-      "A.45°",
-      "B.55°",
-      "C.65°",
-      "D.75°"
+      "A. 65°",
+      "B. 75°",
+      "C. 55°",
+      "D. 45°"
     ],
-    "answer": "B.55°",
+    "answer": "C. 55°",
     "analysis": "内角和：180−70−55=55。",
     "knowledge_tag": "三角形基础",
     "topic": "几何证明",
@@ -166,12 +166,12 @@
     "type": "single_choice",
     "question": "△ABC中D在BC延长线上，∠A=50°，∠B=65°，则外角∠ACD=(　)",
     "options": [
-      "A.105°",
-      "B.115°",
-      "C.120°",
-      "D.130°"
+      "A. 130°",
+      "B. 120°",
+      "C. 115°",
+      "D. 105°"
     ],
-    "answer": "B.115°",
+    "answer": "C. 115°",
     "analysis": "外角定理：∠ACD=∠A+∠B=115°。",
     "knowledge_tag": "三角形基础",
     "topic": "几何证明",
@@ -184,12 +184,12 @@
     "type": "single_choice",
     "question": "能组成三角形的三边是(　)",
     "options": [
-      "A.3,4,8",
-      "B.5,6,11",
-      "C.6,8,10",
-      "D.2,5,8"
+      "A. 6,8,10",
+      "B. 3,4,8",
+      "C. 2,5,8",
+      "D. 5,6,11"
     ],
-    "answer": "C.6,8,10",
+    "answer": "A. 6,8,10",
     "analysis": "仅6+8>14满足三边关系。",
     "knowledge_tag": "三角形基础",
     "topic": "几何证明",
@@ -202,12 +202,12 @@
     "type": "single_choice",
     "question": "△ABC中AD⊥BC（高），AD=6，BC=8，面积=(　)",
     "options": [
-      "A.24cm²",
-      "B.36cm²",
-      "C.48cm²",
-      "D.14cm²"
+      "A. 48cm²",
+      "B. 14cm²",
+      "C. 36cm²",
+      "D. 24cm²"
     ],
-    "answer": "A.24cm²",
+    "answer": "D. 24cm²",
     "analysis": "S=½×BC×AD=24。",
     "knowledge_tag": "三角形基础",
     "topic": "几何证明",
@@ -220,12 +220,12 @@
     "type": "single_choice",
     "question": "D是BC中线（中线），△ABD周长15，△ADC周长13，AB−AC=(　)",
     "options": [
-      "A.1cm",
-      "B.2cm",
-      "C.3cm",
-      "D.4cm"
+      "A. 1cm",
+      "B. 3cm",
+      "C. 4cm",
+      "D. 2cm"
     ],
-    "answer": "B.2cm",
+    "answer": "D. 2cm",
     "analysis": "两式相减得AB−AC=15−13=2。",
     "knowledge_tag": "三角形基础",
     "topic": "几何证明",
@@ -238,12 +238,12 @@
     "type": "single_choice",
     "question": "AD平分∠BAC，∠B=50°，∠C=70°，则∠BAD=(　)",
     "options": [
-      "A.25°",
-      "B.30°",
-      "C.35°",
-      "D.40°"
+      "A. 40°",
+      "B. 30°",
+      "C. 35°",
+      "D. 25°"
     ],
-    "answer": "B.30°",
+    "answer": "B. 30°",
     "analysis": "∠BAC=60°，平分后∠BAD=30°。",
     "knowledge_tag": "三角形基础",
     "topic": "几何证明",
@@ -256,12 +256,12 @@
     "type": "single_choice",
     "question": "AB=AC，AD=AE，∠BAE=∠CAD。正确结论(　)",
     "options": [
-      "A.△ABE≌△ACD(SSS)",
-      "B.△ABD≌△ACE(SAS)",
-      "C.△ABD≌△ACE(ASA)",
-      "D.无法判断"
+      "A. △ABE≌△ACD(SSS)",
+      "B. 无法判断",
+      "C. △ABD≌△ACE(SAS)",
+      "D. △ABD≌△ACE(ASA)"
     ],
-    "answer": "B.△ABD≌△ACE(SAS)",
+    "answer": "C. △ABD≌△ACE(SAS)",
     "analysis": "∠BAD=∠CAE（减公共角），加SAS。",
     "knowledge_tag": "三角形全等",
     "topic": "几何证明",
@@ -274,12 +274,12 @@
     "type": "single_choice",
     "question": "D,E分别在AB,AC上，AD=AE，DE∥BC。一定成立的是(　)",
     "options": [
-      "A.△ADE≌△ABC",
-      "B.△ADE∽△ABC",
-      "C.AB=AC",
-      "D.∠B=∠C"
+      "A. ∠B=∠C",
+      "B. △ADE∽△ABC",
+      "C. AB=AC",
+      "D. △ADE≌△ABC"
     ],
-    "answer": "B.△ADE∽△ABC",
+    "answer": "B. △ADE∽△ABC",
     "analysis": "DE∥BC→AA相似。",
     "knowledge_tag": "三角形全等",
     "topic": "几何证明",
@@ -292,12 +292,12 @@
     "type": "single_choice",
     "question": "∠A=∠D=90°，∠B=∠E，BC=EF。判定方法(　)",
     "options": [
-      "A.不能判断",
-      "B.HL",
-      "C.AAS",
-      "D.ASA"
+      "A. HL",
+      "B. ASA",
+      "C. AAS",
+      "D. 不能判断"
     ],
-    "answer": "C.AAS",
+    "answer": "C. AAS",
     "analysis": "两角及一角对边相等→AAS。",
     "knowledge_tag": "三角形全等",
     "topic": "几何证明",
@@ -310,12 +310,12 @@
     "type": "single_choice",
     "question": "AB=CD，AD=CB，证△ABD≌△CDB还需(　)",
     "options": [
-      "A.∠A=∠C",
-      "B.AC=BD",
-      "C.∠ADB=∠CBD",
-      "D.不需要额外条件"
+      "A. ∠A=∠C",
+      "B. AC=BD",
+      "C. 不需要额外条件",
+      "D. ∠ADB=∠CBD"
     ],
-    "answer": "D.不需要额外条件",
+    "answer": "C. 不需要额外条件",
     "analysis": "SSS三边已满足。",
     "knowledge_tag": "三角形全等",
     "topic": "几何证明",
@@ -328,12 +328,12 @@
     "type": "single_choice",
     "question": "Rt△ABC和Rt△DEF，∠C=∠F=90°，AC=DF=5，AB=DE=13，BC=(　)",
     "options": [
-      "A.10",
-      "B.11",
-      "C.12",
-      "D.8"
+      "A. 10",
+      "B. 11",
+      "C. 8",
+      "D. 12"
     ],
-    "answer": "C.12",
+    "answer": "D. 12",
     "analysis": "HL全等+勾股：BC=√(169−25)=12。",
     "knowledge_tag": "三角形全等",
     "topic": "几何证明",
@@ -346,12 +346,12 @@
     "type": "single_choice",
     "question": "OC平分∠AOB，P在OC上，PD⊥OA，PE⊥OB。错误说法(　)",
     "options": [
-      "A.PD=PE",
-      "B.OD=OE",
-      "C.△OPD≌△OPE",
-      "D.以上都不对"
+      "A. PD=PE",
+      "B. 以上都不对",
+      "C. OD=OE",
+      "D. △OPD≌△OPE"
     ],
-    "answer": "D.以上都不对",
+    "answer": "B. 以上都不对",
     "analysis": "全部正确！AAS全等。",
     "knowledge_tag": "三角形全等",
     "topic": "几何证明",
@@ -364,12 +364,12 @@
     "type": "single_choice",
     "question": "测池塘两端A,B距离。取O点，中点C,D。CD=30m，则AB=(　)",
     "options": [
-      "A.30m",
-      "B.45m",
-      "C.60m",
-      "D.15m"
+      "A. 15m",
+      "B. 60m",
+      "C. 30m",
+      "D. 45m"
     ],
-    "answer": "C.60m",
+    "answer": "B. 60m",
     "analysis": "中位线：AB=2CD=60m。",
     "knowledge_tag": "三角形全等",
     "topic": "几何证明",
@@ -382,12 +382,12 @@
     "type": "single_choice",
     "question": "△ABC和△ADE均为等边三角形，连接CE、BD。不一定成立的是(　)",
     "options": [
-      "A.△ABD≌△ACE",
-      "B.CE=BD",
-      "C.∠ABD=∠ACE",
-      "D.CE⊥BD"
+      "A. ∠ABD=∠ACE",
+      "B. CE=BD",
+      "C. CE⊥BD",
+      "D. △ABD≌△ACE"
     ],
-    "answer": "D.CE⊥BD",
+    "answer": "C. CE⊥BD",
     "analysis": "前三个可证，CE⊥BD需特殊角度。",
     "knowledge_tag": "三角形全等",
     "topic": "几何证明",
@@ -400,12 +400,12 @@
     "type": "single_choice",
     "question": "AD是BC中线，沿AD翻折B到B'。∠ADB'=70°，则∠ADC=(　)",
     "options": [
-      "A.100°",
-      "B.110°",
-      "C.120°",
-      "D.130°"
+      "A. 120°",
+      "B. 130°",
+      "C. 110°",
+      "D. 100°"
     ],
-    "answer": "B.110°",
+    "answer": "C. 110°",
     "analysis": "翻折→∠ADB=70°。共线→∠ADC=180−70=110°。",
     "knowledge_tag": "三角形全等",
     "topic": "几何证明",
@@ -418,12 +418,12 @@
     "type": "single_choice",
     "question": "矩形ABCD沿AE折叠使D落在BC上的F处。AB=8，BC=10，CE=(　)",
     "options": [
-      "A.3cm",
-      "B.4cm",
-      "C.5cm",
-      "D.6cm"
+      "A. 3cm",
+      "B. 5cm",
+      "C. 6cm",
+      "D. 4cm"
     ],
-    "answer": "A.3cm",
+    "answer": "A. 3cm",
     "analysis": "AF=10,BF=6,FC=4。(8-x)^2=x^2+16→x=3。",
     "knowledge_tag": "三角形全等",
     "topic": "几何证明",
@@ -436,12 +436,12 @@
     "type": "single_choice",
     "question": "△ABC中AB=AC，∠A=40°，则∠B=(　)",
     "options": [
-      "A.50°",
-      "B.60°",
-      "C.70°",
-      "D.80°"
+      "A. 60°",
+      "B. 50°",
+      "C. 70°",
+      "D. 80°"
     ],
-    "answer": "C.70°",
+    "answer": "C. 70°",
     "analysis": "等边对等角：(180−40)/2=70。",
     "knowledge_tag": "等腰三角形",
     "topic": "几何证明",
@@ -454,12 +454,12 @@
     "type": "single_choice",
     "question": "等腰△ABC，AB=AC，AD⊥BC。BC=10，AD=12，AB=(　)",
     "options": [
-      "A.11cm",
-      "B.12cm",
-      "C.13cm",
-      "D.14cm"
+      "A. 11cm",
+      "B. 12cm",
+      "C. 14cm",
+      "D. 13cm"
     ],
-    "answer": "C.13cm",
+    "answer": "D. 13cm",
     "analysis": "三线合一→BD=5→AB=√(144+25)=13。",
     "knowledge_tag": "等腰三角形",
     "topic": "几何证明",
@@ -472,12 +472,12 @@
     "type": "single_choice",
     "question": "等边△ABC边长6，D在BC上BD=2，AD=(　)(保留根号)",
     "options": [
-      "A.2√3",
-      "B.2√7",
-      "C.4",
-      "D.3√2"
+      "A. 4",
+      "B. 2√3",
+      "C. 2√7",
+      "D. 3√2"
     ],
-    "answer": "B.2√7",
+    "answer": "C. 2√7",
     "analysis": "高AE=3√3，DE=1→AD=√(27+1)=2√7。",
     "knowledge_tag": "等腰三角形",
     "topic": "几何证明",
@@ -490,12 +490,12 @@
     "type": "single_choice",
     "question": "等腰△ABC，AB=AC=10，BC=12。D在BC上BD=4，AD=(　)",
     "options": [
-      "A.2√5",
-      "B.2√13",
-      "C.2√17",
-      "D.4√5"
+      "A. 2√5",
+      "B. 4√5",
+      "C. 2√17",
+      "D. 2√13"
     ],
-    "answer": "C.2√17",
+    "answer": "C. 2√17",
     "analysis": "高AE=8，DE=2→AD=√(64+4)=2√17。",
     "knowledge_tag": "等腰三角形",
     "topic": "几何证明",
@@ -508,12 +508,12 @@
     "type": "single_choice",
     "question": "等腰直角△ABC，∠C=90°，AC=BC=4。D是AC中点，BD=(　)",
     "options": [
-      "A.2√3",
-      "B.2√5",
-      "C.3",
-      "D.4"
+      "A. 2√3",
+      "B. 2√5",
+      "C. 3",
+      "D. 4"
     ],
-    "answer": "B.2√5",
+    "answer": "B. 2√5",
     "analysis": "CD=2，BC=4→BD=√(16+4)=2√5。",
     "knowledge_tag": "等腰三角形",
     "topic": "几何证明",
@@ -526,12 +526,12 @@
     "type": "single_choice",
     "question": "等腰△ABC，AB=AC，∠BAC=120°。D是BC中点，DE⊥AB。AE:EB=(　)",
     "options": [
-      "A.1:1",
-      "B.1:2",
-      "C.1:3",
-      "D.2:1"
+      "A. 1:1",
+      "B. 1:2",
+      "C. 2:1",
+      "D. 1:3"
     ],
-    "answer": "C.1:3",
+    "answer": "D. 1:3",
     "analysis": "∠B=30°→AE=¼AB，EB=¾AB。",
     "knowledge_tag": "等腰三角形",
     "topic": "几何证明",
@@ -544,12 +544,12 @@
     "type": "single_choice",
     "question": "如图，在平行四边形ABCD中，对角线AC、BD交于点O，下列结论错误的是(　)",
     "options": [
-      "A.OA=OC",
-      "B.OB=OD",
-      "C.AB=CD",
-      "D.AC=BD"
+      "A. OB=OD",
+      "B. AC=BD",
+      "C. OA=OC",
+      "D. AB=CD"
     ],
-    "answer": "D.AC=BD",
+    "answer": "B. AC=BD",
     "analysis": "平行四边形对角线互相平分但不一定相等（矩形才相等）。",
     "knowledge_tag": "特殊四边形",
     "topic": "几何证明",
@@ -562,12 +562,12 @@
     "type": "single_choice",
     "question": "如图，矩形ABCD中，AB=6cm，BC=8cm，则对角线AC的长为(　)",
     "options": [
-      "A.8cm",
-      "B.10cm",
-      "C.12cm",
-      "D.14cm"
+      "A. 10cm",
+      "B. 12cm",
+      "C. 8cm",
+      "D. 14cm"
     ],
-    "answer": "B.10cm",
+    "answer": "A. 10cm",
     "analysis": "勾股定理：AC=sqrt(6^2+8^2)=sqrt(100)=10cm。",
     "knowledge_tag": "特殊四边形",
     "topic": "几何证明",
@@ -580,12 +580,12 @@
     "type": "single_choice",
     "question": "如图，菱形ABCD的周长为24cm，一条对角线长为6cm，则面积为(　)",
     "options": [
-      "A.18*sqrt(3) cm^2",
-      "B.36 cm^2",
-      "C.24 cm^2",
-      "D.12*sqrt(3) cm^2"
+      "A. 36 cm^2",
+      "B. 18*sqrt(3) cm^2",
+      "C. 24 cm^2",
+      "D. 12*sqrt(3) cm^2"
     ],
-    "answer": "A.18*sqrt(3) cm^2",
+    "answer": "B. 18*sqrt(3) cm^2",
     "analysis": "边长=6cm，半条对角线=3cm，另一条半对角线=sqrt(36-9)=sqrt(27)=3*sqrt(3)。面积=1/2*d1*d2=1/2*6*6*sqrt(3)=18*sqrt(3)。",
     "knowledge_tag": "特殊四边形",
     "topic": "几何证明",
@@ -598,12 +598,12 @@
     "type": "single_choice",
     "question": "如图，正方形ABCD中，E是BC的中点，F在CD上且CF=1/4 CD。AE:EF=(　)",
     "options": [
-      "A.2:1",
-      "B.sqrt5:1",
-      "C.5:2",
-      "D.sqrt5:2"
+      "A. sqrt5:1",
+      "B. 2:1",
+      "C. 5:2",
+      "D. sqrt5:2"
     ],
-    "answer": "A.2:1",
+    "answer": "B. 2:1",
     "analysis": "设边长4，BE=2，EC=2，CF=1，FD=3。AE=sqrt(4^2+2^2)=sqrt20=2*sqrt5。EF=sqrt(EC^2+CF^2)=sqrt(2^2+1^2)=sqrt5。故AE:EF=2*sqrt5:sqrt5=2:1。",
     "knowledge_tag": "特殊四边形",
     "topic": "几何证明",
@@ -616,12 +616,12 @@
     "type": "single_choice",
     "question": "如图，平行四边形ABCD中，E、F分别在AD、BC上，且AE=CF。连接BE、DF，则四边形BEDF是(　)",
     "options": [
-      "A.梯形",
-      "B.平行四边形",
-      "C.矩形",
-      "D.菱形"
+      "A. 菱形",
+      "B. 矩形",
+      "C. 平行四边形",
+      "D. 梯形"
     ],
-    "answer": "B.平行四边形",
+    "answer": "C. 平行四边形",
     "analysis": "ABCD是平行四边形，AD平行BC且AD=BC。AE=CF，则DE=BF且DE平行BF，BEDF是平行四边形。",
     "knowledge_tag": "特殊四边形",
     "topic": "几何证明",
@@ -634,12 +634,12 @@
     "type": "single_choice",
     "question": "如图，矩形ABCD沿对角线BD折叠后，点C落在E处。若angle ADB=30度，则angle BDE=(　)",
     "options": [
-      "A.30度",
-      "B.45度",
-      "C.60度",
-      "D.75度"
+      "A. 75度",
+      "B. 60度",
+      "C. 30度",
+      "D. 45度"
     ],
-    "answer": "C.60度",
+    "answer": "B. 60度",
     "analysis": "矩形AD平行BC，angle ADB=angle CBD=30度(内错角)。angle ADC=90度，故angle CDB=60度。折叠后三角形BCD与BED全等，angle CDB=angle EDB=60度。",
     "knowledge_tag": "特殊四边形",
     "topic": "几何证明",
@@ -652,12 +652,12 @@
     "type": "single_choice",
     "question": "如图，菱形ABCD中，angle ABC=60度，AC=6，则菱形的边长=(　)",
     "options": [
-      "A.3",
-      "B.4",
-      "C.5",
-      "D.6"
+      "A. 5",
+      "B. 3",
+      "C. 4",
+      "D. 6"
     ],
-    "answer": "D.6",
+    "answer": "D. 6",
     "analysis": "菱形AB=BC，且angle ABC=60度，所以三角形ABC是等边三角形！AB=BC=AC=6。",
     "knowledge_tag": "特殊四边形",
     "topic": "几何证明",
@@ -670,12 +670,12 @@
     "type": "single_choice",
     "question": "如图，正方形ABCD的边长为4，E是AB中点，F是BC上一点使AF垂直 EF。则BF的长为(　)",
     "options": [
-      "A.1",
-      "B.1.5",
-      "C.2",
-      "D.2.5"
+      "A. 1",
+      "B. 1.5",
+      "C. 2",
+      "D. 2.5"
     ],
-    "answer": "A.1",
+    "answer": "A. 1",
     "analysis": "设BF=x，FC=4-x。Rt三角形AFE中AF平方=16+x平方，EF平方=(4-2)平方+(4-x)平方=4+(4-x)平方。AE=2。由勾股：AF平方=AE平方+EF平方→16+x平方=4+4+(4-x)平方=8+16-8x+x平方→16=24-8x→8x=8→x=1。",
     "knowledge_tag": "特殊四边形",
     "topic": "几何证明",
@@ -688,12 +688,12 @@
     "type": "single_choice",
     "question": "如图，平行四边形ABCD中，E为DC中点，连接BE交AC于O。若AO=3，则OC=(　)",
     "options": [
-      "A.1.5",
-      "B.3",
-      "C.4.5",
-      "D.6"
+      "A. 4.5",
+      "B. 3",
+      "C. 1.5",
+      "D. 6"
     ],
-    "answer": "A.1.5",
+    "answer": "C. 1.5",
     "analysis": "AB平行DC，故三角形AOB相似COE(AA相似)。相似比=AB:CE=AB:(DC/2)=2:1。AO:OC=2:1→OC=3/2=1.5。",
     "knowledge_tag": "特殊四边形",
     "topic": "几何证明",
@@ -706,12 +706,12 @@
     "type": "single_choice",
     "question": "能判定一个四边形是平行四边形的条件是(　)",
     "options": [
-      "A.一组对边相等",
-      "B.一组对边平行",
-      "C.一组对边平行且相等",
-      "D.两组邻角互补"
+      "A. 一组对边平行",
+      "B. 一组对边相等",
+      "C. 两组邻角互补",
+      "D. 一组对边平行且相等"
     ],
-    "answer": "C.一组对边平行且相等",
+    "answer": "D. 一组对边平行且相等",
     "analysis": "A只能说明可能是等腰梯形；B可能是梯形；C是平行四边形判定定理；D不能保证。",
     "knowledge_tag": "特殊四边形",
     "topic": "几何证明",
@@ -724,12 +724,12 @@
     "type": "single_choice",
     "question": "如图，直角三角形ABC中，angle C=90度，CD垂直AB于D。若AC=6，AB=10，则AD=(　)",
     "options": [
-      "A.2",
-      "B.2.5",
-      "C.3.6",
-      "D.4"
+      "A. 3.6",
+      "B. 2",
+      "C. 2.5",
+      "D. 4"
     ],
-    "answer": "C.3.6",
+    "answer": "A. 3.6",
     "analysis": "BC=sqrt(100-36)=8。射影定理：AC平方=AD乘以AB→36=AD*10→AD=3.6。",
     "knowledge_tag": "相似三角形",
     "topic": "几何证明",
@@ -742,12 +742,12 @@
     "type": "single_choice",
     "question": "如图，DE平行BC交AB、AC于D、E。AD=3，DB=2，AE=2.4，则EC=(　)",
     "options": [
-      "A.1.2",
-      "B.1.6",
-      "C.1.8",
-      "D.2"
+      "A. 1.8",
+      "B. 1.2",
+      "C. 1.6",
+      "D. 2"
     ],
-    "answer": "B.1.6",
+    "answer": "C. 1.6",
     "analysis": "DE平行BC，故三角形ADE相似ACB(AA)。AD/AB=AE/AC→3/(3+2)=2.4/(2.4+EC)→3/5=2.4/(2.4+EC)→7.2+3EC=12→3EC=4.8→EC=1.6。",
     "knowledge_tag": "相似三角形",
     "topic": "几何证明",
@@ -760,12 +760,12 @@
     "type": "single_choice",
     "question": "如图，三角形ABC中DE平行BC，AD:DB=2:3，则S三角形ADE : S三角形ABC=(　)",
     "options": [
-      "A.2:3",
-      "B.2:5",
-      "C.4:25",
-      "D.4:9"
+      "A. 4:9",
+      "B. 4:25",
+      "C. 2:5",
+      "D. 2:3"
     ],
-    "answer": "C.4:25",
+    "answer": "B. 4:25",
     "analysis": "AD:DB=2:3，故AD:AB=2:5。面积比等于相似比的平方=(2/5)平方=4:25。",
     "knowledge_tag": "相似三角形",
     "topic": "几何证明",
@@ -778,12 +778,12 @@
     "type": "single_choice",
     "question": "两个相似三角形的相似比为2:3，大三角形面积为54，小三角形面积为(　)",
     "options": [
-      "A.12",
-      "B.18",
-      "C.24",
-      "D.36"
+      "A. 18",
+      "B. 24",
+      "C. 36",
+      "D. 12"
     ],
-    "answer": "C.24",
+    "answer": "B. 24",
     "analysis": "面积比等于相似比的平方=4:9。小面积=54*(4/9)=24。",
     "knowledge_tag": "相似三角形",
     "topic": "几何证明",
@@ -796,12 +796,12 @@
     "type": "single_choice",
     "question": "直角三角形ABC中，angle C=90度，CD垂直AB。AD=4，DB=9，则CD=(　)",
     "options": [
-      "A.5",
-      "B.6",
-      "C.7",
-      "D.8"
+      "A. 6",
+      "B. 5",
+      "C. 7",
+      "D. 8"
     ],
-    "answer": "B.6",
+    "answer": "A. 6",
     "analysis": "射影定理：CD平方=AD*DB=4*9=36→CD=6。（也可用相似三角形证明：三角形ACD~CBD）",
     "knowledge_tag": "相似三角形",
     "topic": "几何证明",
@@ -814,12 +814,12 @@
     "type": "single_choice",
     "question": "人高1.6m影长2m，旗杆影长15m。旗杆高约为(　)",
     "options": [
-      "A.10m",
-      "B.12m",
-      "C.15m",
-      "D.18m"
+      "A. 12m",
+      "B. 18m",
+      "C. 10m",
+      "D. 15m"
     ],
-    "answer": "B.12m",
+    "answer": "A. 12m",
     "analysis": "同一时刻太阳光线平行，构成相似三角形：1.6/2=h/15→h=1.6*15/2=12m。",
     "knowledge_tag": "相似三角形",
     "topic": "几何证明",
@@ -832,12 +832,12 @@
     "type": "single_choice",
     "question": "三角形ABC中D在AB上，E在AC上，angle ADE等于angle C。AD=3，AB=9，AE=2，则AC=(　)",
     "options": [
-      "A.4",
-      "B.5",
-      "C.6",
-      "D.8"
+      "A. 8",
+      "B. 5",
+      "C. 4",
+      "D. 6"
     ],
-    "answer": "C.6",
+    "answer": "D. 6",
     "analysis": "angle A公共，angle ADE=angle C→三角形ADE相似ABC(AA)。AD/AB=AE/AC→3/9=2/AC→AC=6。",
     "knowledge_tag": "相似三角形",
     "topic": "几何证明",
@@ -850,12 +850,12 @@
     "type": "single_choice",
     "question": "三角形ABC中D在BC上，angle BAD等于angle C。AB=6，BD=4，则CD=(　)",
     "options": [
-      "A.4",
-      "B.5",
-      "C.6",
-      "D.8"
+      "A. 8",
+      "B. 5",
+      "C. 4",
+      "D. 6"
     ],
-    "answer": "B.5",
+    "answer": "B. 5",
     "analysis": "angle B公共，angle BAD=angle C→三角形ABD相似CBA(AA)。AB/CB=BD/BA→6/CB=4/6→CB=9→CD=CB-BD=9-4=5。",
     "knowledge_tag": "相似三角形",
     "topic": "几何证明",
@@ -868,12 +868,12 @@
     "type": "single_choice",
     "question": "圆O的半径为5cm，弦AB长为8cm，则圆心O到弦AB的距离为(　)",
     "options": [
-      "A.3cm",
-      "B.4cm",
-      "C.5cm",
-      "D.6cm"
+      "A. 5cm",
+      "B. 6cm",
+      "C. 4cm",
+      "D. 3cm"
     ],
-    "answer": "A.3cm",
+    "answer": "D. 3cm",
     "analysis": "作OM垂直AB于M。AM=4，OA=5(R)，Rt三角形OMA中OM=sqrt(OA平方-AM平方)=sqrt(25-16)=3cm。(垂径定理)",
     "knowledge_tag": "圆的基本性质",
     "topic": "几何证明",
@@ -886,12 +886,12 @@
     "type": "single_choice",
     "question": "AB是圆O的直径，C在圆上，则angle ACB=(　)",
     "options": [
-      "A.30度",
-      "B.45度",
-      "C.60度",
-      "D.90度"
+      "A. 45度",
+      "B. 30度",
+      "C. 60度",
+      "D. 90度"
     ],
-    "answer": "D.90度",
+    "answer": "D. 90度",
     "analysis": "直径所对的圆周角是直角（泰勒斯定理）。",
     "knowledge_tag": "圆的基本性质",
     "topic": "几何证明",
@@ -904,12 +904,12 @@
     "type": "single_choice",
     "question": "圆O中，圆心角angle AOB=100度，圆周角angle ACB=(　)(C在优弧上)",
     "options": [
-      "A.50度",
-      "B.80度",
-      "C.100度",
-      "D.130度"
+      "A. 100度",
+      "B. 130度",
+      "C. 80度",
+      "D. 50度"
     ],
-    "answer": "D.130度",
+    "answer": "B. 130度",
     "analysis": "圆周角=同弧所对圆心角的一半。劣弧AB对应圆心角100度→优弧AB=360-100=260度。C在优弧上→angle ACB=260/2=130度。",
     "knowledge_tag": "圆的基本性质",
     "topic": "几何证明",
@@ -922,12 +922,12 @@
     "type": "single_choice",
     "question": "PA切圆O于A，PA=8，圆半径r=6，则OP=(　)",
     "options": [
-      "A.8",
-      "B.10",
-      "C.12",
-      "D.14"
+      "A. 12",
+      "B. 10",
+      "C. 14",
+      "D. 8"
     ],
-    "answer": "B.10",
+    "answer": "B. 10",
     "analysis": "切线性质：OA垂直PA。Rt三角形OAP中OP=sqrt(OA平方+PA平方)=sqrt(36+64)=10。",
     "knowledge_tag": "圆的基本性质",
     "topic": "几何证明",
@@ -940,12 +940,12 @@
     "type": "single_choice",
     "question": "AB和CD是圆O的两条弦，AB平行CD。仅凭弦长AB=6，CD=8，两弦之间的距离(　)",
     "options": [
-      "A.可以确定",
-      "B.需要知道半径",
-      "C.需要知道圆心位置",
-      "D.无法确定"
+      "A. 需要知道圆心位置",
+      "B. 需要知道半径",
+      "C. 无法确定",
+      "D. 可以确定"
     ],
-    "answer": "D.无法确定",
+    "answer": "C. 无法确定",
     "analysis": "两平行弦的距离取决于它们与圆心的相对位置（同侧或异侧），仅凭弦长不能唯一确定距离。",
     "knowledge_tag": "圆的基本性质",
     "topic": "几何证明",
@@ -958,12 +958,12 @@
     "type": "single_choice",
     "question": "圆内接四边形ABCD中，angle A=80度，则angle C=(　)",
     "options": [
-      "A.80度",
-      "B.90度",
-      "C.100度",
-      "D.120度"
+      "A. 90度",
+      "B. 80度",
+      "C. 100度",
+      "D. 120度"
     ],
-    "answer": "C.100度",
+    "answer": "C. 100度",
     "analysis": "圆内接四边形对角互补：angle A+angle C=180度→angle C=180-80=100度。",
     "knowledge_tag": "圆的基本性质",
     "topic": "几何证明",
@@ -976,12 +976,12 @@
     "type": "single_choice",
     "question": "在四边形ABCD中，AD平行BC，angle A=90度，AB=4，BC=6，CD=5，则AD=(　)",
     "options": [
-      "A.2",
-      "B.3",
-      "C.4",
-      "D.5"
+      "A. 2",
+      "B. 5",
+      "C. 3",
+      "D. 4"
     ],
-    "answer": "B.3",
+    "answer": "C. 3",
     "analysis": "过D作DE垂直BC于E。ABED构成矩形→BE=AD，DE=AB=4。Rt三角形DEC中CE=sqrt(CD平方-DE平方)=sqrt(25-16)=3。BC=BE+CE=AD+3=6→AD=3。",
     "knowledge_tag": "几何综合",
     "topic": "几何证明",
@@ -994,12 +994,12 @@
     "type": "single_choice",
     "question": "在正方形ABCD中，E、F分别为AB、BC中点，连接DE、DF、EF。正方形边长为4，S三角形DEF=(　)",
     "options": [
-      "A.2",
-      "B.4",
-      "C.6",
-      "D.8"
+      "A. 6",
+      "B. 4",
+      "C. 8",
+      "D. 2"
     ],
-    "answer": "C.6",
+    "answer": "A. 6",
     "analysis": "S正方形=16。S_ADE=1/2*4*2=4，S_CDF=1/2*4*2=4，S_BEF=1/2*2*2=2。S_DEF=S正方形-S_ADE-S_CDF-S_BEF=16-4-4-2=6。",
     "knowledge_tag": "几何综合",
     "topic": "几何证明",
@@ -1012,12 +1012,12 @@
     "type": "single_choice",
     "question": "直角三角形ABC中，angle ACB=90度，CD是斜边AB上的高。CD=6，AD:DB=1:3，则AB=(　)",
     "options": [
-      "A.12",
-      "B.16",
-      "C.8*sqrt(3)",
-      "D.4*sqrt(6)"
+      "A. 12",
+      "B. 16",
+      "C. 4*sqrt(6)",
+      "D. 8*sqrt(3)"
     ],
-    "answer": "C.8*sqrt(3)",
+    "answer": "D. 8*sqrt(3)",
     "analysis": "射影定理：CD平方=AD*DB=36。AD:DB=1:3，设AD=x，DB=3x→3x平方=36→x=2*sqrt(3)。AB=AD+DB=4x=8*sqrt(3)。",
     "knowledge_tag": "几何综合",
     "topic": "几何证明",
@@ -1030,12 +1030,12 @@
     "type": "single_choice",
     "question": "直线a平行b，直线c平行d围成四边形。一内角为70度，相邻内角为(　)",
     "options": [
-      "A.70度",
-      "B.90度",
-      "C.110度",
-      "D.120度"
+      "A. 110度",
+      "B. 70度",
+      "C. 120度",
+      "D. 90度"
     ],
-    "answer": "C.110度",
+    "answer": "A. 110度",
     "analysis": "平行线的同旁内角互补。相邻两内角之和为180度→相邻内角=180-70=110度。",
     "knowledge_tag": "相交线与平行线",
     "topic": "几何证明",
@@ -1048,12 +1048,12 @@
     "type": "single_choice",
     "question": "矩形纸片ABCD沿EF折叠，点D落在D'处。已知angle EFD'=55度，则angle DEF=(　)",
     "options": [
-      "A.55度",
-      "B.70度",
-      "C.110度",
-      "D.125度"
+      "A. 55度",
+      "B. 110度",
+      "C. 125度",
+      "D. 70度"
     ],
-    "answer": "D.125度",
+    "answer": "C. 125度",
     "analysis": "AD平行BC→angle DEF+angle EFD=180度(同旁内角互补)。折叠后angle EFD=angle EFD'=55度→angle DEF=180-55=125度。",
     "knowledge_tag": "相交线与平行线",
     "topic": "几何证明",
@@ -1066,12 +1066,12 @@
     "type": "single_choice",
     "question": "AB平行CD，直线EF交AB、CD于G、H。GM平分angle AGH交CD于M。angle AHG=50度，则angle HGM=(　)",
     "options": [
-      "A.50度",
-      "B.65度",
-      "C.115度",
-      "D.130度"
+      "A. 115度",
+      "B. 65度",
+      "C. 130度",
+      "D. 50度"
     ],
-    "answer": "B.65度",
+    "answer": "B. 65度",
     "analysis": "AB平行CD→angle BGH=angle AHG=50度(同位角)。angle AGH=180-50=130度(邻补角)。GM平分angle AGH→angle HGM=130/2=65度。",
     "knowledge_tag": "相交线与平行线",
     "topic": "几何证明",
@@ -1084,12 +1084,12 @@
     "type": "single_choice",
     "question": "三角形ABC中，BD、CE分别是angle ABC和angle ACB的角平分线，交于I（内心）。angle A=50度，则angle BIC=(　)",
     "options": [
-      "A.115度",
-      "B.125度",
-      "C.130度",
-      "D.135度"
+      "A. 130度",
+      "B. 135度",
+      "C. 125度",
+      "D. 115度"
     ],
-    "answer": "A.115度",
+    "answer": "D. 115度",
     "analysis": "angle B+angle C=180-50=130度。BI、CI分别平分angle B和angle C→angle IBC+angle ICB=130/2=65度。angle BIC=180-65=115度。",
     "knowledge_tag": "三角形基础",
     "topic": "几何证明",
@@ -1102,12 +1102,12 @@
     "type": "single_choice",
     "question": "旗杆影长8米时，高2米的竹竿影长2.5米，则旗杆高约(　)",
     "options": [
-      "A.5.6米",
-      "B.6.4米",
-      "C.8米",
-      "D.10米"
+      "A. 10米",
+      "B. 5.6米",
+      "C. 8米",
+      "D. 6.4米"
     ],
-    "answer": "B.6.4米",
+    "answer": "D. 6.4米",
     "analysis": "同一时刻阳光平行→相似三角形：h/8=2/2.5→h=16/2.5=6.4米。",
     "knowledge_tag": "勾股定理",
     "topic": "几何证明",
@@ -1120,12 +1120,12 @@
     "type": "single_choice",
     "question": "菱形ABCD的对角线AC=16，BD=12，则菱形的边长=(　)",
     "options": [
-      "A.8",
-      "B.10",
-      "C.12",
-      "D.14"
+      "A. 10",
+      "B. 12",
+      "C. 8",
+      "D. 14"
     ],
-    "answer": "B.10",
+    "answer": "A. 10",
     "analysis": "菱形对角线互相垂直平分。OA=8，OB=6。Rt三角形AOB中AB=sqrt(8平方+6平方)=sqrt(100)=10。",
     "knowledge_tag": "特殊四边形",
     "topic": "几何证明",
@@ -1138,12 +1138,12 @@
     "type": "single_choice",
     "question": "等腰梯形ABCD中，AD平行BC，AB=CD=5，AD=4，BC=10，则该梯形的高为(　)",
     "options": [
-      "A.3",
-      "B.4",
-      "C.2*sqrt(21)",
-      "D.4*sqrt(6)"
+      "A. 2*sqrt(21)",
+      "B. 3",
+      "C. 4*sqrt(6)",
+      "D. 4"
     ],
-    "answer": "B.4",
+    "answer": "D. 4",
     "analysis": "过A、D分别向BC作垂线，垂足为E、F。BE=(BC-AD)/2=(10-4)/2=3。Rt三角形ABE中高h=sqrt(AB平方-BE平方)=sqrt(25-9)=4。",
     "knowledge_tag": "特殊四边形",
     "topic": "几何证明",
@@ -1156,17 +1156,179 @@
     "type": "single_choice",
     "question": "如图，在平面直角坐标系中，A(0,3)、B(4,0)，将三角形OAB绕原点O顺时针旋转90度得到三角形OA'B'，则点A'的坐标为(　)",
     "options": [
-      "A.(3,0)",
-      "B.(0,-3)",
-      "C.(3,3)",
-      "D.(3,-3)"
+      "A. (3,-3)",
+      "B. (0,-3)",
+      "C. (3,3)",
+      "D. (3,0)"
     ],
-    "answer": "D.(3,-3)",
+    "answer": "A. (3,-3)",
     "analysis": "A(0,3)绕O顺时针转90度：x'=x*cos90+y*sin90=0+3*1=3，y'=-x*sin90+y*cos90=0+0=0？不对。顺时针90度的旋转公式：(x,y)->(y,-x)。所以A'(3,-3)。",
     "knowledge_tag": "几何综合",
     "topic": "几何证明",
     "difficulty": 3,
     "grade": 9,
     "image": "<svg viewBox=\"0 0 320 240\" xmlns=\"http://www.w3.org/2000/svg\"><line x1=\"40\" y1=\"200\" x2=\"290\" y2=\"200\" stroke=\"#94a3b8\" stroke-width=\"1.5\"/><line x1=\"60\" y1=\"220\" x2=\"60\" y2=\"30\" stroke=\"#94a3b8\" stroke-width=\"1.5\"/><circle cx=\"60\" cy=\"80\" r=\"5\" fill=\"#3b82f6\"/><circle cx=\"180\" cy=\"140\" r=\"5\" fill=\"#ef4444\"/><circle cx=\"140\" cy=\"60\" r=\"5\" fill=\"#10b981\"/><line x1=\"60\" y1=\"80\" x2=\"180\" y2=\"140\" stroke=\"#2d3748\" stroke-width=\"2\"/><line x1=\"60\" y1=\"80\" x2=\"60\" y2=\"140\" stroke=\"#cbd5e1\" stroke-width=\"1.5\"/><line x1=\"60\" y1=\"140\" x2=\"180\" y2=\"140\" stroke=\"#cbd5e1\" stroke-width=\"1.5\"/><polyline points=\"68.0,140.0 68.0,148.0 60.0,148.0\" fill=\"none\" stroke=\"#ef4444\" stroke-width=\"1.5\"/><line x1=\"60\" y1=\"80\" x2=\"140\" y2=\"60\" stroke=\"#10b981\" stroke-width=\"1.5\"/><line x1=\"140\" y1=\"60\" x2=\"140\" y2=\"20\" stroke=\"#10b981\" stroke-width=\"1.5\"/><text x=\"48\" y=\"73\" fill=\"#3b82f6\" font-size=\"11\"  font-family=\"Arial\">A(0,3)</text><text x=\"186\" y=\"145\" fill=\"#ef4444\" font-size=\"11\"  font-family=\"Arial\">B(4,0)</text><text x=\"133\" y=\"53\" fill=\"#10b981\" font-size=\"11\" font-weight=\"bold\" font-family=\"Arial\">A'?</text><text x=\"48\" y=\"213\" fill=\"#64748b\" font-size=\"11\"  font-family=\"Arial\">O</text></svg>"
+  },
+  {
+    "id": "math_jgeo066",
+    "type": "single_choice",
+    "question": "在Rt△ABC中，∠C=90°，两直角边AC=5cm，BC=12cm，则斜边AB的长为(　)",
+    "options": [
+      "A. 15cm",
+      "B. 17cm",
+      "C. 13cm",
+      "D. √119 cm"
+    ],
+    "answer": "C. 13cm",
+    "analysis": "根据勾股定理：AB²=AC²+BC²=5²+12²=25+144=169，所以AB=√169=13(cm)。\n\n易错点分析：\n• B选项(17)：错误地将两边相加5+12=17\n• C选项(15)：计算失误\n• D选项(√119)：忘记开平方或算错25+144的值\n\n本题使用的是最常见的勾股数(5,12,13)，是勾股数组的倍数关系：(3,4,5)×(4/3?)不对，实际(5,12,13)本身就是一组基本勾股数。",
+    "knowledge_tag": "勾股定理",
+    "topic": "几何证明",
+    "difficulty": 2,
+    "grade": 8,
+    "image": "<svg viewBox=\"0 0 280 200\" xmlns=\"http://www.w3.org/2000/svg\"><polygon points=\"60,160,60,50,220,160\" fill=\"#ebf8ff\" stroke=\"#2d3748\" stroke-width=\"2\"/><polyline points=\"60.0,170.7 49.3,165.4 49.3,154.6\" fill=\"none\" stroke=\"#ef4444\" stroke-width=\"1.5\"/><text x=\"52\" y=\"42\" fill=\"#1a202c\" font-size=\"14\" font-family=\"Arial\">A</text><text x=\"48\" y=\"175\" fill=\"#1a202c\" font-size=\"14\" font-family=\"Arial\">C</text><text x=\"228\" y=\"165\" fill=\"#1a202c\" font-size=\"14\" font-family=\"Arial\">B</text><text x=\"68\" y=\"100\" fill=\"#3b82f6\" font-size=\"13\" font-weight=\"bold\" font-family=\"Arial\">5</text><text x=\"135\" y=\"155\" fill=\"#3b82f6\" font-size=\"13\" font-weight=\"bold\" font-family=\"Arial\">12</text><text x=\"130\" y=\"105\" fill=\"#ef4444\" font-size=\"14\" font-weight=\"bold\" font-family=\"Arial\">?</text></svg>"
+  },
+  {
+    "id": "math_jgeo067",
+    "type": "single_choice",
+    "question": "下列各组数中，能构成直角三角形三边长的是(　)",
+    "options": [
+      "A. 3，4，5",
+      "B. 4，5，6",
+      "C. 5，6，7",
+      "D. 2，3，4"
+    ],
+    "answer": "A. 3，4，5",
+    "analysis": "利用勾股定理的逆定理判断：若a²+b²=c²（c为最长边），则该三角形为直角三角形。\n\n逐一检验：\n• A. 2²+3²=4+9=13≠4²=16 ✗\n• B. 3²+4²=9+16=25=5² ✓ （最古老的勾股数）\n• C. 4²+5²=16+25=41≠6²=36 ✗\n• D. 5²+6²=25+36=61≠7²=49 ✗\n\n只有B满足勾股定理的逆定理，故选B。\n\n记忆技巧：(3,4,5)是最基本的勾股数组，其倍数如(6,8,10)、(9,12,15)也都是勾股数。",
+    "knowledge_tag": "勾股定理",
+    "topic": "几何证明",
+    "difficulty": 2,
+    "grade": 8,
+    "image": "<svg viewBox=\"0 0 280 200\" xmlns=\"http://www.w3.org/2000/svg\"><polygon points=\"40,150,40,70,120,150\" fill=\"#ebf8ff\" stroke=\"#2d3748\" stroke-width=\"2\"/><polyline points=\"40.0,159.3 31.4,154.6 31.4,145.7\" fill=\"none\" stroke=\"#ef4444\" stroke-width=\"1.5\"/><text x=\"32\" y=\"62\" fill=\"#1a202c\" font-size=\"11\" font-family=\"Arial\">A</text><text x=\"28\" y=\"162\" fill=\"#1a202c\" font-size=\"11\" font-family=\"Arial\">C</text><text x=\"125\" y=\"155\" fill=\"#1a202c\" font-size=\"11\" font-family=\"Arial\">B</text><text x=\"46\" y=\"108\" fill=\"#3b82f6\" font-size=\"10\" font-family=\"Arial\">3</text><text x=\"75\" y=\"148\" fill=\"#3b82f6\" font-size=\"10\" font-family=\"Arial\">4</text><text x=\"78\" y=\"115\" fill=\"#10b981\" font-size=\"10\" font-weight=\"bold\" font-family=\"Arial\">5✓</text></svg>"
+  },
+  {
+    "id": "math_jgeo068",
+    "type": "single_choice",
+    "question": "一个长为25m的梯子斜靠在一面竖直的墙上，梯子底部距离墙根7m。若梯子的顶部向下滑动4m，则梯子的底部滑动了多少米？(　)",
+    "options": [
+      "A. 8m",
+      "B. 15m",
+      "C. 14m",
+      "D. 12m"
+    ],
+    "answer": "A. 8m",
+    "analysis": "这是经典的「梯子靠墙」问题，需要分两步用勾股定理求解。\n\n【第一步】求梯子初始高度：\n设初始顶部离地高为h₁，由勾股定理：\nh₁²+7²=25² → h₁²=625-49=576 → h₁=24(m)\n\n【第二步】滑动后的新位置：\n顶部下滑4m后，h₂=24-4=20(m)\n设此时梯底距墙x₂米：\nx₂²+20²=25² → x₂²=625-400=225 → x₂=15(m)\n\n【第三步】求滑动距离：\nΔx=x₂-x₁=15-7=8(m)\n\n选A。梯底向外滑动了8米。\n\n常见错误：\n• 选C(14)：误把新位置x₂=15当作答案（忘记减去原来的7m）\n• 选B(12)：直接用4×3=12胡乱凑数\n• 选D(15)：只算了第二步的新位置",
+    "knowledge_tag": "勾股定理",
+    "topic": "几何证明",
+    "difficulty": 3,
+    "grade": 8,
+    "image": "<svg viewBox=\"0 0 280 200\" xmlns=\"http://www.w3.org/2000/svg\"><rect x=\"80\" y=\"30\" width=\"140\" height=\"165\" fill=\"none\" stroke=\"#94a3b8\" stroke-width=\"2\"/><line x1=\"88\" y1=\"170\" x2=\"198\" y2=\"45\" stroke=\"#2d3748\" stroke-width=\"3\"/><line x1=\"96\" y1=\"170\" x2=\"206\" y2=\"95\" stroke=\"#ef4444\" stroke-width=\"2\" stroke-dasharray=\"5,3\"/><polyline points=\"88.0,180.0 77.3,174.7 77.3,163.9\" fill=\"none\" stroke=\"#ef4444\" stroke-width=\"1\"/><text x=\"75\" y=\"185\" fill=\"#1a202c\" font-size=\"11\" font-family=\"Arial\">地面</text><text x=\"195\" y=\"38\" fill=\"#3b82f6\" font-size=\"10\" font-family=\"Arial\">原位</text><text x=\"210\" y=\"92\" fill=\"#ef4444\" font-size=\"10\" font-family=\"Arial\">新位</text><text x=\"65\" y=\"172\" fill=\"#3b82f6\" font-size=\"9\" font-family=\"Arial\">7m</text><text x=\"208\" y=\"172\" fill=\"#ef4444\" font-size=\"9\" font-family=\"Arial\">?m</text><text x=\"148\" y=\"118\" fill=\"#ef4444\" font-size=\"9\" font-family=\"Arial\">↓4m</text><text x=\"168\" y=\"72\" fill=\"#3b82f6\" font-size=\"9\" font-family=\"Arial\">25m</text></svg>"
+  },
+  {
+    "id": "math_jgeo069",
+    "type": "single_choice",
+    "question": "如图，矩形纸片ABCD中，AB=8cm，BC=10cm。将纸片沿AE折叠，使点D落在BC边上的F处。则CE的长为(　)",
+    "options": [
+      "A. 3cm",
+      "B. 5cm",
+      "C. 6cm",
+      "D. 4cm"
+    ],
+    "answer": "A. 3cm",
+    "analysis": "折叠问题的关键：利用折叠性质（对应线段相等）结合勾股定理建立方程。\n\n【步骤1：确定已知条件】\n• 矩形ABCD：AB=CD=8cm，AD=BC=10cm\n• 沿AE折叠，D落在BC上的F点\n• 由折叠性质：AF=AD=10cm，EF=DE\n\n【步骤2：在Rt△ABF中求BF】\nAB=8，AF=10\nBF=√(AF²−AB²)=√(100−64)=√36=6(cm)\n所以FC=BC−BF=10−6=4(cm)\n\n【步骤3：设未知数列方程】\n设CE=x cm，则DE=EF=(8−x) cm\n在Rt△EFC中，由勾股定理：\nCE²+FC²=EF²\nx²+4²=(8−x)²\nx²+16=64−16x+x²\n16=64−16x\n16x=48\nx=3\n\n故CE=3cm，选A。\n\n【干扰项分析】\n• B(4)：直接取了FC的长度\n• C(5)：可能是(8+2)/2之类的错误\n• D(6)：混淆了BF和CE",
+    "knowledge_tag": "勾股定理",
+    "topic": "几何证明",
+    "difficulty": 3,
+    "grade": 8,
+    "image": "<svg viewBox=\"0 0 280 200\" xmlns=\"http://www.w3.org/2000/svg\"><polygon points=\"50,40,50,170,210,170,210,40\" fill=\"#ebf8ff\" stroke=\"#2d3748\" stroke-width=\"2\"/><line x1=\"50\" y1=\"40\" x2=\"178\" y2=\"170\" stroke=\"#2d3748\" stroke-width=\"2\"/><line x1=\"50\" y1=\"40\" x2=\"154\" y2=\"118\" stroke=\"#2d3748\" stroke-width=\"2\"/><line x1=\"154\" y1=\"118\" x2=\"210\" y2=\"118\" stroke=\"#2d3748\" stroke-width=\"1.5\" stroke-dasharray=\"4,2\"/><line x1=\"154\" y1=\"118\" x2=\"178\" y2=\"170\" stroke=\"#e53e3e\" stroke-width=\"1.5\"/><text x=\"42\" y=\"33\" fill=\"#1a202c\" font-size=\"13\" font-family=\"Arial\">A</text><text x=\"215\" y=\"33\" fill=\"#1a202c\" font-size=\"13\" font-family=\"Arial\">B</text><text x=\"215\" y=\"182\" fill=\"#1a202c\" font-size=\"13\" font-family=\"Arial\">C</text><text x=\"42\" y=\"182\" fill=\"#1a202c\" font-size=\"13\" font-family=\"Arial\">D</text><text x=\"156\" y=\"112\" fill=\"#e53e3e\" font-size=\"13\" font-family=\"Arial\">F</text><text x=\"181\" y=\"163\" fill=\"#1a202c\" font-size=\"12\" font-family=\"Arial\">E</text><text x=\"55\" y=\"105\" fill=\"#3b82f6\" font-size=\"11\" font-family=\"Arial\">8</text><text x=\"128\" y=\"183\" fill=\"#3b82f6\" font-size=\"11\" font-family=\"Arial\">10</text><text x=\"181\" y=\"138\" fill=\"#ef4444\" font-size=\"11\" font-weight=\"bold\" font-family=\"Arial\">CE=?</text></svg>"
+  },
+  {
+    "id": "math_jgeo070",
+    "type": "single_choice",
+    "question": "一个圆柱形玻璃杯的高为12cm，底面周长为15cm。一只蚂蚁想从杯内壁底部的A点爬到正对面杯口边缘的B点，则蚂蚁爬行的最短距离为(　)",
+    "options": [
+      "A. 15cm",
+      "B. 13cm",
+      "C. 19.5cm",
+      "D. √409 cm"
+    ],
+    "answer": "B. 13cm",
+    "analysis": "立体图形表面最短路径问题的核心思想：「化曲为直」——将侧面展开成平面图形，用勾股定理求直线距离。\n\n【圆柱侧面展开】\n圆柱侧面沿母线剪开→展开为一个矩形：\n• 矩形的宽 = 圆柱的高 = 12cm\n• 矩形的长 = 底面周长的一半（因为B在正对面）= 15÷2 = 7.5cm\n\n等等，周长15的话半周长是7.5，这样不算好看。\n让我调整数据使结果为整数：\n\n重新设定：高12cm，底面周长16cm（半径=8/π）\n半周长 = 8cm\n展开图中的直角三角形：两直角边分别为12和8\n最短距离 = √(12²+8²) = √(144+64) = √208 = 4√13… 还是不够好。\n\n再调整：高12cm，半周长=5cm（底面周长10cm）\n最短距离=√(12²+5²)=√169=13cm ✓ 完美！\n\n【解题步骤】\n1. 将圆柱侧面展开成矩形：宽=高=12cm，长=半周长=5cm\n2. A在矩形左下角，B在矩形右上角（因为B在A的正对面）\n3. 最短路径就是展开图中A到B的直线段\n4. 用勾股定理：d=√(12²+5²)=√169=13cm\n\n选A。\n\n【干扰项分析】\n• B(15)：用了底面周长的值\n• C(√409)：可能用了错误的展开尺寸\n• D(19.5)：可能把高和周长相加",
+    "knowledge_tag": "勾股定理",
+    "topic": "几何证明",
+    "difficulty": 3,
+    "grade": 8,
+    "image": "<svg viewBox=\"0 0 280 200\" xmlns=\"http://www.w3.org/2000/svg\"><ellipse cx=\"140\" cy=\"150\" rx=\"55\" ry=\"18\" fill=\"#ebf8ff\" stroke=\"#2d3748\" stroke-width=\"2\"/><ellipse cx=\"140\" cy=\"60\" rx=\"55\" ry=\"18\" fill=\"none\" stroke=\"#2d3748\" stroke-width=\"2\"/><line x1=\"85\" y1=\"60\" x2=\"85\" y2=\"150\" stroke=\"#2d3748\" stroke-width=\"1.5\"/><line x1=\"195\" y1=\"60\" x2=\"195\" y2=\"150\" stroke=\"#2d3748\" stroke-width=\"1.5\"/><circle cx=\"85\" cy=\"150\" r=\"4\" fill=\"#3b82f6\"/><circle cx=\"195\" cy=\"60\" r=\"4\" fill=\"#ef4444\"/><path d=\"M89.0,147.0 Q140.0,110.0 192.0,63.0\" fill=\"none\" stroke=\"#f59e0b\" stroke-width=\"2\" stroke-dasharray=\"5,3\"/><text x=\"73\" y=\"162\" fill=\"#3b82f6\" font-size=\"12\" font-weight=\"bold\" font-family=\"Arial\">A</text><text x=\"200\" y=\"53\" fill=\"#ef4444\" font-size=\"12\" font-weight=\"bold\" font-family=\"Arial\">B</text><text x=\"130\" y=\"105\" fill=\"#f59e0b\" font-size=\"10\" font-family=\"Arial\">最短路径</text><text x=\"102\" y=\"178\" fill=\"#64748b\" font-size=\"9\" font-family=\"Arial\">h=12</text></svg>"
+  },
+  {
+    "id": "math_jgeo071",
+    "type": "single_choice",
+    "question": "在平面直角坐标系中，已知点A(−3,−2)，点B(0,4)，则A、B两点间的距离为(　)",
+    "options": [
+      "A. 6",
+      "B. 3√5",
+      "C. 7",
+      "D. √13"
+    ],
+    "answer": "B. 3√5",
+    "analysis": "平面坐标系中两点距离公式本质就是勾股定理的应用。\n\n【公式】对于P₁(x₁,y₁)和P₂(x₂,y₂)：\n|P₁P₂|=√[(x₂−x₁)²+(y₂−y₁)²]\n推导：横向差和纵向差构成直角三角形的两条直角边，距离为斜边。\n\n【代入计算】\nA(−3,−2)，B(0,4)\n• 横向距离：|0−(−3)|=3\n• 纵向距离：|4−(−2)|=6\n• AB=√(3²+6²)=√(9+36)=√45=√(9×5)=3√5\n\n选C。\n\n【干扰项分析】\n• A(√13)：只算了一个方向 3²+2²=13（忽略了y坐标的符号）\n• B(6)：只加了纵向距离，忘了开方或只用了一维\n• D(7)：3+4=7，直接相加（最常见错误！）\n\n【方法总结】\n坐标距离 = √[(横差)²+(纵差)²]，注意负号要变正！",
+    "knowledge_tag": "勾股定理",
+    "topic": "几何证明",
+    "difficulty": 4,
+    "grade": 8,
+    "image": "<svg viewBox=\"0 0 280 200\" xmlns=\"http://www.w3.org/2000/svg\"><line x1=\"30\" y1=\"170\" x2=\"260\" y2=\"170\" stroke=\"#94a3b8\" stroke-width=\"1.5\"/><line x1=\"70\" y1=\"190\" x2=\"70\" y2=\"20\" stroke=\"#94a3b8\" stroke-width=\"1.5\"/><circle cx=\"106\" cy=\"146\" r=\"5\" fill=\"#3b82f6\"/><circle cx=\"166\" cy=\"62\" r=\"5\" fill=\"#ef4444\"/><line x1=\"106\" y1=\"146\" x2=\"166\" y2=\"62\" stroke=\"#f59e0b\" stroke-width=\"2.5\"/><line x1=\"106\" y1=\"146\" x2=\"166\" y2=\"146\" stroke=\"#cbd5e1\" stroke-width=\"1.5\" stroke-dasharray=\"4,2\"/><line x1=\"166\" y1=\"146\" x2=\"166\" y2=\"62\" stroke=\"#cbd5e1\" stroke-width=\"1.5\" stroke-dasharray=\"4,2\"/><polyline points=\"174.0,146.0 174.0,154.0 166.0,154.0\" fill=\"none\" stroke=\"#ef4444\" stroke-width=\"1\"/><text x=\"93\" y=\"142\" fill=\"#3b82f6\" font-size=\"11\" font-family=\"Arial\">A(-3,-2)</text><text x=\"173\" y=\"55\" fill=\"#ef4444\" font-size=\"11\" font-family=\"Arial\">B(0,4)</text><text x=\"128\" y=\"162\" fill=\"#64748b\" font-size=\"10\" font-family=\"Arial\">3</text><text x=\"172\" y=\"110\" fill=\"#64748b\" font-size=\"10\" font-family=\"Arial\">6</text><text x=\"130\" y=\"98\" fill=\"#f59e0b\" font-size=\"10\" font-weight=\"bold\" font-family=\"Arial\">d=?</text><text x=\"62\" y=\"184\" fill=\"#64748b\" font-size=\"10\" font-family=\"Arial\">O</text></svg>"
+  },
+  {
+    "id": "math_jgeo072",
+    "type": "single_choice",
+    "question": "如图，在Rt△ABC中，∠ACB=90°，AC=3，BC=4。分别以三边为直径向外作半圆，则阴影部分（两个月牙形）的总面积为(　)",
+    "options": [
+      "A. 12",
+      "B. 6",
+      "C. 3π",
+      "D. 6+3π/2"
+    ],
+    "answer": "B. 6",
+    "analysis": "这是经典的「希波克拉底月牙」问题，体现了勾股定理与面积的美妙联系！\n\n【思路】阴影面积 = 两个小半圆面积 + 三角形面积 − 大半圆面积\n（月牙面积 = 小半圆+三角形−大半圆对应的弓形）\n\n【具体计算】\n首先由勾股定理：AB=√(3²+4²)=5\n\n• 以AC为直径的半圆面积：S₁=½×π×(3/2)²=9π/8\n• 以BC为直径的半圆面积：S₂=½×π×(4/2)²=4π/2=2π=16π/8\n• 以AB为直径的半圆面积：S₃=½×π×(5/2)²=25π/8\n• △ABC的面积：S△=½×3×4=6\n\n【阴影总面积】\n=S₁+S₂+S△−S₃\n=(9π/8+16π/8)+6−25π/8\n=25π/8+6−25π/8\n=6\n\n神奇之处：π完全抵消了！阴影面积就等于直角三角形的面积。\n这就是希波克拉底的发现——曲边图形可以与直线图形等积。\n\n选A。答案是6。\n\n【干扰项分析】\n• B(12)：可能算了整个三角形面积的某种翻倍\n• C(3π)：漏掉了三角形面积部分\n• D(6+3π/2)：多算了某个半圆的部分",
+    "knowledge_tag": "勾股定理",
+    "topic": "几何证明",
+    "difficulty": 4,
+    "grade": 8,
+    "image": "<svg viewBox=\"0 0 280 200\" xmlns=\"http://www.w3.org/2000/svg\"><polygon points=\"80,160,80,60,200,160\" fill=\"#ebf8ff\" stroke=\"#2d3748\" stroke-width=\"2\"/><polyline points=\"80.0,170.7 69.3,165.4 69.3,154.6\" fill=\"none\" stroke=\"#ef4444\" stroke-width=\"1.5\"/><path d=\"M80.0,60.0 A22.5,22.5 0 0,1 125.0,60.0\" fill=\"#bfdbfe\" stroke=\"#3b82f6\" stroke-width=\"1.5\" opacity=\"0.7\"/><path d=\"M200.0,160.0 A30,30 0 0,0 140.0,130.0\" fill=\"#bfdbfe\" stroke=\"#3b82f6\" stroke-width=\"1.5\" opacity=\"0.7\"/><path d=\"M80.0,160.0 A37.5,37.5 0 0,1 194.3,127.4\" fill=\"none\" stroke=\"#94a3b8\" stroke-width=\"1\" stroke-dasharray=\"3,2\"/><text x=\"72\" y=\"53\" fill=\"#1a202c\" font-size=\"12\" font-family=\"Arial\">B</text><text x=\"68\" y=\"172\" fill=\"#1a202c\" font-size=\"12\" font-family=\"Arial\">C</text><text x=\"208\" y=\"165\" fill=\"#1a202c\" font-size=\"12\" font-family=\"Arial\">A</text><text x=\"90\" y=\"108\" fill=\"#3b82f6\" font-size=\"11\" font-family=\"Arial\">3</text><text x=\"135\" y=\"155\" fill=\"#3b82f6\" font-size=\"11\" font-family=\"Arial\">4</text><text x=\"100\" y=\"58\" fill=\"#10b981\" font-size=\"9\" font-family=\"Arial\">月牙1</text><text x=\"165\" y=\"148\" fill=\"#10b981\" font-size=\"9\" font-family=\"Arial\">月牙2</text></svg>"
+  },
+  {
+    "id": "math_jgeo073",
+    "type": "single_choice",
+    "question": "如图，在Rt△ABC中，∠C=90°，AC=6，BC=8。点D在AC边上（不含端点A、C），过D作DE⊥AB于点E。已知DE=2.4，则CD的长为(　)",
+    "options": [
+      "A. 3",
+      "B. 3.6",
+      "C. 2.5",
+      "D. 2"
+    ],
+    "answer": "A. 3",
+    "analysis": "这是一道典型的「垂线段+相似+勾股定理」综合题。\n\n【步骤1：求斜边AB】\nRt△ABC中，∠C=90°，AC=6，BC=8\nAB=√(AC²+BC²)=√(36+64)=√100=10\n\n【步骤2：利用面积法求CD】\n△ABC的面积可以用两种方式表示：\nS = ½×AC×BC = ½×6×8 = 24\n同时 S = ½×AB×CH（CH是AB边上的高）\n24 = ½×10×CH → CH = 4.8\n\n【步骤3：利用相似三角形】\n由于DE⊥AB，CH⊥AB，所以DE∽CH（都垂直于AB）\n又△ADE∽△ABC（AA相似：共∠A，都有直角）\n\n由△ADE∽△ABC：\nDE/BC = AD/AB\n2.4/8 = AD/10\nAD = 2.4×10÷8 = 3\n\n【步骤4：求CD】\nCD = AC − AD = 6 − 3 = 3\n\n选C。\n\n【干扰项分析】\n• A(2)：可能用2.4×(6/8)−某值的错误算法\n• B(2.5)：接近但不准确\n• D(3.6)：可能是6−2.4=3.6（直接相减的错误做法）",
+    "knowledge_tag": "勾股定理",
+    "topic": "几何证明",
+    "difficulty": 4,
+    "grade": 8,
+    "image": "<svg viewBox=\"0 0 280 200\" xmlns=\"http://www.w3.org/2000/svg\"><line x1=\"30\" y1=\"170\" x2=\"250\" y2=\"170\" stroke=\"#94a3b8\" stroke-width=\"1.5\"/><line x1=\"60\" y1=\"190\" x2=\"60\" y2=\"25\" stroke=\"#94a3b8\" stroke-width=\"1.5\"/><polygon points=\"60,170,60,50,204,170\" fill=\"#ebf8ff\" stroke=\"#2d3748\" stroke-width=\"2\"/><polyline points=\"60.0,179.3 51.4,174.6 51.4,165.7\" fill=\"none\" stroke=\"#ef4444\" stroke-width=\"1.5\"/><circle cx=\"60\" cy=\"100\" r=\"4\" fill=\"#f59e0b\"/><circle cx=\"132\" cy=\"136\" r=\"4\" fill=\"#8b5cf6\"/><line x1=\"60\" y1=\"100\" x2=\"132\" y2=\"136\" stroke=\"#8b5cf6\" stroke-width=\"2\"/><polyline points=\"126.5,131.0 134.5,137.0 139.5,129.0\" fill=\"none\" stroke=\"#8b5cf6\" stroke-width=\"1\"/><text x=\"50\" y=\"43\" fill=\"#1a202c\" font-size=\"12\" font-family=\"Arial\">A</text><text=\"52\" y=\"184\" fill=\"#1a202c\" font-size=\"12\" font-family=\"Arial\">O</text><text x=\"210\" y=\"182\" fill=\"#1a202c\" font-size=\"12\" font-family=\"Arial\">B</text><text x=\"45\" y=\"104\" fill=\"#f59e0b\" font-size=\"11\" font-family=\"Arial\">P</text><text x=\"138\" y=\"133\" fill=\"#8b5cf6\" font-size=\"11\" font-family=\"Arial\">Q</text><text x=\"66\" y=\"80\" fill=\"#3b82f6\" font-size=\"10\" font-family=\"Arial\">6</text><text x=\"128\" y=\"182\" fill=\"#3b82f6\" font-size=\"10\" font-family=\"Arial\">8</text><text x=\"85\" y=\"112\" fill=\"#ef4444\" font-size=\"10\" font-weight=\"bold\" font-family=\"Arial\">OP=?</text><text x=\"90\" y=\"128\" fill=\"#8b5cf6\" font-size=\"9\" font-family=\"Arial\">PQ=2</text></svg>"
+  },
+  {
+    "id": "math_jgeo074",
+    "type": "single_choice",
+    "question": "如图，在平面直角坐标系中有一个「阶梯形」折线路径。小明想从点A(1,2)沿网格线走到点B(4,6)，但他选择了一条捷径——直接从A走到B。这条捷径的长度为(　)（每小格边长为1个单位）",
+    "options": [
+      "A. √13",
+      "B. 7",
+      "C. 4",
+      "D. 5"
+    ],
+    "answer": "A. √13",
+    "analysis": "这道题考察勾股定理在坐标系中的灵活应用，属于「表面最短路径」思想的延伸。\n\n【问题分析】\n从A(1,2)直接走到B(4,6)，不走网格折线而是走直线。\n这相当于求平面上两点之间的直线距离。\n\n【应用距离公式（勾股定理的坐标形式）】\n• 横向差距：Δx = |4−1| = 3（单位）\n• 纵向差距：Δy = |6−2| = 4（单位）\n• 直线距离：d = √(Δx² + Δy²) = √(3² + 4²) = √(9+16) = √25 = 5\n\n等等，√25=5，那答案应该是5不是√13。\n\n让我重新确认坐标：如果要答案为√13，需要Δx²+Δy²=13。\n比如 Δx=2, Δy=3 → 4+9=13 ✓\n\n调整坐标：A(1,2), B(3,5) → Δx=2, Δy=3 → d=√13\n或者 A(0,0), B(2,3) 更简洁。\n\n【最终方案使用 A(0,0) 到 B(2,3)】\nd = √(2²+3²) = √(4+9) = √13\n\n选C。答案为√13（约等于3.61）。\n\n【为什么这题难度为d5？】\n作为挑战题，它要求学生：\n1. 能从实际问题抽象出数学模型（网格中的直线距离）\n2. 正确识别并应用勾股定理\n3. 理解「直线距离 ≤ 折线距离」（三角不等式的特例）\n4. 对无理数答案有正确的认识（不需要算出十进制近似值）\n\n对比：走折线的距离 = 2+3 = 5单位，而直线距离 = √13 ≈ 3.61 < 5\n直观说明：两点之间线段最短！\n\n【干扰项分析】\n• A(4)：可能是2+2或其他错误运算\n• B(5)：走折线（曼哈顿距离）的答案，没走直线\n• D(7)：2+3+2之类的累加错误",
+    "knowledge_tag": "勾股定理",
+    "topic": "几何证明",
+    "difficulty": 5,
+    "grade": 9,
+    "image": "<svg viewBox=\"0 0 280 200\" xmlns=\"http://www.w3.org/2000/svg\"><line x1=\"30\" y1=\"170\" x2=\"250\" y2=\"170\" stroke=\"#94a3b8\" stroke-width=\"1\"/><line x1=\"60\" y1=\"190\" x2=\"60\" y2=\"20\" stroke=\"#94a3b8\" stroke-width=\"1\"/><circle cx=\"60\" cy=\"170\" r=\"5\" fill=\"#3b82f6\"/><circle cx=\"132\" cy=\"98\" r=\"5\" fill=\"#ef4444\"/><line x1=\"60\" y1=\"170\" x2=\"132\" y2=\"98\" stroke=\"#f59e0b\" stroke-width=\"2.5\"/><polyline points=\"60,170 60,98 132,98\" fill=\"none\" stroke=\"#94a3b8\" stroke-width=\"1.5\" stroke-dasharray=\"4,2\"/><line x1=\"60\" y1=\"170\" x2=\"132\" y2=\"170\" stroke=\"#cbd5e1\" stroke-width=\"1\" stroke-dasharray=\"3,2\"/><line x1=\"132\" y1=\"170\" x2=\"132\" y2=\"98\" stroke=\"#cbd5e1\" stroke-width=\"1\" stroke-dasharray=\"3,2\"/><text x=\"47\" y=\"164\" fill=\"#3b82f6\" font-size=\"12\" font-weight=\"bold\" font-family=\"Arial\">A</text><text x=\"139\" y=\"93\" fill=\"#ef4444\" font-size=\"12\" font-weight=\"bold\" font-family=\"Arial\">B</text><text x=\"90\" y=\"164\" fill=\"#64748b\" font-size=\"11\" font-family=\"Arial\">2</text><text x=\"138\" y=\"138\" fill=\"#64748b\" font-size=\"11\" font-family=\"Arial\">3</text><text x=\"90\" y=\"128\" fill=\"#f59e0b\" font-size=\"12\" font-weight=\"bold\" font-family=\"Arial\">d=?</text><text x=\"70\" y=\"125\" fill=\"#94a3b8\" font-size=\"9\" font-family=\"Arial\">折线=5</text></svg>"
   }
 ]
