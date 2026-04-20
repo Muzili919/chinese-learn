@@ -39,28 +39,31 @@ function isAnswerCorrect(userAnswer, correctAnswer, options) {
     const letter = userAnswer.trim().toUpperCase()
     // 正确答案以该字母开头（如 "B. 精致" / "B、精致" / "b精致"）
     if (new RegExp(`^${letter}[.、．\\s]`, 'i').test(correctAnswer.trim())) return true
-    // 如果有选项数组，取对应下标比较内容
+    // ★ 修复：shuffle后不能用字母当下标，改用前缀匹配找对应选项
     if (options && options.length) {
-      const idx = letter.charCodeAt(0) - 65
-      if (idx >= 0 && idx < options.length) {
-        return ua === normalizeAnswer(options[idx])
+      const matchedOpt = options.find(o => new RegExp(`^${letter}[.、．\\s]`, 'i').test(String(o).trim()))
+      if (matchedOpt !== undefined) {
+        return ua === normalizeAnswer(matchedOpt)
       }
     }
   }
 
-  // 如果 correctAnswer 是单字母（A/B/C/D），匹配选项内容
+  // 如果 correctAnswer 是单字母（A/B/C/D），找到以该字母开头的选项来匹配
+  // ★ 关键修复：shuffle后选项顺序变了，不能再用字母当下标！必须按字母前缀查找
   if (/^[a-d]$/i.test(correctAnswer.trim()) && options && options.length) {
-    const idx = correctAnswer.trim().toUpperCase().charCodeAt(0) - 65
-    if (idx >= 0 && idx < options.length) {
-      return ua === normalizeAnswer(options[idx])
+    const targetLetter = correctAnswer.trim().toUpperCase()
+    const matchedOpt = options.find(o => new RegExp(`^${targetLetter}[.、．\\s]`, 'i').test(String(o).trim()))
+    if (matchedOpt !== undefined) {
+      return ua === normalizeAnswer(matchedOpt)
     }
   }
 
-  // 如果 userAnswer 是字母且有选项数组，反向匹配内容
+  // 如果 userAnswer 是纯字母且有选项数组，反向匹配：找用户选中的字母对应的原始选项
   if (/^[a-d]$/i.test(userAnswer.trim()) && options && options.length) {
-    const idx = userAnswer.trim().toUpperCase().charCodeAt(0) - 65
-    if (idx >= 0 && idx < options.length) {
-      return normalizeAnswer(options[idx]) === ca
+    const userLetter = userAnswer.trim().toUpperCase()
+    const matchedUserOpt = options.find(o => new RegExp(`^${userLetter}[.、．\\s]`, 'i').test(String(o).trim()))
+    if (matchedUserOpt !== undefined) {
+      return normalizeAnswer(matchedUserOpt) === ca
     }
   }
 
