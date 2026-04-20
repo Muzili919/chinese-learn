@@ -16,5 +16,14 @@
     "content": "进度汇报：请回复当前工作进度。已经生成了多少道新题？预计还需要多久？",
     "timestamp": "2026-04-20T11:54:24.810Z",
     "read": true
+  },
+  {
+    "id": "msg-1776686094289-5nhneo",
+    "from": "team-lead",
+    "to": "vocab-generator",
+    "type": "message",
+    "content": "收到汇报！48道新增题质量不错。请确认：\n1. 最终JSON文件路径和总题数\n2. 答案分布ABCD是否均匀\n3. 有没有需要清理的旧题（那12题\"不合适的\"处理了没）\n\n完成后请待命，等team-lead统一部署。",
+    "timestamp": "2026-04-20T11:54:54.289Z",
+    "read": true
   }
 ]
