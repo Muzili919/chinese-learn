@@ -110,17 +110,17 @@ export default function ResultPage({ result, user, onHome, onRetry }) {
           </div>
         )}
 
-        {/* Action buttons */}
-        <div className="flex flex-col gap-3">
+        {/* Action buttons — 底部安全区域避开 iOS Home 指示器 */}
+        <div className="flex flex-col gap-3" style={{ paddingBottom: 'max(env(safe-area-inset-bottom, 0px), 16px)' }}>
           <button
             onClick={onRetry}
-            className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-4 rounded-2xl text-base transition-colors"
+            className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-4 rounded-2xl text-base transition-colors active:scale-95"
           >
             再来一轮 🔄
           </button>
           <button
             onClick={onHome}
-            className="w-full bg-white border-2 border-gray-200 text-gray-700 font-semibold py-4 rounded-2xl text-base transition-colors"
+            className="w-full bg-white border-2 border-gray-200 text-gray-700 font-semibold py-4 rounded-2xl text-base transition-colors active:scale-95"
           >
             回到星球地图 🌌
           </button>

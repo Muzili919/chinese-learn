@@ -188,6 +188,22 @@ function parseOrderAnswer(answer) {
   return [...answer.matchAll(/([①②③④⑤⑥⑦⑧⑨])/g)].map(m => m[1])
 }
 
+// 从题干中提取 【辨 辩 辫】 类型的选字字库
+function extractCharBankFromText(text) {
+  const chars = []
+  const regex = /【([^】]+)】/g
+  let m
+  while ((m = regex.exec(text)) !== null) {
+    m[1].trim().split(/\s+/).filter(Boolean).forEach(c => chars.push(c))
+  }
+  return chars
+}
+
+// 去掉题干中的 【xxx】 标记（展示时不需要显示字库标记）
+function removeCharBankMarkers(text) {
+  return text.replace(/【[^】]*】/g, '').replace(/^\s*\n/, '').trim()
+}
+
 // ── 多子题解析（通用） ──────────────────────────────────────
 // 把 "指令\n（1）xxx\n（2）yyy" 拆成 instruction + stems[]
 function parseSubQStems(questionText) {
@@ -214,6 +230,12 @@ function parseExpectedAnswers(answerText) {
 
 // 智能评分：短答案精确匹配，长答案关键词匹配
 function smartCheck(input, expected) {
+  // 词义理解题：答案含"；意思："时，只判分号前的填空字，不评价解释部分
+  const ideaIdx = expected.search(/；\s*(意思|解释|含义)[：:]/)
+  if (ideaIdx > 0) {
+    expected = expected.slice(0, ideaIdx).trim()
+  }
+
   const n = normalize(input)
   const ne = normalize(expected)
 
@@ -253,6 +275,17 @@ function isMultiSubQ(q) {
   if (q.type !== 'fill_blank') return false
   if (isJudgmentQ(q) || isTypoQ(q) || isOrderQ(q) || isWordBankQ(q) || isMatchingStyleQ(q)) return false
   return /（[2-9]）/.test(q.question) || /（[2-9]）/.test(q.answer)
+}
+
+// 判断是否为"自评"填空题（答案含箭头/标点，手机无法直接输入）
+function isSelfEvalFillQ(q) {
+  if (q.type !== 'fill_blank') return false
+  if (isJudgmentQ(q) || isTypoQ(q) || isOrderQ(q) || isWordBankQ(q) || isMatchingStyleQ(q) || isMultiSubQ(q)) return false
+  // 答案含箭头 → 手机键盘难以输入
+  if (q.answer && /→|—→/.test(q.answer)) return true
+  // 标点符号题 → 手机输入标点不方便
+  if (/标点符号|加上.*标点|填.*标点/.test(q.question)) return true
+  return false
 }
 
 // ─── 底部反馈面板 ─────────────────────────────────────────
@@ -834,6 +867,58 @@ function FillQuestion({ question, onDone }) {
   )
 }
 
+// ─── 自评填空题（标点/箭头变形题，先看答案再自评对错）────
+function SelfEvalFillQuestion({ question, onDone }) {
+  const [revealed, setRevealed] = useState(false)
+  const [done, setDone] = useState(false)
+
+  function handleEval(correct) {
+    setDone(true)
+    onDone(correct ? question.answer : '', correct)
+  }
+
+  return (
+    <div className="flex flex-col gap-3">
+      {/* 题干 */}
+      <div className="bg-white rounded-3xl px-5 py-5 shadow-sm border border-gray-100">
+        <p className="text-base text-gray-800 leading-relaxed whitespace-pre-wrap">{question.question}</p>
+      </div>
+
+      {/* 未查看时：显示"查看答案"按钮 */}
+      {!revealed && !done && (
+        <div className="flex flex-col gap-2">
+          <p className="text-xs text-center text-gray-400">先思考，做完后点击查看答案并自评</p>
+          <button onClick={() => setRevealed(true)}
+            className="w-full bg-amber-400 text-white font-bold py-4 rounded-2xl text-base active:scale-95 transition-transform">
+            查看答案 👁️
+          </button>
+        </div>
+      )}
+
+      {/* 查看后：显示答案 + 自评按钮 */}
+      {(revealed || done) && (
+        <div className="bg-amber-50 border-2 border-amber-200 rounded-2xl px-4 py-3">
+          <p className="text-xs text-amber-600 font-semibold mb-1">✏️ 参考答案</p>
+          <p className="text-base font-bold text-gray-800 whitespace-pre-wrap leading-relaxed">{question.answer}</p>
+        </div>
+      )}
+
+      {revealed && !done && (
+        <div className="grid grid-cols-2 gap-3">
+          <button onClick={() => handleEval(true)}
+            className="py-4 rounded-2xl border-2 border-green-400 bg-green-50 text-green-700 font-bold text-lg active:scale-95">
+            ✓ 我做对了
+          </button>
+          <button onClick={() => handleEval(false)}
+            className="py-4 rounded-2xl border-2 border-red-400 bg-red-50 text-red-600 font-bold text-lg active:scale-95">
+            ✗ 我做错了
+          </button>
+        </div>
+      )}
+    </div>
+  )
+}
+
 // ─── 词库填空题（诗句/多项填空，点击词块拼答案）──────────
 function WordBankQuestion({ question, onDone }) {
   const subAnswers = useMemo(() => parseWordBankSubAnswers(question.answer), [question.answer])
@@ -1003,18 +1088,27 @@ function PlainMultiSubQuestion({ question, onDone }) {
   const expectedMap = useMemo(() => parseExpectedAnswers(question.answer), [question.answer])
   const [subIndex, setSubIndex] = useState(0)
   const [input, setInput] = useState('')
+  const [charInput, setCharInput] = useState([])   // 选字填空：已点击的字块
   const [phase, setPhase] = useState('input') // 'input' | 'grading' | 'feedback'
   const [results, setResults] = useState([])
   const [aiFeedback, setAiFeedback] = useState(null)
   const resultsRef = useRef([])
 
-  // 检测是否为文言文翻译题
-  const isTranslation = /翻译|文言文|现代汉语/.test(question.question)
+  // 检测是否为文言文翻译题（严格匹配，排除古诗词默写/填空类）
+  const isTranslation = /翻译[成为到]|把.{1,15}译|文言.{0,8}翻译|翻译成现代汉语/.test(question.question)
+    && !/默写|填写|写出.{0,5}(诗|句)|补充.{0,10}(诗|句)|根据.{0,10}(诗|词|意思).{0,10}写/.test(question.question)
 
   const current = stems[subIndex]
   const expected = expectedMap[current?.num] || ''
   // 翻译题或长答案用 textarea
   const isLong = isTranslation || expected.replace(/[^\u4e00-\u9fff]/g, '').length > 5
+
+  // 选字填空：从子题文本中提取 【辨 辩 辫】 类型字库
+  const currentCharBank = useMemo(() => {
+    if (!current) return []
+    return extractCharBankFromText(current.text)
+  }, [current]) // eslint-disable-line
+  const hasCharBank = currentCharBank.length > 0
 
   // 从子题文本中提取文言文原句（去掉"翻译：____"等填空提示）
   function extractClassicalText(text) {
@@ -1025,13 +1119,15 @@ function PlainMultiSubQuestion({ question, onDone }) {
   }
 
   async function handleSubmit() {
-    if (!input.trim()) return
+    // 选字填空：用已选字块拼成答案；普通填空：用文本输入
+    const actualInput = hasCharBank ? charInput.join('') : input
+    if (!actualInput.trim()) return
     if (isTranslation) {
       setPhase('grading')
       setAiFeedback(null)
       try {
         const classicalText = extractClassicalText(current.text)
-        const result = await evaluateClassicalTranslation(classicalText, input.trim(), expected)
+        const result = await evaluateClassicalTranslation(classicalText, actualInput.trim(), expected)
         const correct = result.correct ?? (result.score >= 60)
         setAiFeedback(result)
         const newResults = [...resultsRef.current, { correct }]
@@ -1040,7 +1136,7 @@ function PlainMultiSubQuestion({ question, onDone }) {
         setPhase('feedback')
       } catch {
         // AI 失败时降级为精确匹配
-        const correct = smartCheck(input, expected)
+        const correct = smartCheck(actualInput, expected)
         setAiFeedback(null)
         const newResults = [...resultsRef.current, { correct }]
         resultsRef.current = newResults
@@ -1048,7 +1144,7 @@ function PlainMultiSubQuestion({ question, onDone }) {
         setPhase('feedback')
       }
     } else {
-      const correct = smartCheck(input, expected)
+      const correct = smartCheck(actualInput, expected)
       const newResults = [...resultsRef.current, { correct }]
       resultsRef.current = newResults
       setResults(newResults)
@@ -1064,6 +1160,7 @@ function PlainMultiSubQuestion({ question, onDone }) {
     } else {
       setSubIndex(nextIdx)
       setInput('')
+      setCharInput([])
       setAiFeedback(null)
       setPhase('input')
     }
@@ -1071,6 +1168,8 @@ function PlainMultiSubQuestion({ question, onDone }) {
 
   if (!current) return <div className="text-center text-gray-400 py-8">⏳ 加载中...</div>
   const thisResult = results[subIndex]
+  // 用于展示"你的答案"
+  const displayedInput = hasCharBank ? charInput.join('') : input
 
   return (
     <div className="flex flex-col gap-4">
@@ -1103,7 +1202,16 @@ function PlainMultiSubQuestion({ question, onDone }) {
         <p className="text-xs text-indigo-500 font-semibold mb-2">
           第 {subIndex + 1} 题（共 {stems.length} 题）
         </p>
-        <p className="text-base text-gray-800 leading-relaxed whitespace-pre-wrap">{current.text}</p>
+        {/* 选字填空：去除【xxx】标记后展示题干 */}
+        <p className="text-base text-gray-800 leading-relaxed whitespace-pre-wrap">
+          {hasCharBank ? removeCharBankMarkers(current.text) : current.text}
+        </p>
+        {/* 选字填空：展示字库来源 */}
+        {hasCharBank && (
+          <p className="text-xs text-indigo-400 mt-1 font-medium">
+            可选字：{currentCharBank.join('  ')}
+          </p>
+        )}
 
         {/* 反馈 —— 普通题 */}
         {phase === 'feedback' && !isTranslation && (
@@ -1111,7 +1219,7 @@ function PlainMultiSubQuestion({ question, onDone }) {
             <p className={`text-sm font-bold mb-1 ${thisResult?.correct ? 'text-green-600' : 'text-red-500'}`}>
               {thisResult?.correct ? '✓ 正确！' : '✗ 答错了'}
             </p>
-            <p className="text-sm text-gray-600">你的答案：<span className="font-medium">{input}</span></p>
+            <p className="text-sm text-gray-600">你的答案：<span className="font-medium">{displayedInput}</span></p>
             {!thisResult?.correct && (
               <p className="text-sm text-gray-800 mt-1 font-semibold whitespace-pre-wrap">
                 正确答案：{expected}
@@ -1162,8 +1270,44 @@ function PlainMultiSubQuestion({ question, onDone }) {
         </div>
       )}
 
-      {/* 输入区 */}
-      {phase === 'input' && (
+      {/* 输入区 —— 选字填空：点击字块 */}
+      {phase === 'input' && hasCharBank && (
+        <div className="flex flex-col gap-3">
+          {/* 已选字展示区 */}
+          <div className={`min-h-[52px] rounded-2xl border-2 px-4 py-3 flex flex-wrap items-center gap-1 ${
+            charInput.length ? 'bg-indigo-50 border-indigo-300' : 'bg-gray-50 border-dashed border-gray-200'
+          }`}>
+            {charInput.length === 0
+              ? <p className="text-xs text-gray-300 w-full text-center">点击下方字块选择答案</p>
+              : charInput.map((c, i) => (
+                <span key={i} className="text-lg font-bold text-indigo-700 w-8 text-center">{c}</span>
+              ))
+            }
+          </div>
+          {/* 字块按钮 */}
+          <div className="flex flex-wrap gap-2">
+            {currentCharBank.map((char, i) => (
+              <button key={i} onClick={() => setCharInput(p => [...p, char])}
+                className="w-12 h-12 rounded-xl border-2 border-gray-200 bg-white text-xl font-bold text-gray-800 active:scale-95 shadow-sm transition-all">
+                {char}
+              </button>
+            ))}
+            {charInput.length > 0 && (
+              <button onClick={() => setCharInput(p => p.slice(0, -1))}
+                className="px-3 h-12 bg-gray-100 text-gray-500 rounded-xl text-sm border border-gray-200">
+                ← 撤销
+              </button>
+            )}
+          </div>
+          <button onClick={handleSubmit} disabled={charInput.length === 0}
+            className="w-full bg-indigo-500 disabled:bg-gray-200 disabled:text-gray-400 text-white font-bold py-4 rounded-2xl text-base">
+            确认
+          </button>
+        </div>
+      )}
+
+      {/* 输入区 —— 普通填空：文字输入 */}
+      {phase === 'input' && !hasCharBank && (
         isLong ? (
           <textarea
             value={input}
@@ -1187,7 +1331,7 @@ function PlainMultiSubQuestion({ question, onDone }) {
       )}
 
       {/* 按钮 */}
-      {phase === 'input' && (
+      {phase === 'input' && !hasCharBank && (
         <button onClick={handleSubmit} disabled={!input.trim()}
           className="w-full bg-indigo-500 disabled:bg-gray-200 disabled:text-gray-400 text-white font-bold py-4 rounded-2xl text-base">
           {isTranslation ? 'AI 批改翻译 ✨' : '确认'}
@@ -1428,6 +1572,7 @@ export default function DuolingoStyleQuiz({ question, onAnswerSubmit, showVarian
     : isWordBankQ(question) ? 'wordbank'
     : isMatchingStyleQ(question) ? 'matching_fill'
     : isMultiSubQ(question) ? 'multi_sub'
+    : isSelfEvalFillQ(question) ? 'self_eval'
     : 'plain'
     : null
 
@@ -1438,6 +1583,7 @@ export default function DuolingoStyleQuiz({ question, onAnswerSubmit, showVarian
   // 以下题型内部有提交逻辑，答完后只展示底部继续条（含解析）
   const hasInternalSubmit = fillType === 'judgment' || fillType === 'typo' || fillType === 'order'
     || fillType === 'wordbank' || fillType === 'matching_fill' || fillType === 'multi_sub'
+    || fillType === 'self_eval'
     || question.type === 'matching' || question.type === 'multi_meaning'
 
   return (
@@ -1497,12 +1643,13 @@ export default function DuolingoStyleQuiz({ question, onAnswerSubmit, showVarian
       {isFill && fillType === 'wordbank'  && <WordBankQuestion       question={question} onDone={handleDone} />}
       {isFill && fillType === 'matching_fill' && <MatchingQuestion      question={{ ...question, pairs: matchingFillPairs }} onDone={handleDone} />}
       {isFill && fillType === 'multi_sub'  && <PlainMultiSubQuestion  question={question} onDone={handleDone} />}
+      {isFill && fillType === 'self_eval'  && <SelfEvalFillQuestion   question={question} onDone={handleDone} />}
       {isFill && fillType === 'plain'      && <FillQuestion           question={question} onDone={handleDone} />}
 
       {/* 兜底：未知题型 → 用最通用的填空组件兜底，而不是显示"暂不支持" */}
       {!((question.type === 'single_choice' || question.type === 'multiple_choice') ||
          question.type === 'multi_meaning' || question.type === 'matching' ||
-         (isFill && ['judgment','typo','order','wordbank','matching_fill','multi_sub','plain'].includes(fillType))) && (
+         (isFill && ['judgment','typo','order','wordbank','matching_fill','multi_sub','self_eval','plain'].includes(fillType))) && (
         <FillQuestion question={question} onDone={handleDone} />
       )}
 

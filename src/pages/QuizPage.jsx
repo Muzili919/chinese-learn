@@ -64,7 +64,7 @@ function shuffleOptions(question) {
 }
 
 export default function QuizPage({ user, options = {}, onFinish, onBack }) {
-  const { focusTag = null, knowledgeTag = null, wrongCardIds = null, mathTopic = null } = options
+  const { focusTag = null, knowledgeTag = null, wrongCardIds = null, mathTopic = null, minDifficulty = null } = options
 
   // 根据星球确定每次答题数
   const sessionSize = (wrongCardIds?.length)

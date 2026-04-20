@@ -18,7 +18,7 @@ const MATH_TOPICS = [
     emoji: '📐',
     color: 'from-green-400 to-teal-600',
     desc: '平面图形·立体图形·面积·体积·单位换算',
-    questionCount: 35,
+    questionCount: 50,
   },
   {
     id: 'math_olympiad',
@@ -71,7 +71,7 @@ export default function MathHomePage({ user, onStartQuiz, onStartFormula }) {
           <span className="text-2xl">🔢</span>
           <h2 className="text-xl font-bold text-gray-800">数学星图</h2>
         </div>
-        <p className="text-xs text-gray-400">小学 5-6 年级 · 110道题 · 50个公式</p>
+        <p className="text-xs text-gray-400">小学 5-6 年级 · 125道题 · 挑战模式已解锁</p>
       </div>
 
       {/* 快速统计卡片 */}
@@ -172,6 +172,25 @@ export default function MathHomePage({ user, onStartQuiz, onStartFormula }) {
           <span className="text-white/60 text-xl flex-shrink-0">›</span>
         </button>
       </div>
+
+
+        {/* 🔥 挑战模式（4-5级高难题） */}
+        <button
+          onClick={() => onStartQuiz({ mathTopic: '奥数专题', minDifficulty: 4 })}
+          className="bg-gradient-to-br from-red-500 to-rose-700 text-white rounded-2xl p-4 flex items-center gap-4 shadow-sm active:scale-95 transition-transform text-left"
+        >
+          <span className="text-4xl leading-none">🔥</span>
+          <div className="flex-1 min-w-0">
+            <div className="flex items-center gap-2">
+              <span className="font-bold text-base">挑战模式</span>
+              <span className="text-[10px] bg-yellow-300/30 text-yellow-100 px-1.5 py-0.5 rounded-full font-medium animate-pulse">
+                HARD
+              </span>
+            </div>
+            <div className="text-xs text-white/80 mt-0.5">竞赛级难题 · 数论·行程·几何·逻辑推理</div>
+          </div>
+          <span className="text-white/60 text-xl flex-shrink-0">›</span>
+        </button>
 
       {/* 学习建议 */}
       {totalAnswered === 0 && (
