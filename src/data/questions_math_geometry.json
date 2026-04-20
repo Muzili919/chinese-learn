@@ -14,7 +14,8 @@
     "knowledge_tag": "平面图形",
     "topic": "图形与空间",
     "difficulty": 2,
-    "grade": 5
+    "grade": 5,
+    "image": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 200\" width=\"280\" height=\"200\">\n  <polygon points=\"40,160 220,160 140,62\" fill=\"#ebf8ff\" stroke=\"#2d3748\" stroke-width=\"2\"/>\n  <polyline points=\"154,80 154,66 140,66\" fill=\"none\" stroke=\"#2d3748\" stroke-width=\"1.5\"/>\n  <text x=\"26\" y=\"168\" font-size=\"13\" fill=\"#3b82f6\" text-anchor=\"middle\">A</text>\n  <text x=\"234\" y=\"168\" font-size=\"13\" fill=\"#3b82f6\" text-anchor=\"middle\">B</text>\n  <text x=\"140\" y=\"50\" font-size=\"13\" fill=\"#3b82f6\" text-anchor=\"middle\">C</text>\n  <path d=\"M 15.8 146.0 A 28 28 0 0 1 26.0 143.7\" fill=\"none\" stroke=\"#3b82f6\" stroke-width=\"1.5\"/><text x=\"10.301515190165006\" y=\"134.301515190165\" font-size=\"12\" fill=\"#3b82f6\" text-anchor=\"middle\">30°</text>\n  <path d=\"M 234.0 135.8 A 28 28 0 0 1 244.2 187.7\" fill=\"none\" stroke=\"#3b82f6\" stroke-width=\"1.5\"/><text x=\"249.698484809835\" y=\"134.301515190165\" font-size=\"12\" fill=\"#3b82f6\" text-anchor=\"middle\">60°</text>\n  <text x=\"130\" y=\"190\" font-size=\"12\" fill=\"#6b7280\" text-anchor=\"middle\">1:2:3</text>\n  </svg>"
   },
   {
     "id": "math_g002",
@@ -31,7 +32,8 @@
     "knowledge_tag": "平面图形",
     "topic": "图形与空间",
     "difficulty": 1,
-    "grade": 5
+    "grade": 5,
+    "image": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 200\" width=\"280\" height=\"200\">\n  <polygon points=\"50,150 210,150 250,70 90,70\" fill=\"#ebf8ff\" stroke=\"#2d3748\" stroke-width=\"2\"/>\n  <line x1=\"90\" y1=\"70\" x2=\"90\" y2=\"150\" stroke=\"#ef4444\" stroke-width=\"2\" stroke-dasharray=\"6,4\"/>\n  <line x1=\"50\" y1=\"165\" x2=\"50\" y2=\"175\" stroke=\"#6b7280\" stroke-width=\"1\"/>\n    <line x1=\"210\" y1=\"165\" x2=\"210\" y2=\"175\" stroke=\"#6b7280\" stroke-width=\"1\"/>\n    <line x1=\"50\" y1=\"175\" x2=\"210\" y2=\"175\" stroke=\"#9ca3af\" stroke-width=\"1\"/>\n    <text x=\"130.0\" y=\"189\" font-size=\"12\" fill=\"#6b7280\" text-anchor=\"middle\">底 8cm</text>\n  <text x=\"75\" y=\"115\" font-size=\"11\" fill=\"#ef4444\" text-anchor=\"end\">高 5cm</text>\n  <text x=\"96\" y=\"115\" font-size=\"11\" fill=\"#ef4444\" text-anchor=\"middle\">h</text>\n  </svg>"
   },
   {
     "id": "math_g003",
@@ -48,7 +50,8 @@
     "knowledge_tag": "平面图形",
     "topic": "图形与空间",
     "difficulty": 2,
-    "grade": 5
+    "grade": 5,
+    "image": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 200\" width=\"280\" height=\"200\">\n  <polygon points=\"80,140 200,140 240,60 120,60\" fill=\"#fef3c7\" stroke=\"#2d3748\" stroke-width=\"2\"/>\n  <line x1=\"120\" y1=\"60\" x2=\"120\" y2=\"140\" stroke=\"#ef4444\" stroke-width=\"2\" stroke-dasharray=\"5,3\"/>\n  <line x1=\"80\" y1=\"155\" x2=\"80\" y2=\"163\" stroke=\"#6b7280\" stroke-width=\"1\"/>\n    <line x1=\"200\" y1=\"155\" x2=\"200\" y2=\"163\" stroke=\"#6b7280\" stroke-width=\"1\"/>\n    <line x1=\"80\" y1=\"163\" x2=\"200\" y2=\"163\" stroke=\"#9ca3af\" stroke-width=\"1\"/>\n    <text x=\"140.0\" y=\"177\" font-size=\"12\" fill=\"#6b7280\" text-anchor=\"middle\">下底 8cm</text>\n  <line x1=\"120\" y1=\"48\" x2=\"120\" y2=\"36\" stroke=\"#6b7280\" stroke-width=\"1\"/>\n    <line x1=\"240\" y1=\"48\" x2=\"240\" y2=\"36\" stroke=\"#6b7280\" stroke-width=\"1\"/>\n    <line x1=\"120\" y1=\"36\" x2=\"240\" y2=\"36\" stroke=\"#9ca3af\" stroke-width=\"1\"/>\n    <text x=\"180.0\" y=\"50\" font-size=\"12\" fill=\"#6b7280\" text-anchor=\"middle\">上底 4cm</text>\n  <text x=\"105\" y=\"105\" font-size=\"11\" fill=\"#ef4444\" text-anchor=\"end\">高\n6cm</text>\n  </svg>"
   },
   {
     "id": "math_g004",
@@ -65,7 +68,8 @@
     "knowledge_tag": "平面图形",
     "topic": "图形与空间",
     "difficulty": 2,
-    "grade": 6
+    "grade": 6,
+    "image": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 200\" width=\"280\" height=\"200\">\n  <circle cx=\"140\" cy=\"105\" r=\"65\" fill=\"#ebf8ff\" stroke=\"#2d3748\" stroke-width=\"2.5\"/>\n  <line x1=\"140\" y1=\"105\" x2=\"205\" y2=\"105\" stroke=\"#3b82f6\" stroke-width=\"2\"/>\n  <line x1=\"140\" y1=\"105\" x2=\"140\" y2=\"105\" stroke=\"#2d3748\" stroke-width=\"1.5\"/>\n  <circle cx=\"140\" cy=\"105\" r=\"3\" fill=\"#2d3748\" stroke=\"#2d3748\" stroke-width=\"2\"/>\n  <text x=\"130\" y=\"97\" font-size=\"13\" fill=\"#3b82f6\" text-anchor=\"middle\">O</text>\n  <text x=\"172.5\" y=\"95\" font-size=\"13\" fill=\"#3b82f6\" text-anchor=\"middle\" font-weight=\"bold\">r = 5cm</text>\n  <text x=\"140\" y=\"145\" font-size=\"14\" fill=\"#374151\" text-anchor=\"middle\" font-weight=\"bold\">πr² = ?</text>\n  </svg>"
   },
   {
     "id": "math_g005",
@@ -82,7 +86,8 @@
     "knowledge_tag": "平面图形",
     "topic": "图形与空间",
     "difficulty": 1,
-    "grade": 6
+    "grade": 6,
+    "image": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 200\" width=\"280\" height=\"200\">\n  <circle cx=\"140\" cy=\"100\" r=\"55\" fill=\"#d1fae5\" stroke=\"#2d3748\" stroke-width=\"2.5\"/>\n  <line x1=\"85\" y1=\"100\" x2=\"195\" y2=\"100\" stroke=\"#3b82f6\" stroke-width=\"2\"/>\n  <circle cx=\"140\" cy=\"100\" r=\"3\" fill=\"#2d3748\" stroke=\"#2d3748\" stroke-width=\"2\"/>\n  <text x=\"146\" y=\"92\" font-size=\"13\" fill=\"#3b82f6\" text-anchor=\"middle\">O</text>\n  <text x=\"140\" y=\"80\" font-size=\"13\" fill=\"#3b82f6\" text-anchor=\"middle\" font-weight=\"bold\">d = 10cm</text>\n  <text x=\"140\" y=\"138\" font-size=\"14\" fill=\"#374151\" text-anchor=\"middle\" font-weight=\"bold\">C = πd = ?</text>\n  </svg>"
   },
   {
     "id": "math_g006",
@@ -99,7 +104,8 @@
     "knowledge_tag": "平面图形",
     "topic": "图形与空间",
     "difficulty": 3,
-    "grade": 5
+    "grade": 5,
+    "image": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 270 185\" width=\"270\" height=\"185\">\n  <text x=\"140\" y=\"25\" font-size=\"14\" fill=\"#3b82f6\" text-anchor=\"middle\" font-weight=\"bold\">等面积 = 36 cm²</text>\n  <text x=\"70\" y=\"50\" font-size=\"12\" fill=\"#374151\" text-anchor=\"middle\" font-weight=\"bold\">三角形</text>\n  <polygon points=\"30,145 110,145 70,75\" fill=\"#ebf8ff\" stroke=\"#2d3748\" stroke-width=\"2\"/>\n  <line x1=\"30\" y1=\"155\" x2=\"30\" y2=\"163\" stroke=\"#6b7280\" stroke-width=\"1\"/>\n    <line x1=\"110\" y1=\"155\" x2=\"110\" y2=\"163\" stroke=\"#6b7280\" stroke-width=\"1\"/>\n    <line x1=\"30\" y1=\"163\" x2=\"110\" y2=\"163\" stroke=\"#9ca3af\" stroke-width=\"1\"/>\n    <text x=\"70.0\" y=\"177\" font-size=\"12\" fill=\"#6b7280\" text-anchor=\"middle\">底 12cm</text>\n  <text x=\"112\" y=\"115\" font-size=\"10\" fill=\"#6b7280\" text-anchor=\"middle\">高 6cm</text>\n  <text x=\"195\" y=\"50\" font-size=\"12\" fill=\"#374151\" text-anchor=\"middle\" font-weight=\"bold\">平行四边形</text>\n  <polygon points=\"160,145 236,145 256,95 180,95\" fill=\"#fef3c7\" stroke=\"#2d3748\" stroke-width=\"2\"/>\n  <line x1=\"160\" y1=\"155\" x2=\"160\" y2=\"163\" stroke=\"#6b7280\" stroke-width=\"1\"/>\n    <line x1=\"236\" y1=\"155\" x2=\"236\" y2=\"163\" stroke=\"#6b7280\" stroke-width=\"1\"/>\n    <line x1=\"160\" y1=\"163\" x2=\"236\" y2=\"163\" stroke=\"#9ca3af\" stroke-width=\"1\"/>\n    <text x=\"198.0\" y=\"177\" font-size=\"12\" fill=\"#6b7280\" text-anchor=\"middle\">底 9cm</text>\n  <text x=\"258\" y=\"125\" font-size=\"11\" fill=\"#ef4444\" text-anchor=\"middle\" font-weight=\"bold\">高 = ?</text>\n  </svg>"
   },
   {
     "id": "math_g007",
@@ -116,7 +122,8 @@
     "knowledge_tag": "平面图形",
     "topic": "图形与空间",
     "difficulty": 1,
-    "grade": 5
+    "grade": 5,
+    "image": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 200\" width=\"280\" height=\"200\">\n  <rect x=\"70\" y=\"60\" width=\"140\" height=\"100\" fill=\"#ebf8ff\" stroke=\"#2d3748\" stroke-width=\"2.5\"/>\n  <line x1=\"70\" y1=\"175\" x2=\"70\" y2=\"183\" stroke=\"#6b7280\" stroke-width=\"1\"/>\n    <line x1=\"210\" y1=\"175\" x2=\"210\" y2=\"183\" stroke=\"#6b7280\" stroke-width=\"1\"/>\n    <line x1=\"70\" y1=\"183\" x2=\"210\" y2=\"183\" stroke=\"#9ca3af\" stroke-width=\"1\"/>\n    <text x=\"140.0\" y=\"197\" font-size=\"12\" fill=\"#6b7280\" text-anchor=\"middle\">长 8cm</text>\n  <line x1=\"215\" y1=\"60\" x2=\"223\" y2=\"60\" stroke=\"#6b7280\" stroke-width=\"1\"/>\n    <line x1=\"215\" y1=\"100\" x2=\"223\" y2=\"100\" stroke=\"#6b7280\" stroke-width=\"1\"/>\n    <line x1=\"223\" y1=\"60\" x2=\"223\" y2=\"100\" stroke=\"#9ca3af\" stroke-width=\"1\"/>\n    <text x=\"227\" y=\"85.0\" font-size=\"12\" fill=\"#6b7280\" text-anchor=\"start\">宽 5cm</text>\n  <text x=\"140\" y=\"45\" font-size=\"14\" fill=\"#3b82f6\" text-anchor=\"middle\" font-weight=\"bold\">周长 = ?</text>\n  </svg>"
   },
   {
     "id": "math_g008",
@@ -133,7 +140,8 @@
     "knowledge_tag": "平面图形",
     "topic": "图形与空间",
     "difficulty": 1,
-    "grade": 5
+    "grade": 5,
+    "image": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 200\" width=\"280\" height=\"200\">\n  <rect x=\"85\" y=\"50\" width=\"110\" height=\"110\" fill=\"#d1fae5\" stroke=\"#2d3748\" stroke-width=\"2.5\"/>\n  <line x1=\"85\" y1=\"170\" x2=\"85\" y2=\"178\" stroke=\"#6b7280\" stroke-width=\"1\"/>\n    <line x1=\"195\" y1=\"170\" x2=\"195\" y2=\"178\" stroke=\"#6b7280\" stroke-width=\"1\"/>\n    <line x1=\"85\" y1=\"178\" x2=\"195\" y2=\"178\" stroke=\"#9ca3af\" stroke-width=\"1\"/>\n    <text x=\"140.0\" y=\"192\" font-size=\"12\" fill=\"#6b7280\" text-anchor=\"middle\">边长 6cm</text>\n  <text x=\"140\" y=\"32\" font-size=\"13\" fill=\"#3b82f6\" text-anchor=\"middle\" font-weight=\"bold\">S = 6² = ?  |  C = 4×6 = ?</text>\n  </svg>"
   },
   {
     "id": "math_g009",
@@ -150,7 +158,8 @@
     "knowledge_tag": "平面图形",
     "topic": "图形与空间",
     "difficulty": 3,
-    "grade": 6
+    "grade": 6,
+    "image": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 200\" width=\"280\" height=\"200\">\n  <circle cx=\"140\" cy=\"105\" r=\"70\" fill=\"#d1fae5\" stroke=\"#2d3748\" stroke-width=\"2\"/>\n  <circle cx=\"140\" cy=\"105\" r=\"84\" fill=\"none\" stroke=\"#3b82f6\" stroke-width=\"2.5\" stroke-dasharray=\"6,3\"/>\n  <line x1=\"140\" y1=\"105\" x2=\"224\" y2=\"105\" stroke=\"#6b7280\" stroke-width=\"1\"/>\n  <circle cx=\"140\" cy=\"105\" r=\"3\" fill=\"#2d3748\" stroke=\"#2d3748\" stroke-width=\"2\"/>\n  <text x=\"130\" y=\"97\" font-size=\"12\" fill=\"#3b82f6\" text-anchor=\"middle\">O</text>\n  <text x=\"170\" y=\"99\" font-size=\"11\" fill=\"#3b82f6\" text-anchor=\"middle\">r=7m</text>\n  <text x=\"208\" y=\"91\" font-size=\"10\" fill=\"#ef4444\" text-anchor=\"middle\">路宽1m</text>\n  <text x=\"140\" y=\"205\" font-size=\"13\" fill=\"#ef4444\" text-anchor=\"middle\" font-weight=\"bold\">小路面积=?</text>\n  </svg>"
   },
   {
     "id": "math_g010",
@@ -167,7 +176,8 @@
     "knowledge_tag": "立体图形",
     "topic": "图形与空间",
     "difficulty": 1,
-    "grade": 5
+    "grade": 5,
+    "image": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 200\" width=\"280\" height=\"200\">\n  <polyline points=\"56.0,127.75 176.0,127.75 176.0,77.75 56.0,77.75\" fill=\"none\" stroke=\"#9ca3af\" stroke-width=\"1.5\"/>\n  <line x1=\"56.0\" y1=\"127.75\" x2=\"70.0\" y2=\"140.0\" stroke=\"#9ca3af\" stroke-width=\"1.5\"/>\n  <line x1=\"56.0\" y1=\"77.75\" x2=\"70.0\" y2=\"90.0\" stroke=\"#9ca3af\" stroke-width=\"1.5\"/>\n  <polygon points=\"70.0,140.0 190.0,140.0 190.0,90.0 70.0,90.0\" fill=\"#ebf8ff\" stroke=\"#2d3748\" stroke-width=\"2\"/>\n  <line x1=\"190.0\" y1=\"140.0\" x2=\"176.0\" y2=\"127.75\" stroke=\"#2d3748\" stroke-width=\"2\"/>\n  <line x1=\"190.0\" y1=\"90.0\" x2=\"176.0\" y2=\"77.75\" stroke=\"#2d3748\" stroke-width=\"2\"/>\n  <text x=\"130.0\" y=\"156.0\" font-size=\"12\" fill=\"#374151\" text-anchor=\"middle\">6cm</text>\n  <text x=\"202.0\" y=\"115.0\" font-size=\"12\" fill=\"#374151\" text-anchor=\"middle\">3cm</text>\n  <text x=\"52.0\" y=\"119.0\" font-size=\"12\" fill=\"#374151\" text-anchor=\"middle\">4cm</text>\n  <text x=\"140\" y=\"24\" font-size=\"14\" fill=\"#3b82f6\" text-anchor=\"middle\" font-weight=\"bold\">V = 6×4×3 = ?</text>\n  </svg>"
   },
   {
     "id": "math_g011",
@@ -184,7 +194,8 @@
     "knowledge_tag": "立体图形",
     "topic": "图形与空间",
     "difficulty": 2,
-    "grade": 5
+    "grade": 5,
+    "image": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 200\" width=\"280\" height=\"200\">\n  <polyline points=\"63.84,122.36 135.84,122.36 135.84,50.36 63.84,50.36\" fill=\"none\" stroke=\"#9ca3af\" stroke-width=\"1.5\"/>\n  <line x1=\"63.84\" y1=\"122.36\" x2=\"84.0\" y2=\"140.0\" stroke=\"#9ca3af\" stroke-width=\"1.5\"/>\n  <line x1=\"63.84\" y1=\"50.36\" x2=\"84.0\" y2=\"68.0\" stroke=\"#9ca3af\" stroke-width=\"1.5\"/>\n  <polygon points=\"84.0,140.0 156.0,140.0 156.0,68.0 84.0,68.0\" fill=\"#fef3c7\" stroke=\"#2d3748\" stroke-width=\"2\"/>\n  <line x1=\"156.0\" y1=\"140.0\" x2=\"135.84\" y2=\"122.36\" stroke=\"#2d3748\" stroke-width=\"2\"/>\n  <line x1=\"156.0\" y1=\"68.0\" x2=\"135.84\" y2=\"50.36\" stroke=\"#2d3748\" stroke-width=\"2\"/>\n  <text x=\"140\" y=\"22\" font-size=\"13\" fill=\"#3b82f6\" text-anchor=\"middle\" font-weight=\"bold\">a = 4cm</text>\n  <text x=\"140\" y=\"192\" font-size=\"13\" fill=\"#ef4444\" text-anchor=\"middle\" font-weight=\"bold\">表面积 = 6a² = ?</text>\n  </svg>"
   },
   {
     "id": "math_g012",
@@ -201,7 +212,8 @@
     "knowledge_tag": "立体图形",
     "topic": "图形与空间",
     "difficulty": 2,
-    "grade": 6
+    "grade": 6,
+    "image": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 200\" width=\"280\" height=\"200\">\n  <ellipse cx=\"100\" cy=\"160\" rx=\"50\" ry=\"18\" fill=\"#ebf8ff\" stroke=\"#2d3748\" stroke-width=\"2\"/>\n  <line x1=\"50\" y1=\"160\" x2=\"50\" y2=\"80\" stroke=\"#2d3748\" stroke-width=\"2\"/>\n  <line x1=\"150\" y1=\"160\" x2=\"150\" y2=\"80\" stroke=\"#2d3748\" stroke-width=\"2\"/>\n  <ellipse cx=\"155\" cy=\"80\" rx=\"50\" ry=\"18\" fill=\"#fef3c7\" stroke=\"#2d3748\" stroke-width=\"2\"/>\n  <text x=\"155\" y=\"55\" font-size=\"12\" fill=\"#3b82f6\" text-anchor=\"middle\" font-weight=\"bold\">r = 3cm</text>\n  <text x=\"158\" y=\"120\" font-size=\"12\" fill=\"#374151\" text-anchor=\"middle\" font-weight=\"bold\">h = 10cm</text>\n  <line x1=\"152\" y1=\"82\" x2=\"152\" y2=\"158\" stroke=\"#6b7280\" stroke-width=\"1\" stroke-dasharray=\"4,3\"/>\n  <text x=\"155\" y=\"192\" font-size=\"14\" fill=\"#ef4444\" text-anchor=\"middle\" font-weight=\"bold\">V = πr²h = ?</text>\n  </svg>"
   },
   {
     "id": "math_g013",
@@ -218,7 +230,8 @@
     "knowledge_tag": "立体图形",
     "topic": "图形与空间",
     "difficulty": 2,
-    "grade": 6
+    "grade": 6,
+    "image": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 200\" width=\"280\" height=\"200\">\n  <ellipse cx=\"100\" cy=\"135\" rx=\"55\" ry=\"18\" fill=\"#ebf8ff\" stroke=\"#2d3748\" stroke-width=\"2\"/>\n  <line x1=\"45\" y1=\"135\" x2=\"155\" y2=\"45\" stroke=\"#2d3748\" stroke-width=\"2\"/>\n  <line x1=\"155\" y1=\"135\" x2=\"155\" y2=\"45\" stroke=\"#2d3748\" stroke-width=\"2\"/>\n  <path d=\"M 100.0 40.0 A 55 55 0 0 1 210.0 92.7\" fill=\"none\" stroke=\"#2d3748\" stroke-width=\"2\"/>\n  <path d=\"M 210.0 40.0 A 55 55 0 0 1 100.0 -4.1\" fill=\"none\" stroke=\"#9ca3af\" stroke-width=\"1.5\"/>\n  <text x=\"100\" y=\"157\" font-size=\"12\" fill=\"#3b82f6\" text-anchor=\"middle\" font-weight=\"bold\">r = 6cm</text>\n  <text x=\"165\" y=\"90\" font-size=\"12\" fill=\"#374151\" text-anchor=\"middle\" font-weight=\"bold\">h = 10cm</text>\n  <text x=\"155\" y=\"190\" font-size=\"14\" fill=\"#ef4444\" text-anchor=\"middle\" font-weight=\"bold\">V = ⅓πr²h = ?</text>\n  </svg>"
   },
   {
     "id": "math_g014",
@@ -235,7 +248,8 @@
     "knowledge_tag": "立体图形",
     "topic": "图形与空间",
     "difficulty": 2,
-    "grade": 6
+    "grade": 6,
+    "image": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 260 205\" width=\"260\" height=\"205\">\n  <ellipse cx=\"65\" cy=\"140\" rx=\"40\" ry=\"14\" fill=\"#ebf8ff\" stroke=\"#2d3748\" stroke-width=\"2\"/>\n  <line x1=\"25\" y1=\"140\" x2=\"25\" y2=\"65\" stroke=\"#2d3748\" stroke-width=\"2\"/>\n  <line x1=\"105\" y1=\"140\" x2=\"105\" y2=\"65\" stroke=\"#2d3748\" stroke-width=\"2\"/>\n  <ellipse cx=\"95\" cy=\"65\" rx=\"40\" ry=\"14\" fill=\"#ebf8ff\" stroke=\"#2d3748\" stroke-width=\"2\"/>\n  <text x=\"65\" y=\"168\" font-size=\"12\" fill=\"#3b82f6\" text-anchor=\"middle\" font-weight=\"bold\">圆柱 V=60</text>\n  <ellipse cx=\"195\" cy=\"140\" rx=\"40\" ry=\"14\" fill=\"#fef3c7\" stroke=\"#2d3748\" stroke-width=\"2\"/>\n  <line x1=\"155\" y1=\"140\" x2=\"225\" y2=\"65\" stroke=\"#2d3748\" stroke-width=\"2\"/>\n  <line x1=\"235\" y1=\"140\" x2=\"225\" y2=\"65\" stroke=\"#2d3748\" stroke-width=\"2\"/>\n  <path d=\"M 185.0 58.0 A 40 40 0 0 1 265.0 96.4\" fill=\"none\" stroke=\"#2d3748\" stroke-width=\"2\"/>\n  <path d=\"M 265.0 58.0 A 40 40 0 0 1 185.0 26.0\" fill=\"none\" stroke=\"#9ca3af\" stroke-width=\"1.5\"/>\n  <text x=\"195\" y=\"168\" font-size=\"12\" fill=\"#ef4444\" text-anchor=\"middle\" font-weight=\"bold\">圆锥 V=?</text>\n  <text x=\"140\" y=\"188\" font-size=\"12\" fill=\"#6b7280\" text-anchor=\"middle\">等底等高</text>\n  </svg>"
   },
   {
     "id": "math_g015",
@@ -252,7 +266,8 @@
     "knowledge_tag": "立体图形",
     "topic": "图形与空间",
     "difficulty": 2,
-    "grade": 6
+    "grade": 6,
+    "image": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 268 190\" width=\"268\" height=\"190\">\n  <ellipse cx=\"60\" cy=\"100\" rx=\"30\" ry=\"12\" fill=\"#ebf8ff\" stroke=\"#2d3748\" stroke-width=\"2\"/>\n  <line x1=\"30\" y1=\"100\" x2=\"30\" y2=\"55\" stroke=\"#2d3748\" stroke-width=\"2\"/>\n  <line x1=\"90\" y1=\"100\" x2=\"90\" y2=\"55\" stroke=\"#2d3748\" stroke-width=\"2\"/>\n  <ellipse cx=\"80\" cy=\"55\" rx=\"30\" ry=\"12\" fill=\"#ebf8ff\" stroke=\"#2d3748\" stroke-width=\"2\"/>\n  <text x=\"60\" y=\"128\" font-size=\"11\" fill=\"#374151\" text-anchor=\"middle\">圆柱</text>\n  <text x=\"118\" y=\"88\" font-size=\"22\" fill=\"#3b82f6\" text-anchor=\"middle\" font-weight=\"bold\">→</text>\n  <rect x=\"142\" y=\"42\" width=\"110\" height=\"116\" fill=\"#fef3c7\" stroke=\"#2d3748\" stroke-width=\"2.5\"/>\n  <text x=\"197\" y=\"30\" font-size=\"12\" fill=\"#374151\" text-anchor=\"middle\">展开图</text>\n  <text x=\"197\" y=\"172\" font-size=\"12\" fill=\"#3b82f6\" text-anchor=\"middle\" font-weight=\"bold\">长 = 底面周长</text>\n  <text x=\"197\" y=\"26\" font-size=\"11\" fill=\"#6b7280\" text-anchor=\"middle\">宽 = h</text>\n  </svg>"
   },
   {
     "id": "math_g016",
@@ -269,7 +284,8 @@
     "knowledge_tag": "单位换算",
     "topic": "图形与空间",
     "difficulty": 1,
-    "grade": 5
+    "grade": 5,
+    "image": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 102\" width=\"280\" height=\"102\">\n  <rect x=\"0\" y=\"0\" width=\"280\" height=\"102\" rx=\"12\" fill=\"#f8fafc\" stroke=\"#e2e8f0\"/>\n  <text x=\"140\" y=\"24\" font-size=\"15\" fill=\"#3b82f6\" text-anchor=\"middle\" font-weight=\"bold\">长度单位进率</text>\n  <rect x=\"15\" y=\"36\" width=\"250\" height=\"30\" fill=\"#ffffff\" stroke=\"#e5e7eb\" stroke-width=\"1\" rx=\"8\"/>\n  <text x=\"60\" y=\"55\" font-size=\"14\" fill=\"#374151\" text-anchor=\"middle\">1 米 (m)</text>\n  <text x=\"115\" y=\"55\" font-size=\"14\" fill=\"#6b7280\" text-anchor=\"middle\">=</text>\n  <text x=\"165\" y=\"55\" font-size=\"14\" fill=\"#3b82f6\" text-anchor=\"middle\" font-weight=\"bold\">100 厘米 (cm)</text>\n  <text x=\"225\" y=\"55\" font-size=\"13\" fill=\"#6b7280\" text-anchor=\"middle\">10²</text>\n  <rect x=\"15\" y=\"72\" width=\"250\" height=\"30\" fill=\"#ffffff\" stroke=\"#e5e7eb\" stroke-width=\"1\" rx=\"8\"/>\n  <text x=\"60\" y=\"91\" font-size=\"14\" fill=\"#374151\" text-anchor=\"middle\">1 分米 (dm)</text>\n  <text x=\"115\" y=\"91\" font-size=\"14\" fill=\"#6b7280\" text-anchor=\"middle\">=</text>\n  <text x=\"165\" y=\"91\" font-size=\"14\" fill=\"#3b82f6\" text-anchor=\"middle\" font-weight=\"bold\">10 厘米 (cm)</text>\n  <text x=\"225\" y=\"91\" font-size=\"13\" fill=\"#6b7280\" text-anchor=\"middle\">10¹</text>\n  </svg>"
   },
   {
     "id": "math_g017",
@@ -286,7 +302,8 @@
     "knowledge_tag": "单位换算",
     "topic": "图形与空间",
     "difficulty": 2,
-    "grade": 5
+    "grade": 5,
+    "image": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 138\" width=\"280\" height=\"138\">\n  <rect x=\"0\" y=\"0\" width=\"280\" height=\"138\" rx=\"12\" fill=\"#f8fafc\" stroke=\"#e2e8f0\"/>\n  <text x=\"140\" y=\"24\" font-size=\"15\" fill=\"#3b82f6\" text-anchor=\"middle\" font-weight=\"bold\">面积单位进率</text>\n  <rect x=\"15\" y=\"36\" width=\"250\" height=\"30\" fill=\"#ffffff\" stroke=\"#e5e7eb\" stroke-width=\"1\" rx=\"8\"/>\n  <text x=\"60\" y=\"55\" font-size=\"14\" fill=\"#374151\" text-anchor=\"middle\">1 m²</text>\n  <text x=\"115\" y=\"55\" font-size=\"14\" fill=\"#6b7280\" text-anchor=\"middle\">=</text>\n  <text x=\"165\" y=\"55\" font-size=\"14\" fill=\"#3b82f6\" text-anchor=\"middle\" font-weight=\"bold\">100 dm²</text>\n  <text x=\"225\" y=\"55\" font-size=\"13\" fill=\"#6b7280\" text-anchor=\"middle\">10²</text>\n  <rect x=\"15\" y=\"72\" width=\"250\" height=\"30\" fill=\"#ffffff\" stroke=\"#e5e7eb\" stroke-width=\"1\" rx=\"8\"/>\n  <text x=\"60\" y=\"91\" font-size=\"14\" fill=\"#374151\" text-anchor=\"middle\">1 dm²</text>\n  <text x=\"115\" y=\"91\" font-size=\"14\" fill=\"#6b7280\" text-anchor=\"middle\">=</text>\n  <text x=\"165\" y=\"91\" font-size=\"14\" fill=\"#3b82f6\" text-anchor=\"middle\" font-weight=\"bold\">100 cm²</text>\n  <text x=\"225\" y=\"91\" font-size=\"13\" fill=\"#6b7280\" text-anchor=\"middle\">10²</text>\n  <rect x=\"15\" y=\"108\" width=\"250\" height=\"30\" fill=\"#ffffff\" stroke=\"#e5e7eb\" stroke-width=\"1\" rx=\"8\"/>\n  <text x=\"60\" y=\"127\" font-size=\"14\" fill=\"#374151\" text-anchor=\"middle\">注意：长度进率的平方！</text>\n  <text x=\"115\" y=\"127\" font-size=\"14\" fill=\"#6b7280\" text-anchor=\"middle\">=</text>\n  <text x=\"165\" y=\"127\" font-size=\"14\" fill=\"#3b82f6\" text-anchor=\"middle\" font-weight=\"bold\"></text>\n  <text x=\"225\" y=\"127\" font-size=\"13\" fill=\"#6b7280\" text-anchor=\"middle\"></text>\n  </svg>"
   },
   {
     "id": "math_g018",
@@ -303,7 +320,8 @@
     "knowledge_tag": "单位换算",
     "topic": "图形与空间",
     "difficulty": 2,
-    "grade": 5
+    "grade": 5,
+    "image": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 138\" width=\"280\" height=\"138\">\n  <rect x=\"0\" y=\"0\" width=\"280\" height=\"138\" rx=\"12\" fill=\"#f8fafc\" stroke=\"#e2e8f0\"/>\n  <text x=\"140\" y=\"24\" font-size=\"15\" fill=\"#3b82f6\" text-anchor=\"middle\" font-weight=\"bold\">容积与体积对应</text>\n  <rect x=\"15\" y=\"36\" width=\"250\" height=\"30\" fill=\"#ffffff\" stroke=\"#e5e7eb\" stroke-width=\"1\" rx=\"8\"/>\n  <text x=\"60\" y=\"55\" font-size=\"14\" fill=\"#374151\" text-anchor=\"middle\">1 升 (L)</text>\n  <text x=\"115\" y=\"55\" font-size=\"14\" fill=\"#6b7280\" text-anchor=\"middle\">=</text>\n  <text x=\"165\" y=\"55\" font-size=\"14\" fill=\"#3b82f6\" text-anchor=\"middle\" font-weight=\"bold\">1 立方分米 (dm³)</text>\n  <text x=\"225\" y=\"55\" font-size=\"13\" fill=\"#6b7280\" text-anchor=\"middle\">=</text>\n  <rect x=\"15\" y=\"72\" width=\"250\" height=\"30\" fill=\"#ffffff\" stroke=\"#e5e7eb\" stroke-width=\"1\" rx=\"8\"/>\n  <text x=\"60\" y=\"91\" font-size=\"14\" fill=\"#374151\" text-anchor=\"middle\">1 毫升 (mL)</text>\n  <text x=\"115\" y=\"91\" font-size=\"14\" fill=\"#6b7280\" text-anchor=\"middle\">=</text>\n  <text x=\"165\" y=\"91\" font-size=\"14\" fill=\"#3b82f6\" text-anchor=\"middle\" font-weight=\"bold\">1 立方厘米 (cm³)</text>\n  <text x=\"225\" y=\"91\" font-size=\"13\" fill=\"#6b7280\" text-anchor=\"middle\">=</text>\n  <rect x=\"15\" y=\"108\" width=\"250\" height=\"30\" fill=\"#ffffff\" stroke=\"#e5e7eb\" stroke-width=\"1\" rx=\"8\"/>\n  <text x=\"60\" y=\"127\" font-size=\"14\" fill=\"#374151\" text-anchor=\"middle\">1 L</text>\n  <text x=\"115\" y=\"127\" font-size=\"14\" fill=\"#6b7280\" text-anchor=\"middle\">=</text>\n  <text x=\"165\" y=\"127\" font-size=\"14\" fill=\"#3b82f6\" text-anchor=\"middle\" font-weight=\"bold\">1000 mL</text>\n  <text x=\"225\" y=\"127\" font-size=\"13\" fill=\"#6b7280\" text-anchor=\"middle\">10³</text>\n  </svg>"
   },
   {
     "id": "math_g019",
@@ -320,7 +338,8 @@
     "knowledge_tag": "单位换算",
     "topic": "图形与空间",
     "difficulty": 3,
-    "grade": 6
+    "grade": 6,
+    "image": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 138\" width=\"280\" height=\"138\">\n  <rect x=\"0\" y=\"0\" width=\"280\" height=\"138\" rx=\"12\" fill=\"#f8fafc\" stroke=\"#e2e8f0\"/>\n  <text x=\"140\" y=\"24\" font-size=\"15\" fill=\"#3b82f6\" text-anchor=\"middle\" font-weight=\"bold\">土地面积单位</text>\n  <rect x=\"15\" y=\"36\" width=\"250\" height=\"30\" fill=\"#ffffff\" stroke=\"#e5e7eb\" stroke-width=\"1\" rx=\"8\"/>\n  <text x=\"60\" y=\"55\" font-size=\"14\" fill=\"#374151\" text-anchor=\"middle\">1 km²</text>\n  <text x=\"115\" y=\"55\" font-size=\"14\" fill=\"#6b7280\" text-anchor=\"middle\">=</text>\n  <text x=\"165\" y=\"55\" font-size=\"14\" fill=\"#3b82f6\" text-anchor=\"middle\" font-weight=\"bold\">100 公顷 (ha)</text>\n  <text x=\"225\" y=\"55\" font-size=\"13\" fill=\"#6b7280\" text-anchor=\"middle\"></text>\n  <rect x=\"15\" y=\"72\" width=\"250\" height=\"30\" fill=\"#ffffff\" stroke=\"#e5e7eb\" stroke-width=\"1\" rx=\"8\"/>\n  <text x=\"60\" y=\"91\" font-size=\"14\" fill=\"#374151\" text-anchor=\"middle\">1 公顷</text>\n  <text x=\"115\" y=\"91\" font-size=\"14\" fill=\"#6b7280\" text-anchor=\"middle\">=</text>\n  <text x=\"165\" y=\"91\" font-size=\"14\" fill=\"#3b82f6\" text-anchor=\"middle\" font-weight=\"bold\">10000 m²</text>\n  <text x=\"225\" y=\"91\" font-size=\"13\" fill=\"#6b7280\" text-anchor=\"middle\">100×100m</text>\n  <rect x=\"15\" y=\"108\" width=\"250\" height=\"30\" fill=\"#ffffff\" stroke=\"#e5e7eb\" stroke-width=\"1\" rx=\"8\"/>\n  <text x=\"60\" y=\"127\" font-size=\"14\" fill=\"#374151\" text-anchor=\"middle\">2.5 km²</text>\n  <text x=\"115\" y=\"127\" font-size=\"14\" fill=\"#6b7280\" text-anchor=\"middle\">=</text>\n  <text x=\"165\" y=\"127\" font-size=\"14\" fill=\"#3b82f6\" text-anchor=\"middle\" font-weight=\"bold\">? 公顷</text>\n  <text x=\"225\" y=\"127\" font-size=\"13\" fill=\"#6b7280\" text-anchor=\"middle\"></text>\n  </svg>"
   },
   {
     "id": "math_g020",
@@ -337,7 +356,8 @@
     "knowledge_tag": "立体图形",
     "topic": "图形与空间",
     "difficulty": 2,
-    "grade": 5
+    "grade": 5,
+    "image": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 200\" width=\"280\" height=\"200\">\n  <polyline points=\"56.0,127.75 176.0,127.75 176.0,77.75 56.0,77.75\" fill=\"none\" stroke=\"#9ca3af\" stroke-width=\"1.5\"/>\n  <line x1=\"56.0\" y1=\"127.75\" x2=\"70.0\" y2=\"140.0\" stroke=\"#9ca3af\" stroke-width=\"1.5\"/>\n  <line x1=\"56.0\" y1=\"77.75\" x2=\"70.0\" y2=\"90.0\" stroke=\"#9ca3af\" stroke-width=\"1.5\"/>\n  <polygon points=\"70.0,140.0 190.0,140.0 190.0,90.0 70.0,90.0\" fill=\"#ebf8ff\" stroke=\"#2d3748\" stroke-width=\"2\"/>\n  <line x1=\"190.0\" y1=\"140.0\" x2=\"176.0\" y2=\"127.75\" stroke=\"#2d3748\" stroke-width=\"2\"/>\n  <line x1=\"190.0\" y1=\"90.0\" x2=\"176.0\" y2=\"77.75\" stroke=\"#2d3748\" stroke-width=\"2\"/>\n  <text x=\"140\" y=\"24\" font-size=\"13\" fill=\"#3b82f6\" text-anchor=\"middle\" font-weight=\"bold\">S表 = 2(lw+lh+wh) = ?</text>\n  <text x=\"140\" y=\"196\" font-size=\"12\" fill=\"#ef4444\" text-anchor=\"middle\">6个面！</text>\n  </svg>"
   },
   {
     "id": "math_g021",
@@ -354,7 +374,8 @@
     "knowledge_tag": "对称与变换",
     "topic": "图形与空间",
     "difficulty": 2,
-    "grade": 5
+    "grade": 5,
+    "image": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 165\" width=\"280\" height=\"165\">\n  <text x=\"140\" y=\"22\" font-size=\"14\" fill=\"#3b82f6\" text-anchor=\"middle\" font-weight=\"bold\">对称轴数量对比</text>\n  <text x=\"45\" y=\"48\" font-size=\"11\" fill=\"#374151\" text-anchor=\"middle\">① 等腰△</text>\n  <polygon points=\"45,130 15,90 75,90\" fill=\"#ebf8ff\" stroke=\"#2d3748\" stroke-width=\"2\"/>\n  <line x1=\"45\" y1=\"130\" x2=\"45\" y2=\"90\" stroke=\"#3b82f6\" stroke-width=\"1.5\" stroke-dasharray=\"4,2\"/>\n  <text x=\"45\" y=\"148\" font-size=\"12\" fill=\"#3b82f6\" text-anchor=\"middle\" font-weight=\"bold\">1条</text>\n  <text x=\"140\" y=\"48\" font-size=\"11\" fill=\"#374151\" text-anchor=\"middle\">② 正方形</text>\n  <rect x=\"115\" y=\"70\" width=\"50\" height=\"50\" fill=\"#d1fae5\" stroke=\"#2d3748\" stroke-width=\"2\"/>\n  <line x1=\"115\" y1=\"95\" x2=\"165\" y2=\"95\" stroke=\"#3b82f6\" stroke-width=\"1\" stroke-dasharray=\"3,2\"/>\n  <line x1=\"140\" y1=\"70\" x2=\"140\" y2=\"120\" stroke=\"#3b82f6\" stroke-width=\"1\" stroke-dasharray=\"3,2\"/>\n  <text x=\"140\" y=\"138\" font-size=\"12\" fill=\"#3b82f6\" text-anchor=\"middle\" font-weight=\"bold\">4条</text>\n  <text x=\"235\" y=\"48\" font-size=\"11\" fill=\"#374151\" text-anchor=\"middle\">③ 圆</text>\n  <circle cx=\"235\" cy=\"95\" r=\"25\" fill=\"#fee2e2\" stroke=\"#2d3748\" stroke-width=\"2\"/>\n  <line x1=\"235\" y1=\"70\" x2=\"235\" y2=\"120\" stroke=\"#3b82f6\" stroke-width=\"1\" stroke-dasharray=\"3,2\"/>\n  <line x1=\"210\" y1=\"95\" x2=\"260\" y2=\"95\" stroke=\"#3b82f6\" stroke-width=\"1\" stroke-dasharray=\"3,2\"/>\n  <text x=\"235\" y=\"138\" font-size=\"12\" fill=\"#3b82f6\" text-anchor=\"middle\" font-weight=\"bold\">无数条</text>\n  </svg>"
   },
   {
     "id": "math_g022",
@@ -371,7 +392,8 @@
     "knowledge_tag": "平面图形",
     "topic": "图形与空间",
     "difficulty": 3,
-    "grade": 5
+    "grade": 5,
+    "image": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 200\" width=\"280\" height=\"200\">\n  <text x=\"140\" y=\"24\" font-size=\"14\" fill=\"#3b82f6\" text-anchor=\"middle\" font-weight=\"bold\">三角形三边关系定理</text>\n  <line x1=\"40\" y1=\"130\" x2=\"180\" y2=\"130\" stroke=\"#2d3748\" stroke-width=\"2.5\"/>\n  <text x=\"110\" y=\"146\" font-size=\"12\" fill=\"#374151\" text-anchor=\"middle\" font-weight=\"bold\">5cm</text>\n  <text x=\"195\" y=\"122\" font-size=\"12\" fill=\"#374151\" text-anchor=\"middle\" font-weight=\"bold\">8cm</text>\n  <path d=\"M 126.6 80.0 A 100 100 0 0 1 126.6 31.2\" fill=\"none\" stroke=\"#9ca3af\" stroke-width=\"1.5\"/>\n  <text x=\"140\" y=\"78\" font-size=\"13\" fill=\"#374151\" text-anchor=\"middle\">|8-5| &lt; 第3边 &lt; 8+5</text>\n  <text x=\"140\" y=\"100\" font-size=\"14\" fill=\"#ef4444\" text-anchor=\"middle\" font-weight=\"bold\">3 &lt; 第三边 &lt; 13</text>\n  <text x=\"140\" y=\"170\" font-size=\"13\" fill=\"#3b82f6\" text-anchor=\"middle\" font-weight=\"bold\">整数最小值：4cm ✓</text>\n  </svg>"
   },
   {
     "id": "math_g023",
@@ -388,7 +410,8 @@
     "knowledge_tag": "平面图形",
     "topic": "图形与空间",
     "difficulty": 3,
-    "grade": 6
+    "grade": 6,
+    "image": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 200\" width=\"280\" height=\"200\">\n  <path d=\"M 195.0 165.0 A 55 55 0 0 1 85.0 120.9\" fill=\"#ebf8ff\" stroke=\"#2d3748\" stroke-width=\"2.5\"/>\n  <line x1=\"85\" y1=\"165\" x2=\"195\" y2=\"165\" stroke=\"#2d3748\" stroke-width=\"2.5\"/>\n  <text x=\"140\" y=\"120\" font-size=\"11\" fill=\"#3b82f6\" text-anchor=\"middle\">半圆弧长</text>\n  <text x=\"140\" y=\"136\" font-size=\"11\" fill=\"#3b82f6\" text-anchor=\"middle\">πd÷2 = 15.7cm</text>\n  <text x=\"140\" y=\"187\" font-size=\"12\" fill=\"#374151\" text-anchor=\"middle\">+ 直径 d = 10cm</text>\n  <text x=\"140\" y=\"215\" font-size=\"14\" fill=\"#ef4444\" text-anchor=\"middle\" font-weight=\"bold\">半圆周长 = 15.7 + 10 = 25.7cm</text>\n  </svg>"
   },
   {
     "id": "math_g024",
@@ -405,7 +428,8 @@
     "knowledge_tag": "立体图形",
     "topic": "图形与空间",
     "difficulty": 3,
-    "grade": 6
+    "grade": 6,
+    "image": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 255\" width=\"280\" height=\"255\">\n  <text x=\"140\" y=\"22\" font-size=\"13\" fill=\"#3b82f6\" text-anchor=\"middle\" font-weight=\"bold\">剪去四角各1cm正方形 → 折成无盖盒</text>\n  <rect x=\"70\" y=\"45\" width=\"140\" height=\"140\" fill=\"#ebf8ff\" stroke=\"#2d3748\" stroke-width=\"2\"/>\n  <rect x=\"70\" y=\"45\" width=\"20\" height=\"20\" fill=\"#fee2e2\" stroke=\"#2d3748\" stroke-width=\"1.5\" stroke-dasharray=\"4,2\"/>\n  <rect x=\"190\" y=\"45\" width=\"20\" height=\"20\" fill=\"#fee2e2\" stroke=\"#2d3748\" stroke-width=\"1.5\" stroke-dasharray=\"4,2\"/>\n  <rect x=\"70\" y=\"165\" width=\"20\" height=\"20\" fill=\"#fee2e2\" stroke=\"#2d3748\" stroke-width=\"1.5\" stroke-dasharray=\"4,2\"/>\n  <rect x=\"190\" y=\"165\" width=\"20\" height=\"20\" fill=\"#fee2e2\" stroke=\"#2d3748\" stroke-width=\"1.5\" stroke-dasharray=\"4,2\"/>\n  <text x=\"82\" y=\"62\" font-size=\"9\" fill=\"#ef4444\" text-anchor=\"middle\">1cm</text>\n  <text x=\"140\" y=\"200\" font-size=\"12\" fill=\"#374151\" text-anchor=\"middle\">原边长6cm</text>\n  <text x=\"140\" y=\"218\" font-size=\"12\" fill=\"#3b82f6\" text-anchor=\"middle\" font-weight=\"bold\">底面 = (6-2)² = 16cm²</text>\n  <text x=\"140\" y=\"236\" font-size=\"13\" fill=\"#ef4444\" text-anchor=\"middle\" font-weight=\"bold\">容积 = 16 × 1 = 16cm³</text>\n  </svg>"
   },
   {
     "id": "math_g025",
@@ -422,7 +446,8 @@
     "knowledge_tag": "平面图形",
     "topic": "图形与空间",
     "difficulty": 3,
-    "grade": 6
+    "grade": 6,
+    "image": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 185\" width=\"280\" height=\"185\">\n  <text x=\"140\" y=\"22\" font-size=\"14\" fill=\"#3b82f6\" text-anchor=\"middle\" font-weight=\"bold\">等周长变形：正方形 → 圆</text>\n  <text x=\"70\" y=\"50\" font-size=\"11\" fill=\"#374151\" text-anchor=\"middle\">周长 = 4×8 = 32cm</text>\n  <rect x=\"30\" y=\"65\" width=\"80\" height=\"80\" fill=\"#ebf8ff\" stroke=\"#2d3748\" stroke-width=\"2.5\"/>\n  <text x=\"70\" y=\"158\" font-size=\"12\" fill=\"#374151\" text-anchor=\"middle\">边长 8cm</text>\n  <text x=\"140\" y=\"115\" font-size=\"14\" fill=\"#6b7280\" text-anchor=\"middle\">→ 改弯成圆 →</text>\n  <text x=\"210\" y=\"50\" font-size=\"11\" fill=\"#374151\" text-anchor=\"middle\">周长 = 2πr = 32cm</text>\n  <circle cx=\"210\" cy=\"108\" r=\"42\" fill=\"#fef3c7\" stroke=\"#2d3748\" stroke-width=\"2.5\"/>\n  <text x=\"210\" y=\"162\" font-size=\"12\" fill=\"#3b82f6\" text-anchor=\"middle\" font-weight=\"bold\">r ≈ 5.1cm</text>\n  </svg>"
   },
   {
     "id": "math_g026",
@@ -439,7 +464,8 @@
     "knowledge_tag": "单位换算",
     "topic": "图形与空间",
     "difficulty": 1,
-    "grade": 5
+    "grade": 5,
+    "image": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 138\" width=\"280\" height=\"138\">\n  <rect x=\"0\" y=\"0\" width=\"280\" height=\"138\" rx=\"12\" fill=\"#f8fafc\" stroke=\"#e2e8f0\"/>\n  <text x=\"140\" y=\"24\" font-size=\"15\" fill=\"#3b82f6\" text-anchor=\"middle\" font-weight=\"bold\">小单位→大单位（除以进率）</text>\n  <rect x=\"15\" y=\"36\" width=\"250\" height=\"30\" fill=\"#ffffff\" stroke=\"#e5e7eb\" stroke-width=\"1\" rx=\"8\"/>\n  <text x=\"60\" y=\"55\" font-size=\"14\" fill=\"#374151\" text-anchor=\"middle\">360 cm</text>\n  <text x=\"115\" y=\"55\" font-size=\"14\" fill=\"#6b7280\" text-anchor=\"middle\">=</text>\n  <text x=\"165\" y=\"55\" font-size=\"14\" fill=\"#3b82f6\" text-anchor=\"middle\" font-weight=\"bold\">÷ 100</text>\n  <text x=\"225\" y=\"55\" font-size=\"13\" fill=\"#6b7280\" text-anchor=\"middle\"></text>\n  <rect x=\"15\" y=\"72\" width=\"250\" height=\"30\" fill=\"#ffffff\" stroke=\"#e5e7eb\" stroke-width=\"1\" rx=\"8\"/>\n  <text x=\"60\" y=\"91\" font-size=\"14\" fill=\"#374151\" text-anchor=\"middle\">小数点左移2位</text>\n  <text x=\"115\" y=\"91\" font-size=\"14\" fill=\"#6b7280\" text-anchor=\"middle\">=</text>\n  <text x=\"165\" y=\"91\" font-size=\"14\" fill=\"#3b82f6\" text-anchor=\"middle\" font-weight=\"bold\"></text>\n  <text x=\"225\" y=\"91\" font-size=\"13\" fill=\"#6b7280\" text-anchor=\"middle\"></text>\n  <rect x=\"15\" y=\"108\" width=\"250\" height=\"30\" fill=\"#ffffff\" stroke=\"#e5e7eb\" stroke-width=\"1\" rx=\"8\"/>\n  <text x=\"60\" y=\"127\" font-size=\"14\" fill=\"#374151\" text-anchor=\"middle\">= 3.6 m</text>\n  <text x=\"115\" y=\"127\" font-size=\"14\" fill=\"#6b7280\" text-anchor=\"middle\">=</text>\n  <text x=\"165\" y=\"127\" font-size=\"14\" fill=\"#3b82f6\" text-anchor=\"middle\" font-weight=\"bold\"></text>\n  <text x=\"225\" y=\"127\" font-size=\"13\" fill=\"#6b7280\" text-anchor=\"middle\">✓</text>\n  </svg>"
   },
   {
     "id": "math_g027",
@@ -456,7 +482,8 @@
     "knowledge_tag": "单位换算",
     "topic": "图形与空间",
     "difficulty": 2,
-    "grade": 6
+    "grade": 6,
+    "image": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 138\" width=\"280\" height=\"138\">\n  <rect x=\"0\" y=\"0\" width=\"280\" height=\"138\" rx=\"12\" fill=\"#f8fafc\" stroke=\"#e2e8f0\"/>\n  <text x=\"140\" y=\"24\" font-size=\"15\" fill=\"#3b82f6\" text-anchor=\"middle\" font-weight=\"bold\">公顷与平方米</text>\n  <rect x=\"15\" y=\"36\" width=\"250\" height=\"30\" fill=\"#ffffff\" stroke=\"#e5e7eb\" stroke-width=\"1\" rx=\"8\"/>\n  <text x=\"60\" y=\"55\" font-size=\"14\" fill=\"#374151\" text-anchor=\"middle\">1 公顷 (ha)</text>\n  <text x=\"115\" y=\"55\" font-size=\"14\" fill=\"#6b7280\" text-anchor=\"middle\">=</text>\n  <text x=\"165\" y=\"55\" font-size=\"14\" fill=\"#3b82f6\" text-anchor=\"middle\" font-weight=\"bold\">= 10000 m²</text>\n  <text x=\"225\" y=\"55\" font-size=\"13\" fill=\"#6b7280\" text-anchor=\"middle\"></text>\n  <rect x=\"15\" y=\"72\" width=\"250\" height=\"30\" fill=\"#ffffff\" stroke=\"#e5e7eb\" stroke-width=\"1\" rx=\"8\"/>\n  <text x=\"60\" y=\"91\" font-size=\"14\" fill=\"#374151\" text-anchor=\"middle\">即：100m × 100m</text>\n  <text x=\"115\" y=\"91\" font-size=\"14\" fill=\"#6b7280\" text-anchor=\"middle\">=</text>\n  <text x=\"165\" y=\"91\" font-size=\"14\" fill=\"#3b82f6\" text-anchor=\"middle\" font-weight=\"bold\">的正方形</text>\n  <text x=\"225\" y=\"91\" font-size=\"13\" fill=\"#6b7280\" text-anchor=\"middle\"></text>\n  <rect x=\"15\" y=\"108\" width=\"250\" height=\"30\" fill=\"#ffffff\" stroke=\"#e5e7eb\" stroke-width=\"1\" rx=\"8\"/>\n  <text x=\"60\" y=\"127\" font-size=\"14\" fill=\"#374151\" text-anchor=\"middle\">记忆：1km² = 100 ha</text>\n  <text x=\"115\" y=\"127\" font-size=\"14\" fill=\"#6b7280\" text-anchor=\"middle\">=</text>\n  <text x=\"165\" y=\"127\" font-size=\"14\" fill=\"#3b82f6\" text-anchor=\"middle\" font-weight=\"bold\"></text>\n  <text x=\"225\" y=\"127\" font-size=\"13\" fill=\"#6b7280\" text-anchor=\"middle\"></text>\n  </svg>"
   },
   {
     "id": "math_g028",
@@ -473,7 +500,8 @@
     "knowledge_tag": "立体图形",
     "topic": "图形与空间",
     "difficulty": 3,
-    "grade": 6
+    "grade": 6,
+    "image": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 200\" width=\"280\" height=\"200\">\n  <ellipse cx=\"100\" cy=\"160\" rx=\"50\" ry=\"17\" fill=\"#ebf8ff\" stroke=\"#2d3748\" stroke-width=\"2\"/>\n  <line x1=\"50\" y1=\"160\" x2=\"50\" y2=\"85\" stroke=\"#2d3748\" stroke-width=\"2\"/>\n  <line x1=\"150\" y1=\"160\" x2=\"150\" y2=\"85\" stroke=\"#2d3748\" stroke-width=\"2\"/>\n  <ellipse cx=\"145\" cy=\"85\" rx=\"50\" ry=\"17\" fill=\"#fef3c7\" stroke=\"#2d3748\" stroke-width=\"2\"/>\n  <text x=\"145\" y=\"64\" font-size=\"11\" fill=\"#3b82f6\" text-anchor=\"middle\" font-weight=\"bold\">d = 40cm → r = 20cm</text>\n  <text x=\"155\" y=\"128\" font-size=\"11\" fill=\"#374151\" text-anchor=\"middle\" font-weight=\"bold\">h = 50cm</text>\n  <text x=\"100\" y=\"195\" font-size=\"12\" fill=\"#374151\" text-anchor=\"middle\">V = π×20²×50 = 62800cm³</text>\n  <text x=\"100\" y=\"213\" font-size=\"13\" fill=\"#ef4444\" text-anchor=\"middle\" font-weight=\"bold\">=? 升 (1L=1000cm³)</text>\n  <text x=\"45\" y=\"170\" font-size=\"16\" fill=\"#374151\" text-anchor=\"middle\">🪣 水桶</text>\n  </svg>"
   },
   {
     "id": "math_g029",
@@ -490,7 +518,8 @@
     "knowledge_tag": "平面图形",
     "topic": "图形与空间",
     "difficulty": 2,
-    "grade": 5
+    "grade": 5,
+    "image": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 275 170\" width=\"275\" height=\"170\">\n  <text x=\"140\" y=\"22\" font-size=\"13\" fill=\"#3b82f6\" text-anchor=\"middle\" font-weight=\"bold\">两个全等的直角三角形</text>\n  <text x=\"70\" y=\"46\" font-size=\"11\" fill=\"#374151\" text-anchor=\"middle\">斜边对齐 → 长方形</text>\n  <polygon points=\"30,130 110,130 110,70 30,70\" fill=\"#ebf8ff\" stroke=\"#2d3748\" stroke-width=\"2\"/>\n  <line x1=\"30\" y1=\"70\" x2=\"110\" y2=\"130\" stroke=\"#3b82f6\" stroke-width=\"1\" stroke-dasharray=\"3,2\"/>\n  <text x=\"190\" y=\"46\" font-size=\"11\" fill=\"#374151\" text-anchor=\"middle\">斜边对齐 → 平行四边形</text>\n  <polygon points=\"160,130 240,130 210,70 130,70\" fill=\"#fef3c7\" stroke=\"#2d3748\" stroke-width=\"2\"/>\n  <line x1=\"130\" y1=\"70\" x2=\"210\" y2=\"130\" stroke=\"#3b82f6\" stroke-width=\"1\" stroke-dasharray=\"3,2\"/>\n  <text x=\"140\" y=\"155\" font-size=\"13\" fill=\"#3b82f6\" text-anchor=\"middle\" font-weight=\"bold\">✓ 两种都能拼！</text>\n  </svg>"
   },
   {
     "id": "math_g030",
@@ -507,7 +536,8 @@
     "knowledge_tag": "立体图形",
     "topic": "图形与空间",
     "difficulty": 1,
-    "grade": 5
+    "grade": 5,
+    "image": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 285 135\" width=\"285\" height=\"135\">\n  <text x=\"140\" y=\"20\" font-size=\"14\" fill=\"#3b82f6\" text-anchor=\"middle\" font-weight=\"bold\">哪个只有2个圆形面？</text>\n  <text x=\"40\" y=\"44\" font-size=\"11\" fill=\"#374151\" text-anchor=\"middle\">A. 圆锥</text>\n  <ellipse cx=\"40\" cy=\"90\" rx=\"25\" ry=\"9\" fill=\"#ebf8ff\" stroke=\"#2d3748\" stroke-width=\"1.5\"/>\n  <line x1=\"15\" y1=\"90\" x2=\"55\" y2=\"55\" stroke=\"#2d3748\" stroke-width=\"1.5\"/>\n  <line x1=\"65\" y1=\"90\" x2=\"55\" y2=\"55\" stroke=\"#2d3748\" stroke-width=\"1.5\"/>\n  <text x=\"40\" y=\"112\" font-size=\"10\" fill=\"#6b7280\" text-anchor=\"middle\">1个圆面</text>\n  <text x=\"110\" y=\"44\" font-size=\"11\" fill=\"#374151\" text-anchor=\"middle\">B. 球</text>\n  <circle cx=\"110\" cy=\"77\" r=\"20\" fill=\"#d1fae5\" stroke=\"#2d3748\" stroke-width=\"1.5\"/>\n  <text x=\"110\" y=\"112\" font-size=\"10\" fill=\"#6b7280\" text-anchor=\"middle\">0个平面</text>\n  <text x=\"180\" y=\"44\" font-size=\"11\" fill=\"#3b82f6\" text-anchor=\"middle\" font-weight=\"bold\">C. 圆柱 ✄</text>\n  <ellipse cx=\"180\" cy=\"92\" rx=\"28\" ry=\"10\" fill=\"#fef3c7\" stroke=\"#2d3748\" stroke-width=\"2\"/>\n  <line x1=\"152\" y1=\"92\" x2=\"152\" y2=\"55\" stroke=\"#2d3748\" stroke-width=\"2\"/>\n  <line x1=\"208\" y1=\"92\" x2=\"208\" y2=\"55\" stroke=\"#2d3748\" stroke-width=\"2\"/>\n  <ellipse cx=\"198\" cy=\"55\" rx=\"28\" ry=\"10\" fill=\"#fef3c7\" stroke=\"#2d3748\" stroke-width=\"2\"/>\n  <text x=\"180\" y=\"117\" font-size=\"11\" fill=\"#3b82f6\" text-anchor=\"middle\" font-weight=\"bold\">2个圆面 ✓</text>\n  <text x=\"245\" y=\"44\" font-size=\"11\" fill=\"#374151\" text-anchor=\"middle\">D. 正方体</text>\n  <rect x=\"228\" y=\"57\" width=\"34\" height=\"34\" fill=\"#ebf8ff\" stroke=\"#2d3748\" stroke-width=\"1.5\"/>\n  <text x=\"245\" y=\"102\" font-size=\"10\" fill=\"#6b7280\" text-anchor=\"middle\">6个方面</text>\n  </svg>"
   },
   {
     "id": "math_g031",
@@ -524,7 +554,8 @@
     "knowledge_tag": "对称与变换",
     "topic": "图形与空间",
     "difficulty": 3,
-    "grade": 6
+    "grade": 6,
+    "image": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 245 160\" width=\"245\" height=\"160\">\n  <text x=\"140\" y=\"20\" font-size=\"14\" fill=\"#3b82f6\" text-anchor=\"middle\" font-weight=\"bold\">绕轴旋转一周的旋转体</text>\n  <text x=\"55\" y=\"46\" font-size=\"11\" fill=\"#374151\" text-anchor=\"middle\">长方形</text>\n  <rect x=\"35\" y=\"55\" width=\"50\" height=\"70\" fill=\"#ebf8ff\" stroke=\"#2d3748\" stroke-width=\"2\"/>\n  <line x1=\"35\" y1=\"55\" x2=\"35\" y2=\"40\" stroke=\"#9ca3af\" stroke-width=\"1.5\"/>\n  <text x=\"35\" y=\"33\" font-size=\"9\" fill=\"#9ca3af\" text-anchor=\"middle\">轴</text>\n  <text x=\"60\" y=\"143\" font-size=\"11\" fill=\"#3b82f6\" text-anchor=\"middle\">↓ 旋转</text>\n  <ellipse cx=\"175\" cy=\"85\" rx=\"28\" ry=\"10\" fill=\"#fef3c7\" stroke=\"#2d3748\" stroke-width=\"2\"/>\n  <line x1=\"147\" y1=\"85\" x2=\"147\" y2=\"50\" stroke=\"#2d3748\" stroke-width=\"2\"/>\n  <line x1=\"203\" y1=\"85\" x2=\"203\" y2=\"50\" stroke=\"#2d3748\" stroke-width=\"2\"/>\n  <ellipse cx=\"196\" cy=\"50\" rx=\"28\" ry=\"10\" fill=\"#fef3c7\" stroke=\"#2d3748\" stroke-width=\"2\"/>\n  <text x=\"175\" y=\"113\" font-size=\"12\" fill=\"#3b82f6\" text-anchor=\"middle\" font-weight=\"bold\">= 圆柱 ✓</text>\n  </svg>"
   },
   {
     "id": "math_g032",
@@ -541,7 +572,8 @@
     "knowledge_tag": "平面图形",
     "topic": "图形与空间",
     "difficulty": 2,
-    "grade": 5
+    "grade": 5,
+    "image": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 200\" width=\"280\" height=\"200\">\n  <polygon points=\"70,130 200,130 230,60 100,60\" fill=\"#fef3c7\" stroke=\"#2d3748\" stroke-width=\"2.5\"/>\n  <line x1=\"100\" y1=\"60\" x2=\"100\" y2=\"130\" stroke=\"#ef4444\" stroke-width=\"2\" stroke-dasharray=\"5,3\"/>\n  <line x1=\"70\" y1=\"145\" x2=\"70\" y2=\"153\" stroke=\"#6b7280\" stroke-width=\"1\"/>\n    <line x1=\"200\" y1=\"145\" x2=\"200\" y2=\"153\" stroke=\"#6b7280\" stroke-width=\"1\"/>\n    <line x1=\"70\" y1=\"153\" x2=\"200\" y2=\"153\" stroke=\"#9ca3af\" stroke-width=\"1\"/>\n    <text x=\"135.0\" y=\"167\" font-size=\"12\" fill=\"#6b7280\" text-anchor=\"middle\">上底 7cm</text>\n  <line x1=\"100\" y1=\"48\" x2=\"100\" y2=\"36\" stroke=\"#6b7280\" stroke-width=\"1\"/>\n    <line x1=\"230\" y1=\"48\" x2=\"230\" y2=\"36\" stroke=\"#6b7280\" stroke-width=\"1\"/>\n    <line x1=\"100\" y1=\"36\" x2=\"230\" y2=\"36\" stroke=\"#9ca3af\" stroke-width=\"1\"/>\n    <text x=\"165.0\" y=\"50\" font-size=\"12\" fill=\"#6b7280\" text-anchor=\"middle\">下底 ? cm</text>\n  <text x=\"88\" y=\"100\" font-size=\"11\" fill=\"#ef4444\" text-anchor=\"end\">高 6cm</text>\n  <text x=\"150\" y=\"175\" font-size=\"13\" fill=\"#3b82f6\" text-anchor=\"middle\" font-weight=\"bold\">面积 = 60cm²</text>\n  </svg>"
   },
   {
     "id": "math_g033",
@@ -558,7 +590,8 @@
     "knowledge_tag": "立体图形",
     "topic": "图形与空间",
     "difficulty": 2,
-    "grade": 6
+    "grade": 6,
+    "image": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 200\" width=\"280\" height=\"200\">\n  <ellipse cx=\"100\" cy=\"150\" rx=\"45\" ry=\"16\" fill=\"#ebf8ff\" stroke=\"#2d3748\" stroke-width=\"2\"/>\n  <line x1=\"55\" y1=\"150\" x2=\"55\" y2=\"80\" stroke=\"#2d3748\" stroke-width=\"2\"/>\n  <line x1=\"145\" y1=\"150\" x2=\"145\" y2=\"80\" stroke=\"#2d3748\" stroke-width=\"2\"/>\n  <ellipse cx=\"150\" cy=\"80\" rx=\"45\" ry=\"16\" fill=\"#fef3c7\" stroke=\"#2d3748\" stroke-width=\"2\"/>\n  <text x=\"150\" y=\"60\" font-size=\"10\" fill=\"#3b82f6\" text-anchor=\"middle\">上底 πr²</text>\n  <text x=\"100\" y=\"175\" font-size=\"10\" fill=\"#3b82f6\" text-anchor=\"middle\">下底 πr²</text>\n  <text x=\"152\" y=\"117\" font-size=\"10\" fill=\"#ef4444\" text-anchor=\"middle\">侧面积 2πrh</text>\n  <text x=\"140\" y=\"182\" font-size=\"14\" fill=\"#ef4444\" text-anchor=\"middle\" font-weight=\"bold\">S表 = 2πr² + 2πrh</text>\n  </svg>"
   },
   {
     "id": "math_g034",
@@ -575,7 +608,8 @@
     "knowledge_tag": "单位换算",
     "topic": "图形与空间",
     "difficulty": 2,
-    "grade": 6
+    "grade": 6,
+    "image": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 138\" width=\"280\" height=\"138\">\n  <rect x=\"0\" y=\"0\" width=\"280\" height=\"138\" rx=\"12\" fill=\"#f8fafc\" stroke=\"#e2e8f0\"/>\n  <text x=\"140\" y=\"24\" font-size=\"15\" fill=\"#3b82f6\" text-anchor=\"middle\" font-weight=\"bold\">大面积换算</text>\n  <rect x=\"15\" y=\"36\" width=\"250\" height=\"30\" fill=\"#ffffff\" stroke=\"#e5e7eb\" stroke-width=\"1\" rx=\"8\"/>\n  <text x=\"60\" y=\"55\" font-size=\"14\" fill=\"#374151\" text-anchor=\"middle\">15000 m²</text>\n  <text x=\"115\" y=\"55\" font-size=\"14\" fill=\"#6b7280\" text-anchor=\"middle\">=</text>\n  <text x=\"165\" y=\"55\" font-size=\"14\" fill=\"#3b82f6\" text-anchor=\"middle\" font-weight=\"bold\">÷ 10000</text>\n  <text x=\"225\" y=\"55\" font-size=\"13\" fill=\"#6b7280\" text-anchor=\"middle\"></text>\n  <rect x=\"15\" y=\"72\" width=\"250\" height=\"30\" fill=\"#ffffff\" stroke=\"#e5e7eb\" stroke-width=\"1\" rx=\"8\"/>\n  <text x=\"60\" y=\"91\" font-size=\"14\" fill=\"#374151\" text-anchor=\"middle\">小数点左移4位</text>\n  <text x=\"115\" y=\"91\" font-size=\"14\" fill=\"#6b7280\" text-anchor=\"middle\">=</text>\n  <text x=\"165\" y=\"91\" font-size=\"14\" fill=\"#3b82f6\" text-anchor=\"middle\" font-weight=\"bold\"></text>\n  <text x=\"225\" y=\"91\" font-size=\"13\" fill=\"#6b7280\" text-anchor=\"middle\"></text>\n  <rect x=\"15\" y=\"108\" width=\"250\" height=\"30\" fill=\"#ffffff\" stroke=\"#e5e7eb\" stroke-width=\"1\" rx=\"8\"/>\n  <text x=\"60\" y=\"127\" font-size=\"14\" fill=\"#374151\" text-anchor=\"middle\">= 1.5 公顷 (ha)</text>\n  <text x=\"115\" y=\"127\" font-size=\"14\" fill=\"#6b7280\" text-anchor=\"middle\">=</text>\n  <text x=\"165\" y=\"127\" font-size=\"14\" fill=\"#3b82f6\" text-anchor=\"middle\" font-weight=\"bold\"></text>\n  <text x=\"225\" y=\"127\" font-size=\"13\" fill=\"#6b7280\" text-anchor=\"middle\">✓</text>\n  </svg>"
   },
   {
     "id": "math_g035",
@@ -592,6 +626,7 @@
     "knowledge_tag": "立体图形",
     "topic": "图形与空间",
     "difficulty": 4,
-    "grade": 6
+    "grade": 6,
+    "image": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 200\" width=\"280\" height=\"200\">\n  <polyline points=\"54.64,128.72 130.64,128.72 130.64,52.72 54.64,52.72\" fill=\"none\" stroke=\"#9ca3af\" stroke-width=\"1.5\"/>\n  <line x1=\"54.64\" y1=\"128.72\" x2=\"82.0\" y2=\"150.0\" stroke=\"#9ca3af\" stroke-width=\"1.5\"/>\n  <line x1=\"54.64\" y1=\"52.72\" x2=\"82.0\" y2=\"74.0\" stroke=\"#9ca3af\" stroke-width=\"1.5\"/>\n  <polygon points=\"82.0,150.0 158.0,150.0 158.0,74.0 82.0,74.0\" fill=\"#e9d5ff\" stroke=\"#2d3748\" stroke-width=\"2\"/>\n  <line x1=\"158.0\" y1=\"150.0\" x2=\"130.64\" y2=\"128.72\" stroke=\"#2d3748\" stroke-width=\"2\"/>\n  <line x1=\"158.0\" y1=\"74.0\" x2=\"130.64\" y2=\"52.72\" stroke=\"#2d3748\" stroke-width=\"2\"/>\n  <line x1=\"82.0\" y1=\"150.0\" x2=\"130.64\" y2=\"52.72\" stroke=\"#ef4444\" stroke-width=\"3\"/>\n  <text x=\"114.32\" y=\"96.36\" font-size=\"11\" fill=\"#ef4444\" text-anchor=\"middle\" font-weight=\"bold\">体对角线</text>\n  <text x=\"140\" y=\"24\" font-size=\"13\" fill=\"#3b82f6\" text-anchor=\"middle\" font-weight=\"bold\">a = 4cm</text>\n  <text x=\"140\" y=\"202\" font-size=\"13\" fill=\"#ef4444\" text-anchor=\"middle\" font-weight=\"bold\">d = √3 · a = √3 × 4 ≈ ?</text>\n  </svg>"
   }
 ]

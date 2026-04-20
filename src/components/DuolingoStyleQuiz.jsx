@@ -827,11 +827,17 @@ function OrderQuestion({ question, onDone }) {
   )
 }
 
-// ─── 普通填空 ─────────────────────────────────────────────
+// ─── 普通填空（数学数值增强版）───────────────────────────
+
+function isMathQuestion(q) {
+  const t = (q.topic || '') + (q.knowledge_tag || '')
+  return /math|数与|图形|几何|奥数|公式|单位换算|计算/.test(t)
+}
 
 function FillQuestion({ question, onDone }) {
   const [input, setInput] = useState('')
   const [submitted, setSubmitted] = useState(false)
+  const isMath = isMathQuestion(question)
   // ★ 使用带归一化的匹配
   const correct = submitted && isAnswerCorrect(input, question.answer, null)
 
@@ -851,23 +857,68 @@ function FillQuestion({ question, onDone }) {
     onDone(input, isCorrect)
   }
 
+  // 数学数值答案的增强归一化：处理 π、分数、单位等
+  function normalizedForDisplay(ans) {
+    let s = String(ans || '').trim()
+    // 常见数学符号美化显示
+    s = s.replace(/pi/gi, 'π').replace(/cm2|cm²/gi, 'cm²').replace(/cm3|cm³/gi, 'cm³')
+    s = s.replace(/m2|m²/gi, 'm²').replace(/m3|m³/gi, 'm³')
+    return s
+  }
+
   return (
     <div className="flex flex-col gap-3">
       <div className="bg-white rounded-3xl px-5 py-5 shadow-sm border border-gray-100">
         <p className="text-base text-gray-800 leading-relaxed whitespace-pre-wrap">{question.question}</p>
+        {/* 配图渲染 */}
+        {question.image && (
+          <div className="mt-4 flex justify-center">
+            {question.image.startsWith('<svg') ? (
+              <div className="max-w-full rounded-xl overflow-hidden bg-white"
+                dangerouslySetInnerHTML={{ __html: question.image }} />
+            ) : (
+              <img src={question.image} alt="题目配图"
+                className="max-w-full h-auto rounded-xl shadow-sm" loading="lazy" />
+            )}
+          </div>
+        )}
       </div>
-      <input type="text" value={input}
-        onChange={e => setInput(e.target.value)}
-        onKeyDown={e => e.key === 'Enter' && handleSubmit()}
-        disabled={submitted}
-        placeholder="请输入答案（数字可用①②③或123）"
-        autoFocus
-        className={`w-full border-2 rounded-2xl px-5 py-4 text-base text-gray-800 focus:outline-none transition-colors ${
-          submitted
-            ? correct ? 'border-green-400 bg-green-50' : 'border-red-400 bg-red-50'
-            : 'border-gray-200 focus:border-indigo-400 bg-white'
-        }`}
-      />
+      {isMath ? (
+        // ── 数学数值输入模式（数字键盘 + 分数支持）─
+        <>
+          <input type="text" value={input}
+            onChange={e => setInput(e.target.value.replace(/[^0-9./π÷×\-\s]/g, ''))}
+            onKeyDown={e => e.key === 'Enter' && handleSubmit()}
+            disabled={submitted}
+            placeholder="输入数字/分数（如：78.5 或 3/4）"
+            inputMode="decimal"
+            autoFocus
+            className={`w-full border-2 rounded-2xl px-5 py-4 text-lg text-center font-mono font-bold tracking-wider focus:outline-none transition-colors ${
+              submitted
+                ? correct ? 'border-green-400 bg-green-50' : 'border-red-400 bg-red-50'
+                : 'border-indigo-300 focus:border-indigo-500 bg-indigo-50/30'
+            }`}
+          />
+          {/* 快捷分数提示 */}
+          {!submitted && !input && (
+            <p className="text-xs text-center text-gray-400">💡 支持分数格式（如 1/3）、小数、π</p>
+          )}
+        </>
+      ) : (
+        // ── 通用文本输入模式（语文/英语等）─
+        <input type="text" value={input}
+          onChange={e => setInput(e.target.value)}
+          onKeyDown={e => e.key === 'Enter' && handleSubmit()}
+          disabled={submitted}
+          placeholder="请输入答案（数字可用①②③或123）"
+          autoFocus
+          className={`w-full border-2 rounded-2xl px-5 py-4 text-base text-gray-800 focus:outline-none transition-colors ${
+            submitted
+              ? correct ? 'border-green-400 bg-green-50' : 'border-red-400 bg-red-50'
+              : 'border-gray-200 focus:border-indigo-400 bg-white'
+          }`}
+        />
+      )}
       {!submitted && (
         <button onClick={handleSubmit} disabled={!input.trim()}
           className="w-full bg-indigo-500 disabled:bg-gray-200 disabled:text-gray-400 text-white font-bold py-4 rounded-2xl text-base active:scale-95 transition-transform">
@@ -876,7 +927,18 @@ function FillQuestion({ question, onDone }) {
       )}
       {submitted && !correct && (
         <div className="bg-yellow-50 border border-yellow-300 rounded-2xl px-4 py-3">
-          <p className="text-sm text-gray-700">正确答案：<b className="text-indigo-700">{question.answer}</b></p>
+          <p className="text-sm text-gray-700">正确答案：<b className="text-indigo-700">{isMath ? normalizedForDisplay(question.answer) : question.answer}</b></p>
+          {question.analysis && (
+            <details className="mt-2">
+              <summary className="text-xs text-gray-500 cursor-pointer">📖 查看解析</summary>
+              <p className="text-xs text-gray-600 mt-1 leading-relaxed whitespace-pre-wrap">{question.analysis}</p>
+            </details>
+          )}
+        </div>
+      )}
+      {submitted && correct && (
+        <div className="bg-green-50 border border-green-300 rounded-2xl px-4 py-3 text-center">
+          <p className="text-sm font-bold text-green-700">✅ 回答正确！</p>
         </div>
       )}
     </div>
