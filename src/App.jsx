@@ -25,6 +25,7 @@ import PoliticsQuizPage from './pages/PoliticsQuizPage'
 import MathHomePage from './pages/MathHomePage'
 import MathFormulaPage from './pages/MathFormulaPage'
 import DashboardPage from './pages/DashboardPage'
+import AIPracticePage from './pages/AIPracticePage'
 import { initGamificationState, initGodModeState } from './utils/gamification'
 import { fetchMV1State, upsertMV1State } from './utils/mv1_cloud'
 import { pullFromCloud } from './utils/sync'
@@ -346,6 +347,7 @@ export default function App() {
   const [grade, setGrade] = useState(() => storage.getGrade())
   const [variantQuestion, setVariantQuestion] = useState(null)
   const [showPremiumModal, setShowPremiumModal] = useState(false)
+  const [aiPracticeOptions, setAIPracticeOptions] = useState(null) // { subject, weakTags }
 
   // 科目状态（切换时只更新内容区，HomeHeader 不卸载）
   const [activeSubject, setActiveSubject] = useState(() => {
@@ -604,6 +606,18 @@ export default function App() {
   // 主页面内容
   const mainContent = () => {
     if (page === 'onboarding') return <OnboardingPage onDone={handleOnboarding} />
+
+    // AI 针对练习页
+    if (page === 'ai_practice' && aiPracticeOptions) return (
+      <AIPracticePage
+        user={user}
+        grade={grade}
+        subject={aiPracticeOptions.subject}
+        weakTags={aiPracticeOptions.weakTags}
+        onBack={goHome}
+      />
+    )
+
     if (page === 'quiz') return <QuizPage user={user} options={quizOptions} onFinish={finishQuiz} onBack={goHome} />
     if (page === 'reading') return <ReadingPage user={user} onFinish={finishQuiz} onBack={goHome} />
     if (page === 'sentence_practice') return <SentencePracticePage user={user} onBack={goHome} />
@@ -766,6 +780,10 @@ export default function App() {
             onGradeChange={handleGradeChange}
             onWrongReview={() => setActiveTab('wrong')}
             onStartQuiz={startQuiz}
+            onAIPractice={(subject, weakTags) => {
+              setAIPracticeOptions({ subject, weakTags })
+              setPage('ai_practice')
+            }}
           />
         )
       }

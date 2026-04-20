@@ -5,7 +5,7 @@
 //       浏览器看到文字逐字出现，体感响应时间从 ~5s 降到 ~0.3s
 // ═══════════════════════════════════════════════════════════════
 
-const RELAY_STREAM_URL = 'http://47.108.174.249:3000/api/ai/stream'
+const RELAY_STREAM_URL = 'http://47.108.174.249/api/ai/stream'
 const RELAY_TIMEOUT_MS = 25000
 
 export const config = {

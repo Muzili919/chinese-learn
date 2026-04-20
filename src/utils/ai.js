@@ -255,6 +255,76 @@ export async function evaluateEnglishReading(passageText, questionText, userAnsw
  * @param {string} referenceAnswer - 参考答案/范文
  * @returns {{ score, grammar, vocabulary, structure, grammarFeedback, vocabFeedback, structureFeedback, summary, suggestion }}
  */
+/**
+ * AI针对性出题（根据弱项知识点生成手机友好题目）
+ * @param {string} subject - 学科 chinese|english|math|politics
+ * @param {string[]} weakTags - 弱项标签数组（最多3个）
+ * @param {string} grade - 学段 primary|junior2
+ * @param {number} count - 出题数量（默认8）
+ * @returns {object[]} questions 数组
+ */
+export async function generateTargetedQuestions(subject, weakTags, grade, count = 8) {
+  const gradeLabel = grade === 'junior2' ? '初中八年级' : '小学五年级'
+  const subjectLabel = { chinese: '语文', english: '英语', math: '数学', politics: '道德与法治' }[subject] || '语文'
+  const tagStr = weakTags.slice(0, 3).join('、')
+
+  const system = `你是一位经验丰富的${gradeLabel}${subjectLabel}老师，负责出针对性练习题。
+请严格按照以下JSON格式返回题目数组（只返回JSON，不要任何解释）：
+{
+  "questions": [
+    {
+      "type": "single_choice",
+      "question": "题目内容",
+      "options": ["A. 选项内容", "B. 选项内容", "C. 选项内容", "D. 选项内容"],
+      "answer": "A. 选项内容（完整选项文本）",
+      "analysis": "50字以内解析",
+      "knowledge_tag": "知识点标签",
+      "ability_tag": "能力标签"
+    }
+  ]
+}
+
+出题要求（必须严格遵守）：
+1. 全部出选择题（type: single_choice），4个选项，手机点击友好
+2. 不出需要输入箭头→、特殊符号、复杂标点的题目
+3. 题目简洁，总字数不超过80字
+4. 每道题考查一个独立知识点，不要重复
+5. 难度适中，不刁钻
+6. options格式必须是 ["A. xxx", "B. xxx", "C. xxx", "D. xxx"]
+7. answer必须是完整选项文本，如 "A. 正确答案"
+8. knowledge_tag填写题目对应的知识点（和薄弱点相关）`
+
+  const user = `学科：${subjectLabel}
+学段：${gradeLabel}
+薄弱知识点：${tagStr}
+出题数量：${count}道
+
+请针对以上薄弱点出${count}道选择题，帮助学生巩固这些知识点。`
+
+  try {
+    const raw = await callDeepSeek(system, user, {
+      temperature: 0.8,
+      max_tokens: 3000,
+    })
+    const questions = raw.questions || []
+    return questions.map((q, i) => ({
+      id: `ai_${subject}_${Date.now()}_${i}`,
+      type: 'single_choice',
+      subject,
+      question: q.question || '',
+      options: Array.isArray(q.options) ? q.options : [],
+      answer: q.answer || '',
+      analysis: q.analysis || '',
+      knowledge_tag: q.knowledge_tag || tagStr,
+      ability_tag: q.ability_tag || tagStr,
+      difficulty: 2,
+      isAIGenerated: true,
+    })).filter(q => q.question && q.options.length === 4 && q.answer)
+  } catch (err) {
+    throw new Error(`AI出题失败：${err.message}`)
+  }
+}
+
 export async function evaluateEnglishWriting(writingPrompt, studentEssay, referenceAnswer) {
   const system = `你是一位初中英语老师，正在批改初二学生的英语写作。
 请用JSON格式返回批改结果，包含以下字段：

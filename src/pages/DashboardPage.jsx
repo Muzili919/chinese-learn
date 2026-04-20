@@ -87,6 +87,7 @@ export default function DashboardPage({
   onGradeChange,
   onWrongReview,
   onStartQuiz,
+  onAIPractice,
 }) {
   const [showGradeSwitch, setShowGradeSwitch] = useState(false)
   const [showLogoutConfirm, setShowLogoutConfirm] = useState(false)
@@ -103,11 +104,42 @@ export default function DashboardPage({
   const nextExam = upcomingExams[0] || null
   const daysUntilExam = getDaysUntil(nextExam)
 
-  // 弱点分析（只用最近100条记录，避免太旧数据干扰）
-  const weakPoints = useMemo(() => {
-    const recent = records.slice(-100)
-    return getWeakPoints(diagnose(recent))
+  // 按科目分组的最近答题记录（用于弱项分析）
+  const recentBySubject = useMemo(() => {
+    const recent = records.slice(-200)
+    const map = {}
+    for (const r of recent) {
+      const subj = r.subject || 'chinese'
+      if (!map[subj]) map[subj] = []
+      map[subj].push(r)
+    }
+    return map
   }, [records])
+
+  // 各科弱点（按科目独立分析，用 knowledge_tag）
+  const weaksBySubject = useMemo(() => {
+    const result = {}
+    for (const [subj, recs] of Object.entries(recentBySubject)) {
+      if (recs.length < 5) continue
+      const diag = diagnose(recs)
+      const weaks = getWeakPoints(diag)
+      if (weaks.length > 0) result[subj] = weaks
+    }
+    return result
+  }, [recentBySubject])
+
+  // 各科错题数
+  const wrongBySubject = useMemo(() => {
+    const map = {}
+    const wrongIds = storage.getWrongCardIds(user.id)
+    for (const id of wrongIds) {
+      // 从最新记录里找对应科目
+      const rec = records.slice().reverse().find(r => r.card_id === id)
+      const subj = rec?.subject || 'chinese'
+      map[subj] = (map[subj] || 0) + 1
+    }
+    return map
+  }, [records, user.id])
 
   // 本周各科答题数
   const weeklyBySubject = useMemo(() => {
@@ -166,16 +198,17 @@ export default function DashboardPage({
       })
     }
 
-    // 3. AI今日推荐（有记录且有弱点）
-    if (weakPoints.length > 0 && records.length > 0) {
-      list.push({ id: 'ai', priority: 40 })
+    // 3. AI针对练习（有薄弱科目时显示）
+    const aiSubjects = Object.keys(weaksBySubject)
+    if (aiSubjects.length > 0) {
+      list.push({ id: 'ai_practice', priority: 45 })
     }
 
     // 4. 今日任务（永远显示）
     list.push({ id: 'today', priority: 30 })
 
     return list.sort((a, b) => b.priority - a.priority)
-  }, [overdueCount, nextExam, daysUntilExam, weakPoints, records])
+  }, [overdueCount, nextExam, daysUntilExam, weaksBySubject, records])
 
   return (
     <div
@@ -262,14 +295,17 @@ export default function DashboardPage({
               cardId={card.id}
               urgent={card.urgent}
               overdueCount={overdueCount}
+              wrongBySubject={wrongBySubject}
               nextExam={nextExam}
               daysUntilExam={daysUntilExam}
-              weakPoints={weakPoints}
+              weaksBySubject={weaksBySubject}
+              subjects={subjects}
               todayCount={todayCount}
               completedToday={completedToday}
               hasCheckedInToday={hasCheckedInToday}
               onWrongReview={onWrongReview}
               onEnterSubject={onEnterSubject}
+              onAIPractice={onAIPractice}
               onStartQuiz={onStartQuiz}
             />
           ))}
@@ -283,6 +319,7 @@ export default function DashboardPage({
           <div className="grid grid-cols-3 gap-3">
             {subjects.map(subject => {
               const weekCount = weeklyBySubject[subject.id] || 0
+              const wrongCnt = wrongBySubject[subject.id] || 0
               const hasRecentRecords = records.some(r => r.subject === subject.id)
               const subjectRecords = records.filter(r => r.subject === subject.id)
               const accuracy = subjectRecords.length > 0
@@ -303,6 +340,11 @@ export default function DashboardPage({
                   >
                     {subject.label}
                   </span>
+                  {wrongCnt > 0 && (
+                    <span className="absolute top-2 right-2 bg-red-500 text-white text-[9px] font-bold min-w-[16px] h-4 rounded-full flex items-center justify-center px-1">
+                      {wrongCnt}
+                    </span>
+                  )}
                   {weekCount === 0 && hasRecentRecords ? (
                     <span className="text-[10px] bg-orange-100 text-orange-600 px-1.5 py-0.5 rounded-full font-medium">
                       本周未学
@@ -407,51 +449,114 @@ function SmartCard({
   cardId,
   urgent,
   overdueCount,
+  wrongBySubject,
   nextExam,
   daysUntilExam,
-  weakPoints,
+  weaksBySubject,
+  subjects,
   todayCount,
   completedToday,
   hasCheckedInToday,
   onWrongReview,
   onEnterSubject,
+  onAIPractice,
   onStartQuiz,
 }) {
-  if (cardId === 'wrong') {
+  // ── AI针对练习卡 ─────────────────────────────────────────
+  if (cardId === 'ai_practice') {
+    const aiSubjects = Object.keys(weaksBySubject)
+    const subjectConfigs = {
+      chinese: { label: '语文', emoji: '📖', color: '#6366f1', bg: '#eef2ff' },
+      english: { label: '英语', emoji: '🌎', color: '#059669', bg: '#ecfdf5' },
+      math:    { label: '数学', emoji: '🔢', color: '#d97706', bg: '#fffbeb' },
+      politics:{ label: '道法', emoji: '⚖️', color: '#7c3aed', bg: '#f5f3ff' },
+    }
     return (
-      <button
-        onClick={onWrongReview}
-        className="w-full text-left rounded-2xl p-4 shadow-sm active:scale-95 transition-all"
+      <div className="rounded-2xl shadow-sm overflow-hidden"
+        style={{ background: 'linear-gradient(135deg, #f0f4ff, #faf5ff)', border: '1.5px solid #c7d2fe' }}>
+        <div className="px-4 pt-4 pb-3">
+          <div className="flex items-center gap-2 mb-3">
+            <span className="text-xl">🤖</span>
+            <span className="font-bold text-gray-800 text-sm">AI 针对练习</span>
+            <span className="ml-auto text-[10px] text-indigo-400 bg-indigo-50 px-2 py-0.5 rounded-full">
+              题库无限
+            </span>
+          </div>
+          <p className="text-xs text-gray-500 mb-3">
+            根据你的薄弱点，AI实时出题，专项突破
+          </p>
+          <div className="flex flex-col gap-2">
+            {aiSubjects.map(subj => {
+              const cfg = subjectConfigs[subj] || subjectConfigs.chinese
+              const weaks = weaksBySubject[subj] || []
+              const topTag = weaks[0]?.tag || ''
+              return (
+                <button
+                  key={subj}
+                  onClick={() => onAIPractice && onAIPractice(subj, weaks.map(w => w.tag).slice(0, 3))}
+                  className="flex items-center gap-3 rounded-xl px-3 py-2.5 active:scale-95 transition-all"
+                  style={{ background: cfg.bg, border: `1px solid ${cfg.color}30` }}
+                >
+                  <span className="text-xl">{cfg.emoji}</span>
+                  <div className="flex-1 text-left">
+                    <span className="text-sm font-semibold" style={{ color: cfg.color }}>
+                      {cfg.label}专项
+                    </span>
+                    {topTag && (
+                      <span className="ml-2 text-[10px] text-gray-400">
+                        薄弱：{topTag}
+                      </span>
+                    )}
+                  </div>
+                  <span className="text-xs font-bold" style={{ color: cfg.color }}>
+                    开始 →
+                  </span>
+                </button>
+              )
+            })}
+          </div>
+        </div>
+      </div>
+    )
+  }
+
+  if (cardId === 'wrong') {
+    const subjectMap = { chinese:'语文', english:'英语', math:'数学', politics:'道法' }
+    const subjectEmoji = { chinese:'📖', english:'🌎', math:'🔢', politics:'⚖️' }
+    const wrongEntries = Object.entries(wrongBySubject || {}).filter(([, n]) => n > 0)
+    return (
+      <div
+        className="rounded-2xl p-4 shadow-sm"
         style={{
-          background: urgent
-            ? 'linear-gradient(135deg, #fff1f2, #ffe4e6)'
-            : 'linear-gradient(135deg, #fff7ed, #ffedd5)',
+          background: urgent ? 'linear-gradient(135deg, #fff1f2, #ffe4e6)' : 'linear-gradient(135deg, #fff7ed, #ffedd5)',
           border: urgent ? '1.5px solid #fca5a5' : '1.5px solid #fed7aa',
         }}
       >
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <span className="text-2xl">{urgent ? '🚨' : '⚠️'}</span>
-            <div>
-              <div className="font-bold text-gray-800 text-sm">
-                {urgent ? '错题积压严重！' : '错题待复习'}
-              </div>
-              <div className="text-xs text-gray-500 mt-0.5">
-                {overdueCount} 道错题已超期 3 天
-              </div>
-            </div>
+        <div className="flex items-center justify-between mb-3">
+          <div className="flex items-center gap-2">
+            <span className="text-xl">{urgent ? '🚨' : '⚠️'}</span>
+            <span className="font-bold text-gray-800 text-sm">
+              {urgent ? '错题积压严重！' : '错题待复习'}
+            </span>
           </div>
-          <div
-            className="text-sm font-semibold px-3 py-1.5 rounded-xl"
-            style={{
-              background: urgent ? '#ef4444' : '#f97316',
-              color: 'white',
-            }}
-          >
-            立即复习 →
-          </div>
+          <span className="text-xs text-gray-400">共 {overdueCount} 道</span>
         </div>
-      </button>
+        {/* 按科目显示 */}
+        <div className="flex gap-2 flex-wrap mb-3">
+          {wrongEntries.map(([subj, cnt]) => (
+            <span key={subj} className="text-xs bg-white/60 rounded-lg px-2 py-1 font-medium text-gray-700">
+              {subjectEmoji[subj]}{subjectMap[subj]} {cnt}题
+            </span>
+          ))}
+        </div>
+        <button
+          onClick={onWrongReview}
+          className="w-full text-sm font-semibold py-2.5 rounded-xl text-white active:scale-95 transition-all"
+          style={{ background: urgent ? '#ef4444' : '#f97316' }}
+        >
+          立即复习 →
+        </button>
+      </div>
     )
   }
 
