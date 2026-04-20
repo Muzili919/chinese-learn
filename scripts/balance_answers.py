@@ -1,131 +1,139 @@
 #!/usr/bin/env python3
-"""Balance MC answer distribution for English grammar questions."""
+# -*- coding: utf-8 -*-
+"""
+后处理脚本：平衡答案分布 + 验证所有题目
+"""
 
 import json
+import random
+random.seed(2024)
 
-with open('/Volumes/ORICO/xinwen/claudecode/chinese-learn/src/data/questions_en_grammar.json') as f:
-    data = json.load(f)
+with open("/Volumes/ORICO/xinwen/claudecode/chinese-learn/src/data/questions_math_junior_equation.json", 'r', encoding='utf-8') as f:
+    questions = json.load(f)
 
+print(f"原始: {len(questions)} 题")
+
+# 统计初始状态
 from collections import Counter
+initial_ans = Counter(q["answer"][0] for q in questions)
+print(f"初始答案分布: {dict(initial_ans)}")
 
-# Get MC questions
-mc_questions = [q for q in data if q['type'] == 'multiple_choice']
-print(f"Total MC questions: {len(mc_questions)}")
+# 目标：A≈16, B≈16, C≈17, D≈16 (总计65)
+target = {'A': 16, 'B': 17, 'C': 16, 'D': 16}  # 总和65
 
-# Count answers
-counts = Counter(q['answer'] for q in mc_questions)
-print(f"Before: {dict(counts)}")
+# 计算需要调整的量
+current = dict(initial_ans)
+adjust = {}
+for letter in "ABCD":
+    adjust[letter] = target[letter] - current.get(letter, 0)
 
-# Target: ~17-18 each (70 / 4)
-# Need to move: A: 24->18 (move 6), B: 28->18 (move 10), C: 17->18 (move 1 to C), D: 1->18 (need 17 more)
+print(f"目标分布: {target}")
+print(f"调整量: {adjust}")
 
-# Strategy: Swap correct answer position for suitable questions
-# For each question with answer A where swapping to D works cleanly:
-#   - Swap options[0] and options[3], update answer to D
-# Similar for other swaps
+# 需要减少A（当前太多），增加BCD
+# 策略：对选中的A类题目，将正确答案交换到目标位置
 
-def swap_options_and_answer(q, old_pos, new_pos):
-    """Swap two options and update answer accordingly."""
-    options = list(q['options'])
-    old_opt = options[old_pos]
-    new_opt = options[new_pos]
-    options[old_pos] = new_opt
-    options[new_pos] = old_opt
-    q['options'] = options
+def rebalance_one(q, target_letter):
+    """将一道题的正确答案从当前位置移到target_letter位置"""
+    opts = list(q["options"])
+    old_letter = q["answer"][0]
     
-    old_letter = chr(65 + old_pos)
-    new_letter = chr(65 + new_pos)
-    if q['answer'] == old_letter:
-        q['answer'] = new_letter
+    if old_letter == target_letter:
+        return False  # 已经是目标
+    
+    old_idx = ord(old_letter) - ord('A')
+    target_idx = ord(target_letter) - ord('A')
+    
+    # 交换选项
+    correct_text = opts[old_idx]
+    target_text = opts[target_idx]
+    opts[old_idx] = target_text
+    opts[target_idx] = correct_text
+    
+    q["options"] = opts
+    old_full_answer = q["answer"]
+    # 保留正确答案文本，只改变字母前缀
+    q["answer"] = f"{target_letter}. {correct_text}"
+    return True
 
-# Find questions where we can cleanly swap A<->D
-# Criteria: the D option must be a plausible wrong answer (not just filler)
-a_to_d_swaps = []
-for q in mc_questions:
-    if q['answer'] == 'A':
-        a_opt = q['options'][0]  # A option
-        d_opt = q['options'][3]  # D option
-        # Check D option is not obviously wrong filler
-        if d_opt not in ["D. All right.", "D. I'm fine.", "D. I like school.", "D. You're welcome."]:
-            a_to_d_swaps.append(q)
+# 按需调整
+changes = 0
+# 遍历需要减少的选项
+to_decrease = [l for l in "ABCD" if adjust[l] < 0]
+to_increase = [l for l in "ABCD" if adjust[l] > 0]
 
-print(f"\nA->D swap candidates (quality): {len(a_to_d_swaps)}")
+# 建立待处理队列：按需减少的来源
+source_pool = []
+for l in to_decrease:
+    for _ in range(-adjust[l]):
+        source_pool.append(l)
 
-# Find B->D swap candidates
-b_to_d_swaps = []
-for q in mc_questions:
-    if q['answer'] == 'B':
-        d_opt = q['options'][3]
-        if d_opt not in ["D. All right.", "D. I'm fine.", "D. I like school.", "D. You're welcome."]:
-            b_to_d_swaps.append(q)
+target_pool = []
+for l in to_increase:
+    for _ in range(adjust[l]):
+        target_pool.append(l)
 
-print(f"B->D swap candidates (quality): {len(b_to_d_swaps)}")
+random.shuffle(source_pool)
+random.shuffle(target_pool)
 
-# Execute swaps
-# Target: A=18, B=18, C=18, D=16 (close enough, 70 total)
-# Actually let's aim for A=18, B=18, C=17, D=17
+# 对每个来源找一道对应题目并改为目标
+used_indices = set()
+for i, (src_letter, tgt_letter) in enumerate(zip(source_pool, target_pool)):
+    found = False
+    for j, q in enumerate(questions):
+        if j in used_indices:
+            continue
+        if q["answer"][0] == src_letter:
+            if rebalance_one(q, tgt_letter):
+                used_indices.add(j)
+                changes += 1
+                found = True
+                break
+    if not found:
+        print(f"⚠️ 无法找到 {src_letter}→{tgt_letter} 的可调题目")
 
-swaps_done = 0
+print(f"\n调整了 {changes} 道题")
 
-# Swap A->D: need to move ~6 from A to D
-target_a_to_d = 6
-for i, q in enumerate(a_to_d_swaps):
-    if swaps_done >= target_a_to_d:
-        break
-    swap_options_and_answer(q, 0, 3)  # swap A and D
-    swaps_done += 1
-    print(f"  Swapped A->D: {q['id']} (now {q['answer']})")
+# 最终统计
+final_ans = Counter(q["answer"][0] for q in questions)
+final_diff = Counter(q["difficulty"] for q in questions)
+final_tag = Counter(q["knowledge_tag"] for q in questions)
 
-print(f"\nSwapped {swaps_done} A->D")
+print(f"\n{'='*50}")
+print(f"最终答案分布:")
+for l in "ABCD":
+    c = final_ans.get(l, 0)
+    bar = "█"*c
+    print(f"  {l}: {c:2d} {bar}")
 
-# Swap B->D: need to move ~10 from B to D
-target_b_to_d = 10
-swaps_done_b = 0
-for q in b_to_d_swaps:
-    if swaps_done_b >= target_b_to_d:
-        break
-    swap_options_and_answer(q, 1, 3)  # swap B and D
-    swaps_done_b += 1
-    print(f"  Swapped B->D: {q['id']} (now {q['answer']})")
+print(f"\n最终难度分布:")
+for d in sorted(final_diff.keys()):
+    print(f"  难度{d}: {final_diff[d]}")
 
-print(f"Swapped {swaps_done_b} B->D")
+print(f"\n知识点分布:")
+for t in sorted(final_tag.keys()):
+    print(f"  {t}: {final_tag[t]}")
 
-# Now also need some A->C (A has too many still after A->D swaps)
-# Check current counts
-new_counts = Counter(q['answer'] for q in mc_questions)
-print(f"\nAfter swaps: {dict(new_counts)}")
+# 验证ID连续性
+ids = [q["id"] for q in questions]
+expected = [f"math_je{i:03d}" for i in range(1, len(questions)+1)]
+if ids == expected:
+    print(f"\n✅ ID完整: math_je001 ~ math_je{len(questions):03d}")
 
-# If still imbalanced, do more swaps
-a_count = new_counts.get('A', 0)
-c_count = new_counts.get('C', 0)
-if a_count > c_count + 2:
-    # Swap some A->C
-    a_to_c_candidates = [q for q in mc_questions if q['answer'] == 'A']
-    needed = (a_count - c_count) // 2
-    for q in a_to_c_candidates[:needed]:
-        swap_options_and_answer(q, 0, 2)  # swap A and C
-        print(f"  Swapped A->C: {q['id']}")
+# 抽样验证几道题
+print("\n🔍 抽样验证:")
+sample_ids = ["math_je001", "math_je020", "math_je040", "math_je065"]
+for sid in sample_ids:
+    for q in questions:
+        if q["id"] == sid:
+            ans_letter = q["answer"][0]
+            ans_idx = ord(ans_letter) - ord('A')
+            ans_opt = q["options"][ans_idx][3:]  # 去掉"A. "前缀
+            print(f"  {q['id']}: 答案={ans_letter}, 选项内容=\"{ans_opt[:30]}...\"")
+            break
 
-b_count = new_counts.get('B', 0)
-c_count_after = Counter(q['answer'] for q in mc_questions).get('C', 0)
-if b_count > c_count_after + 2:
-    b_to_c_candidates = [q for q in mc_questions if q['answer'] == 'B']
-    needed = (b_count - c_count_after) // 2
-    for q in b_to_c_candidates[:needed]:
-        swap_options_and_answer(q, 1, 2)
-        print(f"  Swapped B->C: {q['id']}")
-
-# Final count
-final_counts = Counter(q['answer'] for q in mc_questions)
-print(f"\nFinal: {dict(final_counts)}")
-total_mc = sum(final_counts.values())
-print(f"Total MC: {total_mc}")
-for letter in 'ABCD':
-    pct = final_counts.get(letter, 0) / total_mc * 100
-    print(f"  {letter}: {final_counts.get(letter, 0)} ({pct:.1f}%)")
-
-# Write output
-with open('/Volumes/ORICO/xinwen/claudecode/chinese-learn/src/data/questions_en_grammar.json', 'w', encoding='utf-8') as f:
-    json.dump(data, f, ensure_ascii=False, indent=2)
-
-print("\nOutput written successfully!")
+# 写回
+out = "/Volumes/ORICO/xinwen/claudecode/chinese-learn/src/data/questions_math_junior_equation.json"
+with open(out, 'w', encoding='utf-8') as f:
+    json.dump(questions, f, ensure_ascii=False, indent=2)
+print(f"\n✅ 已保存: {out}")

@@ -89,11 +89,43 @@ function extractEnglishForTTS(text) {
 }
 
 // 填空题 TTS：把 ______ 替换为实际答案再朗读（不让 TTS 读出"blank"）
+// 同时过滤掉 ABCD 选项行和中文说明行，避免把答案选项读出来（Bug #1）
+// 排序题特殊处理：只读引导语，不读暴露顺序的事件描述（Bug #4）
 function buildListeningTTSText(q) {
   let text = extractEnglishForTTS(q.listening_text || '')
   if (!text) return ''
+  
+  // ★ 排序题检测：如果答案是箭头格式（B → A → C → D），说明是排序题
+  const isOrdering = /^[A-D]\s*→\s*[A-D]/.test((q.answer || '').trim())
+  if (isOrdering) {
+    // 排序题只保留引导性短句，去掉暴露顺序的 First/Then/After 句子
+    const lines = text.split('\n').filter(line => {
+      const stripped = line.trim()
+      if (!stripped) return false
+      // 去掉 First/Then/After/Finally/Next 开头的句子（这些泄露顺序）
+      if (/^(First|Then|After|Finally|Next)[,\s]/i.test(stripped)) return false
+      // 去掉 A.B.C.D. 选项行
+      if (/^[A-D]\.\s/.test(stripped)) return false
+      return true
+    }).join('\n').trim()
+    // 如果过滤后没有内容了（整篇都是事件描述），返回提示语让用户听原文
+    if (!lines) {
+      return 'Listen to the recording and put the events in the correct order.'
+    }
+    return lines
+  }
+  
+  // 非排序题：过滤 A.B.C.D. 选项行和中文说明行
+  const filteredLines = text.split('\n').filter(line => {
+    const stripped = line.trim()
+    if (!stripped) return false
+    // 去掉以 A. B. C. D. 开头的选项行
+    if (/^[A-D]\.\s/.test(stripped)) return false
+    return true
+  }).join('\n').trim()
+  
   const answer = (q.answer || '').trim()
-  if (answer) text = text.replace(/_{3,}/g, answer)
+  if (answer) text = filteredLines.replace(/_{3,}/g, answer)
   return text
 }
 
@@ -681,11 +713,14 @@ function MatchingQuestion({ q, onSubmit }) {
   }, [q.question])
 
   // 解析正确答案 { '1': 'C', '2': 'D', ... }
+  // 兼容多种格式：1-A、1—B、1-A（空格分隔）
   const correctMap = useMemo(() => {
     const map = {}
-    const pairs = (q.answer || '').split(/\s+/)
+    // 先尝试按空格分割成 "1-C"、"2-D" 等独立配对
+    const pairs = (q.answer || '').split(/\s+/).filter(Boolean)
     pairs.forEach(pair => {
-      const m = pair.match(/(\d)\s*[-—→]\s*([A-D])/i)
+      // 匹配 1-A / 1—B / 1→C / 1－C 等各种分隔符
+      const m = pair.match(/(\d)\s*[-—→－]\s*([A-D])/i)
       if (m) map[m[1]] = m[2].toUpperCase()
     })
     return map
@@ -897,7 +932,9 @@ function detectMode(q) {
   if (q.type === 'cloze') return 'cloze'
   if (isMultiPartAnswer(q)) return 'multi_sub'
   if (q.type === 'true_false') return 'true_false'
-  if (/^1-?[A-D]/.test((q.answer || '').replace(/\s/g, ''))) return 'matching'
+  if (/^1[-—\s]+[A-D]/.test((q.answer || '').replace(/\s/g, ''))) return 'matching'
+  // 兼容 "1-A 2-B" 和 "1—B 2—C" 等多种分隔符格式
+  if (/^[1-9][-—\s]+[A-D]/.test(q.answer || '')) return 'matching'
   if (/^[A-E]\s*→\s*[A-E]/.test(q.answer || '')) return 'ordering'  // A-E 支持5项排序（阅读排序题）
   // 标准options数组存在 → 选择题
   if (Array.isArray(q.options) && q.options.length >= 2) return 'choice'
@@ -1176,8 +1213,8 @@ function OrderingQuestion({ q, onSubmit }) {
         return parts ? { letter: parts[1].toUpperCase(), text: parts[2].trim() } : null
       }).filter(Boolean)
     }
-    // 匹配 "First, xxx. Then, xxx. After that, xxx." 格式
-    const sentences = lt.split(/\.\s+(?=Then|After|Next|Finally|First)/i)
+    // 匹配 "First, xxx. Then, xxx. After that, xxx." 格式（句子级提取）
+    const sentences = lt.split(/\.\s+(?=Then|After|Next|Finally|First|For\s\w+|In\s+(the\s)?(morning|afternoon|evening)|And\s)/i)
     if (sentences.length >= 2) {
       return sentences.map((s, i) => {
         const clean = s.replace(/^(First|Then|After that|Next|Finally)[,]?\s*/i, '').trim().replace(/\.$/, '')
@@ -1189,6 +1226,20 @@ function OrderingQuestion({ q, onSubmit }) {
 
   const listeningOpts = extractListeningOptions()
 
+  // ★ 增强版：从 listening_text 中逐句提取事件描述（用于没有显式ABCD选项的排序题）
+  function extractEventDescriptionsFromText(text) {
+    if (!text) return null
+    // 按句号分割，过滤太短或太长的行
+    const sentences = text.split('.').map(s => s.trim()).filter(s => s.length > 5 && s.length < 120)
+    if (sentences.length >= 2) {
+      return sentences.slice(0, 5).map((s, i) => ({
+        letter: ['A', 'B', 'C', 'D', 'E'][i],
+        text: s.replace(/^(First|Then|After that|Next|Finally|For\b|In the|In\s|And)[,\s]*/i, '').trim(),
+      }))
+    }
+    return null
+  }
+
   // 从 question 文本中提取多行选项（阅读排序题：每行一个 "A. xxx"，支持 A-E）
   function extractFromQuestionText(text) {
     const opts = []
@@ -1199,8 +1250,9 @@ function OrderingQuestion({ q, onSubmit }) {
     return opts.length >= 2 ? opts : null
   }
 
-  // 选项来源优先级：q.options > listening_text提取 > 从 question 文本提取 > fallback
+  // 选项来源优先级：q.options > listening_text显式ABCD > listening_text句子提取 > question文本 > fallback
   const questionTextOpts = extractFromQuestionText(q.question)
+  const eventDescOpts = extractEventDescriptionsFromText(q.listening_text || '')
   let allOptions
   if (Array.isArray(q.options) && q.options.length > 0) {
     allOptions = q.options.map((o, i) => ({
@@ -1209,12 +1261,15 @@ function OrderingQuestion({ q, onSubmit }) {
     }))
   } else if (listeningOpts && listeningOpts.length === correctItems.length) {
     allOptions = listeningOpts
+  } else if (eventDescOpts && eventDescOpts.length >= correctItems.length) {
+    // ★ 新增：从听力原文中提取事件描述作为可读选项
+    allOptions = eventDescOpts.slice(0, correctItems.length)
   } else if (questionTextOpts && questionTextOpts.length === correctItems.length) {
     allOptions = questionTextOpts
   } else {
     allOptions = correctItems.map((item) => {
       const found = questionTextOpts?.find(o => o.letter === item.toUpperCase())
-      return found || { letter: item.toUpperCase(), text: `事件 ${item.toUpperCase()}` }
+      return found || { letter: item.toUpperCase(), text: `选项 ${item.toUpperCase()}` }
     })
   }
 
@@ -1483,7 +1538,8 @@ function EnglishQuestion({ question: q, onSubmit, englishTag }) {
             className="ml-auto w-7 h-7 flex items-center justify-center bg-sky-100 text-sky-500 rounded-full text-sm">🔊</button>
         </div>
         <p className="text-gray-800 text-sm leading-relaxed whitespace-pre-wrap" dangerouslySetInnerHTML={{
-          __html: q.question.replace(/<u>(.*?)<\/u>/g, '<u style="text-decoration:underline;text-decoration-style:wavy;text-decoration-color:#ef4444;text-underline-offset:3px;font-weight:600">$1</u>')
+          __html: q.question.replace(/<u>(.*?)<\/u>/g, 
+            '<span style="color:#dc2626;font-weight:bold;border-bottom:3px solid #ef4444;text-underline-offset:2px;position:relative;padding:0 1px;">$1</span>')
         }}></p>
       </div>
 

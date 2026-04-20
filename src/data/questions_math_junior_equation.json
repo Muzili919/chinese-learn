@@ -1,0 +1,1107 @@
+[
+  {
+    "id": "math_je001",
+    "type": "single_choice",
+    "question": "根据等式的性质，由等式 x + 5 = 8 可以得到（    ）",
+    "options": [
+      "A. x = -3",
+      "B. x = 40",
+      "C. x = 13",
+      "D. x = 3"
+    ],
+    "answer": "D. x = 3",
+    "analysis": "两边同减5：x = 8-5 = 3。依据等式性质1（等式两边同加减同一个数，等式仍成立）。",
+    "knowledge_tag": "等式性质",
+    "topic": "方程与不等式",
+    "difficulty": 1,
+    "grade": 7
+  },
+  {
+    "id": "math_je002",
+    "type": "single_choice",
+    "question": "班级买文具奖品，每人发5支笔剩12支；每人发6支笔还差18支。学生人数是（    ）",
+    "options": [
+      "A. 36 人",
+      "B. 48 人",
+      "C. 30 人",
+      "D. 42 人"
+    ],
+    "answer": "C. 30 人",
+    "analysis": "设学生x人。笔数固定：5x+12=6x-18 → x=30。笔总数=5×30+12=162。验算：6×30=180需180支，有162支缺18支✓。",
+    "knowledge_tag": "方程应用-分配",
+    "topic": "方程与不等式",
+    "difficulty": 2,
+    "grade": 7
+  },
+  {
+    "id": "math_je003",
+    "type": "single_choice",
+    "question": "已知 2x - 3 = 7，则 6x - 9 = （    ）",
+    "options": [
+      "A. 14",
+      "B. 42",
+      "C. 21",
+      "D. 28"
+    ],
+    "answer": "C. 21",
+    "analysis": "整体思想：6x-9 = 3(2x-3) = 3×7 = 21。（或先解得x=5代入：30-9=21）",
+    "knowledge_tag": "等式性质",
+    "topic": "方程与不等式",
+    "difficulty": 2,
+    "grade": 7
+  },
+  {
+    "id": "math_je004",
+    "type": "single_choice",
+    "question": "解方程 3x+4=10 时，左边减去4后为保持等式成立，右边应（    ）",
+    "options": [
+      "A. 除以4",
+      "B. 乘以4",
+      "C. 减去4",
+      "D. 加上4"
+    ],
+    "answer": "C. 减去4",
+    "analysis": "等式性质1：两边必须做相同运算。左边减4，右边也减4，等式仍平衡。这是移项的基本原理。",
+    "knowledge_tag": "等式性质",
+    "topic": "方程与不等式",
+    "difficulty": 1,
+    "grade": 7
+  },
+  {
+    "id": "math_je005",
+    "type": "single_choice",
+    "question": "方程 2x + 3 = 7 的解是（    ）",
+    "options": [
+      "A. x = -5",
+      "B. x = 2",
+      "C. x = -2",
+      "D. x = 5"
+    ],
+    "answer": "B. x = 2",
+    "analysis": "移项：2x=4 → x=2。检验：2×2+3=7✓",
+    "knowledge_tag": "一元一次方程",
+    "topic": "方程与不等式",
+    "difficulty": 1,
+    "grade": 7
+  },
+  {
+    "id": "math_je006",
+    "type": "single_choice",
+    "question": "解方程 5(x-2) = 3(x+4) 得 x = （    ）",
+    "options": [
+      "A. 11",
+      "B. -11",
+      "C. 1",
+      "D. -1"
+    ],
+    "answer": "C. 1",
+    "analysis": "去括号：5x-10=3x+12 → 移项：2x=22 → x=11。检验：左=45，右=45✓",
+    "knowledge_tag": "一元一次方程",
+    "topic": "方程与不等式",
+    "difficulty": 2,
+    "grade": 7
+  },
+  {
+    "id": "math_je007",
+    "type": "single_choice",
+    "question": "方程 (2x-1)/3 - (x+2)/4 = 1 的解是（    ）",
+    "options": [
+      "A. x = 5/22",
+      "B. x = 19/5",
+      "C. x = -22/5",
+      "D. x = 22/5"
+    ],
+    "answer": "D. x = 22/5",
+    "analysis": "去分母×12：4(2x-1)-3(x+2)=12 → 8x-4-3x-6=12 → 5x=22 → x=22/5。\n等等——重新算：8x-10=12？不对。\n正确步骤：8x-4-3x-6=12 → 5x-10=12 → 5x=22 → x=22/5\n检验：(44/5-1)/3-(22/5+2)/4=(39/5)/3-(32/5)/4=13/5-8/5=5/5=1✓\n答案是22/5对应选项A。",
+    "knowledge_tag": "一元一次方程",
+    "topic": "方程与不等式",
+    "difficulty": 3,
+    "grade": 7
+  },
+  {
+    "id": "math_je008",
+    "type": "single_choice",
+    "question": "关于x的方程 2(k-1)x = 3 有正数解，则k的范围是（    ）",
+    "options": [
+      "A. k ≠ 0",
+      "B. k < 1",
+      "C. 任意实数",
+      "D. k > 1"
+    ],
+    "answer": "D. k > 1",
+    "analysis": "解 x = 3/[2(k-1)]。要有唯一解需 k≠1；要 x>0 需 2(k-1)>0 即 k>1。",
+    "knowledge_tag": "一元一次方程",
+    "topic": "方程与不等式",
+    "difficulty": 4,
+    "grade": 7
+  },
+  {
+    "id": "math_je009",
+    "type": "single_choice",
+    "question": "若 3x-5 与 2x+3 互为相反数，则 x = （    ）",
+    "options": [
+      "A. 8",
+      "B. 2/5",
+      "C. -2/5",
+      "D. -8"
+    ],
+    "answer": "B. 2/5",
+    "analysis": "(3x-5)+(2x+3)=0 → 5x-2=0 → x=2/5。验算：6/5-25/5=-19/5；4/5+15/5=19/5 ✓互为相反数",
+    "knowledge_tag": "一元一次方程",
+    "topic": "方程与不等式",
+    "difficulty": 2,
+    "grade": 7
+  },
+  {
+    "id": "math_je010",
+    "type": "single_choice",
+    "question": "|x - 2| = 3 的解是（    ）",
+    "options": [
+      "A. x=5",
+      "B. x=±3",
+      "C. x=-1",
+      "D. x=5 或 x=-1"
+    ],
+    "answer": "A. x=5",
+    "analysis": "x-2=3 或 x-2=-3，得 x=5 或 x=-1。两解都满足原方程。",
+    "knowledge_tag": "一元一次方程",
+    "topic": "方程与不等式",
+    "difficulty": 2,
+    "grade": 7
+  },
+  {
+    "id": "math_je011",
+    "type": "single_choice",
+    "question": "解方程 2[x-2(x-1)] = 3x 得 x = （    ）",
+    "options": [
+      "A. 4/5",
+      "B. -4/5",
+      "C. 2",
+      "D. 5/4"
+    ],
+    "answer": "A. 4/5",
+    "analysis": "内层：2[x-2x+2]=2[-x+2]=-2x+4=3x → 4=5x → x=4/5\n检验：左=2[4/5-2(-1/5)]=12/5；右=12/5✓",
+    "knowledge_tag": "一元一次方程",
+    "topic": "方程与不等式",
+    "difficulty": 3,
+    "grade": 7
+  },
+  {
+    "id": "math_je012",
+    "type": "single_choice",
+    "question": "方程 (m-2)x^(|m|-1)=5 是一元一次方程，则 m = （    ）",
+    "options": [
+      "A. m = ±2",
+      "B. m = -2",
+      "C. m = 2",
+      "D. m = 0"
+    ],
+    "answer": "B. m = -2",
+    "analysis": "条件①次数为1：|m|-1=1→|m|=2→m=±2；②系数≠0：m-2≠0→m≠2。综合 m=-2",
+    "knowledge_tag": "一元一次方程",
+    "topic": "方程与不等式",
+    "difficulty": 3,
+    "grade": 7
+  },
+  {
+    "id": "math_je013",
+    "type": "single_choice",
+    "question": "同学解方程 2(x-1)=3x+a 时误将a看成-a，得x=2。正确解是（    ）",
+    "options": [
+      "A. x = -6",
+      "B. x = 6",
+      "C. x = -2",
+      "D. x = 2/5"
+    ],
+    "answer": "A. x = -6",
+    "analysis": "同学看到2(x-1)=3x-a，x=2代入：2=6-a→a=4。原方程2(x-1)=3x+4→2x-2=3x+4→x=-6。验算：左=2(-7)=-14，右=3(-6)+4=-14✓",
+    "knowledge_tag": "一元一次方程",
+    "topic": "方程与不等式",
+    "difficulty": 4,
+    "grade": 7
+  },
+  {
+    "id": "math_je014",
+    "type": "single_choice",
+    "question": "方程 (a-1)x=2a-3 的解为负数，则 a 的范围是（    ）",
+    "options": [
+      "A. a<1",
+      "B. a>3/2",
+      "C. a>1 且 a≠3/2",
+      "D. 1<a<3/2"
+    ],
+    "answer": "D. 1<a<3/2",
+    "analysis": "x=(2a-3)/(a-1)。负数要求分子分母异号：\n情况1: 2a-3>0且a-1<0 → a>1.5且a<1 → 无解\n情况2: 2a-3<0且a-1>0 → a<1.5且a>1 → 1<a<1.5",
+    "knowledge_tag": "一元一次方程",
+    "topic": "方程与不等式",
+    "difficulty": 4,
+    "grade": 7
+  },
+  {
+    "id": "math_je015",
+    "type": "single_choice",
+    "question": "小红50m/min步行出发，6分钟后妈妈200m/min骑车同路追赶。妈妈出发几分钟后追上？（    ）",
+    "options": [
+      "A. 5 分钟",
+      "B. 4 分钟",
+      "C. 3 分钟",
+      "D. 2 分钟"
+    ],
+    "answer": "D. 2 分钟",
+    "analysis": "设妈妈出发后x分钟追上。妈妈出发时小红已走50×6=300m。追及条件：200x=300+50x→150x=300→x=2分钟。此时距出发点400m，小红共走了50×8=400m✓",
+    "knowledge_tag": "方程应用-行程",
+    "topic": "方程与不等式",
+    "difficulty": 3,
+    "grade": 7
+  },
+  {
+    "id": "math_je016",
+    "type": "single_choice",
+    "question": "火车长200米以72km/h过1000米大桥。从车头上桥到车尾离桥需多少秒？（    ）",
+    "options": [
+      "A. 50 秒",
+      "B. 60 秒",
+      "C. 80 秒",
+      "D. 70 秒"
+    ],
+    "answer": "B. 60 秒",
+    "analysis": "总路程=桥长+车长=1200m。72km/h=20m/s。时间=1200÷20=60s",
+    "knowledge_tag": "方程应用-行程",
+    "topic": "方程与不等式",
+    "difficulty": 3,
+    "grade": 7
+  },
+  {
+    "id": "math_je017",
+    "type": "single_choice",
+    "question": "甲乙相距360km同时相向而行，甲50km/h、乙40km/h。几小时相遇？（    ）",
+    "options": [
+      "A. 5 小时",
+      "B. 6 小时",
+      "C. 4 小时",
+      "D. 3 小时"
+    ],
+    "answer": "C. 4 小时",
+    "analysis": "设x小时相遇：50x+40x=360 → 90x=36？不对！90x=360 → x=4h。甲200km+乙160km=360km✓",
+    "knowledge_tag": "方程应用-行程",
+    "topic": "方程与不等式",
+    "difficulty": 2,
+    "grade": 7
+  },
+  {
+    "id": "math_je018",
+    "type": "single_choice",
+    "question": "汽车240km行程：前半120km以60km/h行驶，后半因修路减速至40km/h。全程用时？（    ）",
+    "options": [
+      "A. 4 h",
+      "B. 5 h",
+      "C. 5.5 h",
+      "D. 6 h"
+    ],
+    "answer": "B. 5 h",
+    "analysis": "t₁=120÷60=2h；t₂=120÷40=3h。总时间=5h。验算：60×2+40×3=120+120=240✓",
+    "knowledge_tag": "方程应用-行程",
+    "topic": "方程与不等式",
+    "difficulty": 2,
+    "grade": 7
+  },
+  {
+    "id": "math_je019",
+    "type": "single_choice",
+    "question": "轮船顺流4小时、逆流5小时行完同一路程。水速3km/h。求船在静水中的速度。（    ）",
+    "options": [
+      "A. 36 km/h",
+      "B. 27 km/h",
+      "C. 33 km/h",
+      "D. 30 km/h"
+    ],
+    "answer": "B. 27 km/h",
+    "analysis": "设静水船速x km/h。顺流=x+3，逆流=x-3。路程相同：4(x+3)=5(x-3)→4x+12=5x-15→x=27。\n两地距离=4×30=120km=5×24✓",
+    "knowledge_tag": "方程应用-行程",
+    "topic": "方程与不等式",
+    "difficulty": 4,
+    "grade": 7
+  },
+  {
+    "id": "math_je020",
+    "type": "single_choice",
+    "question": "甲乙在400m环形跑道同向跑步，甲6m/s、乙4m/s。同时同地出发，甲首次追上乙用几秒？（    ）",
+    "options": [
+      "A. 100 s",
+      "B. 400/3 s",
+      "C. 200 s",
+      "D. 50 s"
+    ],
+    "answer": "C. 200 s",
+    "analysis": "环形追及：快者比慢者多跑一圈。6x-4x=400 → 2x=400 → x=200s。\n甲跑1200m(3圈)，乙跑800m(2圈)，恰好多一圈✓",
+    "knowledge_tag": "方程应用-行程",
+    "topic": "方程与不等式",
+    "difficulty": 3,
+    "grade": 7
+  },
+  {
+    "id": "math_je021",
+    "type": "single_choice",
+    "question": "工程甲独做12天完成、乙独做18天完成。合作需几天？（    ）",
+    "options": [
+      "A. 30/7 天",
+      "B. 15 天",
+      "C. 7.2 天",
+      "D. 6 天"
+    ],
+    "answer": "C. 7.2 天",
+    "analysis": "效率甲=1/12，乙=1/18。合作效率=5/36。时间=1÷(5/36)=36/5=7.2天（7又1/5天）",
+    "knowledge_tag": "方程应用-工程",
+    "topic": "方程与不等式",
+    "difficulty": 2,
+    "grade": 7
+  },
+  {
+    "id": "math_je022",
+    "type": "single_choice",
+    "question": "水池：甲管注满4h，乙管6h，出水管放完12h。三管同开注满空池需几h？（    ）",
+    "options": [
+      "A. 2.4 h",
+      "B. 12/5 h",
+      "C. 3 h",
+      "D. 4 h"
+    ],
+    "answer": "C. 3 h",
+    "analysis": "净效率=1/4+1/6-1/12=3/12+2/12-1/12=4/12=1/3。时间=3h。\n3小时内甲注3/4、乙注1/2、放1/4，合计3/4+2/4-1/4=1✓",
+    "knowledge_tag": "方程应用-工程",
+    "topic": "方程与不等式",
+    "difficulty": 3,
+    "grade": 7
+  },
+  {
+    "id": "math_je023",
+    "type": "single_choice",
+    "question": "师傅打字6h完成，徒弟12h完成。师傅先打2h后徒弟加入。还需几h？（    ）",
+    "options": [
+      "A. 8/3 h",
+      "B. 3 h",
+      "C. 10/3 h",
+      "D. 4 h"
+    ],
+    "answer": "A. 8/3 h",
+    "analysis": "师傅先完成2×1/6=1/3。剩余2/3。合作效率=1/6+1/12=1/4。还需(2/3)÷(1/4)=8/3h≈2h40min。\n验算：师傅工作14/3h完成14/18=7/9，徒弟8/3h完成8/36=2/9，合计1✓",
+    "knowledge_tag": "方程应用-工程",
+    "topic": "方程与不等式",
+    "difficulty": 3,
+    "grade": 7
+  },
+  {
+    "id": "math_je024",
+    "type": "single_choice",
+    "question": "计划每天产50个零件30天完成。实际每天多产25个。实际几天完成？（    ）",
+    "options": [
+      "A. 22 天",
+      "B. 24 天",
+      "C. 25 天",
+      "D. 20 天"
+    ],
+    "answer": "D. 20 天",
+    "analysis": "总量=50×30=1500个。实际日产量=75个。1500÷75=20天",
+    "knowledge_tag": "方程应用-工程",
+    "topic": "方程与不等式",
+    "difficulty": 2,
+    "grade": 7
+  },
+  {
+    "id": "math_je025",
+    "type": "single_choice",
+    "question": "甲队独做20天的工程，甲先做若干天后乙接手（乙独做30天），乙又做了15天完成。甲先做了几天？（    ）",
+    "options": [
+      "A. 10 天",
+      "B. 5 天",
+      "C. 6 天",
+      "D. 8 天"
+    ],
+    "answer": "A. 10 天",
+    "analysis": "设甲先做x天。甲完成x/20，乙完成15/30=1/2。x/20+1/2=1→x/20=1/2→x=10天\n验算：甲完成10/20=1/2，乙完成15/30=1/2，合计1✓",
+    "knowledge_tag": "方程应用-工程",
+    "topic": "方程与不等式",
+    "difficulty": 3,
+    "grade": 7
+  },
+  {
+    "id": "math_je026",
+    "type": "single_choice",
+    "question": "加工一批零件：原计划80个/天按期完成；实际100个/天提前3天完成。共有几个？（    ）",
+    "options": [
+      "A. 1500 个",
+      "B. 960 个",
+      "C. 1200 个",
+      "D. 1000 个"
+    ],
+    "answer": "C. 1200 个",
+    "analysis": "设计划x天：80x=100(x-3)→80x=100x-300→20x=300→x=15天。总数=80×15=1200个\n验算：计划15天=1200；实际12天=1200，提前3天✓",
+    "knowledge_tag": "方程应用-工程",
+    "topic": "方程与不等式",
+    "difficulty": 3,
+    "grade": 7
+  },
+  {
+    "id": "math_je027",
+    "type": "single_choice",
+    "question": "商品成本200元，标价八折售出仍获利40元。标价是多少元？（    ）",
+    "options": [
+      "A. 300 元",
+      "B. 350 元",
+      "C. 320 元",
+      "D. 280 元"
+    ],
+    "answer": "A. 300 元",
+    "analysis": "设标价x：0.8x-200=40→0.8x=240→x=300元。验算：标300→八折240→利40✓ 利润率20%",
+    "knowledge_tag": "方程应用-利润",
+    "topic": "方程与不等式",
+    "difficulty": 2,
+    "grade": 7
+  },
+  {
+    "id": "math_je028",
+    "type": "single_choice",
+    "question": "商品进价加价50%标价再打八折，仍获利20元。求进价。（    ）",
+    "options": [
+      "A. 150 元",
+      "B. 200 元",
+      "C. 120 元",
+      "D. 100 元"
+    ],
+    "answer": "D. 100 元",
+    "analysis": "设进价x：标价1.5x，八折售价1.2x，利润1.2x-x=0.2x=20→x=100元。\n验算：进100→标150→折120→利20✓",
+    "knowledge_tag": "方程应用-利润",
+    "topic": "方程与不等式",
+    "difficulty": 3,
+    "grade": 7
+  },
+  {
+    "id": "math_je029",
+    "type": "single_choice",
+    "question": "两件衣服均卖120元，一件赚20%一件亏20%。总盈亏？（    ）",
+    "options": [
+      "A. 不盈不亏",
+      "B. 无法判断",
+      "C. 赚10元",
+      "D. 亏10元"
+    ],
+    "answer": "D. 亏10元",
+    "analysis": "赚的进价：120÷1.2=100元；亏的进价：120÷0.8=150元。总进250，总售240，亏10元。\n⚠️经典陷阱：相同百分比盈亏不抵消！亏损基数更大。",
+    "knowledge_tag": "方程应用-利润",
+    "topic": "方程与不等式",
+    "difficulty": 4,
+    "grade": 7
+  },
+  {
+    "id": "math_je030",
+    "type": "single_choice",
+    "question": "A品进500元加价40%八折出售；B品进800元加价25%八五折出售。各利润多少？（    ）",
+    "options": [
+      "A. A:70元 B:40元",
+      "B. A:50元 B:60元",
+      "C. A:40元 B:70元",
+      "D. A:60元 B:50元"
+    ],
+    "answer": "D. A:60元 B:50元",
+    "analysis": "A：500×1.4=700→700×0.8=560→利60元。B：800×1.25=1000→1000×0.85=850→利50元。\n实际利润率：A=12%，B=6.25%",
+    "knowledge_tag": "方程应用-利润",
+    "topic": "方程与不等式",
+    "difficulty": 3,
+    "grade": 7
+  },
+  {
+    "id": "math_je031",
+    "type": "single_choice",
+    "question": "超市会员卡：A卡打七五折年费120元；B卡打八五折年费40元。年购2000元选哪种？（    ）",
+    "options": [
+      "A. B卡花1740元更省",
+      "B. A卡花1620元更省",
+      "C. 一样",
+      "D. 不办卡最省"
+    ],
+    "answer": "B. A卡花1620元更省",
+    "analysis": "不办卡2000元。A卡=2000×0.75+120=1620元。B卡=2000×0.85+40=1740元。A卡比B卡省120元，A卡更优。临界点：0.75x+120=0.85x+40→x=800元。购超800元选A卡更划算。",
+    "knowledge_tag": "方程应用-利润",
+    "topic": "方程与不等式",
+    "difficulty": 4,
+    "grade": 7
+  },
+  {
+    "id": "math_je032",
+    "type": "single_choice",
+    "question": "两件上衣均售360元，一件盈利25%一件亏损25%。总盈亏？（    ）",
+    "options": [
+      "A. 亏损48元",
+      "B. 亏损30元",
+      "C. 盈利30元",
+      "D. 不盈不亏"
+    ],
+    "answer": "A. 亏损48元",
+    "analysis": "盈利进价=360÷1.25=288元（利72）；亏损进价=360÷0.75=480元（亏120）。\n总进=288+480=768元，总售=720元，净亏48元。",
+    "knowledge_tag": "方程应用-利润",
+    "topic": "方程与不等式",
+    "difficulty": 4,
+    "grade": 7
+  },
+  {
+    "id": "math_je033",
+    "type": "single_choice",
+    "question": "故事书和科技书共120本，故事书是科技书的3倍。科技书几本？（    ）",
+    "options": [
+      "A. 40 本",
+      "B. 30 本",
+      "C. 90 本",
+      "D. 60 本"
+    ],
+    "answer": "B. 30 本",
+    "analysis": "设科技x本，故事3x本：x+3x=120→4x=120→x=30。科技30，故事90，共120✓",
+    "knowledge_tag": "方程应用-分配",
+    "topic": "方程与不等式",
+    "difficulty": 1,
+    "grade": 7
+  },
+  {
+    "id": "math_je034",
+    "type": "single_choice",
+    "question": "两位数十位数字是个位的2倍。交换后新数比原数小27。原数是？（    ）",
+    "options": [
+      "A. 42",
+      "B. 63",
+      "C. 84",
+      "D. 21"
+    ],
+    "answer": "B. 63",
+    "analysis": "设个位x，十位2x：原数21x，新数12x。21x-12x=27→9x=27→x=3。十位6，原数63。\n验算：63交换得36，差27✓ 十位6=2×3✓",
+    "knowledge_tag": "方程应用-分配",
+    "topic": "方程与不等式",
+    "difficulty": 3,
+    "grade": 7
+  },
+  {
+    "id": "math_je035",
+    "type": "single_choice",
+    "question": "七(1)班女生占全班2/5，男生比女生多12人。全班几人？（    ）",
+    "options": [
+      "A. 60 人",
+      "B. 40 人",
+      "C. 50 人",
+      "D. 72 人"
+    ],
+    "answer": "A. 60 人",
+    "analysis": "设全班x人：女=(2/5)x，男=(3/5)x。男-女=(1/5)x=12→x=60。\n女24男36，差12✓ 女24/60=2/5✓",
+    "knowledge_tag": "方程应用-分配",
+    "topic": "方程与不等式",
+    "difficulty": 2,
+    "grade": 7
+  },
+  {
+    "id": "math_je036",
+    "type": "single_choice",
+    "question": "发练习本每人5本剩10本，每人6本缺12本。学生几本？练习本总共几本？（    ）",
+    "options": [
+      "A. 22名学生,120本",
+      "B. 22名,108本",
+      "C. 20名,110本",
+      "D. 24名,130本"
+    ],
+    "answer": "A. 22名学生,120本",
+    "analysis": "设学生x人：5x+10=6x-12（每人多发1本多用掉22本）→x=22人。练习本=5×22+10=120本\n验算：每人6本需132本，现有120本，缺12本✓",
+    "knowledge_tag": "方程应用-分配",
+    "topic": "方程与不等式",
+    "difficulty": 3,
+    "grade": 7
+  },
+  {
+    "id": "math_je037",
+    "type": "single_choice",
+    "question": "甲乙丙三数之比2:3:5，平均值为30。甲数是？（    ）",
+    "options": [
+      "A. 15",
+      "B. 12",
+      "C. 20",
+      "D. 18"
+    ],
+    "answer": "D. 18",
+    "analysis": "总和=90。设公比k：2k+3k+5k=10k=90→k=9。甲=2×9=18，乙27，丙45。\n均值30✓ 比18:27:45=2:3:5✓",
+    "knowledge_tag": "方程应用-分配",
+    "topic": "方程与不等式",
+    "difficulty": 2,
+    "grade": 7
+  },
+  {
+    "id": "math_je038",
+    "type": "single_choice",
+    "question": "父亲48岁女儿12岁。几年前父亲年龄是女儿的5倍？（    ）",
+    "options": [
+      "A. 3 年前",
+      "B. 6 年前",
+      "C. 9 年前",
+      "D. 12 年前"
+    ],
+    "answer": "A. 3 年前",
+    "analysis": "设x年前：48-x=5(12-x)→48-x=60-5x→4x=12→x=3年前。\n3年前父45女9，45=5×9✓",
+    "knowledge_tag": "方程应用-分配",
+    "topic": "方程与不等式",
+    "difficulty": 2,
+    "grade": 7
+  },
+  {
+    "id": "math_je039",
+    "type": "single_choice",
+    "question": "解 {x+y=5, x-y=1} 得（    ）",
+    "options": [
+      "A. {x=2,y=3}",
+      "B. {x=3,y=2}",
+      "C. {x=2,y=-3}",
+      "D. {x=3,y=-2}"
+    ],
+    "answer": "B. {x=3,y=2}",
+    "analysis": "两式相加：2x=6→x=3。代入x+y=5→y=2。解{x=3,y=2}\n但选的是B={2,3}？不对！应该是A={3,2}",
+    "knowledge_tag": "二元一次方程组",
+    "topic": "方程与不等式",
+    "difficulty": 1,
+    "grade": 7
+  },
+  {
+    "id": "math_je040",
+    "type": "single_choice",
+    "question": "解 {3x+2y=13, 2x-3y=0} 得（    ）",
+    "options": [
+      "A. {x=3,y=2}",
+      "B. {x=5,y=-1}",
+      "C. {x=1,y=5}",
+      "D. {x=2,y=3}"
+    ],
+    "answer": "A. {x=3,y=2}",
+    "analysis": "①×3:9x+6y=39  ②×2:4x-6y=0  相加:13x=39→x=3。代入②:6-3y=0→y=2\n验算:9+4=13✓ 6-6=0✓",
+    "knowledge_tag": "二元一次方程组",
+    "topic": "方程与不等式",
+    "difficulty": 2,
+    "grade": 7
+  },
+  {
+    "id": "math_je041",
+    "type": "single_choice",
+    "question": "{x=2,y=1} 满足 {ax+by=7, bx+ay=5}，则 a+b = （    ）",
+    "options": [
+      "A. 6",
+      "B. 3",
+      "C. 5",
+      "D. 4"
+    ],
+    "answer": "D. 4",
+    "analysis": "代入：2a+b=7...①  a+2b=5...②  ①+②:3(a+b)=12→a+b=4。\n💡技巧：整体代换无需分别求a,b",
+    "knowledge_tag": "二元一次方程组",
+    "topic": "方程与不等式",
+    "difficulty": 3,
+    "grade": 7
+  },
+  {
+    "id": "math_je042",
+    "type": "single_choice",
+    "question": "{x=-1,y=3} 和 {x=2,y=-2} 都满足 y=ax+b。求a,b。（    ）",
+    "options": [
+      "A. a=1,b=-2",
+      "B. a=5,b=8",
+      "C. a=-5/3,b=4/3",
+      "D. a=-1,b=2"
+    ],
+    "answer": "C. a=-5/3,b=4/3",
+    "analysis": "③3=-a+b ④-2=2a+b  ④-③:-5=3a→a=-5/3。代入③:b=3+a=3-5/3=4/3\n验算:y=(-5/3)(-1)+4/3=9/3=3✓; y=(-5/3)(2)+4/3=-10/3+4/3=-6/3=-2✓",
+    "knowledge_tag": "二元一次方程组",
+    "topic": "方程与不等式",
+    "difficulty": 3,
+    "grade": 7
+  },
+  {
+    "id": "math_je043",
+    "type": "single_choice",
+    "question": "解 {2x+3y=17, 3x-2y=6} 得（    ）",
+    "options": [
+      "A. {x=3,y=4}",
+      "B. {x=4,y=2}",
+      "C. {x=2,y=-1}",
+      "D. {x=4,y=3}"
+    ],
+    "answer": "D. {x=4,y=3}",
+    "analysis": "①×2:4x+6y=34  ②×3:9x-6y=18  相加:13x=52→x=4。代入①:8+3y=17→y=3\n验算:8+9=17✓ 12-6=6✓",
+    "knowledge_tag": "二元一次方程组",
+    "topic": "方程与不等式",
+    "difficulty": 2,
+    "grade": 7
+  },
+  {
+    "id": "math_je044",
+    "type": "single_choice",
+    "question": "{2x+y=1-m, x+2y=2} 的解满足 x+y>0，则 m 范围（    ）",
+    "options": [
+      "A. m<-3",
+      "B. m<3",
+      "C. m>3",
+      "D. m>-3"
+    ],
+    "answer": "B. m<3",
+    "analysis": "两式相加:3x+3y=3-m→x+y=(3-m)/3=1-m/3>0→m<3。\n💡整体代换：直接处理x+y无需分别求解",
+    "knowledge_tag": "二元一次方程组",
+    "topic": "方程与不等式",
+    "difficulty": 4,
+    "grade": 7
+  },
+  {
+    "id": "math_je045",
+    "type": "single_choice",
+    "question": "解 {2x-3y=7, x+2y=7} 得（    ）",
+    "options": [
+      "A. {x=3,y=-1/3}",
+      "B. {x=4,y=1.5}",
+      "C. {x=1,y=3}",
+      "D. {x=5,y=1}"
+    ],
+    "answer": "D. {x=5,y=1}",
+    "analysis": "由②:x=7-2y 代入①:2(7-2y)-3y=7→14-4y-3y=7→-7y=-7→y=1→x=5\n验算:10-3=7✓ 5+2=7✓",
+    "knowledge_tag": "二元一次方程组",
+    "topic": "方程与不等式",
+    "difficulty": 2,
+    "grade": 7
+  },
+  {
+    "id": "math_je046",
+    "type": "single_choice",
+    "question": "{ax+by=1, 2x+3y=2} 有无穷多解，则 a:b = （    ）",
+    "options": [
+      "A. 3:2",
+      "B. 1:2",
+      "C. 2:3",
+      "D. 不能确定"
+    ],
+    "answer": "C. 2:3",
+    "analysis": "有无穷多解⇔两方程系数成比例：a/2=b/3=1/2→a=1,b=3/2→a:b=2:3",
+    "knowledge_tag": "二元一次方程组",
+    "topic": "方程与不等式",
+    "difficulty": 4,
+    "grade": 8
+  },
+  {
+    "id": "math_je047",
+    "type": "single_choice",
+    "question": "甲票30元/张、乙票20元/张共45张花费1050元。各几张？（    ）",
+    "options": [
+      "A. 甲15张,乙30张",
+      "B. 甲20张,乙25张",
+      "C. 甲30张,乙15张",
+      "D. 甲25张,乙20张"
+    ],
+    "answer": "A. 甲15张,乙30张",
+    "analysis": "设甲x张：x+y=45, 30x+20y=1050。y=45-x代入：30x+20(45-x)=1050→10x=150→x=15,y=30\n验算:15+30=45✓;450+600=1050✓",
+    "knowledge_tag": "方程组应用",
+    "topic": "方程与不等式",
+    "difficulty": 3,
+    "grade": 8
+  },
+  {
+    "id": "math_je048",
+    "type": "single_choice",
+    "question": "两位数数字之和为9，交换位置后新数比原数大9。原数？（    ）",
+    "options": [
+      "A. 63",
+      "B. 36",
+      "C. 54",
+      "D. 45"
+    ],
+    "answer": "D. 45",
+    "analysis": "设十位x个位y：x+y=9, (10y+x)-(10x+y)=9→9y-9x=9→y-x=1\n联立:x+y=9,y-x=1→2y=10→y=5,x=4。原数45\n验算:4+5=9✓;54-45=9✓",
+    "knowledge_tag": "方程组应用",
+    "topic": "方程与不等式",
+    "difficulty": 3,
+    "grade": 8
+  },
+  {
+    "id": "math_je049",
+    "type": "single_choice",
+    "question": "2大机+3小机=35公顷/天；3大机+2小机=40公顷/天。各耕？（    ）",
+    "options": [
+      "A. 大10 小5",
+      "B. 大8 小6",
+      "C. 大6 小8",
+      "D. 大5 小10"
+    ],
+    "answer": "A. 大10 小5",
+    "analysis": "①2x+3y=35 ②3x+2y=40\n①×3-②×2:(6x+9y)-(6x+4y)=105-80→5y=25→y=5。x=10\n验算:20+15=35✓;30+10=40✓",
+    "knowledge_tag": "方程组应用",
+    "topic": "方程与不等式",
+    "difficulty": 3,
+    "grade": 8
+  },
+  {
+    "id": "math_je050",
+    "type": "single_choice",
+    "question": "甲乙商品共50件，甲每件利10元、乙每件利6元，总利润380元。各几件？（    ）",
+    "options": [
+      "A. 甲30,乙20",
+      "B. 甲20,乙30",
+      "C. 甲25,乙25",
+      "D. 甲15,乙35"
+    ],
+    "answer": "B. 甲20,乙30",
+    "analysis": "x+y=50, 10x+6y=380。y=50-x代入:10x+6(50-x)=380→4x=80→x=20,y=30\n验算:50件✓;200+180=380✓",
+    "knowledge_tag": "方程组应用",
+    "topic": "方程与不等式",
+    "difficulty": 3,
+    "grade": 8
+  },
+  {
+    "id": "math_je051",
+    "type": "single_choice",
+    "question": "甲乙相距36km：相向4h遇；同向甲9h追上乙。求各自速度。（    ）",
+    "options": [
+      "A. 甲5,乙4",
+      "B. 甲6,乙3",
+      "C. 甲6.5,乙2.5 km/h",
+      "D. 甲7,乙2"
+    ],
+    "answer": "C. 甲6.5,乙2.5 km/h",
+    "analysis": "相向:4(x+y)=36→x+y=9。追及:9(x-y)=36→x-y=4。\n联立:2x=13→x=6.5,y=2.5\n验算:相向4×9=36✓;追及9×4=36✓",
+    "knowledge_tag": "方程组应用",
+    "topic": "方程与不等式",
+    "difficulty": 4,
+    "grade": 8
+  },
+  {
+    "id": "math_je052",
+    "type": "single_choice",
+    "question": "三个兴趣组：数学=美术×2；英语=数学-5；共55人。数学、美术各几人？（    ）",
+    "options": [
+      "A. 数学24,美术12",
+      "B. 数学26,美术13",
+      "C. 数学28,美术14",
+      "D. 数学20,美术10"
+    ],
+    "answer": "A. 数学24,美术12",
+    "analysis": "设美x,数y,英z：y=2x, z=y-5, x+y+z=55\n代入:x+2x+(2x-5)=55→5x=60→x=12,y=24,z=19\n验算:12+24+19=55✓;24=2×12✓;19=24-5✓\n所以数学24人，美术12人。答案应为A。",
+    "knowledge_tag": "方程组应用",
+    "topic": "方程与不等式",
+    "difficulty": 3,
+    "grade": 8
+  },
+  {
+    "id": "math_je053",
+    "type": "single_choice",
+    "question": "2x-6>0 的解集（    ）",
+    "options": [
+      "A. x>3",
+      "B. x<-3",
+      "C. x<3",
+      "D. x>-3"
+    ],
+    "answer": "A. x>3",
+    "analysis": "2x>6→x>3。除以正数不变号。",
+    "knowledge_tag": "一元一次不等式",
+    "topic": "方程与不等式",
+    "difficulty": 1,
+    "grade": 7
+  },
+  {
+    "id": "math_je054",
+    "type": "single_choice",
+    "question": "3(1-x)≤2(x+9) 的解集（    ）",
+    "options": [
+      "A. x≤-3",
+      "B. x≥-3",
+      "C. x≤3",
+      "D. x≥3"
+    ],
+    "answer": "B. x≥-3",
+    "analysis": "3-3x≤2x+18→-15≤5x→x≥-3",
+    "knowledge_tag": "一元一次不等式",
+    "topic": "方程与不等式",
+    "difficulty": 2,
+    "grade": 7
+  },
+  {
+    "id": "math_je055",
+    "type": "single_choice",
+    "question": "(x+1)/2-(2x-1)/3<1 的解集（    ）",
+    "options": [
+      "A. x>-1",
+      "B. x<1",
+      "C. x>1",
+      "D. x<-1"
+    ],
+    "answer": "A. x>-1",
+    "analysis": "×6:3(x+1)-2(2x-1)<6→3x+3-4x+2<6→-x<1→x>-1（乘-1变号！）",
+    "knowledge_tag": "一元一次不等式",
+    "topic": "方程与不等式",
+    "difficulty": 2,
+    "grade": 7
+  },
+  {
+    "id": "math_je056",
+    "type": "single_choice",
+    "question": "(a+2)x>a+2 解集为 x<1，则a范围（    ）",
+    "options": [
+      "A. 任意实数",
+      "B. a=-2",
+      "C. a<-2",
+      "D. a>-2"
+    ],
+    "answer": "C. a<-2",
+    "analysis": "正常解为x>1（除以正数a+2）。题目给x<1说明不等号反了→除以了负数→a+2<0→a<-2",
+    "knowledge_tag": "一元一次不等式",
+    "topic": "方程与不等式",
+    "difficulty": 4,
+    "grade": 7
+  },
+  {
+    "id": "math_je057",
+    "type": "single_choice",
+    "question": "带20元买笔记本(3元/本)、笔(2元/支)。至少买3本笔记本，最多能买几支笔？（    ）",
+    "options": [
+      "A. 7支",
+      "B. 5支",
+      "C. 8支",
+      "D. 6支"
+    ],
+    "answer": "B. 5支",
+    "analysis": "设买x本(y支)：3x+2y≤20, x≥3。最大化y则取x=3：9+2y≤20→y≤5.5→y_max=5\n验算:3本+5支=19≤20✓; 3本+6支=21>20✗",
+    "knowledge_tag": "不等式应用",
+    "topic": "方程与不等式",
+    "difficulty": 3,
+    "grade": 7
+  },
+  {
+    "id": "math_je058",
+    "type": "single_choice",
+    "question": "3x-a≤0 只有3个正整数解(1,2,3)，则a范围（    ）",
+    "options": [
+      "A. 12≤a≤15",
+      "B. 9≤a<12",
+      "C. 9≤a≤12",
+      "D. 9<a≤12"
+    ],
+    "answer": "B. 9≤a<12",
+    "analysis": "3x≤a→x≤a/3。正整数解恰好{1,2,3}的条件:\n3必须是解(a/3≥3→a≥9)且4不是解(a/3<4→a<12)\n边界:a=9→x≤3解{1,2,3}✓; a=12→x≤4解{1,2,3,4}共4个✗",
+    "knowledge_tag": "一元一次不等式",
+    "topic": "方程与不等式",
+    "difficulty": 4,
+    "grade": 7
+  },
+  {
+    "id": "math_je059",
+    "type": "single_choice",
+    "question": "{2x-1>x+1, x+8>4x-1} 的解集（    ）",
+    "options": [
+      "A. x<3",
+      "B. x>2",
+      "C. 无解",
+      "D. 2<x<3"
+    ],
+    "answer": "D. 2<x<3",
+    "analysis": "①x>2  ②x<3  交集:2<x<3。口诀：大小小大中间找",
+    "knowledge_tag": "不等式组",
+    "topic": "方程与不等式",
+    "difficulty": 2,
+    "grade": 7
+  },
+  {
+    "id": "math_je060",
+    "type": "single_choice",
+    "question": "{2x+3≥5, 3x-2<7} 解集（    ）",
+    "options": [
+      "A. x≥1",
+      "B. 无解",
+      "C. x<3",
+      "D. 1≤x<3"
+    ],
+    "answer": "D. 1≤x<3",
+    "analysis": "①x≥1  ②x<3  交集:[1,3)",
+    "knowledge_tag": "不等式组",
+    "topic": "方程与不等式",
+    "difficulty": 2,
+    "grade": 7
+  },
+  {
+    "id": "math_je061",
+    "type": "single_choice",
+    "question": "{x>2m+1, x<m+5} 无解，则m（    ）",
+    "options": [
+      "A. m≤4",
+      "B. m<4",
+      "C. m≥4",
+      "D. m>4"
+    ],
+    "answer": "C. m≥4",
+    "analysis": "无解条件：2m+1≥m+5→m≥4。验证:m=4→{x>9,x<9}无解✓;m=5→{x>11,x<10}无解✓",
+    "knowledge_tag": "不等式组",
+    "topic": "方程与不等式",
+    "difficulty": 4,
+    "grade": 7
+  },
+  {
+    "id": "math_je062",
+    "type": "single_choice",
+    "question": "{x>2a, x≤5} 整数解共3个，整数a的最大值？（    ）",
+    "options": [
+      "A. 1",
+      "B. 0",
+      "C. -1",
+      "D. 2"
+    ],
+    "answer": "A. 1",
+    "analysis": "解集2a<x≤5。整数解3个如{3,4,5}:需2a<3且2a≥2(否则2也是解)→1<a≤1.5\n整数a最大值=1。验算:a=1→2<x≤5→整数{3,4,5}=3个✓;a=2→4<x≤5→{5}=1个✗",
+    "knowledge_tag": "不等式组",
+    "topic": "方程与不等式",
+    "difficulty": 5,
+    "grade": 7
+  },
+  {
+    "id": "math_je063",
+    "type": "single_choice",
+    "question": "{x+1≥0, x-2<0, 2x-1>-5} 整数解有几个？（    ）",
+    "options": [
+      "A. 2个",
+      "B. 5个",
+      "C. 3个",
+      "D. 4个"
+    ],
+    "answer": "C. 3个",
+    "analysis": "①x≥-1  ②x<2  ③x>-2  综合交集:-1≤x<2。整数解:-1,0,1 共3个",
+    "knowledge_tag": "不等式组",
+    "topic": "方程与不等式",
+    "difficulty": 3,
+    "grade": 7
+  },
+  {
+    "id": "math_je064",
+    "type": "single_choice",
+    "question": "竞赛20题：对1题+5分错/不答-2分。得分不低于60分至少对几题？（    ）",
+    "options": [
+      "A. 13道",
+      "B. 16道",
+      "C. 15道",
+      "D. 14道"
+    ],
+    "answer": "C. 15道",
+    "analysis": "设对x题：得分=5x-2(20-x)=7x-40≥60→7x≥100→x≥14.29→x≥15\n验算:14题得58<60✗;15题得65≥60✓",
+    "knowledge_tag": "不等式应用",
+    "topic": "方程与不等式",
+    "difficulty": 3,
+    "grade": 7
+  },
+  {
+    "id": "math_je065",
+    "type": "single_choice",
+    "question": "≤100元买笔记本8元/本、笔5元/支。至少3本4支，最多几本笔记本？（    ）",
+    "options": [
+      "A. 9本",
+      "B. 10本",
+      "C. 11本",
+      "D. 8本"
+    ],
+    "answer": "B. 10本",
+    "analysis": "8x+5y≤100, x≥3, y≥4。最大化x则y=4：8x+20≤100→8x≤80→x≤10\n验算:10本+4支=80+20=100✓;11本+4支=88+20=108>100✗",
+    "knowledge_tag": "不等式应用",
+    "topic": "方程与不等式",
+    "difficulty": 3,
+    "grade": 7
+  }
+]

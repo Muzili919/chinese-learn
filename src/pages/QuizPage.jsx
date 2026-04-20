@@ -22,11 +22,17 @@ import politicsQ from '../data/questions_politics_choice.json'
 import mathBasicQ from '../data/questions_math_basic.json'
 import mathGeoQ from '../data/questions_math_geometry.json'
 import mathOlympiadQ from '../data/questions_math_olympiad.json'
+import mathJuniorEquationQ from '../data/questions_math_junior_equation.json'
+import mathJuniorFunctionQ from '../data/questions_math_junior_function.json'
+import mathJuniorAlgebraQ from '../data/questions_math_junior_algebra.json'
+import mathJuniorGeoQ from '../data/questions_math_junior_geo.json'
 
 const CHINESE_QUESTIONS = [...vocabQ, ...poetryQ, ...idiomQ, ...sentenceQ, ...litQ]
 const ENGLISH_QUESTIONS = [...enVocabQ, ...enListenQ, ...enGrammarQ, ...enReadingQ, ...enWritingQ, ...enClozeQ]
 const POLITICS_ALL = Array.isArray(politicsQ) ? politicsQ : (politicsQ.questions || [])
-const MATH_ALL = [...mathBasicQ, ...mathGeoQ, ...mathOlympiadQ]
+const MATH_PRIMARY = [...mathBasicQ, ...mathGeoQ, ...mathOlympiadQ]  // 小学
+const MATH_JUNIOR = [...mathJuniorEquationQ, ...mathJuniorFunctionQ, ...mathJuniorAlgebraQ, ...mathJuniorGeoQ]  // 初中
+const MATH_ALL = [...MATH_PRIMARY, ...MATH_JUNIOR]
 // ★ 全学科合并映射（错题练习需要跨学科查找）
 const ALL_SUBJECTS_MAP = Object.fromEntries(
   [...CHINESE_QUESTIONS, ...ENGLISH_QUESTIONS, ...POLITICS_ALL, ...MATH_ALL].map(q => [q.id, q])
@@ -123,9 +129,14 @@ export default function QuizPage({ user, options = {}, onFinish, onBack }) {
         .filter(Boolean)
       return shuffle(pool).slice(0, sessionSize).map(shuffleOptions)
     }
-    // 数学专题
+    // 数学专题（支持小学+初中）
     if (mathTopic) {
+      // 先尝试精确匹配 topic 字段
       let mathPool = MATH_ALL.filter(q => q.topic === mathTopic)
+      // 如果精确匹配为空，尝试模糊匹配
+      if (mathPool.length === 0) {
+        mathPool = MATH_ALL.filter(q => (q.topic || '').includes(mathTopic) || mathTopic.includes(q.topic || ''))
+      }
       if (minDifficulty) mathPool = mathPool.filter(q => (q.difficulty || 0) >= minDifficulty)
       return shuffle(mathPool).slice(0, sessionSize).map(shuffleOptions)
     }

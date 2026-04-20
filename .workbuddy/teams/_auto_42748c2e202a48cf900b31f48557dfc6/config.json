@@ -1,0 +1,53 @@
+{
+  "name": "_auto_42748c2e202a48cf900b31f48557dfc6",
+  "leadAgentId": "42748c2e202a48cf900b31f48557dfc6",
+  "workspacePath": "/Volumes/ORICO/xinwen/claudecode/chinese-learn",
+  "createdAt": "2026-04-20T08:46:57.311Z",
+  "options": {
+    "workspacePath": "/Volumes/ORICO/xinwen/claudecode/chinese-learn",
+    "isAutoTeam": true
+  },
+  "members": [
+    {
+      "memberId": "team-lead@_auto_42748c2e202a48cf900b31f48557dfc6",
+      "name": "team-lead",
+      "role": "Team Lead - coordinates the team and interacts with the user"
+    },
+    {
+      "memberId": "math-basic-expander@_auto_42748c2e202a48cf900b31f48557dfc6",
+      "name": "math-basic-expander",
+      "role": "生成数与运算扩充题库"
+    },
+    {
+      "memberId": "math-geometry-expander@_auto_42748c2e202a48cf900b31f48557dfc6",
+      "name": "math-geometry-expander",
+      "role": "生成图形与空间扩充题库"
+    },
+    {
+      "memberId": "math-olympiad-expander@_auto_42748c2e202a48cf900b31f48557dfc6",
+      "name": "math-olympiad-expander",
+      "role": "生成奥数扩充题库"
+    },
+    {
+      "memberId": "math-junior-equation@_auto_42748c2e202a48cf900b31f48557dfc6",
+      "name": "math-junior-equation",
+      "role": "初中方程与不等式题库"
+    },
+    {
+      "memberId": "math-junior-function@_auto_42748c2e202a48cf900b31f48557dfc6",
+      "name": "math-junior-function",
+      "role": "初中函数与图像题库"
+    },
+    {
+      "memberId": "math-junior-algebra@_auto_42748c2e202a48cf900b31f48557dfc6",
+      "name": "math-junior-algebra",
+      "role": "初中整式运算题库"
+    },
+    {
+      "memberId": "math-junior-geometry@_auto_42748c2e202a48cf900b31f48557dfc6",
+      "name": "math-junior-geometry",
+      "role": "初中几何证明题库"
+    }
+  ],
+  "isAutoTeam": true
+}

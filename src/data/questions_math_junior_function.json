@@ -1,0 +1,1107 @@
+[
+  {
+    "id": "math_jf001",
+    "type": "single_choice",
+    "question": "P(−3,2)在哪个象限？",
+    "options": [
+      "A. 第三象限",
+      "B. 第一象限",
+      "C. 第四象限",
+      "D. 第二象限"
+    ],
+    "answer": "D. 第二象限",
+    "analysis": "第二象限的定义是横坐标为负、纵坐标为正的区域(x<0, y>0)，点(-3,2)满足此条件。",
+    "knowledge_tag": "平面直角坐标系",
+    "topic": "函数与图像",
+    "difficulty": 1,
+    "grade": 8
+  },
+  {
+    "id": "math_jf002",
+    "type": "single_choice",
+    "question": "M(a,b)在第三象限则？",
+    "options": [
+      "A. a>0且b<0",
+      "B. a<0且b>0",
+      "C. a<0且b<0",
+      "D. a>0且b>0"
+    ],
+    "answer": "C. a<0且b<0",
+    "analysis": "第三象限的点横坐标和纵坐标均为负数，只有(-2,-5)同时满足x<0且y<0。",
+    "knowledge_tag": "平面直角坐标系",
+    "topic": "函数与图像",
+    "difficulty": 1,
+    "grade": 8
+  },
+  {
+    "id": "math_jf003",
+    "type": "single_choice",
+    "question": "点(0,−4)的位置是",
+    "options": [
+      "A. x轴正半轴上",
+      "B. 第四象限",
+      "C. 原点",
+      "D. y轴负半轴上"
+    ],
+    "answer": "D. y轴负半轴上",
+    "analysis": "y轴负半轴上的点横坐标必为0，纵坐标小于0，即(0, y)且y<0的形式。",
+    "knowledge_tag": "平面直角坐标系",
+    "topic": "函数与图像",
+    "difficulty": 1,
+    "grade": 8
+  },
+  {
+    "id": "math_jf004",
+    "type": "single_choice",
+    "question": "A(2,3)关于x轴对称的点是",
+    "options": [
+      "A. (−2,3)",
+      "B. (−2,−3)",
+      "C. (2,−3)",
+      "D. (3,2)"
+    ],
+    "answer": "C. (2,−3)",
+    "analysis": "关于x轴对称的点，横坐标不变，纵坐标互为相反数。(a,b)关于x轴对称为(a,-b)。",
+    "knowledge_tag": "平面直角坐标系",
+    "topic": "函数与图像",
+    "difficulty": 2,
+    "grade": 8
+  },
+  {
+    "id": "math_jf005",
+    "type": "single_choice",
+    "question": "P(−2,1)右移3下移2后坐标",
+    "options": [
+      "A. (−5,−1)",
+      "B. (1,3)",
+      "C. (−5,3)",
+      "D. (1,−1)"
+    ],
+    "answer": "D. (1,−1)",
+    "analysis": "平移口诀\"左加右减，上加下减\"：右移2个单位x变为(x-2)，上移3个单位整体加3。",
+    "knowledge_tag": "平面直角坐标系",
+    "topic": "函数与图像",
+    "difficulty": 2,
+    "grade": 8
+  },
+  {
+    "id": "math_jf006",
+    "type": "single_choice",
+    "question": "两点在∥x轴的直线上则一定有",
+    "options": [
+      "A. x₁=x₂",
+      "B. |y₁|=|y₂|",
+      "C. |x₁|=|x₂|",
+      "D. y₁=y₂"
+    ],
+    "answer": "D. y₁=y₂",
+    "analysis": "平行于x轴的直线上所有点的纵坐标相同，因此方程形式为y=b(b为常数)。",
+    "knowledge_tag": "平面直角坐标系",
+    "topic": "函数与图像",
+    "difficulty": 2,
+    "grade": 8
+  },
+  {
+    "id": "math_jf007",
+    "type": "single_choice",
+    "question": "P(m+3,m−1)在x轴上则m=",
+    "options": [
+      "A. 3",
+      "B. −1",
+      "C. 1",
+      "D. −3"
+    ],
+    "answer": "C. 1",
+    "analysis": "正比例函数要求次数为1且常数项为0，故m-1=0得m=1，此时y=2x符合定义。",
+    "knowledge_tag": "点的坐标",
+    "topic": "函数与图像",
+    "difficulty": 2,
+    "grade": 8
+  },
+  {
+    "id": "math_jf008",
+    "type": "single_choice",
+    "question": "A(2a+1,3−a)在第二象限则a范围",
+    "options": [
+      "A. a>−1/2",
+      "B. a<3",
+      "C. a<−1/2",
+      "D. −1/2<a<3"
+    ],
+    "answer": "C. a<−1/2",
+    "analysis": "第四象限x>0且第二象限x<0无交集，说明不存在同时在两个象限的点。",
+    "knowledge_tag": "点的坐标",
+    "topic": "函数与图像",
+    "difficulty": 3,
+    "grade": 8
+  },
+  {
+    "id": "math_jf009",
+    "type": "single_choice",
+    "question": "P(3−2k,k+1)在第四象限则k",
+    "options": [
+      "A. k<−1",
+      "B. −1<k<3/2",
+      "C. k>3/2",
+      "D. k>3/2或k<−1"
+    ],
+    "answer": "A. k<−1",
+    "analysis": "第四象限要求x>0,y<0，由2k+1<0得k<-1/2；由k+3>0得k>-3。综合得-3<k<-1/2。",
+    "knowledge_tag": "点的坐标",
+    "topic": "函数与图像",
+    "difficulty": 3,
+    "grade": 8
+  },
+  {
+    "id": "math_jf010",
+    "type": "single_choice",
+    "question": "点M到x轴距3、到y轴距2且在一象限，M=",
+    "options": [
+      "A. (−2,3)",
+      "B. (±2,±3)",
+      "C. (2,3)",
+      "D. (3,2)"
+    ],
+    "answer": "C. (2,3)",
+    "analysis": "|y|=3|x|=2一象限全正",
+    "knowledge_tag": "点的坐标",
+    "topic": "函数与图像",
+    "difficulty": 2,
+    "grade": 8
+  },
+  {
+    "id": "math_jf011",
+    "type": "single_choice",
+    "question": "A(−3,m)与B(n,4)关于原点对称，m+n=",
+    "options": [
+      "A. −1",
+      "B. 7",
+      "C. 1",
+      "D. −7"
+    ],
+    "answer": "D. −7",
+    "analysis": "将P(-4,m)代入y=2x+3得m=2×(-4)+3=-5；将Q(n,3)代入得3=2n+3，解得n=0。",
+    "knowledge_tag": "点的坐标",
+    "topic": "函数与图像",
+    "difficulty": 3,
+    "grade": 8
+  },
+  {
+    "id": "math_jf012",
+    "type": "single_choice",
+    "question": "下列哪个是y关于x的函数",
+    "options": [
+      "A. x=y²(y≥0)",
+      "B. y=±√x(x≥0)",
+      "C. y²=x(x≥0)",
+      "D. y=|x|"
+    ],
+    "answer": "D. y=|x|",
+    "analysis": "函数定义：对于每一个自变量x的值，因变量y都有唯一确定的值与之对应。",
+    "knowledge_tag": "函数概念",
+    "topic": "函数与图像",
+    "difficulty": 2,
+    "grade": 8
+  },
+  {
+    "id": "math_jf013",
+    "type": "single_choice",
+    "question": "y=√(x−1)+√(3−x)的定义域",
+    "options": [
+      "A. x≤1或x≥3",
+      "B. x≥1",
+      "C. 1≤x≤3",
+      "D. x≤3"
+    ],
+    "answer": "C. 1≤x≤3",
+    "analysis": "定义域要求：根号内非负(3-x≥0→x≤3)且分母不为零(|x|-2≠0→x≠±2)。取交集。",
+    "knowledge_tag": "函数概念",
+    "topic": "函数与图像",
+    "difficulty": 2,
+    "grade": 8
+  },
+  {
+    "id": "math_jf014",
+    "type": "single_choice",
+    "question": "y=(x−2)/(x²−4)的定义域",
+    "options": [
+      "A. x≠−2",
+      "B. 全体实数",
+      "C. x≠2",
+      "D. x≠2且x≠−2"
+    ],
+    "answer": "D. x≠2且x≠−2",
+    "analysis": "先因式分解分母x²-4=(x+2)(x-2)，则x+2≠0且x-2≠0，即x≠±2。",
+    "knowledge_tag": "函数概念",
+    "topic": "函数与图像",
+    "difficulty": 3,
+    "grade": 8
+  },
+  {
+    "id": "math_jf015",
+    "type": "single_choice",
+    "question": "汽车60km/h匀速行驶s-t关系",
+    "options": [
+      "A. s=60t",
+      "B. s=60/t",
+      "C. t=60s",
+      "D. s=t/60"
+    ],
+    "answer": "A. s=60t",
+    "analysis": "根据公式：路程=速度×时间。以60km/h行驶t小时，路程s=60t(t≥0)。",
+    "knowledge_tag": "函数概念",
+    "topic": "函数与图像",
+    "difficulty": 1,
+    "grade": 8
+  },
+  {
+    "id": "math_jf016",
+    "type": "single_choice",
+    "question": "进价5元售价8元售x件利润W=",
+    "options": [
+      "A. W=(8−5)x",
+      "B. W=3x",
+      "C. W=5x−8",
+      "D. W=8x−5"
+    ],
+    "answer": "B. W=3x",
+    "analysis": "每件利润=售价-进价=28-25=3元。卖出x件总利润y=3x。",
+    "knowledge_tag": "函数概念",
+    "topic": "函数与图像",
+    "difficulty": 2,
+    "grade": 8
+  },
+  {
+    "id": "math_jf017",
+    "type": "single_choice",
+    "question": "一次函数过第一二三象限则",
+    "options": [
+      "A. k>0且b<0",
+      "B. k<0且b<0",
+      "C. k>0且b>0",
+      "D. k<0且b>0"
+    ],
+    "answer": "C. k>0且b>0",
+    "analysis": "一次函数y=kx+b中k>0表示从左向右上升(递增函数)，b>0表示与y轴交于正半轴。",
+    "knowledge_tag": "一次函数",
+    "topic": "函数与图像",
+    "difficulty": 2,
+    "grade": 8
+  },
+  {
+    "id": "math_jf018",
+    "type": "single_choice",
+    "question": "y=(m−1)x+3中y随x增大而增大则m",
+    "options": [
+      "A. m≠1",
+      "B. m>−1",
+      "C. m<1",
+      "D. m>1"
+    ],
+    "answer": "D. m>1",
+    "analysis": "斜率k=m-1，要使y随x增大而增大需要k>0，即m-1>0，解得m>1。",
+    "knowledge_tag": "一次函数",
+    "topic": "函数与图像",
+    "difficulty": 2,
+    "grade": 8
+  },
+  {
+    "id": "math_jf019",
+    "type": "single_choice",
+    "question": "直线过(0,2)(1,0)解析式为",
+    "options": [
+      "A. y=−2x+2",
+      "B. y=2x+2",
+      "C. y=−2x−2",
+      "D. y=x/2+2"
+    ],
+    "answer": "A. y=−2x+2",
+    "analysis": "将(1,-1)代入y=kx+2得-1=k+2，解得k=-3。解析式为y=-3x+2。",
+    "knowledge_tag": "一次函数",
+    "topic": "函数与图像",
+    "difficulty": 2,
+    "grade": 8
+  },
+  {
+    "id": "math_jf020",
+    "type": "single_choice",
+    "question": "y=2x−1向上平移2单位得",
+    "options": [
+      "A. y=2x+1",
+      "B. y=2x",
+      "C. y=4x−1",
+      "D. y=2x−3"
+    ],
+    "answer": "A. y=2x+1",
+    "analysis": "上加下减是对整体表达式操作：向上平移2个单位即在原式基础上+2，影响的是b值。",
+    "knowledge_tag": "一次函数",
+    "topic": "函数与图像",
+    "difficulty": 2,
+    "grade": 8
+  },
+  {
+    "id": "math_jf021",
+    "type": "single_choice",
+    "question": "a>0时直线y=ax+a不经过",
+    "options": [
+      "A. 第四象限",
+      "B. 第三象限",
+      "C. 第二象限",
+      "D. 第一象限"
+    ],
+    "answer": "A. 第四象限",
+    "analysis": "a>0时k>0 b>0→过一二三",
+    "knowledge_tag": "一次函数",
+    "topic": "函数与图像",
+    "difficulty": 3,
+    "grade": 8
+  },
+  {
+    "id": "math_jf022",
+    "type": "single_choice",
+    "question": "直线过第一三四象限则",
+    "options": [
+      "A. k>0且b>0",
+      "B. k<0且b<0",
+      "C. k<0且b>0",
+      "D. k>0且b<0"
+    ],
+    "answer": "D. k>0且b<0",
+    "analysis": "y=kx+b经过一、二、四象限：过一四象限说明k<0(下降)，过二象限说明b>0(正截距)。",
+    "knowledge_tag": "一次函数",
+    "topic": "函数与图像",
+    "difficulty": 2,
+    "grade": 8
+  },
+  {
+    "id": "math_jf023",
+    "type": "single_choice",
+    "question": "y=(2m−1)x+(m+3)过原点则m=",
+    "options": [
+      "A. 0",
+      "B. 不存在",
+      "C. −3",
+      "D. 1/2"
+    ],
+    "answer": "C. −3",
+    "analysis": "正比例函数要求b=0，故m+3=0得m=-3。验证k=m-1=-4≠0，符合条件。",
+    "knowledge_tag": "一次函数",
+    "topic": "函数与图像",
+    "difficulty": 3,
+    "grade": 8
+  },
+  {
+    "id": "math_jf024",
+    "type": "single_choice",
+    "question": "y₁=x+1与y₂=2x−1交点坐标",
+    "options": [
+      "A. (2,1)",
+      "B. (2,3)",
+      "C. (1,2)",
+      "D. (0,1)"
+    ],
+    "answer": "B. (2,3)",
+    "analysis": "两条直线交点坐标通过联立方程组求解：令两式相等解出x，再代回求y。",
+    "knowledge_tag": "一次函数",
+    "topic": "函数与图像",
+    "difficulty": 2,
+    "grade": 8
+  },
+  {
+    "id": "math_jf025",
+    "type": "single_choice",
+    "question": "y=mx−(2m−1)必过定点",
+    "options": [
+      "A. (0,1)",
+      "B. (0,−1)",
+      "C. (2,1)",
+      "D. (2,−1)"
+    ],
+    "answer": "C. (2,1)",
+    "analysis": "提取参数m: y=m(x−2)+1",
+    "knowledge_tag": "一次函数",
+    "topic": "函数与图像",
+    "difficulty": 4,
+    "grade": 8
+  },
+  {
+    "id": "math_jf026",
+    "type": "single_choice",
+    "question": "y与x成正比例x=3时y=−6则式",
+    "options": [
+      "A. y=−x/2",
+      "B. y=x/2",
+      "C. y=2x",
+      "D. y=−2x"
+    ],
+    "answer": "D. y=−2x",
+    "analysis": "将已知点(-2,6)代入y=k/x得6=k/(-2)，解得k=-12。",
+    "knowledge_tag": "一次函数解析式",
+    "topic": "函数与图像",
+    "difficulty": 2,
+    "grade": 8
+  },
+  {
+    "id": "math_jf027",
+    "type": "single_choice",
+    "question": "过(−1,6)和(0,4)的一次函数",
+    "options": [
+      "A. y=2x+4",
+      "B. y=x/2+4",
+      "C. y=−2x+4",
+      "D. y=−2x+6"
+    ],
+    "answer": "C. y=−2x+4",
+    "analysis": "先由过点(2,3)求出b值：3=2k+b。再利用另一条件建立方程组求解k。",
+    "knowledge_tag": "一次函数解析式",
+    "topic": "函数与图像",
+    "difficulty": 2,
+    "grade": 8
+  },
+  {
+    "id": "math_jf028",
+    "type": "single_choice",
+    "question": "直线∥y=3x且过(2,5)则kb",
+    "options": [
+      "A. k=1/3 b=13/3",
+      "B. k=3 b=11",
+      "C. k=3 b=−1",
+      "D. k=−3 b=11"
+    ],
+    "answer": "C. k=3 b=−1",
+    "analysis": "平行直线斜率(比例系数k)相等。y=2x+1的k=2，故所求直线也是y=2x+b'形式。",
+    "knowledge_tag": "一次函数解析式",
+    "topic": "函数与图像",
+    "difficulty": 3,
+    "grade": 8
+  },
+  {
+    "id": "math_jf029",
+    "type": "single_choice",
+    "question": "弹簧数据x/kg:0,1,2,3 y/cm:12,14,16,18 则式",
+    "options": [
+      "A. y=2x+12",
+      "B. y=x+12",
+      "C. y=2x+10",
+      "D. y=3x+12"
+    ],
+    "answer": "A. y=2x+12",
+    "analysis": "k=2每kg伸长2cm b=12原长",
+    "knowledge_tag": "一次函数解析式",
+    "topic": "函数与图像",
+    "difficulty": 3,
+    "grade": 8
+  },
+  {
+    "id": "math_jf030",
+    "type": "single_choice",
+    "question": "y₁=−x+2 y₂=2x−1 当y₁>y₂时x范围",
+    "options": [
+      "A. x<−1",
+      "B. x<1",
+      "C. x>−1",
+      "D. x>1"
+    ],
+    "answer": "B. x<1",
+    "analysis": "比较大小方法：①代具体x值计算②看图像高低(上方函数值大)。注意定义域限制。",
+    "knowledge_tag": "一次函数解析式",
+    "topic": "函数与图像",
+    "difficulty": 3,
+    "grade": 8
+  },
+  {
+    "id": "math_jf031",
+    "type": "single_choice",
+    "question": "y=(a−2)x+(3−a)中x增1则y减3 a=",
+    "options": [
+      "A. −1",
+      "B. −1或5",
+      "C. 5",
+      "D. 1"
+    ],
+    "answer": "A. −1",
+    "analysis": "斜率k=(y₂-y₁)/(x₂-x₁)=(1-7)/(3-1)=-6/2=-3。每增加1个单位x，y减少3个单位。",
+    "knowledge_tag": "一次函数解析式",
+    "topic": "函数与图像",
+    "difficulty": 3,
+    "grade": 8
+  },
+  {
+    "id": "math_jf032",
+    "type": "single_choice",
+    "question": "甲乙300km车速60km/h 距乙地s与时间t(h)",
+    "options": [
+      "A. s=60t (0≤t≤5)",
+      "B. s=60t (t≥0)",
+      "C. s=300−60t (0≤t≤5)",
+      "D. s=300−60t (t≥0)"
+    ],
+    "answer": "C. s=300−60t (0≤t≤5)",
+    "analysis": "s表示距离乙地的剩余距离=总路程300km-已行驶路程60t。定义域0≤t≤5(到达时t=5)。",
+    "knowledge_tag": "一次函数应用",
+    "topic": "函数与图像",
+    "difficulty": 3,
+    "grade": 8
+  },
+  {
+    "id": "math_jf033",
+    "type": "single_choice",
+    "question": "手机月租20含1GB 超10元/GB x>1总费y=",
+    "options": [
+      "A. y=10x+20",
+      "B. y=20x+10",
+      "C. y=10x+10",
+      "D. y=10(x−1)+20"
+    ],
+    "answer": "C. y=10x+10",
+    "analysis": "月租20元含基础流量1GB；超出部分按10元/GB计费。总费用y=20+10(x-1)=10x+10(x>1)。",
+    "knowledge_tag": "一次函数应用",
+    "topic": "函数与图像",
+    "difficulty": 3,
+    "grade": 8
+  },
+  {
+    "id": "math_jf034",
+    "type": "single_choice",
+    "question": "F=(9/5)C+32 摄氏10°C对应华氏",
+    "options": [
+      "A. 40°F",
+      "B. 32°F",
+      "C. 22°F",
+      "D. 50°F"
+    ],
+    "answer": "D. 50°F",
+    "analysis": "直接将x=15代入解析式计算y值即可。注意选择正确的解析式(考虑是否超过阈值)。",
+    "knowledge_tag": "一次函数应用",
+    "topic": "函数与图像",
+    "difficulty": 2,
+    "grade": 8
+  },
+  {
+    "id": "math_jf035",
+    "type": "single_choice",
+    "question": "水库120万m³ 日流入3万放出5万 x天后水量y=",
+    "options": [
+      "A. y=120+2x",
+      "B. y=120−2x",
+      "C. y=2x−120",
+      "D. y=120+8x"
+    ],
+    "answer": "B. y=120−2x",
+    "analysis": "水池净变化量=流入量-流出量=8m³/h-10m³/h=-2m³/h(每小时减少2立方米)。",
+    "knowledge_tag": "一次函数应用",
+    "topic": "函数与图像",
+    "difficulty": 3,
+    "grade": 8
+  },
+  {
+    "id": "math_jf036",
+    "type": "single_choice",
+    "question": "甲50元/件 乙60元满10件八折 买x≥10哪家省",
+    "options": [
+      "A. 乙更省",
+      "B. 一样花费",
+      "C. 甲更省",
+      "D. 无法确定"
+    ],
+    "answer": "A. 乙更省",
+    "analysis": "甲店：50x元(无折扣)；乙店：60x×0.8=48x元(x≥10时八折)。48x<50x，乙更省。",
+    "knowledge_tag": "一次函数应用",
+    "topic": "函数与图像",
+    "difficulty": 3,
+    "grade": 8
+  },
+  {
+    "id": "math_jf037",
+    "type": "single_choice",
+    "question": "蜡烛20cm每小时燃4cm 点燃x小时剩余y及定义域",
+    "options": [
+      "A. y=4x+20 (0≤x≤5)",
+      "B. y=20−4x (0≤x≤5)",
+      "C. y=4x (0≤x≤5)",
+      "D. y=20−4x (x≥0)"
+    ],
+    "answer": "B. y=20−4x (0≤x≤5)",
+    "analysis": "燃尽时间5h定义域考虑实际意义",
+    "knowledge_tag": "一次函数应用",
+    "topic": "函数与图像",
+    "difficulty": 3,
+    "grade": 8
+  },
+  {
+    "id": "math_jf038",
+    "type": "single_choice",
+    "question": "AB相距400km 甲80km/h(A→B) 乙120km/h(B→A) 相遇前距离s=",
+    "options": [
+      "A. s=200t",
+      "B. s=200t−400",
+      "C. s=400−40t",
+      "D. s=400−200t"
+    ],
+    "answer": "D. s=400−200t",
+    "analysis": "相对速度=速度之和 相遇需2h",
+    "knowledge_tag": "一次函数应用",
+    "topic": "函数与图像",
+    "difficulty": 4,
+    "grade": 8
+  },
+  {
+    "id": "math_jf039",
+    "type": "single_choice",
+    "question": "正比例函数是",
+    "options": [
+      "A. y=2/x",
+      "B. y=2x+1",
+      "C. y=−3x",
+      "D. y=x²"
+    ],
+    "answer": "C. y=−3x",
+    "analysis": "y=kx k≠0 过原点的一次函数",
+    "knowledge_tag": "正比例函数",
+    "topic": "函数与图像",
+    "difficulty": 1,
+    "grade": 8
+  },
+  {
+    "id": "math_jf040",
+    "type": "single_choice",
+    "question": "y=(k−2)x过第二四象限则k范围",
+    "options": [
+      "A. k>−2",
+      "B. k>2",
+      "C. k<2",
+      "D. k<−2"
+    ],
+    "answer": "C. k<2",
+    "analysis": "图像在一三象限→k>0。又y随x增大而减小→实际k<0(反比例性质)。故k-2<0即k<2。",
+    "knowledge_tag": "正比例函数",
+    "topic": "函数与图像",
+    "difficulty": 2,
+    "grade": 8
+  },
+  {
+    "id": "math_jf041",
+    "type": "single_choice",
+    "question": "y=(m−3)x^(m²−8)是正比例函数则m=",
+    "options": [
+      "A. 无解",
+      "B. 3",
+      "C. ±3",
+      "D. −3"
+    ],
+    "answer": "D. −3",
+    "analysis": "正比例函数y=kx要求：①次数为1(指数=1) ②系数k≠0。由m²-8=1得m=±3，但m=3时系数为0舍去。",
+    "knowledge_tag": "正比例函数",
+    "topic": "函数与图像",
+    "difficulty": 3,
+    "grade": 8
+  },
+  {
+    "id": "math_jf042",
+    "type": "single_choice",
+    "question": "正比例y=kx过第一三象限 不等式kx<0解集",
+    "options": [
+      "A. 无解",
+      "B. x<0",
+      "C. x≠0",
+      "D. x>0"
+    ],
+    "answer": "B. x<0",
+    "analysis": "k>0时反比例函数y=k/x在第一象限(y>0↔x>0)和第三象限(y<0↔x<0)分别讨论。",
+    "knowledge_tag": "正比例函数",
+    "topic": "函数与图像",
+    "difficulty": 3,
+    "grade": 8
+  },
+  {
+    "id": "math_jf043",
+    "type": "single_choice",
+    "question": "y=−6/x所在象限和单调性",
+    "options": [
+      "A. 第一三象限 增",
+      "B. 第二四象限 每象限内y随x增大而增大",
+      "C. 第一三象限 增",
+      "D. 第二四象限 减"
+    ],
+    "answer": "B. 第二四象限 每象限内y随x增大而增大",
+    "analysis": "k=-6<0：反比例函数图像在第二、四象限；在每个象限内y随x增大而增大(注意不是全程递增!)。",
+    "knowledge_tag": "反比例函数",
+    "topic": "函数与图像",
+    "difficulty": 2,
+    "grade": 9
+  },
+  {
+    "id": "math_jf044",
+    "type": "single_choice",
+    "question": "A(−2,y₁) B(−1,y₂) C(3,y₃) 在y=−4/x上大小关系",
+    "options": [
+      "A. y₂<y₁<y₃",
+      "B. y₃<y₁<y₂",
+      "C. y₁<y₃<y₂",
+      "D. y₁<y₂<y₃"
+    ],
+    "answer": "B. y₃<y₁<y₂",
+    "analysis": "当点跨越不同象限时，x的正负变化会导致y=k/x的符号也变化，需分象限讨论。",
+    "knowledge_tag": "反比例函数",
+    "topic": "函数与图像",
+    "difficulty": 3,
+    "grade": 9
+  },
+  {
+    "id": "math_jf045",
+    "type": "single_choice",
+    "question": "y=(k+1)/x在第一三象限则k",
+    "options": [
+      "A. k<1",
+      "B. k<−1",
+      "C. k>1",
+      "D. k>−1"
+    ],
+    "answer": "D. k>−1",
+    "analysis": "反比例函数y=(k+1)/x在一三象限要求比例系数k+1>0，解得k>-1。",
+    "knowledge_tag": "反比例函数",
+    "topic": "函数与图像",
+    "difficulty": 2,
+    "grade": 9
+  },
+  {
+    "id": "math_jf046",
+    "type": "single_choice",
+    "question": "y=k/x过点(2,−3)下列哪个点也在图像上",
+    "options": [
+      "A. (3,2)",
+      "B. (−3,−2)",
+      "C. (−2,3)",
+      "D. (6,1)"
+    ],
+    "answer": "C. (−2,3)",
+    "analysis": "k=xy=−6 验证各选项乘积",
+    "knowledge_tag": "反比例函数",
+    "topic": "函数与图像",
+    "difficulty": 3,
+    "grade": 9
+  },
+  {
+    "id": "math_jf047",
+    "type": "single_choice",
+    "question": "y=k/x(k>0)上一点作两轴垂线矩形面积=6则k=",
+    "options": [
+      "A. −6",
+      "B. 6",
+      "C. 3",
+      "D. 12"
+    ],
+    "answer": "B. 6",
+    "analysis": "|xy|=|k|=面积 k>0",
+    "knowledge_tag": "反比例函数",
+    "topic": "函数与图像",
+    "difficulty": 3,
+    "grade": 9
+  },
+  {
+    "id": "math_jf048",
+    "type": "single_choice",
+    "question": "y=−x+3与y=2/x交点个数",
+    "options": [
+      "A. 0个",
+      "B. 1个",
+      "C. 无穷多",
+      "D. 2个"
+    ],
+    "answer": "D. 2个",
+    "analysis": "联立反比例与一次函数：消去y得一元二次方程，判别式Δ>0说明有两个不同实根(两个交点)。",
+    "knowledge_tag": "反比例函数",
+    "topic": "函数与图像",
+    "difficulty": 4,
+    "grade": 9
+  },
+  {
+    "id": "math_jf049",
+    "type": "single_choice",
+    "question": "y=(m−1)/x^(m²−3)是反比例函数且图像在第二四象限 m=",
+    "options": [
+      "A. −2",
+      "B. √2",
+      "C. 2",
+      "D. −√2"
+    ],
+    "answer": "D. −√2",
+    "analysis": "反比例要求指数=-1(即m²-3=1→m=±√2)；二四象限要求系数m-1<0。取m=-√2。",
+    "knowledge_tag": "反比例函数",
+    "topic": "函数与图像",
+    "difficulty": 4,
+    "grade": 9
+  },
+  {
+    "id": "math_jf050",
+    "type": "single_choice",
+    "question": "y=k/x与y=x+b交于(2,3)则kb值",
+    "options": [
+      "A. k=6 b=5",
+      "B. k=6 b=−1",
+      "C. k=5/2 b=1",
+      "D. k=6 b=1"
+    ],
+    "answer": "D. k=6 b=1",
+    "analysis": "分别将点的横坐标代入两个函数解析式计算纵坐标，比较大小判断哪个函数值更大。",
+    "knowledge_tag": "反比例函数",
+    "topic": "函数与图像",
+    "difficulty": 3,
+    "grade": 9
+  },
+  {
+    "id": "math_jf051",
+    "type": "single_choice",
+    "question": "100N物体受力面积S(m²)压强p(Pa)表达式",
+    "options": [
+      "A. p=100/S",
+      "B. p=100+S",
+      "C. p=100S",
+      "D. p=S/100"
+    ],
+    "answer": "A. p=100/S",
+    "analysis": "p=F/S 压力一定压强与面积成反比",
+    "knowledge_tag": "反比例应用",
+    "topic": "函数与图像",
+    "difficulty": 2,
+    "grade": 9
+  },
+  {
+    "id": "math_jf052",
+    "type": "single_choice",
+    "question": "甲乙两地240km 车速v与所需时间t(h)",
+    "options": [
+      "A. t=240/v",
+      "B. t=v/240",
+      "C. t=240+v",
+      "D. t=240v"
+    ],
+    "answer": "A. t=240/v",
+    "analysis": "时间=路程÷速度。以80km/h行驶240km所需时间t=240÷80=3小时。",
+    "knowledge_tag": "反比例应用",
+    "topic": "函数与图像",
+    "difficulty": 2,
+    "grade": 9
+  },
+  {
+    "id": "math_jf053",
+    "type": "single_choice",
+    "question": "工人数m与天数t成反比例 5人完成需30天 t(m)=",
+    "options": [
+      "A. t=6m",
+      "B. t=150/m",
+      "C. t=35−m",
+      "D. t=m/150"
+    ],
+    "answer": "B. t=150/m",
+    "analysis": "总工作量=人×天=150人天恒定",
+    "knowledge_tag": "反比例应用",
+    "topic": "函数与图像",
+    "difficulty": 3,
+    "grade": 9
+  },
+  {
+    "id": "math_jf054",
+    "type": "single_choice",
+    "question": "密闭容器等温气体 V=2L时p=120kPa 要求p≤200kPa 体积至少",
+    "options": [
+      "A. 1.2L",
+      "B. 3.33L",
+      "C. 2L",
+      "D. 3L"
+    ],
+    "answer": "A. 1.2L",
+    "analysis": "压强p与受力面积S成反比：p=F/S，其中F=120N恒定。pS=k=120(玻意耳定律变体)。",
+    "knowledge_tag": "反比例应用",
+    "topic": "函数与图像",
+    "difficulty": 4,
+    "grade": 9
+  },
+  {
+    "id": "math_jf055",
+    "type": "single_choice",
+    "question": "长方形面积24cm² 一边长x(cm)另一边长y(cm) 图像形状",
+    "options": [
+      "A. 双曲线(第一象限一支)",
+      "B. 直线",
+      "C. 抛物线",
+      "D. 圆"
+    ],
+    "answer": "A. 双曲线(第一象限一支)",
+    "analysis": "xy=24→y=24/x(x>0)",
+    "knowledge_tag": "反比例应用",
+    "topic": "函数与图像",
+    "difficulty": 3,
+    "grade": 9
+  },
+  {
+    "id": "math_jf056",
+    "type": "single_choice",
+    "question": "三角形面积为定值8cm² 底边x(cm)高h(cm) 关系式",
+    "options": [
+      "A. h=4/x",
+      "B. h=8/x",
+      "C. h=x/16",
+      "D. h=16/x"
+    ],
+    "answer": "D. h=16/x",
+    "analysis": "(1/2)xh=8 → h=16/x",
+    "knowledge_tag": "反比例应用",
+    "topic": "函数与图像",
+    "difficulty": 3,
+    "grade": 9
+  },
+  {
+    "id": "math_jf057",
+    "type": "single_choice",
+    "question": "爷爷去公园散步中途休息后返回 离家距离y-t图像特征",
+    "options": [
+      "A. 先水平",
+      "B. 波浪形",
+      "C. 一直上升",
+      "D. 先上升→水平→下降到0"
+    ],
+    "answer": "D. 先上升→水平→下降到0",
+    "analysis": "行程图识别要点：①水平段=静止(休息) ②上升段=远离 ③下降段=返回 ④斜率=速度",
+    "knowledge_tag": "函数图像",
+    "topic": "函数与图像",
+    "difficulty": 3,
+    "grade": 9
+  },
+  {
+    "id": "math_jf058",
+    "type": "single_choice",
+    "question": "汽车匀速至B→停留加油→加速去C 路程s-t图像",
+    "options": [
+      "A. 曲线上升",
+      "B. 缓升→水平→陡升",
+      "C. 陡升→缓升",
+      "D. 一直直线"
+    ],
+    "answer": "B. 缓升→水平→陡升",
+    "analysis": "折线图各段斜率代表不同阶段的速度：越陡说明速度越快，水平线表示速度为0(停止)。",
+    "knowledge_tag": "函数图像",
+    "topic": "函数与图像",
+    "difficulty": 4,
+    "grade": 9
+  },
+  {
+    "id": "math_jf059",
+    "type": "single_choice",
+    "question": "锥形瓶(下窄上宽)恒定速率注水 水面高度h-t图像",
+    "options": [
+      "A. 均匀上升直线",
+      "B. 先缓后陡的上升曲线",
+      "C. 水平直线",
+      "D. 先陡后缓的上升曲线(凹向下)"
+    ],
+    "answer": "D. 先陡后缓的上升曲线(凹向下)",
+    "analysis": "注水问题：容器窄处水位上升快(斜率大)，宽处上升慢(斜率小)。观察容器形状判断。",
+    "knowledge_tag": "函数图像",
+    "topic": "函数与图像",
+    "difficulty": 4,
+    "grade": 9
+  },
+  {
+    "id": "math_jf060",
+    "type": "single_choice",
+    "question": "家→书店→回家拿钱→再去书店→停留→回家 y-t图像",
+    "options": [
+      "A. 水平→升→水平→降",
+      "B. 升降不到0再升降",
+      "C. 上升→降到0→升至最高→水平→降到0",
+      "D. 上升到最高再回到0"
+    ],
+    "answer": "C. 上升→降到0→升至最高→水平→降到0",
+    "analysis": "复杂行程图五阶段：出发→匀速行驶→停留(加油/休息)→继续行驶→返回。各段斜率含义不同。",
+    "knowledge_tag": "函数图像",
+    "topic": "函数与图像",
+    "difficulty": 4,
+    "grade": 9
+  },
+  {
+    "id": "math_jf061",
+    "type": "single_choice",
+    "question": "同一坐标系:一次函数(过一二四象限)+反比例(一三象限) 结论",
+    "options": [
+      "A. k₁>0 b>0",
+      "B. k₁<0 b>0",
+      "C. 同名字母k不能代表同一数值 统一判断符号是陷阱",
+      "D. k₁>0 b<0"
+    ],
+    "answer": "C. 同名字母k不能代表同一数值 统一判断符号是陷阱",
+    "analysis": "经典陷阱：函数值y随x增大而增大≠函数图像一直上升(可能有分段或周期变化)。",
+    "knowledge_tag": "函数图像",
+    "topic": "函数与图像",
+    "difficulty": 5,
+    "grade": 9
+  },
+  {
+    "id": "math_jf062",
+    "type": "single_choice",
+    "question": "抛物线y=−2x²+4x−1的开口方向和顶点坐标",
+    "options": [
+      "A. 开口向下 顶点(1,1)",
+      "B. 开口向上 顶点(1,1)",
+      "C. 开口向上 顶点(2,3)",
+      "D. 开口向下 顶点(−1,−7)"
+    ],
+    "answer": "A. 开口向下 顶点(1,1)",
+    "analysis": "a<0开口↓ 顶点公式或配方法",
+    "knowledge_tag": "二次函数基础",
+    "topic": "函数与图像",
+    "difficulty": 3,
+    "grade": 9
+  },
+  {
+    "id": "math_jf063",
+    "type": "single_choice",
+    "question": "二次函数y=x²−6x+5 下列说法错误的是",
+    "options": [
+      "A. 当x=3时有最小值−4",
+      "B. 当x<3时y随x增大而增大",
+      "C. 对称轴为直线x=3",
+      "D. 开口向上"
+    ],
+    "answer": "B. 当x<3时y随x增大而增大",
+    "analysis": "二次函数对称轴左侧：当a>0时y随x增大而减小(左降右升)。D选项说\"增大\"错误。",
+    "knowledge_tag": "二次函数基础",
+    "topic": "函数与图像",
+    "difficulty": 3,
+    "grade": 9
+  },
+  {
+    "id": "math_jf064",
+    "type": "single_choice",
+    "question": "抛物线y=2x^2右移1个单位再上移3个单位后的解析式为（    ）",
+    "options": [
+      "A. y=2(x-1)^2+3",
+      "B. y=2(x-1)^2-3",
+      "C. y=2x^2+1",
+      "D. y=2(x+1)^2+3"
+    ],
+    "answer": "A. y=2(x-1)^2+3",
+    "analysis": "平移规则\"左加右减\"于x，\"上加下减\"于整体。右移1: y=2(x-1)^2；上移3: +3。结果y=2(x-1)^2+3。",
+    "knowledge_tag": "二次函数基础",
+    "topic": "函数与图像",
+    "difficulty": 3,
+    "grade": 9
+  },
+  {
+    "id": "math_jf065",
+    "type": "single_choice",
+    "question": "抛物线特征:开口向下、交y轴正半轴、与x轴有两个不同交点、对称轴在y轴右侧。则系数a、b、c的符号为（    ）",
+    "options": [
+      "A. a<0,b<0,c>0",
+      "B. a<0,b>0,c>0",
+      "C. a<0,b<0,c<0",
+      "D. a>0,b>0,c>0"
+    ],
+    "answer": "B. a<0,b>0,c>0",
+    "analysis": "开口向下→a<0；交y轴正半轴→c>0；对称轴在y轴右侧→x=-b/(2a)>0，因a<0故-b<0即b>0。综上a<0, b>0, c>0。选B。",
+    "knowledge_tag": "二次函数基础",
+    "topic": "函数与图像",
+    "difficulty": 4,
+    "grade": 9
+  }
+]

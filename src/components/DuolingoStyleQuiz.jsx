@@ -364,8 +364,28 @@ function FeedbackPanel({ correct, analysis, answer, onContinue, variantState }) 
               <div className="flex items-center gap-2 mb-3">
                 <span className="text-violet-600 text-sm font-bold">🔀 举一反三</span>
                 <span className="bg-violet-100 text-violet-600 text-xs px-2 py-0.5 rounded-full">AI 出题</span>
+                {vs.question.isListeningVariant && (
+                  <span className="bg-amber-100 text-amber-600 text-xs px-2 py-0.5 rounded-full">听力题</span>
+                )}
               </div>
-              <p className="text-base text-gray-800 font-medium mb-3 leading-relaxed">{vs.question.question}</p>
+              {/* ★ 听力变体题：隐藏文字题目，用TTS播放 + 选项作答 */}
+              {vs.question.isListeningVariant ? (
+                <>
+                  <div className="bg-amber-50 border border-amber-200 rounded-xl p-3 mb-3 flex items-center gap-3">
+                    <span className="text-lg">🎧</span>
+                    <p className="text-sm text-amber-700 font-medium flex-1">请听音频后选择正确答案（听力题不显示文字）</p>
+                  </div>
+                  {/* TTS 播放按钮 - 通过 onSpeak 回调播放变体题的 listening_text */}
+                  {vs.onSpeakVariant && (
+                    <button onClick={vs.onSpeakVariant}
+                      className="w-full mb-3 py-2.5 rounded-xl bg-violet-500 text-white font-bold text-sm active:bg-violet-600 transition-all flex items-center justify-center gap-2">
+                      🔊 播放听力原文
+                    </button>
+                  )}
+                </>
+              ) : (
+                <p className="text-base text-gray-800 font-medium mb-3 leading-relaxed">{vs.question.question}</p>
+              )}
               <div className="flex flex-col gap-2">
                 {vs.question.options?.map(opt => {
                   let cls = 'bg-white border-2 border-gray-200 text-gray-700'
@@ -874,7 +894,7 @@ function FillQuestion({ question, onDone }) {
         {question.image && (
           <div className="mt-4 flex justify-center">
             {question.image.startsWith('<svg') ? (
-              <div className="max-w-full rounded-xl overflow-hidden bg-white"
+              <div className="quiz-svg-container"
                 dangerouslySetInnerHTML={{ __html: question.image }} />
             ) : (
               <img src={question.image} alt="题目配图"
@@ -1651,10 +1671,13 @@ export default function DuolingoStyleQuiz({ question, onAnswerSubmit, showVarian
       })
       if (result.variants?.length > 0) {
         const v = result.variants[0]
+        // ★ 检测原题是否为听力题，若是则标记变体为听力变体（隐藏文字）
+        const isOriginalListening = !!question.listening_text
         setVariantQ({
           id: `variant_${question.id}`,
           type: 'single_choice',
-          question: v.question,
+          question: isOriginalListening ? '🎧 请听音频后选择正确答案' : v.question,
+          listeningText: isOriginalListening ? (v.listeningText || v.question) : undefined,
           options: v.options,
           answer: v.answer,
           analysis: v.analysis,
@@ -1662,6 +1685,7 @@ export default function DuolingoStyleQuiz({ question, onAnswerSubmit, showVarian
           ability_tag: question.ability_tag,
           difficulty: question.difficulty,
           isVariant: true,
+          isListeningVariant: isOriginalListening,
         })
         setVariantStreamText('')
         setVariantPhase('answering')
@@ -1729,7 +1753,7 @@ export default function DuolingoStyleQuiz({ question, onAnswerSubmit, showVarian
             <div className="mt-4 flex justify-center">
               {question.image.startsWith('<svg') ? (
                 <div
-                  className="max-w-full rounded-xl overflow-hidden bg-white"
+                  className="quiz-svg-container"
                   dangerouslySetInnerHTML={{ __html: question.image }}
                 />
               ) : (
@@ -1800,6 +1824,12 @@ export default function DuolingoStyleQuiz({ question, onAnswerSubmit, showVarian
             streamText: variantStreamText,
             onSelect: (opt) => { setVariantSel(opt); setVariantPhase('done') },
             onGenerate: () => handleVariant(false),
+            // ★ 听力变体题：TTS播放回调
+            onSpeakVariant: variantQ?.isListeningVariant ? () => {
+              if (variantQ.listeningText && window.speakEnglish) {
+                window._speakEnglish?.(variantQ.listeningText)
+              }
+            } : undefined,
           }}
         />
       )}

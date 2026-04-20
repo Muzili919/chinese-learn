@@ -1,0 +1,1022 @@
+[
+  {
+    "id": "math_ja001",
+    "type": "single_choice",
+    "question": "某班有男生a人，女生比男生少3人，全班总人数为（）",
+    "options": [
+      "A. a-3",
+      "B. 2a-3",
+      "C. 2a+3",
+      "D. a+3"
+    ],
+    "answer": "B. 2a-3",
+    "analysis": "男生a人，女生(a-3)人，共2a-3。",
+    "knowledge_tag": "用字母表示数",
+    "topic": "整式运算",
+    "difficulty": 1,
+    "grade": 7
+  },
+  {
+    "id": "math_ja002",
+    "type": "single_choice",
+    "question": "两位数十位x个位y，表示为（）",
+    "options": [
+      "A. xy",
+      "B. x+y",
+      "C. 10x+y",
+      "D. 10y+x"
+    ],
+    "answer": "C. 10x+y",
+    "analysis": "十位x=10x, 个位y, 结果10x+y。",
+    "knowledge_tag": "用字母表示数",
+    "topic": "整式运算",
+    "difficulty": 1,
+    "grade": 7
+  },
+  {
+    "id": "math_ja003",
+    "type": "single_choice",
+    "question": "x=2时，3x²-2x+1的值为（）",
+    "options": [
+      "A. 5",
+      "B. 9",
+      "C. 11",
+      "D. 13"
+    ],
+    "answer": "B. 9",
+    "analysis": "3×4-4+1=9。",
+    "knowledge_tag": "代数式求值",
+    "topic": "整式运算",
+    "difficulty": 1,
+    "grade": 7
+  },
+  {
+    "id": "math_ja004",
+    "type": "single_choice",
+    "question": "若x²+3x-5=0，则2x²+6x-9=（）",
+    "options": [
+      "A. -19",
+      "B. -1",
+      "C. 1",
+      "D. 19"
+    ],
+    "answer": "C. 1",
+    "analysis": "由x²+3x=5，原式=2(x²+3x)-9=10-9=1。整体代入。",
+    "knowledge_tag": "代数式求值",
+    "topic": "整式运算",
+    "difficulty": 3,
+    "grade": 7
+  },
+  {
+    "id": "math_ja005",
+    "type": "single_choice",
+    "question": "若a-b=3, ab=2，则a²b-ab²=（）",
+    "options": [
+      "A. 5",
+      "B. 6",
+      "C. 8",
+      "D. 10"
+    ],
+    "answer": "B. 6",
+    "analysis": "=ab(a-b)=2×3=6。提公因式后整体代入。",
+    "knowledge_tag": "代数式求值",
+    "topic": "整式运算",
+    "difficulty": 3,
+    "grade": 7
+  },
+  {
+    "id": "math_ja006",
+    "type": "single_choice",
+    "question": "若|a-2|+(b+1)²=0，则a²-b=（）",
+    "options": [
+      "A. 3",
+      "B. 4",
+      "C. 5",
+      "D. 6"
+    ],
+    "answer": "C. 5",
+    "analysis": "非负和为0→a=2,b=-1→4-(-1)=5。",
+    "knowledge_tag": "代数式求值",
+    "topic": "整式运算",
+    "difficulty": 2,
+    "grade": 7
+  },
+  {
+    "id": "math_ja007",
+    "type": "single_choice",
+    "question": "若x²+2x=3，则3x²+6x-7=（）",
+    "options": [
+      "A. 2",
+      "B. 5",
+      "C. -2",
+      "D. 11"
+    ],
+    "answer": "A. 2",
+    "analysis": "=3(x²+2x)-7=9-7=2。",
+    "knowledge_tag": "代数式求值",
+    "topic": "整式运算",
+    "difficulty": 3,
+    "grade": 7
+  },
+  {
+    "id": "math_ja008",
+    "type": "single_choice",
+    "question": "若x+1/x=3(x≠0)，则x²+1/x²=（）",
+    "options": [
+      "A. 7",
+      "B. 9",
+      "C. 11",
+      "D. 13"
+    ],
+    "answer": "A. 7",
+    "analysis": "(x+1/x)²=x²+2+1/x²=9→x²+1/x²=7。完全平方变形。",
+    "knowledge_tag": "代数式求值",
+    "topic": "整式运算",
+    "difficulty": 4,
+    "grade": 8
+  },
+  {
+    "id": "math_ja009",
+    "type": "single_choice",
+    "question": "下列属于同类项的是（）",
+    "options": [
+      "A. 2x与2y",
+      "B. -3ab²与4ba²",
+      "C. 3πr²与r²",
+      "D. 5xy与5x²y"
+    ],
+    "answer": "C. 3πr²与r²",
+    "analysis": "同类项要求字母相同且指数相同。π是系数不影响。C只有r指数均为2。",
+    "knowledge_tag": "整式加减",
+    "topic": "整式运算",
+    "difficulty": 1,
+    "grade": 7
+  },
+  {
+    "id": "math_ja010",
+    "type": "single_choice",
+    "question": "若3x²ᵐ⁻¹y³与-2x⁵yⁿ是同类项，m+n=（）",
+    "options": [
+      "A. x³ⁿ⁻¹",
+      "B. x³ⁿ⁺¹",
+      "C. xⁿ⁻¹",
+      "D. xⁿ²⁺ⁿ⁻²"
+    ],
+    "answer": "A. x³ⁿ⁻¹",
+    "analysis": "2m-1=5→m=3；n=3→m+n=6。",
+    "knowledge_tag": "整式加减",
+    "topic": "整式运算",
+    "difficulty": 2,
+    "grade": 7
+  },
+  {
+    "id": "math_ja011",
+    "type": "single_choice",
+    "question": "化简: 3(a²b-ab²)-2(a²b-ab²)=（）",
+    "options": [
+      "A. a²b-ab²",
+      "B. a²b-3ab²",
+      "C. 2a²b-ab²",
+      "D. 5a²b-5ab²"
+    ],
+    "answer": "A. a²b-ab²",
+    "analysis": "把(a²b-ab²)看作整体X，3X-2X=X。",
+    "knowledge_tag": "整式加减",
+    "topic": "整式运算",
+    "difficulty": 2,
+    "grade": 7
+  },
+  {
+    "id": "math_ja012",
+    "type": "single_choice",
+    "question": "5x²y-3xy²-4x²y+2xy²+x²y合并同类项=（）",
+    "options": [
+      "A. 2x²y-xy²",
+      "B. 2x²y+xy²",
+      "C. 2x²y-3xy²",
+      "D. x²y-xy²"
+    ],
+    "answer": "A. 2x²y-xy²",
+    "analysis": "x²y:5-4+1=2；xy²:-3+2=-1。",
+    "knowledge_tag": "整式加减",
+    "topic": "整式运算",
+    "difficulty": 2,
+    "grade": 7
+  },
+  {
+    "id": "math_ja013",
+    "type": "single_choice",
+    "question": "A=3x²-2x+1,B=-2x²+3x-4，A-B=（）",
+    "options": [
+      "A. 5x²-5x+5",
+      "B. 5x²-5x-3",
+      "C. x²+x-3",
+      "D. x²-5x+5"
+    ],
+    "answer": "A. 5x²-5x+5",
+    "analysis": "=3x²-2x+1+2x²-3x+4=5x²-5x+5。-B时各项变号！",
+    "knowledge_tag": "整式加减",
+    "topic": "整式运算",
+    "difficulty": 2,
+    "grade": 7
+  },
+  {
+    "id": "math_ja014",
+    "type": "single_choice",
+    "question": "化简: -2(x²-3x+1)+3(2x²-x-2)=（）",
+    "options": [
+      "A. 4x²+3x-8",
+      "B. 4x²-3x-8",
+      "C. 4x²+3x-4",
+      "D. -4x²+3x-8"
+    ],
+    "answer": "A. 4x²+3x-8",
+    "analysis": "=-2x²+6x-2+6x²-3x-6=4x²+3x-8。",
+    "knowledge_tag": "整式加减",
+    "topic": "整式运算",
+    "difficulty": 3,
+    "grade": 7
+  },
+  {
+    "id": "math_ja015",
+    "type": "single_choice",
+    "question": "化简: 3x-[2x-(3x-1)]=（）",
+    "options": [
+      "A. 4x+1",
+      "B. 4x-1",
+      "C. 2x+1",
+      "D. -2x+1"
+    ],
+    "answer": "B. 4x-1",
+    "analysis": "从外到内: 3x-2x+3x-1=4x-1。",
+    "knowledge_tag": "去括号法则",
+    "topic": "整式运算",
+    "difficulty": 2,
+    "grade": 7
+  },
+  {
+    "id": "math_ja016",
+    "type": "single_choice",
+    "question": "A=x²-2xy+y²,B=x²+2xy-y²，2A-3B=（）",
+    "options": [
+      "A. -x²-10xy+5y²",
+      "B. -x²+10xy+5y²",
+      "C. -x²-10xy-5y²",
+      "D. x²-10xy+5y²"
+    ],
+    "answer": "A. -x²-10xy+5y²",
+    "analysis": "2A=2x²-4xy+2y²;3B=3x²+6xy-3y²;相减=-x²-10xy+5y²。",
+    "knowledge_tag": "去括号法则",
+    "topic": "整式运算",
+    "difficulty": 3,
+    "grade": 7
+  },
+  {
+    "id": "math_ja017",
+    "type": "single_choice",
+    "question": "M+(2x²-3x+1)=3x²-x-2，M=（）",
+    "options": [
+      "A. x²+2x-3",
+      "B. x²-2x-1",
+      "C. 5x²-4x-1",
+      "D. x²+2x-1"
+    ],
+    "answer": "A. x²+2x-3",
+    "analysis": "M=(3x²-x-2)-(2x²-3x+1)=x²+2x-3。多项式减法逆运算。",
+    "knowledge_tag": "去括号法则",
+    "topic": "整式运算",
+    "difficulty": 2,
+    "grade": 7
+  },
+  {
+    "id": "math_ja018",
+    "type": "single_choice",
+    "question": "计算: -(-a²)-(+a²)+|-a²|=（）",
+    "options": [
+      "A. -a²",
+      "B. a²",
+      "C. -2a²",
+      "D. 2a²"
+    ],
+    "answer": "B. a²",
+    "analysis": "=a²-a²+a²=a²。注意|-a²|=a²（因a²≥0）。",
+    "knowledge_tag": "去括号法则",
+    "topic": "整式运算",
+    "difficulty": 3,
+    "grade": 7
+  },
+  {
+    "id": "math_ja019",
+    "type": "single_choice",
+    "question": "某式加3x²-2y²得x³+x²-5y²，原式=（）",
+    "options": [
+      "A. x³-2x²-3y²",
+      "B. x³-2x²-7y²",
+      "C. x³+2x²-3y²",
+      "D. x³-2x²+y²"
+    ],
+    "answer": "A. x³-2x²-3y²",
+    "analysis": "=(x³+x²-5y²)-(3x²-2y²)=x³-2x²-3y²。",
+    "knowledge_tag": "去括号法则",
+    "topic": "整式运算",
+    "difficulty": 3,
+    "grade": 7
+  },
+  {
+    "id": "math_ja020",
+    "type": "single_choice",
+    "question": "(-2)³×(-2)⁴=（）",
+    "options": [
+      "A. -128",
+      "B. 128",
+      "C. -256",
+      "D. 256"
+    ],
+    "answer": "A. -128",
+    "analysis": "=(-2)³⁺⁴=(-2)⁷=-128。奇次幂为负。",
+    "knowledge_tag": "幂的运算",
+    "topic": "整式运算",
+    "difficulty": 2,
+    "grade": 7
+  },
+  {
+    "id": "math_ja021",
+    "type": "single_choice",
+    "question": "下列正确的是（）",
+    "options": [
+      "A. a²·a³=a⁶",
+      "B. a⁸÷a²=a⁴",
+      "C. (-a)³·(-a)²=-a⁵",
+      "D. a²+a³=a⁵"
+    ],
+    "answer": "C. (-a)³·(-a)²=-a⁵",
+    "analysis": "A应为a⁵；B应为a⁶；C对(-a³)(a²)=-a⁵；D不是同类项。",
+    "knowledge_tag": "幂的运算",
+    "topic": "整式运算",
+    "difficulty": 2,
+    "grade": 7
+  },
+  {
+    "id": "math_ja022",
+    "type": "single_choice",
+    "question": "x²ⁿ⁺¹·xⁿ⁻²(n>2)=（）",
+    "options": [
+      "A. x³ⁿ⁻¹",
+      "B. x³ⁿ⁺¹",
+      "C. xⁿ⁻¹",
+      "D. xⁿ²⁺ⁿ⁻²"
+    ],
+    "answer": "A. x³ⁿ⁻¹",
+    "analysis": "指数相加: (2n+1)+(n-2)=3n-1。",
+    "knowledge_tag": "幂的运算",
+    "topic": "整式运算",
+    "difficulty": 3,
+    "grade": 7
+  },
+  {
+    "id": "math_ja023",
+    "type": "single_choice",
+    "question": "2¹⁰⁰÷2⁹⁸=（）",
+    "options": [
+      "A. 2²",
+      "B. 2⁵⁰",
+      "C. 4",
+      "D. 2⁹⁸"
+    ],
+    "answer": "C. 4",
+    "analysis": "=²¹⁰⁰⁻⁹⁸=2²=4。",
+    "knowledge_tag": "幂的运算",
+    "topic": "整式运算",
+    "difficulty": 2,
+    "grade": 7
+  },
+  {
+    "id": "math_ja024",
+    "type": "single_choice",
+    "question": "若3ᵐ=5,3ⁿ=7，则3ᵐ⁺ⁿ=（）",
+    "options": [
+      "A. 12",
+      "B. 35",
+      "C. 2",
+      "D. 5/7"
+    ],
+    "answer": "B. 35",
+    "analysis": "=3ᵐ×3ⁿ=5×7=35。幂乘法逆用。",
+    "knowledge_tag": "幂的运算",
+    "topic": "整式运算",
+    "difficulty": 3,
+    "grade": 7
+  },
+  {
+    "id": "math_ja025",
+    "type": "single_choice",
+    "question": "(a²)³=（）",
+    "options": [
+      "A. a⁵",
+      "B. a⁶",
+      "C. a⁸",
+      "D. a⁹"
+    ],
+    "answer": "B. a⁶",
+    "analysis": "幂的乘方: 指数相乘(a²)³=ᵃ²ˣ³=a⁶。",
+    "knowledge_tag": "幂的乘方",
+    "topic": "整式运算",
+    "difficulty": 1,
+    "grade": 7
+  },
+  {
+    "id": "math_ja026",
+    "type": "single_choice",
+    "question": "(-2a²b³)³=（）",
+    "options": [
+      "A. -6a⁶b⁹",
+      "B. -8a⁶b⁹",
+      "C. 8a⁶b⁹",
+      "D. -8a⁵b⁶"
+    ],
+    "answer": "B. -8a⁶b⁹",
+    "analysis": "=(-2)³·(a²)³·(b³)³=-8a⁶b⁹。积的乘方各因式分别乘方。",
+    "knowledge_tag": "幂的乘方",
+    "topic": "整式运算",
+    "difficulty": 2,
+    "grade": 7
+  },
+  {
+    "id": "math_ja027",
+    "type": "single_choice",
+    "question": "下列正确的是（）",
+    "options": [
+      "A. (-a²)³=-a⁵",
+      "B. (-a)²·a³=-a⁵",
+      "C. [(-a)³]²=a⁶",
+      "D. (a²)³·a⁴=a⁹"
+    ],
+    "answer": "C. [(-a)³]²=a⁶",
+    "analysis": "A应为-a⁶；B应为a⁵（偶次消负）；C对[(-a³)]²=a⁶；D应为a¹⁰。",
+    "knowledge_tag": "幂的乘方",
+    "topic": "整式运算",
+    "difficulty": 3,
+    "grade": 7
+  },
+  {
+    "id": "math_ja028",
+    "type": "single_choice",
+    "question": "[(-a)²]³=（）",
+    "options": [
+      "A. -a⁵",
+      "B. -a⁶",
+      "C. a⁶",
+      "D. a⁵"
+    ],
+    "answer": "C. a⁶",
+    "analysis": "(-a)²=a²（偶次消负），(a²)³=a⁶。区别于(-a²)³=-a⁶。",
+    "knowledge_tag": "幂的乘方",
+    "topic": "整式运算",
+    "difficulty": 3,
+    "grade": 7
+  },
+  {
+    "id": "math_ja029",
+    "type": "single_choice",
+    "question": "(x²·x³)²÷x⁴=（）",
+    "options": [
+      "A. x³",
+      "B. x⁴",
+      "C. x⁵",
+      "D. x⁶"
+    ],
+    "answer": "D. x⁶",
+    "analysis": "=x⁵²÷x⁴=x¹⁰÷x⁴=x⁶。综合运用三种幂法则。",
+    "knowledge_tag": "幂的乘方",
+    "topic": "整式运算",
+    "difficulty": 3,
+    "grade": 7
+  },
+  {
+    "id": "math_ja030",
+    "type": "single_choice",
+    "question": "若(2ᵃ)ᵇ=64且a·b=6，不可能的是（）",
+    "options": [
+      "A. a=1,b=6",
+      "B. a=2,b=3",
+      "C. a=3,b=2",
+      "D. a=4,b=1"
+    ],
+    "answer": "D. a=4,b=1",
+    "analysis": "2ᵃᵇ=64=2⁶，需ab=6。D中4×1=4≠6。",
+    "knowledge_tag": "幂的乘方",
+    "topic": "整式运算",
+    "difficulty": 4,
+    "grade": 7
+  },
+  {
+    "id": "math_ja031",
+    "type": "single_choice",
+    "question": "(-3a²b)·(2ab²)=（）",
+    "options": [
+      "A. -6a³b³",
+      "B. -6a²b²",
+      "C. 6a³b³",
+      "D. -5a³b³"
+    ],
+    "answer": "A. -6a³b³",
+    "analysis": "系数-3×2=-6；a²·a=a³；b·b²=b³。",
+    "knowledge_tag": "整式乘法",
+    "topic": "整式运算",
+    "difficulty": 1,
+    "grade": 7
+  },
+  {
+    "id": "math_ja032",
+    "type": "single_choice",
+    "question": "2x(x²-3x+1)=（）",
+    "options": [
+      "A. 2x³-6x²+2x",
+      "B. 2x³-3x+1",
+      "C. 2x³-6x²+1",
+      "D. 2x³-5x²+x"
+    ],
+    "answer": "A. 2x³-6x²+2x",
+    "analysis": "分配律每项乘2x: 2x³-6x²+2x。",
+    "knowledge_tag": "整式乘法",
+    "topic": "整式运算",
+    "difficulty": 1,
+    "grade": 7
+  },
+  {
+    "id": "math_ja033",
+    "type": "single_choice",
+    "question": "(x+2)(x-3)=（）",
+    "options": [
+      "A. x²-x-6",
+      "B. x²-6",
+      "C. x²+x-6",
+      "D. x²-5x-6"
+    ],
+    "answer": "A. x²-x-6",
+    "analysis": "=x²-3x+2x-6=x²-x-6。交叉相乘法。",
+    "knowledge_tag": "整式乘法",
+    "topic": "整式运算",
+    "difficulty": 2,
+    "grade": 7
+  },
+  {
+    "id": "math_ja034",
+    "type": "single_choice",
+    "question": "(2x-1)(3x+2)=（）",
+    "options": [
+      "A. 6x²+x-2",
+      "B. 6x²-x-2",
+      "C. 6x²+7x-2",
+      "D. 6x²+x+2"
+    ],
+    "answer": "A. 6x²+x-2",
+    "analysis": "=6x²+4x-3x-2=6x²+x-2。",
+    "knowledge_tag": "整式乘法",
+    "topic": "整式运算",
+    "difficulty": 2,
+    "grade": 7
+  },
+  {
+    "id": "math_ja035",
+    "type": "single_choice",
+    "question": "(x+3)(x²-2x+1)=（）",
+    "options": [
+      "A. x³+x²-5x+3",
+      "B. x³+x²-5x+1",
+      "C. x³-5x+3",
+      "D. x³+x²+5x+3"
+    ],
+    "answer": "A. x³+x²-5x+3",
+    "analysis": "=x³-2x²+x+3x²-6x+3=x³+x²-5x+3。",
+    "knowledge_tag": "整式乘法",
+    "topic": "整式运算",
+    "difficulty": 3,
+    "grade": 7
+  },
+  {
+    "id": "math_ja036",
+    "type": "single_choice",
+    "question": "(x+m)(x+n)=x²+5x+6，(m,n)可能为（）",
+    "options": [
+      "A. (2,3)",
+      "B. (-2,-3)",
+      "C. (1,6)",
+      "D. (-1,-6)"
+    ],
+    "answer": "A. (2,3)",
+    "analysis": "展开=x²+(m+n)x+mn，需m+n=5,mn=6。(2,3)满足。十字相乘逆思维。",
+    "knowledge_tag": "整式乘法",
+    "topic": "整式运算",
+    "difficulty": 3,
+    "grade": 7
+  },
+  {
+    "id": "math_ja037",
+    "type": "single_choice",
+    "question": "(x-1)(x+1)(x²+1)=（）",
+    "options": [
+      "A. x⁴-1",
+      "B. x⁴+1",
+      "C. x⁴-2x²+1",
+      "D. x⁴-x²+1"
+    ],
+    "answer": "A. x⁴-1",
+    "analysis": "(x-1)(x+1)=x²-1；(x²-1)(x²+1)=x⁴-1。连续平方差。",
+    "knowledge_tag": "整式乘法",
+    "topic": "整式运算",
+    "difficulty": 3,
+    "grade": 7
+  },
+  {
+    "id": "math_ja038",
+    "type": "single_choice",
+    "question": "(2x+3y)(2x-3y)=（）",
+    "options": [
+      "A. 4x²-9y²",
+      "B. 4x²-3y²",
+      "C. 2x²-9y²",
+      "D. 4x²+9y²"
+    ],
+    "answer": "A. 4x²-9y²",
+    "analysis": "平方差公式: (2x)²-(3y)²=4x²-9y²。",
+    "knowledge_tag": "乘法公式",
+    "topic": "整式运算",
+    "difficulty": 2,
+    "grade": 7
+  },
+  {
+    "id": "math_ja039",
+    "type": "single_choice",
+    "question": "(3x-2)²=（）",
+    "options": [
+      "A. 9x²-12x+4",
+      "B. 9x²-6x+4",
+      "C. 9x²-12x-4",
+      "D. 9x²+12x+4"
+    ],
+    "answer": "A. 9x²-12x+4",
+    "analysis": "完全平方: (3x)²-2·3x·2+2²=9x²-12x+4。中间项系数-2ab=-12。",
+    "knowledge_tag": "乘法公式",
+    "topic": "整式运算",
+    "difficulty": 2,
+    "grade": 7
+  },
+  {
+    "id": "math_ja040",
+    "type": "single_choice",
+    "question": "a+b=5,ab=-6，则a²+b²=（）",
+    "options": [
+      "A. 25",
+      "B. 37",
+      "C. 13",
+      "D. 19"
+    ],
+    "answer": "B. 37",
+    "analysis": "a²+b²=(a+b)²-2ab=25-2×(-6)=37。完全平方变形。",
+    "knowledge_tag": "乘法公式",
+    "topic": "整式运算",
+    "difficulty": 3,
+    "grade": 7
+  },
+  {
+    "id": "math_ja041",
+    "type": "single_choice",
+    "question": "(x+y-z)(x-y+z)=（）",
+    "options": [
+      "A. x²-(y-z)²",
+      "B. x²-y²-z²",
+      "C. x²-(y+z)²",
+      "D. x²-y²+z²"
+    ],
+    "answer": "A. x²-(y-z)²",
+    "analysis": "将(y-z)作整体B: (x+B)(x-B)=x²-B²=x²-(y-z)²=x²-y²+2yz-z²。",
+    "knowledge_tag": "乘法公式",
+    "topic": "整式运算",
+    "difficulty": 3,
+    "grade": 8
+  },
+  {
+    "id": "math_ja042",
+    "type": "single_choice",
+    "question": "(x-5)²=x²+mx+25，m=（）",
+    "options": [
+      "A. 10",
+      "B. -10",
+      "C. ±10",
+      "D. 20"
+    ],
+    "answer": "B. -10",
+    "analysis": "(x-5)²=x²-10x+25，对比m=-10。",
+    "knowledge_tag": "乘法公式",
+    "topic": "整式运算",
+    "difficulty": 2,
+    "grade": 7
+  },
+  {
+    "id": "math_ja043",
+    "type": "single_choice",
+    "question": "(a+b+c)²展开后ab项系数为（）",
+    "options": [
+      "A. 1",
+      "B. 2",
+      "C. 3",
+      "D. 不确定"
+    ],
+    "answer": "B. 2",
+    "analysis": "=a²+b²+c²+2ab+2bc+2ac，含ab项系数为2。",
+    "knowledge_tag": "乘法公式",
+    "topic": "整式运算",
+    "difficulty": 3,
+    "grade": 8
+  },
+  {
+    "id": "math_ja044",
+    "type": "single_choice",
+    "question": "a-1/a=3(a≠0)，则a²+1/a²=（）",
+    "options": [
+      "A. 7",
+      "B. 9",
+      "C. 11",
+      "D. 13"
+    ],
+    "answer": "C. 11",
+    "analysis": "(a-1/a)²=a²-2+1/a²=9→a²+1/a²=11。对称式完全平方。",
+    "knowledge_tag": "乘法公式",
+    "topic": "整式运算",
+    "difficulty": 4,
+    "grade": 8
+  },
+  {
+    "id": "math_ja045",
+    "type": "single_choice",
+    "question": "(2x+3y)²-(2x-3y)²=（）",
+    "options": [
+      "A. 12xy",
+      "B. 24xy",
+      "C. -24xy",
+      "D. 4x²+9y²"
+    ],
+    "answer": "B. 24xy",
+    "analysis": "方法一分别展开相减得24xy；方法二(A+B)(A-B)=(4x)(6y)=24xy。",
+    "knowledge_tag": "乘法公式",
+    "topic": "整式运算",
+    "difficulty": 4,
+    "grade": 8
+  },
+  {
+    "id": "math_ja046",
+    "type": "single_choice",
+    "question": "x²+4x+y²-6y+13=0，则（）",
+    "options": [
+      "A. x=2,y=3",
+      "B. x=-2,y=3",
+      "C. x=2,y=-3",
+      "D. x=-2,y=-3"
+    ],
+    "answer": "B. x=-2,y=3",
+    "analysis": "配方: (x+2)²+(y-3)²=0→x=-2,y=3。配方法应用。",
+    "knowledge_tag": "乘法公式",
+    "topic": "整式运算",
+    "difficulty": 4,
+    "grade": 8
+  },
+  {
+    "id": "math_ja047",
+    "type": "single_choice",
+    "question": "下列分解正确的是（）",
+    "options": [
+      "A. x²-4=(x-2)(x+2)",
+      "B. x²-4=(x-4)(x+4)",
+      "C. x²+4=(x+2)(x-2)",
+      "D. x²-4=(x-2)²"
+    ],
+    "answer": "A. x²-4=(x-2)(x+2)",
+    "analysis": "A对(平方差)；B展=x²-16；C有理范围不可分；D展=x²-4x+4。",
+    "knowledge_tag": "因式分解",
+    "topic": "整式运算",
+    "difficulty": 2,
+    "grade": 8
+  },
+  {
+    "id": "math_ja048",
+    "type": "single_choice",
+    "question": "因式分解: 3x²-12=（）",
+    "options": [
+      "A. 3(x²-4)",
+      "B. 3(x-2)(x+2)",
+      "C. 3(x-2)²",
+      "D. (3x-12)(x+1)"
+    ],
+    "answer": "B. 3(x-2)(x+2)",
+    "analysis": "先提3→3(x²-4)→平方差→3(x-2)(x+2)。中考要求彻底分解。",
+    "knowledge_tag": "因式分解",
+    "topic": "整式运算",
+    "difficulty": 2,
+    "grade": 8
+  },
+  {
+    "id": "math_ja049",
+    "type": "single_choice",
+    "question": "因式分解: 3a³-27a=（）",
+    "options": [
+      "A. 3a(a²-9)",
+      "B. 3a(a-3)(a+3)",
+      "C. 3a(a-3)²",
+      "D. (3a-9)(a+3)"
+    ],
+    "answer": "B. 3a(a-3)(a+3)",
+    "analysis": "提3a→3a(a²-9)→平方差→3a(a-3)(a+3)。提公因式+公式组合模式。",
+    "knowledge_tag": "因式分解",
+    "topic": "整式运算",
+    "difficulty": 2,
+    "grade": 8
+  },
+  {
+    "id": "math_ja050",
+    "type": "single_choice",
+    "question": "因式分解: x²-6x+9=（）",
+    "options": [
+      "A. (x-3)(x+3)",
+      "B. (x-3)²",
+      "C. (x+3)²",
+      "D. (x-9)²"
+    ],
+    "answer": "B. (x-3)²",
+    "analysis": "完全平方逆用: x²-2·3·x+3²=(x-3)²。首末平方，中间=2倍根积。",
+    "knowledge_tag": "因式分解",
+    "topic": "整式运算",
+    "difficulty": 2,
+    "grade": 8
+  },
+  {
+    "id": "math_ja051",
+    "type": "single_choice",
+    "question": "因式分解: -2x³+8x²-8x=（）",
+    "options": [
+      "A. -2x(x²-4x+4)",
+      "B. -2x(x-2)²",
+      "C. 2x(x-2)²",
+      "D. -2x(x+2)²"
+    ],
+    "answer": "B. -2x(x-2)²",
+    "analysis": "提-2x→-2x(x²-4x+4)→-2x(x-2)²。首项负先提出负号。",
+    "knowledge_tag": "因式分解",
+    "topic": "整式运算",
+    "difficulty": 3,
+    "grade": 8
+  },
+  {
+    "id": "math_ja052",
+    "type": "single_choice",
+    "question": "因式分解: a³-ab²=（）",
+    "options": [
+      "A. a(a²-b²)",
+      "B. a(a-b)(a+b)",
+      "C. a(a-b)²",
+      "D. (a-b)(a²+ab+b²)"
+    ],
+    "answer": "B. a(a-b)(a+b)",
+    "analysis": "提a→a(a²-b²)→平方差→a(a-b)(a+b)。最经典因式分解模式。",
+    "knowledge_tag": "因式分解",
+    "topic": "整式运算",
+    "difficulty": 2,
+    "grade": 8
+  },
+  {
+    "id": "math_ja053",
+    "type": "single_choice",
+    "question": "因式分解: (x+y)²-4(x+y)+4=（）",
+    "options": [
+      "A. (x+y-2)²",
+      "B. (x+y+2)²",
+      "C. (x+y-4)²",
+      "D. (x+y)(x+y-4)"
+    ],
+    "answer": "A. (x+y-2)²",
+    "analysis": "设A=x+y: A²-4A+4=(A-2)²=(x+y-2)²。整体换元法。",
+    "knowledge_tag": "因式分解",
+    "topic": "整式运算",
+    "difficulty": 3,
+    "grade": 8
+  },
+  {
+    "id": "math_ja054",
+    "type": "single_choice",
+    "question": "因式分解: 4x²-12xy+9y²=（）",
+    "options": [
+      "A. (2x-3y)²",
+      "B. (2x+3y)²",
+      "C. (2x-3y)(2x+3y)",
+      "D. (4x-3y)(x-3y)"
+    ],
+    "answer": "A. (2x-3y)²",
+    "analysis": "=(2x)²-2·2x·3y+(3y)²=(2x-3y)²。完全平方逆用验证: 展开一致。",
+    "knowledge_tag": "因式分解",
+    "topic": "整式运算",
+    "difficulty": 3,
+    "grade": 8
+  },
+  {
+    "id": "math_ja055",
+    "type": "single_choice",
+    "question": "(-6a³b²c)÷(3ab)=（）",
+    "options": [
+      "A. -2a²bc",
+      "B. -2a²b",
+      "C. -2a²c",
+      "D. 2a²bc"
+    ],
+    "answer": "A. -2a²bc",
+    "analysis": "系数-6/3=-2；a³/a=a²；b²/b=b；c保留→-2a²bc。",
+    "knowledge_tag": "整式除法",
+    "topic": "整式运算",
+    "difficulty": 2,
+    "grade": 8
+  },
+  {
+    "id": "math_ja056",
+    "type": "single_choice",
+    "question": "(6x³y-3x²y²+9xy³)÷(3xy)=（）",
+    "options": [
+      "A. 2x²-xy+3y²",
+      "B. 2x²-xy-3y²",
+      "C. 3x²-xy+3y²",
+      "D. 2x²+xy+3y²"
+    ],
+    "answer": "A. 2x²-xy+3y²",
+    "analysis": "每项分别除: 2x²-xy+3y²。多项式除以单项式法则。",
+    "knowledge_tag": "整式除法",
+    "topic": "整式运算",
+    "difficulty": 2,
+    "grade": 8
+  },
+  {
+    "id": "math_ja057",
+    "type": "single_choice",
+    "question": "(x²+mx+6)÷(x+2)余式为0，m=（）",
+    "options": [
+      "A. 5",
+      "B. 4",
+      "C. 3",
+      "D. -5"
+    ],
+    "answer": "A. 5",
+    "analysis": "设(x+2)(x+a)=x²+(a+2)x+2a=x²+mx+6→2a=6,a=3,m=5。",
+    "knowledge_tag": "整式除法",
+    "topic": "整式运算",
+    "difficulty": 3,
+    "grade": 8
+  },
+  {
+    "id": "math_ja058",
+    "type": "single_choice",
+    "question": "(2x³-6x²+5x-3)÷(x²-2x)=（）",
+    "options": [
+      "A. 商2x-2 余x-3",
+      "B. 商2x-2 无余式",
+      "C. 商2x+2 余x-3",
+      "D. 商2x 余x-3"
+    ],
+    "answer": "A. 商2x-2 余x-3",
+    "analysis": "第1步：2x³/x²=2x，被除式减去2x(x²-2x)=2x³-4x²得余式-2x²+5x-3；第2步：-2x²/x²=-2，余式减(-2)(x²-2x)得x-3(次数<2停止)。商2x-2，余x-3。",
+    "knowledge_tag": "整式除法",
+    "topic": "整式运算",
+    "difficulty": 4,
+    "grade": 8
+  },
+  {
+    "id": "math_ja059",
+    "type": "single_choice",
+    "question": "已知a+b+c=0,a²+b²+c²=1，则ab+bc+ca的值为（）",
+    "options": [
+      "A. -1/2",
+      "B. -1/3",
+      "C. 1/2",
+      "D. 1/3"
+    ],
+    "answer": "A. -1/2",
+    "analysis": "(a+b+c)²=a²+b²+c²+2(ab+bc+ca)=0→1+2S=0→S=-1/2。三项完全平方综合应用。",
+    "knowledge_tag": "乘法公式",
+    "topic": "整式运算",
+    "difficulty": 5,
+    "grade": 8
+  },
+  {
+    "id": "math_ja060",
+    "type": "single_choice",
+    "question": "若x²+y²+z²=xy+yz+zx，则下列一定正确的是（）",
+    "options": [
+      "A. x=y=z",
+      "B. x=-y=z",
+      "C. xyz=1",
+      "D. x+y+z=0"
+    ],
+    "answer": "A. x=y=z",
+    "analysis": "移项得2x²+2y²+2z²-2xy-2yz-2zx=0→(x-y)²+(y-z)²+(z-x)²=0。三个非负数之和为0则每个均为0，故x=y=z。",
+    "knowledge_tag": "乘法公式",
+    "topic": "整式运算",
+    "difficulty": 5,
+    "grade": 8
+  }
+]

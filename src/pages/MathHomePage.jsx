@@ -2,6 +2,7 @@ import { useState, useMemo } from 'react'
 import { storage } from '../utils/storage'
 
 const MATH_TOPICS = [
+  // ── 小学专题 ──
   {
     id: 'math_basic',
     topic: '数与运算',
@@ -9,7 +10,8 @@ const MATH_TOPICS = [
     emoji: '🔢',
     color: 'from-blue-400 to-blue-600',
     desc: '分数·小数·百分数·比例·运算顺序',
-    questionCount: 40,
+    questionCount: 90,
+    level: 'primary',
   },
   {
     id: 'math_geometry',
@@ -18,7 +20,8 @@ const MATH_TOPICS = [
     emoji: '📐',
     color: 'from-green-400 to-teal-600',
     desc: '平面图形·立体图形·面积·体积·单位换算',
-    questionCount: 35,
+    questionCount: 80,
+    level: 'primary',
   },
   {
     id: 'math_olympiad',
@@ -27,7 +30,49 @@ const MATH_TOPICS = [
     emoji: '🏆',
     color: 'from-orange-400 to-red-500',
     desc: '行程追及·工程问题·鸡兔同笼·植树·年龄',
-    questionCount: 50,
+    questionCount: 90,
+    level: 'primary',
+  },
+  // ── 初中专题（NEW） ──
+  {
+    id: 'math_junior_equation',
+    topic: '方程与不等式',
+    label: '方程与不等式',
+    emoji: '🔧',
+    color: 'from-indigo-400 to-purple-600',
+    desc: '一元一次方程·方程组·不等式·应用题',
+    questionCount: 65,
+    level: 'junior',
+  },
+  {
+    id: 'math_junior_function',
+    topic: '函数与图像',
+    label: '函数与图像',
+    emoji: '📈',
+    color: 'from-pink-400 to-rose-500',
+    desc: '坐标系·一次函数·反比例·二次函数基础',
+    questionCount: 65,
+    level: 'junior',
+  },
+  {
+    id: 'math_junior_algebra',
+    topic: '整式运算',
+    label: '整式运算',
+    emoji: '✖️',
+    color: 'from-teal-400 to-cyan-500',
+    desc: '整式加减乘除·乘法公式·因式分解',
+    questionCount: 60,
+    level: 'junior',
+  },
+  {
+    id: 'math_junior_geo',
+    topic: '几何证明',
+    label: '几何证明',
+    emoji: '📐',
+    color: 'from-amber-400 to-orange-600',
+    desc: '全等三角形·勾股定理·四边形·相似·圆',
+    questionCount: 65,
+    level: 'junior',
   },
 ]
 
@@ -71,7 +116,7 @@ export default function MathHomePage({ user, onStartQuiz, onStartFormula }) {
           <span className="text-2xl">🔢</span>
           <h2 className="text-xl font-bold text-gray-800">数学星图</h2>
         </div>
-        <p className="text-xs text-gray-400">小学 5-6 年级 · 125道题 · 每次练习10题</p>
+        <p className="text-xs text-gray-400">小学 5-6 年级 · 初中 7-9 年级 · 515道题 · 每次练习10题</p>
       </div>
 
       {/* 快速统计卡片 */}
@@ -100,10 +145,47 @@ export default function MathHomePage({ user, onStartQuiz, onStartFormula }) {
         </div>
       )}
 
-      {/* 三大专题 */}
+      {/* 专题列表 */}
       <div className="px-4 flex flex-col gap-3">
-        {MATH_TOPICS.map(topic => {
+        {/* 小学专题 */}
+        <div className="text-xs font-bold text-gray-400 uppercase tracking-wider mt-1 mb-1">📚 小学 (5-6年级)</div>
+        {MATH_TOPICS.filter(t => t.level === 'primary').map(topic => {
           // 统计该专题的答题数
+          const topicRecords = mathRecords.filter(r => r.topic === topic.topic)
+          const topicTotal = topicRecords.length
+          const topicAcc = topicTotal > 0
+            ? Math.round(topicRecords.filter(r => r.correct).length / topicTotal * 100)
+            : null
+
+          return (
+            <button
+              key={topic.id}
+              onClick={() => onStartQuiz({ mathTopic: topic.topic })}
+              className={`bg-gradient-to-br ${topic.color} text-white rounded-2xl p-4 flex items-center gap-4 shadow-sm active:scale-95 transition-transform text-left`}
+            >
+              <span className="text-4xl leading-none">{topic.emoji}</span>
+              <div className="flex-1 min-w-0">
+                <div className="flex items-center gap-2">
+                  <span className="font-bold text-base">{topic.label}</span>
+                  <span className="text-[10px] bg-white/25 text-white px-1.5 py-0.5 rounded-full font-medium">
+                    {topic.questionCount}题
+                  </span>
+                </div>
+                <div className="text-xs text-white/80 mt-0.5 truncate">{topic.desc}</div>
+                {topicTotal > 0 && (
+                  <div className="text-[10px] text-white/60 mt-1">
+                    已练 {topicTotal} 题 · 正确率 {topicAcc}%
+                  </div>
+                )}
+              </div>
+              <span className="text-white/60 text-xl flex-shrink-0">›</span>
+            </button>
+          )
+        })}
+
+        {/* 初中专题 */}
+        <div className="text-xs font-bold text-gray-400 uppercase tracking-wider mt-4 mb-1">🎓 初中 (7-9年级) · NEW</div>
+        {MATH_TOPICS.filter(t => t.level === 'junior').map(topic => {
           const topicRecords = mathRecords.filter(r => r.topic === topic.topic)
           const topicTotal = topicRecords.length
           const topicAcc = topicTotal > 0
