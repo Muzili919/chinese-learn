@@ -24,6 +24,7 @@ import PoliticsHomePage from './pages/PoliticsHomePage'
 import PoliticsQuizPage from './pages/PoliticsQuizPage'
 import MathHomePage from './pages/MathHomePage'
 import MathFormulaPage from './pages/MathFormulaPage'
+import DashboardPage from './pages/DashboardPage'
 import { initGamificationState, initGodModeState } from './utils/gamification'
 import { fetchMV1State, upsertMV1State } from './utils/mv1_cloud'
 import { pullFromCloud } from './utils/sync'
@@ -577,6 +578,9 @@ export default function App() {
       case 'variantTraining':   startVariantTraining(opts.question); break
       case 'politicsHome':      setPage('politics_home'); break
       case 'mathFormula':       setPage('math_formula'); break
+      case 'subjectHome':
+        if (opts.subject) setActiveSubject(opts.subject)
+        setPage('subject_home'); break
       default:
         console.warn('[navigate] unknown dest:', dest)
     }
@@ -594,7 +598,7 @@ export default function App() {
     setActiveSubject,
   }
 
-  // 是否显示底部导航（仅主界面）
+  // 是否显示底部导航（仅主界面 Dashboard）
   const showBottomNav = page === 'home' && user
 
   // 主页面内容
@@ -609,7 +613,7 @@ export default function App() {
       <LightningQuizPage
         user={user}
         onFinish={(result) => { setSessionResult({ ...result, quizOptions }); setPage('result') }}
-        onBack={() => { setPage('home'); setActiveSubject('english') }}
+        onBack={() => { setActiveSubject('english'); setPage('subject_home') }}
       />
     )
     if (page === 'self_test') return (
@@ -631,14 +635,14 @@ export default function App() {
       <PoliticsHomePage
         user={user}
         onStartQuiz={startQuiz}
-        onBack={() => { setPage('home'); setActiveSubject('politics') }}
+        onBack={() => { setActiveSubject('politics'); setPage('subject_home') }}
         onWrongAnswers={() => { setActiveSubject('politics'); setActiveTab('wrong') }}
       />
     )
     if (page === 'math_formula') return (
       <MathFormulaPage
         user={user}
-        onBack={() => { setPage('home'); setActiveSubject('math') }}
+        onBack={() => { setActiveSubject('math'); setPage('subject_home') }}
       />
     )
     if (page === 'politicsQuiz') return (
@@ -646,7 +650,7 @@ export default function App() {
         user={user}
         options={quizOptions}
         onFinish={(result) => { setSessionResult({ ...result, quizOptions }); setPage('result'); setActiveSubject('politics') }}
-        onBack={() => { setPage('home'); setActiveSubject('politics') }}
+        onBack={() => { setActiveSubject('politics'); setPage('subject_home') }}
       />
     )
     if (page === 'wrong_answers_quiz') return (
@@ -666,7 +670,7 @@ export default function App() {
         user={user}
         grade={grade}
         onFinish={(result) => { setSessionResult({ ...result, quizOptions: englishQuizOptions }); setPage('result') }}
-        onBack={() => { setPage('home'); setActiveSubject('english') }}
+        onBack={() => { setActiveSubject('english'); setPage('subject_home') }}
         onRetry={() => startQuiz({ ...englishQuizOptions, englishTag: 'en_association' })}
       />
     )
@@ -675,7 +679,7 @@ export default function App() {
         user={user}
         grade="j2"
         onFinish={(result) => { setSessionResult({ ...result, quizOptions: englishQuizOptions }); setPage('result') }}
-        onBack={() => { setPage('home'); setActiveSubject('english') }}
+        onBack={() => { setActiveSubject('english'); setPage('subject_home') }}
         onRetry={() => startQuiz({ ...englishQuizOptions, englishTag: 'en_association_j2' })}
       />
     )
@@ -684,60 +688,85 @@ export default function App() {
         user={user}
         options={{ ...englishQuizOptions, grade }}
         onFinish={(result) => { setSessionResult({ ...result, quizOptions: englishQuizOptions }); setPage('result') }}
-        onBack={() => { setPage('home'); setActiveSubject('english') }}
+        onBack={() => { setActiveSubject('english'); setPage('subject_home') }}
       />
     )
+
+    // 学科星球地图（从 Dashboard 进入）
+    if (page === 'subject_home') {
+      return (
+        <div className="bg-gradient-to-b from-indigo-50 to-purple-50 min-h-screen">
+          {/* 返回 Dashboard 的顶栏 */}
+          <div
+            className="bg-white px-4 flex items-center gap-3 shadow-sm"
+            style={{ paddingTop: 'env(safe-area-inset-top, 36px)', paddingBottom: 12 }}
+          >
+            <button
+              onClick={goHome}
+              className="flex items-center gap-1.5 text-indigo-600 font-semibold text-sm"
+            >
+              ← 返回
+            </button>
+            <span className="text-sm font-bold text-gray-700">
+              {activeSubject === 'chinese' ? '📖 语文' :
+               activeSubject === 'english' ? '🌎 英语' :
+               activeSubject === 'politics' ? '⚖️ 道法' :
+               activeSubject === 'math' ? '🔢 数学' : '学习'}
+            </span>
+          </div>
+          {activeSubject === 'chinese' && (
+            <HomePage
+              user={user}
+              onStartQuiz={startQuiz}
+              hideHeader
+              activeSubject={activeSubject}
+              grade={grade}
+            />
+          )}
+          {activeSubject === 'english' && (
+            <EnglishHomePage
+              user={user}
+              grade={grade}
+              onStartQuiz={startQuiz}
+            />
+          )}
+          {activeSubject === 'politics' && (
+            <PoliticsHomePage
+              user={user}
+              onStartQuiz={startQuiz}
+              onBack={goHome}
+              onWrongAnswers={() => setActiveTab('wrong')}
+            />
+          )}
+          {activeSubject === 'math' && (
+            <MathHomePage
+              user={user}
+              onStartQuiz={startQuiz}
+              onStartFormula={() => setPage('math_formula')}
+            />
+          )}
+        </div>
+      )
+    }
 
     // 主页模式
     if (page === 'home') {
       if (activeTab === 'home' && user) {
         return (
-          <>
-            {/* 顶部栏：固定不动，只切换下方星球内容 */}
-            <HomeHeader
-              user={user}
-              grade={grade}
-              activeSubject={activeSubject}
-              onSubjectChange={handleSubjectChange}
-              onGradeChange={handleGradeChange}
-              onReport={() => setPage('report')}
-              onLogout={handleLogout}
-            />
-
-            {/* 星球内容区：按科目条件渲染，切换时只有这里变化 */}
-            <div className="bg-gradient-to-b from-indigo-50 to-purple-50">
-              {activeSubject === 'chinese' && (
-                <HomePage
-                  user={user}
-                  onStartQuiz={startQuiz}
-                  hideHeader
-                  activeSubject={activeSubject}
-                  grade={grade}
-                />
-              )}
-              {activeSubject === 'english' && (
-                <EnglishHomePage
-                  user={user}
-                  grade={grade}
-                  onStartQuiz={startQuiz}
-                />
-              )}
-              {activeSubject === 'politics' && (
-                <PoliticsHomePage
-                  user={user}
-                  onStartQuiz={startQuiz}
-                  onWrongAnswers={() => setActiveTab('wrong')}
-                />
-              )}
-              {activeSubject === 'math' && (
-                <MathHomePage
-                  user={user}
-                  onStartQuiz={startQuiz}
-                  onStartFormula={() => setPage('math_formula')}
-                />
-              )}
-            </div>
-          </>
+          <DashboardPage
+            user={user}
+            grade={grade}
+            overdueCount={overdueCount}
+            onEnterSubject={(subject) => {
+              setActiveSubject(subject)
+              setPage('subject_home')
+            }}
+            onReport={() => setPage('report')}
+            onLogout={handleLogout}
+            onGradeChange={handleGradeChange}
+            onWrongReview={() => setActiveTab('wrong')}
+            onStartQuiz={startQuiz}
+          />
         )
       }
       // ★ 宠物页用 ErrorBoundary 包裹：防止子组件崩溃导致整个应用白屏 + 数据丢失

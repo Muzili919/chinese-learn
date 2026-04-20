@@ -3,7 +3,7 @@ import { storage } from '../utils/storage'
 import { isSyncEnabled, findUserByName, pullFromCloud, syncUserToCloud, validateInviteCode } from '../utils/sync'
 
 export default function OnboardingPage({ onDone }) {
-  const [step, setStep] = useState('code') // 'code' | 'name' | 'pin'
+  const [step, setStep] = useState('code') // 'code' | 'name' | 'pin' | 'grade'
   const [inviteCode, setInviteCode] = useState('')
   const [name, setName] = useState('')
   const [pin, setPin] = useState('')
@@ -11,6 +11,7 @@ export default function OnboardingPage({ onDone }) {
   const [error, setError] = useState('')
   const [restoring, setRestoring] = useState(false)
   const [restoreResult, setRestoreResult] = useState(null)
+  const [pendingUser, setPendingUser] = useState(null) // 等待选学段的新用户
 
   // ========== Step 1: 邀请码验证 ==========
   async function handleCodeSubmit(e) {
@@ -100,7 +101,7 @@ export default function OnboardingPage({ onDone }) {
     e.preventDefault()
     const userId = name.trim() + '_' + Date.now().toString(36)
     const user = { id: userId, name: name.trim(), pin: pin || '1234', createdAt: new Date().toISOString() }
-    
+
     // 记录邀请码关联
     try {
       const usedCodes = JSON.parse(sessionStorage.getItem('cl_session_code') || '[]')
@@ -108,9 +109,19 @@ export default function OnboardingPage({ onDone }) {
         user.inviteCode = usedCodes[usedCodes.length - 1]
       }
     } catch (_) {}
-    
+
     await syncUserToCloud(user)
-    onDone(user)
+    // 新用户进入选学段步骤
+    setPendingUser(user)
+    setStep('grade')
+  }
+
+  // ========== Step 4: 选择学段 ==========
+  function handleGradeSelect(grade) {
+    storage.setGrade(grade)
+    if (pendingUser) {
+      onDone(pendingUser)
+    }
   }
 
   // 记录本次会话使用的邀请码（用于新注册时记录关联）
@@ -260,6 +271,46 @@ export default function OnboardingPage({ onDone }) {
             </button>
           </div>
         </form>
+      )}
+
+      {/* ===== Step 4: 选择学习阶段 ===== */}
+      {step === 'grade' && (
+        <div className="w-full max-w-xs">
+          <div className="text-center mb-6">
+            <div className="text-4xl mb-3">🎓</div>
+            <h2 className="text-2xl font-bold text-gray-800">你在哪个阶段？</h2>
+            <p className="text-sm text-gray-400 mt-2">选择后，我们会为你量身定制学习内容</p>
+          </div>
+          <div className="flex flex-col gap-4">
+            <button
+              onClick={() => handleGradeSelect('primary')}
+              className="w-full bg-white rounded-2xl shadow-lg border-2 border-transparent hover:border-indigo-400 active:scale-95 transition-all p-5 text-left"
+            >
+              <div className="flex items-center gap-4">
+                <div className="text-4xl">🏫</div>
+                <div>
+                  <div className="text-lg font-bold text-gray-800">小学</div>
+                  <div className="text-sm text-gray-400 mt-0.5">语文 · 英语 · 数学</div>
+                </div>
+                <div className="ml-auto text-indigo-400 text-xl">→</div>
+              </div>
+            </button>
+            <button
+              onClick={() => handleGradeSelect('junior2')}
+              className="w-full bg-white rounded-2xl shadow-lg border-2 border-transparent hover:border-purple-400 active:scale-95 transition-all p-5 text-left"
+            >
+              <div className="flex items-center gap-4">
+                <div className="text-4xl">📚</div>
+                <div>
+                  <div className="text-lg font-bold text-gray-800">初中</div>
+                  <div className="text-sm text-gray-400 mt-0.5">英语 · 道法 · 数学</div>
+                </div>
+                <div className="ml-auto text-purple-400 text-xl">→</div>
+              </div>
+            </button>
+          </div>
+          <p className="text-xs text-gray-300 text-center mt-6">之后可以随时在主页切换学段</p>
+        </div>
       )}
 
       {/* 底部装饰文字 */}
