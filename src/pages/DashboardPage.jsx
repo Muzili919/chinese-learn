@@ -301,6 +301,7 @@ export default function DashboardPage({
               daysUntilExam={daysUntilExam}
               weaksBySubject={weaksBySubject}
               subjects={subjects}
+              grade={grade}
               todayCount={todayCount}
               completedToday={completedToday}
               hasCheckedInToday={hasCheckedInToday}
@@ -455,6 +456,7 @@ function SmartCard({
   daysUntilExam,
   weaksBySubject,
   subjects,
+  grade,
   todayCount,
   completedToday,
   hasCheckedInToday,
@@ -463,6 +465,12 @@ function SmartCard({
   onAIPractice,
   onStartQuiz,
 }) {
+  // 从 weaksBySubject 扁平化为 weakPoints 数组（供 exam/ai 卡使用）
+  const allWeakPoints = useMemo(() =>
+    Object.entries(weaksBySubject || {}).flatMap(([subj, list]) =>
+      (list || []).map(w => ({ ...w, subject: subj }))
+    ), [weaksBySubject])
+
   // ── AI针对练习卡 ─────────────────────────────────────────
   if (cardId === 'ai_practice') {
     const currentGradeSubjects = (SUBJECTS_CONFIG[grade] || SUBJECTS_CONFIG.primary).map(s => s.id)
@@ -598,11 +606,11 @@ function SmartCard({
           </span>
         </div>
         {/* 薄弱点提示 */}
-        {weakPoints.length > 0 && (
+        {allWeakPoints.length > 0 && (
           <div className="mt-2 pt-2 border-t border-gray-100">
             <div className="text-xs text-gray-500 mb-1.5">需要加强：</div>
             <div className="flex flex-wrap gap-1.5">
-              {weakPoints.slice(0, 3).map(wp => (
+              {allWeakPoints.slice(0, 3).map(wp => (
                 <button
                   key={wp.tag}
                   onClick={() => {
@@ -623,7 +631,7 @@ function SmartCard({
   }
 
   if (cardId === 'ai') {
-    const topWeak = weakPoints[0]
+    const topWeak = allWeakPoints[0]
     const subject = topWeak ? (TAG_TO_SUBJECT[topWeak.tag] || 'chinese') : 'chinese'
 
     return (
