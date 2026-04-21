@@ -136,6 +136,10 @@ export default function ReportPage({ user, onBack, onStartQuiz, grade = 'primary
   const [unlocked, setUnlocked] = useState(false)
   const [pinError, setPinError] = useState(false)
   const [activeTab, setActiveTab] = useState('overview')
+  const [showPinModal, setShowPinModal] = useState(false)
+  const [pinForm, setPinForm] = useState({ old: '', new1: '', new2: '' })
+  const [pinMsg, setPinMsg] = useState(null)
+  const [refreshKey, setRefreshKey] = useState(0)
 
   // ★ 按学段过滤学科Tab
   const subjects = GRADE_SUBJECTS[grade] || GRADE_SUBJECTS.primary
@@ -231,7 +235,10 @@ export default function ReportPage({ user, onBack, onStartQuiz, grade = 'primary
     <div className="min-h-screen bg-gray-50">
       {/* ── 头部 ── */}
       <div className="bg-gradient-to-br from-indigo-700 to-purple-800 text-white px-5 pt-10 pb-6">
-        <button onClick={onBack} className="text-indigo-200 text-sm mb-3">← 返回</button>
+        <div className="flex items-center justify-between mb-3">
+          <button onClick={onBack} className="text-indigo-200 text-sm">← 返回</button>
+          <button onClick={() => setShowPinModal(true)} className="text-indigo-200 text-sm" title="修改密码">⚙️ 设置</button>
+        </div>
         <h1 className="text-2xl font-bold">{user.name} 的学习报告</h1>
         <p className="text-indigo-200 text-sm mt-1">共答 {allRecords.length} 题 · 累计 {totalMin} 分钟</p>
         <div className="flex gap-3 mt-4">
@@ -385,6 +392,50 @@ export default function ReportPage({ user, onBack, onStartQuiz, grade = 'primary
               </div>
             </div>
           )}
+
+          {/* 板块完成详情 */}
+          <div className="bg-white rounded-2xl p-4 shadow-sm border border-gray-100">
+            <h2 className="text-sm font-semibold text-gray-600 mb-3">📋 各板块完成详情</h2>
+            {(() => {
+              // 按 knowledge_tag 分组统计
+              const tagMap = {}
+              for (const r of allRecords) {
+                const tag = r.knowledge_tag || r.topic || '其他'
+                if (!tagMap[tag]) tagMap[tag] = { total: 0, correct: 0, totalTime: 0 }
+                tagMap[tag].total++
+                if (r.correct) tagMap[tag].correct++
+                tagMap[tag].totalTime += (r.time_spent || 0)
+              }
+              const tags = Object.entries(tagMap).sort((a, b) => b[1].total - a[1].total)
+              if (tags.length === 0) return <p className="text-xs text-gray-400">暂无数据</p>
+              return (
+                <div className="space-y-2.5">
+                  {tags.map(([tag, d]) => {
+                    const acc = d.total > 0 ? Math.round(d.correct / d.total * 100) : 0
+                    const avgTime = d.total > 0 ? (d.totalTime / d.total).toFixed(1) : 0
+                    let seriousness, seriousColor
+                    if (avgTime < 5) { seriousness = '⚡ 太快了'; seriousColor = 'text-red-500' }
+                    else if (avgTime < 20) { seriousness = '✅ 认真'; seriousColor = 'text-green-600' }
+                    else { seriousness = '🤔 很仔细'; seriousColor = 'text-blue-600' }
+                    return (
+                      <div key={tag} className="bg-gray-50 rounded-xl p-3">
+                        <div className="flex items-center justify-between mb-1.5">
+                          <span className="text-sm font-semibold text-gray-800">{tag}</span>
+                          <span className={`text-xs font-bold ${seriousColor}`}>{seriousness}</span>
+                        </div>
+                        <div className="grid grid-cols-4 gap-1 text-center text-xs">
+                          <div><span className="font-bold text-gray-700">{d.total}</span><br/><span className="text-gray-400">总题数</span></div>
+                          <div><span className="font-bold text-green-600">{d.correct}</span><br/><span className="text-gray-400">答对</span></div>
+                          <div><span className={`font-bold ${acc >= 80 ? 'text-green-600' : acc >= 60 ? 'text-amber-500' : 'text-red-500'}`}>{acc}%</span><br/><span className="text-gray-400">正确率</span></div>
+                          <div><span className="font-bold text-indigo-600">{avgTime}s</span><br/><span className="text-gray-400">平均用时</span></div>
+                        </div>
+                      </div>
+                    )
+                  })}
+                </div>
+              )
+            })()}
+          </div>
         </div>
       )}
 
@@ -400,6 +451,8 @@ export default function ReportPage({ user, onBack, onStartQuiz, grade = 'primary
           iconMap={CHINESE_KNOWLEDGE_ICON}
           onStartQuiz={onStartQuiz}
           onBack={onBack}
+          userId={user.id}
+          onDeleteRecord={() => setRefreshKey(k => k + 1)}
         />
       )}
 
@@ -414,6 +467,8 @@ export default function ReportPage({ user, onBack, onStartQuiz, grade = 'primary
           labelMap={ENGLISH_KNOWLEDGE_LABEL}
           onStartQuiz={onStartQuiz}
           onBack={onBack}
+          userId={user.id}
+          onDeleteRecord={() => setRefreshKey(k => k + 1)}
         />
       )}
 
@@ -428,6 +483,8 @@ export default function ReportPage({ user, onBack, onStartQuiz, grade = 'primary
           iconMap={MATH_KNOWLEDGE_ICON}
           onStartQuiz={onStartQuiz}
           onBack={onBack}
+          userId={user.id}
+          onDeleteRecord={() => setRefreshKey(k => k + 1)}
         />
       )}
 
@@ -442,6 +499,8 @@ export default function ReportPage({ user, onBack, onStartQuiz, grade = 'primary
           defaultIcon={POLITICS_ICON}
           onStartQuiz={onStartQuiz}
           onBack={onBack}
+          userId={user.id}
+          onDeleteRecord={() => setRefreshKey(k => k + 1)}
         />
       )}
 
@@ -473,6 +532,40 @@ export default function ReportPage({ user, onBack, onStartQuiz, grade = 'primary
           setExamResultRefresh={setExamResultRefresh}
         />
       )}
+
+      {/* PIN 修改 Modal */}
+      {showPinModal && (
+        <div className="fixed inset-0 bg-black/40 z-50 flex items-center justify-center px-6" onClick={() => setShowPinModal(false)}>
+          <div className="bg-white rounded-2xl w-full max-w-sm p-6" onClick={e => e.stopPropagation()}>
+            <h2 className="text-lg font-bold text-gray-800 mb-4">⚙️ 修改家长密码</h2>
+            <div className="space-y-3">
+              <input type="number" maxLength={4} placeholder="输入旧密码"
+                value={pinForm.old} onChange={e => setPinForm({ ...pinForm, old: e.target.value.slice(0, 4) })}
+                className="w-full border rounded-xl px-4 py-2.5 text-center text-lg focus:outline-none focus:border-indigo-500" />
+              <input type="number" maxLength={4} placeholder="输入新密码（4位）"
+                value={pinForm.new1} onChange={e => setPinForm({ ...pinForm, new1: e.target.value.slice(0, 4) })}
+                className="w-full border rounded-xl px-4 py-2.5 text-center text-lg focus:outline-none focus:border-indigo-500" />
+              <input type="number" maxLength={4} placeholder="确认新密码"
+                value={pinForm.new2} onChange={e => setPinForm({ ...pinForm, new2: e.target.value.slice(0, 4) })}
+                className="w-full border rounded-xl px-4 py-2.5 text-center text-lg focus:outline-none focus:border-indigo-500" />
+            </div>
+            {pinMsg && <p className={`text-sm text-center mt-2 ${pinMsg.ok ? 'text-green-600' : 'text-red-500'}`}>{pinMsg.text}</p>}
+            <div className="flex gap-3 mt-4">
+              <button onClick={() => { setShowPinModal(false); setPinForm({ old: '', new1: '', new2: '' }); setPinMsg(null) }}
+                className="flex-1 py-2.5 rounded-xl bg-gray-100 text-gray-600 font-medium">取消</button>
+              <button onClick={() => {
+                if (pinForm.old !== (user.pin || '1234')) { setPinMsg({ ok: false, text: '旧密码错误' }); return }
+                if (pinForm.new1.length !== 4) { setPinMsg({ ok: false, text: '新密码必须4位' }); return }
+                if (pinForm.new1 !== pinForm.new2) { setPinMsg({ ok: false, text: '两次输入不一致' }); return }
+                storage.setParentPin(pinForm.new1)
+                setPinMsg({ ok: true, text: '修改成功！' })
+                setTimeout(() => { setShowPinModal(false); setPinForm({ old: '', new1: '', new2: '' }); setPinMsg(null) }, 1200)
+              }}
+                className="flex-1 py-2.5 rounded-xl bg-indigo-600 text-white font-medium">确认修改</button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   )
 }
@@ -481,8 +574,9 @@ export default function ReportPage({ user, onBack, onStartQuiz, grade = 'primary
 function SubjectReport({
   subject, records, diagnosis, weaks,
   diagnosisKey, knowledgeMap, labelMap, iconMap, defaultIcon,
-  onStartQuiz, onBack,
+  onStartQuiz, onBack, userId, onDeleteRecord,
 }) {
+  const [deletingId, setDeletingId] = useState(null)
   const subjectLabel = { chinese: '语文', english: '英语', math: '数学', politics: '道法' }[subject]
 
   if (records.length < 5) {
@@ -624,6 +718,59 @@ function SubjectReport({
           </div>
         )}
       </div>
+
+      {/* 错题管理 */}
+      {(() => {
+        const latestMap = {}
+        for (const r of records) {
+          if (!latestMap[r.card_id] || r.timestamp > latestMap[r.card_id].timestamp) {
+            latestMap[r.card_id] = r
+          }
+        }
+        const wrongItems = Object.entries(latestMap)
+          .filter(([, r]) => !r.correct)
+          .sort((a, b) => b[1].timestamp?.localeCompare?.(a[1].timestamp))
+          .slice(0, 20)
+        if (wrongItems.length === 0) return null
+        return (
+          <div className="bg-white rounded-2xl p-4 shadow-sm border border-gray-100">
+            <h2 className="text-sm font-semibold text-gray-600 mb-3">
+              ❌ 错题记录
+              <span className="text-xs text-gray-400 font-normal ml-1">（共 {wrongItems.length} 题，点击🗑️删除）</span>
+            </h2>
+            <div className="space-y-2">
+              {wrongItems.map(([cardId, r]) => (
+                <div key={cardId} className="flex items-start gap-2 bg-red-50 rounded-xl p-3">
+                  <div className="flex-1 min-w-0">
+                    <p className="text-sm text-gray-800 line-clamp-2">{r.question_data?.stem || cardId}</p>
+                    <div className="flex items-center gap-2 mt-1">
+                      {r.knowledge_tag && <span className="text-[10px] bg-red-100 text-red-600 px-1.5 py-0.5 rounded-full">{r.knowledge_tag}</span>}
+                      <span className="text-[10px] text-gray-400">{r.timestamp?.slice(0, 10)}</span>
+                    </div>
+                  </div>
+                  <button
+                    onClick={() => {
+                      if (deletingId === cardId) {
+                        storage.deleteRecordsByCardId(userId, cardId)
+                        setDeletingId(null)
+                        onDeleteRecord?.()
+                      } else {
+                        setDeletingId(cardId)
+                        setTimeout(() => setDeletingId(null), 3000)
+                      }
+                    }}
+                    className={`flex-shrink-0 w-8 h-8 rounded-lg flex items-center justify-center text-sm transition-colors ${
+                      deletingId === cardId ? 'bg-red-500 text-white' : 'bg-red-100 text-red-400 hover:bg-red-200'
+                    }`}
+                  >
+                    {deletingId === cardId ? '确认' : '🗑️'}
+                  </button>
+                </div>
+              ))}
+            </div>
+          </div>
+        )
+      })()}
     </div>
   )
 }

@@ -210,6 +210,17 @@ export const storage = {
     );
   },
 
+  // 删除指定 card_id 的所有答题记录
+  deleteRecordsByCardId: (userId, cardId) => {
+    const records = storage.getRecords(userId);
+    const filtered = records.filter(r => r.card_id !== cardId);
+    lsSet(P + 'records_' + userId, JSON.stringify(filtered));
+    // 同步清理 SRS 状态
+    const srs = storage.getSrsState(userId);
+    if (srs[cardId]) { delete srs[cardId]; storage.setSrsState(userId, srs); }
+    return filtered.length;
+  },
+
   // 积压错题数：SRS 到期日已过 3 天以上（还没答对过）
   getOverdueWrongCount: (userId) => {
     const wrongIds = storage.getWrongCardIds(userId);
