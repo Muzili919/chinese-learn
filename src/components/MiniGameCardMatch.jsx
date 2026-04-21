@@ -1,4 +1,5 @@
 import React, { useState, useCallback, useEffect } from 'react'
+import { shuffle } from '../utils/common'
 
 /**
  * MiniGameCardMatch - 翻牌配对小游戏
@@ -8,18 +9,10 @@ const CARD_EMOJIS = ['🐉', '⚡', '🌟', '🔥', '💎', '🎵', '🌈', '�
 const GRID_SIZE = 4 // 4x4 = 16张牌 = 8对
 const GAME_DURATION = 30 // 秒
 
-function shuffleArray(arr) {
-  const a = [...arr]
-  for (let i = a.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [a[i], a[j]] = [a[j], a[i]]
-  }
-  return a
-}
 
 export default function MiniGameCardMatch({ onGameEnd }) {
   // 创建配对（每种2张）
-  const allCards = shuffleArray([...CARD_EMOJIS, ...CARD_EMOJIS])
+  const allCards = shuffle([...CARD_EMOJIS, ...CARD_EMOJIS])
   
   const [cards, setCards] = useState(() => allCards.map((emoji, i) => ({
     id: i, emoji, flipped: false, matched: false,
@@ -97,7 +90,7 @@ export default function MiniGameCardMatch({ onGameEnd }) {
 
   // 重置游戏
   const resetGame = () => {
-    const shuffled = shuffleArray([...CARD_EMOJIS, ...CARD_EMOJIS])
+    const shuffled = shuffle([...CARD_EMOJIS, ...CARD_EMOJIS])
     setCards(shuffled.map((emoji, i) => ({ id: i, emoji, flipped: false, matched: false })))
     setFlippedIds([])
     setMoves(0)

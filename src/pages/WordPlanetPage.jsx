@@ -4,6 +4,7 @@ import { updateSRS, toQuality, isDue } from '../utils/srs'
 import { syncAfterSession } from '../utils/sync'
 import { speakEnglish as _speakEnglish } from '../utils/tts'
 import wordsNetwork from '../data/words_network_j2.json'
+import { shuffle } from '../utils/common'
 
 // ─── 常量 ───────────────────────────────────────────────────────────────
 const SESSION_SIZE = 10
@@ -53,14 +54,6 @@ const allWords = Object.values(wordsNetwork.words)
 const allWordsMap = wordsNetwork.words
 const tier1Words = allWords.filter(w => w.tier === 1)
 
-function shuffle(arr) {
-  const a = [...arr]
-  for (let i = a.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1))
-    ;[a[i], a[j]] = [a[j], a[i]]
-  }
-  return a
-}
 
 function randomFrom(arr, count, exclude = []) {
   const pool = arr.filter(x => !exclude.includes(x))

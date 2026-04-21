@@ -6,15 +6,8 @@ import { evaluateReadingAnswer } from '../utils/ai'
 import tips from '../data/reading_tips.json'
 import readingQ from '../data/questions_reading.json'
 import DuolingoStyleQuiz from '../components/DuolingoStyleQuiz'
+import { shuffle } from '../utils/common'
 
-function shuffle(arr) {
-  const a = [...arr]
-  for (let i = a.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [a[i], a[j]] = [a[j], a[i]]
-  }
-  return a
-}
 
 // 关键词快速评分（AI调用前的初步判断）
 function smartGrade(userAnswer, correctAnswer) {

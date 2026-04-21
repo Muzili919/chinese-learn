@@ -4,6 +4,7 @@ import { syncAfterSession } from '../utils/sync'
 import { speakEnglish, speakChinese, stop, initTTS } from '../utils/tts'
 import enWords from '../data/dictation_en_words.json'
 import cnWords from '../data/dictation_cn_words.json'
+import { shuffle } from '../utils/common'
 
 // ═══════════════════════════════════════════════════════════════
 // 常量
@@ -48,14 +49,6 @@ function markAsUnmastered(wordId) {
 // ═══════════════════════════════════════════════════════════════
 // 工具函数
 // ═══════════════════════════════════════════════════════════════
-function shuffle(arr) {
-  const a = [...arr]
-  for (let i = a.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1))
-    ;[a[i], a[j]] = [a[j], a[i]]
-  }
-  return a
-}
 
 function pickWords(subject, grade, semester, count) {
   const pool = subject === 'english' ? enWords : cnWords
@@ -373,11 +366,11 @@ function GradingMode({ words, subject, onResult }) {
 
 请严格按以下JSON格式返回（不要加其他文字）：
 {"results":[{"word":"词语","correct":true/false}]}`
-        const res = await fetch('https://api.deepseek.com/chat/completions', {
+        const API_BASE = import.meta.env.VITE_API_BASE || `${window.location.origin}/api`
+        const res = await fetch(`${API_BASE}/ai`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${import.meta.env.VITE_DEEPSEEK_API_KEY}`,
           },
           body: JSON.stringify({
             model: 'deepseek-chat',

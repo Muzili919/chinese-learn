@@ -1,16 +1,9 @@
 import { isDue } from './srs';
+import { shuffle } from './common';
 
 // 全部混合星球：每次从各星球各抽的知识标签
 const GALAXY_TAGS = ['字词', '古诗词', '成语', '句子', '文学常识'];
 
-function shuffle(arr) {
-  const a = [...arr];
-  for (let i = a.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [a[i], a[j]] = [a[j], a[i]];
-  }
-  return a;
-}
 
 /**
  * 从单个题目池中按优先级选出 n 道题

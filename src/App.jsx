@@ -1,37 +1,40 @@
-import { useState, useEffect, useCallback, useMemo } from 'react'
+import { useState, useEffect, useCallback, useMemo, lazy, Suspense } from 'react'
 import ErrorBoundary from './ErrorBoundary'
 import { NavigationContext } from './context/NavigationContext'
 import { storage, calcLevel, calcLevelProgress } from './utils/storage'
-import OnboardingPage from './pages/OnboardingPage'
-import HomePage from './pages/HomePage'
-import QuizPage from './pages/QuizPage'
-import ResultPage from './pages/ResultPage'
-import ReportPage from './pages/ReportPage'
-import ReadingPage from './pages/ReadingPage'
-import SentencePracticePage from './pages/SentencePracticePage'
-import EssayPage from './pages/EssayPage'
-import WrongAnswersPage from './pages/WrongAnswersPage'
-import VariantTrainingPage from './pages/VariantTrainingPage'
-import MV1Demo from './pages/MV1Demo'
-import EnglishHomePage from './pages/EnglishHomePage'
-import EnglishQuizPage from './pages/EnglishQuizPage'
-import AssociationPlanetPage from './pages/AssociationPlanetPage'
-import WordPlanetPage from './pages/WordPlanetPage'
-import DictationPage from './pages/DictationPage'
-import SelfTestPage from './pages/SelfTestPage'
-import LightningQuizPage from './pages/LightningQuizPage'
-import PoliticsHomePage from './pages/PoliticsHomePage'
-import PoliticsQuizPage from './pages/PoliticsQuizPage'
-import MathHomePage from './pages/MathHomePage'
-import MathFormulaPage from './pages/MathFormulaPage'
-import DashboardPage from './pages/DashboardPage'
-import AIPracticePage from './pages/AIPracticePage'
 import { initGamificationState, initGodModeState } from './utils/gamification'
 import { fetchMV1State, upsertMV1State } from './utils/mv1_cloud'
 import { pullFromCloud } from './utils/sync'
 import { unlockAudio } from './utils/tts'
 import { fetchAndMergePlan } from './hooks/usePlan'
 import PremiumCard from './components/PremiumCard'
+
+const OnboardingPage = lazy(() => import('./pages/OnboardingPage'))
+const HomePage = lazy(() => import('./pages/HomePage'))
+const QuizPage = lazy(() => import('./pages/QuizPage'))
+const ResultPage = lazy(() => import('./pages/ResultPage'))
+const ReportPage = lazy(() => import('./pages/ReportPage'))
+const ReadingPage = lazy(() => import('./pages/ReadingPage'))
+const SentencePracticePage = lazy(() => import('./pages/SentencePracticePage'))
+const EssayPage = lazy(() => import('./pages/EssayPage'))
+const WrongAnswersPage = lazy(() => import('./pages/WrongAnswersPage'))
+const VariantTrainingPage = lazy(() => import('./pages/VariantTrainingPage'))
+const MV1Demo = lazy(() => import('./pages/MV1Demo'))
+const EnglishHomePage = lazy(() => import('./pages/EnglishHomePage'))
+const EnglishQuizPage = lazy(() => import('./pages/EnglishQuizPage'))
+const AssociationPlanetPage = lazy(() => import('./pages/AssociationPlanetPage'))
+const WordPlanetPage = lazy(() => import('./pages/WordPlanetPage'))
+const DictationPage = lazy(() => import('./pages/DictationPage'))
+const SelfTestPage = lazy(() => import('./pages/SelfTestPage'))
+const LightningQuizPage = lazy(() => import('./pages/LightningQuizPage'))
+const PoliticsHomePage = lazy(() => import('./pages/PoliticsHomePage'))
+const PoliticsQuizPage = lazy(() => import('./pages/PoliticsQuizPage'))
+const MathHomePage = lazy(() => import('./pages/MathHomePage'))
+const MathFormulaPage = lazy(() => import('./pages/MathFormulaPage'))
+const DashboardPage = lazy(() => import('./pages/DashboardPage'))
+const AIPracticePage = lazy(() => import('./pages/AIPracticePage'))
+const LeaderboardPage = lazy(() => import('./pages/LeaderboardPage'))
+const GlobalPetDock = lazy(() => import('./components/GlobalPetDock'))
 
 // 检查上帝模式：URL 带 ?god=1 或 #god=1
 function isGodMode() {
@@ -40,8 +43,6 @@ function isGodMode() {
   const hash = new URLSearchParams(window.location.hash.split('?')[1] || '')
   return params.get('god') === '1' || hash.get('god') === '1'
 }
-import LeaderboardPage from './pages/LeaderboardPage'
-import GlobalPetDock from './components/GlobalPetDock'
 
 // 科目配置（按学段）
 const SUBJECTS_BY_GRADE = {
@@ -756,6 +757,7 @@ export default function App() {
           {activeSubject === 'math' && (
             <MathHomePage
               user={user}
+              grade={grade}
               onStartQuiz={startQuiz}
               onStartFormula={() => setPage('math_formula')}
             />
@@ -822,7 +824,11 @@ export default function App() {
       <div className="min-h-screen bg-gradient-to-b from-indigo-50 to-purple-50" style={{ position: 'relative' }}>
         <div className="max-w-md mx-auto min-h-screen">
           <div style={{ paddingBottom: showBottomNav ? 64 : 0 }}>
+            <ErrorBoundary>
+            <Suspense fallback={<div className="flex items-center justify-center min-h-screen"><div className="text-gray-400">加载中...</div></div>}>
             {mainContent()}
+            </Suspense>
+            </ErrorBoundary>
           </div>
         </div>
         {showBottomNav && (

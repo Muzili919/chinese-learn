@@ -26,6 +26,7 @@ import mathJuniorEquationQ from '../data/questions_math_junior_equation.json'
 import mathJuniorFunctionQ from '../data/questions_math_junior_function.json'
 import mathJuniorAlgebraQ from '../data/questions_math_junior_algebra.json'
 import mathJuniorGeoQ from '../data/questions_math_junior_geo.json'
+import { shuffle } from '../utils/common'
 
 const CHINESE_QUESTIONS = [...vocabQ, ...poetryQ, ...idiomQ, ...sentenceQ, ...litQ]
 const ENGLISH_QUESTIONS = [...enVocabQ, ...enListenQ, ...enGrammarQ, ...enReadingQ, ...enWritingQ, ...enClozeQ]
@@ -53,15 +54,6 @@ const PLANET_SESSION_SIZES = {
 // 数学各专题每次答题数（统一10题/次）
 const MATH_SESSION_SIZE = 10
 
-function shuffle(arr) {
-  const a = [...arr]
-  for (let i = a.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [a[i], a[j]] = [a[j], a[i]]
-  }
-  return a
-}
-
 function shuffleOptions(question) {
   if (question.type === 'fill_blank') return question
   const opts = [...(question.options || [])]
@@ -73,7 +65,7 @@ function shuffleOptions(question) {
 }
 
 export default function QuizPage({ user, options = {}, onFinish, onBack }) {
-  const { focusTag = null, knowledgeTag = null, wrongCardIds = null, mathTopic = null, minDifficulty = null } = options
+  const { focusTag = null, knowledgeTag = null, wrongCardIds = null, mathTopic = null, minDifficulty = null, grade = null } = options
 
   // 根据星球确定每次答题数
   const sessionSize = (wrongCardIds?.length)
@@ -129,16 +121,15 @@ export default function QuizPage({ user, options = {}, onFinish, onBack }) {
         .filter(Boolean)
       return shuffle(pool).slice(0, sessionSize).map(shuffleOptions)
     }
-    // 数学专题（支持小学+初中）
+    // 数学专题（按学段过滤）
     if (mathTopic) {
-      // 先尝试精确匹配 topic 字段
-      let mathPool = MATH_ALL.filter(q => q.topic === mathTopic)
-      // 如果精确匹配为空，尝试模糊匹配
-      if (mathPool.length === 0) {
-        mathPool = MATH_ALL.filter(q => (q.topic || '').includes(mathTopic) || mathTopic.includes(q.topic || ''))
+      const mathPool = grade === 'junior' ? MATH_JUNIOR : grade === 'primary' ? MATH_PRIMARY : MATH_ALL
+      let pool = mathPool.filter(q => q.topic === mathTopic)
+      if (pool.length === 0) {
+        pool = mathPool.filter(q => (q.topic || '').includes(mathTopic) || mathTopic.includes(q.topic || ''))
       }
-      if (minDifficulty) mathPool = mathPool.filter(q => (q.difficulty || 0) >= minDifficulty)
-      return shuffle(mathPool).slice(0, sessionSize).map(shuffleOptions)
+      if (minDifficulty) pool = pool.filter(q => (q.difficulty || 0) >= minDifficulty)
+      return shuffle(pool).slice(0, sessionSize).map(shuffleOptions)
     }
 
     let pool = ALL_QUESTIONS
@@ -146,7 +137,7 @@ export default function QuizPage({ user, options = {}, onFinish, onBack }) {
     const isMixed = !knowledgeTag && !focusTag
     const seenToday = new Set(storage.getSeenToday(user.id))
     return scheduleSession(pool, srsStates.current, sessionSize, focusTag, isMixed, seenToday).map(shuffleOptions)
-  }, [focusTag, knowledgeTag, wrongCardIds, sessionSize, mathTopic, minDifficulty])
+  }, [focusTag, knowledgeTag, wrongCardIds, sessionSize, mathTopic, minDifficulty, grade])
 
   const isWrongReview = !!(wrongCardIds?.length)
 

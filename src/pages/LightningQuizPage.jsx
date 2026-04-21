@@ -3,6 +3,7 @@ import { storage, updateStreak } from '../utils/storage'
 import { syncAfterSession } from '../utils/sync'
 import { updateSRS, toQuality, isDue } from '../utils/srs'
 import { speakEnglish } from '../utils/tts'
+import { shuffle } from '../utils/common'
 import wordsNetwork from '../data/words_network_j2.json'
 
 // ─── 常量 ───────────────────────────────────────────────────────
@@ -13,14 +14,6 @@ const XP_STREAK_BONUS = 20
 const allWords = Object.values(wordsNetwork.words)
 const allWordsMap = wordsNetwork.words
 
-function shuffle(arr) {
-  const a = [...arr]
-  for (let i = a.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1))
-    ;[a[i], a[j]] = [a[j], a[i]]
-  }
-  return a
-}
 
 // ─── 题型生成（3种纯回忆题型） ──────────────────────────────────
 const QUESTION_MODES = ['en_to_cn', 'cn_to_en', 'spelling']

@@ -10,6 +10,7 @@ import React, { useRef, useEffect, useState, useCallback, useMemo } from 'react'
 import wordDataPrimary from '../data/words_network.json';
 import wordDataJunior from '../data/words_network_j2.json';
 import { PET_POOL } from '../utils/gamification';
+import { shuffle } from '../utils/common';
 
 /* ═════════════════════ 常量定义（先于所有函数） ═════════════════════ */
 
@@ -57,14 +58,6 @@ function getTitle(totalCleared) {
   return t.title;
 }
 
-function shuffle(arr) {
-  const a = [...arr];
-  for (let i = a.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [a[i], a[j]] = [a[j], a[i]];
-  }
-  return a;
-}
 
 function getPetInfo(poolId) {
   return PET_POOL.find(p => p.poolId === poolId) || PET_POOL[0];

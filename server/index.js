@@ -15,8 +15,12 @@ const PORT = process.env.PORT || 3000
 const DB_HOST = process.env.DB_HOST || '127.0.0.1'
 const DB_PORT = process.env.DB_PORT || 5432
 const DB_NAME = process.env.DB_NAME || 'chinese_learn'
-const DB_USER = process.env.DB_USER || 'admin'
-const DB_PASS = process.env.DB_PASS || '132258'
+const DB_USER = process.env.DB_USER
+const DB_PASS = process.env.DB_PASS
+if (!DB_USER || !DB_PASS) {
+  console.error('❌ 缺少 DB_USER 或 DB_PASS 环境变量，服务无法启动')
+  process.exit(1)
+}
 
 const pool = new Pool({
   host: DB_HOST,
@@ -501,19 +505,41 @@ const QWEN_API_KEY = process.env.QWEN_API_KEY || ''
 const QWEN_BASE_URL = process.env.QWEN_BASE_URL || 'https://dashscope.aliyuncs.com/compatible-mode/v1'
 const QWEN_MODEL = process.env.QWEN_MODEL || 'qwen-max'
 
+// 智谱GLM API配置（国际版）
+const GLM_API_KEY = process.env.GLM_API_KEY || ''
+const GLM_BASE_URL = process.env.GLM_BASE_URL || 'https://api.z.ai/api/paas/v4'
+const GLM_MODEL = process.env.GLM_MODEL || 'glm-5.1'
+
 // 默认模型配置
 const DEFAULT_MODEL = process.env.DEFAULT_AI_MODEL || 'deepseek-chat'
 
 // 判断是否为千问模型
 function isQwenModel(modelName) {
-  return modelName && modelName.toLowerCase().includes('qwen')
+  return modelName && (modelName.toLowerCase().includes('qwen') || modelName.toLowerCase().includes('tongyi'))
+}
+
+// 判断是否为GLM模型
+function isGlmModel(modelName) {
+  return modelName && modelName.toLowerCase().includes('glm')
 }
 
 // 获取模型配置
 function getModelConfig(modelName) {
   const model = modelName || DEFAULT_MODEL
   
-  if (isQwenModel(model)) {
+  if (isGlmModel(model)) {
+    return {
+      baseUrl: GLM_BASE_URL,
+      apiKey: GLM_API_KEY,
+      endpoint: '/chat/completions',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${GLM_API_KEY}`,
+      },
+      modelName: GLM_MODEL,
+      provider: 'glm'
+    }
+  } else if (isQwenModel(model)) {
     return {
       baseUrl: QWEN_BASE_URL,
       apiKey: QWEN_API_KEY,
@@ -873,7 +899,10 @@ app.get('/api/ai/usage', async (req, res) => {
  * POST /api/admin/set-plan
  * body: { userId, plan, adminKey }
  */
-const ADMIN_KEY = process.env.ADMIN_KEY || 'cl_admin_2026'
+const ADMIN_KEY = process.env.ADMIN_KEY
+if (!ADMIN_KEY) {
+  console.error('❌ 缺少 ADMIN_KEY 环境变量，管理接口不可用')
+}
 
 app.post('/api/admin/set-plan', async (req, res) => {
   const { userId, plan, adminKey } = req.body

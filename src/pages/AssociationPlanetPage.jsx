@@ -5,6 +5,7 @@ import { syncAfterSession } from '../utils/sync'
 import { speakEnglish as _speakEnglish } from '../utils/tts'
 import wordsNetwork from '../data/words_network.json'
 import j2WordsNetwork from '../data/words_network_j2.json'
+import { shuffle } from '../utils/common'
 
 // ─── 常量 ───────────────────────────────────────────────────────────────
 const SESSION_SIZE = 10
@@ -43,14 +44,6 @@ const allWords = _defaultCtx.allWords
 const allWordsMap = _defaultCtx.allWordsMap
 const tier1Words = _defaultCtx.tier1Words
 
-function shuffle(arr) {
-  const a = [...arr]
-  for (let i = a.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1))
-    ;[a[i], a[j]] = [a[j], a[i]]
-  }
-  return a
-}
 
 function pickSessionWords(ctx) {
   const w = ctx || _defaultCtx

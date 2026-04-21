@@ -16,6 +16,7 @@ import j2ListenQ from '../data/questions_en_j2_listen.json'
 import j2ReadingQ from '../data/questions_en_j2_reading.json'
 import j2WritingQ from '../data/questions_en_j2_writing.json'
 import j2ClozeQ from '../data/questions_en_j2_cloze.json'
+import { shuffle } from '../utils/common'
 
 const DEFAULT_SESSION_SIZE = 15
 
@@ -59,14 +60,6 @@ const J2_QUESTION_MAP = {
   en_cloze:   j2ClozeQ,
 }
 
-function shuffle(arr) {
-  const a = [...arr]
-  for (let i = a.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [a[i], a[j]] = [a[j], a[i]]
-  }
-  return a
-}
 
 // 使用统一 TTS 引擎（Edge TTS 优先 + Web Speech API 降级）
 function speakEnglish(text, onEnd) {

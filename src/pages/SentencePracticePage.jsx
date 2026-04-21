@@ -3,17 +3,10 @@ import { evaluateSentence } from '../utils/ai'
 import { storage, updateStreak } from '../utils/storage'
 import { syncAfterSession } from '../utils/sync'
 import allWords from '../data/sentence_words.json'
+import { shuffle } from '../utils/common'
 
 const SESSION_SIZE = 5
 
-function shuffle(arr) {
-  const a = [...arr]
-  for (let i = a.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [a[i], a[j]] = [a[j], a[i]]
-  }
-  return a
-}
 
 export default function SentencePracticePage({ user, onBack }) {
   // 随机选10个词（不分年级）

@@ -6,6 +6,7 @@ import { evaluateQuestion } from '../utils/ai_v2'
 import polChoiceQ from '../data/questions_politics_choice.json'
 import polAnswerQ from '../data/questions_politics_answer.json'
 import polAnalysisQ from '../data/questions_politics_analysis.json'
+import { shuffle } from '../utils/common'
 
 // 不同星球每次答题数
 const SESSION_SIZES = {
@@ -22,14 +23,6 @@ const POL_QUESTION_MAP = {
   pol_explore:  polAnswerQ, // 实践探究和简答题在同一文件，通过 task_type 区分
 }
 
-function shuffle(arr) {
-  const a = [...arr]
-  for (let i = a.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1))
-    ;[a[i], a[j]] = [a[j], a[i]]
-  }
-  return a
-}
 
 // ─── 材料分析题专用组件 ──────────────────────────────────────────────────
 

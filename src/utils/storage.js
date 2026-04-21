@@ -1,9 +1,18 @@
 const P = 'cl_';
 
+// Safe localStorage wrappers — 隐私模式/存储满时不崩溃
+function lsGet(key) { try { return localStorage.getItem(key) } catch { return null } }
+function lsSet(key, val) { try { localStorage.setItem(key, val); return true } catch { return false } }
+function lsRemove(key) { try { localStorage.removeItem(key) } catch {} }
+function lsParse(key, fallback) {
+  try { const v = localStorage.getItem(key); return v ? JSON.parse(v) : fallback }
+  catch { return fallback }
+}
+
 export const storage = {
   // User - 包含等级和经验信息
   getUser: () => {
-    const user = JSON.parse(localStorage.getItem(P + 'user') || 'null');
+    const user = lsParse(P + 'user', null);
     if (user && !user.level) {
       // 初始化用户等级和经验
       user.level = 1;
@@ -14,17 +23,17 @@ export const storage = {
     }
     return user;
   },
-  setUser: (user) => localStorage.setItem(P + 'user', JSON.stringify(user)),
+  setUser: (user) => lsSet(P + 'user', JSON.stringify(user)),
 
   // Grade preference
-  getGrade: () => localStorage.getItem(P + 'grade') || 'primary',
-  setGrade: (grade) => localStorage.setItem(P + 'grade', grade),
+  getGrade: () => lsGet(P + 'grade') || 'primary',
+  setGrade: (grade) => lsSet(P + 'grade', grade),
 
   // SRS state: { [cardId]: { interval, easeFactor, reviewCount, nextReview } }
   getSrsState: (userId) =>
-    JSON.parse(localStorage.getItem(P + 'srs_' + userId) || '{}'),
+    lsParse(P + 'srs_' + userId, {}),
   setSrsState: (userId, state) =>
-    localStorage.setItem(P + 'srs_' + userId, JSON.stringify(state)),
+    lsSet(P + 'srs_' + userId, JSON.stringify(state)),
   updateCardSrs: (userId, cardId, cardState) => {
     const all = storage.getSrsState(userId);
     all[cardId] = cardState;
@@ -33,7 +42,7 @@ export const storage = {
 
   // Answer records: array of { card_id, correct, time_spent, selected_answer, ability_tag, knowledge_tag, timestamp }
   getRecords: (userId) =>
-    JSON.parse(localStorage.getItem(P + 'records_' + userId) || '[]'),
+    lsParse(P + 'records_' + userId, []),
   addRecord: (userId, record) => {
     // ★ 防御性兜底：如果调用方忘记传 subject，自动推断
     // 这样即使未来新增答题页漏写了 subject，错题分类也不会出问题
@@ -49,28 +58,28 @@ export const storage = {
     }
     const records = storage.getRecords(userId);
     records.push(record);
-    localStorage.setItem(P + 'records_' + userId, JSON.stringify(records));
+    lsSet(P + 'records_' + userId, JSON.stringify(records));
   },
 
   // Sessions: array of { date, total, correct, xpEarned, durationSec, knowledgeTag? }
   getSessions: (userId) =>
-    JSON.parse(localStorage.getItem(P + 'sessions_' + userId) || '[]'),
+    lsParse(P + 'sessions_' + userId, []),
   addSession: (userId, session) => {
     const sessions = storage.getSessions(userId);
     sessions.push(session);
-    localStorage.setItem(P + 'sessions_' + userId, JSON.stringify(sessions));
+    lsSet(P + 'sessions_' + userId, JSON.stringify(sessions));
   },
 
   // 完成整轮练习的星球标记（只有做完所有题目才标记，不是答1题就算）
   // 结构: { "2026-04-13": ["语文选择题", "英语单词"], "2026-04-12": [...] }
   getCompletedPlanets: (userId) =>
-    JSON.parse(localStorage.getItem(P + 'completed_' + userId) || '{}'),
+    lsParse(P + 'completed_' + userId, {}),
   markPlanetComplete: (userId, planetTag) => {
     const today = new Date().toISOString().split('T')[0];
     const map = storage.getCompletedPlanets(userId);
     if (!map[today]) map[today] = [];
     if (!map[today].includes(planetTag)) map[today].push(planetTag);
-    localStorage.setItem(P + 'completed_' + userId, JSON.stringify(map));
+    lsSet(P + 'completed_' + userId, JSON.stringify(map));
   },
   getCompletedPlanetsToday: (userId) => {
     const today = new Date().toISOString().split('T')[0];
@@ -79,22 +88,22 @@ export const storage = {
 
   // Streak
   getStreak: (userId) =>
-    JSON.parse(localStorage.getItem(P + 'streak_' + userId) || '{"count":0,"lastDate":null}'),
+    lsParse(P + 'streak_' + userId, {"count":0,"lastDate":null}),
   setStreak: (userId, streak) =>
-    localStorage.setItem(P + 'streak_' + userId, JSON.stringify(streak)),
+    lsSet(P + 'streak_' + userId, JSON.stringify(streak)),
 
   // XP
-  getXP: (userId) => parseInt(localStorage.getItem(P + 'xp_' + userId) || '0'),
+  getXP: (userId) => parseInt(lsGet(P + 'xp_' + userId) || '0'),
   addXP: (userId, amount) => {
     const xp = storage.getXP(userId) + amount;
-    localStorage.setItem(P + 'xp_' + userId, String(xp));
+    lsSet(P + 'xp_' + userId, String(xp));
     return xp;
   },
 
   // 今日已见题目（跨 session 去重，防止同一天反复刷到相同题）
   // 结构: { date: "2026-04-14", ids: ["en_001", "en_002", ...] }
   getSeenToday: (userId) => {
-    const data = JSON.parse(localStorage.getItem(P + 'seen_today_' + userId) || '{}')
+    const data = lsParse(P + 'seen_today_' + userId, {})
     const today = new Date().toISOString().split('T')[0]
     if (data.date !== today) return []   // 日期变了，视为空
     return data.ids || []
@@ -103,60 +112,60 @@ export const storage = {
     const today = new Date().toISOString().split('T')[0]
     const existing = storage.getSeenToday(userId)
     const merged = [...new Set([...existing, ...ids])]
-    localStorage.setItem(P + 'seen_today_' + userId, JSON.stringify({ date: today, ids: merged }))
+    lsSet(P + 'seen_today_' + userId, JSON.stringify({ date: today, ids: merged }))
   },
 
   // Parent PIN
-  getParentPin: () => localStorage.getItem(P + 'pin') || null,
-  setParentPin: (pin) => localStorage.setItem(P + 'pin', pin),
+  getParentPin: () => lsGet(P + 'pin') || null,
+  setParentPin: (pin) => lsSet(P + 'pin', pin),
 
   // Essay history: [{ id, prompt, content, score, feedback, createdAt }]
   getEssays: (userId) =>
-    JSON.parse(localStorage.getItem(P + 'essays_' + userId) || '[]'),
+    lsParse(P + 'essays_' + userId, []),
   addEssay: (userId, essay) => {
     const list = storage.getEssays(userId);
     list.unshift({ ...essay, id: Date.now().toString(), createdAt: new Date().toISOString() });
     // keep latest 30
-    localStorage.setItem(P + 'essays_' + userId, JSON.stringify(list.slice(0, 30)));
+    lsSet(P + 'essays_' + userId, JSON.stringify(list.slice(0, 30)));
   },
 
   // Sentence practice history: [{ id, word, sentence, score, result, createdAt }]
   getSentenceHistory: (userId) =>
-    JSON.parse(localStorage.getItem(P + 'sentences_' + userId) || '[]'),
+    lsParse(P + 'sentences_' + userId, []),
   addSentenceHistory: (userId, item) => {
     const list = storage.getSentenceHistory(userId);
     list.unshift({ ...item, id: Date.now().toString(), createdAt: new Date().toISOString() });
-    localStorage.setItem(P + 'sentences_' + userId, JSON.stringify(list.slice(0, 100)));
+    lsSet(P + 'sentences_' + userId, JSON.stringify(list.slice(0, 100)));
   },
 
   // MV1: Per-user/per-device simple gamification state persistence (localStorage)
   // Keyed as mv1_gamification_[userId] if userId available, else mv1_gamification_session
   getMV1State: (userId) => {
     const key = userId ? `mv1_gamification_${userId}` : 'mv1_gamification_session';
-    return JSON.parse(localStorage.getItem(P + key) || 'null')
+    return lsParse(P + key, null)
   },
   setMV1State: (userId, state) => {
     const key = userId ? `mv1_gamification_${userId}` : 'mv1_gamification_session';
-    localStorage.setItem(P + key, JSON.stringify(state))
+    lsSet(P + key, JSON.stringify(state))
   },
 
   // 本地用户目录：保存曾在此设备登录过的所有用户（用于同设备重新登录时恢复 userId）
   getUsersDir: () =>
-    JSON.parse(localStorage.getItem(P + 'users_dir') || '[]'),
+    lsParse(P + 'users_dir', []),
   saveToUsersDir: (user) => {
-    const dir = JSON.parse(localStorage.getItem(P + 'users_dir') || '[]');
+    const dir = lsParse(P + 'users_dir', []);
     const entry = { id: user.id, name: user.name, pin: user.pin, createdAt: user.createdAt };
     const idx = dir.findIndex(u => u.id === user.id);
     if (idx >= 0) dir[idx] = entry;
     else dir.push(entry);
-    localStorage.setItem(P + 'users_dir', JSON.stringify(dir));
+    lsSet(P + 'users_dir', JSON.stringify(dir));
   },
 
   // 退出账号（保留用户目录，以便再次登录时恢复 userId）
   logout: () => {
     const user = storage.getUser();
     if (user) storage.saveToUsersDir(user);
-    localStorage.removeItem(P + 'user');
+    lsRemove(P + 'user');
   },
 
   // ★ 读取宠物状态（含旧 key 自动迁移）
@@ -167,14 +176,14 @@ export const storage = {
     try {
       if (userId) {
         const newKey = `mv1_pet_state_${userId}`;
-        const newVal = localStorage.getItem(newKey);
+        const newVal = lsGet(newKey);
         if (newVal) return JSON.parse(newVal);
         // 新 key 没有，尝试旧 key（迁移场景）
-        const oldVal = localStorage.getItem('mv1_pet_state');
+        const oldVal = lsGet('mv1_pet_state');
         if (oldVal) {
           const parsed = JSON.parse(oldVal);
           // 迁移：把数据复制到新 key
-          localStorage.setItem(newKey, oldVal);
+          lsSet(newKey, oldVal);
           // 保留旧 key（不删，防止其他账号还在用）
           return parsed;
         }
