@@ -27,7 +27,7 @@ const EN_WEAK_TAG_MAP = {
   '英语听力': { englishTag: 'en_listen' },
 }
 
-export default function EnglishHomePage({ user, grade = 'primary', onStartQuiz, onBack }) {
+export default function EnglishHomePage({ user, grade = 'primary', onStartQuiz, onBack, hideHeader }) {
   const xp = storage.getXP(user.id)
   const level = calcLevel(xp)
   const levelProgress = calcLevelProgress(xp)
@@ -103,18 +103,20 @@ export default function EnglishHomePage({ user, grade = 'primary', onStartQuiz, 
 
   return (
     <div className="min-h-screen flex flex-col">
-      {/* ===== 顶部栏（精简：返回+标题，数据卡片由外层统一展示） ====== */}
-      <div className="bg-white shadow-sm" style={{ paddingTop: 'env(safe-area-inset-top, 36px)' }}>
-        <div className="flex items-center gap-3 px-4 pt-3 pb-3">
-          <button
-            onClick={onBack}
-            className="w-9 h-9 flex items-center justify-center bg-gray-100 rounded-xl text-lg font-bold text-gray-500 active:bg-gray-200 transition-colors"
-          >
-            ←
-          </button>
-          <h1 className="text-xl font-bold text-gray-800">英语学习中心 🌎</h1>
+      {/* ===== 顶部栏 ====== */}
+      {!hideHeader && (
+        <div className="bg-white shadow-sm" style={{ paddingTop: 'env(safe-area-inset-top, 36px)' }}>
+          <div className="flex items-center gap-3 px-4 pt-3 pb-3">
+            <button
+              onClick={onBack}
+              className="w-9 h-9 flex items-center justify-center bg-gray-100 rounded-xl text-lg font-bold text-gray-500 active:bg-gray-200 transition-colors"
+            >
+              ←
+            </button>
+            <h1 className="text-xl font-bold text-gray-800">英语学习中心 🌎</h1>
+          </div>
         </div>
-      </div>
+      )}
 
       {/* ===== 弱项建议区域（天蓝色调，与语文琥珀色区分）===== */}
       {enWeakPoints.length > 0 ? (
@@ -148,7 +150,7 @@ export default function EnglishHomePage({ user, grade = 'primary', onStartQuiz, 
         <div className="flex items-center justify-between mb-3">
           <h2 className="text-base font-semibold text-gray-600">🌟 英语学习星球</h2>
           <span className="text-xs text-gray-400">
-            今日已练 {corePlanets.filter(p => p.id !== 'en_association' && isPracticed(p)).length}/{corePlanets.length - 1} 个星球
+            今日已练 {corePlanets.filter(p => isPracticed(p)).length}/{corePlanets.length} 个星球
           </span>
         </div>
 

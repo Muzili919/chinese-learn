@@ -18,7 +18,7 @@ const WEAK_TAG_MAP = {
   '实践探究题': 'pol_explore',
 }
 
-export default function PoliticsHomePage({ user, onStartQuiz, onBack, onWrongAnswers }) {
+export default function PoliticsHomePage({ user, onStartQuiz, onBack, hideHeader, onWrongAnswers }) {
   const xp = storage.getXP(user.id)
   const level = calcLevel(xp)
   const levelProgress = calcLevelProgress(xp)
@@ -81,8 +81,9 @@ export default function PoliticsHomePage({ user, onStartQuiz, onBack, onWrongAns
 
   return (
     <div className="min-h-screen flex flex-col bg-gray-50">
-      {/* ====== 顶部栏（精简：返回+标题，数据卡片由外层统一展示） ====== */}
-      <div className="bg-white shadow-sm" style={{ paddingTop: 'env(safe-area-inset-top, 36px)' }}>
+      {/* ====== 顶部栏 ====== */}
+      {!hideHeader && (
+        <div className="bg-white shadow-sm" style={{ paddingTop: 'env(safe-area-inset-top, 36px)' }}>
         <div className="px-4 pt-3 pb-3 flex items-center gap-3">
           <button onClick={onBack} className="w-9 h-9 flex items-center justify-center bg-gray-100 rounded-xl text-lg font-bold text-gray-500 active:bg-gray-200 transition-colors">←</button>
           <h1 className="text-xl font-bold text-gray-800 flex-1">道德与法治 ⚖️</h1>
@@ -96,6 +97,7 @@ export default function PoliticsHomePage({ user, onStartQuiz, onBack, onWrongAns
           )}
         </div>
       </div>
+      )}
 
       {/* ====== 弱项建议区域（紫罗兰色调） ====== */}
       {polWeakPoints.length > 0 && (

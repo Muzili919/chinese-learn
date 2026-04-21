@@ -5,7 +5,7 @@
     "knowledge_tag": "英语词汇",
     "ability_tag": "语音辨析",
     "type": "single_choice",
-    "question": "找出下列单词中划线部分发音不同的一项。\n\nA. <u>cat</u>\nB. <u>bag</u>\nC. <u>name</u>\nD. <u>map</u>",
+    "question": "找出下列单词中划线部分发音不同的一项。\n\nA. c<u>a</u>t\nB. b<u>a</u>g\nC. n<u>a</u>me\nD. m<u>a</u>p",
     "options": [
       "cat",
       "bag",
@@ -71,7 +71,7 @@
     "knowledge_tag": "英语词汇",
     "ability_tag": "语音辨析",
     "type": "single_choice",
-    "question": "找出下列单词中划线部分发音不同的一项。\n\nA. <u>tea</u>\nB. <u>bread</u>\nC. <u>meat</u>\nD. <u>sea</u>",
+    "question": "找出下列单词中划线部分发音不同的一项。\n\nA. t<u>ea</u>\nB. br<u>ea</u>d\nC. m<u>ea</u>t\nD. s<u>ea</u>",
     "options": [
       "tea",
       "bread",
@@ -137,7 +137,7 @@
     "knowledge_tag": "英语词汇",
     "ability_tag": "语音辨析",
     "type": "single_choice",
-    "question": "找出下列单词中划线部分发音不同的一项。\n\nA. <u>cat</u>\nB. <u>cake</u>\nC. <u>hat</u>\nD. <u>map</u>",
+    "question": "找出下列单词中划线部分发音不同的一项。\n\nA. c<u>a</u>t\nB. c<u>a</u>ke\nC. h<u>a</u>t\nD. m<u>a</u>p",
     "options": [
       "cat",
       "cake",
@@ -203,7 +203,7 @@
     "knowledge_tag": "英语词汇",
     "ability_tag": "语音辨析",
     "type": "single_choice",
-    "question": "找出下列单词中划线部分发音不同的一项。\n\nA. <u>three</u>\nB. <u>that</u>\nC. <u>thin</u>\nD. <u>thank</u>",
+    "question": "找出下列单词中划线部分发音不同的一项。\n\nA. <u>th</u>ree\nB. <u>th</u>at\nC. <u>th</u>in\nD. <u>th</u>ank",
     "options": [
       "three",
       "that",
@@ -269,7 +269,7 @@
     "knowledge_tag": "英语词汇",
     "ability_tag": "语音辨析",
     "type": "single_choice",
-    "question": "找出下列单词中划线部分发音不同的一项。\n\nA. <u>book</u>\nB. <u>good</u>\nC. <u>school</u>\nD. <u>look</u>",
+    "question": "找出下列单词中划线部分发音不同的一项。\n\nA. b<u>oo</u>k\nB. g<u>oo</u>d\nC. sch<u>oo</u>l\nD. l<u>oo</u>k",
     "options": [
       "book",
       "good",
@@ -335,7 +335,7 @@
     "knowledge_tag": "英语词汇",
     "ability_tag": "语音辨析",
     "type": "single_choice",
-    "question": "找出下列单词中划线部分发音不同的一项。\n\nA. <u>what</u>\nB. <u>who</u>\nC. <u>where</u>\nD. <u>white</u>",
+    "question": "找出下列单词中划线部分发音不同的一项。\n\nA. <u>wh</u>at\nB. <u>wh</u>o\nC. <u>wh</u>ere\nD. <u>wh</u>ite",
     "options": [
       "what",
       "who",
@@ -401,7 +401,7 @@
     "knowledge_tag": "英语词汇",
     "ability_tag": "语音辨析",
     "type": "single_choice",
-    "question": "找出下列单词中划线部分发音不同的一项。\n\nA. <u>now</u>\nB. <u>know</u>\nC. <u>how</u>\nD. <u>brown</u>",
+    "question": "找出下列单词中划线部分发音不同的一项。\n\nA. n<u>ow</u>\nB. kn<u>ow</u>\nC. h<u>ow</u>\nD. br<u>ow</u>n",
     "options": [
       "now",
       "know",
@@ -467,7 +467,7 @@
     "knowledge_tag": "英语词汇",
     "ability_tag": "语音辨析",
     "type": "single_choice",
-    "question": "找出下列单词中划线部分发音不同的一项。\n\nA. <u>bread</u>\nB. <u>eat</u>\nC. <u>tea</u>\nD. <u>meat</u>",
+    "question": "找出下列单词中划线部分发音不同的一项。\n\nA. br<u>ea</u>d\nB. <u>ea</u>t\nC. t<u>ea</u>\nD. m<u>ea</u>t",
     "options": [
       "bread",
       "eat",
@@ -533,7 +533,7 @@
     "knowledge_tag": "英语词汇",
     "ability_tag": "语音辨析",
     "type": "single_choice",
-    "question": "找出下列单词中划线部分发音不同的一项。\n\nA. <u>bike</u>\nB. <u>kite</u>\nC. <u>big</u>\nD. <u>like</u>",
+    "question": "找出下列单词中划线部分发音不同的一项。\n\nA. b<u>i</u>ke\nB. k<u>i</u>te\nC. b<u>i</u>g\nD. l<u>i</u>ke",
     "options": [
       "bike",
       "kite",
@@ -599,7 +599,7 @@
     "knowledge_tag": "英语词汇",
     "ability_tag": "语音辨析",
     "type": "single_choice",
-    "question": "找出下列单词中划线部分发音不同的一项。\n\nA. <u>house</u>\nB. <u>mouse</u>\nC. <u>young</u>\nD. <u>cloud</u>",
+    "question": "找出下列单词中划线部分发音不同的一项。\n\nA. h<u>ou</u>se\nB. m<u>ou</u>se\nC. y<u>ou</u>ng\nD. cl<u>ou</u>d",
     "options": [
       "house",
       "mouse",
@@ -665,7 +665,7 @@
     "knowledge_tag": "英语词汇",
     "ability_tag": "语音辨析",
     "type": "single_choice",
-    "question": "找出下列单词中划线部分发音不同的一项。\n\nA. <u>chair</u>\nB. <u>school</u>\nC. <u>watch</u>\nD. <u>much</u>",
+    "question": "找出下列单词中划线部分发音不同的一项。\n\nA. <u>ch</u>air\nB. s<u>ch</u>ool\nC. wat<u>ch</u>\nD. mu<u>ch</u>",
     "options": [
       "chair",
       "school",
@@ -731,7 +731,7 @@
     "knowledge_tag": "英语词汇",
     "ability_tag": "语音辨析",
     "type": "single_choice",
-    "question": "找出下列单词中划线部分发音不同的一项。\n\nA. <u>read（原形）</u>\nB. <u>head</u>\nC. <u>bread</u>\nD. <u>heavy</u>",
+    "question": "找出下列单词中划线部分发音不同的一项。\n\nA. r<u>ea</u>d（原形）\nB. h<u>ea</u>d\nC. br<u>ea</u>d\nD. h<u>ea</u>vy",
     "options": [
       "read（原形）",
       "head",
@@ -797,7 +797,7 @@
     "knowledge_tag": "英语词汇",
     "ability_tag": "语音辨析",
     "type": "single_choice",
-    "question": "找出下列单词中划线部分发音不同的一项。\n\nA. <u>teacher</u>\nB. <u>Chinese</u>\nC. <u>school</u>\nD. <u>chair</u>",
+    "question": "找出下列单词中划线部分发音不同的一项。\n\nA. tea<u>ch</u>er\nB. <u>Ch</u>inese\nC. s<u>ch</u>ool\nD. <u>ch</u>air",
     "options": [
       "teacher",
       "Chinese",
@@ -863,7 +863,7 @@
     "knowledge_tag": "英语词汇",
     "ability_tag": "语音辨析",
     "type": "single_choice",
-    "question": "找出下列单词中划线部分发音不同的一项。\n\nA. <u>play</u>\nB. <u>day</u>\nC. <u>says</u>\nD. <u>wait</u>",
+    "question": "找出下列单词中划线部分发音不同的一项。\n\nA. pl<u>ay</u>\nB. d<u>ay</u>\nC. s<u>ay</u>s\nD. w<u>ai</u>t",
     "options": [
       "play",
       "day",
@@ -929,7 +929,7 @@
     "knowledge_tag": "英语词汇",
     "ability_tag": "语音辨析",
     "type": "single_choice",
-    "question": "找出下列单词中划线部分发音不同的一项。\n\nA. <u>cough</u>\nB. <u>enough</u>\nC. <u>through</u>\nD. <u>laugh</u>",
+    "question": "找出下列单词中划线部分发音不同的一项。\n\nA. c<u>ough</u>\nB. en<u>ough</u>\nC. thr<u>ough</u>\nD. l<u>augh</u>",
     "options": [
       "cough",
       "enough",
@@ -995,7 +995,7 @@
     "knowledge_tag": "英语词汇",
     "ability_tag": "语音辨析",
     "type": "single_choice",
-    "question": "找出下列单词中划线部分发音不同的一项。\n\nA. <u>news</u>\nB. <u>newspaper</u>\nC. <u>nose</u>\nD. <u>nurse</u>",
+    "question": "找出下列单词中划线部分发音不同的一项。\n\nA. <u>n</u>ews\nB. <u>n</u>ewspaper\nC. <u>n</u>ose\nD. <u>n</u>urse",
     "options": [
       "news",
       "newspaper",
@@ -1061,7 +1061,7 @@
     "knowledge_tag": "英语词汇",
     "ability_tag": "语音辨析",
     "type": "single_choice",
-    "question": "找出下列单词中划线部分发音不同的一项。\n\nA. <u>father</u>\nB. <u>mother</u>\nC. <u>brother</u>\nD. <u>thank</u>",
+    "question": "找出下列单词中划线部分发音不同的一项。\n\nA. fa<u>th</u>er\nB. mo<u>th</u>er\nC. bro<u>th</u>er\nD. <u>th</u>ank",
     "options": [
       "father",
       "mother",
@@ -1127,7 +1127,7 @@
     "knowledge_tag": "英语词汇",
     "ability_tag": "语音辨析",
     "type": "single_choice",
-    "question": "找出下列单词中划线部分发音不同的一项。\n\nA. <u>where</u>\nB. <u>there</u>\nC. <u>here</u>\nD. <u>care</u>",
+    "question": "找出下列单词中划线部分发音不同的一项。\n\nA. wh<u>ere</u>\nB. th<u>ere</u>\nC. h<u>ere</u>\nD. c<u>are</u>",
     "options": [
       "where",
       "there",
@@ -1193,7 +1193,7 @@
     "knowledge_tag": "英语词汇",
     "ability_tag": "语音辨析",
     "type": "single_choice",
-    "question": "找出下列单词中划线部分发音不同的一项。\n\nA. <u>good</u>\nB. <u>food</u>\nC. <u>cool</u>\nD. <u>school</u>",
+    "question": "找出下列单词中划线部分发音不同的一项。\n\nA. g<u>oo</u>d\nB. f<u>oo</u>d\nC. c<u>oo</u>l\nD. sch<u>oo</u>l",
     "options": [
       "good",
       "food",
@@ -1259,7 +1259,7 @@
     "knowledge_tag": "英语词汇",
     "ability_tag": "语音辨析",
     "type": "single_choice",
-    "question": "找出下列单词中划线部分发音不同的一项。\n\nA. <u>wear</u>\nB. <u>hear</u>\nC. <u>near</u>\nD. <u>dear</u>",
+    "question": "找出下列单词中划线部分发音不同的一项。\n\nA. w<u>ear</u>\nB. h<u>ear</u>\nC. n<u>ear</u>\nD. d<u>ear</u>",
     "options": [
       "wear",
       "hear",
@@ -1325,7 +1325,7 @@
     "knowledge_tag": "英语词汇",
     "ability_tag": "语音辨析",
     "type": "single_choice",
-    "question": "找出下列单词中划线部分发音不同的一项。\n\nA. <u>think</u>\nB. <u>thank</u>\nC. <u>they</u>\nD. <u>three</u>",
+    "question": "找出下列单词中划线部分发音不同的一项。\n\nA. <u>th</u>ink\nB. <u>th</u>ank\nC. <u>th</u>ey\nD. <u>th</u>ree",
     "options": [
       "think",
       "thank",
@@ -1391,7 +1391,7 @@
     "knowledge_tag": "英语词汇",
     "ability_tag": "语音辨析",
     "type": "single_choice",
-    "question": "找出下列单词中划线部分发音不同的一项。\n\nA. <u>mouth</u>\nB. <u>month</u>\nC. <u>smooth</u>\nD. <u>tooth</u>",
+    "question": "找出下列单词中划线部分发音不同的一项。\n\nA. m<u>outh</u>\nB. m<u>onth</u>\nC. sm<u>ooth</u>\nD. t<u>ooth</u>",
     "options": [
       "mouth",
       "month",
@@ -1457,7 +1457,7 @@
     "knowledge_tag": "英语词汇",
     "ability_tag": "语音辨析",
     "type": "single_choice",
-    "question": "找出下列单词中划线部分发音不同的一项。\n\nA. <u>apple</u>\nB. <u>map</u>\nC. <u>cake</u>\nD. <u>cat</u>",
+    "question": "找出下列单词中划线部分发音不同的一项。\n\nA. <u>a</u>pple\nB. m<u>a</u>p\nC. c<u>a</u>ke\nD. c<u>a</u>t",
     "options": [
       "apple",
       "map",
@@ -1523,7 +1523,7 @@
     "knowledge_tag": "英语词汇",
     "ability_tag": "语音辨析",
     "type": "single_choice",
-    "question": "找出下列单词中划线部分发音不同的一项。\n\nA. <u>music</u>\nB. <u>student</u>\nC. <u>computer</u>\nD. <u>bus</u>",
+    "question": "找出下列单词中划线部分发音不同的一项。\n\nA. m<u>u</u>sic\nB. st<u>u</u>dent\nC. comp<u>u</u>ter\nD. b<u>u</u>s",
     "options": [
       "music",
       "student",

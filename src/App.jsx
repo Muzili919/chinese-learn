@@ -34,6 +34,7 @@ const MathFormulaPage = lazy(() => import('./pages/MathFormulaPage'))
 const DashboardPage = lazy(() => import('./pages/DashboardPage'))
 const AIPracticePage = lazy(() => import('./pages/AIPracticePage'))
 const LeaderboardPage = lazy(() => import('./pages/LeaderboardPage'))
+const JuniorChineseHomePage = lazy(() => import('./pages/JuniorChineseHomePage'))
 const GlobalPetDock = lazy(() => import('./components/GlobalPetDock'))
 
 // 检查上帝模式：URL 带 ?god=1 或 #god=1
@@ -52,6 +53,7 @@ const SUBJECTS_BY_GRADE = {
     { id: 'math',     label: '数学', emoji: '🔢', available: true },
   ],
   junior2: [
+    { id: 'chinese',  label: '语文', emoji: '📖', available: true },
     { id: 'english',  label: '英语', emoji: '🌎', available: true },
     { id: 'politics', label: '道法', emoji: '⚖️', available: true },
     { id: 'math',     label: '数学', emoji: '🔢', available: true },
@@ -493,6 +495,9 @@ export default function App() {
     } else if (opts.mathTopic) {
       setQuizOptions(opts)
       setPage('quiz')
+    } else if (opts.juniorChineseTag) {
+      setQuizOptions(opts)
+      setPage('quiz')
     } else if (opts.politicsTag) {
       setQuizOptions(opts)
       setPage('politicsQuiz')
@@ -619,7 +624,27 @@ export default function App() {
       />
     )
 
-    if (page === 'quiz') return <QuizPage user={user} options={quizOptions} onFinish={finishQuiz} onBack={goHome} />
+    if (page === 'quiz') return (
+      <QuizPage
+        user={user}
+        options={quizOptions}
+        onFinish={finishQuiz}
+        onBack={() => {
+          if (quizOptions?.mathTopic) {
+            setActiveSubject('math')
+            setPage('subject_home')
+          } else if (quizOptions?.wrongCardIds) {
+            goHome()
+          } else if (quizOptions?.juniorChineseTag) {
+            setActiveSubject('chinese')
+            setPage('subject_home')
+          } else {
+            setActiveSubject('chinese')
+            setPage('subject_home')
+          }
+        }}
+      />
+    )
     if (page === 'reading') return <ReadingPage user={user} onFinish={finishQuiz} onBack={goHome} />
     if (page === 'sentence_practice') return <SentencePracticePage user={user} onBack={goHome} />
     if (page === 'essay') return <EssayPage user={user} onBack={goHome} />
@@ -731,19 +756,16 @@ export default function App() {
             </span>
           </div>
           {activeSubject === 'chinese' && (
-            <HomePage
-              user={user}
-              onStartQuiz={startQuiz}
-              hideHeader
-              activeSubject={activeSubject}
-              grade={grade}
-            />
+            grade === 'primary'
+              ? <HomePage user={user} onStartQuiz={startQuiz} hideHeader activeSubject={activeSubject} grade={grade} />
+              : <JuniorChineseHomePage user={user} grade={grade} onStartQuiz={startQuiz} />
           )}
           {activeSubject === 'english' && (
             <EnglishHomePage
               user={user}
               grade={grade}
               onStartQuiz={startQuiz}
+              hideHeader
             />
           )}
           {activeSubject === 'politics' && (
@@ -751,6 +773,7 @@ export default function App() {
               user={user}
               onStartQuiz={startQuiz}
               onBack={goHome}
+              hideHeader
               onWrongAnswers={() => setActiveTab('wrong')}
             />
           )}

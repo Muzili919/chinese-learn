@@ -14,6 +14,18 @@ import {
   parseExpectedAnswers, smartCheck,
 } from '../utils/quizUtils'
 
+// ─── 富文本渲染：把 <u>xxx</u> 转为 React 下划线元素 ──
+function renderRichText(text) {
+  if (!text || !text.includes('<u>')) return text
+  const parts = text.split(/(<u>.*?<\/u>)/g)
+  return parts.map((part, i) => {
+    if (part.startsWith('<u>') && part.endsWith('</u>')) {
+      return <u key={i} className="underline decoration-2 decoration-red-500 underline-offset-4 font-bold">{part.slice(3, -4)}</u>
+    }
+    return part
+  })
+}
+
 // ─── 底部反馈面板 ─────────────────────────────────────────
 
 function FeedbackPanel({ correct, analysis, answer, onContinue, variantState }) {
@@ -624,7 +636,7 @@ function FillQuestion({ question, onDone }) {
   return (
     <div className="flex flex-col gap-3">
       <div className="bg-white rounded-3xl px-5 py-5 shadow-sm border border-gray-100">
-        <p className="text-base text-gray-800 leading-relaxed whitespace-pre-wrap">{question.question}</p>
+        <p className="text-base text-gray-800 leading-relaxed whitespace-pre-wrap">{renderRichText(question.question)}</p>
         {/* 配图渲染 */}
         {question.image && (
           <div className="mt-4 flex justify-center">
@@ -714,7 +726,7 @@ function SelfEvalFillQuestion({ question, onDone }) {
     <div className="flex flex-col gap-3">
       {/* 题干 */}
       <div className="bg-white rounded-3xl px-5 py-5 shadow-sm border border-gray-100">
-        <p className="text-base text-gray-800 leading-relaxed whitespace-pre-wrap">{question.question}</p>
+        <p className="text-base text-gray-800 leading-relaxed whitespace-pre-wrap">{renderRichText(question.question)}</p>
       </div>
 
       {/* 未查看时：显示"查看答案"按钮 */}
@@ -1293,7 +1305,7 @@ function MatchingQuestion({ question, onDone }) {
   return (
     <div className="flex flex-col gap-4">
       <div className="bg-white rounded-3xl px-5 py-4 shadow-sm border border-gray-100">
-        <p className="text-base text-gray-800 font-medium">{question.question}</p>
+        <p className="text-base text-gray-800 font-medium">{renderRichText(question.question)}</p>
       </div>
       <div className="flex gap-2">
         <div className="flex-1 flex flex-col gap-2">
@@ -1480,7 +1492,7 @@ export default function DuolingoStyleQuiz({ question, onAnswerSubmit, showVarian
           <p className={`leading-relaxed font-medium text-gray-800 ${
             question.question.length > 120 ? 'text-sm' :
             question.question.length > 60  ? 'text-base' : 'text-lg'
-          }`}>{question.question}</p>
+          }`}>{renderRichText(question.question)}</p>
           {/* 配图渲染：支持 SVG 字符串 / 图片 URL / base64 */}
           {question.image && (
             <div className="mt-4 flex justify-center">
@@ -1509,7 +1521,7 @@ export default function DuolingoStyleQuiz({ question, onAnswerSubmit, showVarian
             <p className={`leading-relaxed font-medium flex-1 whitespace-pre-wrap text-gray-800 ${
               question.question.length > 120 ? 'text-sm' :
               question.question.length > 60  ? 'text-base' : 'text-lg'
-            }`}>{question.question}</p>
+            }`}>{renderRichText(question.question)}</p>
             {onSpeak && (
               <button
                 onClick={() => onSpeak(question.question)}

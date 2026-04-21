@@ -26,6 +26,11 @@ import mathJuniorEquationQ from '../data/questions_math_junior_equation.json'
 import mathJuniorFunctionQ from '../data/questions_math_junior_function.json'
 import mathJuniorAlgebraQ from '../data/questions_math_junior_algebra.json'
 import mathJuniorGeoQ from '../data/questions_math_junior_geo.json'
+import jcBasicQ from '../data/questions_junior_chinese_basic.json'
+import jcPoetryQ from '../data/questions_junior_chinese_poetry.json'
+import jcClassicalQ from '../data/questions_junior_chinese_classical.json'
+import jcNovelQ from '../data/questions_junior_chinese_novel.json'
+import jcExprQ from '../data/questions_junior_chinese_expression.json'
 import { shuffle } from '../utils/common'
 
 const CHINESE_QUESTIONS = [...vocabQ, ...poetryQ, ...idiomQ, ...sentenceQ, ...litQ]
@@ -34,9 +39,25 @@ const POLITICS_ALL = Array.isArray(politicsQ) ? politicsQ : (politicsQ.questions
 const MATH_PRIMARY = [...mathBasicQ, ...mathGeoQ, ...mathOlympiadQ]  // 小学
 const MATH_JUNIOR = [...mathJuniorEquationQ, ...mathJuniorFunctionQ, ...mathJuniorAlgebraQ, ...mathJuniorGeoQ]  // 初中
 const MATH_ALL = [...MATH_PRIMARY, ...MATH_JUNIOR]
+// ★ 初中语文题库
+const JUNIOR_CHINESE_ALL = [
+  ...(Array.isArray(jcBasicQ) ? jcBasicQ : []),
+  ...(Array.isArray(jcPoetryQ) ? jcPoetryQ : []),
+  ...(Array.isArray(jcClassicalQ) ? jcClassicalQ : []),
+  ...(Array.isArray(jcNovelQ) ? jcNovelQ : []),
+  ...(Array.isArray(jcExprQ) ? jcExprQ : []),
+]
+// 初中语文各星球对应的 knowledge_tag 列表
+const JC_PLANET_TAGS = {
+  jc_basic: ['字音辨析', '字形辨析', '词语运用', '病句辨析', '标点符号', '句子排序', '文学常识'],
+  jc_poetry: ['古诗文默写', '古诗词赏析', '文言文翻译', '古诗文常识'],
+  jc_classical: ['实词解释', '虚词用法', '句式翻译', '文言文阅读'],
+  jc_novel: ['名著阅读'],
+  jc_expression: ['仿写句子', '语言得体', '信息概括', '图文转换', '综合性学习'],
+}
 // ★ 全学科合并映射（错题练习需要跨学科查找）
 const ALL_SUBJECTS_MAP = Object.fromEntries(
-  [...CHINESE_QUESTIONS, ...ENGLISH_QUESTIONS, ...POLITICS_ALL, ...MATH_ALL].map(q => [q.id, q])
+  [...CHINESE_QUESTIONS, ...ENGLISH_QUESTIONS, ...POLITICS_ALL, ...MATH_ALL, ...JUNIOR_CHINESE_ALL].map(q => [q.id, q])
 )
 
 const ALL_QUESTIONS = CHINESE_QUESTIONS
@@ -65,14 +86,16 @@ function shuffleOptions(question) {
 }
 
 export default function QuizPage({ user, options = {}, onFinish, onBack }) {
-  const { focusTag = null, knowledgeTag = null, wrongCardIds = null, mathTopic = null, minDifficulty = null, grade = null } = options
+  const { focusTag = null, knowledgeTag = null, wrongCardIds = null, mathTopic = null, minDifficulty = null, grade = null, juniorChineseTag = null } = options
 
   // 根据星球确定每次答题数
   const sessionSize = (wrongCardIds?.length)
     ? DEFAULT_SESSION_SIZE
     : (mathTopic
         ? MATH_SESSION_SIZE
-        : (PLANET_SESSION_SIZES[knowledgeTag] || DEFAULT_SESSION_SIZE))
+        : (juniorChineseTag
+            ? 10
+            : (PLANET_SESSION_SIZES[knowledgeTag] || DEFAULT_SESSION_SIZE)))
 
   const srsStates = useRef(storage.getSrsState(user.id))
   const startTime = useRef(Date.now())
@@ -132,12 +155,21 @@ export default function QuizPage({ user, options = {}, onFinish, onBack }) {
       return shuffle(pool).slice(0, sessionSize).map(shuffleOptions)
     }
 
+    // ★ 初中语文星球
+    if (juniorChineseTag) {
+      const tags = JC_PLANET_TAGS[juniorChineseTag]
+      let pool = tags
+        ? JUNIOR_CHINESE_ALL.filter(q => tags.includes(q.knowledge_tag))
+        : JUNIOR_CHINESE_ALL
+      return shuffle(pool).slice(0, sessionSize).map(shuffleOptions)
+    }
+
     let pool = ALL_QUESTIONS
     if (knowledgeTag) pool = pool.filter((q) => q.knowledge_tag === knowledgeTag)
     const isMixed = !knowledgeTag && !focusTag
     const seenToday = new Set(storage.getSeenToday(user.id))
     return scheduleSession(pool, srsStates.current, sessionSize, focusTag, isMixed, seenToday).map(shuffleOptions)
-  }, [focusTag, knowledgeTag, wrongCardIds, sessionSize, mathTopic, minDifficulty, grade])
+  }, [focusTag, knowledgeTag, wrongCardIds, sessionSize, mathTopic, minDifficulty, grade, juniorChineseTag])
 
   const isWrongReview = !!(wrongCardIds?.length)
 
@@ -171,7 +203,7 @@ export default function QuizPage({ user, options = {}, onFinish, onBack }) {
       ability_tag: current.ability_tag,
       knowledge_tag: current.knowledge_tag,
       topic: current.topic,
-      subject: mathTopic ? 'math' : 'chinese',
+      subject: mathTopic ? 'math' : juniorChineseTag ? 'chinese_junior' : 'chinese',
       timestamp: new Date().toISOString(),
     }
     storage.addRecord(user.id, record)
