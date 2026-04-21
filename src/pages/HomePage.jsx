@@ -47,8 +47,8 @@ const PLANETS = [
   { id: 'reading', label: '阅读星球',  emoji: '📖', color: 'from-emerald-400 to-teal-600',  desc: 'AI评分·短文阅读理解', reading: true },
   { id: '文学常识',label: '文学星球',  emoji: '🎭', color: 'from-rose-400 to-pink-600',     desc: '四大名著·标点·文体' },
   { id: 'sentence_practice', label: '造句星球', emoji: '✍️', color: 'from-amber-400 to-orange-500', desc: 'AI即时批改·学会用词' },
-  { id: 'dictation', label: '听写星球', emoji: '🎧', color: 'from-cyan-400 to-blue-500',   desc: 'TTS听写·拍照批改·词库管理', dictation: true },
   { id: 'essay',   label: '作文星球',  emoji: '📝', color: 'from-pink-500 to-rose-600',     desc: 'AI三维评分·提升写作' },
+  { id: 'dictation', label: '听写星球', emoji: '🎧', color: 'from-cyan-400 to-blue-500',   desc: 'TTS听写·拍照批改·词库管理', dictation: true },
   { id: 'self_test',label: '自测星球', emoji: '🧪', color: 'from-amber-500 to-orange-600',  desc: 'AI出卷·小升初难度·查漏补缺', isSelfTest: true },
 ]
 
@@ -549,8 +549,10 @@ export default function HomePage({ user, onStartQuiz, hideHeader, activeSubject:
             <span className="text-[10px] bg-indigo-100 text-indigo-600 px-1.5 py-0.5 rounded-md font-medium">👆 核心闯关</span>
           </div>
           <span className="text-xs text-gray-400">
-            今日已练 {QUIZ_PLANET_IDS.filter(id => practicedToday.has(id)).length +
-              (practicedToday.has('阅读星球') ? 1 : 0)}/{QUIZ_PLANET_IDS.length + 1} 个
+            今日已练 {PLANETS.slice(0, 8).filter(p => {
+              const tagId = p.reading ? '阅读星球' : p.id
+              return practicedToday.has(tagId)
+            }).length}/8 个星球
           </span>
         </div>
 

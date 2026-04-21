@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react'
+import { useState, useMemo, useEffect } from 'react'
 import { storage } from '../utils/storage'
 
 const MATH_TOPICS = {
@@ -116,6 +116,26 @@ export default function MathHomePage({ user, grade, onStartQuiz, onStartFormula 
     return map
   }, [mathRecords])
 
+  // 打卡追踪
+  const [refreshKey, setRefreshKey] = useState(0)
+  useEffect(() => {
+    const handleVisible = () => {
+      if (document.visibilityState === 'visible') setRefreshKey(k => k + 1)
+    }
+    document.addEventListener('visibilitychange', handleVisible)
+    return () => document.removeEventListener('visibilitychange', handleVisible)
+  }, [])
+
+  const practicedToday = useMemo(() => {
+    return new Set(storage.getCompletedPlanetsToday(user?.id))
+  }, [user?.id, records, refreshKey])
+
+  function isTopicDone(topicName) {
+    return practicedToday.has('🔢 ' + topicName)
+  }
+
+  const doneCount = topics.filter(t => isTopicDone(t.topic)).length
+
   return (
     <div className="flex flex-col pb-24">
 
@@ -128,7 +148,7 @@ export default function MathHomePage({ user, grade, onStartQuiz, onStartFormula 
             {config.label} {config.range}
           </span>
         </div>
-        <p className="text-xs text-gray-400">{config.label} {config.range} · {totalQuestions}道题 · 每次练习10题</p>
+        <p className="text-xs text-gray-400">{config.label} {config.range} · {totalQuestions}道题 · 今日已练 {doneCount}/{topics.length} 个专题</p>
       </div>
 
       {/* 快速统计卡片 */}
@@ -169,12 +189,13 @@ export default function MathHomePage({ user, grade, onStartQuiz, onStartFormula 
           const topicAcc = topicTotal > 0
             ? Math.round(topicRecords.filter(r => r.correct).length / topicTotal * 100)
             : null
+          const done = isTopicDone(topic.topic)
 
           return (
             <button
               key={topic.id}
               onClick={() => onStartQuiz({ mathTopic: topic.topic, grade: level })}
-              className={`bg-gradient-to-br ${topic.color} text-white rounded-2xl p-4 flex items-center gap-4 shadow-sm active:scale-95 transition-transform text-left`}
+              className={`bg-gradient-to-br ${topic.color} text-white rounded-2xl p-4 flex items-center gap-4 shadow-sm active:scale-95 transition-transform text-left relative ${done ? 'ring-2 ring-green-300 ring-offset-1' : ''}`}
             >
               <span className="text-4xl leading-none">{topic.emoji}</span>
               <div className="flex-1 min-w-0">
@@ -192,6 +213,9 @@ export default function MathHomePage({ user, grade, onStartQuiz, onStartFormula 
                 )}
               </div>
               <span className="text-white/60 text-xl flex-shrink-0">›</span>
+              {done && (
+                <span className="absolute top-2 right-2 text-[10px] bg-white/30 text-white font-semibold px-1.5 py-0.5 rounded-full">✓</span>
+              )}
             </button>
           )
         })}

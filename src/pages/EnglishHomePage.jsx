@@ -81,11 +81,6 @@ export default function EnglishHomePage({ user, grade = 'primary', onStartQuiz, 
   }
 
   function isPracticed(planet) {
-    // ★ 联想星球永远不显示打卡（每次做都是随机练习，不算固定星球任务）
-    if (planet.id === 'en_association') return false
-    
-    // 一个星球可能有多个 tag（如词汇星球有 '英语词汇' 和 '初中单词星球'）
-    // 只要任意一个 tag 被标记为完成，就算打卡
     return Object.entries(TAG_TO_PLANET).some(([tag, pid]) => pid === planet.id && practicedToday.has(tag))
   }
 
