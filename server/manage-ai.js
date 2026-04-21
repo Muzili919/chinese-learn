@@ -42,7 +42,13 @@ const MODEL_CONFIGS = {
     provider: '阿里云',
     envKey: 'QWEN_API_KEY',
     defaultBaseUrl: 'https://dashscope.aliyuncs.com/compatible-mode/v1'
-  }
+  },
+  'glm-5.1': {
+    name: '智谱 GLM-5.1',
+    provider: '智谱AI（国际版）',
+    envKey: 'GLM_API_KEY',
+    defaultBaseUrl: 'https://api.z.ai/api/paas/v4'
+  },
 }
 
 // 读取环境变量
@@ -184,7 +190,7 @@ async function main() {
       if (!modelToSwitch) {
         console.error('❌ 请指定要切换的模型')
         console.error('使用方法: node manage-ai.js switch [模型名称]')
-        console.error('可用模型: deepseek-chat, deepseek-reasoner, qwen-max, qwen-plus, qwen-turbo')
+        console.error('可用模型: deepseek-chat, deepseek-reasoner, qwen-max, qwen-plus, qwen-turbo, glm-5.1')
         break
       }
       switchDefaultModel(modelToSwitch)
