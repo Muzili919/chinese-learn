@@ -222,14 +222,14 @@ const PET_SPRITE_MAP = (function() {
       hasPngEmotions: true,
       useLevelBasedEmotion: true,
     },
-    // === SR级：小凤凰（3阶段AI精美PNG）===
-    pet_phoenix: {
+    // === SR级：深渊乌鸦（3阶段AI精美PNG）===
+    pet_abyssal_raven: {
       levelSprites: {
-        1: '/pets/phoenix/stage1/reading.png',
-        10: '/pets/phoenix/stage2/reading.png',
-        20: '/pets/phoenix/stage3/reading.png',
+        1: '/pets/abyssal_raven/stage1/normal.png',
+        10: '/pets/abyssal_raven/stage2/normal.png',
+        20: '/pets/abyssal_raven/stage3/normal.png',
       },
-      emotionSprites: makePetStage('phoenix', 'stage1'),
+      emotionSprites: makePetStage('abyssal_raven', 'stage1'),
       hasPngEmotions: true,
       useLevelBasedEmotion: true,
     },
@@ -241,6 +241,50 @@ const PET_SPRITE_MAP = (function() {
         20: '/pets/starpony/stage3/reading.png',
       },
       emotionSprites: makePetStage('starpony', 'stage1'),
+      hasPngEmotions: true,
+      useLevelBasedEmotion: true,
+    },
+    // === SSR级：月相神王体（3阶段AI精美PNG）===
+    pet_lunar_king: {
+      levelSprites: {
+        1: '/pets/lunar_king/stage1/normal.png',
+        10: '/pets/lunar_king/stage2/normal.png',
+        20: '/pets/lunar_king/stage3/normal.png',
+      },
+      emotionSprites: makePetStage('lunar_king', 'stage1'),
+      hasPngEmotions: true,
+      useLevelBasedEmotion: true,
+    },
+    // === SSR级：星光影海兽（3阶段AI精美PNG）===
+    pet_star_beast: {
+      levelSprites: {
+        1: '/pets/star_beast/stage1/normal.png',
+        10: '/pets/star_beast/stage2/normal.png',
+        20: '/pets/star_beast/stage3/normal.png',
+      },
+      emotionSprites: makePetStage('star_beast', 'stage1'),
+      hasPngEmotions: true,
+      useLevelBasedEmotion: true,
+    },
+    // === SSR级：幽灵月夜猫（3阶段AI精美PNG）===
+    pet_ghost_cat: {
+      levelSprites: {
+        1: '/pets/ghost_cat/stage1/normal.png',
+        10: '/pets/ghost_cat/stage2/normal.png',
+        20: '/pets/ghost_cat/stage3/normal.png',
+      },
+      emotionSprites: makePetStage('ghost_cat', 'stage1'),
+      hasPngEmotions: true,
+      useLevelBasedEmotion: true,
+    },
+    // === SSR级：露奈雅来兽（3阶段AI精美PNG）===
+    pet_lunala_beast: {
+      levelSprites: {
+        1: '/pets/lunala_beast/stage1/normal.png',
+        10: '/pets/lunala_beast/stage2/normal.png',
+        20: '/pets/lunala_beast/stage3/normal.png',
+      },
+      emotionSprites: makePetStage('lunala_beast', 'stage1'),
       hasPngEmotions: true,
       useLevelBasedEmotion: true,
     },

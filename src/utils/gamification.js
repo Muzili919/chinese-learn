@@ -82,10 +82,10 @@ export const PET_POOL = [
     stages: ['一枚银蓝色的金属龙蛋，表面有发光的能量纹路', '机械翼龙幼崽，小翅膀是半透明的能量翼膜，眼睛是LED显示屏', '四肢覆盖精密机械甲壳，尾部带电磁尾翼，能短距离悬浮飞行', '终极形态！全覆式量子装甲，双翼展开呈全息投影状态，胸口核心爆发蓝色等离子光芒'],
   },
   {
-    poolId: 'pet_phoenix', name: '小凤凰', emoji: '🔥', rarity: 'SR', personality: 'passionate',
-    spritePrefix: 'phoenix',
-    desc: '彩虹渐变羽色的小凤凰，羽毛从粉红过渡到天蓝再到金黄，每一次振翅都洒落星尘',
-    stages: ['一颗彩虹色的温热鸟蛋，摸上去像在触摸阳光', '毛茸茸的小凤凰雏鸟，羽色从头部粉色渐变到尾部蓝色，眼睛大得像宝石', '羽色更加绚丽多彩，展翅时能看到每一根羽毛都在发光', '涅槃重生形态！周身环绕七彩火焰光环，双翼展开如同一道彩虹横跨天空'],
+    poolId: 'pet_abyssal_raven', name: '深渊乌鸦', emoji: '🦅', rarity: 'SR', personality: 'mysterious',
+    spritePrefix: 'abyssal_raven',
+    desc: '来自混沌深渊的神秘乌鸦，羽毛吸收光线却能折射出彩虹，眼中燃烧着不属于这个世界的火焰',
+    stages: ['黑曜石般的蛋，摸起来有轻微灼热感，表面隐约有紫金纹路', '小乌鸦雏鸟，羽毛漆黑如墨，眼睛是两团幽紫火焰，翅膀末端透着深红', '羽翼渐丰，黑羽中夹杂紫金光纹，展翅时深渊之力隐隐流动', '深渊乌鸦成年！六翼展开遮天蔽日，爪握虚空可撕裂次元'],
   },
   {
     poolId: 'pet_starpony', name: '星光小马', emoji: '🦄', rarity: 'SR', personality: 'dreamy',
@@ -95,23 +95,28 @@ export const PET_POOL = [
   },
   // === SSR级 传说 ===
   {
-    poolId: 'pet_moonwolf', name: '月魄白狼', emoji: '🐺', rarity: 'SSR', personality: 'noble',
-    spritePrefix: 'moonwolf',
-    desc: '太古月神之灵所化的白狼，月圆之夜毛发如白玉生辉，双瞳倒映整片星河，踏过之处寒霜凝结',
-    stages: ['一颗乳白色的狼蛋，月光下会透出幽蓝内光，触之清凉如玉', '小小的白狼幼崽，眼睛是淡蓝色的星芒，耳尖已有银色月纹显现', '银白色的少年白狼，脊背流动月华光带，咆哮时有月芒如刃', '月魄白狼成年体！周身月辉如铠甲，爪踏虚空，嗥声震九天', '完全体 · 月神降世！全身化为流动的月华，双眼是两轮满月，所到之处永夜长明'],
+    poolId: 'pet_lunar_king', name: '月相神王体', emoji: '🌕', rarity: 'SSR', personality: 'majestic',
+    spritePrefix: 'lunar_king',
+    desc: '以月光为躯、星辰为甲的远古神王，掌控月相盈亏之力，每一次现身都伴随天地变色',
+    stages: ['一颗散发着银白月光的球形蛋，表面有月相纹路缓缓流转', '月相幼体，半透明银白身躯中可见星辰运转，目光所及之处月华倾泻', '月相成长体！银甲覆身，身后浮现残月虚影，举手投足间引力波动', '月相神王完全体！全身化为流动月华，脚踏虚空，月相轮转于身后'],
   },
   {
-    poolId: 'pet_abyssal_raven', name: '深渊乌鸦', emoji: '🦅', rarity: 'SSR', personality: 'mysterious',
-    spritePrefix: 'abyssal_raven',
-    desc: '来自混沌深渊的神秘乌鸦，羽毛吸收光线却能折射出彩虹，眼中燃烧着不属于这个世界的火焰',
-    stages: ['一枚黑曜石般的蛋，摸起来有轻微的灼热感，表面隐约有紫金纹路', '小乌鸦雏鸟，全身羽毛漆黑如墨，眼睛是两团幽紫火焰，翅膀末端透着深红', '羽翼渐丰，黑羽中夹杂紫金光纹，展翅时深渊之力隐隐流动', '深渊乌鸦成年！六翼展开遮天蔽日，羽毛可吞噬一切光线，爪握虚空可撕裂次元', '完全体 · 深渊使者！虚空之翼覆盖星空，所过之处时间静止，混沌之焰与宇宙共鸣'],
+    poolId: 'pet_star_beast', name: '星光影海兽', emoji: '✨', rarity: 'SSR', personality: 'enigmatic',
+    spritePrefix: 'star_beast',
+    desc: '游弋于星际影海之间的远古巨兽，身体由凝固的星光构成，可以穿梭于不同维度',
+    stages: ['一颗内部有微缩星系旋转的透明蛋，散发着柔和的星云光芒', '星光幼兽，半流体身躯中星光闪烁，尾巴划过空气留下星尘轨迹', '影海成长体！身躯更加凝实，可以短暂隐入影子空间再从另一处现身', '星光影海完全体！身躯化为璀璨银河，可自由穿梭维度之间'],
   },
-  // === XR级 神话 ===
   {
-    poolId: 'pet_chaos_dragon', name: '混沌神龙', emoji: '🐲', rarity: 'XR', personality: 'ancient',
-    spritePrefix: 'chaos_dragon',
-    desc: '诞生于宇宙混沌之初的太古神龙，鳞片由凝固的星尘铸成，每一口吐息都是一个新星系的诞生',
-    stages: ['一枚浮于空中的蛋，表面流转着五色混沌之光，触之有电流穿透全身', '混沌龙幼崽！小小身体却能感受到压迫人心的古老气息，五色鳞片随心情变换', '龙角初现，鳞甲开始流动混沌之光，周身虚空开始扭曲，时空在其周围微微颤抖', '神龙觉醒！五色混沌之力汇聚，四爪踏碎虚空，龙吟一声九天震颤，山海变色', '完全体 · 混沌神龙！鳞片是宇宙本源，双角贯穿时空，一吐一息间星系生灭，与天地同寿'],
+    poolId: 'pet_ghost_cat', name: '幽灵月夜猫', emoji: '👻', rarity: 'SSR', personality: 'ethereal',
+    spritePrefix: 'ghost_cat',
+    desc: '只在月圆之夜现世的幽灵猫咪，半透明的身体飘浮在空中，能看见常人看不到的东西',
+    stages: ['一颗飘浮在半空中的淡紫色蛋，透过外壳可以看到内部有幽灵般的微光在游动', '幽灵小猫，半透明紫色身体，大眼睛发出幽光，走路时脚下有小灵魂飘动', '月夜猫成长体！尾巴分裂为三条幽灵尾，可以穿过任何物体', '幽灵月夜猫完全体！全身化为紫色幽光，三尾如灵魂丝带飘舞，可以召唤月之结界'],
+  },
+  {
+    poolId: 'pet_lunala_beast', name: '露奈雅来兽', emoji: '🌙', rarity: 'SSR', personality: 'cosmic',
+    spritePrefix: 'lunala_beast',
+    desc: '来自平行宇宙的月之使者，翅膀展开时如同新月，吸收月光转化为毁灭性的能量',
+    stages: ['一颗散发暗紫色新月光芒的蛋，内部隐约有翅膀形状的影子在旋转', '露奈雅来幼体，暗紫色身躯配新月形翅膀，眼睛是两颗旋转的小星星', '月之使者成长体！翅膀完全展开如同弯月，可以释放月之射线', '露奈雅来完全体！全身被宇宙能量包裹，双翼展开如同满月降临'],
   },
 ];
 
@@ -587,7 +592,7 @@ export function initGodModeState() {
     totalStars: 9999,
     coins: 99999,
     petPool: PET_POOL,
-    ownedPets: ['pet_kitten', 'pet_shiba', 'pet_hamster', 'pet_corgi', 'pet_fox', 'pet_butterfly', 'pet_mantis', 'pet_squirrel', 'pet_kungfu', 'pet_toothless', 'pet_petal_fairy', 'pet_mecha_dragon', 'pet_phoenix', 'pet_starpony'],  // 15只全解锁
+    ownedPets: ['pet_kitten', 'pet_shiba', 'pet_hamster', 'pet_corgi', 'pet_fox', 'pet_butterfly', 'pet_mantis', 'pet_squirrel', 'pet_kungfu', 'pet_toothless', 'pet_petal_fairy', 'pet_mecha_dragon', 'pet_abyssal_raven', 'pet_starpony', 'pet_lunar_king', 'pet_star_beast', 'pet_ghost_cat', 'pet_lunala_beast'],  // 17只全解锁
     currentPet: {
       poolId: 'pet_kitten',   // 默认小橘猫
       level: 3,               // ★ 宠物初始低级（你可以用无限经验自己升级，观察每个阶段状态）
@@ -931,13 +936,12 @@ const POOL_BY_RARITY = {
  * @param {number} level - 宠物当前等级（等级越高概率略高）
  */
 function getRarityProbs(level = 1) {
-  const lvBonus = Math.floor((level - 1) / 10); // 每10级加成一档
-  const xr  = Math.min(0.05, 0.005 + lvBonus * 0.0008); // 0.5% → 最高5%
-  const ssr = Math.min(0.15, 0.025 + lvBonus * 0.002);  // 2.5% → 最高15%
-  const sr  = Math.min(0.30, 0.100 + lvBonus * 0.005);  // 10%  → 最高30%
+  const lvBonus = Math.floor((level - 1) / 10);
+  const ssr = Math.min(0.05, 0.05);  // SSR 固定5%
+  const sr  = Math.min(0.30, 0.100 + lvBonus * 0.005);  // 10% → 最高30%
   const r   = 0.27;
-  // n = 余数
-  return { xr, ssr, sr, r, n: Math.max(0, 1 - xr - ssr - sr - r) };
+  // n = 余数（含 XR 占位，当前无 XR 宠物）
+  return { xr: 0, ssr, sr, r, n: Math.max(0, 1 - ssr - sr - r) };
 }
 
 /**
