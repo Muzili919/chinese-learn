@@ -93,10 +93,10 @@ function buildQuestions(wordObj, ctx) {
   const c = ctx || _defaultCtx
   const questions = []
 
-  // 联想题：word 可以联想到哪个词？
+  // 联想题：word 可以联想到哪个词？（随机选一个联想词，不再始终考第一个）
   const assocs = wordObj.associations || []
   if (assocs.length > 0) {
-    const correct = assocs[0]
+    const correct = assocs[Math.floor(Math.random() * assocs.length)]
     const distractors = shuffle(
       c.allWords
         .filter(w => !assocs.includes(w.word) && w.word !== wordObj.word)
@@ -112,10 +112,10 @@ function buildQuestions(wordObj, ctx) {
     })
   }
 
-  // 辨析题：从 confusables 里选一个作为正确答案，考查区分
+  // 辨析题：从 confusables 里随机选一个作为正确答案，考查区分
   const confusables = (wordObj.confusables || []).filter(w => c.allWordsMap[w])
   if (confusables.length > 0) {
-    const targetWord = confusables[0]
+    const targetWord = confusables[Math.floor(Math.random() * confusables.length)]
     const targetObj = c.allWordsMap[targetWord]
     const distractors = shuffle(
       c.allWords
@@ -189,6 +189,25 @@ function SyllableDisplay({ word }) {
       {syllables.map((syl, i) => (
         <span key={i} className={SYLLABLE_COLORS[i % SYLLABLE_COLORS.length]}>
           {syl}{i < syllables.length - 1 ? <span className="text-gray-300">·</span> : ''}
+        </span>
+      ))}
+    </span>
+  )
+}
+
+// 带断词记忆法的显示（优先用 segmentation 字段）
+function SegmentedDisplay({ word, segmentation }) {
+  const seg = segmentation || ''
+  if (!seg || seg === word) {
+    // 无断词数据或不可拆分，用音节 fallback
+    return <SyllableDisplay word={word} />
+  }
+  const parts = seg.split('·')
+  return (
+    <span className="font-mono text-3xl font-extrabold">
+      {parts.map((part, i) => (
+        <span key={i} className={SYLLABLE_COLORS[i % SYLLABLE_COLORS.length]}>
+          {part}{i < parts.length - 1 ? <span className="text-gray-300">·</span> : ''}
         </span>
       ))}
     </span>
@@ -603,7 +622,12 @@ function WordTree({ wordObj, visible, onNodeClick, onConfusableClick, masterySta
             🔊
           </button>
           <div className="flex-1">
-            <SyllableDisplay word={wordObj.word} />
+            <div className="flex items-baseline gap-2">
+              <SegmentedDisplay word={wordObj.word} segmentation={wordObj.segmentation} />
+              {wordObj.phonetic && (
+                <span className="text-sm text-emerald-600 font-mono">{wordObj.phonetic}</span>
+              )}
+            </div>
             <div className="text-base text-emerald-700 font-semibold mt-0.5">
               {wordObj.meaning}
             </div>

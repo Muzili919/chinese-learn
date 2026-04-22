@@ -255,6 +255,24 @@ function SyllableDisplay({ word }) {
   )
 }
 
+// 带断词记忆法的显示（优先用 segmentation 字段）
+function SegmentedDisplay({ word, segmentation }) {
+  const seg = segmentation || ''
+  if (!seg || seg === word) {
+    return <SyllableDisplay word={word} />
+  }
+  const parts = seg.split('·')
+  return (
+    <span className="font-mono text-3xl font-extrabold">
+      {parts.map((part, i) => (
+        <span key={i} className={SYLLABLE_COLORS[i % SYLLABLE_COLORS.length]}>
+          {part}{i < parts.length - 1 ? <span className="text-gray-300">·</span> : ''}
+        </span>
+      ))}
+    </span>
+  )
+}
+
 // ─── 外部词词典（关联词/易混词中引用但无完整词条的词） ───────────────
 const EXTERNAL_WORD_MEANINGS = {
   // === 时间/日期 ===
@@ -830,7 +848,12 @@ function WordTree({ wordObj, visible, onNodeClick, onConfusableClick, masterySta
             🔊
           </button>
           <div className="flex-1">
-            <SyllableDisplay word={wordObj.word} />
+            <div className="flex items-baseline gap-2">
+              <SegmentedDisplay word={wordObj.word} segmentation={wordObj.segmentation} />
+              {wordObj.phonetic && (
+                <span className="text-sm text-emerald-600 font-mono">{wordObj.phonetic}</span>
+              )}
+            </div>
             <div className="text-base text-emerald-700 font-semibold mt-0.5">
               {wordObj.meaning}
             </div>
