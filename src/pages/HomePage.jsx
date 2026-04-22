@@ -368,10 +368,10 @@ export default function HomePage({ user, onStartQuiz, hideHeader, activeSubject:
             <span className="text-[10px] bg-indigo-100 text-indigo-600 px-1.5 py-0.5 rounded-md font-medium">👆 核心闯关</span>
           </div>
           <span className="text-xs text-gray-400">
-            今日已练 {PLANETS.slice(0, 8).filter(p => {
-              const tagId = p.reading ? '阅读星球' : p.id
+            今日已练 {(currentGrade === 'junior2' && activeSubject === 'chinese' ? JC_PLANETS : PLANETS.slice(0, 8)).filter(p => {
+              const tagId = (currentGrade === 'junior2' && activeSubject === 'chinese') ? p.id : (p.reading ? '阅读星球' : p.id)
               return practicedToday.has(tagId)
-            }).length}/8 个星球
+            }).length}/{(currentGrade === 'junior2' && activeSubject === 'chinese' ? JC_PLANETS : PLANETS.slice(0, 8)).length} 个星球
           </span>
         </div>
 
@@ -396,7 +396,7 @@ export default function HomePage({ user, onStartQuiz, hideHeader, activeSubject:
             <>
               <div className="grid grid-cols-3 gap-2 mb-3">
                 {corePlanets.map((planet) => {
-                  const tagId = planet.reading ? '阅读星球' : planet.id
+                  const tagId = isJuniorChinese ? planet.id : (planet.reading ? '阅读星球' : planet.id)
                   const done  = practicedToday.has(tagId)
                   return (
                     <button key={planet.id} onClick={() => handlePlanetClick(planet)}

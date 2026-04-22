@@ -11,7 +11,7 @@
  */
 
 import { useState, useMemo, useRef } from 'react'
-import { storage } from '../utils/storage'
+import { storage, exportAll } from '../utils/storage'
 import { FULL_Q_MAP } from '../utils/questionMap'
 import { getActivityHeatmap } from '../utils/diagnosis'
 import {
@@ -151,6 +151,38 @@ export default function ReportPage({ user, onBack, onStartQuiz, grade = 'primary
   const [pinForm, setPinForm] = useState({ old: '', new1: '', new2: '' })
   const [pinMsg, setPinMsg] = useState(null)
   const [refreshKey, setRefreshKey] = useState(0)
+  const [showExportMenu, setShowExportMenu] = useState(false)
+
+  function downloadFile(content, filename, type = 'text/plain') {
+    const blob = new Blob(['﻿' + content], { type: `${type};charset=utf-8` })
+    const url = URL.createObjectURL(blob)
+    const a = document.createElement('a')
+    a.href = url
+    a.download = filename
+    a.click()
+    URL.revokeObjectURL(url)
+  }
+
+  function exportJSON() {
+    const data = exportAll(user.id)
+    downloadFile(JSON.stringify(data, null, 2), `${user.name}_学习数据_${new Date().toISOString().slice(0, 10)}.json`, 'application/json')
+    setShowExportMenu(false)
+  }
+
+  function exportCSV() {
+    const records = storage.getRecords(user.id)
+    if (!records.length) { alert('暂无答题记录'); return }
+    const headers = ['日期', '题目ID', '学科', '正确', '用时(秒)', '知识点', '能力标签', '用户答案']
+    const rows = records.map(r => [
+      r.timestamp?.slice(0, 19) || '', r.card_id || '', r.subject || '',
+      r.correct ? '是' : '否', r.time_spent || '',
+      r.knowledge_tag || '', r.ability_tag || '',
+      `"${(r.selected_answer || '').replace(/"/g, '""')}"`,
+    ])
+    const csv = [headers.join(','), ...rows.map(r => r.join(','))].join('\n')
+    downloadFile(csv, `${user.name}_答题记录_${new Date().toISOString().slice(0, 10)}.csv`, 'text/csv')
+    setShowExportMenu(false)
+  }
 
   // ★ 按学段过滤学科Tab
   const subjects = GRADE_SUBJECTS[grade] || GRADE_SUBJECTS.primary
@@ -250,6 +282,19 @@ export default function ReportPage({ user, onBack, onStartQuiz, grade = 'primary
         <div className="flex items-center justify-between mb-3">
           <button onClick={onBack} className="text-indigo-200 text-sm">← 返回</button>
           <button onClick={() => setShowPinModal(true)} className="text-indigo-200 text-sm" title="修改密码">⚙️ 设置</button>
+          <div className="relative">
+            <button onClick={() => setShowExportMenu(!showExportMenu)} className="text-indigo-200 text-sm" title="导出数据">📥 导出</button>
+            {showExportMenu && (
+              <div className="absolute right-0 top-8 z-30 bg-white rounded-xl shadow-lg border border-gray-200 py-1 w-40">
+                <button onClick={exportJSON} className="w-full text-left text-sm px-4 py-2.5 hover:bg-indigo-50 text-gray-700 flex items-center gap-2">
+                  <span>📦</span> 全量数据 (JSON)
+                </button>
+                <button onClick={exportCSV} className="w-full text-left text-sm px-4 py-2.5 hover:bg-indigo-50 text-gray-700 flex items-center gap-2">
+                  <span>📊</span> 答题记录 (CSV)
+                </button>
+              </div>
+            )}
+          </div>
         </div>
         <h1 className="text-2xl font-bold">{user.name} 的学习报告</h1>
         <p className="text-indigo-200 text-sm mt-1">共答 {allRecords.length} 题 · 累计 {totalMin} 分钟</p>

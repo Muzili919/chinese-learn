@@ -160,6 +160,48 @@ SPELLING_DISTRACTORS = {
     "excellent": ["exelent", "excellant", "exsellent"],
     "possible": ["possable", "posible", "possibul"],
     "popular": ["populer", "populare", "popularr"],
+    # Months and days (commonly tested)
+    "April": ["Apirl", "Aperil", "Aprill"],
+    "May": ["Maye", "Mai", "Mey"],
+    "June": ["Junn", "Junne", "Jume"],
+    "July": ["Jully", "Juley", "Julie"],
+    "August": ["Augest", "Agust", "Augest"],
+    "September": ["Septemper", "Septmber", "Setpember"],
+    "October": ["Octobor", "Octerber", "Octaber"],
+    "November": ["Novemver", "Novmber", "Novermber"],
+    "December": ["Decmber", "Decemper", "Deceber"],
+    "January": ["Januray", "Janary", "Januery"],
+    "March": ["Marc", "Marchh", "Morch"],
+    "Sunday": ["Sundey", "Sundai", "Sonday"],
+    "Monday": ["Munday", "Mondey", "Mondai"],
+    "Tuesday": ["Tusday", "Teusday", "Tewsday"],
+    "Wednesday": ["Wensday", "Wednsday", "Wednessday"],
+    "Thursday": ["Thirsday", "Thersday", "Thurseday"],
+    "Friday": ["Fryday", "Fridey", "Firday"],
+    "Saturday": ["Saterday", "Satuday", "Saterdey"],
+    # More common words
+    "breakfast": ["breakfst", "breakfist", "brekfast"],
+    "dinner": ["diner", "dinnder", "dynner"],
+    "supper": ["supor", "supper", "supir"],
+    "lunch": ["lunc", "lunsh", "lunche"],
+    "shy": ["shye", "shigh", "shai"],
+    "polite": ["polight", "poleit", "poliete"],
+    "friendly": ["frendly", "frendley", "friendley"],
+    "hard-working": ["hard-workeng", "hard-workin", "hard-werking"],
+    "active": ["acteve", "activ", "actieve"],
+    "clever": ["cliver", "clevor", "cleever"],
+    "tidy": ["tidi", "tydi", "taydy"],
+    "quiet": ["qiet", "quiat", "quit"],
+    "strict": ["strickt", "strekt", "strikt"],
+    "honest": ["honist", "hounest", "honnest"],
+    "interesting": ["intresting", "interisting", "intteresting"],
+    "expensive": ["expensiv", "expansive", "expensave"],
+    "famous": ["famouse", "famos", "famus"],
+    "different": ["diffrent", "difrent", "differnt"],
+    "together": ["togheter", "togehter", "togather"],
+    "umbrella": ["umbrela", "umberella", "umbrealla"],
+    "restaurant": ["restarant", "restuarant", "restrant"],
+    "supermarket": ["supermaket", "supermarcet", "supermrket"],
 }
 
 PHRASE_EN_TO_CN = {
@@ -256,7 +298,6 @@ PHRASE_EN_TO_CN = {
 # We map (choice1, choice2) -> 2 additional distractors
 
 OPTION_PAIR_EXPANSION = {
-    # Sorted tuple of (shorter, longer) -> two extra options
     ("have", "has"): ["had", "having"],
     ("like", "likes"): ["liked", "liking"],
     ("go", "goes"): ["went", "going"],
@@ -281,8 +322,8 @@ OPTION_PAIR_EXPANSION = {
     ("want", "wants"): ["wanted", "wanting"],
     ("am", "is"): ["are", "was"],
     ("Who", "Whom"): ["Whose", "Which"],
+    ("Who", "Whose"): ["Whom", "Which"],
     ("to meet", "meet"): ["meeting", "met"],
-    ("have", "has"): ["had", "having"],
     ("sleep", "sleeping"): ["slept", "sleeps"],
     ("What", "How"): ["Which", "Where"],
     ("teach", "teaches"): ["taught", "teaching"],
@@ -301,7 +342,13 @@ OPTION_PAIR_EXPANSION = {
     ("clean", "to clean"): ["cleaning", "cleaned"],
     ("watch", "watching"): ["watched", "watches"],
     ("to have", "have"): ["having", "had"],
-    ("tall", "taller"): ["tallest", "short"],
+    ("speak", "speaks"): ["spoke", "speaking"],
+    ("spend", "spends"): ["spent", "spending"],
+    ("study", "studies"): ["studied", "studying"],
+    ("a little", "a few"): ["some", "many"],
+    ("exciting", "excited"): ["excite", "excites"],
+    ("is", "am"): ["are", "was"],
+    ("much", "many"): ["some", "few"],
 }
 
 
@@ -393,13 +440,37 @@ def distractors_spelling(correct):
             d = correct[:i] + correct[i+1:]
             if d != correct and d not in dists:
                 dists.append(d); break
-    while len(dists) < 3:
+    attempts = 0
+    while len(dists) < 3 and attempts < 50:
+        attempts += 1
         idx = random.randint(0, len(correct)-1)
-        if correct[idx] in 'aeiou':
-            rep = random.choice([c for c in 'aeiou' if c != correct[idx]])
+        if correct[idx] in 'aeiouAEIOU':
+            rep = random.choice([c for c in 'aeiou' if c != correct[idx].lower()])
             d = correct[:idx] + rep + correct[idx+1:]
             if d != correct and d not in dists:
                 dists.append(d)
+        elif len(correct) > 2:
+            # Try doubling a consonant or removing a letter
+            method = random.choice(['double', 'remove', 'swap'])
+            if method == 'double' and idx > 0:
+                d = correct[:idx] + correct[idx] + correct[idx:]
+                if d != correct and d not in dists:
+                    dists.append(d)
+            elif method == 'remove' and 0 < idx < len(correct)-1:
+                d = correct[:idx] + correct[idx+1:]
+                if d != correct and d not in dists:
+                    dists.append(d)
+            elif method == 'swap' and idx < len(correct)-1:
+                d = correct[:idx] + correct[idx+1] + correct[idx] + correct[idx+2:]
+                if d != correct and d not in dists:
+                    dists.append(d)
+
+    # Final fallback: add generic misspelling patterns
+    while len(dists) < 3:
+        i = len(dists)
+        d = correct + chr(ord('a') + i)  # Just append a letter
+        if d != correct and d not in dists:
+            dists.append(d)
     return dists[:3]
 
 
@@ -438,22 +509,38 @@ def fmt_opts(opts):
 def process_vocab_usage(q):
     """Handle 词汇运用 (inline_choices) questions."""
     results = []
-    parsed = parse_inline_choices(q["question"])
     answers = dict(parse_sub_items(q["answer"]))
 
-    for sub_num, sub_data in parsed.items():
-        choices = sub_data['choices']
+    # For each sub-question, parse inline choices manually
+    for sub_num, sub_text in parse_sub_items(q["question"]):
         correct = answers.get(sub_num, "").strip()
-        if not correct or not choices:
+        if not correct:
             continue
 
-        # Ensure correct is in choices
+        # Skip multi-blank answers (containing ';')
+        if ';' in correct:
+            # Split into two separate questions
+            blanks = re.findall(r'\(([^)]+)\)', sub_text)
+            correct_parts = [c.strip() for c in correct.split(';')]
+            # Split the sentence at the second blank
+            # Just skip these - they're too complex for single MC
+            continue
+
+        # Find all parenthetical choice groups
+        choice_groups = re.findall(r'\(([^)]+)\)', sub_text)
+        if not choice_groups:
+            continue
+
+        # Use the first choice group (typically the only one)
+        choices = [c.strip() for c in choice_groups[0].split('/')]
+
+        # If correct answer is not in choices, add it
         if correct not in choices:
             choices = choices + [correct]
 
         # Expand to 4 options if needed
         if len(choices) < 4:
-            choices = expand_two_options(choices, correct, sub_data['context'])
+            choices = expand_two_options(choices, correct, sub_text)
 
         choices = choices[:4]
         shuffled, letter = make_mc(choices, correct)
@@ -461,7 +548,9 @@ def process_vocab_usage(q):
         sq = copy.deepcopy(q)
         sq["id"] = f"{q['id']}_{sub_num}"
         sq["type"] = "single_choice"
-        sq["question"] = sub_data['context'] + fmt_opts(shuffled)
+        # Remove the inline choice parentheses from the question text
+        clean_context = re.sub(r'\(([^)]+)\)', '______', sub_text)
+        sq["question"] = clean_context + fmt_opts(shuffled)
         sq["options"] = shuffled
         sq["answer"] = letter
         sq.pop("inline_choices", None)
