@@ -118,8 +118,40 @@ export default function MathHomePage({ user, grade, onStartQuiz, onStartFormula 
     '几何证明': { mathTopic: '几何证明' },
   }
 
+  // knowledge_tag → topic 反向映射（让 diagnose 返回的 knowledge_tag 也能找到对应 quiz）
+  const KTAG_TO_TOPIC = {
+    '分数运算':'数与运算','小数运算':'数与运算','百分数':'数与运算','比和比例':'数与运算',
+    '运算定律':'数与运算','数的认识':'数与运算','分数加法':'数与运算','分数减法':'数与运算',
+    '分数乘法':'数与运算','分数除法':'数与运算','分数混合运算':'数与运算','百分数应用':'数与运算',
+    '比的应用':'数与运算','比例':'数与运算',
+    '平面图形':'图形与空间','立体图形':'图形与空间','单位换算':'图形与空间','对称与变换':'图形与空间',
+    '三角形面积':'图形与空间','四边形面积':'图形与空间','圆的周长面积':'图形与空间','组合图形':'图形与空间','角度计算':'图形与空间',
+    '行程问题':'奥数专题','工程问题':'奥数专题','鸡兔同笼':'奥数专题','植树问题':'奥数专题',
+    '年龄问题':'奥数专题','数论基础':'奥数专题','盈亏问题':'奥数专题','容斥原理':'奥数专题',
+    '抽屉原理':'奥数专题','逻辑推理':'奥数专题','最优化':'奥数专题','数列规律':'奥数专题',
+    '面积模型':'奥数专题','牛吃草':'奥数专题','行程进阶':'奥数专题','工程进阶':'奥数专题','浓度配比':'奥数专题',
+    '等式性质':'方程与不等式','方程应用-分配':'方程与不等式','一元一次方程':'方程与不等式',
+    '方程应用-行程':'方程与不等式','方程应用-工程':'方程与不等式','方程应用-利润':'方程与不等式',
+    '二元一次方程组':'方程与不等式','方程组应用':'方程与不等式','一元一次不等式':'方程与不等式',
+    '不等式应用':'方程与不等式','不等式组':'方程与不等式',
+    '平面直角坐标系':'函数与图像','点的坐标':'函数与图像','函数概念':'函数与图像',
+    '一次函数':'函数与图像','一次函数解析式':'函数与图像','一次函数应用':'函数与图像',
+    '正比例函数':'函数与图像','反比例函数':'函数与图像','反比例应用':'函数与图像',
+    '函数图像':'函数与图像','二次函数基础':'函数与图像',
+    '用字母表示数':'整式运算','代数式求值':'整式运算','整式加减':'整式运算',
+    '去括号法则':'整式运算','幂的运算':'整式运算','幂的乘方':'整式运算',
+    '整式乘法':'整式运算','乘法公式':'整式运算','因式分解':'整式运算','整式除法':'整式运算',
+    '相交线与平行线':'几何证明','三角形基础':'几何证明','三角形全等':'几何证明',
+    '等腰三角形':'几何证明','特殊四边形':'几何证明','相似三角形':'几何证明',
+    '圆的基本性质':'几何证明','几何综合':'几何证明','勾股定理':'几何证明',
+  }
+
+  function resolveMathQuiz(tag) {
+    return { mathTopic: KTAG_TO_TOPIC[tag] || tag }
+  }
+
   const handleStartTask = ({ type, tag, knowledge, maxQuestions }) => {
-    const opts = MATH_TAG_TO_QUIZ[tag] || {}
+    const opts = resolveMathQuiz(tag)
     switch (type) {
       case 'srs':
         onStartQuiz({ mathTopic: '数与运算', grade: level, srsFirst: true, maxQuestions: maxQuestions || 3 })
@@ -128,7 +160,7 @@ export default function MathHomePage({ user, grade, onStartQuiz, onStartFormula 
         onStartQuiz({ ...opts, grade: level, maxQuestions: maxQuestions || 3 })
         break
       case 'quick': case 'full': {
-        const anchorOpts = MATH_TAG_TO_QUIZ[todayTask.anchor?.tag] || { mathTopic: '数与运算' }
+        const anchorOpts = resolveMathQuiz(todayTask.anchor?.tag)
         onStartQuiz({ ...anchorOpts, grade: level, maxQuestions })
         break
       }

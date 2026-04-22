@@ -56,6 +56,7 @@ export default function EnglishHomePage({ user, grade = 'primary', onStartQuiz, 
   }, [user.id, records])
 
   const EN_TAG_TO_QUIZ = {
+    // knowledge_tag 级
     '英语词汇': { englishTag: 'en_vocab' },
     '英语语法': { englishTag: 'en_grammar' },
     '英语阅读': { englishTag: 'en_reading' },
@@ -63,6 +64,24 @@ export default function EnglishHomePage({ user, grade = 'primary', onStartQuiz, 
     '完形填空': { englishTag: 'en_cloze' },
     '英语听力': { englishTag: 'en_listen' },
     '英语联想': { englishTag: 'en_association' },
+    // ability_tag 级（diagnose 返回的弱项标签）
+    '语音辨析': { englishTag: 'en_vocab' },
+    '词汇翻译': { englishTag: 'en_vocab' },
+    '单词拼写': { englishTag: 'en_vocab' },
+    '词汇运用': { englishTag: 'en_vocab' },
+    '词组搭配': { englishTag: 'en_vocab' },
+    '语法选择': { englishTag: 'en_grammar' },
+    '词形变换': { englishTag: 'en_grammar' },
+    '情景交际': { englishTag: 'en_grammar' },
+    '阅读理解': { englishTag: 'en_reading' },
+    '句子重组': { englishTag: 'en_writing' },
+    '听力辨识': { englishTag: 'en_listen' },
+    '听力判断': { englishTag: 'en_listen' },
+    '听力排序': { englishTag: 'en_listen' },
+    '听短文填空': { englishTag: 'en_listen' },
+    '听对话选择回答': { englishTag: 'en_listen' },
+    '听音判断正误': { englishTag: 'en_listen' },
+    '听短文排序': { englishTag: 'en_listen' },
   }
 
   const handleStartTask = ({ type, tag, knowledge, maxQuestions }) => {

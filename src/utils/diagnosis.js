@@ -6,7 +6,7 @@ export function diagnose(records) {
   const groups = {};
 
   records.forEach((r) => {
-    const tag = r.ability_tag;
+    const tag = r.ability_tag || r.knowledge_tag || '其他';
     if (!groups[tag]) groups[tag] = { correct: 0, total: 0, times: [], knowledge: r.knowledge_tag };
     groups[tag].total++;
     if (r.correct) groups[tag].correct++;

@@ -325,7 +325,7 @@ export default function DashboardPage({
           <h2 className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3">
             开始学习
           </h2>
-          <div className="grid grid-cols-3 gap-3">
+          <div className={`grid ${subjects.length > 3 ? 'grid-cols-4' : 'grid-cols-3'} gap-3`}>
             {subjects.map(subject => {
               const weekCount = weeklyBySubject[subject.id] || 0
               const wrongCnt = wrongBySubject[subject.id] || 0
@@ -395,7 +395,7 @@ export default function DashboardPage({
             <h3 className="text-base font-bold text-gray-800 mb-4">学习阶段</h3>
             {[
               { id: 'primary', label: '小学', emoji: '🏫', desc: '语文 · 英语 · 数学' },
-              { id: 'junior2', label: '初中', emoji: '📚', desc: '英语 · 道法 · 数学' },
+              { id: 'junior2', label: '初中', emoji: '📚', desc: '语文 · 英语 · 道法 · 数学' },
             ].map(g => (
               <button
                 key={g.id}

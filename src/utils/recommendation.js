@@ -143,7 +143,7 @@ function inferSubjectFromCardId(cardId) {
   if (!cardId) return 'other'
   if (cardId.startsWith('en_') || cardId.includes('_en_')) return 'english'
   if (cardId.startsWith('pol_') || cardId.includes('_pol_')) return 'politics'
-  if (cardId.startsWith('math_') || cardId.includes('_math_')) return 'math'
+  if (cardId.startsWith('math_') || cardId.startsWith('math_b') || cardId.startsWith('math_g') || cardId.startsWith('math_o') || cardId.includes('_math_')) return 'math'
   if (cardId.startsWith('jc_') || cardId.includes('junior')) return 'chinese_junior'
   return 'chinese'
 }
