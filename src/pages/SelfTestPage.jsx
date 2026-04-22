@@ -643,7 +643,7 @@ function SetupMode({ onStart, subject, grade: gradeProp, onBack }) {
 // ═══════════════════════════════════════════════════════
 // 组件：单题渲染
 // ═══════════════════════════════════════════════════════
-function QuestionItem({ q, globalNum, answer, onChange, subject }) {
+function QuestionItem({ q, globalNum, answer, onChange, subject, listenPassageText }) {
   if (q.type === 'passage') {
     return (
       <div className="bg-blue-50 border border-blue-200 rounded-2xl p-4 my-3">
@@ -685,7 +685,17 @@ function QuestionItem({ q, globalNum, answer, onChange, subject }) {
           {q.score}分
         </span>
         {q.type === 'choice' && <span className="text-xs text-gray-400">（单选）</span>}
-        {q.type === 'listen' && <span className="text-xs text-indigo-500 font-medium">🎧（听力）</span>}
+        {q.type === 'listen' && (
+          <span className="flex items-center gap-1.5">
+            <span className="text-xs text-indigo-500 font-medium">🎧（听力）</span>
+            {listenPassageText && (
+              <button onClick={() => speakEnglish(listenPassageText)}
+                className="px-2 py-0.5 rounded-full bg-indigo-100 text-indigo-600 text-[10px] font-bold active:scale-95 transition-all">
+                🔊 播放
+              </button>
+            )}
+          </span>
+        )}
         {q.type === 'truefalse' && <span className="text-xs text-gray-400">（判断）</span>}
         {q.type === 'fill' && <span className="text-xs text-gray-400">（填空）</span>}
         {q.type === 'reorder' && <span className="text-xs text-gray-400">（连词成句）</span>}
@@ -936,12 +946,19 @@ function ExamMode({ examData, subject, onBack, onSubmit }) {
             </div>
 
             {/* 直接题目 */}
-            {!sec.subsections && (sec.questions || []).map(q => (
-              <div key={q.id} id={`q-${q.id}`}>
-                <QuestionItem q={q} globalNum={(q.type === 'passage' || q.type === 'listenPassage') ? '' : nextNum()}
-                  answer={answers[q.id]} onChange={handleChange} subject={subject} />
-              </div>
-            ))}
+            {!sec.subsections && (() => {
+              let curListenText = ''
+              return (sec.questions || []).map(q => {
+                if (q.type === 'listenPassage') curListenText = q.text || ''
+                return (
+                  <div key={q.id} id={`q-${q.id}`}>
+                    <QuestionItem q={q} globalNum={(q.type === 'passage' || q.type === 'listenPassage') ? '' : nextNum()}
+                      answer={answers[q.id]} onChange={handleChange} subject={subject}
+                      listenPassageText={q.type === 'listen' ? curListenText : undefined} />
+                  </div>
+                )
+              })
+            })()}
 
             {/* 阅读理解子章节 */}
             {sec.subsections && sec.subsections.map((sub, ssi) => (

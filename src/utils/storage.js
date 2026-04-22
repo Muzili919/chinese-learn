@@ -221,6 +221,21 @@ export const storage = {
     return filtered.length;
   },
 
+  // 今日到期错题数：nextReview <= today 的错题（不含未来复习的）
+  getDueTodayWrongCount: (userId) => {
+    const wrongIds = storage.getWrongCardIds(userId);
+    if (wrongIds.size === 0) return 0;
+    const srsStates = storage.getSrsState(userId);
+    const today = new Date().toISOString().split('T')[0];
+    let count = 0;
+    for (const id of wrongIds) {
+      const state = srsStates[id];
+      // 没有 SRS 记录（新错题）或 nextReview <= today
+      if (!state || state.nextReview <= today) count++;
+    }
+    return count;
+  },
+
   // 积压错题数：SRS 到期日已过 3 天以上（还没答对过）
   getOverdueWrongCount: (userId) => {
     const wrongIds = storage.getWrongCardIds(userId);
@@ -314,4 +329,20 @@ export function updateStreak(userId) {
   };
   storage.setStreak(userId, newStreak);
   return newStreak;
+}
+
+// 启动时检查连续天数是否已断，断了则重置为0
+export function checkStreakOnLoad(userId) {
+  const streak = storage.getStreak(userId);
+  if (!streak.lastDate) return streak;
+  const today = new Date().toISOString().split('T')[0];
+  if (streak.lastDate === today) return streak;
+  const yesterday = new Date();
+  yesterday.setDate(yesterday.getDate() - 1);
+  const yest = yesterday.toISOString().split('T')[0];
+  if (streak.lastDate === yest) return streak;
+  // 断了，重置为0
+  const reset = { count: 0, lastDate: streak.lastDate };
+  storage.setStreak(userId, reset);
+  return reset;
 }

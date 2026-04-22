@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback, useMemo, lazy, Suspense } from 'react'
 import ErrorBoundary from './ErrorBoundary'
 import { NavigationContext } from './context/NavigationContext'
-import { storage, calcLevel, calcLevelProgress } from './utils/storage'
+import { storage, calcLevel, calcLevelProgress, checkStreakOnLoad } from './utils/storage'
 import { initGamificationState, initGodModeState } from './utils/gamification'
 import { fetchMV1State, upsertMV1State } from './utils/mv1_cloud'
 import { pullFromCloud } from './utils/sync'
@@ -423,6 +423,7 @@ export default function App() {
     })
 
     setOverdueCount(storage.getOverdueWrongCount(uid))
+    checkStreakOnLoad(uid)
   }, [user?.id])   // ← 只依赖 userId 字符串，不依赖 user 对象引用
 
   // 当回到主页时刷新积压数
@@ -539,6 +540,36 @@ export default function App() {
 
   function goHome() {
     setPage('home')
+    setSessionResult(null)
+    setQuizOptions(null)
+    setEnglishQuizOptions({})
+    if (user?.id) setOverdueCount(storage.getOverdueWrongCount(user.id))
+  }
+
+  // 根据答题上下文返回科目主页（而非总仪表盘）
+  function goToSubjectHome() {
+    const opts = sessionResult?.quizOptions || quizOptions
+    let subject = 'chinese'
+    if (opts?.mathTopic) subject = 'math'
+    else if (opts?.englishTag) subject = 'english'
+    else if (opts?.politicsTag) subject = 'politics'
+    else if (opts?.selfTest) {
+      const s = opts.selfTestSubject
+      if (s === 'math') subject = 'math'
+      else if (s === 'english') subject = 'english'
+      else if (s === 'politics') subject = 'politics'
+    }
+    else if (opts?.dictation) {
+      subject = opts.dictationSubject === 'english' ? 'english' : 'chinese'
+    }
+    else if (opts?.wrongReview || opts?.wrongCardIds) {
+      if (opts.subject === 'english') subject = 'english'
+      else if (opts.subject === 'math') subject = 'math'
+      else if (opts.subject === 'politics') subject = 'politics'
+    }
+    else if (opts?.lightningQuiz) subject = 'english'
+    setActiveSubject(subject)
+    setPage('subject_home')
     setSessionResult(null)
     setQuizOptions(null)
     setEnglishQuizOptions({})
@@ -704,7 +735,7 @@ export default function App() {
         onSubjectChange={setActiveSubject}
       />
     )
-    if (page === 'result') return <ResultPage result={sessionResult} user={user} onHome={goHome} onRetry={() => startQuiz(sessionResult?.quizOptions || quizOptions)} onAIReinforce={startVariantTraining} />
+    if (page === 'result') return <ResultPage result={sessionResult} user={user} onHome={goToSubjectHome} onRetry={() => startQuiz(sessionResult?.quizOptions || quizOptions)} onAIReinforce={startVariantTraining} />
     if (page === 'report') return <ReportPage user={user} grade={grade} onBack={goHome} onStartQuiz={startQuiz} />
     if (page === 'englishQuiz' && englishQuizOptions.englishTag === 'en_association') return (
       <AssociationPlanetPage

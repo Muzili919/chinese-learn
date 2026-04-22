@@ -226,30 +226,6 @@ export default function JuniorChineseHomePage({ user, grade, onStartQuiz }) {
           </span>
         </div>
 
-        {/* 统计卡片 */}
-        {totalAnswered > 0 && (
-          <div className="mb-4 bg-gradient-to-br from-amber-50 to-orange-50 border border-amber-100 rounded-2xl p-3 flex gap-3">
-            <div className="text-center flex-1">
-              <div className="text-xl font-extrabold text-amber-600">{totalAnswered}</div>
-              <div className="text-[10px] text-amber-400 mt-0.5">已答题数</div>
-            </div>
-            <div className="w-px bg-amber-200" />
-            <div className="text-center flex-1">
-              <div className="text-xl font-extrabold text-green-600">
-                {todayCorrect !== null ? `${todayCorrect}%` : (totalAccuracy !== null ? `${totalAccuracy}%` : '—')}
-              </div>
-              <div className="text-[10px] text-green-400 mt-0.5">
-                {todayCorrect !== null ? '今日正确率' : '总正确率'}
-              </div>
-            </div>
-            <div className="w-px bg-amber-200" />
-            <div className="text-center flex-1">
-              <div className="text-xl font-extrabold text-indigo-600">中考</div>
-              <div className="text-[10px] text-indigo-400 mt-0.5">7-9年级</div>
-            </div>
-          </div>
-        )}
-
         {/* 核心7个星球 - 4+3 网格 */}
         <div className="grid grid-cols-4 gap-2 mb-3">
           {JC_PLANETS.map((planet) => {

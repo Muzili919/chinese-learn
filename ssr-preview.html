@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<title>SSR 宠物特效 V3</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  background: #06060e;
+  color: white; font-family: system-ui;
+  display: flex; flex-direction: column; align-items: center;
+  padding: 40px 20px; min-height: 100vh;
+}
+h1 { font-size: 15px; color: #444; margin-bottom: 40px; letter-spacing: 5px; }
+.compare {
+  display: flex; gap: 80px; flex-wrap: wrap; justify-content: center;
+  margin-bottom: 60px;
+}
+.pet-slot { text-align: center; }
+.pet-slot .label {
+  font-size: 12px; color: #555; margin-bottom: 20px; letter-spacing: 2px;
+}
+.pet-slot .label.ssr { color: #ffd740; text-shadow: 0 0 8px rgba(255,200,50,0.3); }
+
+/* 普通宠物 */
+.pet-normal {
+  width: 200px; height: 240px;
+  display: flex; align-items: center; justify-content: center;
+}
+.pet-normal img {
+  width: 140px; height: 140px; object-fit: contain; opacity: 0.8;
+}
+
+/* SSR 宠物容器 */
+.pet-ssr {
+  width: 240px; height: 300px;
+  position: relative;
+  display: flex; align-items: center; justify-content: center;
+}
+
+/* canvas 粒子层 */
+.pet-ssr canvas {
+  position: absolute;
+  width: 100%; height: 100%;
+  z-index: 0;
+}
+
+/* 宠物图片 */
+.pet-ssr .pet-img {
+  width: 150px; height: 150px;
+  object-fit: contain;
+  position: relative; z-index: 2;
+  animation: floatY 4s ease-in-out infinite;
+  filter: drop-shadow(0 0 15px rgba(255,200,50,0.3))
+         drop-shadow(0 4px 25px rgba(160,100,255,0.15));
+}
+
+/* 底部标签 */
+.pet-ssr .tag {
+  position: absolute; bottom: 10px;
+  font-size: 11px; letter-spacing: 4px;
+  color: rgba(255,210,60,0.6);
+  z-index: 3;
+}
+
+/* 抽卡 */
+.gacha-section { margin-top: 20px; }
+.gacha-btn {
+  padding: 14px 50px; font-size: 15px;
+  background: transparent;
+  color: #ffd740; border: 1px solid rgba(255,215,0,0.25);
+  border-radius: 30px; cursor: pointer;
+  letter-spacing: 5px; transition: all 0.4s;
+}
+.gacha-btn:hover {
+  border-color: rgba(255,215,0,0.5);
+  box-shadow: 0 0 30px rgba(255,200,50,0.1);
+}
+
+.gacha-overlay {
+  display: none;
+  position: fixed; inset: 0;
+  background: #06060e;
+  z-index: 100;
+  flex-direction: column;
+  align-items: center; justify-content: center;
+}
+.gacha-overlay.active { display: flex; }
+.gacha-overlay canvas {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+}
+.gacha-reveal {
+  position: relative; z-index: 2;
+  display: flex; flex-direction: column;
+  align-items: center;
+}
+.gacha-reveal img {
+  width: 200px; height: 200px; object-fit: contain;
+  opacity: 0;
+  animation: revealPet 0.8s 1.6s ease-out forwards;
+  filter: drop-shadow(0 0 30px rgba(255,200,50,0.5))
+         drop-shadow(0 0 60px rgba(160,100,255,0.25));
+}
+.gacha-reveal .name {
+  margin-top: 20px;
+  font-size: 22px; font-weight: bold;
+  color: #ffd740; letter-spacing: 6px;
+  opacity: 0;
+  animation: fadeUp 0.5s 2s ease-out forwards;
+}
+.gacha-reveal .sub {
+  margin-top: 8px;
+  font-size: 11px; color: rgba(160,100,255,0.7);
+  letter-spacing: 4px;
+  opacity: 0;
+  animation: fadeUp 0.5s 2.2s ease-out forwards;
+}
+.gacha-close {
+  position: relative; z-index: 2;
+  margin-top: 40px;
+  padding: 10px 40px;
+  background: transparent; color: #444;
+  border: 1px solid #2a2a2a; border-radius: 20px;
+  cursor: pointer; font-size: 12px; letter-spacing: 2px;
+  opacity: 0;
+  animation: fadeUp 0.5s 2.4s ease-out forwards;
+  transition: color 0.3s, border-color 0.3s;
+}
+.gacha-close:hover { color: #666; border-color: #444; }
+
+@keyframes floatY {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+@keyframes revealPet {
+  0% { opacity: 0; transform: scale(1.6); filter: blur(8px) drop-shadow(0 0 30px rgba(255,200,50,0.5)); }
+  100% { opacity: 1; transform: scale(1); filter: drop-shadow(0 0 30px rgba(255,200,50,0.5)) drop-shadow(0 0 60px rgba(160,100,255,0.25)); }
+}
+@keyframes fadeUp {
+  0% { opacity: 0; transform: translateY(10px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+</style>
+</head>
+<body>
+
+<h1>SSR · V3</h1>
+
+<div class="compare">
+  <div class="pet-slot">
+    <div class="label">N · 小黄猫</div>
+    <div class="pet-normal"><img src="public/pets/kitten/stage1/happy.png"></div>
+  </div>
+  <div class="pet-slot">
+    <div class="label">SR · 无牙仔</div>
+    <div class="pet-normal"><img src="public/pets/toothless/stage1/happy.png"></div>
+  </div>
+  <div class="pet-slot">
+    <div class="label ssr">SSR · 月相神王体</div>
+    <div class="pet-ssr">
+      <canvas id="fx1"></canvas>
+      <img class="pet-img" src="public/pets/lunar_king/stage1/happy.png">
+      <div class="tag">★ ★ ★ ★ ★</div>
+    </div>
+  </div>
+  <div class="pet-slot">
+    <div class="label ssr">SSR · 幽灵月夜猫</div>
+    <div class="pet-ssr">
+      <canvas id="fx2"></canvas>
+      <img class="pet-img" src="public/pets/ghost_cat/stage1/happy.png">
+      <div class="tag">★ ★ ★ ★ ★</div>
+    </div>
+  </div>
+</div>
+
+<div class="gacha-section">
+  <button class="gacha-btn" onclick="playGacha()">祈 愿</button>
+</div>
+
+<div class="gacha-overlay" id="gachaOverlay">
+  <canvas id="fxGacha"></canvas>
+  <div class="gacha-reveal">
+    <img id="gachaPet" src="">
+    <div class="name" id="gachaName"></div>
+    <div class="sub">★ SSR ★</div>
+  </div>
+  <button class="gacha-close" onclick="closeGacha()">关闭</button>
+</div>
+
+<script>
+// ========== 粒子系统 ==========
+class ParticleFX {
+  constructor(canvas, opts = {}) {
+    this.canvas = canvas;
+    this.ctx = canvas.getContext('2d');
+    this.particles = [];
+    this.orbitals = [];
+    this.time = 0;
+    this.opts = {
+      orbitCount: 6,
+      risingCount: 18,
+      glowSize: 0.4,
+      gold: [255, 210, 60],
+      purple: [160, 100, 255],
+      ...opts,
+    };
+    this.resize();
+    this.init();
+    window.addEventListener('resize', () => this.resize());
+  }
+
+  resize() {
+    const rect = this.canvas.parentElement.getBoundingClientRect();
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    this.w = rect.width;
+    this.h = rect.height;
+    this.canvas.width = this.w * dpr;
+    this.canvas.height = this.h * dpr;
+    this.ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    this.cx = this.w / 2;
+    this.cy = this.h / 2 - 10;
+  }
+
+  init() {
+    // 环绕粒子（沿椭圆轨道运动，带拖尾）
+    this.orbitals = [];
+    for (let i = 0; i < this.opts.orbitCount; i++) {
+      this.orbitals.push({
+        angle: (Math.PI * 2 / this.opts.orbitCount) * i + Math.random() * 0.5,
+        rx: 70 + Math.random() * 25,
+        ry: 30 + Math.random() * 15,
+        speed: 0.3 + Math.random() * 0.3,
+        size: 2 + Math.random() * 3,
+        brightness: 0.6 + Math.random() * 0.4,
+        trail: [],
+        color: Math.random() > 0.4 ? this.opts.gold : this.opts.purple,
+        tilt: -0.15 + Math.random() * 0.1,
+        yOffset: -5 + Math.random() * 10,
+      });
+    }
+
+    // 上升粒子（从底部缓缓升起）
+    this.particles = [];
+    for (let i = 0; i < this.opts.risingCount; i++) {
+      this.particles.push(this.newRising(true));
+    }
+  }
+
+  newRising(randomY = false) {
+    const g = this.opts.gold;
+    const p = this.opts.purple;
+    return {
+      x: this.cx + (Math.random() - 0.5) * 140,
+      y: randomY ? this.cy + Math.random() * 80 : this.cy + 40 + Math.random() * 20,
+      vy: -(0.15 + Math.random() * 0.35),
+      vx: (Math.random() - 0.5) * 0.3,
+      size: 1 + Math.random() * 2.5,
+      life: randomY ? Math.random() : 0,
+      maxLife: 3 + Math.random() * 4,
+      color: Math.random() > 0.5 ? g : p,
+      twinkle: Math.random() * Math.PI * 2,
+    };
+  }
+
+  draw() {
+    const ctx = this.ctx;
+    ctx.clearRect(0, 0, this.w, this.h);
+    this.time += 0.016;
+
+    // 底座光晕
+    const glowR = this.w * this.opts.glowSize;
+    const grad = ctx.createRadialGradient(this.cx, this.cy + 35, 0, this.cx, this.cy + 35, glowR);
+    grad.addColorStop(0, 'rgba(255,210,60,0.08)');
+    grad.addColorStop(0.5, 'rgba(160,100,255,0.03)');
+    grad.addColorStop(1, 'transparent');
+    ctx.fillStyle = grad;
+    ctx.beginPath();
+    ctx.ellipse(this.cx, this.cy + 35, glowR, glowR * 0.35, 0, 0, Math.PI * 2);
+    ctx.fill();
+
+    // 中心柔光（呼吸）
+    const breath = 0.5 + 0.3 * Math.sin(this.time * 1.2);
+    const cGrad = ctx.createRadialGradient(this.cx, this.cy, 0, this.cx, this.cy, 60);
+    cGrad.addColorStop(0, `rgba(255,210,60,${0.06 * breath})`);
+    cGrad.addColorStop(1, 'transparent');
+    ctx.fillStyle = cGrad;
+    ctx.fillRect(0, 0, this.w, this.h);
+
+    // 环绕粒子 + 拖尾
+    for (const o of this.orbitals) {
+      o.angle += o.speed * 0.016;
+      const x = this.cx + Math.cos(o.angle) * o.rx;
+      const y = this.cy + o.yOffset + Math.sin(o.angle) * o.ry;
+
+      // 记录轨迹
+      o.trail.push({ x, y });
+      if (o.trail.length > 12) o.trail.shift();
+
+      // 画拖尾
+      for (let t = 0; t < o.trail.length - 1; t++) {
+        const alpha = (t / o.trail.length) * o.brightness * 0.4;
+        const sz = o.size * (t / o.trail.length) * 0.6;
+        ctx.beginPath();
+        ctx.arc(o.trail[t].x, o.trail[t].y, sz, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(${o.color[0]},${o.color[1]},${o.color[2]},${alpha})`;
+        ctx.fill();
+      }
+
+      // 画粒子本体 + 辉光
+      ctx.save();
+      ctx.shadowColor = `rgba(${o.color[0]},${o.color[1]},${o.color[2]},${o.brightness})`;
+      ctx.shadowBlur = 12;
+      ctx.beginPath();
+      ctx.arc(x, y, o.size, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(${o.color[0]},${o.color[1]},${o.color[2]},${o.brightness})`;
+      ctx.fill();
+      ctx.restore();
+    }
+
+    // 上升粒子
+    for (let i = 0; i < this.particles.length; i++) {
+      const p = this.particles[i];
+      p.life += 0.016;
+      p.x += p.vx + Math.sin(p.twinkle + this.time * 2) * 0.15;
+      p.y += p.vy;
+
+      if (p.life > p.maxLife || p.y < this.cy - 100) {
+        this.particles[i] = this.newRising(false);
+        continue;
+      }
+
+      const progress = p.life / p.maxLife;
+      const alpha = Math.sin(progress * Math.PI) * 0.7;
+      const twinkleAlpha = alpha * (0.6 + 0.4 * Math.sin(this.time * 4 + p.twinkle));
+
+      ctx.save();
+      ctx.shadowColor = `rgba(${p.color[0]},${p.color[1]},${p.color[2]},${twinkleAlpha})`;
+      ctx.shadowBlur = 8;
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.size * (1 - progress * 0.5), 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(${p.color[0]},${p.color[1]},${p.color[2]},${twinkleAlpha})`;
+      ctx.fill();
+      ctx.restore();
+    }
+
+    requestAnimationFrame(() => this.draw());
+  }
+
+  start() { this.draw(); }
+}
+
+// 启动平时展示
+new ParticleFX(document.getElementById('fx1'), { orbitCount: 7, risingCount: 20 }).start();
+new ParticleFX(document.getElementById('fx2'), { orbitCount: 5, risingCount: 15 }).start();
+
+// ========== 抽卡特效 ==========
+const ssrPets = [
+  { name: '月相神王体', img: 'public/pets/lunar_king/stage1/happy.png' },
+  { name: '星光影海兽', img: 'public/pets/star_beast/stage1/happy.png' },
+  { name: '幽灵月夜猫', img: 'public/pets/ghost_cat/stage1/happy.png' },
+  { name: '露奈雅来兽', img: 'public/pets/lunala_beast/stage1/happy.png' },
+];
+
+class GachaFX {
+  constructor(canvas) {
+    this.canvas = canvas;
+    this.ctx = canvas.getContext('2d');
+    this.phase = 'idle';
+    this.time = 0;
+    this.meteors = [];
+    this.burstParticles = [];
+    this.pillarAlpha = 0;
+  }
+
+  resize() {
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    this.w = window.innerWidth;
+    this.h = window.innerHeight;
+    this.canvas.width = this.w * dpr;
+    this.canvas.height = this.h * dpr;
+    this.ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    this.cx = this.w / 2;
+    this.cy = this.h / 2;
+  }
+
+  start() {
+    this.resize();
+    this.phase = 'meteor';
+    this.time = 0;
+    this.meteors = [];
+    this.burstParticles = [];
+    this.pillarAlpha = 0;
+
+    // 生成流星
+    for (let i = 0; i < 8; i++) {
+      this.meteors.push({
+        x: this.w * 0.1 + Math.random() * this.w * 0.3,
+        y: this.h * 0.1 + Math.random() * this.h * 0.2,
+        vx: 8 + Math.random() * 6,
+        vy: 4 + Math.random() * 3,
+        length: 60 + Math.random() * 80,
+        delay: i * 0.08,
+        life: 0,
+      });
+    }
+    this.draw();
+  }
+
+  draw() {
+    if (this.phase === 'idle') return;
+    const ctx = this.ctx;
+    ctx.clearRect(0, 0, this.w, this.h);
+    this.time += 0.016;
+
+    if (this.phase === 'meteor') {
+      // 流星阶段
+      let allDone = true;
+      for (const m of this.meteors) {
+        if (this.time < m.delay) { allDone = false; continue; }
+        m.life += 0.016;
+        if (m.life > 1.2) continue;
+        allDone = false;
+
+        const progress = m.life / 1.2;
+        const x = m.x + m.vx * m.life * 60;
+        const y = m.y + m.vy * m.life * 60;
+        const alpha = progress < 0.3 ? progress / 0.3 : 1 - (progress - 0.3) / 0.7;
+
+        const grad = ctx.createLinearGradient(
+          x, y,
+          x - m.vx * m.length / 10, y - m.vy * m.length / 10
+        );
+        grad.addColorStop(0, `rgba(255,220,80,${alpha * 0.9})`);
+        grad.addColorStop(1, 'transparent');
+
+        ctx.save();
+        ctx.strokeStyle = grad;
+        ctx.lineWidth = 2;
+        ctx.shadowColor = `rgba(255,210,60,${alpha * 0.5})`;
+        ctx.shadowBlur = 10;
+        ctx.beginPath();
+        ctx.moveTo(x, y);
+        ctx.lineTo(x - m.vx * m.length / 10, y - m.vy * m.length / 10);
+        ctx.stroke();
+        ctx.restore();
+      }
+      if (allDone || this.time > 1.5) {
+        this.phase = 'pillar';
+        this.time = 0;
+      }
+    }
+
+    if (this.phase === 'pillar') {
+      // 光柱阶段
+      this.pillarAlpha = this.time < 0.3
+        ? this.time / 0.3
+        : this.time < 0.8 ? 1 : Math.max(0, 1 - (this.time - 0.8) / 0.5);
+
+      if (this.pillarAlpha > 0) {
+        const pH = Math.min(this.h * 0.7, this.time * 800);
+        const grad = ctx.createLinearGradient(this.cx, this.cy - pH / 2, this.cx, this.cy + pH / 2);
+        grad.addColorStop(0, 'transparent');
+        grad.addColorStop(0.3, `rgba(255,210,60,${this.pillarAlpha * 0.15})`);
+        grad.addColorStop(0.5, `rgba(255,255,255,${this.pillarAlpha * 0.4})`);
+        grad.addColorStop(0.7, `rgba(255,210,60,${this.pillarAlpha * 0.15})`);
+        grad.addColorStop(1, 'transparent');
+
+        ctx.save();
+        ctx.shadowColor = `rgba(255,210,60,${this.pillarAlpha * 0.6})`;
+        ctx.shadowBlur = 60;
+        ctx.fillStyle = grad;
+        ctx.fillRect(this.cx - 3, this.cy - pH / 2, 6, pH);
+
+        // 外层扩散光
+        ctx.shadowBlur = 120;
+        ctx.fillStyle = `rgba(255,210,60,${this.pillarAlpha * 0.03})`;
+        ctx.fillRect(this.cx - 60, this.cy - pH / 2, 120, pH);
+        ctx.restore();
+      }
+
+      // 爆裂粒子
+      if (this.time > 0.4 && this.burstParticles.length === 0) {
+        for (let i = 0; i < 40; i++) {
+          const angle = Math.random() * Math.PI * 2;
+          const speed = 1 + Math.random() * 4;
+          this.burstParticles.push({
+            x: this.cx, y: this.cy,
+            vx: Math.cos(angle) * speed,
+            vy: Math.sin(angle) * speed,
+            size: 1 + Math.random() * 3,
+            life: 0,
+            maxLife: 0.8 + Math.random() * 1.2,
+            color: Math.random() > 0.5 ? [255, 210, 60] : [160, 100, 255],
+          });
+        }
+      }
+
+      for (let i = this.burstParticles.length - 1; i >= 0; i--) {
+        const p = this.burstParticles[i];
+        p.life += 0.016;
+        if (p.life > p.maxLife) { this.burstParticles.splice(i, 1); continue; }
+        p.x += p.vx;
+        p.y += p.vy;
+        p.vx *= 0.98;
+        p.vy *= 0.98;
+        const alpha = 1 - p.life / p.maxLife;
+        ctx.save();
+        ctx.shadowColor = `rgba(${p.color[0]},${p.color[1]},${p.color[2]},${alpha})`;
+        ctx.shadowBlur = 8;
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.size * alpha, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(${p.color[0]},${p.color[1]},${p.color[2]},${alpha * 0.8})`;
+        ctx.fill();
+        ctx.restore();
+      }
+
+      if (this.time > 2.5) {
+        this.phase = 'idle';
+        return;
+      }
+    }
+
+    requestAnimationFrame(() => this.draw());
+  }
+}
+
+const gachaFx = new GachaFX(document.getElementById('fxGacha'));
+
+function playGacha() {
+  const pet = ssrPets[Math.floor(Math.random() * ssrPets.length)];
+  document.getElementById('gachaPet').src = pet.img;
+  document.getElementById('gachaName').textContent = pet.name;
+
+  const overlay = document.getElementById('gachaOverlay');
+  // 重置动画
+  overlay.querySelectorAll('img, .name, .sub, .gacha-close').forEach(el => {
+    el.style.animation = 'none';
+    el.offsetHeight;
+    el.style.animation = '';
+  });
+
+  overlay.classList.add('active');
+  gachaFx.resize();
+  gachaFx.start();
+}
+
+function closeGacha() {
+  document.getElementById('gachaOverlay').classList.remove('active');
+  gachaFx.phase = 'idle';
+}
+</script>
+</body>
+</html>
