@@ -1,6 +1,8 @@
 import { useMemo, useState, useEffect } from 'react'
 import { storage, calcLevel, calcLevelProgress } from '../utils/storage'
 import { diagnose, getWeakPoints } from '../utils/diagnosis'
+import { getRecommendedTask, clearAnchor } from '../utils/recommendation'
+import TodayTaskCard from '../components/TodayTaskCard'
 
 const POLITICS_PLANETS = [
   { id: 'pol_choice',   label: '基石星球', emoji: '🏛️', color: 'from-blue-400 to-blue-600',    desc: '选择题·基础概念·法律条文' },
@@ -26,6 +28,57 @@ export default function PoliticsHomePage({ user, onStartQuiz, onBack, hideHeader
   const records = storage.getRecords(user.id)
 
   const xpPct = Math.min(100, (levelProgress.currentExp / levelProgress.requiredExp) * 100)
+
+  const [taskRefresh, setTaskRefresh] = useState(0)
+  const [sprintMode, setSprintMode] = useState(false)
+
+  const todayTask = useMemo(() => {
+    return getRecommendedTask(user.id, 'politics')
+  }, [user.id, records, taskRefresh])
+
+  const wrongCount = useMemo(() => {
+    const allWrong = storage.getWrongCardIds(user.id)
+    const polRecords = records.filter(r => r.subject === 'politics')
+    let count = 0
+    for (const id of allWrong) {
+      if (polRecords.some(r => r.card_id === id)) count++
+    }
+    return count
+  }, [user.id, records])
+
+  const POL_TAG_TO_QUIZ = {
+    '选择题': { politicsTag: 'pol_choice' },
+    '简答题': { politicsTag: 'pol_answer' },
+    '材料分析题': { politicsTag: 'pol_analysis' },
+    '实践探究题': { politicsTag: 'pol_explore' },
+  }
+
+  const handleStartTask = ({ type, tag, knowledge, maxQuestions }) => {
+    const opts = POL_TAG_TO_QUIZ[tag] || {}
+    switch (type) {
+      case 'srs':
+        onStartQuiz({ politicsTag: 'pol_choice', srsFirst: true, maxQuestions: maxQuestions || 3 })
+        break
+      case 'anchor': case 'optional':
+        onStartQuiz({ ...opts, maxQuestions: maxQuestions || 3 })
+        break
+      case 'quick': case 'full': {
+        const anchorOpts = POL_TAG_TO_QUIZ[todayTask.anchor?.tag] || { politicsTag: 'pol_choice' }
+        onStartQuiz({ ...anchorOpts, maxQuestions })
+        break
+      }
+      case 'wrong_review':
+        onStartQuiz({ wrongReview: true, subject: 'politics' })
+        break
+      default:
+        onStartQuiz({ politicsTag: 'pol_choice' })
+    }
+  }
+
+  const handleClearAnchor = () => {
+    clearAnchor(user.id)
+    setTaskRefresh(k => k + 1)
+  }
 
   // 今日正确率
   const todayCorrect = useMemo(() => {
@@ -121,6 +174,17 @@ export default function PoliticsHomePage({ user, onStartQuiz, onBack, hideHeader
           </div>
         </div>
       )}
+
+      {/* ====== 今日任务卡片 ====== */}
+      <TodayTaskCard
+        task={todayTask}
+        userId={user.id}
+        onStartTask={handleStartTask}
+        onClearAnchor={handleClearAnchor}
+        sprintMode={sprintMode}
+        wrongCount={wrongCount}
+        accentColor="violet"
+      />
 
       {/* ====== 知识模块分布（保留道法特有功能） ====== */}
       <div className="px-4 pt-3 pb-1">

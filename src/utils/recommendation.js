@@ -43,21 +43,31 @@ export function clearAnchor(userId) {
   localStorage.removeItem(ANCHOR_KEY(userId))
 }
 
+// ── 科目 → subject 字段映射 ────────────────────────────────
+const SUBJECT_FILTERS = {
+  chinese:      ['chinese', 'chinese_junior'],
+  english:      ['english'],
+  math:         ['math'],
+  politics:     ['politics'],
+}
+
+function filterBySubject(records, subject) {
+  if (!subject) return records
+  const allowed = SUBJECT_FILTERS[subject]
+  if (!allowed) return records
+  return records.filter(r => allowed.includes(r.subject))
+}
+
 // ── 薄弱点分析 ────────────────────────────────────────────
 
 /**
  * 返回按严重程度排序的薄弱 ability_tag 列表
- * 至少做过3题才计入统计，优先返回：
- *   1. accuracy < 50%（严重薄弱）
- *   2. accuracy 50-70%（一般薄弱）
- *   3. accuracy >= 80% 但耗时高（理解慢）
- *
- * 考试错题权重加成：
- *   最近5次考试中标记为错题的知识点，排序分数额外 -1（越小越优先）
- *   让考试错点在推荐时自动"被看见"
+ * @param {string} userId
+ * @param {string} subject  可选，按科目过滤记录（'chinese'|'english'|'math'|'politics'）
  */
-export function getWeakAbilityTags(userId) {
-  const records = storage.getRecords(userId)
+export function getWeakAbilityTags(userId, subject) {
+  const allRecords = storage.getRecords(userId)
+  const records = filterBySubject(allRecords, subject)
   if (records.length < 3) return []
 
   const diag = diagnose(records)
@@ -113,13 +123,29 @@ function detectSubject(knowledgeTag) {
 
 // ── SRS到期统计 ───────────────────────────────────────────
 
-export function getOverdueSRSCount(userId) {
+export function getOverdueSRSCount(userId, subject) {
   const srsState = storage.getSrsState(userId)
   const now = Date.now()
-  return Object.values(srsState).filter(card => {
+  const allowed = subject ? SUBJECT_FILTERS[subject] : null
+  return Object.entries(srsState).filter(([cardId, card]) => {
     if (!card.nextReview) return false
-    return new Date(card.nextReview).getTime() <= now
+    if (new Date(card.nextReview).getTime() > now) return false
+    // 按 subject 过滤：从 card 的 subject 字段或 card_id 推断
+    if (allowed) {
+      const cardSubject = card.subject || inferSubjectFromCardId(cardId)
+      if (!allowed.includes(cardSubject)) return false
+    }
+    return true
   }).length
+}
+
+function inferSubjectFromCardId(cardId) {
+  if (!cardId) return 'other'
+  if (cardId.startsWith('en_') || cardId.includes('_en_')) return 'english'
+  if (cardId.startsWith('pol_') || cardId.includes('_pol_')) return 'politics'
+  if (cardId.startsWith('math_') || cardId.includes('_math_')) return 'math'
+  if (cardId.startsWith('jc_') || cardId.includes('junior')) return 'chinese_junior'
+  return 'chinese'
 }
 
 // ── 核心：生成今日任务 ────────────────────────────────────
@@ -139,8 +165,8 @@ export function getOverdueSRSCount(userId) {
  * }
  */
 export function getRecommendedTask(userId, subject = 'chinese') {
-  const overdueCount = getOverdueSRSCount(userId)
-  const weakTags     = getWeakAbilityTags(userId)
+  const overdueCount = getOverdueSRSCount(userId, subject)
+  const weakTags     = getWeakAbilityTags(userId, subject)
   const nextExam     = getNextExam(userId, subject)
   const daysLeft     = getDaysUntil(nextExam)
   const urgency      = getExamUrgency(nextExam)

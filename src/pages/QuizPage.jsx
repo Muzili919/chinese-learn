@@ -32,6 +32,7 @@ import jcClassicalQ from '../data/questions_junior_chinese_classical.json'
 import jcNovelQ from '../data/questions_junior_chinese_novel.json'
 import jcExprQ from '../data/questions_junior_chinese_expression.json'
 import { shuffle } from '../utils/common'
+import { speakEnglish, stop as stopTTS } from '../utils/tts'
 
 const CHINESE_QUESTIONS = [...vocabQ, ...poetryQ, ...idiomQ, ...sentenceQ, ...litQ]
 const ENGLISH_QUESTIONS = [...enVocabQ, ...enListenQ, ...enGrammarQ, ...enReadingQ, ...enWritingQ, ...enClozeQ]
@@ -113,7 +114,20 @@ export default function QuizPage({ user, options = {}, onFinish, onBack }) {
       const pool = wrongCardIds
         .map(id => {
           // 1. 静态题库
-          if (ALL_SUBJECTS_MAP[id]) return ALL_SUBJECTS_MAP[id]
+          const staticQ = ALL_SUBJECTS_MAP[id]
+          if (staticQ) {
+            // ★ 英语阅读题：type=multiple_choice 但包含多道子题（选项只有T/F或为空）
+            // 转为 fill_blank 让 PlainMultiSubQuestion 正确渲染所有子题
+            if (staticQ.type === 'multiple_choice'
+                && (/\([2-9]\)/.test(staticQ.question) || /（[2-9]）/.test(staticQ.question))) {
+              return {
+                ...staticQ,
+                type: 'fill_blank',
+                options: undefined,
+              }
+            }
+            return staticQ
+          }
           // 2. AI自测题 → 从记录里重建题目对象
           const rec = recMap[id]
           if (rec?.question_data) {
@@ -176,8 +190,21 @@ export default function QuizPage({ user, options = {}, onFinish, onBack }) {
   const [index, setIndex] = useState(0)
   const [sessionRecords, setSessionRecords] = useState([])
   const [xpGained, setXpGained] = useState(0)
+  const [skipCount, setSkipCount] = useState(0)
+  const [isPlayingAudio, setIsPlayingAudio] = useState(false)
 
   const current = questions[index]
+
+  // ★ 听力题自动播放 + 切题时停止
+  useEffect(() => {
+    stopTTS()
+    setIsPlayingAudio(false)
+    if (current?.listening_text) {
+      setIsPlayingAudio(true)
+      speakEnglish(current.listening_text, () => setIsPlayingAudio(false))
+    }
+    return () => { stopTTS(); setIsPlayingAudio(false) }
+  }, [current?.id])
 
   useEffect(() => {
     questionStartTime.current = Date.now()
@@ -253,7 +280,6 @@ export default function QuizPage({ user, options = {}, onFinish, onBack }) {
 
   // 防护：如果当前题目缺少关键字段（如type/question/options），显示错误并允许跳过
   const isQuestionValid = current && (current.type || current.question)
-  const [skipCount, setSkipCount] = useState(0)
 
   // 自动跳过无效题目
   useEffect(() => {
@@ -275,7 +301,7 @@ export default function QuizPage({ user, options = {}, onFinish, onBack }) {
         }
         storage.addSession(user.id, session)
         // 标记星球完成（至少答5题且完成全部，才算打卡）
-        if (allRecords.length >= 5) {
+        if (sessionRecords.length >= 5) {
           const tag = current?.knowledge_tag || (mathTopic ? ('🔢 ' + (current?.topic || mathTopic)) : null)
           if (tag) storage.markPlanetComplete(user.id, tag)
         }
@@ -316,6 +342,30 @@ export default function QuizPage({ user, options = {}, onFinish, onBack }) {
           {index + 1}/{questions.length}
         </span>
       </div>
+
+      {/* 听力播放提示 */}
+      {current?.listening_text && (
+        <div className="bg-violet-50 px-4 py-2.5 flex items-center justify-between">
+          <span className="text-xs text-violet-600 font-medium">
+            {isPlayingAudio ? '正在播放听力...' : '听力已播放完毕'}
+          </span>
+          <button
+            onClick={() => {
+              if (isPlayingAudio) return
+              setIsPlayingAudio(true)
+              speakEnglish(current.listening_text, () => setIsPlayingAudio(false))
+            }}
+            disabled={isPlayingAudio}
+            className={`text-xs px-3 py-1.5 rounded-full font-bold ${
+              isPlayingAudio
+                ? 'bg-violet-200 text-violet-400 cursor-not-allowed'
+                : 'bg-violet-500 text-white active:bg-violet-600'
+            }`}
+          >
+            {isPlayingAudio ? '播放中...' : '重新播放'}
+          </button>
+        </div>
+      )}
 
       {/* Question area — overflow-y-auto 保证超长题目可以滚动 */}
       <div className="flex-1 overflow-y-auto px-4 py-6">

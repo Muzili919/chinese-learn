@@ -1,6 +1,8 @@
 import { useMemo, useState, useEffect } from 'react'
 import { storage } from '../utils/storage'
 import { diagnose, getWeakPoints } from '../utils/diagnosis'
+import { getRecommendedTask, clearAnchor } from '../utils/recommendation'
+import TodayTaskCard from '../components/TodayTaskCard'
 
 const JC_PLANETS = [
   { id: 'jc_basic',     label: '基础',     emoji: '📚', color: 'from-blue-400 to-blue-600',   desc: '字音·字形·词语·病句·标点',     tag: '语言基础' },
@@ -50,6 +52,7 @@ const TAG_TO_PLANET = {
   '古诗文默写': 'jc_poetry', '古诗词赏析': 'jc_poetry', '文言文翻译': 'jc_poetry', '古诗文常识': 'jc_poetry',
   '文言文': 'jc_classical',
   '实词解释': 'jc_classical', '虚词用法': 'jc_classical', '句式翻译': 'jc_classical', '文言文阅读': 'jc_classical',
+  '现代文阅读': 'jc_reading',
   '名著阅读': 'jc_novel',
   '语言运用': 'jc_expression',
   '仿写句子': 'jc_expression', '语言得体': 'jc_expression', '信息概括': 'jc_expression',
@@ -59,6 +62,65 @@ const TAG_TO_PLANET = {
 
 export default function JuniorChineseHomePage({ user, grade, onStartQuiz }) {
   const records = storage.getRecords(user.id)
+
+  const [taskRefresh, setTaskRefresh] = useState(0)
+  const [sprintMode, setSprintMode] = useState(false)
+
+  const todayTask = useMemo(() => {
+    return getRecommendedTask(user.id, 'chinese')
+  }, [user.id, records, taskRefresh])
+
+  const wrongCount = useMemo(() => {
+    const allWrong = storage.getWrongCardIds(user.id)
+    const jcRecords = records.filter(r => r.subject === 'chinese' || r.subject === 'chinese_junior')
+    let count = 0
+    for (const id of allWrong) {
+      if (jcRecords.some(r => r.card_id === id)) count++
+    }
+    return count
+  }, [user.id, records])
+
+  const JC_TAG_TO_QUIZ = {
+    '字音辨析': { juniorChineseTag: 'jc_basic' },
+    '字形辨析': { juniorChineseTag: 'jc_basic' },
+    '词语运用': { juniorChineseTag: 'jc_basic' },
+    '病句辨析': { juniorChineseTag: 'jc_basic' },
+    '标点符号': { juniorChineseTag: 'jc_basic' },
+    '古诗文默写': { juniorChineseTag: 'jc_poetry' },
+    '古诗词赏析': { juniorChineseTag: 'jc_poetry' },
+    '实词解释': { juniorChineseTag: 'jc_classical' },
+    '虚词用法': { juniorChineseTag: 'jc_classical' },
+    '名著阅读': { juniorChineseTag: 'jc_novel' },
+    '仿写句子': { juniorChineseTag: 'jc_expression' },
+    '信息概括': { juniorChineseTag: 'jc_expression' },
+  }
+
+  const handleStartTask = ({ type, tag, knowledge, maxQuestions }) => {
+    const opts = JC_TAG_TO_QUIZ[tag] || JC_TAG_TO_QUIZ[knowledge] || {}
+    switch (type) {
+      case 'srs':
+        onStartQuiz({ juniorChineseTag: 'jc_basic', grade: 'junior', srsFirst: true, maxQuestions: maxQuestions || 3 })
+        break
+      case 'anchor': case 'optional':
+        onStartQuiz({ ...opts, grade: 'junior', maxQuestions: maxQuestions || 3 })
+        break
+      case 'quick': case 'full': {
+        const anchorOpts = JC_TAG_TO_QUIZ[todayTask.anchor?.tag] || { juniorChineseTag: 'jc_basic' }
+        onStartQuiz({ ...anchorOpts, grade: 'junior', maxQuestions })
+        break
+      }
+      case 'wrong_review':
+        onStartQuiz({ wrongReview: true, subject: 'chinese_junior' })
+        break
+      default:
+        onStartQuiz({ juniorChineseTag: 'jc_basic', grade: 'junior' })
+    }
+  }
+
+  const handleClearAnchor = () => {
+    clearAnchor(user.id)
+    setTaskRefresh(k => k + 1)
+  }
 
   const [refreshKey, setRefreshKey] = useState(0)
   useEffect(() => {
@@ -143,6 +205,17 @@ export default function JuniorChineseHomePage({ user, grade, onStartQuiz }) {
           <p className="text-xs text-amber-500">涵盖初一~初三核心考点，先做几道题试试吧！</p>
         </div>
       ) : null}
+
+      {/* 今日任务卡片 */}
+      <TodayTaskCard
+        task={todayTask}
+        userId={user.id}
+        onStartTask={handleStartTask}
+        onClearAnchor={handleClearAnchor}
+        sprintMode={sprintMode}
+        wrongCount={wrongCount}
+        accentColor="purple"
+      />
 
       {/* 星球卡片 */}
       <div className="flex-1 px-4 pt-4 pb-8">

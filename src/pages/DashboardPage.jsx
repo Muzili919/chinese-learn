@@ -41,6 +41,14 @@ const SUBJECTS_CONFIG = {
   ],
   junior2: [
     {
+      id: 'chinese',
+      label: '语文',
+      emoji: '📖',
+      color: '#6366f1',
+      bg: 'linear-gradient(135deg, #eef2ff, #e0e7ff)',
+      textColor: '#4338ca',
+    },
+    {
       id: 'english',
       label: '英语',
       emoji: '🌎',
@@ -205,8 +213,7 @@ export default function DashboardPage({
       list.push({ id: 'ai_practice', priority: 45 })
     }
 
-    // 4. 今日任务（永远显示）
-    list.push({ id: 'today', priority: 30 })
+    // 注：每个科目首页已有自己的今日任务卡片，Dashboard 不再单独显示
 
     return list.sort((a, b) => b.priority - a.priority)
   }, [overdueCount, nextExam, daysUntilExam, weaksBySubject, records])

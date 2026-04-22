@@ -645,7 +645,7 @@ export default function App() {
         }}
       />
     )
-    if (page === 'reading') return <ReadingPage user={user} onFinish={finishQuiz} onBack={goHome} />
+    if (page === 'reading') return <ReadingPage user={user} subject={quizOptions?.subject} onFinish={finishQuiz} onBack={goHome} />
     if (page === 'sentence_practice') return <SentencePracticePage user={user} onBack={goHome} />
     if (page === 'essay') return <EssayPage user={user} onBack={goHome} />
     if (page === 'dictation') return <DictationPage user={user} subject={quizOptions?.dictationSubject} onBack={goHome} />

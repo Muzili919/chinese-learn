@@ -1,6 +1,8 @@
 import { useMemo, useState, useEffect } from 'react'
 import { storage, calcLevel, calcLevelProgress } from '../utils/storage'
 import { diagnose, getWeakPoints } from '../utils/diagnosis'
+import { getRecommendedTask, clearAnchor } from '../utils/recommendation'
+import TodayTaskCard from '../components/TodayTaskCard'
 
 const EN_PLANETS = [
   // ★ 核心8个学习星球（含完形填空+闪电自测）
@@ -35,6 +37,60 @@ export default function EnglishHomePage({ user, grade = 'primary', onStartQuiz, 
   const records = storage.getRecords(user.id)
 
   const xpPct = Math.min(100, (levelProgress.currentExp / levelProgress.requiredExp) * 100)
+
+  const [taskRefresh, setTaskRefresh] = useState(0)
+  const [sprintMode, setSprintMode] = useState(false)
+
+  const todayTask = useMemo(() => {
+    return getRecommendedTask(user.id, 'english')
+  }, [user.id, records, taskRefresh])
+
+  const wrongCount = useMemo(() => {
+    const allWrong = storage.getWrongCardIds(user.id)
+    const enRecords = records.filter(r => r.subject === 'english')
+    let count = 0
+    for (const id of allWrong) {
+      if (enRecords.some(r => r.card_id === id)) count++
+    }
+    return count
+  }, [user.id, records])
+
+  const EN_TAG_TO_QUIZ = {
+    '英语词汇': { englishTag: 'en_vocab' },
+    '英语语法': { englishTag: 'en_grammar' },
+    '英语阅读': { englishTag: 'en_reading' },
+    '英语写作': { englishTag: 'en_writing' },
+    '完形填空': { englishTag: 'en_cloze' },
+    '英语听力': { englishTag: 'en_listen' },
+    '英语联想': { englishTag: 'en_association' },
+  }
+
+  const handleStartTask = ({ type, tag, knowledge, maxQuestions }) => {
+    const opts = EN_TAG_TO_QUIZ[tag] || (knowledge ? EN_TAG_TO_QUIZ[knowledge] : {})
+    switch (type) {
+      case 'srs':
+        onStartQuiz({ englishTag: 'en_vocab', srsFirst: true, maxQuestions: maxQuestions || 3, grade })
+        break
+      case 'anchor': case 'optional':
+        onStartQuiz({ ...opts, grade, maxQuestions: maxQuestions || 3 })
+        break
+      case 'quick': case 'full': {
+        const anchorOpts = EN_TAG_TO_QUIZ[todayTask.anchor?.tag] || { englishTag: 'en_vocab' }
+        onStartQuiz({ ...anchorOpts, grade, maxQuestions })
+        break
+      }
+      case 'wrong_review':
+        onStartQuiz({ wrongReview: true, subject: 'english' })
+        break
+      default:
+        onStartQuiz({ englishTag: 'en_vocab', grade })
+    }
+  }
+
+  const handleClearAnchor = () => {
+    clearAnchor(user.id)
+    setTaskRefresh(k => k + 1)
+  }
 
   // 今日正确率
   const todayCorrect = useMemo(() => {
@@ -138,6 +194,17 @@ export default function EnglishHomePage({ user, grade = 'primary', onStartQuiz, 
           <p className="text-xs text-sky-500">先做几道英语题，我会分析你的弱项哦！</p>
         </div>
       ) : null}
+
+      {/* ===== 今日任务卡片 ===== */}
+      <TodayTaskCard
+        task={todayTask}
+        userId={user.id}
+        onStartTask={handleStartTask}
+        onClearAnchor={handleClearAnchor}
+        sprintMode={sprintMode}
+        wrongCount={wrongCount}
+        accentColor="emerald"
+      />
 
       {/* ===== 星球卡片区 ===== */}
       <div className="flex-1 px-4 pt-4 pb-8">

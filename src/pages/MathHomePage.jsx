@@ -1,5 +1,7 @@
 import { useState, useMemo, useEffect } from 'react'
 import { storage } from '../utils/storage'
+import { getRecommendedTask, clearAnchor } from '../utils/recommendation'
+import TodayTaskCard from '../components/TodayTaskCard'
 
 const MATH_TOPICS = {
   primary: [
@@ -89,6 +91,60 @@ export default function MathHomePage({ user, grade, onStartQuiz, onStartFormula 
 
   const records = useMemo(() => storage.getRecords(user.id), [user.id])
 
+  const [taskRefresh, setTaskRefresh] = useState(0)
+  const [sprintMode, setSprintMode] = useState(false)
+
+  const todayTask = useMemo(() => {
+    return getRecommendedTask(user.id, 'math')
+  }, [user.id, records, taskRefresh])
+
+  const wrongCount = useMemo(() => {
+    const allWrong = storage.getWrongCardIds(user.id)
+    const mathRecords = records.filter(r => r.subject === 'math')
+    let count = 0
+    for (const id of allWrong) {
+      if (mathRecords.some(r => r.card_id === id)) count++
+    }
+    return count
+  }, [user.id, records])
+
+  const MATH_TAG_TO_QUIZ = {
+    '数与运算': { mathTopic: '数与运算' },
+    '图形与空间': { mathTopic: '图形与空间' },
+    '奥数专题': { mathTopic: '奥数专题' },
+    '方程与不等式': { mathTopic: '方程与不等式' },
+    '函数与图像': { mathTopic: '函数与图像' },
+    '整式运算': { mathTopic: '整式运算' },
+    '几何证明': { mathTopic: '几何证明' },
+  }
+
+  const handleStartTask = ({ type, tag, knowledge, maxQuestions }) => {
+    const opts = MATH_TAG_TO_QUIZ[tag] || {}
+    switch (type) {
+      case 'srs':
+        onStartQuiz({ mathTopic: '数与运算', grade: level, srsFirst: true, maxQuestions: maxQuestions || 3 })
+        break
+      case 'anchor': case 'optional':
+        onStartQuiz({ ...opts, grade: level, maxQuestions: maxQuestions || 3 })
+        break
+      case 'quick': case 'full': {
+        const anchorOpts = MATH_TAG_TO_QUIZ[todayTask.anchor?.tag] || { mathTopic: '数与运算' }
+        onStartQuiz({ ...anchorOpts, grade: level, maxQuestions })
+        break
+      }
+      case 'wrong_review':
+        onStartQuiz({ wrongReview: true, subject: 'math' })
+        break
+      default:
+        onStartQuiz({ mathTopic: topics[0]?.topic, grade: level })
+    }
+  }
+
+  const handleClearAnchor = () => {
+    clearAnchor(user.id)
+    setTaskRefresh(k => k + 1)
+  }
+
   const mathRecords = useMemo(
     () => records.filter(r => r.subject === 'math'),
     [records]
@@ -150,6 +206,17 @@ export default function MathHomePage({ user, grade, onStartQuiz, onStartFormula 
         </div>
         <p className="text-xs text-gray-400">{config.label} {config.range} · {totalQuestions}道题 · 今日已练 {doneCount}/{topics.length} 个专题</p>
       </div>
+
+      {/* 今日任务卡片 */}
+      <TodayTaskCard
+        task={todayTask}
+        userId={user.id}
+        onStartTask={handleStartTask}
+        onClearAnchor={handleClearAnchor}
+        sprintMode={sprintMode}
+        wrongCount={wrongCount}
+        accentColor="orange"
+      />
 
       {/* 快速统计卡片 */}
       {totalAnswered > 0 && (

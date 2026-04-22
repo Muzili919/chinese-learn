@@ -12,6 +12,7 @@
 
 import { useState, useMemo, useRef } from 'react'
 import { storage } from '../utils/storage'
+import { FULL_Q_MAP } from '../utils/questionMap'
 import { getActivityHeatmap } from '../utils/diagnosis'
 import {
   getUpcomingExams, getAllExams, addExam, removeExam, getDaysUntil,
@@ -207,7 +208,8 @@ export default function ReportPage({ user, onBack, onStartQuiz, grade = 'primary
 
   function handleUnlock(e) {
     e.preventDefault()
-    if (pinInput === (user.pin || '1234')) { setUnlocked(true) }
+    const savedPin = storage.getParentPin()
+    if (pinInput === (savedPin || user.pin || '1234')) { setUnlocked(true) }
     else { setPinError(true); setTimeout(() => setPinError(false), 1500) }
   }
 
@@ -554,10 +556,12 @@ export default function ReportPage({ user, onBack, onStartQuiz, grade = 'primary
               <button onClick={() => { setShowPinModal(false); setPinForm({ old: '', new1: '', new2: '' }); setPinMsg(null) }}
                 className="flex-1 py-2.5 rounded-xl bg-gray-100 text-gray-600 font-medium">取消</button>
               <button onClick={() => {
-                if (pinForm.old !== (user.pin || '1234')) { setPinMsg({ ok: false, text: '旧密码错误' }); return }
+                const savedPin = storage.getParentPin()
+                if (pinForm.old !== (savedPin || user.pin || '1234')) { setPinMsg({ ok: false, text: '旧密码错误' }); return }
                 if (pinForm.new1.length !== 4) { setPinMsg({ ok: false, text: '新密码必须4位' }); return }
                 if (pinForm.new1 !== pinForm.new2) { setPinMsg({ ok: false, text: '两次输入不一致' }); return }
                 storage.setParentPin(pinForm.new1)
+                storage.setUser({ ...user, pin: pinForm.new1 })
                 setPinMsg({ ok: true, text: '修改成功！' })
                 setTimeout(() => { setShowPinModal(false); setPinForm({ old: '', new1: '', new2: '' }); setPinMsg(null) }, 1200)
               }}
@@ -742,7 +746,7 @@ function SubjectReport({
               {wrongItems.map(([cardId, r]) => (
                 <div key={cardId} className="flex items-start gap-2 bg-red-50 rounded-xl p-3">
                   <div className="flex-1 min-w-0">
-                    <p className="text-sm text-gray-800 line-clamp-2">{r.question_data?.stem || cardId}</p>
+                    <p className="text-sm text-gray-800 line-clamp-2">{r.question_data?.stem || FULL_Q_MAP[cardId]?.question?.split('\n')[0] || cardId}</p>
                     <div className="flex items-center gap-2 mt-1">
                       {r.knowledge_tag && <span className="text-[10px] bg-red-100 text-red-600 px-1.5 py-0.5 rounded-full">{r.knowledge_tag}</span>}
                       <span className="text-[10px] text-gray-400">{r.timestamp?.slice(0, 10)}</span>

@@ -1,8 +1,7 @@
-import { useState, useMemo, useEffect } from 'react'
+import { useState, useMemo, useEffect, useCallback } from 'react'
 import { storage } from '../utils/storage'
 import formulasRaw from '../data/questions_math_formulas.json'
 
-// 内置兜底公式（data 文件为空时使用）
 const FALLBACK_FORMULAS = [
   { id: 'f_sq', front: '正方形面积', back: 'S = a²\na = 边长', category: '平面图形', example: '边长4cm → S = 16cm²', memory_tips: '边长×边长' },
   { id: 'f_rect', front: '长方形面积', back: 'S = l × w\nl = 长，w = 宽', category: '平面图形', example: '3×5 = 15cm²', memory_tips: '长乘宽' },
@@ -25,20 +24,71 @@ const FALLBACK_FORMULAS = [
   { id: 'f_dist', front: '乘法分配律', back: '(a+b)×c = a×c + b×c', category: '运算定律', example: '(20+3)×5 = 100+15 = 115', memory_tips: '括号内每个数都要乘括号外的数' },
 ]
 
+const FORMULA_SESSION_SIZE = 10
+
+// SRS 间隔（天数）
+const SRS_INTERVALS = [1, 2, 4, 7, 15, 30]
+
+function getNextReview(intervalIndex) {
+  const days = SRS_INTERVALS[Math.min(intervalIndex, SRS_INTERVALS.length - 1)]
+  const d = new Date()
+  d.setDate(d.getDate() + days)
+  return d.toISOString()
+}
+
+function pickSRSCards(formulas, srsState, count) {
+  const now = Date.now()
+  const overdue = []
+  const due = []
+  const unseen = []
+
+  for (const f of formulas) {
+    const state = srsState[f.id]
+    if (!state || !state.nextReview) {
+      unseen.push(f)
+    } else {
+      const reviewAt = new Date(state.nextReview).getTime()
+      if (reviewAt <= now - 86400000) {
+        overdue.push({ formula: f, state })
+      } else if (reviewAt <= now) {
+        due.push({ formula: f, state })
+      }
+    }
+  }
+
+  const result = []
+  for (const item of overdue.sort((a, b) => new Date(a.state.nextReview) - new Date(b.state.nextReview))) {
+    if (result.length >= count) break
+    result.push(item.formula)
+  }
+  for (const item of due) {
+    if (result.length >= count) break
+    result.push(item.formula)
+  }
+  for (const f of unseen) {
+    if (result.length >= count) break
+    result.push(f)
+  }
+  return result
+}
+
 const CATEGORIES = ['全部', '平面图形', '立体图形', '分数法则', '运算定律', '单位换算']
-const FORMULA_SESSION_SIZE = 10 // 每次练习10张
 
 export default function MathFormulaPage({ user, onBack }) {
   const FORMULAS = formulasRaw.length > 0 ? formulasRaw : FALLBACK_FORMULAS
+  const userId = user.id
 
   const [activeCategory, setActiveCategory] = useState('全部')
-  const [cardIndex, setCardIndex]   = useState(0)
-  const [flipped, setFlipped]       = useState(false)
-  const [mode, setMode]             = useState('browse') // browse | quiz
-  const [quizResult, setQuizResult] = useState(null)     // 'know' | 'forgot'
-  const [stats, setStats]           = useState({ know: 0, forgot: 0 })
-  const [session, setSession]       = useState([])       // 本次卡片序列
+  const [cardIndex, setCardIndex] = useState(0)
+  const [flipped, setFlipped] = useState(false)
+  const [mode, setMode] = useState('browse')
+  const [quizResult, setQuizResult] = useState(null)
+  const [stats, setStats] = useState({ know: 0, forgot: 0 })
+  const [session, setSession] = useState([])
   const [showExample, setShowExample] = useState(false)
+  const [refreshKey, setRefreshKey] = useState(0)
+
+  const srsState = useMemo(() => storage.getSrsState(userId), [userId, refreshKey])
 
   const allCategories = useMemo(() => {
     const cats = [...new Set(FORMULAS.map(f => f.category).filter(Boolean))]
@@ -50,21 +100,34 @@ export default function MathFormulaPage({ user, onBack }) {
     return FORMULAS.filter(f => f.category === activeCategory)
   }, [activeCategory])
 
-  // 每次切换分类 or 模式 reset 到第一张
+  // SRS 统计
+  const srsStats = useMemo(() => {
+    const now = Date.now()
+    let overdue = 0, due = 0, mastered = 0, unseen = 0
+    for (const f of filtered) {
+      const s = srsState[f.id]
+      if (!s || !s.nextReview) { unseen++; continue }
+      const t = new Date(s.nextReview).getTime()
+      if (t <= now - 86400000) overdue++
+      else if (t <= now) due++
+      if (s.intervalIndex >= SRS_INTERVALS.length) mastered++
+    }
+    return { overdue, due, mastered, unseen, total: filtered.length }
+  }, [filtered, srsState])
+
   useEffect(() => {
     setCardIndex(0)
     setFlipped(false)
     setQuizResult(null)
     setShowExample(false)
     if (mode === 'quiz') {
-      // 打乱顺序，每次取10张开始闯关
-      const shuffled = [...filtered].sort(() => Math.random() - 0.5)
-      setSession(shuffled.slice(0, FORMULA_SESSION_SIZE))
+      const picked = pickSRSCards(filtered, srsState, FORMULA_SESSION_SIZE)
+      setSession(picked.length > 0 ? picked : [...filtered].sort(() => Math.random() - 0.5).slice(0, FORMULA_SESSION_SIZE))
     }
   }, [activeCategory, mode])
 
   const cards = mode === 'quiz' ? session : filtered
-  const card  = cards[cardIndex]
+  const card = cards[cardIndex]
   const total = cards.length
 
   function handleFlip() {
@@ -90,9 +153,34 @@ export default function MathFormulaPage({ user, onBack }) {
     }
   }
 
+  function updateCardSRS(cardId, remembered) {
+    const current = srsState[cardId] || { intervalIndex: 0, correctCount: 0, wrongCount: 0 }
+    if (remembered) {
+      current.intervalIndex = Math.min((current.intervalIndex || 0) + 1, SRS_INTERVALS.length - 1)
+      current.correctCount = (current.correctCount || 0) + 1
+    } else {
+      current.intervalIndex = 0
+      current.wrongCount = (current.wrongCount || 0) + 1
+    }
+    current.nextReview = getNextReview(current.intervalIndex)
+    current.subject = 'math'
+    storage.updateCardSrs(userId, cardId, current)
+  }
+
   function handleKnow() {
+    if (!card) return
     setQuizResult('know')
     setStats(s => ({ ...s, know: s.know + 1 }))
+    updateCardSRS(card.id, true)
+    storage.addRecord(userId, {
+      card_id: card.id,
+      correct: true,
+      ability_tag: card.category,
+      knowledge_tag: card.category,
+      subject: 'math',
+      topic: '公式速记',
+      timestamp: new Date().toISOString(),
+    })
     setTimeout(() => {
       if (cardIndex < total - 1) {
         setCardIndex(i => i + 1)
@@ -104,8 +192,19 @@ export default function MathFormulaPage({ user, onBack }) {
   }
 
   function handleForgot() {
+    if (!card) return
     setQuizResult('forgot')
     setStats(s => ({ ...s, forgot: s.forgot + 1 }))
+    updateCardSRS(card.id, false)
+    storage.addRecord(userId, {
+      card_id: card.id,
+      correct: false,
+      ability_tag: card.category,
+      knowledge_tag: card.category,
+      subject: 'math',
+      topic: '公式速记',
+      timestamp: new Date().toISOString(),
+    })
     setTimeout(() => {
       if (cardIndex < total - 1) {
         setCardIndex(i => i + 1)
@@ -117,6 +216,25 @@ export default function MathFormulaPage({ user, onBack }) {
   }
 
   const isFinished = mode === 'quiz' && cardIndex >= total - 1 && quizResult !== null
+
+  const handleFinish = useCallback(() => {
+    // 打卡 + XP
+    storage.markPlanetComplete(userId, '公式速记')
+    storage.addXP(userId, 10 + stats.know * 2)
+    // 更新连续天数
+    const streak = storage.getStreak(userId)
+    const today = new Date().toISOString().split('T')[0]
+    if (streak.lastDate !== today) {
+      streak.count = (streak.count || 0) + 1
+      streak.lastDate = today
+      storage.setStreak(userId, streak)
+    }
+    setRefreshKey(k => k + 1)
+  }, [userId, stats])
+
+  useEffect(() => {
+    if (isFinished) handleFinish()
+  }, [isFinished, handleFinish])
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-violet-50 to-purple-50 flex flex-col"
@@ -131,7 +249,7 @@ export default function MathFormulaPage({ user, onBack }) {
         <h1 className="text-xl font-bold text-gray-800 flex-1">📋 公式速记</h1>
         <div className="flex bg-gray-100 rounded-xl p-0.5">
           {['browse', 'quiz'].map(m => (
-            <button key={m} onClick={() => setMode(m)}
+            <button key={m} onClick={() => { setMode(m); setStats({ know: 0, forgot: 0 }) }}
               className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ${
                 mode === m ? 'bg-violet-600 text-white shadow-sm' : 'text-gray-500'
               }`}>
@@ -154,6 +272,24 @@ export default function MathFormulaPage({ user, onBack }) {
           </button>
         ))}
       </div>
+
+      {/* SRS 进度条（闯关模式） */}
+      {mode === 'quiz' && srsStats.overdue > 0 && (
+        <div className="mx-4 mt-2 bg-orange-50 border border-orange-100 rounded-xl px-3 py-2 flex items-center gap-2">
+          <span className="text-xs text-orange-600 font-semibold">📚 {srsStats.overdue} 张待复习</span>
+          <span className="text-[10px] text-orange-400">
+            已掌握 {srsStats.mastered}/{srsStats.total}
+          </span>
+        </div>
+      )}
+      {mode === 'quiz' && srsStats.overdue === 0 && srsStats.mastered > 0 && (
+        <div className="mx-4 mt-2 bg-green-50 border border-green-100 rounded-xl px-3 py-2 flex items-center gap-2">
+          <span className="text-xs text-green-600 font-semibold">✅ 全部按时复习</span>
+          <span className="text-[10px] text-green-400">
+            已掌握 {srsStats.mastered}/{srsStats.total}
+          </span>
+        </div>
+      )}
 
       {/* 进度 */}
       <div className="px-4 pt-2 pb-1 flex items-center gap-3">
@@ -183,6 +319,9 @@ export default function MathFormulaPage({ user, onBack }) {
               <div className="text-3xl font-extrabold text-red-400">{stats.forgot}</div>
               <div className="text-sm text-gray-500">需复习</div>
             </div>
+          </div>
+          <div className="bg-violet-50 border border-violet-100 rounded-xl px-4 py-2 text-sm text-violet-600 font-medium">
+            +{10 + stats.know * 2} XP · 打卡成功 ✓
           </div>
           <button onClick={() => { setMode('quiz'); setStats({ know: 0, forgot: 0 }) }}
             className="mt-2 bg-violet-600 text-white font-bold px-8 py-3 rounded-2xl active:scale-95 transition-transform">

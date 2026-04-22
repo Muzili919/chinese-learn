@@ -5,6 +5,7 @@ import { syncAfterSession } from '../utils/sync'
 import { evaluateReadingAnswer } from '../utils/ai'
 import tips from '../data/reading_tips.json'
 import readingQ from '../data/questions_reading.json'
+import jcReadingQ from '../data/questions_junior_chinese_reading.json'
 import DuolingoStyleQuiz from '../components/DuolingoStyleQuiz'
 import { shuffle } from '../utils/common'
 
@@ -413,8 +414,12 @@ function MultiSubQuestion({ question, onDone }) {
 }
 
 // ─── 主页面 ──────────────────────────────────────────────
-export default function ReadingPage({ user, onFinish, onBack }) {
-  const questions = useMemo(() => shuffle(readingQ).slice(0, 5), [])
+export default function ReadingPage({ user, subject, onFinish, onBack }) {
+  const pool = useMemo(() => {
+    const isJunior = subject === 'chinese_junior'
+    return isJunior && jcReadingQ.length > 0 ? jcReadingQ : readingQ
+  }, [subject])
+  const questions = useMemo(() => shuffle(pool).slice(0, 5), [pool])
   const [index, setIndex] = useState(0)
   const [phase, setPhase] = useState('answering') // 'answering' | 'ai_loading' | 'result'
   const [userAnswer, setUserAnswer] = useState('')
@@ -449,7 +454,7 @@ export default function ReadingPage({ user, onFinish, onBack }) {
       selected_answer: answer,
       ability_tag: current.ability_tag,
       knowledge_tag: current.knowledge_tag,
-      subject: 'chinese',
+      subject: subject === 'chinese_junior' ? 'chinese_junior' : 'chinese',
       timestamp: new Date().toISOString(),
     }
     storage.addRecord(user.id, record)
@@ -466,8 +471,9 @@ export default function ReadingPage({ user, onFinish, onBack }) {
       durationSec: totalSec,
     }
     storage.addSession(user.id, session)
-    // 标记星球完成（只有做完才算打卡，统一用'阅读星球'tag）
-    storage.markPlanetComplete(user.id, '阅读星球')
+    // 标记星球完成
+    const planetTag = subject === 'chinese_junior' ? '现代文阅读' : '阅读星球'
+    storage.markPlanetComplete(user.id, planetTag)
     updateStreak(user.id)
     syncAfterSession(user.id)
     onFinish({ session, records })

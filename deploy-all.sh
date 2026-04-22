@@ -46,8 +46,8 @@ if [ "$SKIP_ALIYUN" = false ]; then
   scp "${TMPTAR}" "${ALIYUN_HOST}:/tmp/cl_dist.tar.gz"
   rm -f "${TMPTAR}"
 
-  echo "   解压到 ${ALIYUN_PATH}..."
-  ssh "${ALIYUN_HOST}" "sudo tar xzf /tmp/cl_dist.tar.gz -C ${ALIYUN_PATH}/ && rm -f /tmp/cl_dist.tar.gz && sudo chmod -R 755 ${ALIYUN_PATH} && sudo chown -R nginx:nginx ${ALIYUN_PATH} && echo 'aliyun OK'"
+  echo "   清理旧文件并解压到 ${ALIYUN_PATH}..."
+  ssh "${ALIYUN_HOST}" "sudo rm -rf ${ALIYUN_PATH}/assets && sudo tar xzf /tmp/cl_dist.tar.gz -C ${ALIYUN_PATH}/ && rm -f /tmp/cl_dist.tar.gz && sudo chmod -R 755 ${ALIYUN_PATH} && sudo chown -R nginx:nginx ${ALIYUN_PATH} && echo 'aliyun OK'"
 
   # 验证部署（检查 index.html 修改时间）
   REMOTE_DATE=$(ssh "${ALIYUN_HOST}" "sudo stat -c '%y' ${ALIYUN_PATH}/index.html 2>/dev/null || echo '无法访问'")
