@@ -691,6 +691,22 @@ export default function MV1Demo({ onBack, initialState, onStateChange, grade, cu
         weeklyQuestions: cloud?.weeklyQuestions || 0,
         weeklyResetDate: cloud?.weeklyResetDate || todayStr,
       };
+
+      // ★ 云端奖励领取：检查 pendingGifts，发放到 merged 并清空云端
+      const gifts = cloud?.pendingGifts || [];
+      if (gifts.length > 0) {
+        for (const g of gifts) {
+          if (g.type === 'cards') {
+            merged.inventory = merged.inventory || {};
+            merged.inventory.cards = (merged.inventory.cards || 0) + (g.amount || 0);
+          }
+        }
+        // 清空云端 pendingGifts
+        upsertMV1State(currentUserId, { ...(cloud || {}), pendingGifts: [] }).catch(() => {});
+        console.log('[MV1] 已领取云端奖励:', gifts);
+      }
+
+      setState(merged);
       initializedRef.current = true;
       cloudLoadedRef.current = true;
       setState(merged);
