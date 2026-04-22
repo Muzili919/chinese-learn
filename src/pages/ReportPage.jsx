@@ -36,6 +36,7 @@ const GRADE_SUBJECTS = {
   ],
   junior2: [
     { id: 'overview', label: '总览',  emoji: '📊' },
+    { id: 'chinese',  label: '语文',  emoji: '📖' },
     { id: 'english', label: '英语',  emoji: '🌎' },
     { id: 'politics', label: '道法',  emoji: '⚖︁' },
     { id: 'math',     label: '数学',  emoji: '🔢' },
@@ -47,6 +48,13 @@ const GRADE_SUBJECTS = {
 const CHINESE_KNOWLEDGE_ICON = {
   '字词': '🔤', '古诗词': '🎋', '成语': '🏮',
   '句子': '✏️', '文学常识': '📚', '阅读理解': '📖', '写作': '✍️',
+  // 初中语文
+  '字音辨析': '🔤', '字形辨析': '🔤', '词语运用': '📝', '病句辨析': '✏️',
+  '标点符号': '✏️', '句子排序': '✏️',
+  '古诗文默写': '🎋', '古诗词赏析': '🎋', '古诗文常识': '🎋', '文言文翻译': '📜',
+  '实词解释': '📜', '虚词用法': '📜', '句式翻译': '📜', '文言文阅读': '📜',
+  '名著阅读': '📚', '仿写句子': '💬', '语言得体': '💬', '信息概括': '💬',
+  '图文转换': '💬', '综合性学习': '💬',
 }
 // 语文：ability_tag → knowledge_tag（用于精细诊断 → 知识点跳转）
 const ABILITY_TO_KNOWLEDGE = {
@@ -56,6 +64,8 @@ const ABILITY_TO_KNOWLEDGE = {
   '成语含义': '成语', '成语用法': '成语', '成语辨析': '成语', '成语故事': '成语', '近义成语': '成语',
   '修辞手法': '句子', '句式转换': '句子', '病句辨析': '句子', '关联词': '句子',
   '四大名著': '文学常识', '标点符号': '文学常识', '体裁文体': '文学常识', '作家作品': '文学常识',
+  // 初中语文 ability_tag → knowledge_tag
+  '语言基础': '字音辨析', '古诗文': '古诗文默写', '文言文': '实词解释', '语言运用': '仿写句子',
 }
 // 英语：knowledge_tag 显示名
 const ENGLISH_KNOWLEDGE_LABEL = {
@@ -120,7 +130,7 @@ function diagnoseByKey(records, key = 'ability_tag') {
 function genParentAdvice(subject, weakItems) {
   if (!weakItems.length) return '目前各知识点掌握较好，继续保持每日练习！'
   const top = weakItems[0]
-  const subjectLabel = subject === 'chinese' ? '语文' : subject === 'english' ? '英语' : subject === 'math' ? '数学' : '道法'
+  const subjectLabel = subject === 'chinese' || subject === 'chinese_junior' ? '语文' : subject === 'english' ? '英语' : subject === 'math' ? '数学' : '道法'
   const acc = top.accuracy
   if (acc < 40) return `「${top.tag}」模块得分率仅 ${acc}%，属于严重薄弱。建议家长每天陪孩子专项练习 5 分钟，优先攻克这一块。`
   if (acc < 60) return `「${top.tag}」掌握不扎实，正确率 ${acc}%。建议本周在 App 里多练 ${subjectLabel}「${top.tag}」专项，每天 10 分钟可见效。`
@@ -175,7 +185,7 @@ export default function ReportPage({ user, onBack, onStartQuiz, grade = 'primary
   }, [user.id, activeTab])
 
   // 各科记录
-  const chineseRecords  = useMemo(() => allRecords.filter(r => !r.subject || r.subject === 'chinese'), [allRecords])
+  const chineseRecords  = useMemo(() => allRecords.filter(r => !r.subject || r.subject === 'chinese' || r.subject === 'chinese_junior'), [allRecords])
   const englishRecords  = useMemo(() => allRecords.filter(r => r.subject === 'english'), [allRecords])
   const mathRecords     = useMemo(() => allRecords.filter(r => r.subject === 'math'), [allRecords])
   const politicsRecords = useMemo(() => allRecords.filter(r => r.subject === 'politics'), [allRecords])
@@ -723,6 +733,62 @@ function SubjectReport({
         )}
       </div>
 
+      {/* 🚩 孩子标记的题目（有问题） */}
+      {(() => {
+        const flagged = storage.getFlaggedQuestions(userId)
+        const subjectFlagged = Object.entries(flagged).filter(([, v]) => {
+          if (subject === 'english') return v.subject === 'english'
+          if (subject === 'math') return v.subject === 'math'
+          if (subject === 'politics') return v.subject === 'politics'
+          return !v.subject || v.subject === 'chinese'
+        })
+        if (subjectFlagged.length === 0) return null
+        return (
+          <div className="bg-amber-50 rounded-2xl p-4 shadow-sm border border-amber-200">
+            <h2 className="text-sm font-semibold text-amber-700 mb-3">
+              🚩 孩子标记的题目（{subjectFlagged.length}）
+              <span className="text-xs text-amber-500 font-normal ml-1">— 孩子觉得这些题有问题，请审核</span>
+            </h2>
+            <div className="space-y-2">
+              {subjectFlagged.map(([cardId, info]) => (
+                <div key={cardId} className="bg-white rounded-xl p-3 border border-amber-100">
+                  <div className="flex items-start gap-2">
+                    <div className="flex-1 min-w-0">
+                      <p className="text-sm text-gray-800 line-clamp-2">{info.question_preview || FULL_Q_MAP[cardId]?.question?.split('\n')[0] || cardId}</p>
+                      <div className="flex items-center gap-2 mt-1">
+                        <span className="text-[10px] bg-amber-100 text-amber-600 px-1.5 py-0.5 rounded-full">{info.reason}</span>
+                        <span className="text-[10px] text-gray-400">{info.timestamp?.slice(0, 10)}</span>
+                      </div>
+                    </div>
+                    <div className="flex gap-1 flex-shrink-0">
+                      <button
+                        onClick={() => {
+                          storage.deleteRecordsByCardId(userId, cardId)
+                          storage.unflagQuestion(userId, cardId)
+                          onDeleteRecord?.()
+                        }}
+                        className="text-[10px] px-2 py-1.5 rounded-lg bg-red-100 text-red-500 font-bold active:scale-95 hover:bg-red-200"
+                      >
+                        🗑️ 删错题
+                      </button>
+                      <button
+                        onClick={() => {
+                          storage.unflagQuestion(userId, cardId)
+                          onDeleteRecord?.()
+                        }}
+                        className="text-[10px] px-2 py-1.5 rounded-lg bg-gray-100 text-gray-500 font-bold active:scale-95 hover:bg-gray-200"
+                      >
+                        取消标记
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )
+      })()}
+
       {/* 错题管理 */}
       {(() => {
         const latestMap = {}
@@ -811,7 +877,11 @@ function ExamsTab({
   examCalRefresh, setExamCalRefresh, examResultRefresh, setExamResultRefresh,
 }) {
   const SUBJECT_TAGS = {
-    chinese:  ['字词', '古诗词', '成语', '句子', '文学常识', '阅读理解', '写作'],
+    chinese:  ['字词', '古诗词', '成语', '句子', '文学常识', '阅读理解', '写作',
+               '字音辨析', '字形辨析', '词语运用', '病句辨析', '标点符号', '句子排序',
+               '古诗文默写', '古诗词赏析', '古诗文常识', '文言文翻译',
+               '实词解释', '虚词用法', '句式翻译', '文言文阅读',
+               '名著阅读', '仿写句子', '语言得体', '信息概括', '图文转换', '综合性学习'],
     english:  ['词汇', '语法', '听力', '阅读', '写作'],
     math:     ['计算', '应用题', '几何图形', '数据分析'],
     politics: ['法律法规', '公民权利', '国家制度', '时事政治'],

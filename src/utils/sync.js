@@ -103,6 +103,13 @@ export async function pushEssaysToCloud(userId) {
   await apiFetch('POST', '/essays/upsert', { essays, userId })
 }
 
+// ── 题目标记（孩子觉得题目有问题）──
+export async function pushFlaggedToCloud(userId) {
+  const flagged = storage.getFlaggedQuestions(userId)
+  if (!Object.keys(flagged).length) return
+  await apiFetch('POST', '/user/update-stats', { id: userId, flagged_questions: flagged })
+}
+
 // ── 全量拉取 ──
 export async function pullFromCloud(userId) {
   let pulledAny = false
@@ -173,6 +180,20 @@ export async function pullFromCloud(userId) {
     }
   } catch (_) {}
 
+  // 题目标记
+  try {
+    const stats = await apiFetch('GET', `/user/stats/${userId}`)
+    if (stats?.flagged_questions && Object.keys(stats.flagged_questions).length) {
+      const localFlagged = storage.getFlaggedQuestions(userId)
+      let merged = false
+      for (const [cardId, info] of Object.entries(stats.flagged_questions)) {
+        if (!localFlagged[cardId]) { localFlagged[cardId] = info; merged = true }
+      }
+      if (merged) localStorage.setItem(`cl_flagged_${userId}`, JSON.stringify(localFlagged))
+      pulledAny = true
+    }
+  } catch (_) {}
+
   return pulledAny
 }
 
@@ -185,6 +206,7 @@ export async function syncAfterSession(userId) {
       pushSessionsToCloud(userId),
       pushEssaysToCloud(userId),
       pushUserStats(userId),
+      pushFlaggedToCloud(userId),
     ])
   } catch (e) {
     console.warn('[sync] syncAfterSession error:', e?.message)

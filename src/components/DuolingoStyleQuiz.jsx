@@ -179,9 +179,33 @@ function FeedbackPanel({ correct, analysis, answer, onContinue, variantState }) 
 function ChoiceQuestion({ question, onDone }) {
   const [selected, setSelected] = useState(null)
 
+  // ★ 裸字母选项自动修复：options=['A','B','C','D'] 时，从 question 文本提取完整选项
+  const resolved = useMemo(() => {
+    const rawOpts = question.options || []
+    const isBareLetter = rawOpts.length >= 2 && rawOpts.every(o => /^[A-Da-d]{1,2}$/.test(String(o).trim()))
+    if (!isBareLetter) return { options: rawOpts, displayQuestion: question.question }
+
+    // 从 question 末尾提取 A. xxx \n B. xxx 格式的选项
+    const optBlockRe = /([A-D])[.、．]\s*(.+?)(?=(?:[A-D])[.、．]\s|\n*$)/g
+    const extracted = []
+    let match
+    while ((match = optBlockRe.exec(question.question)) !== null) {
+      extracted.push({ letter: match[1], text: match[2].trim() })
+    }
+    if (extracted.length >= 2) {
+      const fullOpts = extracted.map(e => `${e.letter}. ${e.text}`)
+      // 从 question 中去掉选项块
+      const lastOptIdx = question.question.lastIndexOf(extracted[extracted.length - 1].letter + '.')
+      let displayQ = lastOptIdx > 0 ? question.question.slice(0, lastOptIdx).trimEnd() : question.question
+      // 也去掉选项前的题干末尾提示行（如"不正确的一项是："如果紧跟选项）
+      return { options: fullOpts, displayQuestion: displayQ }
+    }
+    return { options: rawOpts, displayQuestion: question.question }
+  }, [question.options, question.question])
+
   // 找出正确选项的全文（兼容 answer="B" 或 answer="B. bag" 或选项全文）
   function getCorrectOption() {
-    const opts = question.options || []
+    const opts = resolved.options
     for (const opt of opts) {
       if (isAnswerCorrect(opt, question.answer, opts)) return opt
     }
@@ -191,7 +215,7 @@ function ChoiceQuestion({ question, onDone }) {
   function handleSelect(opt) {
     if (selected) return
     setSelected(opt)
-    const correct = isAnswerCorrect(opt, question.answer, question.options)
+    const correct = isAnswerCorrect(opt, question.answer, resolved.options)
     console.log('[答案判定]', {
       questionId: question.id,
       questionType: question.type,
@@ -205,7 +229,7 @@ function ChoiceQuestion({ question, onDone }) {
   const correctOpt = getCorrectOption()
 
   // 防护：选项为空时显示提示
-  if (!question.options || question.options.length === 0) {
+  if (!resolved.options || resolved.options.length === 0) {
     return (
       <div className="bg-red-50 border-2 border-dashed border-red-300 rounded-2xl px-5 py-6 text-center">
         <p className="text-sm text-red-600 font-medium">⚠️ 此题选项为空</p>
@@ -216,10 +240,10 @@ function ChoiceQuestion({ question, onDone }) {
 
   // 解析选项：检测 "A. " / "A、" 前缀，分离字母和正文
   const LETTER_RE = /^([A-Da-d])[.、．\s]\s*/
-  const hasLetterPrefix = question.options.some(o => LETTER_RE.test(String(o)))
-  const maxOptLen = Math.max(...question.options.map(o => String(o).length))
+  const hasLetterPrefix = resolved.options.some(o => LETTER_RE.test(String(o)))
+  const maxOptLen = Math.max(...resolved.options.map(o => String(o).length))
   // 4选项且都很短（≤6字）→ 2×2 网格布局
-  const use2Col = question.options.length === 4 && maxOptLen <= 8 && !hasLetterPrefix
+  const use2Col = resolved.options.length === 4 && maxOptLen <= 8 && !hasLetterPrefix
   // 超长选项（>30字）使用更小字号
   const useSmallOptText = maxOptLen > 30
 
@@ -232,12 +256,12 @@ function ChoiceQuestion({ question, onDone }) {
 
   return (
     <div className={use2Col ? 'grid grid-cols-2 gap-2.5' : 'flex flex-col gap-2.5'}>
-      {question.options.map(opt => {
+      {resolved.options.map(opt => {
         let border = 'border-gray-200'
         let bg = 'bg-white'
         let textColor = 'text-gray-800'
         if (selected) {
-          if (isAnswerCorrect(opt, question.answer, question.options)) {
+          if (isAnswerCorrect(opt, question.answer, resolved.options)) {
             border = 'border-green-500'; bg = 'bg-green-100'; textColor = 'text-green-800'
           } else if (opt === selected) {
             border = 'border-red-400'; bg = 'bg-red-100'; textColor = 'text-red-700'
@@ -256,7 +280,7 @@ function ChoiceQuestion({ question, onDone }) {
             }`}>
             {letter && (
               <span className={`flex-shrink-0 w-7 h-7 rounded-full flex items-center justify-center text-sm font-bold ${
-                selected && isAnswerCorrect(opt, question.answer, question.options) ? 'bg-green-500 text-white' :
+                selected && isAnswerCorrect(opt, question.answer, resolved.options) ? 'bg-green-500 text-white' :
                 selected && opt === selected ? 'bg-red-400 text-white' :
                 'bg-indigo-100 text-indigo-700'
               }`}>{letter}</span>
@@ -1445,6 +1469,23 @@ export default function DuolingoStyleQuiz({ question, onAnswerSubmit, showVarian
   }
 
   const isFill = question.type === 'fill_blank'
+  // ★ 防护：选择题必须有 options，填空题必须有 answer，否则显示提示
+  if (isFill && !question.answer && !question.question) {
+    return (
+      <div className="bg-red-50 border-2 border-dashed border-red-300 rounded-2xl px-5 py-6 text-center">
+        <p className="text-sm text-red-600 font-medium">⚠️ 题目数据缺失</p>
+        <p className="text-xs text-gray-400 mt-1">ID: {question.id}（可能来自旧版本）</p>
+      </div>
+    )
+  }
+  if (!isFill && (!question.options || !Array.isArray(question.options))) {
+    return (
+      <div className="bg-red-50 border-2 border-dashed border-red-300 rounded-2xl px-5 py-6 text-center">
+        <p className="text-sm text-red-600 font-medium">⚠️ 选项数据缺失</p>
+        <p className="text-xs text-gray-400 mt-1">ID: {question.id}（可能来自旧版本）</p>
+      </div>
+    )
+  }
   const answered = phase !== 'answering'
 
   const fillType = isFill
@@ -1490,9 +1531,9 @@ export default function DuolingoStyleQuiz({ question, onAnswerSubmit, showVarian
       {question.type === 'single_choice' && (
         <div className="bg-white rounded-3xl px-5 py-5 shadow-sm border border-gray-100">
           <p className={`leading-relaxed font-medium text-gray-800 ${
-            question.question.length > 120 ? 'text-sm' :
-            question.question.length > 60  ? 'text-base' : 'text-lg'
-          }`}>{renderRichText(question.question)}</p>
+            (question.question || '').length > 120 ? 'text-sm' :
+            (question.question || '').length > 60  ? 'text-base' : 'text-lg'
+          }`}>{renderRichText(question.question || '')}</p>
           {/* 配图渲染：支持 SVG 字符串 / 图片 URL / base64 */}
           {question.image && (
             <div className="mt-4 flex justify-center">
@@ -1519,9 +1560,9 @@ export default function DuolingoStyleQuiz({ question, onAnswerSubmit, showVarian
         <div className="bg-white rounded-3xl px-5 py-5 shadow-sm border border-gray-100">
           <div className="flex items-start gap-2">
             <p className={`leading-relaxed font-medium flex-1 whitespace-pre-wrap text-gray-800 ${
-              question.question.length > 120 ? 'text-sm' :
-              question.question.length > 60  ? 'text-base' : 'text-lg'
-            }`}>{renderRichText(question.question)}</p>
+              (question.question || '').length > 120 ? 'text-sm' :
+              (question.question || '').length > 60  ? 'text-base' : 'text-lg'
+            }`}>{renderRichText(question.question || '')}</p>
             {onSpeak && (
               <button
                 onClick={() => onSpeak(question.question)}

@@ -278,6 +278,9 @@ function MultiSubQuiz({ question: q, onSubmit, englishTag }) {
   const [submitted, setSubmitted] = useState(false)
   const [currentCorrect, setCurrentCorrect] = useState(false)
   const [textInput, setTextInput] = useState('')
+  const [aiEvaluating, setAiEvaluating] = useState(false)
+  const [aiResult, setAiResult] = useState(null)
+  const isReading = englishTag === 'en_reading'
 
   const done = results.length >= subQuestions.length
   const current = subQuestions[step]
@@ -290,9 +293,24 @@ function MultiSubQuiz({ question: q, onSubmit, englishTag }) {
   function mark(correct) { setCurrentCorrect(correct); setSubmitted(true) }
   function handleTF(val) { if (!submitted) mark(val.toUpperCase() === current.rawAnswer.toUpperCase()) }
   function handleChoice(letter) { if (!submitted) mark(letter.toUpperCase() === current.rawAnswer.toUpperCase()) }
-  function handleText() {
+  async function handleText() {
     if (!textInput.trim()) return
-    mark(textInput.trim().toLowerCase() === current.rawAnswer.toLowerCase())
+    // 阅读理解的文本题：AI 评分
+    if (isReading && current.type === 'text' && textInput.trim().length > 3) {
+      setSubmitted(true)
+      setAiEvaluating(true)
+      try {
+        const result = await evaluateEnglishReading(passage || q.question, current.displayText, textInput.trim(), current.rawAnswer)
+        setAiResult(result)
+        setCurrentCorrect(result.score >= 60)
+      } catch (e) {
+        console.warn('AI评分失败，降级为严格匹配:', e)
+        mark(textInput.trim().toLowerCase() === current.rawAnswer.toLowerCase())
+      }
+      setAiEvaluating(false)
+    } else {
+      mark(textInput.trim().toLowerCase() === current.rawAnswer.toLowerCase())
+    }
   }
 
   function advance() {
@@ -303,6 +321,8 @@ function MultiSubQuiz({ question: q, onSubmit, englishTag }) {
       setTextInput('')
       setSubmitted(false)
       setCurrentCorrect(false)
+      setAiResult(null)
+      setAiEvaluating(false)
     }
   }
 
@@ -447,8 +467,27 @@ function MultiSubQuiz({ question: q, onSubmit, englishTag }) {
         </div>
       )}
 
-      {/* 文本输入（单词填空 — 自动批改模式） */}
-      {current.type === 'text' && !submitted && (
+      {/* 文本输入 — 阅读理解用 textarea + AI评分 */}
+      {current.type === 'text' && !submitted && isReading && (
+        <div className="flex flex-col gap-2">
+          <textarea
+            value={textInput}
+            onChange={e => setTextInput(e.target.value)}
+            placeholder="请用完整句子回答..."
+            className="w-full h-24 rounded-2xl border-2 border-gray-200 p-3 text-sm resize-none focus:outline-none focus:ring-2 focus:ring-sky-300 bg-white"
+          />
+          <button
+            onClick={handleText}
+            disabled={!textInput.trim()}
+            className={`w-full py-3 rounded-xl font-bold text-white ${textInput.trim() ? 'bg-gradient-to-r from-sky-400 to-blue-500 active:scale-95' : 'bg-gray-200 text-gray-400 cursor-not-allowed'}`}
+          >
+            提交答案
+          </button>
+        </div>
+      )}
+
+      {/* 文本输入 — 非阅读用原来的 input（单词填空） */}
+      {current.type === 'text' && !submitted && !isReading && (
         <div className="flex flex-col gap-2">
           <input
             type="text"
@@ -471,8 +510,41 @@ function MultiSubQuiz({ question: q, onSubmit, englishTag }) {
         </div>
       )}
 
-      {/* 文本输入 — 答案反馈（自动批改结果） */}
-      {current.type === 'text' && submitted && (
+      {/* 文本输入 — AI 评分中 */}
+      {current.type === 'text' && submitted && aiEvaluating && (
+        <div className="bg-sky-50 border border-sky-200 rounded-2xl p-4 text-center">
+          <div className="text-2xl mb-2 animate-bounce">🤖</div>
+          <div className="text-sm text-sky-600 font-medium">AI 正在评分中...</div>
+        </div>
+      )}
+
+      {/* 文本输入 — AI 评分结果 */}
+      {current.type === 'text' && submitted && !aiEvaluating && aiResult && isReading && (
+        <div className="flex flex-col gap-2">
+          <div className="bg-gradient-to-br from-sky-50 to-indigo-50 border border-sky-200 rounded-xl p-3">
+            <div className="flex items-center justify-between mb-2">
+              <span className="text-xs font-bold text-sky-700">🤖 AI 评分</span>
+              <span className={`text-base font-extrabold ${aiResult.score >= 70 ? 'text-green-600' : aiResult.score >= 50 ? 'text-amber-600' : 'text-red-500'}`}>
+                {aiResult.score} 分
+              </span>
+            </div>
+            {aiResult.feedback && (
+              <p className="text-xs text-gray-600 leading-relaxed">{aiResult.feedback}</p>
+            )}
+            <div className="mt-2 text-xs text-green-600 font-semibold">参考答案</div>
+            <div className="text-xs text-green-700">{current.rawAnswer}</div>
+          </div>
+          <button
+            onClick={advance}
+            className="w-full py-3 rounded-xl bg-gradient-to-r from-sky-400 to-blue-500 text-white font-bold active:scale-95"
+          >
+            下一题 →
+          </button>
+        </div>
+      )}
+
+      {/* 文本输入 — 非阅读的答案反馈（严格匹配） */}
+      {current.type === 'text' && submitted && !aiResult && (
         <div className="flex flex-col gap-2">
           <div className={`rounded-xl p-3 border ${currentCorrect ? 'bg-green-50 border-green-300' : 'bg-red-50 border-red-300'}`}>
             <div className={`text-xs font-semibold mb-1 ${currentCorrect ? 'text-green-600' : 'text-red-500'}`}>

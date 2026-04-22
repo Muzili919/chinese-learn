@@ -36,24 +36,6 @@
     "image": "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 280 200' width='280' height='200'><polygon points='140,40 80,155 200,155' fill='#d1fae5' stroke='#2d3748' stroke-width='2'/><line x1='135' y1='52' x2='87' y2='145' stroke='#ef4444' stroke-width='1.5' stroke-dasharray='4,3'/><line x1='145' y1='52' x2='193' y2='145' stroke='#ef4444' stroke-width='1.5' stroke-dasharray='4,3'/><text x='108' y='95' font-size='11' fill='#3b82f6'>10cm</text><text x='165' y='95' font-size='11' fill='#3b82f6'>10cm</text><text x='140' y='175' font-size='12' fill='#3b82f6' text-anchor='middle'>12cm</text></svg>"
   },
   {
-    "id": "math_g038",
-    "type": "single_choice",
-    "question": "等边三角形的边长是6cm，它的面积是多少？",
-    "options": [
-      "A. 18cm2",
-      "B. 36cm2",
-      "C. 9倍根号3 cm2",
-      "D. 15cm2"
-    ],
-    "answer": "C. 9倍根号3 cm2",
-    "analysis": "等边三角形的高h = 边长乘以根号3除以2 = 6乘根号3除以2 = 3倍根号3 cm。面积 = 底乘高除以2 = 6乘3倍根号3除以2 = 9倍根号3 cm2 约等于15.59cm2。也可以用公式 S = a2乘根号3除以4 = 36乘根号3除4 = 9倍根号3 cm2。注意：等边三角形的高不等于边长的一半！",
-    "knowledge_tag": "三角形面积",
-    "topic": "图形与空间",
-    "difficulty": 3,
-    "grade": 6,
-    "image": "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 280 200' width='280' height='200'><polygon points='140,30 60,168.56 220,168.56' fill='#fef3c7' stroke='#2d3748' stroke-width='2'/><line x1='140' y1='30' x2='140' y2='168.56' stroke='#ef4444' stroke-width='1.5' stroke-dasharray='5,3'/><polyline points='148,158.56 148,166.56 140,166.56' fill='none' stroke='#ef4444' stroke-width='1.2'/><text x='148' y='105' font-size='11' fill='#ef4444'>高 h</text><text x='100' y='185' font-size='11' fill='#3b82f6'>6cm</text><text x='170' y='100' font-size='11' fill='#3b82f6'>6cm</text><text x='55' y='100' font-size='11' fill='#3b82f6' text-anchor='end'>6cm</text></svg>"
-  },
-  {
     "id": "math_g039",
     "type": "single_choice",
     "question": "一个三角形的底是14cm，高是9cm，它的面积是多少？",
@@ -141,7 +123,7 @@
     "topic": "图形与空间",
     "difficulty": 2,
     "grade": 5,
-    "image": "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 280 200' width='280' height='200'><rect x='40' y='55' width='140' height='90' fill='#ebf8ff' stroke='#2d3748' stroke-width='2'/><rect x='40' y='55' width='168' height='90' fill='none' stroke='#ef4444' stroke-width='2' stroke-dasharray='5,3'/><line x1='180' y1='55' x2='180' y2='145' stroke='#ef4444' stroke-width='1.5' stroke-dasharray='3,2'/><text x='110' y='105' font-size='12' fill='#3b82f6' text-anchor='middle'>原</text><text x='204' y='105' font-size='12' fill='#ef4444' text-anchor='middle'>+20%</text><text x='110' y='170' font-size='11' fill='#6b7280' text-anchor='middle'>宽不变</text></svg>"
+    "image": "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 280 200' width='280' height='200'><rect x='40' y='55' width='140' height='90' fill='#ebf8ff' stroke='#2d3748' stroke-width='2'/><rect x='40' y='55' width='168' height='90' fill='none' stroke='#ef4444' stroke-width='2' stroke-dasharray='5,3'/><line x1='180' y1='55' x2='180' y2='145' stroke='#ef4444' stroke-width='1.5' stroke-dasharray='3,2'/><text x='110' y='105' font-size='12' fill='#3b82f6' text-anchor='middle'>原</text><text x='110' y='170' font-size='11' fill='#6b7280' text-anchor='middle'>宽不变</text></svg>"
   },
   {
     "id": "math_g044",
@@ -306,24 +288,6 @@
     "image": "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 280 200' width='280' height='200'><circle cx='110' cy='100' r='55' fill='none' stroke='#2d3748' stroke-width='3'/><circle cx='110' cy='100' r='9' fill='#d1fae5' stroke='#2d3748' stroke-width='1.5'/><line x1='110' y1='100' x2='165' y2='100' stroke='#3b82f6' stroke-width='2'/><line x1='110' y1='100' x2='55' y2='100' stroke='#3b82f6' stroke-width='2'/><text x='110' y='90' font-size='11' fill='#3b82f6' text-anchor='middle'>d=70cm</text><line x1='168' y1='100' x2='230' y2='100' stroke='#ef4444' stroke-width='2'/><text x='200' y='92' font-size='11' fill='#ef4444' text-anchor='middle'>前进</text><text x='110' y='178' font-size='12' fill='#374151' text-anchor='middle'>C = pi乘d = ?</text></svg>"
   },
   {
-    "id": "math_g053",
-    "type": "single_choice",
-    "question": "扇形圆心角72度，半径10cm，扇形面积多少？（pi取3.14）",
-    "options": [
-      "A. 31.4cm2",
-      "B. 62.8cm2",
-      "C. 20cm2",
-      "D. 15.7cm2"
-    ],
-    "answer": "B. 62.8cm2",
-    "analysis": "扇形面积=圆心角除以360度乘pi乘r的平方=72除以360乘3.14乘100=0.2乘314=62.8cm2。理解：72度占整圆(360度)的五分之一，面积=整圆除以5=314除以5=62.8cm2。整圆面积=pi乘r的平方=314cm2。",
-    "knowledge_tag": "圆的周长面积",
-    "topic": "图形与空间",
-    "difficulty": 3,
-    "grade": 6,
-    "image": "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 280 200' width='280' height='200'><path d='M 140,100 L 206.18,141.76 A 80 80 0 0 1 164.73,173.51 Z' fill='#ebf8ff' stroke='#2d3748' stroke-width='2'/><line x1='140' y1='100' x2='206.18' y2='141.76' stroke='#2d3748' stroke-width='2'/><line x1='140' y1='100' x2='164.73' y2='173.51' stroke='#2d3748' stroke-width='2'/><circle cx='140' cy='100' r='3' fill='#2d3748'/><text x='148' y='93' font-size='11' fill='#3b82f6'>O</text><text x='170' y='122' font-size='11' fill='#3b82f6'>r=10</text><text x='185' y='162' font-size='11' fill='#ef4444'>72deg</text><text x='140' y='192' font-size='11' fill='#6b7280' text-anchor='middle'>S = (72/360)*pi*r2</text></svg>"
-  },
-  {
     "id": "math_g054",
     "type": "single_choice",
     "question": "长方形(长10cm宽6cm)上面加一个半圆(直径6cm)，组合图形总面积？（pi取3.14）",
@@ -447,7 +411,7 @@
     "topic": "图形与空间",
     "difficulty": 2,
     "grade": 5,
-    "image": "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 280 200' width='280' height='200'><polygon points='80,55 180,55 210,85 110,85' fill='#ebf8ff' stroke='#2d3748' stroke-width='2'/><polygon points='180,55 180,125 210,95 210,85' fill='#d1fae5' stroke='#2d3748' stroke-width='2'/><polygon points='80,55 80,125 180,125 180,55' fill='none' stroke='#2d3748' stroke-width='2'/><polygon points='80,125 110,155 210,155 210,95 180,125' fill='#fef3c7' stroke='#2d3748' stroke-width='2'/><text x='130' y='78' font-size='11' fill='#3b82f6'>8</text><text x='198' y='75' font-size='11' fill='#3b82f6'>5</text><text x='92' y='144' font-size='11' fill='#3b82f6'>4</text></svg>"
+    "image": "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 280 200' width='280' height='200'><polygon points='80,55 180,55 210,85 110,85' fill='#ebf8ff' stroke='#2d3748' stroke-width='2'/><polygon points='180,55 180,125 210,95 210,85' fill='#d1fae5' stroke='#2d3748' stroke-width='2'/><polygon points='80,55 80,125 180,125 180,55' fill='none' stroke='#2d3748' stroke-width='2'/><polygon points='80,125 110,155 210,155 210,95 180,125' fill='#fef3c7' stroke='#2d3748' stroke-width='2'/><text x='198' y='75' font-size='11' fill='#3b82f6'>5</text></svg>"
   },
   {
     "id": "math_g061",
@@ -466,24 +430,6 @@
     "difficulty": 2,
     "grade": 6,
     "image": "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 280 200' width='280' height='200'><ellipse cx='140' cy='50' rx='55' ry='18' fill='#ebf8ff' stroke='#2d3748' stroke-width='2'/><line x1='85' y1='50' x2='85' y2='150' stroke='#2d3748' stroke-width='2'/><line x1='195' y1='50' x2='195' y2='150' stroke='#2d3748' stroke-width='2'/><ellipse cx='140' cy='150' rx='55' ry='18' fill='#d1fae5' stroke='#2d3748' stroke-width='2'/><path d='M 85,50 L 85,150 A 55 18 0 0 0 195,150 L 195,50' fill='none' stroke='#2d3748' stroke-width='2'/><line x1='140' y1='50' x2='140' y2='150' stroke='#ef4444' stroke-width='1.5' stroke-dasharray='4,3'/><text x='148' y='105' font-size='11' fill='#ef4444'>h=10</text><text x='140' y='42' font-size='10' fill='#3b82f6' text-anchor='middle'>r=3</text></svg>"
-  },
-  {
-    "id": "math_g062",
-    "type": "single_choice",
-    "question": "圆锥底面半径6cm、高8cm，体积多少？（pi取3.14）",
-    "options": [
-      "A. 301.44cm3",
-      "B. 904.32cm3",
-      "C. 150.72cm3",
-      "D. 100.48cm3"
-    ],
-    "answer": "A. 301.44cm3",
-    "analysis": "圆锥体积=三分之一乘pi乘r的平方乘h=三分之一乘3.14乘36乘8=三分之一乘904.32=301.44cm3。关键：圆锥体积是等底等高圆柱的三分之一！别忘了除以3。常见错误：忘除以3得到904.32（那是圆柱体积）。",
-    "knowledge_tag": "立体图形",
-    "topic": "图形与空间",
-    "difficulty": 3,
-    "grade": 6,
-    "image": "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 280 200' width='280' height='200'><ellipse cx='140' cy='155' rx='55' ry='18' fill='#d1fae5' stroke='#2d3748' stroke-width='2'/><polygon points='140,40 85,155 195,155' fill='#ebf8ff' stroke='#2d3748' stroke-width='2'/><line x1='140' y1='40' x2='140' y2='155' stroke='#ef4444' stroke-width='1.5' stroke-dasharray='4,3'/><text x='148' y='105' font-size='11' fill='#ef4444'>h=8</text><text x='140' y='180' font-size='10' fill='#3b82f6' text-anchor='middle'>r=6</text><text x='200' y='100' font-size='11' fill='#6b7280'>V=1/3 * pi * r2 * h</text></svg>"
   },
   {
     "id": "math_g063",
@@ -555,7 +501,7 @@
     "topic": "图形与空间",
     "difficulty": 1,
     "grade": 5,
-    "image": "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 280 200' width='280' height='200'><text x='55' y='100' font-size='48' fill='#2d3748' text-anchor='middle'>P</text><line x1='55' y1='50' x2='55' y2='130' stroke='#ef4444' stroke-width='1' stroke-dasharray='3,2'/><text x='120' y='100' font-size='48' fill='#2d3748' text-anchor='middle'>H</text><line x1='120' y1='50' x2='120' y2='130' stroke='#3b82f6' stroke-width='1.5' stroke-dasharray='3,2'/><line x1='85' y1='100' x2='155' y2='100' stroke='#3b82f6' stroke-width='1' stroke-dasharray='3,2'/><text x='190' y='100' font-size='48' fill='#2d3748' text-anchor='middle'>R</text><line x1='190' y1='50' x2='190' y2='130' stroke='#ef4444' stroke-width='1' stroke-dasharray='3,2'/><text x='55' y='155' font-size='11' fill='#ef4444' text-anchor='middle'>不对称</text><text x='120' y='170' font-size='11' fill='#3b82f6' text-anchor='middle'>对称</text><text x='190' y='155' font-size='11' fill='#ef4444' text-anchor='middle'>不对称</text></svg>"
+    "image": "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 280 200' width='280' height='200'><text x='55' y='100' font-size='48' fill='#2d3748' text-anchor='middle'>P</text><line x1='55' y1='50' x2='55' y2='130' stroke='#ef4444' stroke-width='1' stroke-dasharray='3,2'/><line x1='120' y1='50' x2='120' y2='130' stroke='#3b82f6' stroke-width='1.5' stroke-dasharray='3,2'/><line x1='85' y1='100' x2='155' y2='100' stroke='#3b82f6' stroke-width='1' stroke-dasharray='3,2'/><text x='190' y='100' font-size='48' fill='#2d3748' text-anchor='middle'>R</text><line x1='190' y1='50' x2='190' y2='130' stroke='#ef4444' stroke-width='1' stroke-dasharray='3,2'/><text x='55' y='155' font-size='11' fill='#ef4444' text-anchor='middle'>不对称</text><text x='120' y='170' font-size='11' fill='#3b82f6' text-anchor='middle'>对称</text><text x='190' y='155' font-size='11' fill='#ef4444' text-anchor='middle'>不对称</text></svg>"
   },
   {
     "id": "math_g067",
@@ -573,7 +519,7 @@
     "topic": "图形与空间",
     "difficulty": 2,
     "grade": 5,
-    "image": "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 280 200' width='280' height='200'><polygon points='70,80 190,80 210,140 50,140' fill='#ebf8ff' stroke='#2d3748' stroke-width='2'/><circle cx='130' cy='110' r='4' fill='#ef4444'/><text x='130' y='128' font-size='10' fill='#ef4444' text-anchor='middle'>O</text><path d='M 130,110 L 160,90' stroke='#3b82f6' stroke-width='1.5'/><text x='168' y='85' font-size='10' fill='#3b82f6'>旋转180度</text><text x='130' y='178' font-size='11' fill='#6b7280' text-anchor='middle'>平行四边形是中心对称图形</text></svg>"
+    "image": "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 280 200' width='280' height='200'><polygon points='70,80 190,80 210,140 50,140' fill='#ebf8ff' stroke='#2d3748' stroke-width='2'/><circle cx='130' cy='110' r='4' fill='#ef4444'/><text x='130' y='128' font-size='10' fill='#ef4444' text-anchor='middle'>O</text><path d='M 130,110 L 160,90' stroke='#3b82f6' stroke-width='1.5'/><text x='168' y='85' font-size='10' fill='#3b82f6'>旋转180度</text></svg>"
   },
   {
     "id": "math_g068",
@@ -609,25 +555,7 @@
     "topic": "图形与空间",
     "difficulty": 2,
     "grade": 5,
-    "image": "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 280 200' width='280' height='200'><circle cx='140' cy='100' r='70' fill='#fef3c7' stroke='#2d3748' stroke-width='2.5'/><circle cx='140' cy='100' r='3' fill='#2d3748'/><line x1='140' y1='100' x2='210' y2='100' stroke='#2d3748' stroke-width='3'/><line x1='140' y1='100' x2='176.6' y2='123.3' stroke='#ef4444' stroke-width='2.5'/><text x='218' y='95' font-size='12' fill='#2d3748'>3</text><text x='137' y='28' font-size='12' fill='#2d3748'>12</text><text x='137' y='182' font-size='12' fill='#2d3748'>6</text><text x='55' y='105' font-size='12' fill='#2d3748'>9</text><text x='140' y='196' font-size='11' fill='#ef4444' text-anchor='middle'>时针转了 15度</text></svg>"
-  },
-  {
-    "id": "math_g070",
-    "type": "single_choice",
-    "question": "直角三角形绕一条直角边旋转一周得到的立体图形是什么？",
-    "options": [
-      "A. 圆柱",
-      "B. 圆锥",
-      "C. 圆台",
-      "D. 球"
-    ],
-    "answer": "B. 圆锥",
-    "analysis": "直角三角形绕一直角边旋转：该边成圆锥的高，另一直角边成底面半径，斜边成母线，得到圆锥。类似规律：长方形绕一边旋转得到圆柱；直角梯形绕垂直于底的腰旋转得到圆台。",
-    "knowledge_tag": "对称与变换",
-    "topic": "图形与空间",
-    "difficulty": 2,
-    "grade": 6,
-    "image": "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 280 200' width='280' height='200'><polygon points='60,150 60,50 170,150' fill='#ebf8ff' stroke='#2d3748' stroke-width='2'/><polyline points='60,142 68,142 68,150' fill='none' stroke='#2d3748' stroke-width='1.5'/><line x1='60' y1='50' x2='60' y2='150' stroke='#ef4444' stroke-width='2' stroke-dasharray='4,3'/><path d='M 60,50 L 60,150 A 110 36 0 0 0 170,150' fill='none' stroke='#3b82f6' stroke-width='1.5' stroke-dasharray='5,3'/><text x='45' y='104' font-size='10' fill='#ef4444' text-anchor='end'>轴</text><text x='118' y='140' font-size='10' fill='#3b82f6'>旋转轴</text><ellipse cx='115' cy='150' rx='55' ry='18' fill='#d1fae5' stroke='#3b82f6' stroke-width='1.5' stroke-dasharray='4,2' opacity='0.5'/><text x='180' y='80' font-size='11' fill='#3b82f6'>圆锥</text></svg>"
+    "image": "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 280 200' width='280' height='200'><circle cx='140' cy='100' r='70' fill='#fef3c7' stroke='#2d3748' stroke-width='2.5'/><circle cx='140' cy='100' r='3' fill='#2d3748'/><line x1='140' y1='100' x2='210' y2='100' stroke='#2d3748' stroke-width='3'/><line x1='140' y1='100' x2='176.6' y2='123.3' stroke='#ef4444' stroke-width='2.5'/><text x='218' y='95' font-size='12' fill='#2d3748'>3</text><text x='137' y='28' font-size='12' fill='#2d3748'>12</text><text x='137' y='182' font-size='12' fill='#2d3748'>6</text><text x='55' y='105' font-size='12' fill='#2d3748'>9</text></svg>"
   },
   {
     "id": "math_g071",
@@ -663,7 +591,7 @@
     "topic": "图形与空间",
     "difficulty": 2,
     "grade": 5,
-    "image": "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 280 200' width='280' height='200'><polygon points='140,30 220,80 200,160 80,160 60,80' fill='#ebf8ff' stroke='#2d3748' stroke-width='2'/><line x1='140' y1='30' x2='200' y2='160' stroke='#ef4444' stroke-width='1' stroke-dasharray='3,2'/><line x1='140' y1='30' x2='80' y2='160' stroke='#ef4444' stroke-width='1' stroke-dasharray='3,2'/><line x1='140' y1='30' x2='60' y2='80' stroke='#ef4444' stroke-width='1' stroke-dasharray='3,2'/><text x='140' y='185' font-size='12' fill='#6b7280' text-anchor='middle'>分成 3 个三角形 -> 3乘180度=540度</text></svg>"
+    "image": "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 280 200' width='280' height='200'><polygon points='140,30 220,80 200,160 80,160 60,80' fill='#ebf8ff' stroke='#2d3748' stroke-width='2'/><line x1='140' y1='30' x2='200' y2='160' stroke='#ef4444' stroke-width='1' stroke-dasharray='3,2'/><line x1='140' y1='30' x2='80' y2='160' stroke='#ef4444' stroke-width='1' stroke-dasharray='3,2'/><line x1='140' y1='30' x2='60' y2='80' stroke='#ef4444' stroke-width='1' stroke-dasharray='3,2'/></svg>"
   },
   {
     "id": "math_g073",

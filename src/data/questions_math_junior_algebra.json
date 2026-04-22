@@ -14,7 +14,8 @@
     "knowledge_tag": "用字母表示数",
     "topic": "整式运算",
     "difficulty": 1,
-    "grade": 7
+    "grade": 7,
+    "explanation": "男生a人，女生(a-3)人，全班=a+(a-3)=2a-3。用字母表示数量关系，合并同类项即得。"
   },
   {
     "id": "math_ja002",
@@ -31,7 +32,8 @@
     "knowledge_tag": "用字母表示数",
     "topic": "整式运算",
     "difficulty": 1,
-    "grade": 7
+    "grade": 7,
+    "explanation": "十位数字x表示x个十，即10x；个位y不变。两位数=10x+y。例如63=6x10+3。"
   },
   {
     "id": "math_ja003",
@@ -48,7 +50,8 @@
     "knowledge_tag": "代数式求值",
     "topic": "整式运算",
     "difficulty": 1,
-    "grade": 7
+    "grade": 7,
+    "explanation": "代入x=2：3x2x2-2x2+1=12-4+1=9。按运算顺序先算乘方再乘除最后加减。"
   },
   {
     "id": "math_ja004",
@@ -65,7 +68,8 @@
     "knowledge_tag": "代数式求值",
     "topic": "整式运算",
     "difficulty": 3,
-    "grade": 7
+    "grade": 7,
+    "explanation": "关键技巧——整体代入：由条件得x2+3x=5，原式=2(x2+3x)-9=2x5-9=1。不需要先解x。"
   },
   {
     "id": "math_ja005",
@@ -82,7 +86,8 @@
     "knowledge_tag": "代数式求值",
     "topic": "整式运算",
     "difficulty": 3,
-    "grade": 7
+    "grade": 7,
+    "explanation": "提公因式：a2b-ab2=ab(a-b)。代入ab=2，a-b=3，得2x3=6。因式分解后整体代入。"
   },
   {
     "id": "math_ja006",
@@ -99,7 +104,8 @@
     "knowledge_tag": "代数式求值",
     "topic": "整式运算",
     "difficulty": 2,
-    "grade": 7
+    "grade": 7,
+    "explanation": "非负数之和为0，则每个非负数均为0：|a-2|=0得a=2，(b+1)2=0得b=-1。代入a2-b=4-(-1)=5。"
   },
   {
     "id": "math_ja007",
@@ -116,7 +122,8 @@
     "knowledge_tag": "代数式求值",
     "topic": "整式运算",
     "difficulty": 3,
-    "grade": 7
+    "grade": 7,
+    "explanation": "整体代入：3x2+6x=3(x2+2x)=3x3=9，原式=9-7=2。不必单独求x。"
   },
   {
     "id": "math_ja008",
@@ -133,7 +140,8 @@
     "knowledge_tag": "代数式求值",
     "topic": "整式运算",
     "difficulty": 4,
-    "grade": 8
+    "grade": 8,
+    "explanation": "对(x+1/x)2展开得x2+2+1/x2=9，所以x2+1/x2=9-2=7。完全平方公式的逆向使用。"
   },
   {
     "id": "math_ja009",
@@ -150,24 +158,26 @@
     "knowledge_tag": "整式加减",
     "topic": "整式运算",
     "difficulty": 1,
-    "grade": 7
+    "grade": 7,
+    "explanation": "同类项判别：字母部分完全相同（含指数）。A字母指数不同，B字母指数不同，D字母不同。C中pi是系数，只有r2。"
   },
   {
     "id": "math_ja010",
     "type": "single_choice",
     "question": "若3x²ᵐ⁻¹y³与-2x⁵yⁿ是同类项，m+n=（）",
     "options": [
-      "A. xⁿ²⁺ⁿ⁻²",
-      "B. x³ⁿ⁻¹",
-      "C. x³ⁿ⁺¹",
-      "D. xⁿ⁻¹"
+      "A. 5",
+      "B. 6",
+      "C. 7",
+      "D. 8"
     ],
-    "answer": "B. x³ⁿ⁻¹",
+    "answer": "B. 6",
     "analysis": "2m-1=5→m=3；n=3→m+n=6。",
     "knowledge_tag": "整式加减",
     "topic": "整式运算",
     "difficulty": 2,
-    "grade": 7
+    "grade": 7,
+    "explanation": "同类项条件：x的指数相同且y的指数相同。2m-1=5得m=3；n=3。m+n=6。"
   },
   {
     "id": "math_ja011",
@@ -184,7 +194,8 @@
     "knowledge_tag": "整式加减",
     "topic": "整式运算",
     "difficulty": 2,
-    "grade": 7
+    "grade": 7,
+    "explanation": "把(a2b-ab2)看成整体X，3X-2X=X=a2b-ab2。合并同类项就是把系数相加减。"
   },
   {
     "id": "math_ja012",
@@ -201,7 +212,8 @@
     "knowledge_tag": "整式加减",
     "topic": "整式运算",
     "difficulty": 2,
-    "grade": 7
+    "grade": 7,
+    "explanation": "x2y的系数：5-4+1=2；xy2的系数：-3+2=-1。结果2x2y-xy2。注意正负号。"
   },
   {
     "id": "math_ja013",
@@ -218,7 +230,8 @@
     "knowledge_tag": "整式加减",
     "topic": "整式运算",
     "difficulty": 2,
-    "grade": 7
+    "grade": 7,
+    "explanation": "A-B=3x2-2x+1-(-2x2+3x-4)=3x2-2x+1+2x2-3x+4=5x2-5x+5。减去一个多项式时每项变号。"
   },
   {
     "id": "math_ja014",
@@ -235,7 +248,8 @@
     "knowledge_tag": "整式加减",
     "topic": "整式运算",
     "difficulty": 3,
-    "grade": 7
+    "grade": 7,
+    "explanation": "分配律展开：-2x2+6x-2+6x2-3x-6=4x2+3x-8。注意负号分配到括号内每项。"
   },
   {
     "id": "math_ja015",
@@ -252,7 +266,8 @@
     "knowledge_tag": "去括号法则",
     "topic": "整式运算",
     "difficulty": 2,
-    "grade": 7
+    "grade": 7,
+    "explanation": "从外到内去括号：3x-[2x-3x+1]=3x-2x+3x-1=4x-1。括号前是负号时内部变号。"
   },
   {
     "id": "math_ja016",
@@ -269,7 +284,8 @@
     "knowledge_tag": "去括号法则",
     "topic": "整式运算",
     "difficulty": 3,
-    "grade": 7
+    "grade": 7,
+    "explanation": "2A=2x2-4xy+2y2，3B=3x2+6xy-3y2，2A-3B=-x2-10xy+5y2。分别乘完再相减。"
   },
   {
     "id": "math_ja017",
@@ -286,7 +302,8 @@
     "knowledge_tag": "去括号法则",
     "topic": "整式运算",
     "difficulty": 2,
-    "grade": 7
+    "grade": 7,
+    "explanation": "M=(3x2-x-2)-(2x2-3x+1)=x2+2x-3。加法逆运算用减法，注意变号。"
   },
   {
     "id": "math_ja018",
@@ -303,7 +320,8 @@
     "knowledge_tag": "去括号法则",
     "topic": "整式运算",
     "difficulty": 3,
-    "grade": 7
+    "grade": 7,
+    "explanation": "依次处理：-(-a2)=a2，-(+a2)=-a2，|-a2|=a2（因为a2>=0）。a2-a2+a2=a2。"
   },
   {
     "id": "math_ja019",
@@ -320,7 +338,8 @@
     "knowledge_tag": "去括号法则",
     "topic": "整式运算",
     "difficulty": 3,
-    "grade": 7
+    "grade": 7,
+    "explanation": "原式=结果-加数=(x3+x2-5y2)-(3x2-2y2)=x3-2x2-3y2。减法注意变号。"
   },
   {
     "id": "math_ja020",
@@ -337,7 +356,8 @@
     "knowledge_tag": "幂的运算",
     "topic": "整式运算",
     "difficulty": 2,
-    "grade": 7
+    "grade": 7,
+    "explanation": "同底数幂相乘，底数不变指数相加：(-2)3+4=(-2)7=-128。奇数次幂结果为负。"
   },
   {
     "id": "math_ja021",
@@ -354,7 +374,8 @@
     "knowledge_tag": "幂的运算",
     "topic": "整式运算",
     "difficulty": 2,
-    "grade": 7
+    "grade": 7,
+    "explanation": "A应为a5不是a6；C对(-a3)(a2)=-a5；D不是同类项不能合并。B正确验证：(-a)3x(-a)2=(-a3)(a2)=-a5。"
   },
   {
     "id": "math_ja022",
@@ -371,7 +392,8 @@
     "knowledge_tag": "幂的运算",
     "topic": "整式运算",
     "difficulty": 3,
-    "grade": 7
+    "grade": 7,
+    "explanation": "同底数幂相乘指数相加：(2n+1)+(n-2)=3n-1。代数式指数相加即可。"
   },
   {
     "id": "math_ja023",
@@ -388,7 +410,8 @@
     "knowledge_tag": "幂的运算",
     "topic": "整式运算",
     "difficulty": 2,
-    "grade": 7
+    "grade": 7,
+    "explanation": "同底数幂相除指数相减：2100-98=22=4。大指数运算化简为小指数。"
   },
   {
     "id": "math_ja024",
@@ -405,7 +428,8 @@
     "knowledge_tag": "幂的运算",
     "topic": "整式运算",
     "difficulty": 3,
-    "grade": 7
+    "grade": 7,
+    "explanation": "逆用幂的乘法：3m+n=3m x 3n=5 x 7=35。把已知值代入。"
   },
   {
     "id": "math_ja025",
@@ -422,7 +446,8 @@
     "knowledge_tag": "幂的乘方",
     "topic": "整式运算",
     "difficulty": 1,
-    "grade": 7
+    "grade": 7,
+    "explanation": "幂的乘方，指数相乘：(a2)3=a2x3=a6。注意不是指数相加。"
   },
   {
     "id": "math_ja026",
@@ -439,7 +464,8 @@
     "knowledge_tag": "幂的乘方",
     "topic": "整式运算",
     "difficulty": 2,
-    "grade": 7
+    "grade": 7,
+    "explanation": "积的乘方各因式分别乘方：(-2)3 x (a2)3 x (b3)3=-8a6b9。"
   },
   {
     "id": "math_ja027",
@@ -456,7 +482,8 @@
     "knowledge_tag": "幂的乘方",
     "topic": "整式运算",
     "difficulty": 3,
-    "grade": 7
+    "grade": 7,
+    "explanation": "A对[(-a)3]2=(-a3)2=a6（偶次消负）。B应为a5不是-a5。C应为a10。D应为-a6不是-a5。"
   },
   {
     "id": "math_ja028",
@@ -473,7 +500,8 @@
     "knowledge_tag": "幂的乘方",
     "topic": "整式运算",
     "difficulty": 3,
-    "grade": 7
+    "grade": 7,
+    "explanation": "先算内层：(-a)2=a2（偶次消负），再算外层(a2)3=a6。注意与(-a2)3=-a6的区别。"
   },
   {
     "id": "math_ja029",
@@ -490,7 +518,8 @@
     "knowledge_tag": "幂的乘方",
     "topic": "整式运算",
     "difficulty": 3,
-    "grade": 7
+    "grade": 7,
+    "explanation": "先算括号内：x2 x x3=x5，再平方(x5)2=x10，最后除x4得x10-4=x6。综合运用三种幂法则。"
   },
   {
     "id": "math_ja030",
@@ -507,7 +536,8 @@
     "knowledge_tag": "幂的乘方",
     "topic": "整式运算",
     "difficulty": 4,
-    "grade": 7
+    "grade": 7,
+    "explanation": "2ab=64=26，需要ab=6。检查各选项：A=1x6=6，B=2x3=6，C=3x2=6，D=4x1=4!=6。"
   },
   {
     "id": "math_ja031",
@@ -524,7 +554,8 @@
     "knowledge_tag": "整式乘法",
     "topic": "整式运算",
     "difficulty": 1,
-    "grade": 7
+    "grade": 7,
+    "explanation": "单项式乘法：系数-3x2=-6，同底数幂相乘a2 x a=a3，b x b2=b3。结果-6a3b3。"
   },
   {
     "id": "math_ja032",
@@ -541,7 +572,8 @@
     "knowledge_tag": "整式乘法",
     "topic": "整式运算",
     "difficulty": 1,
-    "grade": 7
+    "grade": 7,
+    "explanation": "单项式乘多项式用分配律：2x x x2=2x3，2x x (-3x)=-6x2，2x x 1=2x。"
   },
   {
     "id": "math_ja033",
@@ -558,7 +590,8 @@
     "knowledge_tag": "整式乘法",
     "topic": "整式运算",
     "difficulty": 2,
-    "grade": 7
+    "grade": 7,
+    "explanation": "多项式乘多项式展开：x2-3x+2x-6=x2-x-6。交叉相乘后合并同类项。"
   },
   {
     "id": "math_ja034",
@@ -575,7 +608,8 @@
     "knowledge_tag": "整式乘法",
     "topic": "整式运算",
     "difficulty": 2,
-    "grade": 7
+    "grade": 7,
+    "explanation": "展开：6x2+4x-3x-2=6x2+x-2。外项之积+内项之积。"
   },
   {
     "id": "math_ja035",
@@ -592,7 +626,8 @@
     "knowledge_tag": "整式乘法",
     "topic": "整式运算",
     "difficulty": 3,
-    "grade": 7
+    "grade": 7,
+    "explanation": "分配律逐项乘：x3-2x2+x+3x2-6x+3=x3+x2-5x+3。按x降幂排列合并。"
   },
   {
     "id": "math_ja036",
@@ -609,7 +644,8 @@
     "knowledge_tag": "整式乘法",
     "topic": "整式运算",
     "difficulty": 3,
-    "grade": 7
+    "grade": 7,
+    "explanation": "展开=x2+(m+n)x+mn，对比x2+5x+6得m+n=5且mn=6。解得m=2,n=3（或m=3,n=2）。"
   },
   {
     "id": "math_ja037",
@@ -626,7 +662,8 @@
     "knowledge_tag": "整式乘法",
     "topic": "整式运算",
     "difficulty": 3,
-    "grade": 7
+    "grade": 7,
+    "explanation": "连续平方差：(x-1)(x+1)=x2-1，再(x2-1)(x2+1)=x4-1。两次应用平方差公式。"
   },
   {
     "id": "math_ja038",
@@ -643,7 +680,8 @@
     "knowledge_tag": "乘法公式",
     "topic": "整式运算",
     "difficulty": 2,
-    "grade": 7
+    "grade": 7,
+    "explanation": "平方差公式(a+b)(a-b)=a2-b2：(2x)2-(3y)2=4x2-9y2。"
   },
   {
     "id": "math_ja039",
@@ -660,7 +698,8 @@
     "knowledge_tag": "乘法公式",
     "topic": "整式运算",
     "difficulty": 2,
-    "grade": 7
+    "grade": 7,
+    "explanation": "完全平方(a-b)2=a2-2ab+b2：(3x)2-2x3xx2+22=9x2-12x+4。中间项是-2ab=-12。"
   },
   {
     "id": "math_ja040",
@@ -677,7 +716,8 @@
     "knowledge_tag": "乘法公式",
     "topic": "整式运算",
     "difficulty": 3,
-    "grade": 7
+    "grade": 7,
+    "explanation": "完全平方变形：a2+b2=(a+b)2-2ab=25-2x(-6)=25+12=37。已知和与积求平方和。"
   },
   {
     "id": "math_ja041",
@@ -694,7 +734,8 @@
     "knowledge_tag": "乘法公式",
     "topic": "整式运算",
     "difficulty": 3,
-    "grade": 8
+    "grade": 8,
+    "explanation": "平方差公式变体：把(y-z)当整体B，(x+B)(x-B)=x2-B2=x2-(y-z)2。"
   },
   {
     "id": "math_ja042",
@@ -711,7 +752,8 @@
     "knowledge_tag": "乘法公式",
     "topic": "整式运算",
     "difficulty": 2,
-    "grade": 7
+    "grade": 7,
+    "explanation": "展开(x-5)2=x2-10x+25，对比得m=-10。完全平方中间项系数为-2ab。"
   },
   {
     "id": "math_ja043",
@@ -728,7 +770,8 @@
     "knowledge_tag": "乘法公式",
     "topic": "整式运算",
     "difficulty": 3,
-    "grade": 8
+    "grade": 8,
+    "explanation": "三数完全平方展开：(a+b+c)2=a2+b2+c2+2ab+2bc+2ac。ab项系数为2。"
   },
   {
     "id": "math_ja044",
@@ -745,7 +788,8 @@
     "knowledge_tag": "乘法公式",
     "topic": "整式运算",
     "difficulty": 4,
-    "grade": 8
+    "grade": 8,
+    "explanation": "对(a-1/a)2展开：a2-2+1/a2=9，所以a2+1/a2=11。对称式常用完全平方。"
   },
   {
     "id": "math_ja045",
@@ -762,7 +806,8 @@
     "knowledge_tag": "乘法公式",
     "topic": "整式运算",
     "difficulty": 4,
-    "grade": 8
+    "grade": 8,
+    "explanation": "方法一：分别展开相减得24xy。方法二：平方差(A+B)(A-B)=(2x+3y+2x-3y)(2x+3y-2x+3y)=4x x 6y=24xy。"
   },
   {
     "id": "math_ja046",
@@ -779,7 +824,8 @@
     "knowledge_tag": "乘法公式",
     "topic": "整式运算",
     "difficulty": 4,
-    "grade": 8
+    "grade": 8,
+    "explanation": "配方：(x2+4x+4)+(y2-6y+9)=0，即(x+2)2+(y-3)2=0。非负数之和为0则每个为0。"
   },
   {
     "id": "math_ja047",
@@ -796,7 +842,8 @@
     "knowledge_tag": "因式分解",
     "topic": "整式运算",
     "difficulty": 2,
-    "grade": 8
+    "grade": 8,
+    "explanation": "平方差逆用：x2-4=x2-22=(x-2)(x+2)。A正确。B展=x2-16不对，C是x2-16，D展=x2-4不对。"
   },
   {
     "id": "math_ja048",
@@ -813,7 +860,8 @@
     "knowledge_tag": "因式分解",
     "topic": "整式运算",
     "difficulty": 2,
-    "grade": 8
+    "grade": 8,
+    "explanation": "先提公因式3得3(x2-4)，再用平方差3(x-2)(x+2)。中考要求彻底分解到不能再分。"
   },
   {
     "id": "math_ja049",
@@ -830,7 +878,8 @@
     "knowledge_tag": "因式分解",
     "topic": "整式运算",
     "difficulty": 2,
-    "grade": 8
+    "grade": 8,
+    "explanation": "提公因式3a得3a(a2-9)，再用平方差3a(a-3)(a+3)。提公因式+公式法的标准流程。"
   },
   {
     "id": "math_ja050",
@@ -847,7 +896,8 @@
     "knowledge_tag": "因式分解",
     "topic": "整式运算",
     "difficulty": 2,
-    "grade": 8
+    "grade": 8,
+    "explanation": "完全平方逆用：首项x2，末项9=32，中间-6x=-2x3x3。判定(x-3)2。"
   },
   {
     "id": "math_ja051",
@@ -864,7 +914,8 @@
     "knowledge_tag": "因式分解",
     "topic": "整式运算",
     "difficulty": 3,
-    "grade": 8
+    "grade": 8,
+    "explanation": "首项负先提负号：-2x(x2-4x+4)=-2x(x-2)2。注意首项系数为负时的处理。"
   },
   {
     "id": "math_ja052",
@@ -881,7 +932,8 @@
     "knowledge_tag": "因式分解",
     "topic": "整式运算",
     "difficulty": 2,
-    "grade": 8
+    "grade": 8,
+    "explanation": "提公因式a得a(a2-b2)，再用平方差得a(a-b)(a+b)。最经典的因式分解模式。"
   },
   {
     "id": "math_ja053",
@@ -898,7 +950,8 @@
     "knowledge_tag": "因式分解",
     "topic": "整式运算",
     "difficulty": 3,
-    "grade": 8
+    "grade": 8,
+    "explanation": "设A=x+y，原式=A2-4A+4=(A-2)2=(x+y-2)2。整体换元法简化问题。"
   },
   {
     "id": "math_ja054",
@@ -915,7 +968,8 @@
     "knowledge_tag": "因式分解",
     "topic": "整式运算",
     "difficulty": 3,
-    "grade": 8
+    "grade": 8,
+    "explanation": "验证(2x)2-2x2xx3y+(3y)2=(2x-3y)2。首末项开根号后乘积的2倍恰好等于中间项。"
   },
   {
     "id": "math_ja055",
@@ -932,7 +986,8 @@
     "knowledge_tag": "整式除法",
     "topic": "整式运算",
     "difficulty": 2,
-    "grade": 8
+    "grade": 8,
+    "explanation": "系数相除：-6/3=-2；同底数幂a3/a=a2；b2/b=b；c保留。结果-2a2bc。"
   },
   {
     "id": "math_ja056",
@@ -949,7 +1004,8 @@
     "knowledge_tag": "整式除法",
     "topic": "整式运算",
     "difficulty": 2,
-    "grade": 8
+    "grade": 8,
+    "explanation": "每项分别除以3xy：6x3y/3xy=2x2，-3x2y2/3xy=-xy，9xy3/3xy=3y2。"
   },
   {
     "id": "math_ja057",
@@ -966,7 +1022,8 @@
     "knowledge_tag": "整式除法",
     "topic": "整式运算",
     "difficulty": 3,
-    "grade": 8
+    "grade": 8,
+    "explanation": "能整除说明(x+2)是因式。设(x+2)(x+a)=x2+(a+2)x+2a=x2+mx+6，则2a=6得a=3，m=a+2=5。"
   },
   {
     "id": "math_ja058",
@@ -983,7 +1040,8 @@
     "knowledge_tag": "整式除法",
     "topic": "整式运算",
     "difficulty": 4,
-    "grade": 8
+    "grade": 8,
+    "explanation": "长除法：2x3/x2=2x，减去2x(x2-2x)得-2x2+5x-3；再-2x2/x2=-2，余式为x-3（次数<2停止）。"
   },
   {
     "id": "math_ja059",
@@ -1000,7 +1058,8 @@
     "knowledge_tag": "乘法公式",
     "topic": "整式运算",
     "difficulty": 5,
-    "grade": 8
+    "grade": 8,
+    "explanation": "三项完全平方展开：(a+b+c)2=a2+b2+c2+2(ab+bc+ca)=0，代入a2+b2+c2=1得1+2S=0，S=-1/2。"
   },
   {
     "id": "math_ja060",
@@ -1017,6 +1076,7 @@
     "knowledge_tag": "乘法公式",
     "topic": "整式运算",
     "difficulty": 5,
-    "grade": 8
+    "grade": 8,
+    "explanation": "移项2x2+2y2+2z2-2xy-2yz-2zx=0，配方(x-y)2+(y-z)2+(z-x)2=0。非负数之和为0则每个为0，故x=y=z。"
   }
 ]

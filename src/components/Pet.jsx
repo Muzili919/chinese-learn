@@ -303,8 +303,8 @@ function getPetSprites(type) {
  */
 function getLevelSprite(level, type) {
   const sprites = getPetSprites(type)
-  if (level >= 21) return sprites.levelSprites[21]
-  if (level >= 11) return sprites.levelSprites[11]
+  if (level >= 20) return sprites.levelSprites[20]
+  if (level >= 10) return sprites.levelSprites[10]
   return sprites.levelSprites[1]
 }
 
@@ -332,7 +332,9 @@ function getEmotionSprite(emotionKey, type, level = 1) {
       pet_squirrel: 'squirrel', pet_kungfu: 'kungfu',
       pet_toothless: 'toothless',
       pet_petal_fairy: 'petal_fairy', pet_mecha_dragon: 'mecha_dragon',
-      pet_phoenix: 'phoenix', pet_starpony: 'starpony',
+      pet_starpony: 'starpony', pet_abyssal_raven: 'abyssal_raven',
+      pet_lunar_king: 'lunar_king', pet_star_beast: 'star_beast',
+      pet_ghost_cat: 'ghost_cat', pet_lunala_beast: 'lunala_beast',
     }
     const prefix = prefixMap[type]
     if (prefix) {
@@ -960,7 +962,7 @@ const handleClick = useCallback((e) => {
           {renderAccessories()}
           {renderZZZ()}
           {renderBlinkOverlay()}
-          
+
           {/* 迷你状态指示器（dock模式可选） */}
           {showStatsCompact && (
             <div style={{

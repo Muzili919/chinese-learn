@@ -575,6 +575,20 @@ export default function MV1Demo({ onBack, initialState, onStateChange, grade, cu
     }
 
     fetchMV1State(uid).then((cloud) => {
+      // ★ 云端强制覆盖标记（管理员修复数据时使用）
+      // 当 _forceOverwrite 为 true 时，跳过所有"本地优先/并集"合并逻辑，
+      // 直接用云端数据覆盖本地。这样管理员才能通过修改云端来修复用户数据。
+      const forceOverwrite = !!cloud?._forceOverwrite
+      if (forceOverwrite) {
+        // 清除云端标记，避免下次加载再次触发
+        cloud._forceOverwrite = false
+        // 清除两个 localStorage key，让本地数据完全来自云端
+        try {
+          localStorage.removeItem(`mv1_pet_state_${uid}`)
+          localStorage.removeItem(`cl_mv1_gamification_${uid}`)
+        } catch (_) {}
+      }
+
       const base = initGamificationState();
       const today = new Date().toDateString();
       const todayStr = new Date().toISOString().slice(0, 10);
@@ -618,16 +632,21 @@ export default function MV1Demo({ onBack, initialState, onStateChange, grade, cu
       const localPet = localSnapshot?.currentPet || initialState?.currentPet || null
       const localHasPet = !!(localPet?.poolId)
 
-      // ★ Bug A 修复：宠物合并策略 — 本地覆盖云端（而非云端覆盖本地）
+      // ★ Bug A 修复：宠物合并策略
+      // forceOverwrite 时直接用云端宠物（管理员删宠物场景）
+      // 否则合并：poolId 以云端为准（抽卡后云端先更新），stats 以本地为准（实时衰减）
       const resolvedCurrentPet = (() => {
         if (isGod) return initialState.currentPet
+        if (forceOverwrite) return cloud?.currentPet || null
         if (cloud?.currentPet) {
+          // ★ 如果本地和云端的 poolId 不同（抽卡后还没同步），优先用云端的
+          const samePet = localPet?.poolId === cloud.currentPet.poolId
           const merged = {
-            ...cloud.currentPet,           // 云端做底（确保所有字段都在）
-            ...(localPet || {}),           // 本地覆盖（stats/tapCount 等最新数据）
+            ...cloud.currentPet,           // 云端做底（poolId 以云端为准）
+            ...(samePet ? (localPet || {}) : {}), // 只有同一只宠物才用本地覆盖 stats
             // level 取最大值：防止云端旧数据把本地已升的级别回滚
             level: Math.max(localPet?.level || 1, cloud.currentPet.level || 1),
-            // stats 优先用本地：时间衰减在本地实时运行，云端存的是上次推送时的快照
+            // stats 优先用本地：时间衰减在本地实时运行
             stats: localPet?.stats || cloud.currentPet.stats || {},
             equippedAccessories: localPet?.equippedAccessories || cloud.currentPet.equippedAccessories || {},
           }
@@ -639,9 +658,11 @@ export default function MV1Demo({ onBack, initialState, onStateChange, grade, cu
         return null
       })()
 
-      // ★ ownedPets 取并集：本地 + 云端都拥有的宠物全部保留，防止跨设备丢失
+      // ★ ownedPets：forceOverwrite 时直接用云端（管理员删宠物），
+      //   否则取并集：本地 + 云端都拥有的宠物全部保留，防止跨设备丢失
       const resolvedOwnedPets = (() => {
         if (isGod) return initialState.ownedPets || []
+        if (forceOverwrite) return cloud?.ownedPets || []
         const localOwned = localSnapshot?.ownedPets || initialState?.ownedPets || []
         const cloudOwned = cloud?.ownedPets || []
         const union = [...new Set([...localOwned, ...cloudOwned])]
@@ -658,10 +679,21 @@ export default function MV1Demo({ onBack, initialState, onStateChange, grade, cu
           localSnapshot?.petExpConsumed ?? 0,
           cloud?.petExpConsumed ?? 0
         ),
+        // ★ petLevelExp: 每个宠物独立记录升级消耗，合并取最大值
+        petLevelExp: (() => {
+          const localPLE = localSnapshot?.petLevelExp || {}
+          const cloudPLE = cloud?.petLevelExp || {}
+          const merged = { ...cloudPLE }
+          for (const [k, v] of Object.entries(localPLE)) {
+            merged[k] = Math.max(merged[k] || 0, v)
+          }
+          return merged
+        })(),
         currentPet: resolvedCurrentPet,
         ownedPets: resolvedOwnedPets,
-        // ★ petLevels: 每个宠物等级独立（合并本地+云端，取最大值）
+        // ★ petLevels: forceOverwrite 时直接用云端，否则合并本地+云端取最大值
         petLevels: (() => {
+          if (forceOverwrite) return cloud?.petLevels || {}
           const localPL = localSnapshot?.petLevels || {}
           const cloudPL = cloud?.petLevels || {}
           // migration: 将当前宠物等级写入 petLevels（老数据兼容）
@@ -674,10 +706,12 @@ export default function MV1Demo({ onBack, initialState, onStateChange, grade, cu
           }
           return merged
         })(),
-        // 背包：localStorage 最新，防止刷新后数量回滚
-        inventory: localSnapshot?.inventory
-          ? { ...base.inventory, ...(cloud?.inventory || {}), ...localSnapshot.inventory }
-          : { ...base.inventory, ...(cloud?.inventory || {}) },
+        // 背包：forceOverwrite 时直接用云端，否则本地优先
+        inventory: forceOverwrite
+          ? { ...base.inventory, ...(cloud?.inventory || {}) }
+          : (localSnapshot?.inventory
+            ? { ...base.inventory, ...(cloud?.inventory || {}), ...localSnapshot.inventory }
+            : { ...base.inventory, ...(cloud?.inventory || {}) }),
         gameInventory: localSnapshot?.gameInventory ?? (cloud?.gameInventory || base.gameInventory || {}),
         ownedRoomThemes: localSnapshot?.ownedRoomThemes ?? (cloud?.ownedRoomThemes || base.ownedRoomThemes || []),
         currentRoomTheme: localSnapshot?.currentRoomTheme ?? (cloud?.currentRoomTheme || base.currentRoomTheme || 'default'),
@@ -692,7 +726,8 @@ export default function MV1Demo({ onBack, initialState, onStateChange, grade, cu
         weeklyResetDate: cloud?.weeklyResetDate || todayStr,
       };
 
-      // ★ 云端奖励领取：检查 pendingGifts，发放到 merged 并清空云端
+      // ★ 云端奖励领取：检查 pendingGifts，发放到 merged
+      // 不单独调用 upsertMV1State 清除，让自动保存机制带走已清空的 pendingGifts
       const gifts = cloud?.pendingGifts || [];
       if (gifts.length > 0) {
         for (const g of gifts) {
@@ -701,12 +736,11 @@ export default function MV1Demo({ onBack, initialState, onStateChange, grade, cu
             merged.inventory.cards = (merged.inventory.cards || 0) + (g.amount || 0);
           }
         }
-        // 清空云端 pendingGifts
-        upsertMV1State(currentUserId, { ...(cloud || {}), pendingGifts: [] }).catch(() => {});
         console.log('[MV1] 已领取云端奖励:', gifts);
       }
+      // 清空，让自动保存时写入云端不带 pendingGifts
+      merged.pendingGifts = [];
 
-      setState(merged);
       initializedRef.current = true;
       cloudLoadedRef.current = true;
       setState(merged);
@@ -859,7 +893,7 @@ export default function MV1Demo({ onBack, initialState, onStateChange, grade, cu
     };
   }, []);
 
-  // 宠物升级（从累计经验池消耗）
+  // 宠物升级（从累计经验池消耗，每个宠物独立消耗）
   const handlePetLevelUp = useCallback(() => {
     setState(s => {
       const pet = s.currentPet;
@@ -868,8 +902,9 @@ export default function MV1Demo({ onBack, initialState, onStateChange, grade, cu
       // ★ 上帝模式：无限经验直接通过，不检查阈值
       if (!isGodModeState(s)) {
         const totalXP = getEffectiveXP(s, storage.getUser());
-        const consumed = s.petExpConsumed || 0;
-        const petExp = Math.max(0, totalXP - consumed);
+        const petLevelExpMap = s.petLevelExp || {};
+        const currentPetConsumed = (petLevelExpMap[pet?.poolId] || 0) + (s.petExpConsumed || 0);
+        const petExp = Math.max(0, totalXP - currentPetConsumed);
         if (petExp < threshold) return s;
       }
 
@@ -877,16 +912,17 @@ export default function MV1Demo({ onBack, initialState, onStateChange, grade, cu
       setTimeout(() => setLevelUpAnim(false), 2000);
 
       const newPetLevel = petLevel + 1;
-      // ★ 变量声明移到条件外，避免上帝模式跳过if块后 consumed/totalXP 未定义
       const totalXP = getEffectiveXP(s, storage.getUser());
-      const consumed = s.petExpConsumed || 0;
       // ★ 同步更新 petLevels（每个宠物的等级独立存储）
       const petLevels = { ...(s.petLevels || {}) }
       if (pet?.poolId) petLevels[pet.poolId] = newPetLevel
+      // ★ 每个宠物独立记录升级消耗
+      const petLevelExp = { ...(s.petLevelExp || {}) }
+      if (pet?.poolId) petLevelExp[pet.poolId] = (petLevelExp[pet.poolId] || 0) + threshold
       const newState = {
         ...s,
         exp: totalXP,
-        petExpConsumed: consumed + threshold,
+        petLevelExp,
         petLevels,
         currentPet: {
           ...pet,
@@ -1231,6 +1267,7 @@ export default function MV1Demo({ onBack, initialState, onStateChange, grade, cu
 
   const handleDrawCard = useCallback(() => {
     // state为null时（正在加载云端数据），不允许操作
+    let resultState = null;
     setState(s => {
       if (!s) return s;
       // 蛋态：使用免费券
@@ -1239,9 +1276,10 @@ export default function MV1Demo({ onBack, initialState, onStateChange, grade, cu
         if (!pet) return s; // 不应该发生
         setGachaResult(pet);
         setShowGacha(true);
+        resultState = newS;
         return newS;
       }
-      
+
       // 正常抽卡
       // ★ 上帝模式：免费无限抽卡，跳过费用检查
       const _isGod = isGodModeState(s);
@@ -1249,20 +1287,31 @@ export default function MV1Demo({ onBack, initialState, onStateChange, grade, cu
         const totalXP = getEffectiveXP(s, storage.getUser());
         if (totalXP < 500 && !hasFreeCard(s)) return s;
       }
-      
+
       const { state: newS, pet } = drawCard(s);
       if (pet && newS !== s) {
         setGachaResult(pet);
         setShowGacha(true);
+        let final = newS;
         if (!_isGod && storage.getUser()?.id && !hasFreeCard(s)) {  // ★ 上帝模式不扣费
           storage.addXP(storage.getUser().id, -500);
-          return { ...newS, exp: Math.max(0, getEffectiveXP(s, storage.getUser()) - 500) };
+          final = { ...newS, exp: Math.max(0, getEffectiveXP(s, storage.getUser()) - 500) };
         }
-        return newS;
+        resultState = final;
+        return final;
       }
       return s;
     });
-  }, []);
+    // ★ 立即写 localStorage，防止刷新丢失抽卡结果
+    setTimeout(() => {
+      if (resultState && currentUserId) {
+        try {
+          const petKey = `mv1_pet_state_${currentUserId}`;
+          localStorage.setItem(petKey, JSON.stringify(resultState));
+        } catch (_) {}
+      }
+    }, 0);
+  }, [currentUserId]);
 
   // 抽卡动画结束回调
   const handleGachaComplete = useCallback(() => {
@@ -1319,9 +1368,13 @@ export default function MV1Demo({ onBack, initialState, onStateChange, grade, cu
   const totalXP = Math.max(latestXPRef.current, state?.exp || 0);
   const lp = calcLevelProgress(totalXP);
 
-  const petExpConsumed = state?.petExpConsumed || 0;
-  const petExp = Math.max(0, totalXP - petExpConsumed); // 🔧 先定义
-  const spendableXP = petExp; // 🔧 商店用宠物可支配经验（不是人物等级经验）
+  const petExpConsumed = state?.petExpConsumed || 0;  // 商店购买消耗（全局共享）
+  const petLevelExp = state?.petLevelExp || {};       // 每个宠物的升级消耗（独立）
+  const currentPetLevelConsumed = petLevelExp[currentPet?.poolId] || 0;
+  // ★ 升级可用经验 = 总经验 - 该宠物升级消耗 - 商店消耗
+  const petExp = Math.max(0, totalXP - currentPetLevelConsumed - petExpConsumed);
+  // ★ 商店可用经验 = 总经验 - 商店消耗（不含升级消耗，升级是独立的）
+  const spendableXP = Math.max(0, totalXP - petExpConsumed);
   const petExpPct = Math.min(100, (petExp / petThreshold) * 100);
   const canLevelUpPet = petExp >= petThreshold;
 

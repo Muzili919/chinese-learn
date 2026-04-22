@@ -22,6 +22,8 @@ import jcPoetryQ from '../data/questions_junior_chinese_poetry.json'
 import jcClassicalQ from '../data/questions_junior_chinese_classical.json'
 import jcNovelQ from '../data/questions_junior_chinese_novel.json'
 import jcExprQ from '../data/questions_junior_chinese_expression.json'
+import jcReadingQ from '../data/questions_junior_chinese_reading.json'
+import oralQ from '../data/questions_oral.json'
 
 const POLITICS_ALL = Array.isArray(politicsQ) ? politicsQ : (politicsQ.questions || [])
 
@@ -36,6 +38,8 @@ const ALL = [
   ...(Array.isArray(jcClassicalQ) ? jcClassicalQ : []),
   ...(Array.isArray(jcNovelQ) ? jcNovelQ : []),
   ...(Array.isArray(jcExprQ) ? jcExprQ : []),
+  ...(Array.isArray(jcReadingQ) ? jcReadingQ : []),
+  ...(Array.isArray(oralQ) ? oralQ : []),
 ]
 
 export const FULL_Q_MAP = Object.fromEntries(ALL.map(q => [q.id, q]))

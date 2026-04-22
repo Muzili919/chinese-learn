@@ -68,7 +68,7 @@ const MATH_TOPICS = {
       emoji: '📐',
       color: 'from-amber-400 to-orange-600',
       desc: '全等三角形·勾股定理·四边形·相似·圆',
-      questionCount: 78,
+      questionCount: 84,
     },
   ],
 }

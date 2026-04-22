@@ -47,13 +47,24 @@ const PLANETS = [
   { id: '句子',    label: '句子星球',  emoji: '✏️', color: 'from-violet-400 to-purple-600',  desc: '修辞·句式·病句·关联词' },
   { id: 'reading', label: '阅读星球',  emoji: '📖', color: 'from-emerald-400 to-teal-600',  desc: 'AI评分·短文阅读理解', reading: true },
   { id: '文学常识',label: '文学星球',  emoji: '🎭', color: 'from-rose-400 to-pink-600',     desc: '四大名著·标点·文体' },
+  { id: '口语交际',label: '口语星球',  emoji: '💬', color: 'from-sky-400 to-indigo-500',     desc: '转述·劝说·采访·辩论' },
   { id: 'sentence_practice', label: '造句星球', emoji: '✍️', color: 'from-amber-400 to-orange-500', desc: 'AI即时批改·学会用词' },
   { id: 'essay',   label: '作文星球',  emoji: '📝', color: 'from-pink-500 to-rose-600',     desc: 'AI三维评分·提升写作' },
   { id: 'dictation', label: '听写星球', emoji: '🎧', color: 'from-cyan-400 to-blue-500',   desc: 'TTS听写·拍照批改·词库管理', dictation: true },
   { id: 'self_test',label: '自测星球', emoji: '🧪', color: 'from-amber-500 to-orange-600',  desc: 'AI出卷·小升初难度·查漏补缺', isSelfTest: true },
 ]
 
-const QUIZ_PLANET_IDS = ['字词', '古诗词', '成语', '句子', '文学常识']
+const QUIZ_PLANET_IDS = ['字词', '古诗词', '成语', '句子', '文学常识', '口语交际']
+
+// 初中语文星球（初二语文专用）
+const JC_PLANETS = [
+  { id: 'jc_basic',       label: '基础积累', emoji: '📝', color: 'from-blue-400 to-blue-600',     desc: '字音·字形·词语·病句' },
+  { id: 'jc_poetry',      label: '古诗文',   emoji: '🎋', color: 'from-green-400 to-teal-600',    desc: '默写·赏析·常识' },
+  { id: 'jc_classical',   label: '文言文',   emoji: '📜', color: 'from-amber-400 to-orange-500',  desc: '实词·虚词·翻译·阅读' },
+  { id: 'jc_novel',       label: '名著阅读', emoji: '📚', color: 'from-purple-400 to-violet-600',  desc: '人物·情节·主题' },
+  { id: 'jc_expression',  label: '语言运用', emoji: '💬', color: 'from-sky-400 to-indigo-500',     desc: '仿写·得体·概括·图文' },
+  { id: 'jc_reading',     label: '阅读星球', emoji: '📖', color: 'from-emerald-400 to-teal-600',   desc: '记叙文·说明文·议论文', reading: true },
+]
 
 const SUBJECTS_BY_GRADE = {
   primary: [
@@ -61,6 +72,7 @@ const SUBJECTS_BY_GRADE = {
     { id: 'english', label: '英语', emoji: '🌎', available: true },
   ],
   junior2: [
+    { id: 'chinese', label: '语文', emoji: '📖', available: true },
     { id: 'english', label: '英语', emoji: '🌎', available: true },
     { id: 'politics', label: '道法', emoji: '⚖️', available: true },
     { id: 'math',    label: '数学', emoji: '🔢', available: false },
@@ -364,11 +376,15 @@ export default function HomePage({ user, onStartQuiz, hideHeader, activeSubject:
         </div>
 
         {(() => {
-          const corePlanets = PLANETS.slice(0, 8)
-          const toolPlanets = PLANETS.slice(8)
+          const isJuniorChinese = currentGrade === 'junior2' && activeSubject === 'chinese'
+          const corePlanets = isJuniorChinese ? JC_PLANETS : PLANETS.slice(0, 8)
+          const toolPlanets = isJuniorChinese ? [] : PLANETS.slice(8)
 
           const handlePlanetClick = (planet) => {
-            if (planet.reading)                  onStartQuiz({ reading: true })
+            if (isJuniorChinese) {
+              // 初中语文星球 → 用 juniorChineseTag 路由
+              onStartQuiz({ juniorChineseTag: planet.id })
+            } else if (planet.reading)                  onStartQuiz({ reading: true })
             else if (planet.id === 'essay')      onStartQuiz({ essay: true })
             else if (planet.id === 'sentence_practice') onStartQuiz({ sentencePractice: true })
             else if (planet.id === 'dictation')  onStartQuiz({ dictation: true, dictationSubject: 'chinese' })

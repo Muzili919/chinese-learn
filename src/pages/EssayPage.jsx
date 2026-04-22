@@ -61,8 +61,8 @@ export default function EssayPage({ user, onBack, onFinish }) {
   const [isEvaluating, setIsEvaluating] = useState(false)
   const [evaluation, setEvaluation] = useState(null)
 
-  // 每日限制：最多写3篇作文
-  const DAILY_ESSAY_LIMIT = 3
+  // 每日限制：每天写1篇作文
+  const DAILY_ESSAY_LIMIT = 1
   const todayEssayCount = useMemo(() => {
     const today = new Date().toDateString()
     const data = JSON.parse(localStorage.getItem(`essay_daily_${user?.id}`) || '{}')
@@ -70,9 +70,13 @@ export default function EssayPage({ user, onBack, onFinish }) {
   }, [user?.id, evaluation]) // evaluation变化时重新计算（提交后更新）
   const practicedToday = todayEssayCount >= DAILY_ESSAY_LIMIT
 
-  const filteredPrompts = activeCategory === '全部' 
-    ? prompts 
+  const filteredPrompts = activeCategory === '全部'
+    ? prompts
     : prompts.filter(p => p.category === activeCategory)
+
+  // 初中作文要求600字
+  const isJunior = storage.getGrade() === 'junior2'
+  const effectiveMinWords = isJunior ? 600 : (currentPrompt?.minWords || 300)
 
   const startNewEssay = () => {
     if (filteredPrompts.length === 0) return
@@ -355,7 +359,7 @@ export default function EssayPage({ user, onBack, onFinish }) {
               <div className="flex items-center justify-between mb-2">
                 <h2 className="text-lg font-bold text-gray-800">{currentPrompt.title}</h2>
                 <span className="text-sm bg-indigo-100 text-indigo-800 px-2 py-1 rounded-full">
-                  {currentPrompt.minWords}字
+                  {effectiveMinWords}字
                 </span>
               </div>
               <p className="text-gray-600 text-sm">{currentPrompt.requirements}</p>
@@ -383,9 +387,9 @@ export default function EssayPage({ user, onBack, onFinish }) {
             <div className="flex justify-between items-center mb-4">
               <span className="text-sm text-gray-500">
                 {userEssay.length} 字
-                {userEssay.length < currentPrompt.minWords && (
+                {userEssay.length < effectiveMinWords && (
                   <span className="text-red-500 ml-2">
-                    (还需 {currentPrompt.minWords - userEssay.length} 字)
+                    (还需 {effectiveMinWords - userEssay.length} 字)
                   </span>
                 )}
               </span>
@@ -403,9 +407,9 @@ export default function EssayPage({ user, onBack, onFinish }) {
               </button>
               <button
                 onClick={handleSubmit}
-                disabled={isEvaluating || userEssay.length < currentPrompt.minWords}
+                disabled={isEvaluating || userEssay.length < effectiveMinWords}
                 className={`flex-1 py-3 rounded-xl font-semibold text-white transition-all ${
-                  isEvaluating || userEssay.length < currentPrompt.minWords
+                  isEvaluating || userEssay.length < effectiveMinWords
                     ? 'bg-gray-400 cursor-not-allowed'
                     : 'bg-indigo-600 hover:bg-indigo-700'
                 }`}

@@ -221,6 +221,23 @@ export const storage = {
     return filtered.length;
   },
 
+  // 🚩 题目标记（孩子觉得题目有问题时标记，家长后台审核）
+  // 结构: { [cardId]: { reason, timestamp, question_preview, subject } }
+  getFlaggedQuestions: (userId) =>
+    lsParse(P + 'flagged_' + userId, {}),
+  flagQuestion: (userId, cardId, reason, preview, subject) => {
+    const key = P + 'flagged_' + userId;
+    const data = lsParse(key, {});
+    data[cardId] = { reason, timestamp: new Date().toISOString(), question_preview: (preview || '').slice(0, 120), subject: subject || '' };
+    lsSet(key, JSON.stringify(data));
+  },
+  unflagQuestion: (userId, cardId) => {
+    const key = P + 'flagged_' + userId;
+    const data = lsParse(key, {});
+    delete data[cardId];
+    lsSet(key, JSON.stringify(data));
+  },
+
   // 今日到期错题数：nextReview <= today 的错题（不含未来复习的）
   getDueTodayWrongCount: (userId) => {
     const wrongIds = storage.getWrongCardIds(userId);

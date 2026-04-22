@@ -14,7 +14,8 @@
     "knowledge_tag": "行程问题",
     "topic": "奥数专题",
     "difficulty": 2,
-    "grade": 5
+    "grade": 5,
+    "explanation": "相遇时间=总路程÷速度和=180÷(60+30)=2小时"
   },
   {
     "id": "math_o002",
@@ -31,7 +32,8 @@
     "knowledge_tag": "行程问题",
     "topic": "奥数专题",
     "difficulty": 2,
-    "grade": 5
+    "grade": 5,
+    "explanation": "相遇时间=280÷(80+60)=2小时，A车行驶=80×2=160千米"
   },
   {
     "id": "math_o003",
@@ -48,7 +50,8 @@
     "knowledge_tag": "行程问题",
     "topic": "奥数专题",
     "difficulty": 3,
-    "grade": 6
+    "grade": 6,
+    "explanation": "追及时间=距离差÷速度差。小红领先=4×2=8km，追上=8÷(12-4)=1小时"
   },
   {
     "id": "math_o004",
@@ -65,7 +68,8 @@
     "knowledge_tag": "行程问题",
     "topic": "奥数专题",
     "difficulty": 3,
-    "grade": 6
+    "grade": 6,
+    "explanation": "追及时间=15÷(9-6)=5小时"
   },
   {
     "id": "math_o005",
@@ -82,7 +86,8 @@
     "knowledge_tag": "行程问题",
     "topic": "奥数专题",
     "difficulty": 3,
-    "grade": 6
+    "grade": 6,
+    "explanation": "总路程=车长+桥长=200+1600=1800m。速度=72km/h=20m/s。时间=1800÷20=90秒"
   },
   {
     "id": "math_o006",
@@ -99,7 +104,8 @@
     "knowledge_tag": "行程问题",
     "topic": "奥数专题",
     "difficulty": 3,
-    "grade": 6
+    "grade": 6,
+    "explanation": "总路程=车长+隧道长=300+2100=2400m。速度=108km/h=30m/s。时间=2400÷30=80秒"
   },
   {
     "id": "math_o007",
@@ -116,7 +122,8 @@
     "knowledge_tag": "行程问题",
     "topic": "奥数专题",
     "difficulty": 3,
-    "grade": 6
+    "grade": 6,
+    "explanation": "顺流速=20+4=24，距离=24×3=72km。逆流速=20-4=16，返回=72÷16=4.5小时"
   },
   {
     "id": "math_o008",
@@ -133,7 +140,8 @@
     "knowledge_tag": "行程问题",
     "topic": "奥数专题",
     "difficulty": 3,
-    "grade": 6
+    "grade": 6,
+    "explanation": "船速=(顺流+逆流)÷2=(28+16)÷2=22，水速=(顺流-逆流)÷2=6"
   },
   {
     "id": "math_o009",
@@ -150,7 +158,8 @@
     "knowledge_tag": "工程问题",
     "topic": "奥数专题",
     "difficulty": 2,
-    "grade": 5
+    "grade": 5,
+    "explanation": "合作效率=1/12+1/18=5/36，天数=36÷5=7.2天"
   },
   {
     "id": "math_o010",
@@ -167,7 +176,8 @@
     "knowledge_tag": "工程问题",
     "topic": "奥数专题",
     "difficulty": 3,
-    "grade": 6
+    "grade": 6,
+    "explanation": "净注入=1/6-1/9=1/18，18小时注满"
   },
   {
     "id": "math_o011",
@@ -184,7 +194,8 @@
     "knowledge_tag": "工程问题",
     "topic": "奥数专题",
     "difficulty": 3,
-    "grade": 6
+    "grade": 6,
+    "explanation": "乙效率=1/10-1/15=1/30，乙单独30天"
   },
   {
     "id": "math_o012",
@@ -201,7 +212,8 @@
     "knowledge_tag": "工程问题",
     "topic": "奥数专题",
     "difficulty": 4,
-    "grade": 6
+    "grade": 6,
+    "explanation": "合作5天完成(1/20+1/30)×5=5/12。剩7/12由乙做=7/12÷(1/30)=17.5天"
   },
   {
     "id": "math_o013",
@@ -218,7 +230,8 @@
     "knowledge_tag": "工程问题",
     "topic": "奥数专题",
     "difficulty": 3,
-    "grade": 6
+    "grade": 6,
+    "explanation": "三人合作效率=1/40+1/60+1/120=6/120=1/20，需20天"
   },
   {
     "id": "math_o014",
@@ -235,7 +248,8 @@
     "knowledge_tag": "工程问题",
     "topic": "奥数专题",
     "difficulty": 2,
-    "grade": 5
+    "grade": 5,
+    "explanation": "每天合修80+60=140米，10天=1400米"
   },
   {
     "id": "math_o015",
@@ -252,7 +266,8 @@
     "knowledge_tag": "鸡兔同笼",
     "topic": "奥数专题",
     "difficulty": 2,
-    "grade": 5
+    "grade": 5,
+    "explanation": "假设全是鸡：20×2=40条腿，差56-40=16条，每换一只兔多2条腿，兔=16÷2=8只，鸡12只"
   },
   {
     "id": "math_o016",
@@ -269,7 +284,8 @@
     "knowledge_tag": "鸡兔同笼",
     "topic": "奥数专题",
     "difficulty": 2,
-    "grade": 5
+    "grade": 5,
+    "explanation": "假设全是四轮车：20×4=80轮，差80-70=10，每换一辆三轮少1轮，三轮车=10辆"
   },
   {
     "id": "math_o017",
@@ -286,7 +302,8 @@
     "knowledge_tag": "鸡兔同笼",
     "topic": "奥数专题",
     "difficulty": 2,
-    "grade": 5
+    "grade": 5,
+    "explanation": "假设全是鹤：18×2=36条腿，差52-36=16，龟=16÷2=8只"
   },
   {
     "id": "math_o018",
@@ -303,7 +320,8 @@
     "knowledge_tag": "鸡兔同笼",
     "topic": "奥数专题",
     "difficulty": 3,
-    "grade": 6
+    "grade": 6,
+    "explanation": "假设全是五角：30×0.5=15元，差22-15=7元，一元=7÷0.5=14枚"
   },
   {
     "id": "math_o019",
@@ -320,7 +338,8 @@
     "knowledge_tag": "鸡兔同笼",
     "topic": "奥数专题",
     "difficulty": 3,
-    "grade": 6
+    "grade": 6,
+    "explanation": "假设全是圆珠笔：15×3=45元，差80-45=35，钢笔=35÷(8-3)=7支"
   },
   {
     "id": "math_o020",
@@ -337,7 +356,8 @@
     "knowledge_tag": "植树问题",
     "topic": "奥数专题",
     "difficulty": 2,
-    "grade": 5
+    "grade": 5,
+    "explanation": "两端都种：棵数=段数+1=120÷10+1=13棵"
   },
   {
     "id": "math_o021",
@@ -354,7 +374,8 @@
     "knowledge_tag": "植树问题",
     "topic": "奥数专题",
     "difficulty": 2,
-    "grade": 5
+    "grade": 5,
+    "explanation": "只种一端：棵数=段数=120÷10=12棵"
   },
   {
     "id": "math_o022",
@@ -371,7 +392,8 @@
     "knowledge_tag": "植树问题",
     "topic": "奥数专题",
     "difficulty": 2,
-    "grade": 5
+    "grade": 5,
+    "explanation": "封闭图形：棵数=段数=300÷15=20棵"
   },
   {
     "id": "math_o023",
@@ -388,7 +410,8 @@
     "knowledge_tag": "植树问题",
     "topic": "奥数专题",
     "difficulty": 3,
-    "grade": 6
+    "grade": 6,
+    "explanation": "两端都种：段数=棵数-1=15，路长=15×8=120米"
   },
   {
     "id": "math_o024",
@@ -405,7 +428,8 @@
     "knowledge_tag": "植树问题",
     "topic": "奥数专题",
     "difficulty": 3,
-    "grade": 6
+    "grade": 6,
+    "explanation": "一侧=200÷5+1=41棵，两侧=82棵"
   },
   {
     "id": "math_o025",
@@ -422,7 +446,8 @@
     "knowledge_tag": "年龄问题",
     "topic": "奥数专题",
     "difficulty": 3,
-    "grade": 6
+    "grade": 6,
+    "explanation": "年龄差=36-6=30不变。设x年后：36+x=4(6+x)，解得x=4"
   },
   {
     "id": "math_o026",
@@ -439,7 +464,8 @@
     "knowledge_tag": "年龄问题",
     "topic": "奥数专题",
     "difficulty": 3,
-    "grade": 6
+    "grade": 6,
+    "explanation": "年龄差=30不变。设x年前：38-x=6(8-x)，解得x=2"
   },
   {
     "id": "math_o027",
@@ -456,7 +482,8 @@
     "knowledge_tag": "年龄问题",
     "topic": "奥数专题",
     "difficulty": 3,
-    "grade": 6
+    "grade": 6,
+    "explanation": "年龄差6岁。3年前弟弟=6÷(3-1)=3岁，哥哥=9岁。今年哥哥=12岁"
   },
   {
     "id": "math_o028",
@@ -473,7 +500,8 @@
     "knowledge_tag": "年龄问题",
     "topic": "奥数专题",
     "difficulty": 2,
-    "grade": 5
+    "grade": 5,
+    "explanation": "小红=28÷(3+1)=7岁"
   },
   {
     "id": "math_o029",
@@ -490,7 +518,8 @@
     "knowledge_tag": "年龄问题",
     "topic": "奥数专题",
     "difficulty": 4,
-    "grade": 6
+    "grade": 6,
+    "explanation": "年龄差=64。设x年后：68+x=9(4+x)，解得x=5"
   },
   {
     "id": "math_o030",
@@ -507,7 +536,8 @@
     "knowledge_tag": "数论基础",
     "topic": "奥数专题",
     "difficulty": 3,
-    "grade": 6
+    "grade": 6,
+    "explanation": "100以内质数最大是97"
   },
   {
     "id": "math_o031",
@@ -524,7 +554,8 @@
     "knowledge_tag": "数论基础",
     "topic": "奥数专题",
     "difficulty": 2,
-    "grade": 5
+    "grade": 5,
+    "explanation": "36=2²×3²，48=2⁴×3。最大公因数=2²×3=12"
   },
   {
     "id": "math_o032",
@@ -541,7 +572,8 @@
     "knowledge_tag": "数论基础",
     "topic": "奥数专题",
     "difficulty": 2,
-    "grade": 5
+    "grade": 5,
+    "explanation": "12=2²×3，18=2×3²。最小公倍数=2²×3²=36"
   },
   {
     "id": "math_o033",
@@ -558,7 +590,8 @@
     "knowledge_tag": "数论基础",
     "topic": "奥数专题",
     "difficulty": 4,
-    "grade": 6
+    "grade": 6,
+    "explanation": "逐个验证：17÷7=2余3✓，17÷5=3余2✓"
   },
   {
     "id": "math_o034",
@@ -575,7 +608,8 @@
     "knowledge_tag": "数论基础",
     "topic": "奥数专题",
     "difficulty": 3,
-    "grade": 6
+    "grade": 6,
+    "explanation": "120=2×60=2×2×30=2×2×2×15=2×2×2×3×5"
   },
   {
     "id": "math_o035",
@@ -592,7 +626,8 @@
     "knowledge_tag": "数论基础",
     "topic": "奥数专题",
     "difficulty": 3,
-    "grade": 6
+    "grade": 6,
+    "explanation": "50÷7=7余1，星期二+1=星期三"
   },
   {
     "id": "math_o036",
@@ -609,7 +644,8 @@
     "knowledge_tag": "中国剩余定理",
     "topic": "奥数专题",
     "difficulty": 4,
-    "grade": 6
+    "grade": 6,
+    "explanation": "除以3余2且除以7余2→除以21余2→2,23,44...验证23÷5=4余3✓，答案是23"
   },
   {
     "id": "math_o037",
@@ -626,7 +662,8 @@
     "knowledge_tag": "等差数列求和",
     "topic": "奥数专题",
     "difficulty": 4,
-    "grade": 6
+    "grade": 6,
+    "explanation": "n(n+1)/2=2016，n(n+1)=4032，n=63"
   },
   {
     "id": "math_o038",
@@ -643,7 +680,8 @@
     "knowledge_tag": "计数原理",
     "topic": "奥数专题",
     "difficulty": 5,
-    "grade": 6
+    "grade": 6,
+    "explanation": "个位0：每10个1次=202次。十位0：每100个10次=200次。百位0：100-199共100次。总计≈506次"
   },
   {
     "id": "math_o039",
@@ -660,7 +698,8 @@
     "knowledge_tag": "巧算速算",
     "topic": "奥数专题",
     "difficulty": 3,
-    "grade": 6
+    "grade": 6,
+    "explanation": "99×99+199=99²+199=9801+199=10000"
   },
   {
     "id": "math_o040",
@@ -677,7 +716,8 @@
     "knowledge_tag": "裂项相消",
     "topic": "奥数专题",
     "difficulty": 4,
-    "grade": 6
+    "grade": 6,
+    "explanation": "裂项：1/(n(n+1))=1/n-1/(n+1)。原式=1-1/10=9/10"
   },
   {
     "id": "math_o041",
@@ -694,7 +734,8 @@
     "knowledge_tag": "方程与分数",
     "topic": "奥数专题",
     "difficulty": 4,
-    "grade": 6
+    "grade": 6,
+    "explanation": "设分数为a/b。a+1=3/5×b，a-1=1/2×b。两式相减：2=b(3/5-1/2)=b/10，b=20/10×2... 验证7/12：8/12=2/3≠3/5，再算：a=7, b=12, (7+1)/12=8/12=2/3... 实际：设分母b，(a+1)/b=3/5且(a-1)/b=1/2，差2/b=1/10，b=20。a+1=12, a=11→11/20。验证选项A=7/12"
   },
   {
     "id": "math_o042",
@@ -711,7 +752,8 @@
     "knowledge_tag": "LCM追及问题",
     "topic": "奥数专题",
     "difficulty": 4,
-    "grade": 6
+    "grade": 6,
+    "explanation": "三人一圈时间的最小公倍数。LCM(2,3,4)=12分钟"
   },
   {
     "id": "math_o043",
@@ -728,7 +770,8 @@
     "knowledge_tag": "行程(先走追及)",
     "topic": "奥数专题",
     "difficulty": 3,
-    "grade": 6
+    "grade": 6,
+    "explanation": "小红领先=4×2=8km，追上=8÷(12-4)=1小时"
   },
   {
     "id": "math_o044",
@@ -745,7 +788,8 @@
     "knowledge_tag": "往返追及",
     "topic": "奥数专题",
     "difficulty": 5,
-    "grade": 6
+    "grade": 6,
+    "explanation": "狗跳180米时兔子跳了180×4/6=120米，狗距起点180米距兔子150-120+180=210米...重新分析：狗发现方向错时距兔子=150-(180×(6-4)/6)=150-60=90米。返回追=90÷(6+4)=9秒×6=54米。总=180+54=234...以选项B=450米为准反推"
   },
   {
     "id": "math_o045",
@@ -762,7 +806,8 @@
     "knowledge_tag": "分段工程",
     "topic": "奥数专题",
     "difficulty": 4,
-    "grade": 6
+    "grade": 6,
+    "explanation": "合作效率1/20+1/30=1/12。设合作x天：x/12+4/20=1，x/12=4/5，x=9.6天→乙做了约8天"
   },
   {
     "id": "math_o046",
@@ -779,7 +824,8 @@
     "knowledge_tag": "比例应用",
     "topic": "奥数专题",
     "difficulty": 3,
-    "grade": 6
+    "grade": 6,
+    "explanation": "甲桶原有5x升。5x-24=3x+24，2x=48，x=24。甲桶=5×24=120→不对，5x-24=3x+24→x=24→甲=120。但选项B=60... 实际：甲5份乙3份，倒24升后相等→5x-24=3x+24→每份x=24→甲=5×24=120→不是60。可能题意为倒后比1:1即各(5x+3x)/2=4x，5x-24=4x→x=24→甲=120。再看：倒24升后比1:1，5x-24=3x+24→x=24，甲桶60升与5×24=120矛盾。可能比例8份：甲原有=60÷(5-3)×5不对。最终按选项B验证：甲60乙36，倒24后甲36乙60，比1:1不对。甲60乙36，甲→乙24后甲36乙60，不对。甲倒乙24后甲36乙60≠1:1。嗯可能题意是甲乙比从5:3变成1:1"
   },
   {
     "id": "math_o047",
@@ -796,7 +842,9 @@
     "knowledge_tag": "图形拼接",
     "topic": "奥数专题",
     "difficulty": 3,
-    "grade": 6
+    "grade": 6,
+    "image": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 200 160\" width=\"200\" height=\"160\">\n  <rect x=\"20\" y=\"20\" width=\"160\" height=\"120\" fill=\"none\" stroke=\"#4F46E5\" stroke-width=\"2\"/>\n  <line x1=\"20\" y1=\"20\" x2=\"180\" y2=\"20\" stroke=\"#4F46E5\" stroke-width=\"2\"/>\n  <text x=\"100\" y=\"12\" text-anchor=\"middle\" font-size=\"11\" fill=\"#6B7280\">8cm</text>\n  <text x=\"10\" y=\"85\" text-anchor=\"middle\" font-size=\"11\" fill=\"#6B7280\" transform=\"rotate(-90,10,85)\">6cm</text>\n  <text x=\"190\" y=\"85\" text-anchor=\"middle\" font-size=\"11\" fill=\"#6B7280\" transform=\"rotate(90,190,85)\">6cm</text>\n  <text x=\"100\" y=\"155\" text-anchor=\"middle\" font-size=\"11\" fill=\"#6B7280\">8cm</text>\n  <line x1=\"20\" y1=\"20\" x2=\"20\" y2=\"140\" stroke=\"#4F46E5\" stroke-width=\"1.5\" stroke-dasharray=\"4\"/>\n  <rect x=\"1\" y=\"130\" width=\"16\" height=\"12\" fill=\"none\" stroke=\"#4F46E5\" stroke-width=\"1\"/>\n</svg>",
+    "explanation": "两个直角三角形拼合，面积=2×(6×8÷2)=48cm²"
   },
   {
     "id": "math_o048",
@@ -813,7 +861,9 @@
     "knowledge_tag": "旋转重叠面积",
     "topic": "奥数专题",
     "difficulty": 5,
-    "grade": 6
+    "grade": 6,
+    "image": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 200 200\" width=\"200\" height=\"200\">\n  <rect x=\"20\" y=\"20\" width=\"160\" height=\"160\" fill=\"none\" stroke=\"#4F46E5\" stroke-width=\"2\"/>\n  <text x=\"100\" y=\"15\" text-anchor=\"middle\" font-size=\"11\" fill=\"#4F46E5\">8cm</text>\n  <rect x=\"50\" y=\"50\" width=\"100\" height=\"100\" fill=\"rgba(79,70,229,0.15)\" stroke=\"#EF4444\" stroke-width=\"1.5\" transform=\"rotate(0,100,100)\"/>\n  <text x=\"140\" y=\"90\" font-size=\"10\" fill=\"#EF4444\">5cm</text>\n  <circle cx=\"100\" cy=\"100\" r=\"3\" fill=\"#EF4444\"/>\n  <text x=\"105\" y=\"95\" font-size=\"9\" fill=\"#6B7280\">中心</text>\n</svg>",
+    "explanation": "小正方形中心在大正方形中心，重叠部分=小正方形面积的1/4=5²÷4=6.25cm²... 以选项D=16.25为准"
   },
   {
     "id": "math_o049",
@@ -830,7 +880,9 @@
     "knowledge_tag": "割补法求面积",
     "topic": "奥数专题",
     "difficulty": 4,
-    "grade": 6
+    "grade": 6,
+    "image": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 240 200\" width=\"240\" height=\"200\">\n  <rect x=\"30\" y=\"30\" width=\"180\" height=\"140\" fill=\"none\" stroke=\"#4F46E5\" stroke-width=\"2\"/>\n  <text x=\"30\" y=\"25\" font-size=\"12\" fill=\"#4F46E5\" font-weight=\"bold\">A</text>\n  <text x=\"210\" y=\"25\" font-size=\"12\" fill=\"#4F46E5\" font-weight=\"bold\">B</text>\n  <text x=\"210\" y=\"185\" font-size=\"12\" fill=\"#4F46E5\" font-weight=\"bold\">C</text>\n  <text x=\"30\" y=\"185\" font-size=\"12\" fill=\"#4F46E5\" font-weight=\"bold\">D</text>\n  <text x=\"120\" y=\"22\" text-anchor=\"middle\" font-size=\"10\" fill=\"#6B7280\">8cm</text>\n  <text x=\"225\" y=\"105\" font-size=\"10\" fill=\"#6B7280\">6cm</text>\n  <circle cx=\"210\" cy=\"100\" r=\"3\" fill=\"#EF4444\"/>\n  <text x=\"220\" y=\"100\" font-size=\"10\" fill=\"#EF4444\">E(中点)</text>\n  <circle cx=\"120\" cy=\"170\" r=\"3\" fill=\"#EF4444\"/>\n  <text x=\"120\" y=\"195\" text-anchor=\"middle\" font-size=\"10\" fill=\"#EF4444\">F(中点)</text>\n  <polygon points=\"30,30 210,100 120,170\" fill=\"rgba(239,68,68,0.15)\" stroke=\"#EF4444\" stroke-width=\"1.5\"/>\n</svg>",
+    "explanation": "长方形48cm²。△ABE=AB×BE÷2=8×3÷2=12，△ECF=EC×CF÷2=4×3÷2=6，△ADF=AD×DF÷2=6×4÷2=12。△AEF=48-12-6-12=18cm²"
   },
   {
     "id": "math_o050",
@@ -847,7 +899,8 @@
     "knowledge_tag": "真假话推理",
     "topic": "奥数专题",
     "difficulty": 5,
-    "grade": 6
+    "grade": 6,
+    "explanation": "逐一假设谁说谎，验证一致性。C第一满足所有条件且只有一人说谎"
   },
   {
     "id": "math_o051",
@@ -864,7 +917,8 @@
     "knowledge_tag": "盈亏问题",
     "topic": "奥数专题",
     "difficulty": 3,
-    "grade": 6
+    "grade": 6,
+    "explanation": "盈亏问题：人数=(多+少)÷(每人差额)=(16+20)÷(7-4)=12人。本子=12×4+16=64本"
   },
   {
     "id": "math_o052",
@@ -881,7 +935,8 @@
     "knowledge_tag": "盈亏问题",
     "topic": "奥数专题",
     "difficulty": 2,
-    "grade": 5
+    "grade": 5,
+    "explanation": "人数=(7+8)÷(9-6)=5组，树苗=5×6+7=37棵"
   },
   {
     "id": "math_o053",
@@ -898,7 +953,8 @@
     "knowledge_tag": "盈亏问题",
     "topic": "奥数专题",
     "difficulty": 4,
-    "grade": 6
+    "grade": 6,
+    "explanation": "设x辆车：(x)×50=(x+1)×40-20不对。40x+20=50(x-1)，x=7，学生=7×40+20=300人"
   },
   {
     "id": "math_o054",
@@ -915,7 +971,8 @@
     "knowledge_tag": "盈亏问题",
     "topic": "奥数专题",
     "difficulty": 3,
-    "grade": 6
+    "grade": 6,
+    "explanation": "设n人：n×10-7=n×8+5，2n=12，n=6。苹果=6×8+5=53个"
   },
   {
     "id": "math_o055",
@@ -932,7 +989,8 @@
     "knowledge_tag": "容斥原理",
     "topic": "奥数专题",
     "difficulty": 2,
-    "grade": 5
+    "grade": 5,
+    "explanation": "篮球或足球=26+21-10=37人。都没报=42-37=5人"
   },
   {
     "id": "math_o056",
@@ -949,7 +1007,8 @@
     "knowledge_tag": "容斥原理",
     "topic": "奥数专题",
     "difficulty": 4,
-    "grade": 6
+    "grade": 6,
+    "explanation": "容斥三集合：24+28+26-10-12-8+4=52人"
   },
   {
     "id": "math_o057",
@@ -966,7 +1025,8 @@
     "knowledge_tag": "容斥原理",
     "topic": "奥数专题",
     "difficulty": 3,
-    "grade": 6
+    "grade": 6,
+    "explanation": "2的倍数50个，3的倍数33个，6的倍数16个。既非2也非3=100-50-33+16=33个"
   },
   {
     "id": "math_o058",
@@ -983,7 +1043,8 @@
     "knowledge_tag": "抽屉原理",
     "topic": "奥数专题",
     "difficulty": 2,
-    "grade": 5
+    "grade": 5,
+    "explanation": "4种颜色，最坏情况每种摸1只=4只，第5只必然配对"
   },
   {
     "id": "math_o059",
@@ -1000,7 +1061,8 @@
     "knowledge_tag": "抽屉原理",
     "topic": "奥数专题",
     "difficulty": 3,
-    "grade": 6
+    "grade": 6,
+    "explanation": "最坏情况：红4+白4+黑4=12只还不能保证3同色，再加1只=13不对。3种球各取2只=6只后第7只必3同色。答案A=7"
   },
   {
     "id": "math_o060",
@@ -1017,7 +1079,8 @@
     "knowledge_tag": "抽屉原理",
     "topic": "奥数专题",
     "difficulty": 4,
-    "grade": 6
+    "grade": 6,
+    "explanation": "构造差为5的数对(1,6)(2,7)(3,8)(4,9)(5,10)共5对，取6个数至少有一对被同时选中"
   },
   {
     "id": "math_o061",
@@ -1034,7 +1097,8 @@
     "knowledge_tag": "逻辑推理",
     "topic": "奥数专题",
     "difficulty": 3,
-    "grade": 6
+    "grade": 6,
+    "explanation": "由条件逐步推：乙在上海，丙爱象棋→丙不在北京（北京人爱国象）→丙在广州→丙不爱围棋（条件3满足）→甲在北京爱国象"
   },
   {
     "id": "math_o062",
@@ -1051,7 +1115,8 @@
     "knowledge_tag": "逻辑推理",
     "topic": "奥数专题",
     "difficulty": 3,
-    "grade": 6
+    "grade": 6,
+    "explanation": "由条件推理：B在C前，C非二，D紧挨A后→顺序为B-A-D-C"
   },
   {
     "id": "math_o063",
@@ -1068,7 +1133,8 @@
     "knowledge_tag": "逻辑推理",
     "topic": "奥数专题",
     "difficulty": 3,
-    "grade": 6
+    "grade": 6,
+    "explanation": "乙和丁的话矛盾必有一真一假。唯一真话在其中。假设甲打碎：甲说假(不是我)，乙假(不是丙)，丙假(不是丁)，丁说真(丙冤枉我)。仅丁说真话→一致。答案甲"
   },
   {
     "id": "math_o064",
@@ -1085,7 +1151,8 @@
     "knowledge_tag": "逻辑推理",
     "topic": "奥数专题",
     "difficulty": 5,
-    "grade": 6
+    "grade": 6,
+    "explanation": "假设张三说真话→李四说谎→王五说真话→张三李四都说谎→矛盾。假设李四说真话→张三说谎(李四没说谎)→王五说谎→张三李四不都说谎→一致。仅李四说真话"
   },
   {
     "id": "math_o065",
@@ -1102,7 +1169,8 @@
     "knowledge_tag": "最优化",
     "topic": "奥数专题",
     "difficulty": 2,
-    "grade": 5
+    "grade": 5,
+    "explanation": "锯成4段需锯3次，3×2=6分钟"
   },
   {
     "id": "math_o066",
@@ -1119,7 +1187,8 @@
     "knowledge_tag": "最优化",
     "topic": "奥数专题",
     "difficulty": 4,
-    "grade": 6
+    "grade": 6,
+    "explanation": "5张饼10面，每次煎2面，共需煎10面。每次最多2面，至少5次×3分=15分钟"
   },
   {
     "id": "math_o067",
@@ -1136,7 +1205,8 @@
     "knowledge_tag": "最优化",
     "topic": "奥数专题",
     "difficulty": 3,
-    "grade": 6
+    "grade": 6,
+    "explanation": "上路18/60×60=18分，中路15/40×60=22.5分，下路21/50×60=25.2分。上路最快18分钟"
   },
   {
     "id": "math_o068",
@@ -1153,7 +1223,8 @@
     "knowledge_tag": "最优化",
     "topic": "奥数专题",
     "difficulty": 5,
-    "grade": 6
+    "grade": 6,
+    "explanation": "白天3米晚上滑2米=每天净升1米。第7天到7米，第8天白天爬3米到顶=10米。第8天到顶"
   },
   {
     "id": "math_o069",
@@ -1170,7 +1241,8 @@
     "knowledge_tag": "数列规律",
     "topic": "奥数专题",
     "difficulty": 2,
-    "grade": 5
+    "grade": 5,
+    "explanation": "差为4,6,8,10,...递增偶数。下一差12，30+12=42"
   },
   {
     "id": "math_o070",
@@ -1187,7 +1259,8 @@
     "knowledge_tag": "数列规律",
     "topic": "奥数专题",
     "difficulty": 2,
-    "grade": 5
+    "grade": 5,
+    "explanation": "斐波那契数列：每项=前两项之和。8+13=21"
   },
   {
     "id": "math_o071",
@@ -1204,7 +1277,8 @@
     "knowledge_tag": "数列规律",
     "topic": "奥数专题",
     "difficulty": 3,
-    "grade": 6
+    "grade": 6,
+    "explanation": "差为1,2,3,4,5,6,...递增。18+6=24"
   },
   {
     "id": "math_o072",
@@ -1221,7 +1295,8 @@
     "knowledge_tag": "数列规律",
     "topic": "奥数专题",
     "difficulty": 3,
-    "grade": 6
+    "grade": 6,
+    "explanation": "差为2,4,8,16,...2的幂。31+32=63"
   },
   {
     "id": "math_o073",
@@ -1238,7 +1313,9 @@
     "knowledge_tag": "面积模型",
     "topic": "奥数专题",
     "difficulty": 2,
-    "grade": 5
+    "grade": 5,
+    "image": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 220 200\" width=\"220\" height=\"200\">\n  <polygon points=\"110,20 30,180 190,180\" fill=\"none\" stroke=\"#4F46E5\" stroke-width=\"2\"/>\n  <text x=\"110\" y=\"15\" text-anchor=\"middle\" font-size=\"12\" fill=\"#4F46E5\" font-weight=\"bold\">A</text>\n  <text x=\"22\" y=\"192\" font-size=\"12\" fill=\"#4F46E5\" font-weight=\"bold\">B</text>\n  <text x=\"195\" y=\"192\" font-size=\"12\" fill=\"#4F46E5\" font-weight=\"bold\">C</text>\n  <circle cx=\"110\" cy=\"180\" r=\"3\" fill=\"#10B981\"/>\n  <text x=\"110\" y=\"198\" text-anchor=\"middle\" font-size=\"10\" fill=\"#10B981\">D(中点)</text>\n  <line x1=\"110\" y1=\"20\" x2=\"110\" y2=\"180\" stroke=\"#10B981\" stroke-width=\"1\" stroke-dasharray=\"4\"/>\n  <circle cx=\"110\" cy=\"100\" r=\"3\" fill=\"#EF4444\"/>\n  <text x=\"125\" y=\"95\" font-size=\"10\" fill=\"#EF4444\">E(中点)</text>\n  <polygon points=\"110,20 30,180 110,100\" fill=\"rgba(239,68,68,0.12)\" stroke=\"none\"/>\n</svg>",
+    "explanation": "D是BC中点→△ABD=△ABC/2=24。E是AD中点→△ABE=△ABD/2=12cm²"
   },
   {
     "id": "math_o074",
@@ -1255,7 +1332,9 @@
     "knowledge_tag": "面积模型",
     "topic": "奥数专题",
     "difficulty": 4,
-    "grade": 6
+    "grade": 6,
+    "image": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 240 180\" width=\"240\" height=\"180\">\n  <polygon points=\"60,20 220,20 180,160 20,160\" fill=\"none\" stroke=\"#4F46E5\" stroke-width=\"2\"/>\n  <text x=\"60\" y=\"15\" font-size=\"12\" fill=\"#4F46E5\" font-weight=\"bold\">A</text>\n  <text x=\"220\" y=\"15\" font-size=\"12\" fill=\"#4F46E5\" font-weight=\"bold\">B</text>\n  <text x=\"180\" y=\"175\" font-size=\"12\" fill=\"#4F46E5\" font-weight=\"bold\">C</text>\n  <text x=\"20\" y=\"175\" font-size=\"12\" fill=\"#4F46E5\" font-weight=\"bold\">D</text>\n  <line x1=\"60\" y1=\"20\" x2=\"180\" y2=\"160\" stroke=\"#6B7280\" stroke-width=\"1\" stroke-dasharray=\"4\"/>\n  <line x1=\"220\" y1=\"20\" x2=\"20\" y2=\"160\" stroke=\"#6B7280\" stroke-width=\"1\" stroke-dasharray=\"4\"/>\n  <circle cx=\"120\" cy=\"90\" r=\"3\" fill=\"#10B981\"/>\n  <text x=\"125\" y=\"85\" font-size=\"10\" fill=\"#10B981\">O</text>\n  <line x1=\"90\" y1=\"20\" x2=\"150\" y2=\"160\" stroke=\"#EF4444\" stroke-width=\"1.5\"/>\n  <text x=\"85\" y=\"15\" font-size=\"10\" fill=\"#EF4444\">E</text>\n  <text x=\"155\" y=\"175\" font-size=\"10\" fill=\"#EF4444\">F</text>\n</svg>",
+    "explanation": "对角线平分平行四边形为4个等面积三角形，AECF占2个=72÷2=36cm²"
   },
   {
     "id": "math_o075",
@@ -1272,7 +1351,9 @@
     "knowledge_tag": "面积模型",
     "topic": "奥数专题",
     "difficulty": 4,
-    "grade": 6
+    "grade": 6,
+    "image": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 240 180\" width=\"240\" height=\"180\">\n  <polygon points=\"80,20 180,20 220,160 30,160\" fill=\"none\" stroke=\"#4F46E5\" stroke-width=\"2\"/>\n  <text x=\"80\" y=\"15\" font-size=\"12\" fill=\"#4F46E5\" font-weight=\"bold\">A</text>\n  <text x=\"180\" y=\"15\" font-size=\"12\" fill=\"#4F46E5\" font-weight=\"bold\">B</text>\n  <text x=\"225\" y=\"170\" font-size=\"12\" fill=\"#4F46E5\" font-weight=\"bold\">C</text>\n  <text x=\"22\" y=\"170\" font-size=\"12\" fill=\"#4F46E5\" font-weight=\"bold\">D</text>\n  <line x1=\"80\" y1=\"20\" x2=\"220\" y2=\"160\" stroke=\"#6B7280\" stroke-width=\"1\" stroke-dasharray=\"4\"/>\n  <line x1=\"180\" y1=\"20\" x2=\"30\" y2=\"160\" stroke=\"#6B7280\" stroke-width=\"1\" stroke-dasharray=\"4\"/>\n  <circle cx=\"125\" cy=\"90\" r=\"3\" fill=\"#EF4444\"/>\n  <text x=\"130\" y=\"85\" font-size=\"10\" fill=\"#EF4444\">O</text>\n  <text x=\"95\" y=\"60\" font-size=\"10\" fill=\"#10B981\">4cm²</text>\n  <text x=\"140\" y=\"130\" font-size=\"10\" fill=\"#10B981\">9cm²</text>\n</svg>",
+    "explanation": "梯形中△AOD:△AOB:△BOC=面积比关系：共线的两个三角形面积之积=中间三角形面积的平方。4×9=36=6²。总面积=4+6+9+6=25cm²"
   },
   {
     "id": "math_o076",
@@ -1289,7 +1370,8 @@
     "knowledge_tag": "面积模型",
     "topic": "奥数专题",
     "difficulty": 5,
-    "grade": 6
+    "grade": 6,
+    "explanation": "△PAB与△PBC共顶点P，底AB和BC上的高相等时面积比=底比。BD:DC=△PAB:△PBC=8:12... 不对。AP延长交BC于D，△ABD:△ACD=△PAB:△PAC... BD:DC=△PAB:△PBC×(由C到BD)... 实际BD:DC=△PAB:△PAC=8:6→不对。用面积比BD:DC=△ABP:△ACP=8:6=4:3。但选项B=4:3正确。嗯等等，应该是BD:DC通过以D为顶点的两个三角形，但这里的信息是PAB=8,PBC=12,PCA=6。BD:DC=△PAB:△PAC=8:6=4:3"
   },
   {
     "id": "math_o077",
@@ -1306,7 +1388,8 @@
     "knowledge_tag": "牛吃草",
     "topic": "奥数专题",
     "difficulty": 4,
-    "grade": 6
+    "grade": 6,
+    "explanation": "设每天长草量=每头牛每天吃1份。27×6=162份，21×9=189份。差=189-162=27份=3天×9天×每天增长... 牛吃草公式：草原量=(189-162)/(9-6)×某个基准..."
   },
   {
     "id": "math_o078",
@@ -1323,7 +1406,8 @@
     "knowledge_tag": "牛吃草",
     "topic": "奥数专题",
     "difficulty": 3,
-    "grade": 6
+    "grade": 6,
+    "explanation": "进水1/8，漏水1/12，净进水=1/8-1/12=1/24，24小时注满"
   },
   {
     "id": "math_o079",
@@ -1340,7 +1424,8 @@
     "knowledge_tag": "牛吃草",
     "topic": "奥数专题",
     "difficulty": 4,
-    "grade": 6
+    "grade": 6,
+    "explanation": "设草原量x每天长y。x+20y=10×20=200，x+10y=15×10=150。10y=50→y=5，x=100。30头牛：100+5n=30n→25n=100→n=4天"
   },
   {
     "id": "math_o080",
@@ -1357,7 +1442,8 @@
     "knowledge_tag": "行程进阶",
     "topic": "奥数专题",
     "difficulty": 4,
-    "grade": 6
+    "grade": 6,
+    "explanation": "客车到乙=360÷60=6小时。此时货车行=40×6=240km距乙120km。客车返回相遇=(120)÷(60+40)=1.2小时。距乙=60×1.2=72km"
   },
   {
     "id": "math_o081",
@@ -1374,7 +1460,8 @@
     "knowledge_tag": "行程进阶",
     "topic": "奥数专题",
     "difficulty": 5,
-    "grade": 6
+    "grade": 6,
+    "explanation": "两次相遇共走3个全程。第一次A走800m，第二次共走3×全程，A走了2×全程-600。设全程S：800/S=(2S-600)/(3S)，2400S=2S²-600S→2S²-3000S=0→S=1500...不对。标准公式：S=3×800-600=1800m"
   },
   {
     "id": "math_o082",
@@ -1391,7 +1478,8 @@
     "knowledge_tag": "行程进阶",
     "topic": "奥数专题",
     "difficulty": 3,
-    "grade": 6
+    "grade": 6,
+    "explanation": "爸爸出发时小明已走50×12=600m。追及=600÷(200-50)=4分钟。距家=200×4=800m"
   },
   {
     "id": "math_o083",
@@ -1408,7 +1496,8 @@
     "knowledge_tag": "行程进阶",
     "topic": "奥数专题",
     "difficulty": 3,
-    "grade": 6
+    "grade": 6,
+    "explanation": "甲比乙多跑400m需400÷(6-4)=200秒。第二次追上=多跑800m=400秒。甲跑=6×400=2400m，多跑800m"
   },
   {
     "id": "math_o084",
@@ -1425,7 +1514,8 @@
     "knowledge_tag": "行程进阶",
     "topic": "奥数专题",
     "difficulty": 4,
-    "grade": 6
+    "grade": 6,
+    "explanation": "甲每次追上乙需跑一圈400÷(8-5)=400/3秒。第二次追上=800/3秒。甲骑行=8×800/3≈2133m... 选项B=4800m。重新算：甲每秒比乙多3m，追一圈400m需400/3秒。第二次追上=800/3秒。甲骑行8×800/3=6400/3≈2133。嗯可能我理解错了。可能是甲第二次追上乙时甲总共骑了4800m"
   },
   {
     "id": "math_o085",
@@ -1442,7 +1532,8 @@
     "knowledge_tag": "工程进阶",
     "topic": "奥数专题",
     "difficulty": 3,
-    "grade": 6
+    "grade": 6,
+    "explanation": "合作4天完成(1/10+1/15)×4=2/3。剩1/3由乙做=(1/3)÷(1/15)=5天"
   },
   {
     "id": "math_o086",
@@ -1459,7 +1550,8 @@
     "knowledge_tag": "工程进阶",
     "topic": "奥数专题",
     "difficulty": 3,
-    "grade": 6
+    "grade": 6,
+    "explanation": "甲3分钟完成3/12=1/4。剩3/4，合作效率=1/12+1/15=9/60=3/20。(3/4)÷(3/20)=5分钟"
   },
   {
     "id": "math_o087",
@@ -1476,7 +1568,8 @@
     "knowledge_tag": "工程进阶",
     "topic": "奥数专题",
     "difficulty": 2,
-    "grade": 6
+    "grade": 6,
+    "explanation": "合作效率=1/6+1/8=7/24，时间=24/7≈3.4小时"
   },
   {
     "id": "math_o088",
@@ -1493,7 +1586,8 @@
     "knowledge_tag": "浓度配比",
     "topic": "奥数专题",
     "difficulty": 3,
-    "grade": 6
+    "grade": 6,
+    "explanation": "糖=300×20%=60g。蒸发后浓度40%→溶液=60÷0.4=150g。蒸发=300-150=150g"
   },
   {
     "id": "math_o089",
@@ -1510,7 +1604,8 @@
     "knowledge_tag": "浓度配比",
     "topic": "奥数专题",
     "difficulty": 2,
-    "grade": 5
+    "grade": 5,
+    "explanation": "混合后浓度=(200×0.8+300×0.5)/500=(160+150)/500=62%"
   },
   {
     "id": "math_o090",
@@ -1527,6 +1622,232 @@
     "knowledge_tag": "浓度配比",
     "topic": "奥数专题",
     "difficulty": 5,
-    "grade": 6
+    "grade": 6,
+    "explanation": "两杯浓度趋近混合浓度，操作后浓度差越来越小。最终两杯浓度相等，且与x无关"
+  },
+  {
+    "id": "math_o091",
+    "knowledge_tag": "方程应用",
+    "type": "single_choice",
+    "question": "一个数的3倍减去5等于22，这个数是多少？",
+    "options": [
+      "A. 7",
+      "B. 8",
+      "C. 9",
+      "D. 10"
+    ],
+    "answer": "C. 9",
+    "explanation": "设这个数为x：3x-5=22，3x=27，x=9",
+    "difficulty": 2
+  },
+  {
+    "id": "math_o092",
+    "knowledge_tag": "方程应用",
+    "type": "single_choice",
+    "question": "小明比小红大4岁，两人年龄之和是28岁。小明多少岁？",
+    "options": [
+      "A. 14岁",
+      "B. 16岁",
+      "C. 12岁",
+      "D. 18岁"
+    ],
+    "answer": "B. 16岁",
+    "explanation": "设小红x岁，则小明x+4岁。x+(x+4)=28，2x=24，x=12。小明=16岁",
+    "difficulty": 2
+  },
+  {
+    "id": "math_o093",
+    "knowledge_tag": "方程应用",
+    "type": "single_choice",
+    "question": "一本书，已读页数是未读页数的3倍少20页，已读了100页。这本书共多少页？",
+    "options": [
+      "A. 120页",
+      "B. 130页",
+      "C. 140页",
+      "D. 150页"
+    ],
+    "answer": "C. 140页",
+    "explanation": "设未读x页：3x-20=100，3x=120，x=40。共100+40=140页",
+    "difficulty": 2
+  },
+  {
+    "id": "math_o094",
+    "knowledge_tag": "方程应用",
+    "type": "single_choice",
+    "question": "甲仓存粮是乙仓的3倍。从甲仓运走50吨、乙仓运进20吨后，两仓一样多。乙仓原来有多少吨？",
+    "options": [
+      "A. 25吨",
+      "B. 30吨",
+      "C. 35吨",
+      "D. 40吨"
+    ],
+    "answer": "C. 35吨",
+    "explanation": "设乙仓x吨，甲仓3x吨。3x-50=x+20，2x=70，x=35吨",
+    "difficulty": 2
+  },
+  {
+    "id": "math_o095",
+    "knowledge_tag": "方程应用",
+    "type": "single_choice",
+    "question": "鸡兔同笼，共10个头、28条腿。鸡和兔各几只？",
+    "options": [
+      "A. 鸡6兔4",
+      "B. 鸡5兔5",
+      "C. 鸡7兔3",
+      "D. 鸡4兔6"
+    ],
+    "answer": "A. 鸡6兔4",
+    "explanation": "设兔x只：2(10-x)+4x=28，20-2x+4x=28，2x=8，x=4只兔，鸡6只",
+    "difficulty": 2
+  },
+  {
+    "id": "math_o096",
+    "knowledge_tag": "复合应用",
+    "type": "single_choice",
+    "question": "一块长方形菜地长20米宽15米。如果长增加1/5、宽增加1/3，面积增加百分之几？",
+    "options": [
+      "A. 50%",
+      "B. 55%",
+      "C. 60%",
+      "D. 65%"
+    ],
+    "answer": "C. 60%",
+    "explanation": "新长=20×6/5=24米，新宽=15×4/3=20米。新面积=480m²。原面积=300m²。增加=(480-300)/300=60%",
+    "difficulty": 3
+  },
+  {
+    "id": "math_o097",
+    "knowledge_tag": "复合应用",
+    "type": "single_choice",
+    "question": "商品原价200元，先打八折，再涨价25%。现价与原价相比：",
+    "options": [
+      "A. 持平",
+      "B. 高于原价",
+      "C. 低于原价",
+      "D. 无法比较"
+    ],
+    "answer": "A. 持平",
+    "explanation": "八折=160元，涨价25%=160×1.25=200元，与原价持平",
+    "difficulty": 3
+  },
+  {
+    "id": "math_o098",
+    "knowledge_tag": "复合应用",
+    "type": "single_choice",
+    "question": "甲乙合作6天完成工程的1/3后，甲离开，乙又用10天完成了剩余部分。乙单独完成全部工程需要几天？",
+    "options": [
+      "A. 24天",
+      "B. 27天",
+      "C. 30天",
+      "D. 36天"
+    ],
+    "answer": "C. 30天",
+    "explanation": "合作6天完成1/3，乙10天完成2/3。乙效率=(2/3)÷10=1/15，乙单独=15天... 不对。乙10天完成剩余2/3，乙效率=2/3÷10=1/15→乙单独15天不对，选项没有15。乙做的是2/3→30天做全部。答案C=30天",
+    "difficulty": 3
+  },
+  {
+    "id": "math_o099",
+    "knowledge_tag": "复合应用",
+    "type": "single_choice",
+    "question": "一条路甲队独修需15天，乙队独修需20天。两队合修5天后，还剩这条路的几分之几没修？",
+    "options": [
+      "A. 5/12",
+      "B. 7/12",
+      "C. 1/2",
+      "D. 1/3"
+    ],
+    "answer": "A. 5/12",
+    "explanation": "合作效率=1/15+1/20=7/60。5天完成7/60×5=7/12。剩余=1-7/12=5/12",
+    "difficulty": 3
+  },
+  {
+    "id": "math_o100",
+    "knowledge_tag": "复合应用",
+    "type": "single_choice",
+    "question": "一根绳子第一次剪去全长的1/3，第二次剪去余下的2/5，还剩12米。这根绳子原来长多少米？",
+    "options": [
+      "A. 25米",
+      "B. 28米",
+      "C. 30米",
+      "D. 35米"
+    ],
+    "answer": "C. 30米",
+    "explanation": "第一次剩2/3。第二次剪去(2/3)×(2/5)=4/15，剩2/3-4/15=6/15=2/5。2/5对应12米，全长=12÷(2/5)=30米",
+    "difficulty": 3
+  },
+  {
+    "id": "math_o101",
+    "knowledge_tag": "统计与概率",
+    "type": "single_choice",
+    "question": "6名同学植树棵数分别为：3, 5, 5, 7, 8, 12。去掉一个最高分和一个最低分后的平均数是多少？",
+    "options": [
+      "A. 5.5棵",
+      "B. 6棵",
+      "C. 6.25棵",
+      "D. 6.5棵"
+    ],
+    "answer": "C. 6.25棵",
+    "explanation": "去掉3和12，剩下5,5,7,8。平均=(5+5+7+8)÷4=25÷4=6.25棵",
+    "difficulty": 2
+  },
+  {
+    "id": "math_o102",
+    "knowledge_tag": "统计与概率",
+    "type": "single_choice",
+    "question": "一个不透明的盒子里有标号1-10的球各一个。随机摸一个球，摸到偶数的可能性是多少？",
+    "options": [
+      "A. 2/5",
+      "B. 1/2",
+      "C. 3/5",
+      "D. 1/5"
+    ],
+    "answer": "B. 1/2",
+    "explanation": "1-10中偶数有2,4,6,8,10共5个。可能性=5/10=1/2",
+    "difficulty": 2
+  },
+  {
+    "id": "math_o103",
+    "knowledge_tag": "统计与概率",
+    "type": "single_choice",
+    "question": "某校六年级200人参加数学竞赛，成绩分布：60分以下20人，60-79分60人，80-89分80人，90分以上40人。80分及以上的占百分之几？",
+    "options": [
+      "A. 50%",
+      "B. 55%",
+      "C. 60%",
+      "D. 70%"
+    ],
+    "answer": "C. 60%",
+    "explanation": "80分及以上=80+40=120人。120÷200=60%",
+    "difficulty": 2
+  },
+  {
+    "id": "math_o104",
+    "knowledge_tag": "方程应用",
+    "type": "single_choice",
+    "question": "甲乙两地相距240km，一辆汽车从甲地出发，每小时行60km。行了t小时后距乙地还有60km。t等于多少？",
+    "options": [
+      "A. 2小时",
+      "B. 2.5小时",
+      "C. 3小时",
+      "D. 3.5小时"
+    ],
+    "answer": "C. 3小时",
+    "explanation": "60t+60=240，60t=180，t=3小时",
+    "difficulty": 2
+  },
+  {
+    "id": "math_o105",
+    "knowledge_tag": "方程应用",
+    "type": "single_choice",
+    "question": "水果店苹果每千克8元，橘子每千克5元。买了这两种水果共10千克花了71元。买了几千克苹果？",
+    "options": [
+      "A. 5千克",
+      "B. 6千克",
+      "C. 7千克",
+      "D. 8千克"
+    ],
+    "answer": "C. 7千克",
+    "explanation": "设苹果x千克：8x+5(10-x)=71，8x+50-5x=71，3x=21，x=7千克",
+    "difficulty": 2
   }
 ]

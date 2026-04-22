@@ -31,6 +31,7 @@ import jcPoetryQ from '../data/questions_junior_chinese_poetry.json'
 import jcClassicalQ from '../data/questions_junior_chinese_classical.json'
 import jcNovelQ from '../data/questions_junior_chinese_novel.json'
 import jcExprQ from '../data/questions_junior_chinese_expression.json'
+import jcReadingQ from '../data/questions_junior_chinese_reading.json'
 import { shuffle } from '../utils/common'
 import { speakEnglish, stop as stopTTS } from '../utils/tts'
 
@@ -47,6 +48,7 @@ const JUNIOR_CHINESE_ALL = [
   ...(Array.isArray(jcClassicalQ) ? jcClassicalQ : []),
   ...(Array.isArray(jcNovelQ) ? jcNovelQ : []),
   ...(Array.isArray(jcExprQ) ? jcExprQ : []),
+  ...(Array.isArray(jcReadingQ) ? jcReadingQ : []),
 ]
 // 初中语文各星球对应的 knowledge_tag 列表
 const JC_PLANET_TAGS = {
@@ -55,6 +57,7 @@ const JC_PLANET_TAGS = {
   jc_classical: ['实词解释', '虚词用法', '句式翻译', '文言文阅读'],
   jc_novel: ['名著阅读'],
   jc_expression: ['仿写句子', '语言得体', '信息概括', '图文转换', '综合性学习'],
+  jc_reading: ['现代文阅读'],
 }
 // ★ 全学科合并映射（错题练习需要跨学科查找）
 const ALL_SUBJECTS_MAP = Object.fromEntries(
@@ -250,9 +253,8 @@ export default function QuizPage({ user, options = {}, onFinish, onBack }) {
         }
         storage.addSession(user.id, session)
         // 标记星球完成（至少答5题且完成全部，才算打卡）
-        if (allRecords.length >= 5) {
-          const tag = current?.knowledge_tag || (mathTopic ? ('🔢 ' + (current?.topic || mathTopic)) : null)
-          if (tag) storage.markPlanetComplete(user.id, tag)
+        if (allRecords.length >= 5 && mathTopic) {
+          storage.markPlanetComplete(user.id, '🔢 ' + mathTopic)
         }
         updateStreak(user.id)
         // 今日已见：记录本 session 所有题 id
@@ -301,9 +303,8 @@ export default function QuizPage({ user, options = {}, onFinish, onBack }) {
         }
         storage.addSession(user.id, session)
         // 标记星球完成（至少答5题且完成全部，才算打卡）
-        if (sessionRecords.length >= 5) {
-          const tag = current?.knowledge_tag || (mathTopic ? ('🔢 ' + (current?.topic || mathTopic)) : null)
-          if (tag) storage.markPlanetComplete(user.id, tag)
+        if (sessionRecords.length >= 5 && mathTopic) {
+          storage.markPlanetComplete(user.id, '🔢 ' + mathTopic)
         }
         updateStreak(user.id)
         syncAfterSession(user.id)

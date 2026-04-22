@@ -194,11 +194,23 @@ function computeWrongCards(userId, subject, qMap) {
   return { cards, overdueCount }
 }
 
+const FLAG_REASONS = [
+  { key: 'display', label: '题目显示错误', emoji: '🖥️' },
+  { key: 'answer', label: '答案不对', emoji: '❌' },
+  { key: 'options', label: '选项不匹配', emoji: '🔄' },
+  { key: 'other', label: '其他问题', emoji: '❓' },
+]
+
 export default function WrongAnswersPage({ user, subject = 'chinese', onStartWrongQuiz, onVariantTraining, onBack, onSubjectChange, grade = 'primary' }) {
   const [filter, setFilter] = useState('all')  // all | overdue | pending
   const [selectedIds, setSelectedIds] = useState(new Set())
   const [showPhotoUpload, setShowPhotoUpload] = useState(false)
   const fileInputRef = useRef(null)
+  const [flaggedIds, setFlaggedIds] = useState(() => {
+    const f = storage.getFlaggedQuestions(user.id)
+    return new Set(Object.keys(f))
+  })
+  const [flagPopupId, setFlagPopupId] = useState(null)
 
   // ★ 当前学段可用的学科列表（用于切换标签）
   const availableSubjects = GRADE_SUBJECTS[grade] || GRADE_SUBJECTS.primary
@@ -269,7 +281,7 @@ export default function WrongAnswersPage({ user, subject = 'chinese', onStartWro
     : '（语文）'
 
   return (
-    <div className="flex flex-col min-h-screen bg-gradient-to-b from-red-50 to-orange-50">
+    <div className="flex flex-col min-h-screen bg-gradient-to-b from-red-50 to-orange-50" onClick={() => flagPopupId && setFlagPopupId(null)}>
       {/* Header */}
       <div className="bg-white px-4 pt-10 pb-3 shadow-sm">
         <div className="flex items-center gap-3 mb-3">
@@ -451,6 +463,38 @@ export default function WrongAnswersPage({ user, subject = 'chinese', onStartWro
                         >
                           🔀 举一反三
                         </button>
+                      )}
+                      {/* 🚩 标记题目有问题 */}
+                      {flaggedIds.has(card.id) ? (
+                        <span className="text-[10px] px-2 py-1 rounded-lg bg-gray-100 text-gray-400 whitespace-nowrap">已标记🚩</span>
+                      ) : (
+                        <div className="relative">
+                          <button
+                            onClick={() => setFlagPopupId(flagPopupId === card.id ? null : card.id)}
+                            className="text-[10px] px-2 py-1 rounded-lg bg-amber-50 text-amber-600 font-bold active:scale-95 transition-all whitespace-nowrap"
+                            title="标记题目有问题"
+                          >
+                            🚩标记
+                          </button>
+                          {flagPopupId === card.id && (
+                            <div className="absolute right-0 top-8 z-20 bg-white rounded-xl shadow-lg border border-gray-200 py-1 w-36">
+                              {FLAG_REASONS.map(r => (
+                                <button
+                                  key={r.key}
+                                  onClick={() => {
+                                    storage.flagQuestion(user.id, card.id, r.label, card.question.question, currentSubject)
+                                    setFlaggedIds(prev => { const n = new Set(prev); n.add(card.id); return n })
+                                    setFlagPopupId(null)
+                                  }}
+                                  className="w-full text-left text-xs px-3 py-2 hover:bg-amber-50 text-gray-700 flex items-center gap-2"
+                                >
+                                  <span>{r.emoji}</span>
+                                  <span>{r.label}</span>
+                                </button>
+                              ))}
+                            </div>
+                          )}
+                        </div>
                       )}
                       <div className="text-right">
                         {card.isOverdue ? (

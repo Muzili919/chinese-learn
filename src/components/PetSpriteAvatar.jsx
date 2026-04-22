@@ -35,6 +35,14 @@ const PET_PREFIX_MAP = {
   pet_squirrel: 'squirrel',
   pet_kungfu: 'kungfu',
   pet_toothless: 'toothless',
+  pet_petal_fairy: 'petal_fairy',
+  pet_mecha_dragon: 'mecha_dragon',
+  pet_abyssal_raven: 'abyssal_raven',
+  pet_starpony: 'starpony',
+  pet_lunar_king: 'lunar_king',
+  pet_star_beast: 'star_beast',
+  pet_ghost_cat: 'ghost_cat',
+  pet_lunala_beast: 'lunala_beast',
 }
 
 // 根据等级获取stage目录

@@ -384,6 +384,15 @@ export default function App() {
     fetchMV1State(uid).then((cloud) => {
       if (!cloud) return
       setGameState(prev => {
+        // ★ 管理员强制覆盖：直接用云端数据，不合并本地
+        if (cloud._forceOverwrite) {
+          // 清除本地缓存，让 MV1Demo 也从云端初始化
+          try {
+            localStorage.removeItem(`mv1_pet_state_${uid}`)
+            localStorage.removeItem(`cl_mv1_gamification_${uid}`)
+          } catch (_) {}
+          return cloud
+        }
         // 如果本地已有宠物数据，保留本地更完整的字段（petExpConsumed/inventory/furniture 等）
         // 云端只用于补充没有的字段（跨设备场景：本地为 null）
         if (prev?.currentPet?.poolId) {

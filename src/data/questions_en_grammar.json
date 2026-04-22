@@ -14,7 +14,7 @@
     ],
     "answer": "A",
     "analysis": "【考点】本题考查be动词的主谓一致。\n【解题思路】主语My brother是第三人称单数，be动词用is。后一句主语He也是第三人称单数，也用is。\n【总结】be动词口诀：I用am，you用are，is用于他她它，复数全部都用are。",
-    "difficulty": 0.5
+    "difficulty": 0.3
   },
   {
     "id": "en_grammar_002",
@@ -55,7 +55,7 @@
     "options": [],
     "answer": "is singing",
     "analysis": "【考点】本题考查现在进行时的构成。\n【解题思路】“Listen!”提示动作正在发生，现在进行时结构为be + doing，主语The girl是第三人称单数，be动词用is。\n【总结】现在进行时标志词：look, listen, now, at the moment, right now。",
-    "difficulty": 0.5
+    "difficulty": 0.7
   },
   {
     "id": "en_grammar_006",
@@ -72,7 +72,7 @@
     ],
     "answer": "C",
     "analysis": "【考点】本题考查致谢的应答。\n【解题思路】“Thank you”的常见回答是“You're welcome.”。\n【总结】致谢应答：You're welcome. / That's OK. / Not at all. / My pleasure.",
-    "difficulty": 0.5
+    "difficulty": 0.3
   },
   {
     "id": "en_grammar_007",
@@ -101,7 +101,7 @@
     "options": [],
     "answer": "taller",
     "analysis": "【考点】本题考查形容词比较级的构成。\n【解题思路】than提示比较级，tall是单音节形容词，比较级加er。\n【总结】单音节形容词比较级：tall→taller，short→shorter，old→older。以e结尾加r：nice→nicer，late→later。",
-    "difficulty": 0.5
+    "difficulty": 0.3
   },
   {
     "id": "en_grammar_009",
@@ -130,7 +130,7 @@
     "options": [],
     "answer": "（1）am （2）get up （3）go （4）visited",
     "analysis": "【考点】本题考查be动词、一般现在时动词形式、一般过去时。\n【解题思路】（1）主语I用am；（2）every morning一般现在时，I后动词原形get up；（3）主语I后动词原形go；（4）Last Sunday过去时间，用过去式visited。\n【总结】完形填空要综合运用时态、主谓一致、上下文逻辑。注意时间状语判断时态。",
-    "difficulty": 0.5
+    "difficulty": 0.7
   },
   {
     "id": "en_grammar_011",
@@ -147,7 +147,7 @@
     ],
     "answer": "C",
     "analysis": "【考点】本题考查名词性物主代词的用法。\n【解题思路】空格后没有名词，应使用名词性物主代词，表示“你的书”。\n【总结】名词性物主代词 = 形容词性物主代词 + 名词。常见：my→mine, your→yours, his→his, her→hers, our→ours, their→theirs。",
-    "difficulty": 0.5
+    "difficulty": 0.7
   },
   {
     "id": "en_grammar_012",
@@ -205,7 +205,7 @@
     "options": [],
     "answer": "Could",
     "analysis": "【考点】本题考查情态动词can的过去式。\n【解题思路】时间状语when you were five表示过去，can的过去式是could。\n【总结】can表能力，过去式could；can表允许，过去式could也可。could语气更委婉。",
-    "difficulty": 0.5
+    "difficulty": 0.7
   },
   {
     "id": "en_grammar_016",
@@ -239,7 +239,7 @@
     ],
     "answer": "B",
     "analysis": "【考点】本题考查疑问词的选择。\n【解题思路】答语是“Miss Wang”（人名），提问人应用Who。\n【总结】疑问词用法：who（谁），what（什么），which（哪一个），whose（谁的），where（哪里），when（何时），why（为什么），how（怎样）。",
-    "difficulty": 0.5
+    "difficulty": 0.7
   },
   {
     "id": "en_grammar_018",
@@ -280,7 +280,7 @@
     "options": [],
     "answer": "（1）was （2）went （3）swam （4）played （5）had",
     "analysis": "【考点】本题考查一般过去时的综合运用。\n【解题思路】时间状语yesterday提示全文用一般过去时。be动词过去式：is→was；go→went；swim→swam；play→played；have→had。\n【总结】一般过去时是小学高年级重点，不规则动词过去式需专门记忆。常见：do→did，see→saw，eat→ate，take→took。",
-    "difficulty": 0.5
+    "difficulty": 0.7
   },
   {
     "id": "en_grammar_021",
@@ -297,7 +297,7 @@
     ],
     "answer": "A",
     "analysis": "【考点】本题考查there be句型的就近原则。\n【解题思路】there be句型中，be动词与最近的主语保持一致。最近的主语是a big tree（单数），用is。\n【总结】there be句型就近原则：看be动词后面第一个名词的单复数决定be动词形式。",
-    "difficulty": 0.5
+    "difficulty": 0.3
   },
   {
     "id": "en_grammar_022",
@@ -309,7 +309,7 @@
     "options": [],
     "answer": "Don't run",
     "analysis": "【考点】本题考查祈使句的否定形式。\n【解题思路】祈使句的否定形式在动词原形前加Don't。\n【总结】祈使句肯定：动词原形开头；否定：Don't + 动词原形。",
-    "difficulty": 0.5
+    "difficulty": 0.7
   },
   {
     "id": "en_grammar_023",
@@ -326,7 +326,7 @@
     ],
     "answer": "B",
     "analysis": "【考点】本题考查问路的应答。\n【解题思路】问路时，应答应给出方向指引。\n【总结】指路常用表达：Go straight, turn left/right, It's on your left/right, next to, between, across from。",
-    "difficulty": 0.5
+    "difficulty": 0.7
   },
   {
     "id": "en_grammar_024",
@@ -430,7 +430,7 @@
     "options": [],
     "answer": "（1）has （2）are （3）go （4）borrowed （5）finished",
     "analysis": "【考点】本题考查主谓一致、there be句型、一般现在时、一般过去时的综合运用。\n【解题思路】（1）主语My school三单，用has；（2）books复数用are；（3）often一般现在时，主语I用go；（4）Last Friday过去时间，用过去式borrowed；（5）last night过去时间，用过去式finished。\n【总结】完形填空要仔细分析时间状语和主语，确定时态和主谓一致。",
-    "difficulty": 0.5
+    "difficulty": 0.7
   },
   {
     "id": "en_grammar_041",
@@ -493,7 +493,7 @@
     ],
     "answer": "A",
     "analysis": "【考点】本题考查现在完成时及been/gone的区别。\n【解题思路】主语I，用have。never表示从未去过，强调经历，用been to。\n【总结】have been to 表示去过某地（已回来）；have gone to 表示去了某地（未回来）。",
-    "difficulty": 0.5
+    "difficulty": 0.7
   },
   {
     "id": "en_grammar_045",
@@ -551,7 +551,7 @@
     "options": [],
     "answer": "was built",
     "analysis": "【考点】本题考查一般过去时被动语态。\n【解题思路】桥是被建造，时间in 1998为过去，主语The bridge单数，be动词用was，build过去分词built。\n【总结】一般过去时被动语态：was/were + 过去分词。",
-    "difficulty": 0.5
+    "difficulty": 0.7
   },
   {
     "id": "en_grammar_049",
@@ -580,7 +580,7 @@
     "options": [],
     "answer": "（1）was （2）climbed （3）couldn't （4）waited （5）came",
     "analysis": "【考点】本题考查一般过去时的综合运用。\n【解题思路】全文叙述过去发生的事，都用一般过去时。was, climbed, couldn't, waited, came。\n【总结】叙述故事常用一般过去时。注意不规则动词的过去式：run→ran, climb→climbed, can→could, wait→waited, come→came。",
-    "difficulty": 0.5
+    "difficulty": 0.7
   },
   {
     "id": "en_grammar_051",
@@ -597,7 +597,7 @@
     ],
     "answer": "B",
     "analysis": "【考点】本题考查介词辨析（家具上）。\n【解题思路】坐在沙发上，沙发有平面，用on。\n【总结】on the sofa/chair/desk，in the armchair/seat。",
-    "difficulty": 0.5
+    "difficulty": 0.7
   },
   {
     "id": "en_grammar_052",
@@ -609,7 +609,7 @@
     "options": [],
     "answer": "Be",
     "analysis": "【考点】本题考查祈使句肯定形式。\n【解题思路】祈使句以动词原形开头，Be careful是固定短语。\n【总结】祈使句表示命令、请求、建议，肯定句用动词原形开头。",
-    "difficulty": 0.5
+    "difficulty": 0.7
   },
   {
     "id": "en_grammar_053",
@@ -626,7 +626,7 @@
     ],
     "answer": "B",
     "analysis": "【考点】本题考查Shall we...? 的应答。\n【解题思路】Shall we...? 表示建议，接受可说“Good idea.”或“That sounds great.”。\n【总结】Shall we...? 回答：Sure. / That's a great idea. / I'd love to.",
-    "difficulty": 0.5
+    "difficulty": 0.7
   },
   {
     "id": "en_grammar_054",
@@ -643,7 +643,7 @@
     ],
     "answer": "A",
     "analysis": "【考点】本题考查不定代词的用法。\n【解题思路】自行车不工作，说明“有毛病”，肯定句中用something。\n【总结】something用于肯定句，anything用于否定/疑问，nothing表否定。",
-    "difficulty": 0.5
+    "difficulty": 0.7
   },
   {
     "id": "en_grammar_055",
@@ -655,7 +655,7 @@
     "options": [],
     "answer": "beautifully",
     "analysis": "【考点】本题考查形容词变副词的规则。\n【解题思路】修饰动词sings要用副词，beautiful的副词形式是beautifully。\n【总结】形容词变副词：一般加ly，以y结尾变y为i加ly，以le结尾变le为ly。",
-    "difficulty": 0.5
+    "difficulty": 0.3
   },
   {
     "id": "en_grammar_056",
@@ -672,7 +672,7 @@
     ],
     "answer": "B",
     "analysis": "【考点】本题考查道歉的应答。\n【解题思路】对于道歉，常用“That's all right.”表示“没关系”。\n【总结】道歉应答：That's OK. / It doesn't matter. / Never mind. / Don't worry about it.",
-    "difficulty": 0.5
+    "difficulty": 0.7
   },
   {
     "id": "en_grammar_057",
@@ -701,7 +701,7 @@
     "options": [],
     "answer": "twelfth",
     "analysis": "【考点】本题考查序数词的构成。\n【解题思路】表示第几个生日，用序数词。twelve的序数词是twelfth（ve变f）。\n【总结】序数词：one→first, two→second, three→third, five→fifth, eight→eighth, nine→ninth, twelve→twelfth, twenty→twentieth。",
-    "difficulty": 0.5
+    "difficulty": 0.3
   },
   {
     "id": "en_grammar_059",
@@ -730,7 +730,7 @@
     "options": [],
     "answer": "（1）went （2）stayed （3）was （4）swam （5）took （6）had",
     "analysis": "【考点】本题考查一般过去时的综合运用。\n【解题思路】Last summer提示过去时，所有动词用过去式：go→went，stay→stayed，is→was，swim→swam，take→took，have→had。\n【总结】叙述过去经历，全文时态保持一致（一般过去时）。不规则动词过去式需熟记。",
-    "difficulty": 0.5
+    "difficulty": 0.7
   },
   {
     "id": "en_grammar_061",
@@ -747,7 +747,7 @@
     ],
     "answer": "B",
     "analysis": "【考点】本题考查连词so表示因果关系。\n【解题思路】前因后果，累所以早睡。\n【总结】so连接结果，because连接原因，注意语序。",
-    "difficulty": 0.5
+    "difficulty": 0.7
   },
   {
     "id": "en_grammar_062",
@@ -776,7 +776,7 @@
     ],
     "answer": "A",
     "analysis": "【考点】本题考查祝贺的应答。\n【解题思路】别人祝贺，应表示感谢。\n【总结】祝贺常用语：Congratulations! 回答：Thank you! / Thanks a lot!",
-    "difficulty": 0.5
+    "difficulty": 0.3
   },
   {
     "id": "en_grammar_064",
@@ -822,7 +822,7 @@
     ],
     "answer": "C",
     "analysis": "【考点】本题考查表达同意。\n【解题思路】后文说“我同意你”，前句应表示同意。\n【总结】表达同意：I agree. / You're right. / That's true. / Exactly. 表达不同意：I don't think so. / I disagree. / Not really.",
-    "difficulty": 0.5
+    "difficulty": 0.7
   },
   {
     "id": "en_grammar_067",
@@ -851,7 +851,7 @@
     "options": [],
     "answer": "doesn't like",
     "analysis": "【考点】本题考查一般现在时否定句。\n【解题思路】主语He三单，否定用doesn't，后接动词原形。\n【总结】三单否定：doesn't + 动词原形；非三单否定：don't + 动词原形。",
-    "difficulty": 0.5
+    "difficulty": 0.7
   },
   {
     "id": "en_grammar_069",
@@ -880,7 +880,7 @@
     "options": [],
     "answer": "（1）gets （2）brushes （3）has （4）goes （5）is",
     "analysis": "【考点】本题考查一般现在时第三人称单数。\n【解题思路】every morning提示一般现在时，主语He三单，动词加s/es。get→gets，brush→brushes，have→has，go→goes。be动词用is。\n【总结】一般现在时三单动词变化：一般加s，以s,sh,ch,x,o结尾加es，辅音+y变y为i加es。",
-    "difficulty": 0.5
+    "difficulty": 0.7
   },
   {
     "id": "en_grammar_071",
@@ -897,7 +897,7 @@
     ],
     "answer": "A",
     "analysis": "【考点】本题考查时间介词at和in的用法。\n【解题思路】具体时刻6:00用at，in the evening是固定搭配。\n【总结】时间介词：at+时刻，in+月/年/季节/上午/下午/晚上，on+具体日期/星期。",
-    "difficulty": 0.5
+    "difficulty": 0.3
   },
   {
     "id": "en_grammar_072",
@@ -926,7 +926,7 @@
     ],
     "answer": "A",
     "analysis": "【考点】本题考查祝愿的应答。\n【解题思路】别人祝旅途愉快，应表示感谢。\n【总结】祝福用语：Have a nice day/trip/weekend. 回答：Thank you. / You too.",
-    "difficulty": 0.5
+    "difficulty": 0.7
   },
   {
     "id": "en_grammar_074",
@@ -989,7 +989,7 @@
     ],
     "answer": "B",
     "analysis": "【考点】本题考查定语从句关系代词who的用法。\n【解题思路】先行词是The man（人），关系代词在从句中作主语，用who。\n【总结】关系代词：who（人，主语/宾语），whom（人，宾语），which（物），that（人/物）。",
-    "difficulty": 0.5
+    "difficulty": 0.7
   },
   {
     "id": "en_grammar_078",
@@ -1001,7 +1001,7 @@
     "options": [],
     "answer": "rains",
     "analysis": "【考点】本题考查if引导的条件状语从句（主将从现）。\n【解题思路】主句用将来时，从句用一般现在时表示将来。主语it三单，rain加s。\n【总结】if引导的条件状语从句：主句将来时，从句一般现在时。",
-    "difficulty": 0.5
+    "difficulty": 0.7
   },
   {
     "id": "en_grammar_079",
@@ -1030,7 +1030,7 @@
     "options": [],
     "answer": "（1）had （2）got （3）did （4）went （5）borrowed （6）watched",
     "analysis": "【考点】本题考查一般过去时的综合运用。\n【解题思路】yesterday提示全文用一般过去时。have→had，get→got，do→did，go→went，borrow→borrowed，watch→watched。\n【总结】叙述过去一天的活动，所有动词用过去式。不规则动词过去式需牢记。",
-    "difficulty": 0.5
+    "difficulty": 0.7
   },
   {
     "id": "en_grammar_071",
@@ -1047,7 +1047,7 @@
     ],
     "answer": "C",
     "analysis": "【考点】本题考查although引导让步状语从句。\n【解题思路】前后句意思相反（年轻但知道得多），用although表示“虽然”。\n【总结】although/though引导的从句不能与but连用，但可与yet/still连用。",
-    "difficulty": 0.5
+    "difficulty": 0.3
   },
   {
     "id": "en_grammar_072",
@@ -1076,7 +1076,7 @@
     ],
     "answer": "A",
     "analysis": "【考点】本题考查询问看法的回答。\n【解题思路】What do you think of...? 询问评价，应表达观点。\n【总结】询问看法：What do you think of...? / How do you like...? 回答：It's + 形容词（great/boring/interesting）。",
-    "difficulty": 0.5
+    "difficulty": 0.7
   },
   {
     "id": "en_grammar_074",
@@ -1139,7 +1139,7 @@
     ],
     "answer": "A",
     "analysis": "【考点】本题考查疑问词+不定式结构。\n【解题思路】what to do是“做什么”，how to do缺少宾语，应说how to do it。\n【总结】疑问词+不定式：what to do, where to go, when to leave, how to do it。",
-    "difficulty": 0.5
+    "difficulty": 0.7
   },
   {
     "id": "en_grammar_078",
@@ -1151,7 +1151,7 @@
     "options": [],
     "answer": "in",
     "analysis": "【考点】本题考查be interested in固定搭配。\n【解题思路】be interested in 对...感兴趣。\n【总结】常见形容词+介词：be good at, be afraid of, be proud of, be famous for, be different from。",
-    "difficulty": 0.5
+    "difficulty": 0.7
   },
   {
     "id": "en_grammar_079",
@@ -1180,7 +1180,7 @@
     "options": [],
     "answer": "（1）found （2）watched （3）appeared （4）sat （5）came",
     "analysis": "【考点】本题考查一般过去时的叙述。\n【解题思路】全文讲述过去发生的故事，所有动词用过去式：find→found，watch→watched，appear→appeared，sit→sat，come→came。\n【总结】记叙故事类完形填空，需保持时态一致，多用一般过去时。",
-    "difficulty": 0.5
+    "difficulty": 0.7
   },
   {
     "id": "en_grammar_081",
@@ -1243,7 +1243,7 @@
     ],
     "answer": "B",
     "analysis": "【考点】本题考查一般将来时被动语态。\n【解题思路】运动会是被举行，next Friday将来时间，用will be + 过去分词。\n【总结】一般将来时被动：will be + 过去分词 / is/am/are going to be + 过去分词。",
-    "difficulty": 0.5
+    "difficulty": 0.7
   },
   {
     "id": "en_grammar_085",
@@ -1289,7 +1289,7 @@
     ],
     "answer": "B",
     "analysis": "【考点】本题考查between与among的区别。\n【解题思路】between用于两者之间，among用于三者或以上。这里mother and father是两个人，用between。\n【总结】between A and B (两者), among (三者以上无具体位置)。",
-    "difficulty": 0.5
+    "difficulty": 0.7
   },
   {
     "id": "en_grammar_088",
@@ -1330,7 +1330,7 @@
     "options": [],
     "answer": "（1）go （2）will see （3）are （4）riding/to ride （5）offer",
     "analysis": "【考点】本题考查if条件句、一般现在时、like doing/to do。\n【解题思路】（1）if条件句用一般现在时表将来，go；（2）主句用will see；（3）一般现在时，主语they复数，are；（4）like后接doing或to do均可；（5）主语they复数，offer原形。\n【总结】if条件句：主将从现（主句将来时，从句一般现在时）。",
-    "difficulty": 0.5
+    "difficulty": 0.7
   },
   {
     "id": "en_grammar_091",
@@ -1359,7 +1359,7 @@
     "options": [],
     "answer": "danced",
     "analysis": "【考点】本题考查规则动词过去式变化（以e结尾加d）。\n【解题思路】last night过去时，dance以e结尾，直接加d。\n【总结】规则动词过去式：一般加ed，以e结尾加d，辅音+y变y为i加ed，重读闭音节双写加ed。",
-    "difficulty": 0.5
+    "difficulty": 0.7
   },
   {
     "id": "en_grammar_093",
@@ -1393,7 +1393,7 @@
     ],
     "answer": "C",
     "analysis": "【考点】本题考查过去进行时。\n【解题思路】when the phone rang表示过去某个时刻，主句表示当时正在进行的动作，用过去进行时。\n【总结】过去进行时：was/were + doing，表示过去某一时刻正在发生的动作。",
-    "difficulty": 0.5
+    "difficulty": 0.7
   },
   {
     "id": "en_grammar_095",
@@ -1405,7 +1405,7 @@
     "options": [],
     "answer": "bigger",
     "analysis": "【考点】本题考查倍数+比较级结构。\n【解题思路】three times + 比较级 + than，big的比较级是bigger。\n【总结】倍数表达：倍数 + 比较级 + than / 倍数 + as + 原级 + as。",
-    "difficulty": 0.5
+    "difficulty": 0.3
   },
   {
     "id": "en_grammar_096",
@@ -1451,7 +1451,7 @@
     "options": [],
     "answer": "helping",
     "analysis": "【考点】本题考查介词后用动名词。\n【解题思路】for是介词，后面动词用动名词形式。\n【总结】介词（in, on, at, for, of, with等）后接动词时，用动名词形式。",
-    "difficulty": 0.5
+    "difficulty": 0.3
   },
   {
     "id": "en_grammar_099",
@@ -1468,7 +1468,7 @@
     ],
     "answer": "B",
     "analysis": "【考点】本题考查邀请的委婉拒绝。\n【解题思路】先表达愿意，再说明不能去的原因。I'd love to后面加but。\n【总结】委婉拒绝邀请：I'd love to, but... / I'd like to, but... / I'm afraid I can't because...",
-    "difficulty": 0.5
+    "difficulty": 0.7
   },
   {
     "id": "en_grammar_100",
@@ -1480,6 +1480,6 @@
     "options": [],
     "answer": "（1）went （2）saw （3）were （4）were （5）took （6）had （7）thought",
     "analysis": "【考点】本题考查一般过去时的综合运用。\n【解题思路】Last Sunday提示全文用一般过去时：go→went，see→saw，are→were，take→took，have→had，think→thought。\n【总结】一般过去时是小学英语语法重点，需熟练掌握规则及不规则动词变化。",
-    "difficulty": 0.5
+    "difficulty": 0.7
   }
 ]

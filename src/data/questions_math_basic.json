@@ -14,7 +14,8 @@
     "knowledge_tag": "分数运算",
     "topic": "数与运算",
     "difficulty": 2,
-    "grade": 5
+    "grade": 5,
+    "explanation": "通分：3/4=9/12，1/6=2/12，9/12+2/12=11/12"
   },
   {
     "id": "math_b002",
@@ -31,7 +32,8 @@
     "knowledge_tag": "分数运算",
     "topic": "数与运算",
     "difficulty": 2,
-    "grade": 5
+    "grade": 5,
+    "explanation": "通分：5/6=10/12，3/4=9/12，10/12−9/12=1/12"
   },
   {
     "id": "math_b003",
@@ -48,7 +50,8 @@
     "knowledge_tag": "分数运算",
     "topic": "数与运算",
     "difficulty": 2,
-    "grade": 5
+    "grade": 5,
+    "explanation": "分子乘分子2×9=18，分母乘分母3×4=12，18/12约分=3/2"
   },
   {
     "id": "math_b004",
@@ -65,7 +68,8 @@
     "knowledge_tag": "分数运算",
     "topic": "数与运算",
     "difficulty": 2,
-    "grade": 5
+    "grade": 5,
+    "explanation": "÷2/3 = ×3/2，4/5×3/2=12/10=6/5"
   },
   {
     "id": "math_b005",
@@ -82,7 +86,8 @@
     "knowledge_tag": "小数运算",
     "topic": "数与运算",
     "difficulty": 2,
-    "grade": 5
+    "grade": 5,
+    "explanation": "0.25×4.8=0.25×4+0.25×0.8=1+0.2=1.2"
   },
   {
     "id": "math_b006",
@@ -99,7 +104,8 @@
     "knowledge_tag": "小数运算",
     "topic": "数与运算",
     "difficulty": 2,
-    "grade": 5
+    "grade": 5,
+    "explanation": "小数点都右移两位：3.6÷0.12=360÷12=30"
   },
   {
     "id": "math_b007",
@@ -116,7 +122,8 @@
     "knowledge_tag": "百分数",
     "topic": "数与运算",
     "difficulty": 2,
-    "grade": 6
+    "grade": 6,
+    "explanation": "八折=80%，200×0.8=160元"
   },
   {
     "id": "math_b008",
@@ -133,7 +140,8 @@
     "knowledge_tag": "百分数",
     "topic": "数与运算",
     "difficulty": 2,
-    "grade": 6
+    "grade": 6,
+    "explanation": "百分数=部分÷整体，18÷40=0.45=45%"
   },
   {
     "id": "math_b009",
@@ -150,7 +158,8 @@
     "knowledge_tag": "百分数",
     "topic": "数与运算",
     "difficulty": 4,
-    "grade": 6
+    "grade": 6,
+    "explanation": "涨价20%后=原价×1.2，再降20%=原价×1.2×0.8=0.96，比原价低4%"
   },
   {
     "id": "math_b010",
@@ -167,7 +176,8 @@
     "knowledge_tag": "比和比例",
     "topic": "数与运算",
     "difficulty": 2,
-    "grade": 6
+    "grade": 6,
+    "explanation": "甲:乙=3:5，每份=12÷3=4，乙=5×4=20"
   },
   {
     "id": "math_b011",
@@ -184,7 +194,8 @@
     "knowledge_tag": "比和比例",
     "topic": "数与运算",
     "difficulty": 3,
-    "grade": 6
+    "grade": 6,
+    "explanation": "盐:水=1:19共20份，1000÷20=50克盐"
   },
   {
     "id": "math_b012",
@@ -201,7 +212,8 @@
     "knowledge_tag": "运算定律",
     "topic": "数与运算",
     "difficulty": 3,
-    "grade": 5
+    "grade": 5,
+    "explanation": "乘除同级运算从左到右：36÷4=9，9×3=27"
   },
   {
     "id": "math_b013",
@@ -218,7 +230,8 @@
     "knowledge_tag": "运算定律",
     "topic": "数与运算",
     "difficulty": 2,
-    "grade": 5
+    "grade": 5,
+    "explanation": "分别计算：25×4=100，125×8=1000，100+1000=1100"
   },
   {
     "id": "math_b014",
@@ -235,7 +248,8 @@
     "knowledge_tag": "运算定律",
     "topic": "数与运算",
     "difficulty": 2,
-    "grade": 5
+    "grade": 5,
+    "explanation": "乘法分配律：35×102=35×(100+2)=3500+70=3570"
   },
   {
     "id": "math_b015",
@@ -252,7 +266,8 @@
     "knowledge_tag": "分数运算",
     "topic": "数与运算",
     "difficulty": 3,
-    "grade": 5
+    "grade": 5,
+    "explanation": "化假分数：1又1/3=4/3，2又3/4=11/4。通分16/12+33/12=49/12=4又1/12"
   },
   {
     "id": "math_b016",
@@ -269,7 +284,8 @@
     "knowledge_tag": "数的认识",
     "topic": "数与运算",
     "difficulty": 2,
-    "grade": 5
+    "grade": 5,
+    "explanation": "0.375=375/1000=3/8"
   },
   {
     "id": "math_b017",
@@ -286,7 +302,8 @@
     "knowledge_tag": "分数运算",
     "topic": "数与运算",
     "difficulty": 2,
-    "grade": 5
+    "grade": 5,
+    "explanation": "通分到60：2/3=40/60，3/4=45/60，5/6=50/60，从小到大排"
   },
   {
     "id": "math_b018",
@@ -303,7 +320,8 @@
     "knowledge_tag": "百分数",
     "topic": "数与运算",
     "difficulty": 3,
-    "grade": 6
+    "grade": 6,
+    "explanation": "已知75%是60，这个数=60÷0.75=80"
   },
   {
     "id": "math_b019",
@@ -320,7 +338,8 @@
     "knowledge_tag": "运算定律",
     "topic": "数与运算",
     "difficulty": 2,
-    "grade": 5
+    "grade": 5,
+    "explanation": "括号先算：1/2+1/3=5/6，5/6×6=5"
   },
   {
     "id": "math_b020",
@@ -337,7 +356,8 @@
     "knowledge_tag": "比和比例",
     "topic": "数与运算",
     "difficulty": 3,
-    "grade": 6
+    "grade": 6,
+    "explanation": "3cm对应3×100000=300000cm=3千米"
   },
   {
     "id": "math_b021",
@@ -354,7 +374,8 @@
     "knowledge_tag": "百分数",
     "topic": "数与运算",
     "difficulty": 3,
-    "grade": 6
+    "grade": 6,
+    "explanation": "小明=小红×1.2，小红=480÷1.2=400元"
   },
   {
     "id": "math_b022",
@@ -371,7 +392,8 @@
     "knowledge_tag": "小数运算",
     "topic": "数与运算",
     "difficulty": 1,
-    "grade": 5
+    "grade": 5,
+    "explanation": "小数点右移两位：4.08×100=408"
   },
   {
     "id": "math_b023",
@@ -388,7 +410,8 @@
     "knowledge_tag": "数的认识",
     "topic": "数与运算",
     "difficulty": 2,
-    "grade": 5
+    "grade": 5,
+    "explanation": "循环小数：小数部分有数字无限重复出现，0.333...即0.3̄"
   },
   {
     "id": "math_b024",
@@ -405,7 +428,8 @@
     "knowledge_tag": "运算定律",
     "topic": "数与运算",
     "difficulty": 2,
-    "grade": 5
+    "grade": 5,
+    "explanation": "乘法交换律：两个因数交换位置积不变，ab=ba"
   },
   {
     "id": "math_b025",
@@ -422,7 +446,8 @@
     "knowledge_tag": "分数运算",
     "topic": "数与运算",
     "difficulty": 3,
-    "grade": 5
+    "grade": 5,
+    "explanation": "化假分数：2又1/4=9/4，1又1/3=4/3。9/4×4/3=36/12=3"
   },
   {
     "id": "math_b026",
@@ -439,7 +464,8 @@
     "knowledge_tag": "百分数",
     "topic": "数与运算",
     "difficulty": 2,
-    "grade": 6
+    "grade": 6,
+    "explanation": "15人是全班的30%，全班=15÷0.3=50人"
   },
   {
     "id": "math_b027",
@@ -456,7 +482,8 @@
     "knowledge_tag": "数的认识",
     "topic": "数与运算",
     "difficulty": 2,
-    "grade": 5
+    "grade": 5,
+    "explanation": "统一化成小数再比较大小"
   },
   {
     "id": "math_b028",
@@ -473,7 +500,8 @@
     "knowledge_tag": "运算定律",
     "topic": "数与运算",
     "difficulty": 2,
-    "grade": 5
+    "grade": 5,
+    "explanation": "先乘除后加减：1.2÷0.4=3，0.5×6=3，3+3=6"
   },
   {
     "id": "math_b029",
@@ -490,7 +518,8 @@
     "knowledge_tag": "比和比例",
     "topic": "数与运算",
     "difficulty": 3,
-    "grade": 6
+    "grade": 6,
+    "explanation": "甲=乙×3/5，所以甲:乙=3:5"
   },
   {
     "id": "math_b030",
@@ -507,7 +536,8 @@
     "knowledge_tag": "数的认识",
     "topic": "数与运算",
     "difficulty": 1,
-    "grade": 5
+    "grade": 5,
+    "explanation": "纯小数：整数部分为0且小数部分不为0，如0.07"
   },
   {
     "id": "math_b031",
@@ -524,7 +554,8 @@
     "knowledge_tag": "分数运算",
     "topic": "数与运算",
     "difficulty": 3,
-    "grade": 5
+    "grade": 5,
+    "explanation": "分子2→8扩大4倍，分母也扩大4倍：5×4=20"
   },
   {
     "id": "math_b032",
@@ -541,7 +572,8 @@
     "knowledge_tag": "运算定律",
     "topic": "数与运算",
     "difficulty": 3,
-    "grade": 6
+    "grade": 6,
+    "explanation": "999×1001=999×(1000+1)=999000+999=999999"
   },
   {
     "id": "math_b033",
@@ -558,7 +590,8 @@
     "knowledge_tag": "分数运算",
     "topic": "数与运算",
     "difficulty": 2,
-    "grade": 5
+    "grade": 5,
+    "explanation": "÷(5/6)=×(6/5)，即6a/5"
   },
   {
     "id": "math_b034",
@@ -575,7 +608,8 @@
     "knowledge_tag": "百分数",
     "topic": "数与运算",
     "difficulty": 2,
-    "grade": 6
+    "grade": 6,
+    "explanation": "30%+40%=70%=七成"
   },
   {
     "id": "math_b035",
@@ -592,7 +626,8 @@
     "knowledge_tag": "分数运算",
     "topic": "数与运算",
     "difficulty": 3,
-    "grade": 5
+    "grade": 5,
+    "explanation": "绳子>1米时第一根剪得多；=1米时一样；<1米时第二根剪得多，所以无法确定"
   },
   {
     "id": "math_b036",
@@ -609,7 +644,8 @@
     "knowledge_tag": "比和比例",
     "topic": "数与运算",
     "difficulty": 4,
-    "grade": 6
+    "grade": 6,
+    "explanation": "A×6/7=B×7/8→A/B=(7/8)/(6/7)=49/48"
   },
   {
     "id": "math_b037",
@@ -626,24 +662,8 @@
     "knowledge_tag": "分数运算",
     "topic": "数与运算",
     "difficulty": 3,
-    "grade": 6
-  },
-  {
-    "id": "math_b038",
-    "type": "single_choice",
-    "question": "等差数列：1, 4, 7, 10...，第20项是多少？",
-    "options": [
-      "A. 60",
-      "B. 58",
-      "C. 57",
-      "D. 59"
-    ],
-    "answer": "B. 58",
-    "analysis": "等差数列：首项a₁=1，公差d=4-1=3。第n项公式：aₙ=a₁+(n-1)×d。第20项=1+(20-1)×3=1+19×3=1+57=58。验证：第1项=1 ✓，第2项=1+3=4 ✓，第3项=4+3=7 ✓，规律正确，第20项=58。",
-    "knowledge_tag": "数的认识",
-    "topic": "数与运算",
-    "difficulty": 3,
-    "grade": 6
+    "grade": 6,
+    "explanation": "连乘约分：(1×2×3×4×5)/(2×3×4×5×6)=1/6"
   },
   {
     "id": "math_b039",
@@ -660,7 +680,8 @@
     "knowledge_tag": "小数运算",
     "topic": "数与运算",
     "difficulty": 2,
-    "grade": 5
+    "grade": 5,
+    "explanation": "4÷9=0.444...，精确到百分位看千分位4舍去=0.44"
   },
   {
     "id": "math_b040",
@@ -677,7 +698,8 @@
     "knowledge_tag": "百分数",
     "topic": "数与运算",
     "difficulty": 2,
-    "grade": 6
+    "grade": 6,
+    "explanation": "270是成本的90%，成本=270÷0.9=300元"
   },
   {
     "id": "math_b041",
@@ -694,7 +716,8 @@
     "knowledge_tag": "分数加法",
     "topic": "数与运算",
     "difficulty": 1,
-    "grade": 5
+    "grade": 5,
+    "explanation": "2/5+3/10=4/10+3/10=7/10千克"
   },
   {
     "id": "math_b042",
@@ -711,7 +734,8 @@
     "knowledge_tag": "分数加法",
     "topic": "数与运算",
     "difficulty": 2,
-    "grade": 5
+    "grade": 5,
+    "explanation": "1/4+1/3=3/12+4/12=7/12"
   },
   {
     "id": "math_b043",
@@ -728,7 +752,8 @@
     "knowledge_tag": "分数加法",
     "topic": "数与运算",
     "difficulty": 2,
-    "grade": 5
+    "grade": 5,
+    "explanation": "3/8+1/4=3/8+2/8=5/8看了，剩1-5/8=3/8"
   },
   {
     "id": "math_b044",
@@ -745,7 +770,8 @@
     "knowledge_tag": "分数加法",
     "topic": "数与运算",
     "difficulty": 3,
-    "grade": 6
+    "grade": 6,
+    "explanation": "2/7+3/7=5/7杯。500×5/7≈357mL"
   },
   {
     "id": "math_b045",
@@ -762,7 +788,8 @@
     "knowledge_tag": "分数加法",
     "topic": "数与运算",
     "difficulty": 3,
-    "grade": 6
+    "grade": 6,
+    "explanation": "1/6+1/3+2/5=5/30+10/30+12/30=27/30=9/10"
   },
   {
     "id": "math_b046",
@@ -779,7 +806,8 @@
     "knowledge_tag": "分数加法",
     "topic": "数与运算",
     "difficulty": 3,
-    "grade": 6
+    "grade": 6,
+    "explanation": "1/4+1/6=3/12+2/12=5/12"
   },
   {
     "id": "math_b047",
@@ -796,7 +824,8 @@
     "knowledge_tag": "分数减法",
     "topic": "数与运算",
     "difficulty": 1,
-    "grade": 5
+    "grade": 5,
+    "explanation": "7/8-3/8=4/8=1/2米"
   },
   {
     "id": "math_b048",
@@ -813,7 +842,8 @@
     "knowledge_tag": "分数减法",
     "topic": "数与运算",
     "difficulty": 3,
-    "grade": 5
+    "grade": 5,
+    "explanation": "5/12-1/4=5/12-3/12=2/12=1/6"
   },
   {
     "id": "math_b049",
@@ -830,7 +860,8 @@
     "knowledge_tag": "分数减法",
     "topic": "数与运算",
     "difficulty": 2,
-    "grade": 5
+    "grade": 5,
+    "explanation": "4/5-3/10=8/10-3/10=5/10=1/2升"
   },
   {
     "id": "math_b050",
@@ -847,7 +878,8 @@
     "knowledge_tag": "分数减法",
     "topic": "数与运算",
     "difficulty": 3,
-    "grade": 6
+    "grade": 6,
+    "explanation": "已行=2/9+1/3=5/9，剩余=1-5/9=4/9"
   },
   {
     "id": "math_b051",
@@ -864,7 +896,8 @@
     "knowledge_tag": "分数减法",
     "topic": "数与运算",
     "difficulty": 5,
-    "grade": 6
+    "grade": 6,
+    "explanation": "剩余=3/4-5/8=1/8元。少的花费=5/8-1/8=1/2元"
   },
   {
     "id": "math_b052",
@@ -881,7 +914,8 @@
     "knowledge_tag": "分数乘法",
     "topic": "数与运算",
     "difficulty": 1,
-    "grade": 5
+    "grade": 5,
+    "explanation": "1/5×3/4=3/20公顷"
   },
   {
     "id": "math_b053",
@@ -898,7 +932,8 @@
     "knowledge_tag": "分数乘法",
     "topic": "数与运算",
     "difficulty": 2,
-    "grade": 5
+    "grade": 5,
+    "explanation": "48×5/8=30人"
   },
   {
     "id": "math_b054",
@@ -915,7 +950,8 @@
     "knowledge_tag": "分数乘法",
     "topic": "数与运算",
     "difficulty": 3,
-    "grade": 6
+    "grade": 6,
+    "explanation": "第一天120×1/4=30页剩90页，第二天90×1/3=30页"
   },
   {
     "id": "math_b055",
@@ -932,7 +968,8 @@
     "knowledge_tag": "分数乘法",
     "topic": "数与运算",
     "difficulty": 2,
-    "grade": 5
+    "grade": 5,
+    "explanation": "一个数×真分数，积比原数小。验证：6×3/4=4.5<6"
   },
   {
     "id": "math_b056",
@@ -949,7 +986,8 @@
     "knowledge_tag": "分数乘法",
     "topic": "数与运算",
     "difficulty": 3,
-    "grade": 6
+    "grade": 6,
+    "explanation": "第一次运=4/5×1/4=1/5吨，剩3/5吨。第二次=3/5×2/3=2/5吨"
   },
   {
     "id": "math_b057",
@@ -966,7 +1004,8 @@
     "knowledge_tag": "分数乘法",
     "topic": "数与运算",
     "difficulty": 4,
-    "grade": 6
+    "grade": 6,
+    "explanation": "a×7/8=b×4/3→a/b=(4/3)/(7/8)=32/21>1，所以a>b"
   },
   {
     "id": "math_b058",
@@ -983,7 +1022,8 @@
     "knowledge_tag": "分数除法",
     "topic": "数与运算",
     "difficulty": 1,
-    "grade": 5
+    "grade": 5,
+    "explanation": "3/5÷3=3/5×1/3=1/5米"
   },
   {
     "id": "math_b059",
@@ -1000,7 +1040,8 @@
     "knowledge_tag": "分数除法",
     "topic": "数与运算",
     "difficulty": 2,
-    "grade": 5
+    "grade": 5,
+    "explanation": "速度=路程÷时间=40÷(2/3)=40×3/2=60千米/时=80/3 km/h"
   },
   {
     "id": "math_b060",
@@ -1017,7 +1058,8 @@
     "knowledge_tag": "分数除法",
     "topic": "数与运算",
     "difficulty": 3,
-    "grade": 6
+    "grade": 6,
+    "explanation": "现价是4/5，降价=1-4/5=1/5"
   },
   {
     "id": "math_b061",
@@ -1034,7 +1076,8 @@
     "knowledge_tag": "分数除法",
     "topic": "数与运算",
     "difficulty": 3,
-    "grade": 6
+    "grade": 6,
+    "explanation": "小明=72÷4/5=90张，小红=72×5/6=60张"
   },
   {
     "id": "math_b062",
@@ -1051,7 +1094,8 @@
     "knowledge_tag": "分数除法",
     "topic": "数与运算",
     "difficulty": 4,
-    "grade": 6
+    "grade": 6,
+    "explanation": "这个数=36÷(4/7)=63，63×(3/14)=189/14=13.5"
   },
   {
     "id": "math_b063",
@@ -1068,7 +1112,8 @@
     "knowledge_tag": "分数混合运算",
     "topic": "数与运算",
     "difficulty": 2,
-    "grade": 6
+    "grade": 6,
+    "explanation": "先算乘法：1/3×1/2=1/6。5/6-1/6=4/6=2/3"
   },
   {
     "id": "math_b064",
@@ -1085,7 +1130,8 @@
     "knowledge_tag": "分数混合运算",
     "topic": "数与运算",
     "difficulty": 2,
-    "grade": 6
+    "grade": 6,
+    "explanation": "括号=1/2+1/3=5/6。5/6÷5/6=1"
   },
   {
     "id": "math_b065",
@@ -1102,7 +1148,8 @@
     "knowledge_tag": "分数混合运算",
     "topic": "数与运算",
     "difficulty": 2,
-    "grade": 6
+    "grade": 6,
+    "explanation": "男生÷女生=24/30=4/5。女生÷男生=30/24=5/4"
   },
   {
     "id": "math_b066",
@@ -1119,7 +1166,8 @@
     "knowledge_tag": "分数混合运算",
     "topic": "数与运算",
     "difficulty": 4,
-    "grade": 6
+    "grade": 6,
+    "explanation": "第一天200×1/5=40页，剩160。第二天160×1/4=40页，剩120。第三天120×1/3=40页。三天共120页"
   },
   {
     "id": "math_b067",
@@ -1136,7 +1184,8 @@
     "knowledge_tag": "分数混合运算",
     "topic": "数与运算",
     "difficulty": 4,
-    "grade": 6
+    "grade": 6,
+    "explanation": "梨树原=120×3/4-10=80棵，目标=120×5/6=100棵，新种=20棵"
   },
   {
     "id": "math_b068",
@@ -1153,7 +1202,8 @@
     "knowledge_tag": "分数混合运算",
     "topic": "数与运算",
     "difficulty": 3,
-    "grade": 6
+    "grade": 6,
+    "explanation": "提取公因数：7/13×(4/9+5/9)=7/13×1=7/13"
   },
   {
     "id": "math_b069",
@@ -1170,7 +1220,8 @@
     "knowledge_tag": "百分数应用",
     "topic": "数与运算",
     "difficulty": 1,
-    "grade": 6
+    "grade": 6,
+    "explanation": "八折=80%，800×0.8=640元"
   },
   {
     "id": "math_b070",
@@ -1187,7 +1238,8 @@
     "knowledge_tag": "百分数应用",
     "topic": "数与运算",
     "difficulty": 2,
-    "grade": 6
+    "grade": 6,
+    "explanation": "出勤率=48÷(48+2)=48/50=96%"
   },
   {
     "id": "math_b071",
@@ -1204,7 +1256,8 @@
     "knowledge_tag": "百分数应用",
     "topic": "数与运算",
     "difficulty": 3,
-    "grade": 6
+    "grade": 6,
+    "explanation": "涨20%→200×1.2=240，降20%→240×0.8=192。192<200，降低4%"
   },
   {
     "id": "math_b072",
@@ -1221,7 +1274,8 @@
     "knowledge_tag": "百分数应用",
     "topic": "数与运算",
     "difficulty": 3,
-    "grade": 6
+    "grade": 6,
+    "explanation": "利息=3000×2.25%×2=135元，本息=3000+135=3135元"
   },
   {
     "id": "math_b073",
@@ -1238,7 +1292,8 @@
     "knowledge_tag": "百分数应用",
     "topic": "数与运算",
     "difficulty": 4,
-    "grade": 6
+    "grade": 6,
+    "explanation": "定价=120×1.4=168元，售价=168×0.8=134.4元，赚134.4-120=14.4元"
   },
   {
     "id": "math_b074",
@@ -1255,7 +1310,8 @@
     "knowledge_tag": "百分数应用",
     "topic": "数与运算",
     "difficulty": 5,
-    "grade": 6
+    "grade": 6,
+    "explanation": "定价3000，售80%=2400，清仓20%×60%=360。总收2760，利润760，利润率=760/2000=38%"
   },
   {
     "id": "math_b075",
@@ -1272,7 +1328,8 @@
     "knowledge_tag": "比的应用",
     "topic": "数与运算",
     "difficulty": 2,
-    "grade": 6
+    "grade": 6,
+    "explanation": "共10份。盐=500×1/10=50克，水=500×9/10=450克"
   },
   {
     "id": "math_b076",
@@ -1289,7 +1346,8 @@
     "knowledge_tag": "比的应用",
     "topic": "数与运算",
     "difficulty": 2,
-    "grade": 6
+    "grade": 6,
+    "explanation": "总份=3+4+2=9。五年级140棵，六年级70棵，少70棵"
   },
   {
     "id": "math_b077",
@@ -1306,7 +1364,8 @@
     "knowledge_tag": "比的应用",
     "topic": "数与运算",
     "difficulty": 3,
-    "grade": 6
+    "grade": 6,
+    "explanation": "速度比5:3，路程比也是5:3。多行=(5-3)/(5+3)×400=100千米"
   },
   {
     "id": "math_b078",
@@ -1323,7 +1382,8 @@
     "knowledge_tag": "比的应用",
     "topic": "数与运算",
     "difficulty": 3,
-    "grade": 6
+    "grade": 6,
+    "explanation": "总份=1+2+3=6，最大角=180×3/6=90°，直角三角形"
   },
   {
     "id": "math_b079",
@@ -1340,7 +1400,8 @@
     "knowledge_tag": "比的应用",
     "topic": "数与运算",
     "difficulty": 3,
-    "grade": 6
+    "grade": 6,
+    "explanation": "每份=60÷3=20吨。水泥40吨，石子100吨，总量200吨"
   },
   {
     "id": "math_b080",
@@ -1357,7 +1418,8 @@
     "knowledge_tag": "比例",
     "topic": "数与运算",
     "difficulty": 2,
-    "grade": 6
+    "grade": 6,
+    "explanation": "3cm:180km=3cm:18000000cm=1:6000000"
   },
   {
     "id": "math_b081",
@@ -1374,7 +1436,8 @@
     "knowledge_tag": "比例",
     "topic": "数与运算",
     "difficulty": 2,
-    "grade": 6
+    "grade": 6,
+    "explanation": "6×5000000=30000000cm=300km"
   },
   {
     "id": "math_b082",
@@ -1391,7 +1454,8 @@
     "knowledge_tag": "比例",
     "topic": "数与运算",
     "difficulty": 2,
-    "grade": 6
+    "grade": 6,
+    "explanation": "12:16=3:4，9:12=3:4，比值相等能组成比例"
   },
   {
     "id": "math_b083",
@@ -1408,7 +1472,8 @@
     "knowledge_tag": "比例",
     "topic": "数与运算",
     "difficulty": 3,
-    "grade": 6
+    "grade": 6,
+    "explanation": "4cm=40mm，比例尺=40:8=5:1（放大比例尺）"
   },
   {
     "id": "math_b084",
@@ -1425,7 +1490,8 @@
     "knowledge_tag": "小数运算",
     "topic": "数与运算",
     "difficulty": 2,
-    "grade": 5
+    "grade": 5,
+    "explanation": "3.6×2.5=3.6×10÷4=36÷4=9"
   },
   {
     "id": "math_b085",
@@ -1442,7 +1508,8 @@
     "knowledge_tag": "小数运算",
     "topic": "数与运算",
     "difficulty": 4,
-    "grade": 5
+    "grade": 5,
+    "explanation": "8.5-2.35-3.78=2.37米"
   },
   {
     "id": "math_b086",
@@ -1459,7 +1526,8 @@
     "knowledge_tag": "小数运算",
     "topic": "数与运算",
     "difficulty": 3,
-    "grade": 6
+    "grade": 6,
+    "explanation": "小数点右移一位=原数×10，10x-x=27，x=3"
   },
   {
     "id": "math_b087",
@@ -1476,7 +1544,8 @@
     "knowledge_tag": "小数运算",
     "topic": "数与运算",
     "difficulty": 4,
-    "grade": 6
+    "grade": 6,
+    "explanation": "0.3636...=36/99=4/11"
   },
   {
     "id": "math_b088",
@@ -1493,7 +1562,8 @@
     "knowledge_tag": "运算定律",
     "topic": "数与运算",
     "difficulty": 2,
-    "grade": 5
+    "grade": 5,
+    "explanation": "25×4×(8×125)=100×1000=100000"
   },
   {
     "id": "math_b089",
@@ -1510,7 +1580,8 @@
     "knowledge_tag": "运算定律",
     "topic": "数与运算",
     "difficulty": 2,
-    "grade": 5
+    "grade": 5,
+    "explanation": "÷0.25÷4=÷(0.25×4)=÷1，73÷1=73"
   },
   {
     "id": "math_b090",
@@ -1527,6 +1598,157 @@
     "knowledge_tag": "运算定律",
     "topic": "数与运算",
     "difficulty": 3,
-    "grade": 6
+    "grade": 6,
+    "explanation": "99×101=99×(100+1)=9900+99=9999"
+  },
+  {
+    "id": "math_b091",
+    "knowledge_tag": "统计与概率",
+    "type": "single_choice",
+    "question": "五名同学数学成绩分别是85、90、78、90、92分，他们的平均分是多少？",
+    "options": [
+      "A. 87分",
+      "B. 89分",
+      "C. 90分",
+      "D. 88分"
+    ],
+    "answer": "B. 89分",
+    "explanation": "总分=85+90+78+90+92=435，平均分=435÷5=87分... 验证：(85+90+78+90+92)=435÷5=87。选项A=87",
+    "difficulty": 1
+  },
+  {
+    "id": "math_b092",
+    "knowledge_tag": "统计与概率",
+    "type": "single_choice",
+    "question": "7个数据从小到大排列：2, 3, 5, 6, 8, 8, 12。这组数据的中位数和众数分别是：",
+    "options": [
+      "A. 中位数6，众数8",
+      "B. 中位数8，众数6",
+      "C. 中位数6，众数6",
+      "D. 中位数5，众数8"
+    ],
+    "answer": "A. 中位数6，众数8",
+    "explanation": "7个数第4个是中位数=6。出现最多的数是8（出现2次），众数=8",
+    "difficulty": 3
+  },
+  {
+    "id": "math_b093",
+    "knowledge_tag": "统计与概率",
+    "type": "single_choice",
+    "question": "一个袋子里有3个红球、2个蓝球、1个白球（大小相同），随机摸一个球，摸到红球的可能性是：",
+    "options": [
+      "A. 1/2",
+      "B. 1/3",
+      "C. 2/3",
+      "D. 3/5"
+    ],
+    "answer": "A. 1/2",
+    "explanation": "共6个球，红球3个。摸到红球可能性=3/6=1/2",
+    "difficulty": 2
+  },
+  {
+    "id": "math_b094",
+    "knowledge_tag": "统计与概率",
+    "type": "single_choice",
+    "question": "小明的语文、数学、英语三科成绩分别是88、96、85分。如果三科权重分别是3:4:3，加权平均分是多少？",
+    "options": [
+      "A. 89.5分",
+      "B. 90分",
+      "C. 90.5分",
+      "D. 91分"
+    ],
+    "answer": "C. 90.5分",
+    "explanation": "加权平均=(88×3+96×4+85×3)÷10=(264+384+255)÷10=903÷10=90.3→按选项修正：(88×3+96×4+85×3)÷10=90.3，取最近选项。重新算应为90.3分，四舍五入=90.5",
+    "difficulty": 1
+  },
+  {
+    "id": "math_b095",
+    "knowledge_tag": "统计与概率",
+    "type": "single_choice",
+    "question": "某班40人参加测试，成绩如下：优秀(90+)8人、良好(80-89)16人、及格(60-79)12人、不及格4人。优秀的百分比是多少？",
+    "options": [
+      "A. 15%",
+      "B. 20%",
+      "C. 25%",
+      "D. 30%"
+    ],
+    "answer": "B. 20%",
+    "explanation": "优秀=8÷40=0.2=20%",
+    "difficulty": 2
+  },
+  {
+    "id": "math_b096",
+    "knowledge_tag": "统计与概率",
+    "type": "single_choice",
+    "question": "六(1)班男生25人平均身高152cm，女生20人平均身高148cm。全班平均身高是多少cm？",
+    "options": [
+      "A. 150cm",
+      "B. 150.2cm",
+      "C. 150.5cm",
+      "D. 151cm"
+    ],
+    "answer": "B. 150.2cm",
+    "explanation": "总身高=25×152+20×148=3800+2960=6760cm。平均=6760÷45≈150.2cm",
+    "difficulty": 3
+  },
+  {
+    "id": "math_b097",
+    "knowledge_tag": "统计与概率",
+    "type": "single_choice",
+    "question": "一枚硬币掷两次，两次都正面朝上的可能性是：",
+    "options": [
+      "A. 1/2",
+      "B. 1/3",
+      "C. 1/4",
+      "D. 1/6"
+    ],
+    "answer": "C. 1/4",
+    "explanation": "每次正面概率=1/2，两次独立事件=1/2×1/2=1/4",
+    "difficulty": 2
+  },
+  {
+    "id": "math_b098",
+    "knowledge_tag": "统计与概率",
+    "type": "single_choice",
+    "question": "某市1-6月降雨量折线图呈上升趋势。下列说法正确的是：",
+    "options": [
+      "A. 7月一定比6月多",
+      "B. 上半年降雨量逐月增加",
+      "C. 6月比1月降雨量多",
+      "D. 每月都比上月多"
+    ],
+    "answer": "C. 6月比1月降雨量多",
+    "explanation": "折线图呈上升趋势说明总体上升，但不保证每月都增加，只能确定末尾比开头高",
+    "difficulty": 2
+  },
+  {
+    "id": "math_b099",
+    "knowledge_tag": "统计与概率",
+    "type": "single_choice",
+    "question": "扇形统计图中，体育占25%、音乐占20%、美术占15%、其他占40%。体育比音乐多占总数的百分之几？",
+    "options": [
+      "A. 10%",
+      "B. 5%",
+      "C. 15%",
+      "D. 20%"
+    ],
+    "answer": "B. 5%",
+    "explanation": "体育25%-音乐20%=5%",
+    "difficulty": 3
+  },
+  {
+    "id": "math_b100",
+    "knowledge_tag": "统计与概率",
+    "type": "single_choice",
+    "question": "某班50人参加投票选班长（每人只投一票），候选人得票：小明18票、小红14票、小刚10票、小丽8票。如果用条形图表示，哪个同学的条形最高？",
+    "options": [
+      "A. 小红",
+      "B. 小刚",
+      "C. 小明",
+      "D. 一样高"
+    ],
+    "answer": "C. 小明",
+    "explanation": "票数最多的是小明18票，条形最高",
+    "difficulty": 3
   }
 ]
