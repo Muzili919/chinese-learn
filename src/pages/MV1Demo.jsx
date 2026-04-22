@@ -767,9 +767,9 @@ export default function MV1Demo({ onBack, initialState, onStateChange, grade, cu
     // ★ Fix: currentUserId 必须在依赖数组中，否则切换账号后可能写入旧的 localStorage key
   }, [state, onStateChange, currentUserId]);
 
-  // 时间衰减
+  // 时间衰减（1:1 现实时速，学习不应惩罚宠物）
   useEffect(() => {
-    const iv = setInterval(() => setState(s => s ? tickPetStats(s, 5) : s), 30000);
+    const iv = setInterval(() => setState(s => s ? tickPetStats(s, 1) : s), 60000);
     return () => clearInterval(iv);
   }, []);
 

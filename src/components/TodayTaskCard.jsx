@@ -108,9 +108,6 @@ export default function TodayTaskCard({ task, userId, onStartTask, onClearAnchor
           </div>
           <div className="flex items-center gap-1.5">
             <span className="text-xs text-gray-300 font-medium">{mandatory.count || 3}题 →</span>
-            {!done.includes('srs') && (
-              <button onClick={e => handleDone(e, 'srs')} className="text-[10px] text-gray-300 border border-gray-200 rounded px-1 py-0.5 hover:text-green-500 hover:border-green-300 transition-colors">完成</button>
-            )}
           </div>
         </button>
 
@@ -136,9 +133,6 @@ export default function TodayTaskCard({ task, userId, onStartTask, onClearAnchor
             </div>
             <div className="flex items-center gap-1">
               <span className="text-xs text-gray-300 font-medium">{anchor.count}题 →</span>
-              {!done.includes('anchor') && (
-                <button onClick={e => handleDone(e, 'anchor')} className="text-[10px] text-gray-300 border border-gray-200 rounded px-1 py-0.5 hover:text-green-500 hover:border-green-300 transition-colors">完成</button>
-              )}
               <button onClick={e => { e.stopPropagation(); onClearAnchor() }} className="text-gray-300 hover:text-gray-400 text-sm ml-0.5" title="切换主攻目标">⟳</button>
             </div>
           </button>
@@ -158,9 +152,6 @@ export default function TodayTaskCard({ task, userId, onStartTask, onClearAnchor
             </div>
             <div className="flex items-center gap-1.5">
               <span className="text-xs text-gray-300 font-medium">{optional.count}题 →</span>
-              {!done.includes('optional') && (
-                <button onClick={e => handleDone(e, 'optional')} className="text-[10px] text-gray-300 border border-gray-200 rounded px-1 py-0.5 hover:text-green-500 hover:border-green-300 transition-colors">完成</button>
-              )}
             </div>
           </button>
         )}

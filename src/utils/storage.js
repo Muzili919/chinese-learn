@@ -236,19 +236,32 @@ export const storage = {
     return count;
   },
 
-  // 积压错题数：SRS 到期日已过 3 天以上（还没答对过）
-  getOverdueWrongCount: (userId) => {
+  // 积压错题数：SRS 到期日已过 3 天以上（还没答对过），按学段过滤
+  getOverdueWrongCount: (userId, grade) => {
     const wrongIds = storage.getWrongCardIds(userId);
     if (wrongIds.size === 0) return 0;
+
+    // 按学段确定允许的学科
+    const gradeSubjects = grade === 'junior2'
+      ? ['english', 'math', 'politics', 'chinese_junior']
+      : ['chinese', 'english', 'math'];
+
+    // 获取每张卡的 subject
+    const records = storage.getRecords(userId);
+    const cardSubjects = {};
+    for (const r of records) {
+      if (!cardSubjects[r.card_id]) cardSubjects[r.card_id] = r.subject || 'chinese';
+    }
+
     const srsStates = storage.getSrsState(userId);
-    const today = new Date().toISOString().split('T')[0];
     const cutoff = new Date();
     cutoff.setDate(cutoff.getDate() - 3);
     const cutoffStr = cutoff.toISOString().split('T')[0];
     let count = 0;
     for (const id of wrongIds) {
+      const sub = cardSubjects[id];
+      if (!gradeSubjects.includes(sub)) continue;
       const state = srsStates[id];
-      // 没有 SRS 记录（从未正确过）或 nextReview 超过 3 天没复习
       if (!state || state.nextReview <= cutoffStr) count++;
     }
     return count;

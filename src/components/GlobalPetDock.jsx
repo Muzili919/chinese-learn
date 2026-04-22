@@ -11,16 +11,16 @@ import { storage } from '../utils/storage'
  * 动作规则：
  *  1. isLearning=true（学习Tab）→ 固定 reading，点击无效
  *  2. 任意属性 < 10% → 固定 sad_cry，直到全部 > 10%
- *  3. 连续快速点击 20 次 → angry，5秒后自动恢复
- *  4. 其他情况 → 每3次点击切换一个动作（循环6种）
+ *  3. 连续快速点击 20 次 → angry，10秒后自动恢复
+ *  4. 其他情况 → 默认微笑，每5次点击切换一个动作（循环6种）
  */
 
 // 普通点击循环的动作序列（不含 reading/sad_cry/angry）
-const CYCLING_POSES = ['sleeping', 'happy', 'wave', 'excited', 'eating', 'normal']
+const CYCLING_POSES = ['happy', 'wave', 'excited', 'sleeping', 'eating', 'normal']
 
 export default function GlobalPetDock({ gameState, isLearning }) {
   const [visible, setVisible] = useState(true)
-  const [tapCount, setTapCount] = useState(0)          // 累计点击（用于3次换动作）
+  const [tapCount, setTapCount] = useState(0)          // 累计点击（用于5次换动作）
   const [consecutiveCount, setConsecutiveCount] = useState(0) // 连续点击（用于20次生气）
   const [isAngry, setIsAngry] = useState(false)
   // ★ 经验刷新计数器：让组件能感知 storage.getXP() 的变化并重新渲染 exp 值
@@ -60,9 +60,10 @@ export default function GlobalPetDock({ gameState, isLearning }) {
 
   // 任意属性 < 10 → 哭泣锁定
   const isCrying = !isLearning && (
-    (stats.hunger     !== undefined && stats.hunger     < 10) ||
-    (stats.energy     !== undefined && stats.energy     < 10) ||
-    (stats.intimacy   !== undefined && stats.intimacy   < 10)
+    (stats.hunger      !== undefined && stats.hunger      < 10) ||
+    (stats.cleanliness !== undefined && stats.cleanliness < 10) ||
+    (stats.energy      !== undefined && stats.energy      < 10) ||
+    (stats.intimacy    !== undefined && stats.intimacy    < 10)
   )
 
   // 计算当前显示的 pose
@@ -70,7 +71,7 @@ export default function GlobalPetDock({ gameState, isLearning }) {
     if (isLearning) return 'reading'
     if (isCrying)   return 'sad_cry'
     if (isAngry)    return 'angry'
-    const idx = Math.floor(tapCount / 3) % CYCLING_POSES.length
+    const idx = Math.floor(tapCount / 5) % CYCLING_POSES.length
     return CYCLING_POSES[idx]
   }
   const dockPose = getDockPose()
@@ -92,7 +93,7 @@ export default function GlobalPetDock({ gameState, isLearning }) {
           setIsAngry(false)
           setConsecutiveCount(0)
           setTapCount(0)
-        }, 5000)
+        }, 10000)
         return 0
       }
       return next

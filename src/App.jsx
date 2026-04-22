@@ -7,6 +7,7 @@ import { fetchMV1State, upsertMV1State } from './utils/mv1_cloud'
 import { pullFromCloud } from './utils/sync'
 import { unlockAudio } from './utils/tts'
 import { fetchAndMergePlan } from './hooks/usePlan'
+import { markTaskDone } from './utils/examCalendar'
 import PremiumCard from './components/PremiumCard'
 
 const OnboardingPage = lazy(() => import('./pages/OnboardingPage'))
@@ -422,16 +423,16 @@ export default function App() {
       console.warn('Cloud pull failed (non-fatal):', err.message)
     })
 
-    setOverdueCount(storage.getOverdueWrongCount(uid))
+    setOverdueCount(storage.getOverdueWrongCount(uid, grade))
     checkStreakOnLoad(uid)
   }, [user?.id])   // ← 只依赖 userId 字符串，不依赖 user 对象引用
 
   // 当回到主页时刷新积压数
   useEffect(() => {
     if (page === 'home' && user?.id) {
-      setOverdueCount(storage.getOverdueWrongCount(user.id))
+      setOverdueCount(storage.getOverdueWrongCount(user.id, grade))
     }
-  }, [page, user])
+  }, [page, user, grade])
 
   // 移动端音频解锁：首次用户交互时激活 AudioContext
   // iOS Safari / Android Chrome 要求音频必须在用户手势上下文内启动
@@ -535,6 +536,11 @@ export default function App() {
       ...result,
       quizOptions: quizOptions // 保存当前的答题参数
     })
+    // ★ 自动标记今日任务完成
+    if (user?.id) {
+      if (quizOptions?.srsFirst) markTaskDone(user.id, 'srs')
+      if (quizOptions?.mathTopic || quizOptions?.englishTag || quizOptions?.juniorChineseTag) markTaskDone(user.id, 'anchor')
+    }
     setPage('result')
   }
 
@@ -543,7 +549,7 @@ export default function App() {
     setSessionResult(null)
     setQuizOptions(null)
     setEnglishQuizOptions({})
-    if (user?.id) setOverdueCount(storage.getOverdueWrongCount(user.id))
+    if (user?.id) setOverdueCount(storage.getOverdueWrongCount(user.id, grade))
   }
 
   // 根据答题上下文返回科目主页（而非总仪表盘）
@@ -573,7 +579,7 @@ export default function App() {
     setSessionResult(null)
     setQuizOptions(null)
     setEnglishQuizOptions({})
-    if (user?.id) setOverdueCount(storage.getOverdueWrongCount(user.id))
+    if (user?.id) setOverdueCount(storage.getOverdueWrongCount(user.id, grade))
   }
 
   function handleLogout() {
@@ -741,7 +747,7 @@ export default function App() {
       <AssociationPlanetPage
         user={user}
         grade={grade}
-        onFinish={(result) => { setSessionResult({ ...result, quizOptions: englishQuizOptions }); setPage('result') }}
+        onFinish={(result) => { setSessionResult({ ...result, quizOptions: englishQuizOptions }); markTaskDone(user?.id, 'anchor'); setPage('result') }}
         onBack={() => { setActiveSubject('english'); setPage('subject_home') }}
         onRetry={() => startQuiz({ ...englishQuizOptions, englishTag: 'en_association' })}
       />
@@ -759,7 +765,7 @@ export default function App() {
       <EnglishQuizPage
         user={user}
         options={{ ...englishQuizOptions, grade }}
-        onFinish={(result) => { setSessionResult({ ...result, quizOptions: englishQuizOptions }); setPage('result') }}
+        onFinish={(result) => { setSessionResult({ ...result, quizOptions: englishQuizOptions }); markTaskDone(user?.id, 'anchor'); setPage('result') }}
         onBack={() => { setActiveSubject('english'); setPage('subject_home') }}
       />
     )

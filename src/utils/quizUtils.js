@@ -58,7 +58,7 @@ export function isAnswerCorrect(userAnswer, correctAnswer, options) {
   }
 
   if (ua && ca) {
-    const stripCore = s => s.replace(/[^a-z0-9一-鿿]/g, '')
+    const stripCore = s => s.replace(/[^a-z0-9.一-鿿]/g, '')
     if (stripCore(ua) === stripCore(ca)) return true
   }
 
