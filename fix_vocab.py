@@ -91,7 +91,7 @@ SPELLING_DISTRACTORS = {
     "exercise": ["exersize", "exercize", "exersise"],
     "Monday": ["Munday", "Mondey", "Mondai"],
     "China": ["Chine", "Chyna", "Chiner"],
-    "friend": ["frend", "freind", "frend"],
+    "friend": ["frend", "freind", "freand"],
     "math": ["meth", "maths", "muth"],
     "quiet": ["qiet", "quiat", "quit"],
     "teacher": ["teecher", "techer", "teachar"],
@@ -155,7 +155,7 @@ SPELLING_DISTRACTORS = {
     "resolution": ["resolusion", "resolutian", "resalution"],
     "eleventh": ["eleventhe", "elevent", "elventh"],
     "twelfth": ["twelvth", "twelf", "twellfth"],
-    "twentieth": ["twentieth", "twentyth", "twenteeth"],
+    "twentieth": ["twenteeth", "twentyth", "twentith"],
     "hundredth": ["hundreth", "hundreder", "hundredeth"],
     "excellent": ["exelent", "excellant", "exsellent"],
     "possible": ["possable", "posible", "possibul"],
@@ -165,7 +165,7 @@ SPELLING_DISTRACTORS = {
     "May": ["Maye", "Mai", "Mey"],
     "June": ["Junn", "Junne", "Jume"],
     "July": ["Jully", "Juley", "Julie"],
-    "August": ["Augest", "Agust", "Augest"],
+    "August": ["Augest", "Agust", "Auguast"],
     "September": ["Septemper", "Septmber", "Setpember"],
     "October": ["Octobor", "Octerber", "Octaber"],
     "November": ["Novemver", "Novmber", "Novermber"],
@@ -182,7 +182,7 @@ SPELLING_DISTRACTORS = {
     # More common words
     "breakfast": ["breakfst", "breakfist", "brekfast"],
     "dinner": ["diner", "dinnder", "dynner"],
-    "supper": ["supor", "supper", "supir"],
+    "supper": ["supor", "sopper", "supir"],
     "lunch": ["lunc", "lunsh", "lunche"],
     "shy": ["shye", "shigh", "shai"],
     "polite": ["polight", "poleit", "poliete"],
@@ -549,7 +549,7 @@ def process_vocab_usage(q):
         sq["id"] = f"{q['id']}_{sub_num}"
         sq["type"] = "single_choice"
         # Remove the inline choice parentheses from the question text
-        clean_context = re.sub(r'\(([^)]+)\)', '______', sub_text)
+        clean_context = re.sub(r'\s*\(([^)]+)\)', '', sub_text)
         sq["question"] = clean_context + fmt_opts(shuffled)
         sq["options"] = shuffled
         sq["answer"] = letter
@@ -612,9 +612,9 @@ def process_spelling(q):
         opts = [correct] + dists
         shuffled, letter = make_mc(opts, correct)
 
-        if "音标" in q["question"]:
+        if "音标" in q["question"] and re.search(r'/[^/]+/', sq_text):
             phonetic = re.search(r'/[^/]+/', sq_text)
-            phonetic_str = phonetic.group(0) if phonetic else ""
+            phonetic_str = phonetic.group(0)
             question = f"音标 {phonetic_str} 对应的单词是？" + fmt_opts(shuffled)
         else:
             question = sq_text + fmt_opts(shuffled)

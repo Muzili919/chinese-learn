@@ -158,7 +158,7 @@
     "knowledge_tag": "英语词汇",
     "ability_tag": "词汇运用",
     "type": "single_choice",
-    "question": "I ______ ______ a new pen.\n\nA. have\nB. had\nC. has\nD. having",
+    "question": "I ______ a new pen.\n\nA. have\nB. had\nC. has\nD. having",
     "options": [
       "have",
       "had",
@@ -175,7 +175,7 @@
     "knowledge_tag": "英语词汇",
     "ability_tag": "词汇运用",
     "type": "single_choice",
-    "question": "She ______ ______ reading books.\n\nA. liked\nB. liking\nC. like\nD. likes",
+    "question": "She ______ reading books.\n\nA. liked\nB. liking\nC. like\nD. likes",
     "options": [
       "liked",
       "liking",
@@ -192,7 +192,7 @@
     "knowledge_tag": "英语词汇",
     "ability_tag": "词汇运用",
     "type": "single_choice",
-    "question": "Let's ______ ______ to the park.\n\nA. went\nB. goes\nC. going\nD. go",
+    "question": "Let's ______ to the park.\n\nA. went\nB. goes\nC. going\nD. go",
     "options": [
       "went",
       "goes",
@@ -209,7 +209,7 @@
     "knowledge_tag": "英语词汇",
     "ability_tag": "词汇运用",
     "type": "single_choice",
-    "question": "They ______ ______ playing football.\n\nA. was\nB. am\nC. are\nD. is",
+    "question": "They ______ playing football.\n\nA. was\nB. am\nC. are\nD. is",
     "options": [
       "was",
       "am",
@@ -447,7 +447,7 @@
     "knowledge_tag": "英语词汇",
     "ability_tag": "词汇运用",
     "type": "single_choice",
-    "question": "This is ______ ______ book.\n\nA. I\nB. me\nC. my\nD. mine",
+    "question": "This is ______ book.\n\nA. I\nB. me\nC. my\nD. mine",
     "options": [
       "I",
       "me",
@@ -464,7 +464,7 @@
     "knowledge_tag": "英语词汇",
     "ability_tag": "词汇运用",
     "type": "single_choice",
-    "question": "______ ______ bag is this?\n\nA. Who\nB. Whom\nC. Who's\nD. Whose",
+    "question": "______ bag is this?\n\nA. Who\nB. Whom\nC. Who's\nD. Whose",
     "options": [
       "Who",
       "Whom",
@@ -481,7 +481,7 @@
     "knowledge_tag": "英语词汇",
     "ability_tag": "词汇运用",
     "type": "single_choice",
-    "question": "Let ______ ______ go home.\n\nA. our\nB. we\nC. ours\nD. us",
+    "question": "Let ______ go home.\n\nA. our\nB. we\nC. ours\nD. us",
     "options": [
       "our",
       "we",
@@ -498,7 +498,7 @@
     "knowledge_tag": "英语词汇",
     "ability_tag": "词汇运用",
     "type": "single_choice",
-    "question": "The cat is ______ ______ the box.\n\nA. under\nB. in\nC. on\nD. at",
+    "question": "The cat is ______ the box.\n\nA. under\nB. in\nC. on\nD. at",
     "options": [
       "under",
       "in",
@@ -736,7 +736,7 @@
     "knowledge_tag": "英语词汇",
     "ability_tag": "词汇运用",
     "type": "single_choice",
-    "question": "She ______ ______ to read books.\n\nA. likes\nB. liking\nC. liked\nD. like",
+    "question": "She ______ to read books.\n\nA. likes\nB. liking\nC. liked\nD. like",
     "options": [
       "likes",
       "liking",
@@ -753,7 +753,7 @@
     "knowledge_tag": "英语词汇",
     "ability_tag": "词汇运用",
     "type": "single_choice",
-    "question": "Let's go ______ ______ together.\n\nA. shops\nB. shopped\nC. shop\nD. shopping",
+    "question": "Let's go ______ together.\n\nA. shops\nB. shopped\nC. shop\nD. shopping",
     "options": [
       "shops",
       "shopped",
@@ -770,7 +770,7 @@
     "knowledge_tag": "英语词汇",
     "ability_tag": "词汇运用",
     "type": "single_choice",
-    "question": "I have ______ ______ orange.\n\nA. the\nB. a\nC. some\nD. an",
+    "question": "I have ______ orange.\n\nA. the\nB. a\nC. some\nD. an",
     "options": [
       "the",
       "a",
@@ -787,7 +787,7 @@
     "knowledge_tag": "英语词汇",
     "ability_tag": "词汇运用",
     "type": "single_choice",
-    "question": "He is ______ ______ than his brother.\n\nA. short\nB. tall\nC. tallest\nD. taller",
+    "question": "He is ______ than his brother.\n\nA. short\nB. tall\nC. tallest\nD. taller",
     "options": [
       "short",
       "tall",
@@ -974,9 +974,9 @@
     "knowledge_tag": "英语词汇",
     "ability_tag": "单词拼写",
     "type": "single_choice",
-    "question": "音标 /frend/ 对应的单词是？\n\nA. frend\nB. frend\nC. friend\nD. freind",
+    "question": "音标 /frend/ 对应的单词是？\n\nA. freand\nB. frend\nC. friend\nD. freind",
     "options": [
-      "frend",
+      "freand",
       "frend",
       "friend",
       "freind"
@@ -991,7 +991,7 @@
     "knowledge_tag": "英语词汇",
     "ability_tag": "单词拼写",
     "type": "single_choice",
-    "question": "音标  对应的单词是？\n\nA. meth\nB. math\nC. muth\nD. maths",
+    "question": "My favorite subject is m______. I like numbers.\n\nA. meth\nB. math\nC. muth\nD. maths",
     "options": [
       "meth",
       "math",
@@ -1008,7 +1008,7 @@
     "knowledge_tag": "英语词汇",
     "ability_tag": "单词拼写",
     "type": "single_choice",
-    "question": "音标  对应的单词是？\n\nA. qiet\nB. quiet\nC. quit\nD. quiat",
+    "question": "Please be q______. The baby is sleeping.\n\nA. qiet\nB. quiet\nC. quit\nD. quiat",
     "options": [
       "qiet",
       "quiet",
@@ -1025,7 +1025,7 @@
     "knowledge_tag": "英语词汇",
     "ability_tag": "词汇运用",
     "type": "single_choice",
-    "question": "There ______ ______ a pen and two books on the desk.\n\nA. am\nB. is\nC. was\nD. are",
+    "question": "There ______ a pen and two books on the desk.\n\nA. am\nB. is\nC. was\nD. are",
     "options": [
       "am",
       "is",
@@ -1042,7 +1042,7 @@
     "knowledge_tag": "英语词汇",
     "ability_tag": "词汇运用",
     "type": "single_choice",
-    "question": "My sister can ______ ______ very well.\n\nA. dances\nB. dancing\nC. danced\nD. dance",
+    "question": "My sister can ______ very well.\n\nA. dances\nB. dancing\nC. danced\nD. dance",
     "options": [
       "dances",
       "dancing",
@@ -1059,7 +1059,7 @@
     "knowledge_tag": "英语词汇",
     "ability_tag": "词汇运用",
     "type": "single_choice",
-    "question": "Let's ______ ______ to the park.\n\nA. went\nB. to go\nC. go\nD. going",
+    "question": "Let's ______ to the park.\n\nA. went\nB. to go\nC. go\nD. going",
     "options": [
       "went",
       "to go",
@@ -1076,7 +1076,7 @@
     "knowledge_tag": "英语词汇",
     "ability_tag": "词汇运用",
     "type": "single_choice",
-    "question": "It's time ______ ______ lunch.\n\nA. with\nB. to\nC. for\nD. at",
+    "question": "It's time ______ lunch.\n\nA. with\nB. to\nC. for\nD. at",
     "options": [
       "with",
       "to",
@@ -1314,7 +1314,7 @@
     "knowledge_tag": "英语词汇",
     "ability_tag": "词汇运用",
     "type": "single_choice",
-    "question": "This is ______ ______ book. That one is yours.\n\nA. me\nB. I\nC. my\nD. mine",
+    "question": "This is ______ book. That one is yours.\n\nA. me\nB. I\nC. my\nD. mine",
     "options": [
       "me",
       "I",
@@ -1331,7 +1331,7 @@
     "knowledge_tag": "英语词汇",
     "ability_tag": "词汇运用",
     "type": "single_choice",
-    "question": "She ______ ______ her homework every day.\n\nA. did\nB. do\nC. doing\nD. does",
+    "question": "She ______ her homework every day.\n\nA. did\nB. do\nC. doing\nD. does",
     "options": [
       "did",
       "do",
@@ -1348,7 +1348,7 @@
     "knowledge_tag": "英语词汇",
     "ability_tag": "词汇运用",
     "type": "single_choice",
-    "question": "They ______ ______ playing football now.\n\nA. is\nB. was\nC. am\nD. are",
+    "question": "They ______ playing football now.\n\nA. is\nB. was\nC. am\nD. are",
     "options": [
       "is",
       "was",
@@ -1365,7 +1365,7 @@
     "knowledge_tag": "英语词汇",
     "ability_tag": "词汇运用",
     "type": "single_choice",
-    "question": "I want to buy ______ ______ hour ago.\n\nA. an\nB. a\nC. the\nD. some",
+    "question": "I want to buy ______ hour ago.\n\nA. an\nB. a\nC. the\nD. some",
     "options": [
       "an",
       "a",
@@ -1603,7 +1603,7 @@
     "knowledge_tag": "英语词汇",
     "ability_tag": "词汇运用",
     "type": "single_choice",
-    "question": "My sister is ______ ______ than me.\n\nA. youngest\nB. old\nC. young\nD. younger",
+    "question": "My sister is ______ than me.\n\nA. youngest\nB. old\nC. young\nD. younger",
     "options": [
       "youngest",
       "old",
@@ -1620,7 +1620,7 @@
     "knowledge_tag": "英语词汇",
     "ability_tag": "词汇运用",
     "type": "single_choice",
-    "question": "Let's go ______ ______ after school.\n\nA. swimming\nB. swim\nC. swam\nD. swims",
+    "question": "Let's go ______ after school.\n\nA. swimming\nB. swim\nC. swam\nD. swims",
     "options": [
       "swimming",
       "swim",
@@ -1637,7 +1637,7 @@
     "knowledge_tag": "英语词汇",
     "ability_tag": "词汇运用",
     "type": "single_choice",
-    "question": "He ______ ______ like apples.\n\nA. won't\nB. don't\nC. doesn't\nD. didn't",
+    "question": "He ______ like apples.\n\nA. won't\nB. don't\nC. doesn't\nD. didn't",
     "options": [
       "won't",
       "don't",
@@ -1654,7 +1654,7 @@
     "knowledge_tag": "英语词汇",
     "ability_tag": "词汇运用",
     "type": "single_choice",
-    "question": "______ ______ she have a pet?\n\nA. Will\nB. Do\nC. Does\nD. Did",
+    "question": "______ she have a pet?\n\nA. Will\nB. Do\nC. Does\nD. Did",
     "options": [
       "Will",
       "Do",
@@ -1773,11 +1773,11 @@
     "knowledge_tag": "英语词汇",
     "ability_tag": "词汇翻译",
     "type": "single_choice",
-    "question": "八月的英文是？\n\nA. Agust\nB. Augest\nC. Augest\nD. August",
+    "question": "八月的英文是？\n\nA. Agust\nB. Augest\nC. Auguast\nD. August",
     "options": [
       "Agust",
       "Augest",
-      "Augest",
+      "Auguast",
       "August"
     ],
     "answer": "D",
@@ -1892,7 +1892,7 @@
     "knowledge_tag": "英语词汇",
     "ability_tag": "词汇运用",
     "type": "single_choice",
-    "question": "There are ______ ______ books on the shelf.\n\nA. some\nB. few\nC. much\nD. many",
+    "question": "There are ______ books on the shelf.\n\nA. some\nB. few\nC. much\nD. many",
     "options": [
       "some",
       "few",
@@ -1909,7 +1909,7 @@
     "knowledge_tag": "英语词汇",
     "ability_tag": "词汇运用",
     "type": "single_choice",
-    "question": "She ______ ______ to be a doctor.\n\nA. want\nB. wanting\nC. wanted\nD. wants",
+    "question": "She ______ to be a doctor.\n\nA. want\nB. wanting\nC. wanted\nD. wants",
     "options": [
       "want",
       "wanting",
@@ -1926,7 +1926,7 @@
     "knowledge_tag": "英语词汇",
     "ability_tag": "词汇运用",
     "type": "single_choice",
-    "question": "I ______ ______ going to visit my grandma.\n\nA. is\nB. was\nC. are\nD. am",
+    "question": "I ______ going to visit my grandma.\n\nA. is\nB. was\nC. are\nD. am",
     "options": [
       "is",
       "was",
@@ -1943,7 +1943,7 @@
     "knowledge_tag": "英语词汇",
     "ability_tag": "词汇运用",
     "type": "single_choice",
-    "question": "He is ______ ______ at math.\n\nA. better\nB. best\nC. well\nD. good",
+    "question": "He is ______ at math.\n\nA. better\nB. best\nC. well\nD. good",
     "options": [
       "better",
       "best",
@@ -2147,7 +2147,7 @@
     "knowledge_tag": "英语词汇",
     "ability_tag": "单词拼写",
     "type": "single_choice",
-    "question": "音标  对应的单词是？\n\nA. bred\nB. bread\nC. brede\nD. breaed",
+    "question": "I like to eat h______ for breakfast. It's made from wheat.\n\nA. bred\nB. bread\nC. brede\nD. breaed",
     "options": [
       "bred",
       "bread",
@@ -2164,7 +2164,7 @@
     "knowledge_tag": "英语词汇",
     "ability_tag": "单词拼写",
     "type": "single_choice",
-    "question": "音标  对应的单词是？\n\nA. wat\nB. whet\nC. wet\nD. wett",
+    "question": "Be careful! The floor is w______ after cleaning.\n\nA. wat\nB. whet\nC. wet\nD. wett",
     "options": [
       "wat",
       "whet",
@@ -2181,7 +2181,7 @@
     "knowledge_tag": "英语词汇",
     "ability_tag": "词汇运用",
     "type": "single_choice",
-    "question": "______ ______ pen is this? It's Tom's.\n\nA. Who\nB. Whom\nC. Whose\nD. Which",
+    "question": "______ pen is this? It's Tom's.\n\nA. Who\nB. Whom\nC. Whose\nD. Which",
     "options": [
       "Who",
       "Whom",
@@ -2198,7 +2198,7 @@
     "knowledge_tag": "英语词汇",
     "ability_tag": "词汇运用",
     "type": "single_choice",
-    "question": "Let's ______ ______ at the station.\n\nA. meet\nB. meeting\nC. to meet\nD. met",
+    "question": "Let's ______ at the station.\n\nA. meet\nB. meeting\nC. to meet\nD. met",
     "options": [
       "meet",
       "meeting",
@@ -2215,7 +2215,7 @@
     "knowledge_tag": "英语词汇",
     "ability_tag": "词汇运用",
     "type": "single_choice",
-    "question": "She ______ ______ a new bicycle.\n\nA. had\nB. have\nC. has\nD. having",
+    "question": "She ______ a new bicycle.\n\nA. had\nB. have\nC. has\nD. having",
     "options": [
       "had",
       "have",
@@ -2232,7 +2232,7 @@
     "knowledge_tag": "英语词汇",
     "ability_tag": "词汇运用",
     "type": "single_choice",
-    "question": "The cat is ______ ______ on the sofa.\n\nA. slept\nB. sleep\nC. sleeping\nD. sleeps",
+    "question": "The cat is ______ on the sofa.\n\nA. slept\nB. sleep\nC. sleeping\nD. sleeps",
     "options": [
       "slept",
       "sleep",
@@ -2385,14 +2385,14 @@
     "knowledge_tag": "英语词汇",
     "ability_tag": "词汇翻译",
     "type": "single_choice",
-    "question": "晚餐的英文是？\n\nA. supir\nB. supor\nC. supper\nD. supper",
+    "question": "晚餐的英文是？\n\nA. supir\nB. supor\nC. sopper\nD. supper",
     "options": [
       "supir",
       "supor",
-      "supper",
+      "sopper",
       "supper"
     ],
-    "answer": "C",
+    "answer": "D",
     "analysis": "【考点】本题考查课本核心词汇的拼写。\n【解题思路】根据汉语意思回忆。\n【总结】Thursday注意ur的发音，November注意ember结尾，hard-working中间有连字符。",
     "difficulty": 0.5
   },
@@ -2470,7 +2470,7 @@
     "knowledge_tag": "英语词汇",
     "ability_tag": "词汇运用",
     "type": "single_choice",
-    "question": "How many ______ ______ do you have?\n\nA. apple\nB. oranges\nC. apples\nD. banana",
+    "question": "How many ______ do you have?\n\nA. apple\nB. oranges\nC. apples\nD. banana",
     "options": [
       "apple",
       "oranges",
@@ -2487,7 +2487,7 @@
     "knowledge_tag": "英语词汇",
     "ability_tag": "词汇运用",
     "type": "single_choice",
-    "question": "My brother ______ ______ to school by bus every day.\n\nA. went\nB. going\nC. goes\nD. go",
+    "question": "My brother ______ to school by bus every day.\n\nA. went\nB. going\nC. goes\nD. go",
     "options": [
       "went",
       "going",
@@ -2504,7 +2504,7 @@
     "knowledge_tag": "英语词汇",
     "ability_tag": "词汇运用",
     "type": "single_choice",
-    "question": "There ______ ______ some milk in the fridge.\n\nA. am\nB. was\nC. are\nD. is",
+    "question": "There ______ some milk in the fridge.\n\nA. am\nB. was\nC. are\nD. is",
     "options": [
       "am",
       "was",
@@ -2521,7 +2521,7 @@
     "knowledge_tag": "英语词汇",
     "ability_tag": "词汇运用",
     "type": "single_choice",
-    "question": "He can ______ ______ three languages.\n\nA. speaks\nB. speaking\nC. spoke\nD. speak",
+    "question": "He can ______ three languages.\n\nA. speaks\nB. speaking\nC. spoke\nD. speak",
     "options": [
       "speaks",
       "speaking",
@@ -2759,7 +2759,7 @@
     "knowledge_tag": "英语词汇",
     "ability_tag": "词汇运用",
     "type": "single_choice",
-    "question": "Let's ______ ______ the classroom.\n\nA. clean\nB. to clean\nC. cleaned\nD. cleaning",
+    "question": "Let's ______ the classroom.\n\nA. clean\nB. to clean\nC. cleaned\nD. cleaning",
     "options": [
       "clean",
       "to clean",
@@ -2776,7 +2776,7 @@
     "knowledge_tag": "英语词汇",
     "ability_tag": "词汇运用",
     "type": "single_choice",
-    "question": "She ______ ______ going to buy a gift for her mother.\n\nA. was\nB. are\nC. is\nD. am",
+    "question": "She ______ going to buy a gift for her mother.\n\nA. was\nB. are\nC. is\nD. am",
     "options": [
       "was",
       "are",
@@ -2793,7 +2793,7 @@
     "knowledge_tag": "英语词汇",
     "ability_tag": "词汇运用",
     "type": "single_choice",
-    "question": "They enjoy ______ ______ movies.\n\nA. watches\nB. watched\nC. watching\nD. watch",
+    "question": "They enjoy ______ movies.\n\nA. watches\nB. watched\nC. watching\nD. watch",
     "options": [
       "watches",
       "watched",
@@ -3031,7 +3031,7 @@
     "knowledge_tag": "英语词汇",
     "ability_tag": "词汇运用",
     "type": "single_choice",
-    "question": "______ ______ is that girl in red?\n\nA. Whose\nB. Whom\nC. Which\nD. Who",
+    "question": "______ is that girl in red?\n\nA. Whose\nB. Whom\nC. Which\nD. Who",
     "options": [
       "Whose",
       "Whom",
@@ -3048,7 +3048,7 @@
     "knowledge_tag": "英语词汇",
     "ability_tag": "词汇运用",
     "type": "single_choice",
-    "question": "She ______ ______ like coffee.\n\nA. doesn't\nB. don't\nC. didn't\nD. won't",
+    "question": "She ______ like coffee.\n\nA. doesn't\nB. don't\nC. didn't\nD. won't",
     "options": [
       "doesn't",
       "don't",
@@ -3065,7 +3065,7 @@
     "knowledge_tag": "英语词汇",
     "ability_tag": "词汇运用",
     "type": "single_choice",
-    "question": "There ______ ______ a lot of people in the park.\n\nA. is\nB. are\nC. am\nD. was",
+    "question": "There ______ a lot of people in the park.\n\nA. is\nB. are\nC. am\nD. was",
     "options": [
       "is",
       "are",
@@ -3082,7 +3082,7 @@
     "knowledge_tag": "英语词汇",
     "ability_tag": "词汇运用",
     "type": "single_choice",
-    "question": "Let's ______ ______ shopping this afternoon.\n\nA. go\nB. going\nC. to go\nD. went",
+    "question": "Let's ______ shopping this afternoon.\n\nA. go\nB. going\nC. to go\nD. went",
     "options": [
       "go",
       "going",
@@ -3320,7 +3320,7 @@
     "knowledge_tag": "英语词汇",
     "ability_tag": "词汇运用",
     "type": "single_choice",
-    "question": "He is ______ ______ in science.\n\nA. interesting\nB. interests\nC. interested\nD. interest",
+    "question": "He is ______ in science.\n\nA. interesting\nB. interests\nC. interested\nD. interest",
     "options": [
       "interesting",
       "interests",
@@ -3337,7 +3337,7 @@
     "knowledge_tag": "英语词汇",
     "ability_tag": "词汇运用",
     "type": "single_choice",
-    "question": "This is the ______ ______ beautiful park in the city.\n\nA. most\nB. many\nC. more\nD. much",
+    "question": "This is the ______ beautiful park in the city.\n\nA. most\nB. many\nC. more\nD. much",
     "options": [
       "most",
       "many",
@@ -3354,7 +3354,7 @@
     "knowledge_tag": "英语词汇",
     "ability_tag": "词汇运用",
     "type": "single_choice",
-    "question": "I have two ______ ______.\n\nA. knives\nB. knife\nC. spoons\nD. forks",
+    "question": "I have two ______.\n\nA. knives\nB. knife\nC. spoons\nD. forks",
     "options": [
       "knives",
       "knife",
@@ -3371,7 +3371,7 @@
     "knowledge_tag": "英语词汇",
     "ability_tag": "词汇运用",
     "type": "single_choice",
-    "question": "She ______ ______ two hours on her homework every day.\n\nA. spends\nB. spent\nC. spend\nD. spending",
+    "question": "She ______ two hours on her homework every day.\n\nA. spends\nB. spent\nC. spend\nD. spending",
     "options": [
       "spends",
       "spent",
@@ -3609,7 +3609,7 @@
     "knowledge_tag": "英语词汇",
     "ability_tag": "词汇运用",
     "type": "single_choice",
-    "question": "This is ______ ______ useful book.\n\nA. an\nB. a\nC. some\nD. the",
+    "question": "This is ______ useful book.\n\nA. an\nB. a\nC. some\nD. the",
     "options": [
       "an",
       "a",
@@ -3626,7 +3626,7 @@
     "knowledge_tag": "英语词汇",
     "ability_tag": "词汇运用",
     "type": "single_choice",
-    "question": "My parents ______ ______ both doctors.\n\nA. was\nB. am\nC. is\nD. are",
+    "question": "My parents ______ both doctors.\n\nA. was\nB. am\nC. is\nD. are",
     "options": [
       "was",
       "am",
@@ -3643,7 +3643,7 @@
     "knowledge_tag": "英语词汇",
     "ability_tag": "词汇运用",
     "type": "single_choice",
-    "question": "Let's ______ ______ a rest.\n\nA. have\nB. having\nC. had\nD. to have",
+    "question": "Let's ______ a rest.\n\nA. have\nB. having\nC. had\nD. to have",
     "options": [
       "have",
       "having",
@@ -3660,7 +3660,7 @@
     "knowledge_tag": "英语词汇",
     "ability_tag": "词汇运用",
     "type": "single_choice",
-    "question": "She ______ ______ her homework at 7:00 every evening.\n\nA. do\nB. did\nC. does\nD. doing",
+    "question": "She ______ her homework at 7:00 every evening.\n\nA. do\nB. did\nC. does\nD. doing",
     "options": [
       "do",
       "did",
@@ -3898,7 +3898,7 @@
     "knowledge_tag": "英语词汇",
     "ability_tag": "词汇运用",
     "type": "single_choice",
-    "question": "My birthday is ______ ______ June 1st.\n\nA. in\nB. on\nC. at\nD. under",
+    "question": "My birthday is ______ June 1st.\n\nA. in\nB. on\nC. at\nD. under",
     "options": [
       "in",
       "on",
@@ -3915,7 +3915,7 @@
     "knowledge_tag": "英语词汇",
     "ability_tag": "词汇运用",
     "type": "single_choice",
-    "question": "There are ______ ______ eggs in the basket.\n\nA. a few\nB. many\nC. a little\nD. some",
+    "question": "There are ______ eggs in the basket.\n\nA. a few\nB. many\nC. a little\nD. some",
     "options": [
       "a few",
       "many",
@@ -3932,7 +3932,7 @@
     "knowledge_tag": "英语词汇",
     "ability_tag": "词汇运用",
     "type": "single_choice",
-    "question": "She sings ______ ______.\n\nA. best\nB. good\nC. better\nD. well",
+    "question": "She sings ______.\n\nA. best\nB. good\nC. better\nD. well",
     "options": [
       "best",
       "good",
@@ -3949,7 +3949,7 @@
     "knowledge_tag": "英语词汇",
     "ability_tag": "词汇运用",
     "type": "single_choice",
-    "question": "The children are ______ ______ about the trip.\n\nA. excited\nB. exciting\nC. excites\nD. excite",
+    "question": "The children are ______ about the trip.\n\nA. excited\nB. exciting\nC. excites\nD. excite",
     "options": [
       "excited",
       "exciting",
@@ -4187,7 +4187,7 @@
     "knowledge_tag": "英语词汇",
     "ability_tag": "词汇运用",
     "type": "single_choice",
-    "question": "______ ______ a beautiful day!\n\nA. What\nB. How\nC. Which\nD. Where",
+    "question": "______ a beautiful day!\n\nA. What\nB. How\nC. Which\nD. Where",
     "options": [
       "What",
       "How",
@@ -4204,7 +4204,7 @@
     "knowledge_tag": "英语词汇",
     "ability_tag": "词汇运用",
     "type": "single_choice",
-    "question": "She ______ ______ us English.\n\nA. taught\nB. teaches\nC. teaching\nD. teach",
+    "question": "She ______ us English.\n\nA. taught\nB. teaches\nC. teaching\nD. teach",
     "options": [
       "taught",
       "teaches",
@@ -4221,7 +4221,7 @@
     "knowledge_tag": "英语词汇",
     "ability_tag": "词汇运用",
     "type": "single_choice",
-    "question": "There ______ ______ some water in the glass.\n\nA. is\nB. am\nC. was\nD. are",
+    "question": "There ______ some water in the glass.\n\nA. is\nB. am\nC. was\nD. are",
     "options": [
       "is",
       "am",
@@ -4238,7 +4238,7 @@
     "knowledge_tag": "英语词汇",
     "ability_tag": "词汇运用",
     "type": "single_choice",
-    "question": "He ______ ______ have any brothers.\n\nA. doesn't\nB. didn't\nC. don't\nD. won't",
+    "question": "He ______ have any brothers.\n\nA. doesn't\nB. didn't\nC. don't\nD. won't",
     "options": [
       "doesn't",
       "didn't",
@@ -4476,7 +4476,7 @@
     "knowledge_tag": "英语词汇",
     "ability_tag": "词汇运用",
     "type": "single_choice",
-    "question": "This is the ______ ______ movie I've ever seen.\n\nA. better\nB. good\nC. best\nD. well",
+    "question": "This is the ______ movie I've ever seen.\n\nA. better\nB. good\nC. best\nD. well",
     "options": [
       "better",
       "good",
@@ -4493,7 +4493,7 @@
     "knowledge_tag": "英语词汇",
     "ability_tag": "词汇运用",
     "type": "single_choice",
-    "question": "Would you like ______ ______ coffee?\n\nA. some\nB. many\nC. any\nD. much",
+    "question": "Would you like ______ coffee?\n\nA. some\nB. many\nC. any\nD. much",
     "options": [
       "some",
       "many",
@@ -4510,7 +4510,7 @@
     "knowledge_tag": "英语词汇",
     "ability_tag": "词汇运用",
     "type": "single_choice",
-    "question": "He ______ ______ going to play basketball.\n\nA. was\nB. is\nC. are\nD. am",
+    "question": "He ______ going to play basketball.\n\nA. was\nB. is\nC. are\nD. am",
     "options": [
       "was",
       "is",
@@ -4527,7 +4527,7 @@
     "knowledge_tag": "英语词汇",
     "ability_tag": "词汇运用",
     "type": "single_choice",
-    "question": "Let's ______ ______ a song together.\n\nA. singing\nB. sing\nC. to sing\nD. sang",
+    "question": "Let's ______ a song together.\n\nA. singing\nB. sing\nC. to sing\nD. sang",
     "options": [
       "singing",
       "sing",
@@ -4765,7 +4765,7 @@
     "knowledge_tag": "英语词汇",
     "ability_tag": "词汇运用",
     "type": "single_choice",
-    "question": "This is ______ ______ own room.\n\nA. my\nB. me\nC. I\nD. mine",
+    "question": "This is ______ own room.\n\nA. my\nB. me\nC. I\nD. mine",
     "options": [
       "my",
       "me",
@@ -4782,7 +4782,7 @@
     "knowledge_tag": "英语词汇",
     "ability_tag": "词汇运用",
     "type": "single_choice",
-    "question": "They ______ ______ playing football on the playground.\n\nA. was\nB. is\nC. am\nD. are",
+    "question": "They ______ playing football on the playground.\n\nA. was\nB. is\nC. am\nD. are",
     "options": [
       "was",
       "is",
@@ -4799,7 +4799,7 @@
     "knowledge_tag": "英语词汇",
     "ability_tag": "词汇运用",
     "type": "single_choice",
-    "question": "How ______ ______ water do you drink every day?\n\nA. many\nB. some\nC. much\nD. few",
+    "question": "How ______ water do you drink every day?\n\nA. many\nB. some\nC. much\nD. few",
     "options": [
       "many",
       "some",
@@ -4816,7 +4816,7 @@
     "knowledge_tag": "英语词汇",
     "ability_tag": "词汇运用",
     "type": "single_choice",
-    "question": "She ______ ______ swim when she was five.\n\nA. could\nB. can't\nC. can\nD. caned",
+    "question": "She ______ swim when she was five.\n\nA. could\nB. can't\nC. can\nD. caned",
     "options": [
       "could",
       "can't",
@@ -5020,14 +5020,14 @@
     "knowledge_tag": "英语词汇",
     "ability_tag": "单词拼写",
     "type": "single_choice",
-    "question": "音标 /ˈtwentiəθ/ 对应的单词是？\n\nA. twenteeth\nB. twentyth\nC. twentieth\nD. twentieth",
+    "question": "音标 /ˈtwentiəθ/ 对应的单词是？\n\nA. twentith\nB. twentyth\nC. twenteeth\nD. twentieth",
     "options": [
-      "twenteeth",
+      "twentith",
       "twentyth",
-      "twentieth",
+      "twenteeth",
       "twentieth"
     ],
-    "answer": "C",
+    "answer": "D",
     "analysis": "【考点】本题考查序数词的拼写。\n【解题思路】根据音标拼写。\n【总结】twelfth的拼写注意f，twentieth去掉y加ie。",
     "difficulty": 0.5
   },
@@ -5054,7 +5054,7 @@
     "knowledge_tag": "英语词汇",
     "ability_tag": "词汇运用",
     "type": "single_choice",
-    "question": "He runs ______ ______ than me.\n\nA. fast\nB. slow\nC. faster\nD. fastest",
+    "question": "He runs ______ than me.\n\nA. fast\nB. slow\nC. faster\nD. fastest",
     "options": [
       "fast",
       "slow",
@@ -5071,7 +5071,7 @@
     "knowledge_tag": "英语词汇",
     "ability_tag": "词汇运用",
     "type": "single_choice",
-    "question": "______ ______ your brother like playing chess?\n\nA. Do\nB. Did\nC. Will\nD. Does",
+    "question": "______ your brother like playing chess?\n\nA. Do\nB. Did\nC. Will\nD. Does",
     "options": [
       "Do",
       "Did",
@@ -5088,7 +5088,7 @@
     "knowledge_tag": "英语词汇",
     "ability_tag": "词汇运用",
     "type": "single_choice",
-    "question": "I'm looking forward to ______ ______ you.\n\nA. saw\nB. seeing\nC. seen\nD. see",
+    "question": "I'm looking forward to ______ you.\n\nA. saw\nB. seeing\nC. seen\nD. see",
     "options": [
       "saw",
       "seeing",
@@ -5105,7 +5105,7 @@
     "knowledge_tag": "英语词汇",
     "ability_tag": "词汇运用",
     "type": "single_choice",
-    "question": "She ______ ______ to the park yesterday.\n\nA. go\nB. went\nC. going\nD. goes",
+    "question": "She ______ to the park yesterday.\n\nA. go\nB. went\nC. going\nD. goes",
     "options": [
       "go",
       "went",
@@ -5343,7 +5343,7 @@
     "knowledge_tag": "英语词汇",
     "ability_tag": "词汇运用",
     "type": "single_choice",
-    "question": "The book is ______ ______ for children.\n\nA. interesting\nB. interest\nC. interested\nD. interests",
+    "question": "The book is ______ for children.\n\nA. interesting\nB. interest\nC. interested\nD. interests",
     "options": [
       "interesting",
       "interest",
@@ -5360,7 +5360,7 @@
     "knowledge_tag": "英语词汇",
     "ability_tag": "词汇运用",
     "type": "single_choice",
-    "question": "How ______ ______ eggs do we need?\n\nA. some\nB. few\nC. many\nD. much",
+    "question": "How ______ eggs do we need?\n\nA. some\nB. few\nC. many\nD. much",
     "options": [
       "some",
       "few",
@@ -5377,7 +5377,7 @@
     "knowledge_tag": "英语词汇",
     "ability_tag": "词汇运用",
     "type": "single_choice",
-    "question": "Let's ______ ______ to the cinema.\n\nA. going\nB. went\nC. to go\nD. go",
+    "question": "Let's ______ to the cinema.\n\nA. going\nB. went\nC. to go\nD. go",
     "options": [
       "going",
       "went",
@@ -5394,7 +5394,7 @@
     "knowledge_tag": "英语词汇",
     "ability_tag": "词汇运用",
     "type": "single_choice",
-    "question": "She ______ ______ hard every day.\n\nA. studying\nB. studies\nC. study\nD. studied",
+    "question": "She ______ hard every day.\n\nA. studying\nB. studies\nC. study\nD. studied",
     "options": [
       "studying",
       "studies",
@@ -5632,7 +5632,7 @@
     "knowledge_tag": "英语词汇",
     "ability_tag": "词汇运用",
     "type": "single_choice",
-    "question": "This is ______ ______ honest boy.\n\nA. an\nB. a\nC. the\nD. some",
+    "question": "This is ______ honest boy.\n\nA. an\nB. a\nC. the\nD. some",
     "options": [
       "an",
       "a",
@@ -5649,7 +5649,7 @@
     "knowledge_tag": "英语词汇",
     "ability_tag": "词汇运用",
     "type": "single_choice",
-    "question": "There ______ ______ a pen and two erasers in the pencil case.\n\nA. are\nB. is\nC. am\nD. was",
+    "question": "There ______ a pen and two erasers in the pencil case.\n\nA. are\nB. is\nC. am\nD. was",
     "options": [
       "are",
       "is",
@@ -5666,7 +5666,7 @@
     "knowledge_tag": "英语词汇",
     "ability_tag": "词汇运用",
     "type": "single_choice",
-    "question": "She ______ ______ to finish her homework first.\n\nA. have\nB. has\nC. had\nD. having",
+    "question": "She ______ to finish her homework first.\n\nA. have\nB. has\nC. had\nD. having",
     "options": [
       "have",
       "has",
@@ -5683,7 +5683,7 @@
     "knowledge_tag": "英语词汇",
     "ability_tag": "词汇运用",
     "type": "single_choice",
-    "question": "He is ______ ______ at math.\n\nA. best\nB. well\nC. good\nD. better",
+    "question": "He is ______ at math.\n\nA. best\nB. well\nC. good\nD. better",
     "options": [
       "best",
       "well",
@@ -5921,7 +5921,7 @@
     "knowledge_tag": "英语词汇",
     "ability_tag": "词汇运用",
     "type": "single_choice",
-    "question": "______ ______ is that bike?\n\nA. Who's\nB. Whom\nC. Whose\nD. Who",
+    "question": "______ is that bike?\n\nA. Who's\nB. Whom\nC. Whose\nD. Who",
     "options": [
       "Who's",
       "Whom",
@@ -5938,7 +5938,7 @@
     "knowledge_tag": "英语词汇",
     "ability_tag": "词汇运用",
     "type": "single_choice",
-    "question": "He ______ ______ like to get up early.\n\nA. doesn't\nB. didn't\nC. won't\nD. don't",
+    "question": "He ______ like to get up early.\n\nA. doesn't\nB. didn't\nC. won't\nD. don't",
     "options": [
       "doesn't",
       "didn't",
@@ -5955,7 +5955,7 @@
     "knowledge_tag": "英语词汇",
     "ability_tag": "词汇运用",
     "type": "single_choice",
-    "question": "There ______ ______ a lot of milk in the fridge.\n\nA. was\nB. are\nC. is\nD. am",
+    "question": "There ______ a lot of milk in the fridge.\n\nA. was\nB. are\nC. is\nD. am",
     "options": [
       "was",
       "are",
@@ -5972,7 +5972,7 @@
     "knowledge_tag": "英语词汇",
     "ability_tag": "词汇运用",
     "type": "single_choice",
-    "question": "Let's ______ ______ at the school gate.\n\nA. meeting\nB. meet\nC. met\nD. to meet",
+    "question": "Let's ______ at the school gate.\n\nA. meeting\nB. meet\nC. met\nD. to meet",
     "options": [
       "meeting",
       "meet",
@@ -6210,7 +6210,7 @@
     "knowledge_tag": "英语词汇",
     "ability_tag": "词汇运用",
     "type": "single_choice",
-    "question": "This is the ______ ______ interesting story I've read.\n\nA. more\nB. most\nC. much\nD. many",
+    "question": "This is the ______ interesting story I've read.\n\nA. more\nB. most\nC. much\nD. many",
     "options": [
       "more",
       "most",
@@ -6227,7 +6227,7 @@
     "knowledge_tag": "英语词汇",
     "ability_tag": "词汇运用",
     "type": "single_choice",
-    "question": "Would you like ______ ______ tea?\n\nA. some\nB. any\nC. many\nD. much",
+    "question": "Would you like ______ tea?\n\nA. some\nB. any\nC. many\nD. much",
     "options": [
       "some",
       "any",
@@ -6244,7 +6244,7 @@
     "knowledge_tag": "英语词汇",
     "ability_tag": "词汇运用",
     "type": "single_choice",
-    "question": "He ______ ______ to Beijing last summer.\n\nA. went\nB. going\nC. goes\nD. go",
+    "question": "He ______ to Beijing last summer.\n\nA. went\nB. going\nC. goes\nD. go",
     "options": [
       "went",
       "going",
@@ -6261,7 +6261,7 @@
     "knowledge_tag": "英语词汇",
     "ability_tag": "词汇运用",
     "type": "single_choice",
-    "question": "She is ______ ______ at singing.\n\nA. good\nB. better\nC. best\nD. well",
+    "question": "She is ______ at singing.\n\nA. good\nB. better\nC. best\nD. well",
     "options": [
       "good",
       "better",
@@ -6499,7 +6499,7 @@
     "knowledge_tag": "英语词汇",
     "ability_tag": "词汇运用",
     "type": "single_choice",
-    "question": "She is ______ ______ than her sister.\n\nA. tall\nB. short\nC. tallest\nD. taller",
+    "question": "She is ______ than her sister.\n\nA. tall\nB. short\nC. tallest\nD. taller",
     "options": [
       "tall",
       "short",
@@ -6516,7 +6516,7 @@
     "knowledge_tag": "英语词汇",
     "ability_tag": "词汇运用",
     "type": "single_choice",
-    "question": "______ ______ a wonderful present!\n\nA. Which\nB. Where\nC. What\nD. How",
+    "question": "______ a wonderful present!\n\nA. Which\nB. Where\nC. What\nD. How",
     "options": [
       "Which",
       "Where",
@@ -6533,7 +6533,7 @@
     "knowledge_tag": "英语词汇",
     "ability_tag": "词汇运用",
     "type": "single_choice",
-    "question": "There ______ ______ some juice in the fridge.\n\nA. was\nB. are\nC. is\nD. am",
+    "question": "There ______ some juice in the fridge.\n\nA. was\nB. are\nC. is\nD. am",
     "options": [
       "was",
       "are",
@@ -6550,7 +6550,7 @@
     "knowledge_tag": "英语词汇",
     "ability_tag": "词汇运用",
     "type": "single_choice",
-    "question": "He ______ ______ like playing basketball.\n\nA. didn't\nB. don't\nC. won't\nD. doesn't",
+    "question": "He ______ like playing basketball.\n\nA. didn't\nB. don't\nC. won't\nD. doesn't",
     "options": [
       "didn't",
       "don't",
@@ -6788,7 +6788,7 @@
     "knowledge_tag": "英语词汇",
     "ability_tag": "词汇运用",
     "type": "single_choice",
-    "question": "She is ______ ______ at drawing.\n\nA. good\nB. better\nC. well\nD. best",
+    "question": "She is ______ at drawing.\n\nA. good\nB. better\nC. well\nD. best",
     "options": [
       "good",
       "better",
@@ -6805,7 +6805,7 @@
     "knowledge_tag": "英语词汇",
     "ability_tag": "词汇运用",
     "type": "single_choice",
-    "question": "They ______ ______ going to have a party.\n\nA. am\nB. is\nC. are\nD. was",
+    "question": "They ______ going to have a party.\n\nA. am\nB. is\nC. are\nD. was",
     "options": [
       "am",
       "is",
@@ -6822,7 +6822,7 @@
     "knowledge_tag": "英语词汇",
     "ability_tag": "词汇运用",
     "type": "single_choice",
-    "question": "How ______ ______ bread do you want?\n\nA. few\nB. some\nC. many\nD. much",
+    "question": "How ______ bread do you want?\n\nA. few\nB. some\nC. many\nD. much",
     "options": [
       "few",
       "some",
@@ -6839,7 +6839,7 @@
     "knowledge_tag": "英语词汇",
     "ability_tag": "词汇运用",
     "type": "single_choice",
-    "question": "Let's ______ ______ chess together.\n\nA. played\nB. playing\nC. play\nD. to play",
+    "question": "Let's ______ chess together.\n\nA. played\nB. playing\nC. play\nD. to play",
     "options": [
       "played",
       "playing",
