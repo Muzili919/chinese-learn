@@ -575,32 +575,24 @@ export default function MV1Demo({ onBack, initialState, onStateChange, grade, cu
     }
 
     fetchMV1State(uid).then((cloud) => {
-      // ★ 云端强制覆盖标记（管理员修复数据时使用）
-      // 当 _forceOverwrite 为 true 时，跳过所有"本地优先/并集"合并逻辑，
-      // 直接用云端数据覆盖本地。这样管理员才能通过修改云端来修复用户数据。
+      let localSnapshot = null;
+      try {
+        localSnapshot = storage.readPetState(currentUserId);
+      } catch (_) {}
+
       const forceOverwrite = !!cloud?._forceOverwrite
       if (forceOverwrite) {
-        // 清除云端标记，避免下次加载再次触发
         cloud._forceOverwrite = false
-        // 清除两个 localStorage key，让本地数据完全来自云端
         try {
-          localStorage.removeItem(`mv1_pet_state_${uid}`)
-          localStorage.removeItem(`cl_mv1_gamification_${uid}`)
+          localStorage.removeItem(`mv1_pet_state_` + uid)
+          localStorage.removeItem(`cl_mv1_gamification_` + uid)
         } catch (_) {}
+        localSnapshot = null
       }
 
       const base = initGamificationState();
       const today = new Date().toDateString();
       const todayStr = new Date().toISOString().slice(0, 10);
-
-      // ★★★ localSnapshot 必须最先声明！
-      // 之前放在函数中部导致 let TDZ（暂时性死区）报错：
-      //   ReferenceError: Cannot access 'localSnapshot' before initialization
-      // 每次都走 catch → cloudLoadedRef 永远 false → Supabase 从未更新
-      let localSnapshot = null;
-      try {
-        localSnapshot = storage.readPetState(currentUserId);
-      } catch (_) {}
 
       // 每日任务重置
       let dailyTasks = cloud?.dailyTasks || base.dailyTasks;
