@@ -38,9 +38,10 @@ const LeaderboardPage = lazy(() => import('./pages/LeaderboardPage'))
 const JuniorChineseHomePage = lazy(() => import('./pages/JuniorChineseHomePage'))
 const GlobalPetDock = lazy(() => import('./components/GlobalPetDock'))
 
-// 检查上帝模式：URL 带 ?god=1 或 #god=1
+// 检查上帝模式：URL 带 ?god=1 或 #god=1（仅开发环境）
 function isGodMode() {
   if (typeof window === 'undefined') return false
+  if (window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1') return false
   const params = new URLSearchParams(window.location.search)
   const hash = new URLSearchParams(window.location.hash.split('?')[1] || '')
   return params.get('god') === '1' || hash.get('god') === '1'
@@ -329,13 +330,18 @@ export default function App() {
   const [quizOptions, setQuizOptions] = useState(null)
   // 宠物状态：优先读本地缓存（防止刷新后变蛋），其次用上帝模式/默认
   const [gameState, setGameState] = useState(() => {
-    // 上帝模式始终用满级数据
+    // 上帝模式始终用满级数据（仅开发环境）
     if (isGodMode()) return initGodModeState()
     // 尝试从 localStorage 恢复上次的宠物状态（自动处理新旧 key 迁移）
     try {
       const currentUser = storage.getUser()
       const parsed = storage.readPetState(currentUser?.id)
       if (parsed?.currentPet?.poolId || parsed?.ownedPets?.length > 0) {
+        // ★ 清除生产环境中的上帝模式残留数据
+        if (parsed._isGodMode) {
+          delete parsed._isGodMode
+          parsed.ownedPets = parsed.ownedPets?.filter((id, i, arr) => arr.indexOf(id) === i)?.slice(0, 3) || []
+        }
         return parsed
       }
     } catch (e) { /* 缓存无效，用默认 */ }

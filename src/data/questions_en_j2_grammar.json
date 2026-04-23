@@ -7,7 +7,7 @@
     "ability_tag": "动词时态辨析",
     "type": "multiple_choice",
     "question": "I _____ to school yesterday because I was sick.",
-    "answer": "D",
+    "answer": "D. didn't go",
     "analysis": "【考点】考查一般过去时的否定形式\n【解题思路】时间状语yesterday明确表示过去的时间，主语I是第一人称，用didn't + 动词原形构成否定\n【干扰项分析】A错在用了一般现在时，与yesterday时间不匹配；C错在用了将来时，属于时态错误；D错在用了现在进行时，属于时态错误\n【解题口诀】👉 见yesterday就找过去时，否定用didn't加原形",
     "core_trap": "学生容易用don't代替didn't，忘记过去时的否定形式",
     "mnemonic": "见yesterday想过去，否定didn't加原形",
@@ -27,7 +27,7 @@
     "ability_tag": "不规则动词变化",
     "type": "multiple_choice",
     "question": "She _____ a beautiful song at the party last night.",
-    "answer": "C",
+    "answer": "C. sang",
     "analysis": "【考点】考查不规则动词sing的过去式\n【解题思路】last night是过去时间标志，sing是不规则动词，过去式为sang（不是加-ed）\n【干扰项分析】A错在用了动词原形，没有体现过去时；B错在用了一般现在时第三人称单数；D错在把sing当作规则动词加了-ed，sing是不规则动词\n【解题口诀】👉 sing的过去式sang，bring的过去式brought，不是加-ed的",
     "core_trap": "学生容易将不规则动词sing误加-ed变成singed",
     "mnemonic": "sing-sang-sung，唱-唱了-被唱",
@@ -35,8 +35,8 @@
     "options": [
       "A. sing",
       "B. sings",
-      "D. singed",
-      "C. sang"
+      "C. sang",
+      "D. singed"
     ]
   },
   {
@@ -45,13 +45,19 @@
     "grade": "junior2",
     "knowledge_tag": "一般过去时",
     "ability_tag": "时态辨析与语境理解",
-    "type": "fill_blank",
+    "type": "multiple_choice",
     "question": "Tom: I _____ (lose) my key yesterday. I _____ (not can) open the door.\nJack: That's terrible! _____ you _____ (find) it now?",
-    "answer": "lost; couldn't; Have; found",
+    "answer": "D. lost; couldn't; Have; found",
     "analysis": "【考点】综合考查一般过去时与现在完成时在对话中的运用\n【解题思路】yesterday用过去时lost；过去不能做某事用couldn't（can的过去式）；now提示用现在完成时Have you found\n【干扰项分析】第一个空不能用losed（不规则变化）；第二个空用can't时态不一致；第三个空用Did不符合语境\n【解题口诀】👉 过去的事用过去时，问现在结果用现在完成时",
     "core_trap": "学生在对话中容易时态混乱，不会根据时间线索切换时态",
     "mnemonic": "yesterday过去时，now现在完成时，对话中注意时间词",
-    "difficulty": 0.65
+    "difficulty": 0.65,
+    "options": [
+      "A. lose; couldn't; Have; found",
+      "B. losed; can't; Did; find",
+      "C. lost; can't; Have; find",
+      "D. lost; couldn't; Have; found"
+    ]
   },
   {
     "id": "en_j2_grammar_004",
@@ -61,16 +67,16 @@
     "ability_tag": "规则动词-ed变化（双写）",
     "type": "multiple_choice",
     "question": "He _____ the kite in the park last Sunday.",
-    "answer": "D",
+    "answer": "D. stopped flying",
     "analysis": "【考点】考查stop的过去式（双写末尾辅音字母加-ed）以及stop doing用法\n【解题思路】stop是重读闭音节结尾，双写p加-ed为stopped；stop doing sth.表示停止正在做的事\n【干扰项分析】A错在stoped拼写错误（应双写p），且stop to do表示停下来去做另一件事，不符合语义；C错在stoped拼写错误；D错在stopped to fly语义为「停下来去放风筝」，与语境不符\n【解题口诀】👉 重读闭音节双写末字母加-ed，stop-stopped",
     "core_trap": "学生容易忘记双写末尾辅音字母，写成stoped",
     "mnemonic": "一辅一元一辅，双写末字母加-ed",
     "difficulty": 0.4,
     "options": [
-      "D. stopped flying",
       "A. stoped to fly",
+      "B. stopped to fly",
       "C. stoped flying",
-      "B. stopped to fly"
+      "D. stopped flying"
     ]
   },
   {
@@ -79,13 +85,19 @@
     "grade": "junior2",
     "knowledge_tag": "一般过去时",
     "ability_tag": "不规则动词变化",
-    "type": "fill_blank",
+    "type": "multiple_choice",
     "question": "We _____ (go) to the museum last weekend.",
-    "answer": "went",
+    "answer": "C. went",
     "analysis": "【考点】考查不规则动词go的过去式\n【解题思路】last weekend是过去时间标志，go的过去式为went（不规则变化）\n【干扰项分析】注意go是不规则动词，过去式为went，不是goed\n【解题口诀】👉 go的过去式是went，不是goed",
     "core_trap": "学生容易错误地将go加-ed变成goed",
     "mnemonic": "go-went-gone，去-去了-去过",
-    "difficulty": 0.3
+    "difficulty": 0.3,
+    "options": [
+      "A. gone",
+      "B. go",
+      "C. went",
+      "D. goed"
+    ]
   },
   {
     "id": "en_j2_grammar_006",
@@ -95,16 +107,16 @@
     "ability_tag": "时间状语识别",
     "type": "multiple_choice",
     "question": "— _____ you watch TV last night?\n— Yes, I _____.",
-    "answer": "D",
+    "answer": "D. Did; did",
     "analysis": "【考点】考查一般过去时的一般疑问句及简略回答\n【解题思路】last night表明过去时间，一般过去时的疑问句用Did开头，肯定回答用Yes, I did.\n【干扰项分析】A错在用了一般现在时；C错在用了be动词的过去式were，watch是实义动词应用Did；D错在用了一般现在时be动词\n【解题口诀】👉 过去时的疑问句：Did + 主语 + 动词原形",
     "core_trap": "学生容易混淆实义动词和be动词的过去时疑问句形式",
     "mnemonic": "实义动词用Did提问，be动词用Was/Were提问",
     "difficulty": 0.35,
     "options": [
-      "D. Did; did",
       "A. Do; do",
+      "B. Are; am",
       "C. Were; were",
-      "B. Are; am"
+      "D. Did; did"
     ]
   },
   {
@@ -115,7 +127,7 @@
     "ability_tag": "while/when综合运用",
     "type": "multiple_choice",
     "question": "While I _____ my homework, my sister _____ a song in the next room. Suddenly, the power _____ out.",
-    "answer": "C",
+    "answer": "C. was doing; was singing; went",
     "analysis": "【考点】综合考查while引导的过去进行时和suddenly引出的短暂动作\n【解题思路】while表示两个同时进行的动作，都用过去进行时（was doing, was singing）；suddenly引出短暂动作，用一般过去时（went out）\n【干扰项分析】A错在while后面用了一般过去时；B错在两个动词都用一般过去时；D错在suddenly后面用了进行时\n【解题口诀】👉 while前后长动作用进行时，suddenly短动作用一般时",
     "core_trap": "学生在有三个动词的复杂句中容易时态混乱",
     "mnemonic": "while等于同时长动作用进行时，suddenly等于突然短动作用一般时",
@@ -123,8 +135,8 @@
     "options": [
       "A. did; sang; went",
       "B. did; sang; was going",
-      "D. was doing; was singing; was going",
-      "C. was doing; was singing; went"
+      "C. was doing; was singing; went",
+      "D. was doing; was singing; was going"
     ]
   },
   {
@@ -133,13 +145,19 @@
     "grade": "junior2",
     "knowledge_tag": "一般过去时",
     "ability_tag": "过去时的疑问句",
-    "type": "fill_blank",
+    "type": "multiple_choice",
     "question": "_____ they _____ (visit) the Great Wall last summer?",
-    "answer": "Did; visit",
+    "answer": "D. Did; visit",
     "analysis": "【考点】考查一般过去时一般疑问句的构成\n【解题思路】last summer是过去时间，一般疑问句用Did开头，后面跟动词原形\n【干扰项分析】注意Did后面用动词原形visit，不是visited\n【解题口诀】👉 过去时疑问句：Did + 主语 + 动词原形？",
     "core_trap": "学生容易在Did后面用visited而不是动词原形visit",
     "mnemonic": "Did后面永远跟原形，时态已经由Did体现",
-    "difficulty": 0.35
+    "difficulty": 0.35,
+    "options": [
+      "A. Did; visited",
+      "B. Were; visiting",
+      "C. Do; visit",
+      "D. Did; visit"
+    ]
   },
   {
     "id": "en_j2_grammar_009",
@@ -149,7 +167,7 @@
     "ability_tag": "不规则动词变化",
     "type": "multiple_choice",
     "question": "Tom _____ his homework two hours ago.",
-    "answer": "C",
+    "answer": "C. finished",
     "analysis": "【考点】考查规则动词finish的过去式\n【解题思路】two hours ago表示过去时间，finish是规则动词，直接加-ed\n【干扰项分析】A错在用了动词原形；B错在用了一般现在时第三人称单数；D错在finishs拼写错误，sh结尾的动词在现在时加-es，但过去时统一加-ed\n【解题口诀】👉 ago标志过去时，常规动词加-ed",
     "core_trap": "学生可能将finish错误地加-s变成finishs",
     "mnemonic": "以sh/ch/x/s结尾现在时加-es，但过去时统一加-ed",
@@ -157,8 +175,8 @@
     "options": [
       "A. finish",
       "B. finishes",
-      "D. finishs",
-      "C. finished"
+      "C. finished",
+      "D. finishs"
     ]
   },
   {
@@ -169,7 +187,7 @@
     "ability_tag": "被动语态与宾语从句综合",
     "type": "multiple_choice",
     "question": "He asked me if the sports meeting _____ the next week.",
-    "answer": "D",
+    "answer": "D. would be held",
     "analysis": "【考点】综合考查宾语从句时态+被动语态\n【解题思路】主句asked是过去时，从句也要过去时态；运动会是被举行的用被动；the next week对应过去将来时。综合：would be held\n【干扰项分析】A错在will hold是主动且时态不退格；B错在was held表示过去但the next week不是过去；C错在would hold是主动语态\n【解题口诀】👉 主句过去时从句退一步，运动会是被开的用被动",
     "core_trap": "学生容易只考虑宾语从句时态而忽略被动语态，或反过来",
     "mnemonic": "两步判断：先看时态退不退，再看主动还是被动",
@@ -189,7 +207,7 @@
     "ability_tag": "be动词过去式",
     "type": "multiple_choice",
     "question": "There _____ a lot of people in the park yesterday.",
-    "answer": "D",
+    "answer": "D. were",
     "analysis": "【考点】考查There be句型的过去式\n【解题思路】There be句型中，be动词与后面的主语保持一致。a lot of people是复数，所以用were。yesterday表明过去时\n【干扰项分析】A错在用了一般现在时单数；B错在用了一般现在时复数；C错在用了过去时单数，但people是复数主语\n【解题口诀】👉 There be看主语，过去时用was/were，单数was复数were",
     "core_trap": "学生容易忽略people是复数而误用was",
     "mnemonic": "people/police/cattle看起来像单数其实是复数",
@@ -207,13 +225,19 @@
     "grade": "junior2",
     "knowledge_tag": "一般过去时",
     "ability_tag": "过去时否定句",
-    "type": "fill_blank",
+    "type": "multiple_choice",
     "question": "He _____ (not do) his homework last night.",
-    "answer": "didn't do",
+    "answer": "C. didn't do",
     "analysis": "【考点】考查一般过去时的否定形式\n【解题思路】实义动词的过去时否定形式：didn't + 动词原形\n【干扰项分析】注意不是didn't did也不是didn't done\n【解题口诀】👉 过去否定didn't加原形，不要写didn't did或didn't done",
     "core_trap": "学生容易在didn't后面用did或done而不是do",
     "mnemonic": "didn't后面动词打回原形——do, not did, not done",
-    "difficulty": 0.35
+    "difficulty": 0.35,
+    "options": [
+      "A. didn't did",
+      "B. didn't done",
+      "C. didn't do",
+      "D. don't do"
+    ]
   },
   {
     "id": "en_j2_grammar_013",
@@ -223,7 +247,7 @@
     "ability_tag": "不规则动词变化",
     "type": "multiple_choice",
     "question": "The boy _____ off his bike and hurt his leg last Monday.",
-    "answer": "D",
+    "answer": "D. fell",
     "analysis": "【考点】考查不规则动词fall的过去式\n【解题思路】last Monday是过去时间标志，fall的过去式为fell\n【干扰项分析】A错在用了动词原形；C错在把fall当规则动词加了-ed；D是feel（感觉）的过去式felt，意思完全不同\n【解题口诀】👉 fall-fell-fallen，跌倒-跌倒了-跌倒过",
     "core_trap": "学生容易混淆fall的过去式fell和feel的过去式felt",
     "mnemonic": "fall(跌倒)-fell，feel(感觉)-felt，一个l一个l的差别",
@@ -243,7 +267,7 @@
     "ability_tag": "复合否定词反意疑问句",
     "type": "multiple_choice",
     "question": "He has hardly finished his homework, _____?",
-    "answer": "C",
+    "answer": "C. has he",
     "analysis": "【考点】考查含否定副词hardly的反意疑问句\n【解题思路】hardly是半否定词（几乎不），前半句视为否定句，反意疑问句用肯定形式has he\n【干扰项分析】A和B错在前半句有否定词应后肯；D的does he与现在完成时have finished不搭配\n【解题口诀】👉 hardly/seldom/never/few/little/no是隐藏的否定词后肯",
     "core_trap": "学生容易忽略hardly是否定词而用hasn't he",
     "mnemonic": "hardly等于几乎不等于隐藏的not，有它就用肯定反问",
@@ -251,8 +275,8 @@
     "options": [
       "A. hasn't he",
       "B. wasn't he",
-      "D. does he",
-      "C. has he"
+      "C. has he",
+      "D. does he"
     ]
   },
   {
@@ -261,13 +285,19 @@
     "grade": "junior2",
     "knowledge_tag": "一般过去时",
     "ability_tag": "不规则动词变化",
-    "type": "fill_blank",
+    "type": "multiple_choice",
     "question": "They _____ (buy) some fresh vegetables in the market yesterday morning.",
-    "answer": "bought",
+    "answer": "D. bought",
     "analysis": "【考点】考查不规则动词buy的过去式\n【解题思路】yesterday morning明确表示过去时间，buy的过去式为bought\n【干扰项分析】buy是不规则动词，过去式为bought，不是buyed\n【解题口诀】👉 buy-bought-bought，买-买了-被买",
     "core_trap": "学生容易将buy误加-ed变成buyed",
     "mnemonic": "buy-bought，bring-brought，ought结尾是过去",
-    "difficulty": 0.35
+    "difficulty": 0.35,
+    "options": [
+      "A. buyed",
+      "B. buy",
+      "C. buys",
+      "D. bought"
+    ]
   },
   {
     "id": "en_j2_grammar_016",
@@ -277,16 +307,16 @@
     "ability_tag": "主将从现+情态动词综合",
     "type": "multiple_choice",
     "question": "If you _____ harder, you _____ better grades next time.",
-    "answer": "A",
+    "answer": "A. study; can get",
     "analysis": "【考点】考查条件状语从句「主将从现」结合情态动词\n【解题思路】if从句用一般现在时表将来（study），主句用情态动词can表示可能性（can get）\n【干扰项分析】B错在从句用了过去时；C错在从句用了将来时（违反主将从现）；D错在从句用了进行时\n【解题口诀】👉 if从句现在时，主句可以用will/can/may/should",
     "core_trap": "学生只知道主句用will，不知道也可以用can/may/should等情态动词",
     "mnemonic": "if现在时，主句不只是will，can/may/should也可以",
     "difficulty": 0.7,
     "options": [
-      "D. are studying; are getting",
+      "A. study; can get",
       "B. studied; could get",
       "C. will study; will get",
-      "A. study; can get"
+      "D. are studying; are getting"
     ]
   },
   {
@@ -297,7 +327,7 @@
     "ability_tag": "过去时的特殊疑问句",
     "type": "multiple_choice",
     "question": "— _____ did you go last weekend?\n— I went to Beijing.",
-    "answer": "C",
+    "answer": "C. Where",
     "analysis": "【考点】考查一般过去时的特殊疑问句\n【解题思路】回答是I went to Beijing（地点），所以问的是去哪里，用Where提问\n【干扰项分析】A问「什么」与回答不匹配；B问「什么时候」与回答不匹配；D问「怎么去」与回答不匹配\n【解题口诀】👉 看回答选疑问词：回答地点用Where，回答时间用When，回答方式用How",
     "core_trap": "学生容易不看回答内容而随意选择疑问词",
     "mnemonic": "疑问词看答语，地点Where时间When方式How",
@@ -305,8 +335,8 @@
     "options": [
       "A. What",
       "B. When",
-      "D. How",
-      "C. Where"
+      "C. Where",
+      "D. How"
     ]
   },
   {
@@ -317,16 +347,16 @@
     "ability_tag": "不规则动词变化",
     "type": "multiple_choice",
     "question": "He _____ very early and _____ breakfast at 7:00 yesterday.",
-    "answer": "D",
+    "answer": "D. got up; had",
     "analysis": "【考点】考查两个并列动词的过去时形式\n【解题思路】yesterday表明两个动作都发生在过去，get up过去式got up，have过去式had\n【干扰项分析】A错在两个动词都用原形；C错在两个动词都用现在时；D前一个用了过去式但后一个用原形，时态不一致\n【解题口诀】👉 同一时间状语下，并列动词时态一致",
     "core_trap": "学生在并列谓语中容易时态不一致",
     "mnemonic": "一个yesterday，所有动词都变过去",
     "difficulty": 0.35,
     "options": [
-      "D. got up; had",
       "A. get up; have",
+      "B. got up; have",
       "C. gets up; has",
-      "B. got up; have"
+      "D. got up; had"
     ]
   },
   {
@@ -335,13 +365,19 @@
     "grade": "junior2",
     "knowledge_tag": "一般过去时",
     "ability_tag": "规则动词-ed变化（去e加ed）",
-    "type": "fill_blank",
+    "type": "multiple_choice",
     "question": "She _____ (live) in Shanghai two years ago.",
-    "answer": "lived",
+    "answer": "D. lived",
     "analysis": "【考点】考查以e结尾的动词过去式\n【解题思路】live以e结尾，直接加-d变成lived。two years ago是过去时间\n【干扰项分析】注意不是livedd（多加一个d）\n【解题口诀】👉 以e结尾的动词只加-d：live-lived，like-liked",
     "core_trap": "学生可能写成livedd（多加一个d）",
     "mnemonic": "已经有e了，只需加d就够了",
-    "difficulty": 0.3
+    "difficulty": 0.3,
+    "options": [
+      "A. live",
+      "B. liveed",
+      "C. lives",
+      "D. lived"
+    ]
   },
   {
     "id": "en_j2_grammar_020",
@@ -351,7 +387,7 @@
     "ability_tag": "完成时与过去时辨析",
     "type": "multiple_choice",
     "question": "- When _____ you _____ the book?\n- I _____ it last weekend. I _____ it for three days.",
-    "answer": "D",
+    "answer": "D. did; buy; bought; have had",
     "analysis": "【考点】综合考查一般过去时与现在完成时的区别\n【解题思路】When提问具体时间用一般过去时（did buy）；last weekend用过去时（bought）；for three days表示持续用现在完成时（have had）\n【干扰项分析】A错在When不能与现在完成时搭配；B错在have bought不能与last weekend搭配\n【解题口诀】👉 When用过去时，last用过去时，for用现在完成时",
     "core_trap": "学生在同一对话中频繁切换时态容易混乱",
     "mnemonic": "三个时间信号三种时态：When过去时，last过去时，for完成时",
@@ -371,16 +407,16 @@
     "ability_tag": "will的用法",
     "type": "multiple_choice",
     "question": "I think it _____ rain tomorrow.",
-    "answer": "D",
+    "answer": "D. will",
     "analysis": "【考点】考查will + 动词原形表示一般将来时\n【解题思路】tomorrow是将来时间标志，I think后面的从句用will + rain表示将来\n【干扰项分析】A错在用了一般现在时；C错在用了一般过去时；D错在用了一般现在时助动词\n【解题口诀】👉 见tomorrow就找will，will后面永远跟原形",
     "core_trap": "学生容易在will后面用rains而不是rain",
     "mnemonic": "will是将来时标志，后面动词穿原形",
     "difficulty": 0.3,
     "options": [
-      "D. will",
       "A. is",
+      "B. does",
       "C. was",
-      "B. does"
+      "D. will"
     ]
   },
   {
@@ -391,16 +427,16 @@
     "ability_tag": "多种时态被动综合辨析",
     "type": "multiple_choice",
     "question": "The problem _____ at the meeting tomorrow, and I believe it _____ well.",
-    "answer": "A",
+    "answer": "A. will be discussed; will be solved",
     "analysis": "【考点】综合考查将来时被动语态\n【解题思路】明天被讨论用will be discussed；将被很好地解决用will be solved。两个空都是将来时被动\n【干扰项分析】B错在用了主动语态；C错在第一空用了过去时被动；D错在第二空用了现在时被动\n【解题口诀】👉 明天的会议用将来时被动will be done",
     "core_trap": "学生在同一句中出现两个被动时容易漏掉一个be",
     "mnemonic": "两个被动都要有be：will be discussed AND will be solved",
     "difficulty": 0.7,
     "options": [
-      "D. will be discussed; is solved",
+      "A. will be discussed; will be solved",
       "B. will discuss; will solve",
       "C. was discussed; will be solved",
-      "A. will be discussed; will be solved"
+      "D. will be discussed; is solved"
     ]
   },
   {
@@ -411,16 +447,16 @@
     "ability_tag": "will vs be going to辨析",
     "type": "multiple_choice",
     "question": "Look at the dark clouds! It _____ rain soon.",
-    "answer": "D",
+    "answer": "D. is going to",
     "analysis": "【考点】考查will与be going to的区别\n【解题思路】有明显迹象（乌云）表明即将发生的事，用be going to表示「根据迹象预测即将发生」\n【干扰项分析】A的will表示一般性的将来预测，没有「根据现有迹象」的意味；C的shall多用于第一人称的征求意见；D的would是过去将来时\n【解题口诀】👉 有证据迹象用be going to，无证据预测用will",
     "core_trap": "学生容易混淆will和be going to的使用场景",
     "mnemonic": "Look! Listen! Hurry!后面跟be going to——有迹象才确定",
     "difficulty": 0.5,
     "options": [
-      "D. is going to",
       "A. will",
+      "B. would",
       "C. shall",
-      "B. would"
+      "D. is going to"
     ]
   },
   {
@@ -429,13 +465,19 @@
     "grade": "junior2",
     "knowledge_tag": "一般将来时",
     "ability_tag": "will的否定句",
-    "type": "fill_blank",
+    "type": "multiple_choice",
     "question": "She _____ (not come) to the party tomorrow because she is busy.",
-    "answer": "won't come",
+    "answer": "C. won't come",
     "analysis": "【考点】考查will的否定形式\n【解题思路】will的否定形式是won't（will not的缩写），后面跟动词原形\n【干扰项分析】注意不是will not coming也不是doesn't come\n【解题口诀】👉 will not = won't，后面动词用原形",
     "core_trap": "学生可能写成will not coming或doesn't come",
     "mnemonic": "won't = will not，后面永远原形",
-    "difficulty": 0.35
+    "difficulty": 0.35,
+    "options": [
+      "A. doesn't come",
+      "B. will not coming",
+      "C. won't come",
+      "D. didn't come"
+    ]
   },
   {
     "id": "en_j2_grammar_025",
@@ -445,7 +487,7 @@
     "ability_tag": "will的一般疑问句",
     "type": "multiple_choice",
     "question": "— _____ you go to the movies with us tonight?\n— Yes, I'd love to.",
-    "answer": "C",
+    "answer": "C. Will",
     "analysis": "【考点】考查will引导的一般疑问句\n【解题思路】tonight是将来时间，用Will you...? 提问将来动作\n【干扰项分析】A的Do用于一般现在时；B的Are用于现在进行时或be going to结构；D的Did用于一般过去时\n【解题口诀】👉 今晚/明天/下周用Will提问",
     "core_trap": "学生可能用Are you go（be动词和实义动词同时使用）",
     "mnemonic": "将来时间提问，Will you...? 最简单",
@@ -465,16 +507,16 @@
     "ability_tag": "be going to的否定句",
     "type": "multiple_choice",
     "question": "They _____ going to play basketball this afternoon.",
-    "answer": "D",
+    "answer": "D. aren't",
     "analysis": "【考点】考查be going to的否定形式\n【解题思路】They对应are，否定形式在be动词后加not，即aren't going to\n【干扰项分析】A错在isn't与They不搭配；C错在don't不能否定be going to结构；D的won't属于will的否定，不是be going to的否定\n【解题口诀】👉 be going to否定就在be后加not：isn't/aren't/wasn't/weren't going to",
     "core_trap": "学生可能用don't代替aren't来否定be going to",
     "mnemonic": "be going to的否定否定be动词，不是否定going",
     "difficulty": 0.4,
     "options": [
-      "D. aren't",
       "A. isn't",
+      "B. won't",
       "C. don't",
-      "B. won't"
+      "D. aren't"
     ]
   },
   {
@@ -485,16 +527,16 @@
     "ability_tag": "will vs be going to辨析",
     "type": "multiple_choice",
     "question": "— I'm going to visit my grandma this Sunday.\n— Oh, really? I _____ go with you.",
-    "answer": "D",
+    "answer": "D. will",
     "analysis": "【考点】考查will表示临时决定/意愿\n【解题思路】对方提到要去看奶奶，「我」临时决定一起去，用will表示临时做出的决定或意愿\n【干扰项分析】A的am需要搭配going to或现在分词；C的was是过去时；D的do是一般现在时\n【解题口诀】👉 临时决定、当场表态用will，已经计划好用be going to",
     "core_trap": "学生在临时决定时也容易用be going to",
     "mnemonic": "刚想到就用will，早就计划好就用be going to",
     "difficulty": 0.5,
     "options": [
-      "D. will",
       "A. am",
+      "B. do",
       "C. was",
-      "B. do"
+      "D. will"
     ]
   },
   {
@@ -503,13 +545,19 @@
     "grade": "junior2",
     "knowledge_tag": "一般将来时",
     "ability_tag": "will的用法",
-    "type": "fill_blank",
+    "type": "multiple_choice",
     "question": "There _____ (be) a school meeting next Monday.",
-    "answer": "will be",
+    "answer": "C. will be",
     "analysis": "【考点】考查There be句型的将来时\n【解题思路】There be句型的将来时用There will be。next Monday是将来时间\n【干扰项分析】注意不能用There will have，There be永远用be\n【解题口诀】👉 There be的将来时：There will be，不能用There will have",
     "core_trap": "学生容易写成There will have，混淆be和have",
     "mnemonic": "There be永远用be，将来时就是There will be",
-    "difficulty": 0.4
+    "difficulty": 0.4,
+    "options": [
+      "A. will have",
+      "B. was",
+      "C. will be",
+      "D. is"
+    ]
   },
   {
     "id": "en_j2_grammar_029",
@@ -519,7 +567,7 @@
     "ability_tag": "will的用法",
     "type": "multiple_choice",
     "question": "If you study hard, you _____ good grades.",
-    "answer": "C",
+    "answer": "C. will get",
     "analysis": "【考点】考查if引导的条件状语从句中「主将从现」\n【解题思路】主句用一般将来时（will get），if从句用一般现在时（study hard）表将来\n【干扰项分析】A错在主句也用了现在时，应使用将来时；B错在用了一般过去时；D错在用了现在进行时\n【解题口诀】👉 主将从现：主句将来时，if从句现在时",
     "core_trap": "学生容易在主句也用现在时，或者从句也用将来时",
     "mnemonic": "if从句用现在时代替将来，主句照常用will",
@@ -539,7 +587,7 @@
     "ability_tag": "will的用法",
     "type": "multiple_choice",
     "question": "I _____ you as soon as I arrive in Beijing.",
-    "answer": "C",
+    "answer": "C. will call",
     "analysis": "【考点】考查as soon as引导的时间状语从句中「主将从现」\n【解题思路】主句用一般将来时（will call），as soon as从句用一般现在时（arrive）表将来\n【干扰项分析】A错在主句也用了现在时；B错在用了一般过去时；D错在用了现在分词\n【解题口诀】👉 as soon as/when/before/after + 现在时，主句用将来时",
     "core_trap": "学生容易在as soon as后面也用will",
     "mnemonic": "时间条件从句用现在时表将来，will只在主句",
@@ -559,16 +607,16 @@
     "ability_tag": "will vs be going to辨析",
     "type": "multiple_choice",
     "question": "We have planned to go hiking next week. We _____ go to the mountains.",
-    "answer": "D",
+    "answer": "D. are going to",
     "analysis": "【考点】考查be going to表示已计划的将来动作\n【解题思路】We have planned明确说明已经计划好了，用be going to表示经过计划打算做的事\n【干扰项分析】A的will表示临时决定或预测，不适合已计划的事；C的shall较少用于这种语境；D的would是过去将来时\n【解题口诀】👉 have planned/have decided后接be going to",
     "core_trap": "学生在有明确计划时仍容易用will",
     "mnemonic": "计划好的用be going to，没计划的用will",
     "difficulty": 0.45,
     "options": [
-      "D. are going to",
       "A. will",
+      "B. would",
       "C. shall",
-      "B. would"
+      "D. are going to"
     ]
   },
   {
@@ -577,13 +625,19 @@
     "grade": "junior2",
     "knowledge_tag": "一般将来时",
     "ability_tag": "be going to的疑问句",
-    "type": "fill_blank",
+    "type": "multiple_choice",
     "question": "_____ she _____ (go) shopping this afternoon?",
-    "answer": "Is; going to go",
+    "answer": "A. Is; going to go",
     "analysis": "【考点】考查be going to的一般疑问句\n【解题思路】She是第三人称单数，be动词用Is，be going to的疑问句把be提前\n【干扰项分析】注意不能写成Will she going to go（will和going to不能混用）\n【解题口诀】👉 be going to疑问句：Be动词提前",
     "core_trap": "学生可能写成Will she going to go（will和going to混用）",
     "mnemonic": "be going to提问就像be动词提问一样，把be提前",
-    "difficulty": 0.4
+    "difficulty": 0.4,
+    "options": [
+      "A. Is; going to go",
+      "B. Does; go",
+      "C. Will; going to go",
+      "D. Is; going go"
+    ]
   },
   {
     "id": "en_j2_grammar_033",
@@ -593,15 +647,15 @@
     "ability_tag": "will的用法",
     "type": "multiple_choice",
     "question": "The exam _____ next month, so we need to review our lessons.",
-    "answer": "D",
+    "answer": "D. will be held",
     "analysis": "【考点】考查一般将来时的被动语态\n【解题思路】考试是被举行的，用被动语态。将来时被动：will be + 过去分词\n【干扰项分析】A错在用了主动语态，考试不能自己举行；C错在用了现在时被动；D错在用了过去时被动\n【解题口诀】👉 将来被动：will be done",
     "core_trap": "学生容易忽略被动语态而用主动形式",
     "mnemonic": "事件被举行、会议被召开都用被动语态",
     "difficulty": 0.55,
     "options": [
-      "C. is held",
       "A. will hold",
       "B. was held",
+      "C. is held",
       "D. will be held"
     ]
   },
@@ -613,7 +667,7 @@
     "ability_tag": "情态动词推测综合运用",
     "type": "multiple_choice",
     "question": "- The man in the photo _____ be Mr. Li. He went to London last week.\n- You _____ be right. But it really looks like him.",
-    "answer": "C",
+    "answer": "C. can't; may",
     "analysis": "【考点】综合考查情态动词表示推测的用法\n【解题思路】有证据「他上周去伦敦了」说明不可能是李先生用can't；第二人表示不确定用may\n【干扰项分析】A的must表示一定（与去了伦敦矛盾）；B的must/may搭配语气不一致；D的can't/must搭配矛盾\n【解题口诀】👉 有反证用can't不可能，不确定用may可能",
     "core_trap": "学生容易混淆can't不可能和may not可能不的程度差异",
     "mnemonic": "can't等于有证据证明不可能，may等于没有证据不太确定",
@@ -633,15 +687,15 @@
     "ability_tag": "be going to的用法",
     "type": "multiple_choice",
     "question": "He is not going to _____ any homework tonight.",
-    "answer": "A",
+    "answer": "A. do",
     "analysis": "【考点】考查be going to后面动词的形式\n【解题思路】be going to后面跟动词原形\n【干扰项分析】B错在用了第三人称单数；C错在用了过去式；D错在用了现在分词\n【解题口诀】👉 be going to + 动词原形，就像will一样",
     "core_trap": "学生可能在be going to后面用doing",
     "mnemonic": "going是助动词的一部分，后面的动词用原形",
     "difficulty": 0.35,
     "options": [
-      "C. did",
-      "B. does",
       "A. do",
+      "B. does",
+      "C. did",
       "D. doing"
     ]
   },
@@ -653,7 +707,7 @@
     "ability_tag": "过去进行时结构",
     "type": "multiple_choice",
     "question": "I _____ my homework at 8:00 last night.",
-    "answer": "C",
+    "answer": "C. was doing",
     "analysis": "【考点】考查过去进行时的构成\n【解题思路】at 8:00 last night表示过去某一具体时刻正在做某事，用过去进行时：was/were + doing\n【干扰项分析】A错在用了一般现在时；B错在用了一般过去时，不能表示「正在做」；D错在用了现在进行时\n【解题口诀】👉 at + 过去具体时刻 + was/were doing",
     "core_trap": "学生容易用一般过去时did代替过去进行时was doing",
     "mnemonic": "具体时刻+过去就用过去进行时：was/were + doing",
@@ -673,7 +727,7 @@
     "ability_tag": "过去进行时结构",
     "type": "multiple_choice",
     "question": "They _____ a football game when it started to rain.",
-    "answer": "C",
+    "answer": "C. were watching",
     "analysis": "【考点】考查when引导的时间状语从句中过去进行时的用法\n【解题思路】when表示「正在做某事时突然……」，主句用过去进行时，when从句用一般过去时\n【干扰项分析】A错在用了一般现在时；B错在用了一般过去时，不能表示「正在看」；D错在用了现在进行时\n【解题口诀】👉 主句进行时 + when + 一般过去时（表示正在进行时被打断）",
     "core_trap": "学生容易混淆when前后两句的时态",
     "mnemonic": "when前面用进行时（正在做），when后面用一般时（突然发生）",
@@ -691,13 +745,19 @@
     "grade": "junior2",
     "knowledge_tag": "现在进行时 vs 过去进行时",
     "ability_tag": "现在进行时结构",
-    "type": "fill_blank",
+    "type": "multiple_choice",
     "question": "Look! The children _____ (play) in the playground.",
-    "answer": "are playing",
+    "answer": "C. are playing",
     "analysis": "【考点】考查现在进行时的构成\n【解题思路】Look!是现在进行时的标志词，The children是复数，用are playing\n【干扰项分析】注意不能用are play（漏掉-ing）\n【解题口诀】👉 Look!/Listen!后面跟现在进行时：be + doing",
     "core_trap": "学生可能用are play而漏掉-ing",
     "mnemonic": "Look! Listen! = 正在进行，be + 动词ing",
-    "difficulty": 0.3
+    "difficulty": 0.3,
+    "options": [
+      "A. play",
+      "B. are play",
+      "C. are playing",
+      "D. is playing"
+    ]
   },
   {
     "id": "en_j2_grammar_039",
@@ -707,15 +767,15 @@
     "ability_tag": "过去进行时否定句",
     "type": "multiple_choice",
     "question": "She _____ TV at that time yesterday evening.",
-    "answer": "D",
+    "answer": "D. wasn't watching",
     "analysis": "【考点】考查过去进行时的否定形式\n【解题思路】at that time yesterday evening表示过去某个时刻，用过去进行时否定：wasn't + doing\n【干扰项分析】A错在用了现在进行时否定；C错在用了一般现在时否定；D错在用了一般过去时否定\n【解题口诀】👉 过去进行时否定：wasn't/weren't + doing",
     "core_trap": "学生容易用didn't watch来表示过去不在做某事",
     "mnemonic": "强调「那个时候不在做」用wasn't doing，不是didn't do",
     "difficulty": 0.45,
     "options": [
-      "C. doesn't watch",
       "A. isn't watching",
       "B. didn't watch",
+      "C. doesn't watch",
       "D. wasn't watching"
     ]
   },
@@ -727,7 +787,7 @@
     "ability_tag": "while引导的过去进行时",
     "type": "multiple_choice",
     "question": "While I _____ dinner, my mother came back home.",
-    "answer": "C",
+    "answer": "C. was cooking",
     "analysis": "【考点】考查while引导的时间状语从句\n【解题思路】while表示「在……期间」，从句用过去进行时，主句用一般过去时\n【干扰项分析】A错在用了一般现在时；B错在用了一般过去时；D错在用了现在进行时\n【解题口诀】👉 while + 过去进行时，主句 + 一般过去时",
     "core_trap": "学生容易混淆while和when的用法区别",
     "mnemonic": "while像while一样长用进行时；when像when一样短用一般时",
@@ -747,7 +807,7 @@
     "ability_tag": "宾语从句语序与连接词综合",
     "type": "multiple_choice",
     "question": "Could you tell me _____?",
-    "answer": "D",
+    "answer": "D. when the train will leave",
     "analysis": "【考点】综合考查宾语从句的连接词和语序\n【解题思路】从句the train will leave缺时间状语用when；宾语从句用陈述语序（the train will leave）\n【干扰项分析】A错在用了what不能表示时间；C错在用了疑问语序will the train leave；D的how表示方式与leave不搭配\n【解题口诀】👉 宾语从句两步：选连接词（缺什么补什么）+ 陈述语序",
     "core_trap": "学生容易选出连接词但忘记改成陈述语序",
     "mnemonic": "先找缺什么再改语序，主语加谓语",
@@ -765,13 +825,19 @@
     "grade": "junior2",
     "knowledge_tag": "现在进行时 vs 过去进行时",
     "ability_tag": "过去进行时疑问句",
-    "type": "fill_blank",
+    "type": "multiple_choice",
     "question": "_____ you _____ (study) English at 9:00 last night?",
-    "answer": "Were; studying",
+    "answer": "D. Were; studying",
     "analysis": "【考点】考查过去进行时的一般疑问句\n【解题思路】主语you用Were，过去进行时疑问句把was/were提前\n【干扰项分析】注意不能写成Did you studying\n【解题口诀】👉 过去进行时疑问：Was/Were + 主语 + doing?",
     "core_trap": "学生可能写成Did you studying",
     "mnemonic": "过去进行时提问就像be动词过去时提问，把was/were提前",
-    "difficulty": 0.4
+    "difficulty": 0.4,
+    "options": [
+      "A. Was; studying",
+      "B. Did; studying",
+      "C. Are; studying",
+      "D. Were; studying"
+    ]
   },
   {
     "id": "en_j2_grammar_043",
@@ -781,14 +847,14 @@
     "ability_tag": "while与when辨析",
     "type": "multiple_choice",
     "question": "_____ the teacher came in, the students were talking loudly.",
-    "answer": "D",
+    "answer": "D. When",
     "analysis": "【考点】考查when与while的区别\n【解题思路】when从句用一般过去时（came），主句用过去进行时（were talking），表示「当老师进来的时候，学生们正在大声说话」\n【干扰项分析】A的while后面通常接进行时，这里came是一般过去时；C的because表示原因，语义不通；D的so表示结果，语义不通\n【解题口诀】👉 when + 一般过去时，while + 过去进行时",
     "core_trap": "学生在when后面容易用进行时",
     "mnemonic": "when像开关——短促的一瞬间；while像走廊——持续的期间",
     "difficulty": 0.5,
     "options": [
-      "B. So",
       "A. While",
+      "B. So",
       "C. Because",
       "D. When"
     ]
@@ -801,7 +867,7 @@
     "ability_tag": "双过去进行时",
     "type": "multiple_choice",
     "question": "While my father _____ newspapers, my mother _____ cooking.",
-    "answer": "A",
+    "answer": "A. was reading; was",
     "analysis": "【考点】考查while引导的两个同时进行的过去动作\n【解题思路】while连接两个同时进行的过去动作，都用过去进行时\n【干扰项分析】B错在第一个动词用了一般过去时；C错在第二个动词用了现在时；D两个动词时态都不对\n【解题口诀】👉 while连接两个长动作，都用过去进行时",
     "core_trap": "学生在while后面的从句容易用一般过去时",
     "mnemonic": "while前后都是长动作就用进行时",
@@ -821,7 +887,7 @@
     "ability_tag": "感叹句辨析与情态动词综合",
     "type": "multiple_choice",
     "question": "_____ heavily it is raining! We _____ stay at home.",
-    "answer": "B",
+    "answer": "B. How; had better",
     "analysis": "【考点】综合考查How引导感叹句 + had better用法\n【解题思路】heavily是副词修饰is raining用How + heavily；下大雨了最好待在家用had better stay\n【干扰项分析】A的What后面需接名词；C的should stay语气不如had better贴切；D的What a后面不能接副词\n【解题口诀】👉 副词用How，客观建议用had better",
     "core_trap": "学生容易因为raining而误选What（但heavily才是核心词）",
     "mnemonic": "感叹词后面紧跟什么词性：副词用How，名词用What",
@@ -841,7 +907,7 @@
     "ability_tag": "since和for的用法",
     "type": "multiple_choice",
     "question": "I have lived in this city _____ 2018.",
-    "answer": "C",
+    "answer": "C. since",
     "analysis": "【考点】考查现在完成时中since的用法\n【解题思路】since后面接具体的时间点（2018年），表示「自从……以来」\n【干扰项分析】A的in表示在某年，不搭配完成时；B的for后面接时间段，不是时间点；D的at表示具体时刻\n【解题口诀】👉 since接时间点，for接时间段",
     "core_trap": "学生容易混淆since和for的用法",
     "mnemonic": "since后面是「点」（一个时刻），for后面是「段」（一段时间）",
@@ -861,7 +927,7 @@
     "ability_tag": "unless综合运用",
     "type": "multiple_choice",
     "question": "You won't learn English well _____ you practice it every day. I _____ (learn) English for three years and I know practice makes perfect.",
-    "answer": "B",
+    "answer": "B. unless; have learned",
     "analysis": "【考点】综合考查unless + 现在完成时\n【解题思路】unless等于if not，unless you practice等于如果你不练习；for three years用现在完成时have learned\n【干扰项分析】A的if语义不完整；C的because表示原因语义不通；D的when表示时间不够准确\n【解题口诀】👉 unless等于if not，for加时间段用现在完成时",
     "core_trap": "学生容易用if代替unless导致双重否定逻辑混乱",
     "mnemonic": "unless等于除非等于if not，比if更简洁地表达否定条件",
@@ -881,7 +947,7 @@
     "ability_tag": "already和yet的用法",
     "type": "multiple_choice",
     "question": "— Have you finished your homework _____?\n— Yes, I have _____ finished it.",
-    "answer": "B",
+    "answer": "B. yet; already",
     "analysis": "【考点】考查already和yet的用法区别\n【解题思路】疑问句中用yet（放在句末），肯定回答中用already（放在have/has之后）\n【干扰项分析】A错在疑问句中不用already；C错在疑问句中不用already；D错在肯定回答中不用yet\n【解题口诀】👉 疑问句/否定句末尾用yet，肯定句中间用already",
     "core_trap": "学生在疑问句中容易用already或在肯定句中用yet",
     "mnemonic": "already说「已经了」（肯定），yet问「还没？」（疑问/否定）",
@@ -901,7 +967,7 @@
     "ability_tag": "ever和never的用法",
     "type": "multiple_choice",
     "question": "- Have you _____ been to Shanghai?\n- Yes, I have. It's a beautiful city.",
-    "answer": "A",
+    "answer": "A. ever",
     "analysis": "【考点】考查ever在现在完成时疑问句中的用法\n【解题思路】Have you ever been to...? 是现在完成时的经典疑问句型，ever意为「曾经」，用于疑问句询问是否有过某种经历\n【干扰项分析】A的never表示「从不」，用于否定句，与Yes矛盾；C的already通常用于肯定句中间；D的yet用于否定句或疑问句末尾\n【解题口诀】👉 ever用于疑问句 = 「曾经」，Have you ever...? = 你曾经...过吗？",
     "core_trap": "学生在肯定句中用ever不自然，ever主要用于疑问句和否定句",
     "mnemonic": "Have you ever...? = 你曾经...吗？（标准疑问句型）",
@@ -921,7 +987,7 @@
     "ability_tag": "have been to vs have gone to",
     "type": "multiple_choice",
     "question": "— Where is Li Ming?\n— He has _____ the library.",
-    "answer": "B",
+    "answer": "B. gone to",
     "analysis": "【考点】考查have been to与have gone to的区别\n【解题思路】问「李明在哪里」，说明他去了还没回来，用has gone to（去了某地，还没回来）\n【干扰项分析】A的have been to表示去过已经回来了，与问「在哪」不匹配；C的have been in表示在某地待了多久；D错在went是一般过去时，不搭配has\n【解题口诀】👉 问「在哪」用have gone to（去了没回），问「去过吗」用have been to（去了已回）",
     "core_trap": "学生最容易混淆have been to和have gone to",
     "mnemonic": "been to=去过回来了，gone to=去了还没回来（人在那边）",
@@ -941,7 +1007,7 @@
     "ability_tag": "感官动词被动语态",
     "type": "multiple_choice",
     "question": "Which sentence has the same meaning as 'Someone saw him steal the car.'?",
-    "answer": "A",
+    "answer": "A. He was seen to steal the car.",
     "analysis": "【考点】考查感官动词的被动语态\n【解题思路】主动：Someone saw him steal（感官动词后面跟不带to的不定式）。被动：He was seen to steal（被动语态要还原to）\n【干扰项分析】B错在漏掉to；C错在用stealing现在分词而非不定式；D错在用过去分词stolen\n【解题口诀】👉 感官动词(see/hear/watch)被动要加to：be seen to do",
     "core_trap": "学生最常犯的错误是被动语态忘记还原to",
     "mnemonic": "主动不加to，被动要加to：see him do变成he is seen to do",
@@ -959,13 +1025,19 @@
     "grade": "junior2",
     "knowledge_tag": "现在完成时",
     "ability_tag": "现在完成时结构",
-    "type": "fill_blank",
+    "type": "multiple_choice",
     "question": "She has _____ (write) three letters since this morning.",
-    "answer": "written",
+    "answer": "D. written",
     "analysis": "【考点】考查不规则动词write的过去分词\n【解题思路】现在完成时：have/has + 过去分词。write的过去分词为written\n【干扰项分析】注意用written（过去分词）不是wrote（过去式）\n【解题口诀】👉 write-wrote-written，现在完成时用过去分词",
     "core_trap": "学生容易用wrote（过去式）代替written（过去分词）",
     "mnemonic": "现在完成时=have/has+过去分词（第三列），不是过去式（第二列）",
-    "difficulty": 0.4
+    "difficulty": 0.4,
+    "options": [
+      "A. writing",
+      "B. write",
+      "C. wrote",
+      "D. written"
+    ]
   },
   {
     "id": "en_j2_grammar_053",
@@ -975,7 +1047,7 @@
     "ability_tag": "现在完成时否定句",
     "type": "multiple_choice",
     "question": "I haven't seen the movie _____.",
-    "answer": "B",
+    "answer": "B. yet",
     "analysis": "【考点】考查yet在否定句中的用法\n【解题思路】haven't是现在完成时否定，yet放在否定句末尾表示「还（没）」\n【干扰项分析】A的already用于肯定句；C的ever用于肯定句或疑问句；D的never本身就有否定含义，不能与haven't连用（语义重复）\n【解题口诀】👉 否定句末尾用yet，不能和never同时用",
     "core_trap": "学生在否定句中容易用never（与haven't重复）",
     "mnemonic": "haven't + yet = 还没有，hasn't + yet = 还没有",
@@ -995,7 +1067,7 @@
     "ability_tag": "过去分词不规则变化",
     "type": "multiple_choice",
     "question": "He has _____ his key. He can't find it anywhere.",
-    "answer": "B",
+    "answer": "B. lost",
     "analysis": "【考点】考查不规则动词lose的过去分词\n【解题思路】has + 过去分词。lose是不规则动词：lose-lost-lost\n【干扰项分析】A错在用了动词原形；C错在把lose当规则动词加了-ed；D错在用了现在分词\n【解题口诀】👉 lose-lost-lost，过去式和过去分词同形",
     "core_trap": "学生容易用losed而不是lost",
     "mnemonic": "lose/lost/lost，丢了钥匙就是lost",
@@ -1015,7 +1087,7 @@
     "ability_tag": "现在完成时一般疑问句",
     "type": "multiple_choice",
     "question": "— _____ you ever _____ Chinese food?\n— Yes, I have.",
-    "answer": "C",
+    "answer": "C. Have; tried",
     "analysis": "【考点】考查现在完成时的一般疑问句\n【解题思路】ever是现在完成时的标志词，疑问句把Have提前，后面跟过去分词tried\n【干扰项分析】A错在用了一般现在时；B错在用了一般过去时；D错在用了现在进行时\n【解题口诀】👉 ever提前用Have/Has + 主语 + 过去分词?",
     "core_trap": "学生容易用Did代替Have来提问",
     "mnemonic": "ever = 现在完成时信号弹，Have you ever...?",
@@ -1035,7 +1107,7 @@
     "ability_tag": "since引导的从句",
     "type": "multiple_choice",
     "question": "I have known him _____ he was a little boy.",
-    "answer": "B",
+    "answer": "B. since",
     "analysis": "【考点】考查since引导从句的用法\n【解题思路】since后面接从句（一般过去时），表示「自从……以来」，主句用现在完成时\n【干扰项分析】A的for后面接时间段，不接从句；C的when表示「当……时」；D的while表示「在……期间」\n【解题口诀】👉 since + 过去时的从句，主句用现在完成时",
     "core_trap": "学生可能用for代替since来引导从句",
     "mnemonic": "since后面可以是时间点也可以是从句，for后面只能数字+时间",
@@ -1053,13 +1125,19 @@
     "grade": "junior2",
     "knowledge_tag": "现在完成时",
     "ability_tag": "过去分词不规则变化",
-    "type": "fill_blank",
+    "type": "multiple_choice",
     "question": "We have _____ (eat) lunch already.",
-    "answer": "eaten",
+    "answer": "C. eaten",
     "analysis": "【考点】考查不规则动词eat的过去分词\n【解题思路】eat是不规则动词：eat-ate-eaten。现在完成时用过去分词eaten\n【干扰项分析】注意用eaten不是ate\n【解题口诀】👉 eat-ate-eaten，吃-吃了-吃过",
     "core_trap": "学生容易用ate（过去式）代替eaten（过去分词）",
     "mnemonic": "eaten比ate多一个en，就像「已经吃完了」要强调",
-    "difficulty": 0.4
+    "difficulty": 0.4,
+    "options": [
+      "A. eating",
+      "B. ate",
+      "C. eaten",
+      "D. eat"
+    ]
   },
   {
     "id": "en_j2_grammar_058",
@@ -1069,7 +1147,7 @@
     "ability_tag": "have been in的用法",
     "type": "multiple_choice",
     "question": "Mr. Wang has _____ this school for ten years.",
-    "answer": "C",
+    "answer": "C. been in",
     "analysis": "【考点】考查have been in表示在某地待了多久\n【解题思路】for ten years表示持续的时间段，用have been in表示「在某地待了……」\n【干扰项分析】A的have been to表示去过某地（已回来），不搭配时间段；B的have gone to表示去了没回来；D的come to是一般动作，不能表示持续状态\n【解题口诀】👉 for + 时间段 + have been in（在某地待了多久）",
     "core_trap": "学生容易混淆been to/gone to/been in",
     "mnemonic": "been to=去过回来，gone to=去了没回，been in=一直在那儿",
@@ -1089,7 +1167,7 @@
     "ability_tag": "现在完成时与一般过去时辨析",
     "type": "multiple_choice",
     "question": "I _____ this book yesterday. I _____ it already.",
-    "answer": "A",
+    "answer": "A. bought; have read",
     "analysis": "【考点】考查现在完成时与一般过去时的区别\n【解题思路】yesterday用一般过去时bought；already用现在完成时have read\n【干扰项分析】B错在yesterday不能搭配现在完成时；C错在yesterday不能搭配一般现在时；D错在already不能搭配一般过去时\n【解题口诀】👉 具体过去时间用一般过去时；already/since/for用现在完成时",
     "core_trap": "学生在有yesterday的句子中也容易用现在完成时",
     "mnemonic": "yesterday是过去时的铁证，现在完成时绝不接受具体过去时间",
@@ -1109,7 +1187,7 @@
     "ability_tag": "现在完成时否定句",
     "type": "multiple_choice",
     "question": "She has _____ heard from him since he left.",
-    "answer": "C",
+    "answer": "C. never",
     "analysis": "【考点】考查现在完成时的否定表达\n【解题思路】since he left是现在完成时的标志，表示「自从他离开后就再也没有收到他的信」，用never\n【干扰项分析】A的not不能直接放在has后面再接过去分词，应说hasn't heard；B的no不修饰动词；D的none是代词，不修饰动词\n【解题口诀】👉 现在完成时否定：haven't/hasn't + done 或 have/has + never + done",
     "core_trap": "学生可能用hasn't heard或has not heard，但选项中没有这种形式",
     "mnemonic": "never本身含否定，放在has/have和过去分词之间",
@@ -1129,7 +1207,7 @@
     "ability_tag": "一般现在时被动",
     "type": "multiple_choice",
     "question": "English _____ in many countries around the world.",
-    "answer": "C",
+    "answer": "C. is spoken",
     "analysis": "【考点】考查一般现在时被动语态\n【解题思路】英语是被人们说的，主语English是动作的承受者，用被动语态：is + 过去分词\n【干扰项分析】A错在用了主动语态，英语不能自己说；B错在用了一般过去时；D错在用了现在进行时\n【解题口诀】👉 看主语是否能主动发出动作，不能就用被动",
     "core_trap": "学生容易忽略English是被动意义的动词",
     "mnemonic": "语言/故事/书都被说/被写，用被动语态",
@@ -1149,14 +1227,14 @@
     "ability_tag": "一般过去时被动",
     "type": "multiple_choice",
     "question": "The bridge _____ in 2010.",
-    "answer": "B",
+    "answer": "B. was built",
     "analysis": "【考点】考查一般过去时被动语态\n【解题思路】桥是被建造的，主语bridge是动作承受者。2010是过去时间，用was + 过去分词\n【干扰项分析】A错在用了过去分词但没有be动词（被动不完整）；C错在用了现在时被动；D错在用了主动语态\n【解题口诀】👉 过去时间被动：was/were + done",
     "core_trap": "学生容易只用built而漏掉was",
     "mnemonic": "被动语态必须有be动词，被动=be+done，缺be不被动",
     "difficulty": 0.4,
     "options": [
-      "B. was built",
       "A. built",
+      "B. was built",
       "C. is built",
       "D. builds"
     ]
@@ -1169,14 +1247,14 @@
     "ability_tag": "带有by短语的被动",
     "type": "multiple_choice",
     "question": "The window _____ by the boy yesterday.",
-    "answer": "B",
+    "answer": "B. was broken",
     "analysis": "【考点】考查带by短语的被动语态\n【解题思路】窗户是被男孩打破的，yesterday表明过去时，用was broken\n【干扰项分析】A错在用了主动语态过去式，窗户不能自己打破；C错在用了现在时被动；D错在没有be动词\n【解题口诀】👉 by + 执行者，前面一定用被动语态",
     "core_trap": "学生容易用主动语态broke",
     "mnemonic": "看到by someone就用被动语态：be + done",
     "difficulty": 0.35,
     "options": [
-      "B. was broken",
       "A. broke",
+      "B. was broken",
       "C. is broken",
       "D. broken"
     ]
@@ -1187,13 +1265,19 @@
     "grade": "junior2",
     "knowledge_tag": "被动语态",
     "ability_tag": "一般将来时被动",
-    "type": "fill_blank",
+    "type": "multiple_choice",
     "question": "A new school _____ (build) in our town next year.",
-    "answer": "will be built",
+    "answer": "D. will be built",
     "analysis": "【考点】考查一般将来时被动语态\n【解题思路】next year是将来时间，学校是被建造的，用will be + 过去分词\n【干扰项分析】注意不能写成will build（主动语态）\n【解题口诀】👉 将来被动：will be + done",
     "core_trap": "学生可能写成will build（主动语态）",
     "mnemonic": "学校是被建的，不是自己建的就用will be built",
-    "difficulty": 0.4
+    "difficulty": 0.4,
+    "options": [
+      "A. is built",
+      "B. was built",
+      "C. will build",
+      "D. will be built"
+    ]
   },
   {
     "id": "en_j2_grammar_065",
@@ -1203,7 +1287,7 @@
     "ability_tag": "含情态动词的被动",
     "type": "multiple_choice",
     "question": "The work _____ finished on time.",
-    "answer": "A",
+    "answer": "A. can be",
     "analysis": "【考点】考查含情态动词的被动语态\n【解题思路】工作是被完成的，情态动词的被动：情态动词 + be + 过去分词\n【干扰项分析】B错在can后面缺be动词；C错在must后面缺be动词；D的should be后面缺过去分词finished\n【解题口诀】👉 情态动词被动：can/must/should + be + done",
     "core_trap": "学生在情态动词后容易直接加过去分词而漏掉be",
     "mnemonic": "情态动词 + be + done，be是桥梁不能少",
@@ -1223,7 +1307,7 @@
     "ability_tag": "现在完成时被动",
     "type": "multiple_choice",
     "question": "The classroom _____ already by the students.",
-    "answer": "C",
+    "answer": "C. has been cleaned",
     "analysis": "【考点】考查现在完成时被动语态\n【解题思路】教室是被打扫的，already是现在完成时标志，用has/have been + 过去分词\n【干扰项分析】A错在用了主动现在时；B错在用了主动过去时；D错在用了主动进行时\n【解题口诀】👉 现在完成时被动：has/have been + done",
     "core_trap": "学生容易用has cleaned（主动完成时）代替has been cleaned（被动完成时）",
     "mnemonic": "被动完成时=have/has + been + done，多一个been",
@@ -1243,7 +1327,7 @@
     "ability_tag": "被动语态否定句",
     "type": "multiple_choice",
     "question": "The letter _____ in Chinese.",
-    "answer": "A",
+    "answer": "A. is not written",
     "analysis": "【考点】考查被动语态的否定形式\n【解题思路】信是被写的，否定形式在be动词后加not：is not written\n【干扰项分析】B错在用了现在进行时否定；C错在用了一般现在时否定（主动）；D错在用了一般过去时否定（主动）\n【解题口诀】👉 被动否定：be + not + done",
     "core_trap": "学生容易用doesn't write来否定被动语态",
     "mnemonic": "被动否定否定be动词，不是加doesn't/didn't",
@@ -1261,13 +1345,19 @@
     "grade": "junior2",
     "knowledge_tag": "被动语态",
     "ability_tag": "主动变被动转换",
-    "type": "fill_blank",
+    "type": "multiple_choice",
     "question": "People speak English in many countries. (改为被动语态)\nEnglish _____ in many countries.",
-    "answer": "is spoken",
+    "answer": "A. is spoken",
     "analysis": "【考点】考查主动语态改为被动语态\n【解题思路】主动：People speak English改为被动：English is spoken (by people)。一般现在时被动：am/is/are + done\n【干扰项分析】注意不能写成is speaking（现在进行时）\n【解题口诀】👉 主动变被动：宾语变主语，谓语变be+done，主语变by宾语",
     "core_trap": "学生可能写成is speaking（现在进行时）",
     "mnemonic": "宾语变主语，动词加be变被动",
-    "difficulty": 0.4
+    "difficulty": 0.4,
+    "options": [
+      "A. is spoken",
+      "B. is speaking",
+      "C. was spoken",
+      "D. spoke"
+    ]
   },
   {
     "id": "en_j2_grammar_069",
@@ -1277,7 +1367,7 @@
     "ability_tag": "现在完成时被动语态",
     "type": "multiple_choice",
     "question": "This old building _____ a hospital since 1990. Many patients _____ here every year.",
-    "answer": "C",
+    "answer": "C. has been used; are treated",
     "analysis": "【考点】综合考查现在完成时被动和一般现在时被动\n【解题思路】since 1990用现在完成时被动has been used；every year用一般现在时被动are treated\n【干扰项分析】A错在第一空用了主动语态；B错在第二空用了过去时；D错在第二空用了主动语态\n【解题口诀】👉 since用现在完成时被动，every year用一般现在时被动",
     "core_trap": "学生在同一句中需要判断两个不同时态的被动容易出错",
     "mnemonic": "since等于现在完成时被动have been done，every year等于一般现在时被动are done",
@@ -1297,7 +1387,7 @@
     "ability_tag": "现在进行时被动",
     "type": "multiple_choice",
     "question": "Look! A new road _____ in our city.",
-    "answer": "C",
+    "answer": "C. is being built",
     "analysis": "【考点】考查现在进行时被动语态\n【解题思路】Look!表示正在进行，路正在被修建，用is being + 过去分词\n【干扰项分析】A错在用了一般现在时被动；B错在用了一般过去时被动；D错在用了一般将来时被动\n【解题口诀】👉 现在进行时被动：am/is/are + being + done",
     "core_trap": "学生容易用is built（一般现在时被动）代替is being built（进行时被动）",
     "mnemonic": "正在被做=be + being + done，多一个being就是「正在」",
@@ -1317,14 +1407,14 @@
     "ability_tag": "含情态动词的被动",
     "type": "multiple_choice",
     "question": "Trees _____ in spring every year.",
-    "answer": "B",
+    "answer": "B. should be planted",
     "analysis": "【考点】考查情态动词的被动语态\n【解题思路】树是被种的，情态动词should + be + 过去分词\n【干扰项分析】A错在should后面直接加plant（缺be动词）；C错在用了-ing形式；D错在用了现在进行时\n【解题口诀】👉 情态动词被动：can/must/should/may + be + done",
     "core_trap": "学生容易漏掉be直接写should planted",
     "mnemonic": "情态动词和be是好朋友，有情态必有be",
     "difficulty": 0.45,
     "options": [
-      "B. should be planted",
       "A. should plant",
+      "B. should be planted",
       "C. should planting",
       "D. should be planting"
     ]
@@ -1337,7 +1427,7 @@
     "ability_tag": "主动变被动",
     "type": "multiple_choice",
     "question": "Lu Xun wrote this book. This book _____ by Lu Xun.",
-    "answer": "D",
+    "answer": "D. was written",
     "analysis": "【考点】考查一般过去时被动语态\n【解题思路】鲁迅写这本书是过去的事情，改为被动：This book was written by Lu Xun.\n【干扰项分析】A错在用了一般现在时主动；B错在用了一般过去时主动；C错在用了一般现在时被动\n【解题口诀】👉 原句过去时改为被动也要过去时：was/were + done",
     "core_trap": "学生容易改为is written而忽略了原句的过去时",
     "mnemonic": "主动什么时态，被动什么时态，时态不变",
@@ -1355,13 +1445,19 @@
     "grade": "junior2",
     "knowledge_tag": "被动语态",
     "ability_tag": "被动语态疑问句",
-    "type": "fill_blank",
+    "type": "multiple_choice",
     "question": "_____ the homework _____ (finish) by you yesterday?",
-    "answer": "Was; finished",
+    "answer": "B. Was; finished",
     "analysis": "【考点】考查被动语态的一般疑问句\n【解题思路】yesterday是过去时，被动语态疑问句把be动词提前：Was + 主语 + done?\n【干扰项分析】注意不能写成Did the homework finished\n【解题口诀】👉 被动疑问句：Be动词提前",
     "core_trap": "学生可能写成Did the homework finished",
     "mnemonic": "被动疑问=be动词提前+主语+done，不是Did开头",
-    "difficulty": 0.45
+    "difficulty": 0.45,
+    "options": [
+      "A. Is; finished",
+      "B. Was; finished",
+      "C. Did; finished",
+      "D. Did; finish"
+    ]
   },
   {
     "id": "en_j2_grammar_074",
@@ -1371,7 +1467,7 @@
     "ability_tag": "双宾语被动",
     "type": "multiple_choice",
     "question": "My mother gave me a gift. A gift _____ me by my mother.",
-    "answer": "A",
+    "answer": "A. was given to",
     "analysis": "【考点】考查双宾语动词的被动语态\n【解题思路】give sb sth改为sth was given to sb。间接宾语前需要加to\n【干扰项分析】B错在没有to，give的双宾被动需要to；C错在用了主动语态；D错在用了现在时\n【解题口诀】👉 give sb sth改为sth was/were given to sb（间接宾语前加to）",
     "core_trap": "学生容易漏掉to，写成was given me",
     "mnemonic": "give/show/send/pass + to + 人，被动间接宾语前别忘了to",
@@ -1391,7 +1487,7 @@
     "ability_tag": "使役动词被动",
     "type": "multiple_choice",
     "question": "The teacher made the students _____ the classroom after school.",
-    "answer": "A",
+    "answer": "A. clean",
     "analysis": "【考点】考查make sb do sth结构（主动语态）\n【解题思路】这是主动语态的make句型：make sb do sth（让某人做某事），后面用动词原形。注意本题不是被动\n【干扰项分析】B错在加了to（被动态才用to）；C错在用了-ing形式；D错在用了过去分词\n【解题口诀】👉 主动make sb do，被动be made to do（被动要加to）",
     "core_trap": "学生在被动语态中知道要加to，但在主动语态中也加to",
     "mnemonic": "make/let/have主动不加to，被动要加to",
@@ -1411,7 +1507,7 @@
     "ability_tag": "情态动词语境综合辨析",
     "type": "multiple_choice",
     "question": "- _____ I borrow your dictionary?\n- Of course you _____. But you _____ return it by Friday.",
-    "answer": "D",
+    "answer": "D. May; can; must",
     "analysis": "【考点】综合考查情态动词在对话中的运用\n【解题思路】请求许可用May I；允许对方用can；表示义务必须在周五前归还用must\n【干扰项分析】A的Must/Mustn't搭配语义错误；B的Can/Need搭配不自然；C的Must/Can搭配第一个语气太强\n【解题口诀】👉 请求用May，允许用can，义务用must",
     "core_trap": "学生在三个空中分别选对不同的情态动词",
     "mnemonic": "借东西：May I...? Of course you can. But you must return it.",
@@ -1431,7 +1527,7 @@
     "ability_tag": "must的用法",
     "type": "multiple_choice",
     "question": "You _____ finish your homework before you go out to play.",
-    "answer": "C",
+    "answer": "C. must",
     "analysis": "【考点】考查must表示必须的用法\n【解题思路】句意为「出去玩之前必须完成作业」，表示义务和必须，用must\n【干扰项分析】A的can表示能力或可以；B的may表示可以/可能；D的could表示能够（委婉）\n【解题口诀】👉 必须、一定要做的事就用must",
     "core_trap": "学生可能用should（应该）代替must（必须）",
     "mnemonic": "must = 必须，没有商量的余地；should = 应该，建议性的",
@@ -1451,7 +1547,7 @@
     "ability_tag": "may的用法",
     "type": "multiple_choice",
     "question": "— _____ I use your pen?\n— Sure, here you are.",
-    "answer": "B",
+    "answer": "B. May",
     "analysis": "【考点】考查may表示请求/许可的用法\n【解题思路】May I...?表示请求许可「我可以……吗？」，回答Sure表示同意\n【干扰项分析】A的Must表示必须，语气太强硬；C的Need表示需要；D的Should表示应该\n【解题口诀】👉 请求许可用May I...?",
     "core_trap": "学生可能用Can I代替May I（Can更口语化但考试中May更正式）",
     "mnemonic": "May I = 我可以吗？（礼貌请求）",
@@ -1471,14 +1567,14 @@
     "ability_tag": "must否定推测",
     "type": "multiple_choice",
     "question": "The light is on. Someone _____ be in the room.",
-    "answer": "B",
+    "answer": "B. must",
     "analysis": "【考点】考查must表示肯定推测\n【解题思路】灯亮着说明有人一定在房间里。must表示有把握的肯定推测「一定」\n【干扰项分析】A的can表示能力；C的may表示可能（把握不大）；D的need表示需要\n【解题口诀】👉 must + be/do = 一定（肯定推测），把握很大",
     "core_trap": "学生容易用may（可能）代替must（一定）",
     "mnemonic": "must = 一定是，may = 可能是，can't = 不可能是",
     "difficulty": 0.45,
     "options": [
-      "B. must",
       "A. can",
+      "B. must",
       "C. may",
       "D. need"
     ]
@@ -1491,7 +1587,7 @@
     "ability_tag": "can't否定推测",
     "type": "multiple_choice",
     "question": "He _____ be at home. I just saw him at the supermarket.",
-    "answer": "B",
+    "answer": "B. can't",
     "analysis": "【考点】考查can't表示否定推测\n【解题思路】「我刚在超市看到他」说明他不可能在家。can't表示有把握的否定推测「不可能」\n【干扰项分析】A的must表示一定，与语义矛盾；C的may表示可能；D的might表示可能（把握更小）\n【解题口诀】👉 can't = 不可能（否定推测），must = 一定（肯定推测）",
     "core_trap": "学生容易用mustn't（禁止）来表示不可能",
     "mnemonic": "不可能=can't，禁止=mustn't，不是一回事",
@@ -1509,13 +1605,19 @@
     "grade": "junior2",
     "knowledge_tag": "情态动词",
     "ability_tag": "should的用法",
-    "type": "fill_blank",
+    "type": "multiple_choice",
     "question": "You _____ (listen) to the teacher carefully in class.",
-    "answer": "should listen",
+    "answer": "D. should listen",
     "analysis": "【考点】考查should表示应该/建议的用法\n【解题思路】括号内为listen（原形），根据句意「课堂上应该认真听老师讲」填入should，should + 动词原形\n【干扰项分析】注意不能写成should to listen（should后不加to），也不能用must（语气太强）\n【解题口诀】👉 should + 动词原形 = 应该做某事",
     "core_trap": "学生可能写成should to listen，或选错情态动词",
     "mnemonic": "should后面直接跟原形，不加to",
-    "difficulty": 0.3
+    "difficulty": 0.3,
+    "options": [
+      "A. should to listen",
+      "B. should listened",
+      "C. must listening",
+      "D. should listen"
+    ]
   },
   {
     "id": "en_j2_grammar_082",
@@ -1525,7 +1627,7 @@
     "ability_tag": "need的用法",
     "type": "multiple_choice",
     "question": "You _____ not worry about him. He can take care of himself.",
-    "answer": "B",
+    "answer": "B. need",
     "analysis": "【考点】考查need not（needn't）表示不必\n【解题思路】needn't = don't need to = don't have to，表示「不需要」「不必」\n【干扰项分析】A的must not表示禁止（不许）；C的can not表示不能；D的may not表示可能不\n【解题口诀】👉 needn't = 不必（不需要做某事）",
     "core_trap": "学生容易混淆needn't（不必）和mustn't（禁止）",
     "mnemonic": "needn't = 你不用做，mustn't = 你不许做",
@@ -1545,7 +1647,7 @@
     "ability_tag": "had better的用法",
     "type": "multiple_choice",
     "question": "You'd better _____ too much junk food.",
-    "answer": "A",
+    "answer": "A. not eat",
     "analysis": "【考点】考查had better的否定形式\n【解题思路】had better的否定是had better not + 动词原形\n【干扰项分析】B错在加了to（had better后不加to）；C错在用了don't（had better否定不是加don't）；D错在用了-ing形式\n【解题口诀】👉 had better not + 动词原形（否定不加don't，不加to）",
     "core_trap": "学生容易写成had better not to eat或don't eat",
     "mnemonic": "had better简写'd better，否定是'd better not do",
@@ -1565,7 +1667,7 @@
     "ability_tag": "could表示委婉请求",
     "type": "multiple_choice",
     "question": "— _____ you please pass me the salt?\n— Of course.",
-    "answer": "A",
+    "answer": "A. Could",
     "analysis": "【考点】考查could表示委婉请求\n【解题思路】Could you please...?表示委婉地请求对方做某事，比Can you更礼貌\n【干扰项分析】B的Must太强硬；C的Need不用于请求；D的Should用于建议\n【解题口诀】👉 Could you please...? = 委婉请求",
     "core_trap": "学生可能因为could是过去式而选错",
     "mnemonic": "Could you...不是问你能不能（过去），而是礼貌地问你现在能不能",
@@ -1585,7 +1687,7 @@
     "ability_tag": "might表示推测",
     "type": "multiple_choice",
     "question": "Take an umbrella with you. It _____ rain later.",
-    "answer": "C",
+    "answer": "C. might",
     "analysis": "【考点】考查might表示可能性不大的推测\n【解题思路】「带把伞吧，可能待会儿会下雨」——对将来的不确定推测，用might（可能）\n【干扰项分析】A的must表示一定（太确定）；B的need表示需要；D的should表示应该\n【解题口诀】👉 might = 可能（50%以下把握），may = 可能（50%把握），must = 一定（90%+把握）",
     "core_trap": "学生容易混淆might/may/must表示推测的程度差异",
     "mnemonic": "might < may < must，可能性的递增",
@@ -1603,13 +1705,19 @@
     "grade": "junior2",
     "knowledge_tag": "情态动词",
     "ability_tag": "must与have to辨析",
-    "type": "fill_blank",
+    "type": "multiple_choice",
     "question": "I _____ (finish) my homework now because it's due tomorrow.",
-    "answer": "have to finish",
+    "answer": "C. have to finish",
     "analysis": "【考点】考查have to表示客观必须的用法\n【解题思路】括号内为finish（原形），因为「明天要交」是客观原因，所以不得不做，填have to finish\n【干扰项分析】have to与must的区别：must是主观觉得必须，have to是客观情况要求\n【解题口诀】👉 have to = 客观情况逼我做，must = 我自己觉得必须做",
     "core_trap": "学生可能只填have to而漏掉finish，或混淆have to和must",
     "mnemonic": "有外部原因就用have to，自己想做的用must",
-    "difficulty": 0.45
+    "difficulty": 0.45,
+    "options": [
+      "A. must finishing",
+      "B. have finish",
+      "C. have to finish",
+      "D. has to finish"
+    ]
   },
   {
     "id": "en_j2_grammar_087",
@@ -1619,7 +1727,7 @@
     "ability_tag": "情态动词回答",
     "type": "multiple_choice",
     "question": "— Must I hand in my homework today?\n— No, you _____.",
-    "answer": "C",
+    "answer": "C. needn't",
     "analysis": "【考点】考查Must I...?的否定回答\n【解题思路】Must I...?的否定回答用No, you needn't.（不必）。不能用mustn't（禁止）\n【干扰项分析】A的mustn't表示禁止（不许交），语义错误；B的can't表示不能；D的won't表示不会\n【解题口诀】👉 Must I...? 否定回答用No, you needn't.（不必）",
     "core_trap": "学生最容易犯的错误是用mustn't来回答Must I的否定",
     "mnemonic": "Must提问否定答：needn't不必，mustn't禁止",
@@ -1637,13 +1745,19 @@
     "grade": "junior2",
     "knowledge_tag": "综合运用",
     "ability_tag": "多时态语篇综合运用",
-    "type": "fill_blank",
+    "type": "multiple_choice",
     "question": "Last Sunday, while I _____ (read) a book, my friend Tom _____ (call) me. He said he _____ (lose) his bike and asked if I _____ (can) help him find it. I _____ (not see) him since then.",
-    "answer": "was reading; called; had lost; could; haven't seen",
+    "answer": "D. was reading; called; had lost; could; haven't seen",
     "analysis": "【考点】综合考查过去进行时、一般过去时、过去完成时、情态动词过去式、现在完成时\n【解题思路】while引导长动作用过去进行时was reading；突然打断用一般过去时called；丢自行车发生在打电话之前用过去完成时had lost；主句said是过去时can变could；since then用现在完成时haven't seen\n【干扰项分析】注意五个空需要五种不同时态，这是本题最大的难度\n【解题口诀】👉 时间线判断：while进行时，打断一般时，更早完成时，过去主句情态退格，since现在完成时",
     "core_trap": "学生最常错的是第三个空不知道用过去完成时had lost表示过去的过去",
     "mnemonic": "语篇时态像时间线：正在读朋友打来之前丢了车能不能帮到现在没见",
-    "difficulty": 0.8
+    "difficulty": 0.8,
+    "options": [
+      "A. am reading; called; lost; could; don't see",
+      "B. was reading; was calling; has lost; can; haven't seen",
+      "C. read; called; lost; could; didn't see",
+      "D. was reading; called; had lost; could; haven't seen"
+    ]
   },
   {
     "id": "en_j2_grammar_089",
@@ -1653,7 +1767,7 @@
     "ability_tag": "used to的用法",
     "type": "multiple_choice",
     "question": "He used to _____ up late, but now he gets up early.",
-    "answer": "A",
+    "answer": "A. get",
     "analysis": "【考点】考查used to do sth（过去常常做某事）\n【解题思路】used to + 动词原形，表示过去常常但现在不这样了\n【干扰项分析】B错在用了过去式；C错在用了-ing形式；D错在用了第三人称单数\n【解题口诀】👉 used to + 动词原形（过去常常）",
     "core_trap": "学生容易将used to do和be used to doing混淆",
     "mnemonic": "used to do = 过去常常做，be used to doing = 习惯于做",
@@ -1673,7 +1787,7 @@
     "ability_tag": "情态动词综合",
     "type": "multiple_choice",
     "question": "The ground is wet. It _____ have rained last night.",
-    "answer": "A",
+    "answer": "A. must",
     "analysis": "【考点】考查must have done表示对过去事情的肯定推测（拓展知识点）\n【解题思路】地面湿了说明昨晚一定下雨了。must have done对过去有把握的推测。注意：此用法超出常规初二课标，属于拓展提高\n【干扰项分析】A的can不能用于肯定推测；C的may have done表示可能（把握不大）；D的need不能用于推测\n【解题口诀】👉 must have done = 一定做过（对过去的肯定推测），有证据才用must",
     "core_trap": "学生可能用may代替must（把握程度不同），或不知道must have done是拓展语法",
     "mnemonic": "地面湿=下过雨的证据，有证据就用must have done",
@@ -1693,7 +1807,7 @@
     "ability_tag": "that引导的宾语从句",
     "type": "multiple_choice",
     "question": "I think _____ he is a good student.",
-    "answer": "B",
+    "answer": "B. that",
     "analysis": "【考点】考查that引导的宾语从句\n【解题思路】I think后面跟完整陈述句作宾语，用that引导（that在口语中可省略）\n【干扰项分析】A的what在从句中要充当成分；C的if表示是否（引导疑问句）；D的where在从句中充当地点状语\n【解题口诀】👉 宾语从句是完整陈述句就用that引导",
     "core_trap": "学生可能不知道that可以省略而觉得句子不完整",
     "mnemonic": "陈述句做宾语就用that引导（可省略）",
@@ -1713,7 +1827,7 @@
     "ability_tag": "if/whether引导的宾语从句",
     "type": "multiple_choice",
     "question": "I don't know _____ he will come or not.",
-    "answer": "D",
+    "answer": "D. whether",
     "analysis": "【考点】考查whether与if的区别\n【解题思路】whether...or not是固定搭配，if后面不能直接跟or not\n【干扰项分析】A的that引导陈述句；B的what在从句中要充当成分；C的if不能与or not连用\n【解题口诀】👉 whether...or not（whether可以，if不行）",
     "core_trap": "学生容易用if...or not",
     "mnemonic": "whether万能，if有限制：if不能跟or not",
@@ -1733,7 +1847,7 @@
     "ability_tag": "宾语从句语序",
     "type": "multiple_choice",
     "question": "Could you tell me _____?",
-    "answer": "B",
+    "answer": "B. where he lives",
     "analysis": "【考点】考查宾语从句的语序（陈述语序）\n【解题思路】宾语从句必须用陈述语序（主语+谓语），不能用疑问语序。he是第三人称单数，用lives\n【干扰项分析】A错在用了疑问语序does he live；C错在第三人称单数没有用lives；D错在用了疑问语序和过去时\n【解题口诀】👉 宾语从句永远是陈述语序：主语 + 谓语，不是疑问语序",
     "core_trap": "学生最容易犯的错误是把疑问词后面的语序写成疑问语序",
     "mnemonic": "不管问什么，宾语从句都是「他说什么」不是「什么他说」",
@@ -1751,13 +1865,19 @@
     "grade": "junior2",
     "knowledge_tag": "宾语从句",
     "ability_tag": "wh-引导的宾语从句",
-    "type": "fill_blank",
+    "type": "multiple_choice",
     "question": "Do you know _____ the movie starts?",
-    "answer": "when",
+    "answer": "A. when",
     "analysis": "【考点】考查when引导的宾语从句\n【解题思路】从句the movie starts缺少时间状语，用when（什么时候）引导\n【干扰项分析】注意不能用what（what不能表示时间）\n【解题口诀】👉 缺什么问什么：缺时间用when，缺地点用where，缺原因用why",
     "core_trap": "学生可能用what代替when",
     "mnemonic": "电影start需要时间就用when",
-    "difficulty": 0.4
+    "difficulty": 0.4,
+    "options": [
+      "A. when",
+      "B. what",
+      "C. where",
+      "D. that"
+    ]
   },
   {
     "id": "en_j2_grammar_095",
@@ -1767,7 +1887,7 @@
     "ability_tag": "宾语从句时态",
     "type": "multiple_choice",
     "question": "He said that he _____ to Beijing the next day.",
-    "answer": "B",
+    "answer": "B. would go",
     "analysis": "【考点】考查宾语从句的时态一致原则\n【解题思路】主句said是过去时，宾语从句也要用过去的某种时态。the next day是过去将来时间，用would go\n【干扰项分析】A错在用了一般将来时（主句过去时，从句不能保留将来时）；C错在用了一般现在时；D错在用了一般过去时，但the next day表示「第二天」不是过去\n【解题口诀】👉 主句过去时，从句也要变过去：will变would，can变could",
     "core_trap": "学生在主句过去时的情况下从句仍容易用will",
     "mnemonic": "主句过去就从句跟着退一步：will变would，can变could",
@@ -1787,7 +1907,7 @@
     "ability_tag": "宾语从句语序",
     "type": "multiple_choice",
     "question": "I want to know _____.",
-    "answer": "B",
+    "answer": "B. what your name is",
     "analysis": "【考点】考查宾语从句的陈述语序\n【解题思路】宾语从句用陈述语序：what + 主语(your name) + 谓语(is)\n【干扰项分析】A错在用了疑问语序；C错在用了过去时was，名字不会变过去；D错在用了疑问语序和过去时\n【解题口诀】👉 宾语从句陈述语序：引导词 + 主语 + 谓语",
     "core_trap": "学生容易受原问句What is your name?影响而写成疑问语序",
     "mnemonic": "间接问句不等于直接问句，语序要变成陈述",
@@ -1807,7 +1927,7 @@
     "ability_tag": "宾语从句时态",
     "type": "multiple_choice",
     "question": "The teacher told us that the earth _____ around the sun.",
-    "answer": "A",
+    "answer": "A. moves",
     "analysis": "【考点】考查宾语从句中客观真理的时态\n【解题思路】虽然told是过去时，但「地球绕太阳转」是客观真理，永远用一般现在时\n【干扰项分析】B错在用过去时（真理不因主句时态而改变）；C错在用了完成时；D错在用了将来时\n【解题口诀】👉 客观真理/自然规律永远用一般现在时，不管主句什么时态",
     "core_trap": "学生容易因主句过去时而从句也用过去时",
     "mnemonic": "真理不变时态——地球永远绕太阳转，永远是moves",
@@ -1827,7 +1947,7 @@
     "ability_tag": "if/whether引导的宾语从句",
     "type": "multiple_choice",
     "question": "She asked me _____ I liked English.",
-    "answer": "B",
+    "answer": "B. if",
     "analysis": "【考点】考查if引导一般疑问句做宾语从句\n【解题思路】「她问我是否喜欢英语」——一般疑问句做宾语从句用if/whether引导\n【干扰项分析】A的that引导陈述句；C的what在从句中要充当成分（这里从句完整不需要what）；D的which表示哪一个\n【解题口诀】👉 一般疑问句做宾语就用if/whether引导",
     "core_trap": "学生可能用that引导一般疑问句做宾语",
     "mnemonic": "一般疑问句（能用yes/no回答的）就用if/whether",
@@ -1845,13 +1965,19 @@
     "grade": "junior2",
     "knowledge_tag": "宾语从句",
     "ability_tag": "宾语从句连接词",
-    "type": "fill_blank",
+    "type": "multiple_choice",
     "question": "Can you tell me _____ book this is?",
-    "answer": "whose",
+    "answer": "A. whose",
     "analysis": "【考点】考查whose引导的宾语从句\n【解题思路】从句book this is中，book前面缺定语（谁的），用whose引导\n【干扰项分析】注意不能用who（人），whose是问「谁的」\n【解题口诀】👉 问「谁的」用whose，问「什么」用what，问「哪个」用which",
     "core_trap": "学生可能用who（人）代替whose（谁的）",
     "mnemonic": "whose = whose book（谁的），who = who is（谁）",
-    "difficulty": 0.45
+    "difficulty": 0.45,
+    "options": [
+      "A. whose",
+      "B. which",
+      "C. whom",
+      "D. who"
+    ]
   },
   {
     "id": "en_j2_grammar_100",
@@ -1861,7 +1987,7 @@
     "ability_tag": "宾语从句时态",
     "type": "multiple_choice",
     "question": "Tom says he _____ his homework already.",
-    "answer": "C",
+    "answer": "C. has finished",
     "analysis": "【考点】考查宾语从句的时态\n【解题思路】主句says是一般现在时，从句可以用任意需要的时态。already是现在完成时标志\n【干扰项分析】A错在一般现在时与already不搭配；B错在一般过去时与already不搭配；D错在将来时与already不搭配\n【解题口诀】👉 主句现在时，从句时态根据需要选择",
     "core_trap": "学生可能因为主句是一般现在时就不知道从句该用什么时态",
     "mnemonic": "says/tells（现在时）就从句时态自由选择",
@@ -1881,7 +2007,7 @@
     "ability_tag": "宾语从句语序",
     "type": "multiple_choice",
     "question": "Could you tell me how I _____ to the station?",
-    "answer": "A",
+    "answer": "A. can get",
     "analysis": "【考点】考查Could you tell me...中从句的时态\n【解题思路】Could you tell me是委婉请求（不是过去时含义），从句根据实际情况用现在时。can get表示「能到达」\n【干扰项分析】B的get缺少情态动词，「我怎么到」需要能力；C的could get是过去时；D的got是过去时\n【解题口诀】👉 Could you tell me...是委婉语气，从句用现在时",
     "core_trap": "学生容易因为Could而把从句也写成过去时",
     "mnemonic": "Could you tell me中的Could是礼貌，不是过去",
@@ -1901,7 +2027,7 @@
     "ability_tag": "宾语从句时态",
     "type": "multiple_choice",
     "question": "She asked me where I _____ during the holiday.",
-    "answer": "B",
+    "answer": "B. went",
     "analysis": "【考点】考查宾语从句的时态一致\n【解题思路】主句asked是过去时，从句也用过去时。during the holiday已过，用went\n【干扰项分析】A错在用现在时（主句过去时，从句要退一步）；C错在用将来时；D错在用完成时\n【解题口诀】👉 主句过去时，从句也用过去时态",
     "core_trap": "学生容易忽略时态一致性",
     "mnemonic": "asked/said/told（过去时）就从句时态向后退一步",
@@ -1919,13 +2045,19 @@
     "grade": "junior2",
     "knowledge_tag": "宾语从句",
     "ability_tag": "what引导的宾语从句",
-    "type": "fill_blank",
+    "type": "multiple_choice",
     "question": "I don't understand _____ he said.",
-    "answer": "what",
+    "answer": "A. what",
     "analysis": "【考点】考查what引导的宾语从句（what在从句中充当宾语）\n【解题思路】he said后面缺宾语（说了什么），用what引导，what = the thing that\n【干扰项分析】注意不能用that（that在从句中不充当成分）\n【解题口诀】👉 what在从句中充当主语/宾语/表语，不能省略",
     "core_trap": "学生可能用that（that在从句中不充当成分）",
     "mnemonic": "said后面缺东西就用what（说了什么）",
-    "difficulty": 0.4
+    "difficulty": 0.4,
+    "options": [
+      "A. what",
+      "B. how",
+      "C. which",
+      "D. that"
+    ]
   },
   {
     "id": "en_j2_grammar_104",
@@ -1935,7 +2067,7 @@
     "ability_tag": "宾语从句综合",
     "type": "multiple_choice",
     "question": "He asked me _____ I would go with him or stay at home.",
-    "answer": "C",
+    "answer": "C. whether",
     "analysis": "【考点】考查whether...or...结构\n【解题思路】「...or stay at home」是选择结构，whether...or表示「是……还是……」\n【干扰项分析】A的that不引导选择疑问；B的if不能与or搭配；D的what语义不通\n【解题口诀】👉 有or就用whether，不用if",
     "core_trap": "学生在有or的情况下仍容易用if",
     "mnemonic": "whether比if强大：能跟or, 能跟or not, 能放句首",
@@ -1955,7 +2087,7 @@
     "ability_tag": "宾语从句语序",
     "type": "multiple_choice",
     "question": "Do you know how many students _____ in our class?",
-    "answer": "B",
+    "answer": "B. there are",
     "analysis": "【考点】考查There be句型在宾语从句中的语序\n【解题思路】There be句型做宾语从句时，用陈述语序：there are（不是are there）\n【干扰项分析】A错在用了疑问语序are there；C和D的结构不正确\n【解题口诀】👉 There be在宾语从句中保持there + be的陈述语序",
     "core_trap": "学生容易把There be写成疑问语序",
     "mnemonic": "宾语从句中There be = there are/were（不是are/were there）",
@@ -1975,7 +2107,7 @@
     "ability_tag": "主将从现",
     "type": "multiple_choice",
     "question": "If it _____ tomorrow, we will stay at home.",
-    "answer": "A",
+    "answer": "A. rains",
     "analysis": "【考点】考查条件状语从句的「主将从现」\n【解题思路】if引导条件状语从句，主句用一般将来时（will stay），if从句用一般现在时表将来（rains）\n【干扰项分析】B错在if从句中用了will（违反主将从现）；C错在用了过去时；D错在用了现在进行时\n【解题口诀】👉 主将从现：if从句用现在时代替将来时",
     "core_trap": "学生最容易在if从句中用will",
     "mnemonic": "if后面不用will，now代替将来",
@@ -1995,7 +2127,7 @@
     "ability_tag": "主将从现",
     "type": "multiple_choice",
     "question": "I will call you as soon as I _____ in Shanghai.",
-    "answer": "A",
+    "answer": "A. arrive",
     "analysis": "【考点】考查as soon as引导的时间状语从句中「主将从现」\n【解题思路】主句will call是将来时，as soon as从句用一般现在时表将来\n【干扰项分析】B错在从句用了will；C错在用了过去时；D错在用了现在分词\n【解题口诀】👉 as soon as/when/before/after + 现在时，主句用将来时",
     "core_trap": "学生在as soon as后面容易用will arrive",
     "mnemonic": "时间条件从句统一规则：现在时代表将来",
@@ -2013,13 +2145,19 @@
     "grade": "junior2",
     "knowledge_tag": "条件状语从句",
     "ability_tag": "主将从现",
-    "type": "fill_blank",
+    "type": "multiple_choice",
     "question": "If she _____ (study) hard, she will pass the exam.",
-    "answer": "studies",
+    "answer": "D. studies",
     "analysis": "【考点】考查if从句中第三人称单数形式\n【解题思路】if从句用一般现在时表将来，she是第三人称单数，study加-es变为studies\n【干扰项分析】注意不能用will study也不能用study（忘记第三人称单数）\n【解题口诀】👉 if从句现在时就要注意第三人称单数",
     "core_trap": "学生可能用will study或study（忘记第三人称单数）",
     "mnemonic": "if she studies（现在时），she will pass（将来时）",
-    "difficulty": 0.45
+    "difficulty": 0.45,
+    "options": [
+      "A. study",
+      "B. studied",
+      "C. will study",
+      "D. studies"
+    ]
   },
   {
     "id": "en_j2_grammar_109",
@@ -2029,7 +2167,7 @@
     "ability_tag": "unless的用法",
     "type": "multiple_choice",
     "question": "You won't pass the exam _____ you study hard.",
-    "answer": "B",
+    "answer": "B. unless",
     "analysis": "【考点】考查unless（除非/如果不）的用法\n【解题思路】unless = if...not，「你不会通过考试除非你努力学习」即不努力就不通过\n【干扰项分析】A的if语义不够准确（用if需要双重否定才能表达）；C的because表示原因；D的when表示时间\n【解题口诀】👉 unless = if...not（除非=如果不）",
     "core_trap": "学生可能用if来代替unless导致语义不完整",
     "mnemonic": "unless就是if not的缩写版，用unless更简洁",
@@ -2049,7 +2187,7 @@
     "ability_tag": "主将从现",
     "type": "multiple_choice",
     "question": "I'll wait until he _____ back.",
-    "answer": "B",
+    "answer": "B. comes",
     "analysis": "【考点】考查until引导的时间状语从句中「主将从现」\n【解题思路】主句I'll wait是将来时，until从句用一般现在时表将来，he是第三人称单数用comes\n【干扰项分析】A错在第三人称单数没有加-s；C错在从句用了will；D错在用了过去时\n【解题口诀】👉 until + 一般现在时（主句将来时）",
     "core_trap": "学生在until后面容易用will come",
     "mnemonic": "until像if一样，从句用现在时表将来",
@@ -2069,7 +2207,7 @@
     "ability_tag": "What引导的感叹句",
     "type": "multiple_choice",
     "question": "_____ beautiful flower it is!",
-    "answer": "B",
+    "answer": "B. What a",
     "analysis": "【考点】考查What a + adj. + 单数可数名词\n【解题思路】flower是单数可数名词，用What a + beautiful + flower\n【干扰项分析】A的What后面不能直接加形容词+单数名词；C的How后面接形容词或副词，不接名词；D的How a不存在这种搭配\n【解题口诀】👉 What a/an + adj. + 单数名词！What + adj. + 复数/不可数名词！",
     "core_trap": "学生容易混淆What和How引导的感叹句",
     "mnemonic": "What + 名词词组，How + 形容词/副词",
@@ -2089,7 +2227,7 @@
     "ability_tag": "How引导的感叹句",
     "type": "multiple_choice",
     "question": "_____ fast the boy runs!",
-    "answer": "C",
+    "answer": "C. How",
     "analysis": "【考点】考查How + adj./adv. + 主语 + 谓语\n【解题思路】fast是副词，修饰动词runs，用How + fast\n【干扰项分析】A的What后面接名词；B的What a后面接单数名词；D的How a不存在\n【解题口诀】👉 How + 形容词/副词 + 主语 + 谓语！",
     "core_trap": "学生容易用What修饰副词",
     "mnemonic": "How管形容词副词，What管名词",
@@ -2109,7 +2247,7 @@
     "ability_tag": "What引导的感叹句（复数/不可数）",
     "type": "multiple_choice",
     "question": "_____ good news it is!",
-    "answer": "A",
+    "answer": "A. What",
     "analysis": "【考点】考查What + adj. + 不可数名词\n【解题思路】news是不可数名词，用What + good + news（不加a/an）\n【干扰项分析】B的What a后面不能接不可数名词；C的How后面接形容词不接名词；D的How a不存在\n【解题口诀】👉 不可数名词前不加a/an：What good news!",
     "core_trap": "学生在不可数名词news前容易加a",
     "mnemonic": "news/information/weather是不可数名词，不加a",
@@ -2127,13 +2265,19 @@
     "grade": "junior2",
     "knowledge_tag": "感叹句",
     "ability_tag": "How引导的感叹句（形容词）",
-    "type": "fill_blank",
+    "type": "multiple_choice",
     "question": "_____ (what/how) lovely the cat is!",
-    "answer": "How",
+    "answer": "C. How",
     "analysis": "【考点】考查How + adj.引导感叹句\n【解题思路】lovely是形容词，后面the cat is（主语+谓语），用How引导\n【干扰项分析】注意不能用What（What后面要接名词）\n【解题口诀】👉 看到adj. + 主语 + 谓语结构就用How",
     "core_trap": "学生可能因为cat是名词而用What",
     "mnemonic": "先找核心词：核心是形容词就用How，核心是名词就用What",
-    "difficulty": 0.4
+    "difficulty": 0.4,
+    "options": [
+      "A. What a",
+      "B. What an",
+      "C. How",
+      "D. What"
+    ]
   },
   {
     "id": "en_j2_grammar_115",
@@ -2143,7 +2287,7 @@
     "ability_tag": "感叹句综合",
     "type": "multiple_choice",
     "question": "_____ interesting the movie is!",
-    "answer": "C",
+    "answer": "C. How",
     "analysis": "【考点】考查How + adj.引导感叹句\n【解题思路】interesting是形容词，后面有主语the movie和谓语is，用How + interesting\n【干扰项分析】A的What后面需要名词；B的What an后面需要名词；D的What a后面需要名词\n【解题口诀】👉 判断感叹词：看紧跟在感叹词后面的是形容词还是名词",
     "core_trap": "学生容易因为movie是名词而选What",
     "mnemonic": "感叹词后面紧跟adj就用How，紧跟名词就用What",
@@ -2163,7 +2307,7 @@
     "ability_tag": "前肯后否",
     "type": "multiple_choice",
     "question": "He is a good student, _____?",
-    "answer": "B",
+    "answer": "B. isn't he",
     "analysis": "【考点】考查反意疑问句「前肯后否」\n【解题思路】前半句He is a good student是肯定句，反意疑问句用否定形式isn't he\n【干扰项分析】A错在前肯后应该用否定；C的does he与be动词不搭配；D的doesn't he与be动词不搭配\n【解题口诀】👉 前肯后否，前否后肯，动词类型要一致",
     "core_trap": "学生容易忽略前后动词要一致（is对isn't，不是does对doesn't）",
     "mnemonic": "前面is后面isn't，前面does后面doesn't",
@@ -2183,7 +2327,7 @@
     "ability_tag": "前否后肯",
     "type": "multiple_choice",
     "question": "She doesn't like apples, _____?",
-    "answer": "A",
+    "answer": "A. does she",
     "analysis": "【考点】考查反意疑问句「前否后肯」\n【解题思路】前半句doesn't like是否定句，反意疑问句用肯定形式does she\n【干扰项分析】B错在前否后应该用肯定；C的is she与实义动词不搭配；D的isn't she与实义动词不搭配\n【解题口诀】👉 前有否定词（not/never/hardly/few/little）就用后肯",
     "core_trap": "学生在前否时也容易用否定",
     "mnemonic": "前面有not后面就yes，前面没not后面就no",
@@ -2203,7 +2347,7 @@
     "ability_tag": "含否定词的反意疑问句",
     "type": "multiple_choice",
     "question": "He has never been to Japan, _____?",
-    "answer": "A",
+    "answer": "A. has he",
     "analysis": "【考点】考查含否定词never的反意疑问句\n【解题思路】never是否定词，前半句相当于否定句，反意疑问句用肯定形式has he\n【干扰项分析】B错在前有否定词应后肯；C的does he与现在完成时不搭配；D的doesn't he与现在完成时不搭配\n【解题口诀】👉 never/hardly/few/little/nothing/nobody是否定词就用后肯",
     "core_trap": "学生容易忽略never是否定词而用 hasn't he",
     "mnemonic": "never/hardly/few/little = 隐藏的not",
@@ -2221,13 +2365,19 @@
     "grade": "junior2",
     "knowledge_tag": "反意疑问句",
     "ability_tag": "祈使句的反意疑问句",
-    "type": "fill_blank",
+    "type": "multiple_choice",
     "question": "Let's go swimming, _____?",
-    "answer": "shall we",
+    "answer": "B. shall we",
     "analysis": "【考点】考查Let's开头的祈使句的反意疑问句\n【解题思路】Let's开头的祈使句，反意疑问句用shall we\n【干扰项分析】注意Let's和Let us的反意疑问句不同\n【解题口诀】👉 Let's...用shall we? Let us...用will you?",
     "core_trap": "学生容易混淆Let's和Let us的反意疑问句",
     "mnemonic": "Let's = 包括听话人用shall we，Let us = 不包括听话人用will you",
-    "difficulty": 0.6
+    "difficulty": 0.6,
+    "options": [
+      "A. do we",
+      "B. shall we",
+      "C. will you",
+      "D. don't we"
+    ]
   },
   {
     "id": "en_j2_grammar_120",
@@ -2237,7 +2387,7 @@
     "ability_tag": "I am的反意疑问句",
     "type": "multiple_choice",
     "question": "I am right, _____?",
-    "answer": "B",
+    "answer": "B. aren't I",
     "analysis": "【考点】考查I am的反意疑问句\n【解题思路】I am的反意疑问句用aren't I（不是am not I，因为am not没有缩写形式amn't）\n【干扰项分析】A的am not I不存在这种说法；C的don't I与be动词不搭配；D的isn't it与I am不搭配\n【解题口诀】👉 I am就用aren't I?（特殊规则，只能用aren't）",
     "core_trap": "学生容易按常规规则写成am not I",
     "mnemonic": "I am特殊就用aren't I，这是英语中唯一不规则的",

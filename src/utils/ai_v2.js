@@ -135,7 +135,7 @@ async function callDeepSeek(systemPrompt, userPrompt, options = {}) {
 }
 
 // ★ 带一次自动重试的包装（网络抖动时自动恢复）
-async function callDeepSeekWithRetry(systemPrompt, userPrompt, options = {}) {
+export async function callDeepSeekWithRetry(systemPrompt, userPrompt, options = {}) {
   try {
     return await callDeepSeek(systemPrompt, userPrompt, options)
   } catch (e) {
@@ -420,4 +420,56 @@ export function getQuestionById(id, builtInQMap = {}) {
   if (photoQuestions[id]) return photoQuestions[id]
   // 再查内置题库
   return builtInQMap[id] || null
+}
+
+
+// ─── 苏格拉底式追问 ─────────────────────────────────────────
+export async function socraticFollowUp(question, studentAnswer, history = [], subject = 'chinese') {
+  const isEng = subject === 'english'
+  const systemPrompt = `你是一位耐心的老师，用苏格拉底提问法引导学生理解错题。
+规则：
+1. 绝不直接告诉答案
+2. 每次只问一个问题，引导学生自己想
+3. 第一轮问"你觉得题目在考什么"
+4. 根据学生的回答判断理解偏差，针对性追问
+5. 如果学生连续2轮都答偏了，第3轮可以给一个具体线索
+6. 最多3轮，之后标记 isFinal=true
+7. 评价要简短（15字以内），问题要具体（30字以内）
+${isEng ? '8. 这是一道英语题，引导时注意英语语境' : ''}
+返回JSON: {"question":"引导问题","hint":"提示(可选)","isFinal":bool,"evaluation":"评价"}`
+
+  const historyText = history.length > 0
+    ? history.map(m => `${m.role === 'user' ? '学生' : '老师'}：${m.content}`).join('\n')
+    : ''
+
+  const userPrompt = '原题：' + (question.question || '') + '\n'
+    + '正确答案：' + (question.answer || '') + '\n'
+    + '学生选的：' + (studentAnswer || '') + '\n'
+    + (question.options ? '选项：' + question.options.join(' | ') + '\n' : '')
+    + (historyText ? '对话历史：\n' + historyText : '这是第一轮提问。') + '\n'
+    + '请生成下一轮苏格拉底式追问。'
+
+  return callDeepSeekWithRetry(systemPrompt, userPrompt, { max_tokens: 300, temperature: 0.8 })
+}
+
+// ─── 费曼学习法验证 ─────────────────────────────────────────
+export async function feynmanVerify(question, studentExplanation, subject = 'chinese') {
+  const isEng = subject === 'english'
+  const systemPrompt = `你是一位老师，用费曼学习法验证学生是否真正理解了知识点。
+学生需要用自己的话解释为什么正确答案是对的。
+规则：
+1. 不要看学生用了什么术语，看他是否理解了核心逻辑
+2. score >= 70 分算通过
+3. 未通过时，misunderstanding 要具体指出哪个概念没理解
+4. feedback 鼓励为主（30字以内）
+${isEng ? '5. 这是一道英语题' : ''}
+返回JSON: {"passed":bool,"score":0-100,"feedback":"反馈","misunderstanding":"理解偏差(未通过时)"}`
+
+  const userPrompt = `原题：${question.question || ''}
+正确答案：${question.answer || ''}
+${question.analysis ? '参考解析：' + question.analysis : ''}
+学生的解释：${studentExplanation}
+请评估学生是否真正理解了这道题。`
+
+  return callDeepSeekWithRetry(systemPrompt, userPrompt, { max_tokens: 300, temperature: 0.5 })
 }

@@ -13,7 +13,7 @@
       "C. Could you please open the door?",
       "D. Would you please close the window?"
     ],
-    "answer": "B",
+    "answer": "B. Could you please close the door?",
     "analysis": "【考点】考查阅读辨析情态动词could的委婉请求用法\n【解题思路】阅读原文中出现了\"Could you please close the door?\"，其中close是关键动词，door是关键名词，选项B与原文完全一致\n【干扰项分析】A错在用了open而非close，且window而非door；C错在动词open与原文close相反；D错在用了would而非could\n【解题口诀】👉 阅读抓关键词，动词和名词是重点",
     "core_trap": "容易混淆open和close、window和door",
     "mnemonic": "仔细阅读材料，对比每个选项，注意动词方向",
@@ -34,7 +34,7 @@
       "C. I sometimes go to school by bus.",
       "D. I usually go to work by bus."
     ],
-    "answer": "A",
+    "answer": "A. I usually go to school by bus.",
     "analysis": "【考点】考查阅读辨析交通方式表达和频度副词\n【解题思路】材料为\"I usually go to school by bus\"，usual（通常）和by bus（乘公交）是两个关键词\n【干扰项分析】B错在交通方式是by bike而非by bus；C错在用了sometimes而非usually；D错在目的地是work而非school\n【解题口诀】👉 频度副词细分辨，交通方式抓清楚",
     "core_trap": "容易混淆usually和sometimes，以及不同交通方式",
     "mnemonic": "usually是通常，sometimes是有时候，看到区别再选",
@@ -55,7 +55,7 @@
       "C. We went to have a picnic yesterday.",
       "D. We are going to have a party tomorrow."
     ],
-    "answer": "A",
+    "answer": "A. We are going to have a picnic tomorrow.",
     "analysis": "【考点】考查阅读辨析be going to结构及名词\n【解题思路】材料为\"We are going to have a picnic tomorrow\"，be going to表示将来计划，picnic（野餐）是关键名词\n【干扰项分析】B错在活动是meeting而非picnic；C错在时态是过去时went；D错在活动是party而非picnic\n【解题口诀】👉 将来时态抓going to，活动名词要看清",
     "core_trap": "容易混淆picnic、meeting、party等近义活动名词",
     "mnemonic": "going to是将来的信号词，活动名称是选对的关键",
@@ -76,7 +76,7 @@
       "C. She has been to Shanghai twice.",
       "D. She went to Beijing twice."
     ],
-    "answer": "A",
+    "answer": "A. She has been to Beijing twice.",
     "analysis": "【考点】考查阅读辨析have been to与have gone to的区别\n【解题思路】材料为\"She has been to Beijing twice\"，has been to表示去过（已回来）\n【干扰项分析】B错在has gone to表示去了还没回来；C错在地名是Shanghai；D错在过去时而非现在完成时\n【解题口诀】👉 been to是去过已回，gone to是去了未归",
     "core_trap": "容易混淆have been to和have gone to",
     "mnemonic": "been=去过（人在本地），gone=去了（人在远方）",
@@ -97,7 +97,7 @@
       "C. The weather is getting hotter and hotter.",
       "D. The weather is getting better and better."
     ],
-    "answer": "A",
+    "answer": "A. The weather is getting warmer and warmer.",
     "analysis": "【考点】考查阅读辨析比较级+and+比较级结构\n【解题思路】材料为\"The weather is getting warmer and warmer\"，warmer是warm的比较级\n【干扰项分析】B错在colder方向相反；C错在hotter不同方向；D错在better意思不同\n【解题口诀】👉 比较级重复说，变化趋势是关键",
     "core_trap": "容易混淆warmer、colder、hotter等温度比较级",
     "mnemonic": "warmer=变暖，colder=变冷，hotter=变热，方向别搞混",
@@ -118,7 +118,7 @@
       "C. My mother told me to play computer games.",
       "D. My mother asked me not to watch TV."
     ],
-    "answer": "A",
+    "answer": "A. My mother asked me not to play computer games.",
     "analysis": "【考点】考查阅读辨析ask sb. not to do sth.否定结构\n【解题思路】材料为\"My mother asked me not to play computer games\"，mother是人物，not to play是否定要求\n【干扰项分析】B错在father而非mother；C错在肯定形式而非否定；D错在watch TV而非play computer games\n【解题口诀】👉 否定结构抓not，人物内容要对齐",
     "core_trap": "容易忽略not而选成肯定句",
     "mnemonic": "看到not就是否定，别被选项迷惑",
@@ -139,7 +139,7 @@
       "C. If it doesn't rain tomorrow, we will stay at home.",
       "D. If it snows tomorrow, we will stay at home."
     ],
-    "answer": "A",
+    "answer": "A. If it rains tomorrow, we will stay at home.",
     "analysis": "【考点】考查阅读辨析条件状语从句if引导的结构\n【解题思路】材料为\"If it rains tomorrow, we will stay at home\"，条件是rains，结果是stay at home\n【干扰项分析】B结果相反；C条件相反；D条件是snows而非rains\n【解题口诀】👉 条件从句抓if，条件和结果都要读",
     "core_trap": "容易混淆rain/snow以及stay at home/go to the park",
     "mnemonic": "if从句是条件，主句是结果，条件变了结果也变",
@@ -160,7 +160,7 @@
       "C. He is tall enough to reach the banana.",
       "D. He is too short to pick the apple."
     ],
-    "answer": "A",
+    "answer": "A. He is tall enough to reach the apple.",
     "analysis": "【考点】考查阅读辨析enough to和too...to结构\n【解题思路】材料为\"He is tall enough to reach the apple\"，enough to表示足够做某事\n【干扰项分析】B错在too...to且short与tall相反；C错在banana而非apple；D错在too short to结构\n【解题口诀】👉 enough to是够做，too...to是做不了",
     "core_trap": "容易混淆enough to（肯定）和too...to（否定）",
     "mnemonic": "enough=足够能做，too=太而不能做，方向相反",
@@ -181,7 +181,7 @@
       "C. English is less important than math.",
       "D. Chinese is as important as math."
     ],
-    "answer": "A",
+    "answer": "A. English is as important as math.",
     "analysis": "【考点】考查阅读辨析as...as同级比较结构\n【解题思路】材料为\"English is as important as math\"，as...as表示两者一样\n【干扰项分析】B错在more...than；C错在less...than；D错在Chinese而非English\n【解题口诀】👉 as...as是同级比较，more/less是比较级",
     "core_trap": "容易混淆as...as、more...than、less...than",
     "mnemonic": "as...as=一样，more than=更，less than=不如",
@@ -202,7 +202,7 @@
       "C. The teacher told us the moon goes around the earth.",
       "D. The teacher told us the sun goes around the earth."
     ],
-    "answer": "A",
+    "answer": "A. The teacher told us the earth goes around the sun.",
     "analysis": "【考点】考查阅读辨析宾语从句中的客观真理用法\n【解题思路】原文中宾语从句用goes（一般现在时）表示客观真理，即使主句是过去时told\n【干扰项分析】B错在went违反客观真理用现在时的规则；C错在moon而非earth；D错在sun goes around earth与事实相反\n【解题口诀】👉 宾语从句表真理，永远一般现在时",
     "core_trap": "容易因主句过去时而误将从句也变过去时",
     "mnemonic": "客观真理不受时态影响，永远是现在时",
@@ -223,7 +223,7 @@
       "C. By train.",
       "D. On foot."
     ],
-    "answer": "B",
+    "answer": "B. By bus.",
     "analysis": "【考点】考查从对话中提取交通方式信息\n【解题思路】Lucy说\"I'll take a bus\"（我将乘公交车），明确说明了出行方式是by bus\n【干扰项分析】A的By car对话中未提及；C的By train对话中未提及；D的On foot对话中未提及\n【解题口诀】👉 对话中找关键词take+交通工具就是方式",
     "core_trap": "对话中可能提及多种信息，需要精确对应问题所问",
     "mnemonic": "问题问什么就找什么，别被其他信息干扰",
@@ -244,7 +244,7 @@
       "C. Next to the hospital.",
       "D. Across from the school."
     ],
-    "answer": "B",
+    "answer": "B. On the right of the second crossing.",
     "analysis": "【考点】考查方位指路信息\n【解题思路】女士说\"turn left at the second crossing. You'll see it on your right\"，on your right=右边\n【干扰项分析】A说在左边与原文相反；C和D的地点对话中未提及\n【解题口诀】👉 方位阅读抓left/right，第几个路口也别漏",
     "core_trap": "turn left之后on your right，容易混淆左右",
     "mnemonic": "left=左，right=右，看到什么选什么",
@@ -265,7 +265,7 @@
       "C. At 8:30.",
       "D. At 8:45."
     ],
-    "answer": "C",
+    "answer": "C. At 8:30.",
     "analysis": "【考点】考查时间计算\n【解题思路】现在是a quarter past eight（8:15），课程将在15分钟后开始，8:15+15=8:30\n【干扰项分析】A比现在还早；B是现在的时间；D多算了15分钟\n【解题口诀】👉 时间题先找现在时间，再加减间隔",
     "core_trap": "a quarter past eight=8:15需要先转换",
     "mnemonic": "a quarter past=过一刻（+15），half past=半点（+30）",
@@ -286,7 +286,7 @@
       "C. Math.",
       "D. Science."
     ],
-    "answer": "C",
+    "answer": "C. Math.",
     "analysis": "【考点】考查从对话中提取具体信息\n【解题思路】Mike说\"I didn't pass the math exam\"，直接表明不及格的科目是数学\n【干扰项分析】A、B、D对话中均未提及不及格\n【解题口诀】👉 直接引语中找答案，看清说了什么",
     "core_trap": "对话信息较多，容易把别人的建议和事实混淆",
     "mnemonic": "didn't pass=没通过=fail，后面的科目就是答案",
@@ -307,7 +307,7 @@
       "C. Running.",
       "D. Tennis."
     ],
-    "answer": "B",
+    "answer": "B. Swimming.",
     "analysis": "【考点】考查最喜爱事物的表达\n【解题思路】Anna说\"I like swimming best\"，best=最，直接表明最喜欢游泳\n【干扰项分析】A的Basketball是男生喜欢的；C和D对话中未提及\n【解题口诀】👉 favorite/best是\"最\"，注意区分说话人",
     "core_trap": "对话涉及两个人的爱好，容易把男生的当女生的",
     "mnemonic": "先看清问题问的是谁，再找对应说话人的话",
@@ -328,7 +328,7 @@
       "C. 100 yuan.",
       "D. 200 yuan."
     ],
-    "answer": "B",
+    "answer": "B. 80 yuan.",
     "analysis": "【考点】考查数字阅读及购物场景\n【解题思路】男士说\"this one is only eighty yuan\"（这件只要80元），问题问更便宜的那件\n【干扰项分析】A的120元是第一件的价格；C和D对话中未提及\n【解题口诀】👉 购物场景注意两件商品，问哪个答哪个",
     "core_trap": "对话提到两个价格，容易把第一个价格当答案",
     "mnemonic": "仔细看问题问的是the cheaper one还是the first one",
@@ -349,7 +349,7 @@
       "C. Chinese history books.",
       "D. Story books."
     ],
-    "answer": "C",
+    "answer": "C. Chinese history books.",
     "analysis": "【考点】考查具体事物类型\n【解题思路】Lily说\"Some books about Chinese history\"，明确说明了借书类型\n【干扰项分析】A、B、D对话中均未提及\n【解题口诀】👉 what kind问类型，直接抓名词前修饰语",
     "core_trap": "对话中出现了library，容易联想到English books",
     "mnemonic": "看到什么选什么，别凭经验联想",
@@ -370,7 +370,7 @@
       "C. 50.",
       "D. 40."
     ],
-    "answer": "A",
+    "answer": "A. 20.",
     "analysis": "【考点】考查数字推理计算\n【解题思路】全班50人，男生30人，女生=50-30=20人\n【干扰项分析】B是男生人数；C是全班总人数；D没有依据\n【解题口诀】👉 数字题注意整体与部分的关系",
     "core_trap": "50、30、20三个数字都出现了，容易选错对象",
     "mnemonic": "问题问什么找什么，total、boys、girls要区分",
@@ -391,7 +391,7 @@
       "C. How to make friends.",
       "D. How to save money."
     ],
-    "answer": "B",
+    "answer": "B. How to protect the environment.",
     "analysis": "【考点】考查事物主题\n【解题思路】Tom说\"It's about how to protect the environment\"，直接点明主题\n【干扰项分析】A、C、D对话中均未提及\n【解题口诀】👉 It's about...就是答案，直接抓",
     "core_trap": "对话后续讨论了recycling和saving water，容易偏离主旨",
     "mnemonic": "It's about=关于什么，这是直接答案信号",
@@ -412,7 +412,7 @@
       "C. Because she played games all night.",
       "D. Because she had a nightmare."
     ],
-    "answer": "B",
+    "answer": "B. Because she stayed up late preparing for a speech contest.",
     "analysis": "【考点】考查因果关系\n【解题思路】Jane说\"I stayed up late last night to prepare for the English speech contest\"，stayed up late to prepare for the English speech contest=熬夜准备演讲比赛是原因\n【干扰项分析】A、C、D对话中均未提及\n【解题口诀】👉 问原因找because/for/to do等因果信号词",
     "core_trap": "容易凭\"tired\"自行推测原因而忽略原文",
     "mnemonic": "stayed up late=熬夜，原因在原文里找，别自己猜",
@@ -433,7 +433,7 @@
       "C. Go hiking.",
       "D. Go fishing."
     ],
-    "answer": "C",
+    "answer": "C. Go hiking.",
     "analysis": "【考点】考查计划活动\n【解题思路】女士说\"Let's go hiking in the mountains then\"，hiking=徒步旅行\n【干扰项分析】A、B、D对话中均未提及\n【解题口诀】👉 Let's...就是计划要做的活动",
     "core_trap": "对话前面聊天气，容易忽略后面的活动计划",
     "mnemonic": "Let's=我们...吧，这是提议做某事的标志",
@@ -454,7 +454,7 @@
       "C. In Beijing.",
       "D. In Shanghai."
     ],
-    "answer": "C",
+    "answer": "C. In Beijing.",
     "analysis": "【考点】考查电话对话中的人物位置\n【解题思路】女士说\"He went to Beijing for a meeting\"，Mr. Green现在在北京\n【干扰项分析】A与\"not in\"矛盾；B与\"went to Beijing\"矛盾；D对话中未提及\n【解题口诀】👉 电话场景注意who和where",
     "core_trap": "not in容易理解为在家，实际是\"不在办公室\"",
     "mnemonic": "not in=不在，went to...=去了...，两个信息结合判断位置",
@@ -475,7 +475,7 @@
       "C. For three weeks.",
       "D. For a month."
     ],
-    "answer": "B",
+    "answer": "B. For two weeks.",
     "analysis": "【考点】考查时间段\n【解题思路】Peter说\"For about two weeks\"，直接回答了待了多久\n【干扰项分析】A、C、D对话中均未提及\n【解题口诀】👉 How long问多久，For+时间段是答案",
     "core_trap": "对话提到last Friday，容易混淆时间信息",
     "mnemonic": "For two weeks=两周，last Friday是回来的日期",
@@ -496,7 +496,7 @@
       "C. A cup of tea.",
       "D. A glass of water."
     ],
-    "answer": "C",
+    "answer": "C. A cup of tea.",
     "analysis": "【考点】考查点餐/饮食场景\n【解题思路】Mary说\"I'd like a cup of tea\"，明确说了想喝什么\n【干扰项分析】A对话中未提及；B的Milk被Neither拒绝；D对话中未提及\n【解题口诀】👉 I'd like...就是想要的东西，注意后面否定排除",
     "core_trap": "对话提到了sugar和milk，容易误选",
     "mnemonic": "I'd like=我想要，Neither=都不要，看清否定也很重要",
@@ -517,7 +517,7 @@
       "C. A pilot.",
       "D. A scientist."
     ],
-    "answer": "C",
+    "answer": "C. A pilot.",
     "analysis": "【考点】考查理想职业\n【解题思路】Jack说\"I want to be a pilot\"，直接说明了理想职业\n【干扰项分析】A、B、D对话中均未提及\n【解题口诀】👉 want to be=想成为，后面的职业就是答案",
     "core_trap": "对话后面讨论了study hard，容易偏离主题",
     "mnemonic": "when you grow up=长大后，want to be=想成为",
@@ -538,7 +538,7 @@
       "C. Go straight, then turn left.",
       "D. Go straight, then turn right."
     ],
-    "answer": "D",
+    "answer": "D. Go straight, then turn right.",
     "analysis": "【考点】考查多个连续指路指令\n【解题思路】先说\"Go straight along this street\"（直走），再说\"turn right at the traffic lights\"（右转），顺序是先直走再右转\n【干扰项分析】A顺序和方向都错；B少了先直走的步骤；C转向错误\n【解题口诀】👉 指路题注意顺序：先做什么再做什么",
     "core_trap": "连续指令需要记住先后顺序，容易颠倒",
     "mnemonic": "Go straight=直走，turn right=右转，注意先后顺序",
@@ -559,7 +559,7 @@
       "C. Three times.",
       "D. Four times."
     ],
-    "answer": "C",
+    "answer": "C. Three times.",
     "analysis": "【考点】考查次数\n【解题思路】女士说\"I've watched it three times\"，three times直接对应\n【干扰项分析】A、B、D对话中均未提及\n【解题口诀】👉 ...times就是次数，直接数字对应",
     "core_trap": "对话讨论了电影评价，容易忽略具体次数信息",
     "mnemonic": "once=一次，twice=两次，three times=三次",
@@ -580,7 +580,7 @@
       "C. October 25th.",
       "D. November 15th."
     ],
-    "answer": "B",
+    "answer": "B. October 15th.",
     "analysis": "【考点】考查日期信息\n【解题思路】Lisa说\"It's on October 15th\"，直接给出了生日日期\n【干扰项分析】A混淆了15th和5th；C混淆了数字位置；D月份不对\n【解题口诀】👉 日期题直接抓数字，注意15th和5th的区别",
     "core_trap": "15th（十五）和5th（五）发音相近容易混淆",
     "mnemonic": "fifteenth=15th，fifth=5th，开头音不同，仔细听",
@@ -601,7 +601,7 @@
       "C. He went climbing.",
       "D. He went shopping."
     ],
-    "answer": "B",
+    "answer": "B. He went camping.",
     "analysis": "【考点】考查过去发生的活动\n【解题思路】Bob说\"I went camping with my friends in the mountains\"，camping=露营\n【干扰项分析】A的fishing被No直接否定了；C和D对话中未提及\n【解题口诀】👉 注意否定回答，No表示没有做某事",
     "core_trap": "女生问Did you catch any fish?容易误选fishing",
     "mnemonic": "No, we didn't=没有，别被提问误导成答案",
@@ -622,7 +622,7 @@
       "C. Because she didn't know about it.",
       "D. Because she went to see a doctor."
     ],
-    "answer": "B",
+    "answer": "B. Because she had a bad cold.",
     "analysis": "【考点】考查缺席原因\n【解题思路】Amy说\"I had a bad cold\"（我得了重感冒），这是直接原因\n【干扰项分析】A、C对话中未提及；D的去看医生是推测不是原文说明的\n【解题口诀】👉 问原因找I had/I was等第一人称描述",
     "core_trap": "stay in bed和see a doctor容易混淆",
     "mnemonic": "had a bad cold=感冒了，这是最直接的原因",
@@ -643,7 +643,7 @@
       "C. East China",
       "D. West China"
     ],
-    "answer": "B",
+    "answer": "B. South China",
     "analysis": "【考点】考查地理方位词。\n【解题思路】原文 I live in a small town in the south of China.\n【总结】south of China = 中国南方。",
     "core_trap": "south和north方向相反，容易听错",
     "mnemonic": "south=南方，north=北方，看到什么选什么",
@@ -665,7 +665,7 @@
       "C. Autumn",
       "D. Winter"
     ],
-    "answer": "C",
+    "answer": "C. Autumn",
     "analysis": "【考点】考查最喜欢的季节。\n【解题思路】I like autumn best because it's cool and the leaves are beautiful.\n【总结】like ... best = 最喜欢。",
     "core_trap": "短文提到了spring的天气，容易误以为喜欢春天",
     "mnemonic": "like...best才是最喜欢的，提到某个季节≠喜欢那个季节",
@@ -687,7 +687,7 @@
       "C. 12 years old",
       "D. 13 years old"
     ],
-    "answer": "C",
+    "answer": "C. 12 years old",
     "analysis": "【考点】考查数字计算推理。\n【解题思路】李明14岁，妹妹 two years younger = 14 - 2 = 12岁。\n【总结】younger than = 比...小，需用减法计算。",
     "core_trap": "需要计算而非直接听到数字",
     "mnemonic": "14-2=12，younger=小，计算要准确",
@@ -709,7 +709,7 @@
       "C. This Sunday morning",
       "D. Tomorrow evening"
     ],
-    "answer": "B",
+    "answer": "B. Last Saturday afternoon",
     "analysis": "【考点】考查时间状语辨析。\n【解题思路】根据短文时间线索推断 Tom 去公园的具体时间。\n【总结】注意 yesterday/last week/tomorrow 等时间词的区别。",
     "core_trap": "got up early容易误导为上午去公园",
     "mnemonic": "afternoon=下午，morning=上午，got up early≠活动在上午",
@@ -731,7 +731,7 @@
       "C. Three hours",
       "D. Half an hour"
     ],
-    "answer": "B",
+    "answer": "B. Two hours",
     "analysis": "【考点】考查时间段表达。\n【解题思路】根据短文中踢足球时长的描述判断具体时长。\n【总结】for + 时间段 表示持续多长时间。",
     "core_trap": "two和three是不同数字",
     "mnemonic": "two hours=两小时，看清数字别猜",
@@ -753,7 +753,7 @@
       "C. Taking the bus is most popular.",
       "D. Nobody walks to school."
     ],
-    "answer": "B",
+    "answer": "B. No, biking is more popular than walking.",
     "analysis": "【考点】考查最高级和比较级。\n【解题思路】根据各方式的数据对比判断步行是否最受欢迎。\n【总结】most popular = 最受欢迎，需比较所有选项数据。",
     "core_trap": "短文列举了多种方式，容易误选任何一个为\"最流行\"",
     "mnemonic": "短文强调subway越来越流行，不是walking最流行",
@@ -775,7 +775,7 @@
       "C. Because they don't like walking.",
       "D. Because bikes are cheap and cool."
     ],
-    "answer": "A",
+    "answer": "A. Because it is fast and convenient.",
     "analysis": "【考点】考查原因状语从句。\n【解题思路】原文说明了学生选择骑车上学的原因。\n【总结】because 引导的原因状语从句直接给出答案。",
     "core_trap": "无，直接信息匹配",
     "mnemonic": "good for health=对健康好，原文直接说了",
@@ -797,7 +797,7 @@
       "C. Three activities at most",
       "D. No limit"
     ],
-    "answer": "B",
+    "answer": "B. Two activities at most",
     "analysis": "【考点】考查数量限制。\n【解题思路】原文有参加活动数量的限制规则。\n【总结】at most / maximum = 最多，注意数量限定词。",
     "core_trap": "at most two≠at most three",
     "mnemonic": "at most two=最多两个，题目说三个就是错的",
@@ -819,7 +819,7 @@
       "C. In the sports center",
       "D. At the park field"
     ],
-    "answer": "A",
+    "answer": "A. On the school playground",
     "analysis": "【考点】考查地点状语。\n【解题思路】原文指明了运动会举办地点。\n【总结】地点通常由 at / in / on + 地点名词构成。",
     "core_trap": "无，直接信息匹配",
     "mnemonic": "playground=操场，原文明确说了",
@@ -841,7 +841,7 @@
       "C. They live only in zoos now.",
       "D. They live in many countries worldwide."
     ],
-    "answer": "B",
+    "answer": "B. No, they also live in other provinces.",
     "analysis": "【考点】考查范围限定词 only。\n【解题思路】原文提到熊猫分布不止四川一地。\n【总结】only 表示仅仅，如果原文提到其他地区则选否。",
     "core_trap": "熊猫最出名的在四川，容易误以为只生活在四川",
     "mnemonic": "Sichuan, Gansu, Shaanxi=四川、甘肃、陕西，三个省份",
@@ -863,7 +863,7 @@
       "C. Science.",
       "D. Chinese."
     ],
-    "answer": "B",
+    "answer": "B. Math.",
     "analysis": "【考点】考查擅长的科目\n【解题思路】短文中说\"He is very good at math\"，good at=擅长，科目是math\n【干扰项分析】A的English短文中说不喜欢；C的Science是favorite不是good at；D未提及\n【解题口诀】👉 good at=擅长，favorite=最喜欢，两个概念不同",
     "core_trap": "擅长和最喜欢是不同的",
     "mnemonic": "good at math=擅长数学，favorite is science=最喜欢科学",
@@ -884,7 +884,7 @@
       "C. They make us lazy.",
       "D. They are easy to break."
     ],
-    "answer": "B",
+    "answer": "B. They are bad for our eyes.",
     "analysis": "【考点】考查短文论述的问题\n【解题思路】短文中说\"looking at the phone screen for a long time is bad for our eyes\"\n【干扰项分析】A、C、D短文中均未提及\n【解题口诀】👉 however后面通常是问题或转折，重点关注",
     "core_trap": "短文提到了玩游戏耽误学习，容易误选与学习相关的",
     "mnemonic": "bad for eyes=对眼睛不好，这是短文明确提到的健康问题",
@@ -905,7 +905,7 @@
       "C. For five days.",
       "D. For a week."
     ],
-    "answer": "C",
+    "answer": "C. For five days.",
     "analysis": "【考点】考查旅行持续时间\n【解题思路】短文中说\"We stayed there for five days\"，five days直接对应\n【干扰项分析】A、B、D短文中均未提及\n【解题口诀】👉 for+时间段=待了多久，直接数字对应",
     "core_trap": "无，直接信息匹配",
     "mnemonic": "for five days=五天，数字直接抓",
@@ -926,7 +926,7 @@
       "C. On Thursdays.",
       "D. On Fridays."
     ],
-    "answer": "B",
+    "answer": "B. On Wednesdays.",
     "analysis": "【考点】考查多个俱乐部对应的时间\n【解题思路】短文中说\"The art club is open on Wednesdays\"，直接对应\n【干扰项分析】A是English club；C是basketball和swimming club；D是music club\n【解题口诀】👉 多个对应关系题，逐一匹配，不张冠李戴",
     "core_trap": "多个社团多个时间，容易张冠李戴",
     "mnemonic": "English=Tuesday，Art=Wednesday，Sports=Thursday，Music=Friday",
@@ -947,7 +947,7 @@
       "C. Eight hours.",
       "D. Nine hours."
     ],
-    "answer": "C",
+    "answer": "C. Eight hours.",
     "analysis": "【考点】考查建议中的数字\n【解题思路】短文中说\"at least eight hours of sleep every night\"，at least=至少\n【干扰项分析】A、B、D短文中均未提及\n【解题口诀】👉 at least=至少，对应最小数字",
     "core_trap": "容易混淆at least和具体数字",
     "mnemonic": "at least eight hours=至少8小时",
@@ -968,7 +968,7 @@
       "C. The Terracotta Warriors.",
       "D. The Forbidden City."
     ],
-    "answer": "B",
+    "answer": "B. The West Lake.",
     "analysis": "【考点】考查名胜的特点描述\n【解题思路】短文中说\"The West Lake in Hangzhou. It's known for its beautiful scenery\"\n【干扰项分析】A以世界闻名著称；C以历史悠久著称；D对话中未提及\n【解题口诀】👉 known for=以...闻名，后面跟的就是特点",
     "core_trap": "多个景点各有特色，容易张冠李戴",
     "mnemonic": "Great Wall=最著名，West Lake=美丽风景，Terracotta Warriors=两千年历史",
@@ -989,7 +989,7 @@
       "C. Where to find clean water.",
       "D. How to grow plants."
     ],
-    "answer": "B",
+    "answer": "B. The importance of saving water.",
     "analysis": "【考点】考查短文主旨大意\n【解题思路】短文先说水的重要性，再说水资源短缺问题，最后给出节水建议，主旨是节约水资源的重要性\n【干扰项分析】A太片面；C短文没有讨论；D只是举例之一\n【解题口诀】👉 主旨题看开头和结尾，中间举例都是支撑",
     "core_trap": "容易把具体例子当成主旨",
     "mnemonic": "importance+problem+solutions=主旨",
@@ -1010,7 +1010,7 @@
       "C. For three years.",
       "D. For four years."
     ],
-    "answer": "B",
+    "answer": "B. For two years.",
     "analysis": "【考点】考查现在完成时中的持续时间\n【解题思路】短文中说\"She has been learning Chinese for two years\"，直接对应\n【干扰项分析】A、C、D短文中均未提及\n【解题口诀】👉 has been doing for+时间=持续做某事多久",
     "core_trap": "无，直接信息匹配",
     "mnemonic": "for two years=两年，直接数字对应",
@@ -1031,7 +1031,7 @@
       "C. Bored and tired.",
       "D. Excited and nervous."
     ],
-    "answer": "B",
+    "answer": "B. Tired but happy.",
     "analysis": "【考点】考查短文末尾的情感描述\n【解题思路】短文中说\"The students felt tired but very happy\"，tired but happy直接对应\n【干扰项分析】A的sad与happy相反；C的bored未提及；D与原文不符\n【解题口诀】👉 but表示转折，前后两个形容词都要抓住",
     "core_trap": "tired but happy是转折关系不是并列",
     "mnemonic": "tired but happy=累但开心，but前后都要记",
@@ -1052,7 +1052,7 @@
       "C. Before 8:00.",
       "D. Before 8:30."
     ],
-    "answer": "B",
+    "answer": "B. Before 7:30.",
     "analysis": "【考点】考查学校规章中的时间要求\n【解题思路】短文中说\"arrive at school before 7:30 in the morning\"，直接对应\n【干扰项分析】A、C、D短文中均未提及\n【解题口诀】👉 before=在...之前，时间数字直接抓",
     "core_trap": "无，直接信息匹配",
     "mnemonic": "before 7:30=7:30之前，数字直接对应",
@@ -1073,7 +1073,7 @@
       "C. brave",
       "D. bring"
     ],
-    "answer": "A",
+    "answer": "A. bread",
     "analysis": "【考点】考查易混淆单词bread\n【解题思路】根据语境，\"我通常早餐吃面包\"，have...for breakfast，bread（面包）最符合语境\n【干扰项分析】B的break（休息）语义不通；C的brave（勇敢的）是形容词；D的bring（带来）动词不合适\n【解题口诀】👉 先看语境，根据句子意思选词",
     "core_trap": "bread和break发音相近，容易混淆",
     "mnemonic": "bread=面包，break=休息，词性和含义不同",
@@ -1094,7 +1094,7 @@
       "C. entertainment",
       "D. equipment"
     ],
-    "answer": "A",
+    "answer": "A. environment",
     "analysis": "【考点】考查长单词environment\n【解题思路】根据语境，\"我们应该保护环境\"，protect the environment（保护环境）是固定搭配\n【干扰项分析】B、C、D都不能与protect合理搭配\n【解题口诀】👉 protect the environment是常见固定搭配",
     "core_trap": "四个词都以en开头，前缀相同容易混淆",
     "mnemonic": "environment=环境，environmental protection=环境保护",
@@ -1115,7 +1115,7 @@
       "C. fine",
       "D. fit"
     ],
-    "answer": "A",
+    "answer": "A. funny",
     "analysis": "【考点】考查形容词funny\n【解题思路】根据语境，\"电影太搞笑了，每个人都笑了\"，so+形容词+that，funny是形容词\n【干扰项分析】B的fun是名词；C的fine语义不通；D的fit语义不通\n【解题口诀】👉 so+形容词+that，形容词才能跟在so后面",
     "core_trap": "funny和fun拼写相近，词性不同",
     "mnemonic": "funny=搞笑的（形容词），fun=乐趣（名词）",
@@ -1136,7 +1136,7 @@
       "C. drops",
       "D. dresses"
     ],
-    "answer": "A",
+    "answer": "A. drives",
     "analysis": "【考点】考查动词drives\n【解题思路】根据语境，\"我爸爸经常开车送我上学\"，drive sb. to...是固定用法\n【干扰项分析】B的draws不能搭配to school；C的drops需用drop off；D的dresses语义不通\n【解题口诀】👉 drive sb. to...=开车送某人去...",
     "core_trap": "drives和draws开头音相似",
     "mnemonic": "drive=开车，draw=画画，dr开头两个常用词要区分",
@@ -1157,7 +1157,7 @@
       "C. rang",
       "D. run"
     ],
-    "answer": "A",
+    "answer": "A. rain",
     "analysis": "【考点】考查rain及其同音词\n【解题思路】根据语境，\"明天会有一场大雨\"，heavy rain（大雨）是固定搭配\n【干扰项分析】B的ran是过去式语法不对；C的rang语义不通；D的run不能说heavy run\n【解题口诀】👉 heavy rain=大雨，固定搭配",
     "core_trap": "rain/ran/rang发音相近",
     "mnemonic": "rain=雨（名词），ran=跑（过去式），rang=响（过去式）",
@@ -1178,7 +1178,7 @@
       "C. larger",
       "D. later"
     ],
-    "answer": "A",
+    "answer": "A. louder",
     "analysis": "【考点】考查比较级louder\n【解题思路】根据语境，\"请大声点，我听不清你\"，can't hear要求louder（更大声）\n【干扰项分析】B的lower与要求相反；C的larger不用于声音；D的later与声音无关\n【解题口诀】👉 can't hear=听不见，所以要用louder（更大声）",
     "core_trap": "louder和lower拼写相近，意思相反",
     "mnemonic": "loud=大声的，louder=更大声；low=低的，lower=更低",
@@ -1199,7 +1199,7 @@
       "C. even",
       "D. every"
     ],
-    "answer": "B",
+    "answer": "B. never",
     "analysis": "【考点】考查never在现在完成时中的用法\n【解题思路】I have never been to the Great Wall（我从没去过长城），never表示从未\n【干扰项分析】A的ever意思相反；C的even语义不通；D的every不能用于此结构\n【解题口诀】👉 have never been to=从没去过，have ever been to=曾经去过",
     "core_trap": "never和even发音相近",
     "mnemonic": "never=从不，ever=曾经，一字之差意思相反",
@@ -1220,7 +1220,7 @@
       "C. hot",
       "D. warm"
     ],
-    "answer": "A",
+    "answer": "A. cold",
     "analysis": "【考点】考查温度形容词cold\n【解题思路】根据语境，\"外面很冷，请穿上外套\"，put on coat暗示天气冷\n【干扰项分析】B、D不需要穿外套；C需要脱外套\n【解题口诀】👉 put on coat暗示天气冷，take off coat暗示热",
     "core_trap": "cold和cool都表示温度低但程度不同",
     "mnemonic": "cold=冷（要穿外套），cool=凉爽（舒服），hot=热（脱外套）",
@@ -1241,7 +1241,7 @@
       "C. tell",
       "D. tall"
     ],
-    "answer": "A",
+    "answer": "A. try",
     "analysis": "【考点】考查try in try one's best结构\n【解题思路】try our best（尽我们最大努力），try one's best是固定搭配\n【干扰项分析】B、C、D都不能搭配our best\n【解题口诀】👉 try one's best=尽某人最大努力，固定搭配",
     "core_trap": "try和tell开头音相近",
     "mnemonic": "try one's best=尽力，tell=告诉，听清辅音结尾",
@@ -1262,7 +1262,7 @@
       "C. undergo",
       "D. unlock"
     ],
-    "answer": "A",
+    "answer": "A. underline",
     "analysis": "【考点】考查underline\n【解题思路】根据语境，\"老师让我们在课文中划出难词\"，underline（在...下划线/标出）\n【干扰项分析】B的understand需先理解才能划，逻辑不通；C的undergo语义不通；D的unlock语义不通\n【解题口诀】👉 underline=在下面划线/标出，常用于标注重点",
     "core_trap": "四个词都以under开头",
     "mnemonic": "underline=划线，understand=理解，根据\"老师要求做什么\"判断",

@@ -283,6 +283,41 @@ export const storage = {
     }
     return count;
   },
+
+  // ── Premium 诊断报告 ──
+  getPremiumStatus: (userId) =>
+    lsParse(P + 'premium_' + userId, { isPremium: false, expiresAt: null }),
+
+  setPremiumStatus: (userId, status) =>
+    lsSet(P + 'premium_' + userId, JSON.stringify(status)),
+
+  isPremiumActive: (userId) => {
+    const s = storage.getPremiumStatus(userId)
+    if (!s.isPremium) return false
+    if (s.expiresAt && new Date(s.expiresAt) < new Date()) {
+      storage.setPremiumStatus(userId, { isPremium: false, expiresAt: s.expiresAt })
+      return false
+    }
+    return true
+  },
+
+  activatePremiumTrial: (userId) => {
+    const expires = new Date()
+    expires.setDate(expires.getDate() + 30)
+    storage.setPremiumStatus(userId, { isPremium: true, expiresAt: expires.toISOString() })
+  },
+
+  getPremiumReport: (userId) =>
+    lsParse(P + 'premium_report_' + userId, null),
+
+  setPremiumReport: (userId, data) =>
+    lsSet(P + 'premium_report_' + userId, JSON.stringify(data)),
+
+  getActionPlan: (userId) =>
+    lsParse(P + 'action_plan_' + userId, null),
+
+  setActionPlan: (userId, plan) =>
+    lsSet(P + 'action_plan_' + userId, JSON.stringify(plan)),
 };
 
 // 导出当前用户的完整本地数据快照，便于导出到外部备份/导入

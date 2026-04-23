@@ -80,13 +80,8 @@ const PLANET_SESSION_SIZES = {
 const MATH_SESSION_SIZE = 10
 
 function shuffleOptions(question) {
-  if (question.type === 'fill_blank') return question
-  const opts = [...(question.options || [])]
-  for (let i = opts.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [opts[i], opts[j]] = [opts[j], opts[i]]
-  }
-  return { ...question, options: opts }
+  // 不打乱选项顺序，保持A/B/C/D固定对应，与考试一致
+  return question
 }
 
 export default function QuizPage({ user, options = {}, onFinish, onBack }) {
@@ -235,6 +230,7 @@ export default function QuizPage({ user, options = {}, onFinish, onBack }) {
       topic: current.topic,
       subject: mathTopic ? 'math' : juniorChineseTag ? 'chinese_junior' : 'chinese',
       timestamp: new Date().toISOString(),
+      difficulty: current.difficulty,
     }
     storage.addRecord(user.id, record)
     setSessionRecords((prev) => [...prev, record])
@@ -252,8 +248,8 @@ export default function QuizPage({ user, options = {}, onFinish, onBack }) {
           durationSec: totalSec,
         }
         storage.addSession(user.id, session)
-        // 标记星球完成（至少答5题且完成全部，才算打卡）
-        if (allRecords.length >= 5) {
+        // 标记星球完成（至少答3题且完成全部，才算打卡）
+        if (allRecords.length >= 3) {
           if (mathTopic) storage.markPlanetComplete(user.id, '🔢 ' + mathTopic)
           if (juniorChineseTag) storage.markPlanetComplete(user.id, juniorChineseTag)
           if (knowledgeTag) storage.markPlanetComplete(user.id, knowledgeTag)

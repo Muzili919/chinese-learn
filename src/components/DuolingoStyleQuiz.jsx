@@ -3,6 +3,7 @@ import { evaluateClassicalTranslation } from '../utils/ai'
 import { generateVariantsStream } from '../utils/ai_v2'
 import { checkAiUsage, getAiUsage } from '../hooks/usePlan'
 import { storage } from '../utils/storage'
+import SocraticDialogue from './SocraticDialogue'
 import {
   normalize, normalizeAnswer, isAnswerCorrect,
   isWordBankQ, isMatchingStyleQ, isJudgmentQ, isTypoQ, isOrderQ,
@@ -28,7 +29,7 @@ function renderRichText(text) {
 
 // ─── 底部反馈面板 ─────────────────────────────────────────
 
-function FeedbackPanel({ correct, analysis, answer, onContinue, variantState }) {
+function FeedbackPanel({ correct, analysis, answer, onContinue, variantState, onSocratic }) {
   // variantState = { phase, question, selected, onSelect, onGenerate, showButton, remaining }
   const vs = variantState || {}
 
@@ -55,6 +56,15 @@ function FeedbackPanel({ correct, analysis, answer, onContinue, variantState }) 
           )}
 
           {/* 举一反三区域 - 答错时显示（用户看完解析后手动触发） */}
+          {/* Socratic deep understanding button */}
+          {!correct && onSocratic && (
+            <button onClick={onSocratic}
+              className="w-full mb-3 py-3 rounded-2xl font-bold text-white bg-gradient-to-r from-blue-500 to-indigo-600 text-sm active:scale-[0.98] transition-all flex items-center justify-center gap-2 shadow-lg">
+              <span className="text-base">🧠</span>
+              <span>深度理解（AI引导）</span>
+            </button>
+          )}
+
           {vs.showButton && !correct && vs.phase === 'idle' && (
             <button onClick={vs.onGenerate}
               className="w-full mb-3 py-3.5 rounded-2xl font-bold text-white bg-gradient-to-r from-violet-500 to-purple-600 text-sm active:scale-[0.98] transition-all flex items-center justify-center gap-2 shadow-lg">
@@ -1386,6 +1396,8 @@ export default function DuolingoStyleQuiz({ question, onAnswerSubmit, showVarian
   const [variantStreamText, setVariantStreamText] = useState('') // 流式生成时的实时文本
   // AI 使用次数（今日剩余）
   const [variantRemaining, setVariantRemaining] = useState(null)  // null=未知, 数字=已知
+  const [showSocratic, setShowSocratic] = useState(false)
+  const [socraticResult, setSocraticResult] = useState(null)
 
   // 组件挂载/题目切换时查一次剩余次数（不消费，仅展示）
   useEffect(() => {
@@ -1405,6 +1417,20 @@ export default function DuolingoStyleQuiz({ question, onAnswerSubmit, showVarian
   }
 
   function handleContinue() {
+    // 补写 socratic/feynman 数据到最近一条 record
+    if (socraticResult && question?.id) {
+      const userId = storage.getUser()?.id
+      if (userId) {
+        const records = storage.getRecords(userId)
+        const lastIdx = records.findLastIndex(r => r.card_id === question.id)
+        if (lastIdx >= 0) {
+          records[lastIdx].socratic_rounds = socraticResult.rounds
+          records[lastIdx].feynman_passed = socraticResult.feynmanPassed ?? socraticResult.understood
+          records[lastIdx].feynman_score = socraticResult.score
+          try { localStorage.setItem('cl_records_' + userId, JSON.stringify(records)) } catch {}
+        }
+      }
+    }
     onAnswerSubmit(chosenAnswer, phase === 'correct')
     setPhase('answering')
     setChosenAnswer(null)
@@ -1412,6 +1438,8 @@ export default function DuolingoStyleQuiz({ question, onAnswerSubmit, showVarian
     setVariantPhase('idle')
     setVariantSel(null)
     setVariantStreamText('')
+    setShowSocratic(false)
+    setSocraticResult(null)
   }
 
   async function handleVariant(isAuto = false) {
@@ -1601,6 +1629,7 @@ export default function DuolingoStyleQuiz({ question, onAnswerSubmit, showVarian
           analysis={question.analysis}
           answer={phase === 'wrong' ? question.answer : null}
           onContinue={handleContinue}
+          onSocratic={phase === 'wrong' ? () => setShowSocratic(true) : null}
           variantState={{
             showButton: showVariantButton,
             phase: variantPhase,
@@ -1666,6 +1695,22 @@ export default function DuolingoStyleQuiz({ question, onAnswerSubmit, showVarian
         </div>
       )}
       </>
+      )}
+
+      {/* Socratic deep understanding modal */}
+      {showSocratic && (
+        <div className="fixed inset-0 z-50 bg-black/40 flex items-end justify-center"
+          onClick={(e) => { if (e.target === e.currentTarget) setShowSocratic(false) }}>
+          <div className="w-full max-w-md max-h-[85vh] overflow-y-auto rounded-t-3xl">
+            <SocraticDialogue
+              question={question}
+              studentAnswer={chosenAnswer}
+              subject={question.knowledge_tag?.includes('英') ? 'english' : 'chinese'}
+              onComplete={(result) => { setSocraticResult(result); setShowSocratic(false) }}
+              onSkip={() => setShowSocratic(false)}
+            />
+          </div>
+        </div>
       )}
     </div>
   )

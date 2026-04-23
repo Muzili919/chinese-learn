@@ -1756,7 +1756,7 @@ export default function EnglishQuizPage({ user, options = {}, onFinish, onBack }
         storage.addSession(user.id, session)
         // 标记星球完成（至少答5题且完成全部，才算打卡）
         const completedTag = EN_PLANET_CANONICAL_TAG[englishTag] || current?.knowledge_tag
-        if (completedTag && allRecords.length >= 5) {
+        if (completedTag && allRecords.length >= 3) {
           storage.markPlanetComplete(user.id, completedTag)
         }
         updateStreak(user.id)

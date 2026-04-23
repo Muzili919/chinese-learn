@@ -572,7 +572,7 @@
   {
     "id": "math_jgeo031",
     "type": "single_choice",
-    "question": "如图，在平行四边形ABCD中，对角线AC、BD交于点O，下列结论错误的是(　)",
+    "question": "在平行四边形ABCD中，对角线AC、BD交于点O。下列结论错误的是(　)",
     "options": [
       "A. OB=OD",
       "B. AC=BD",
@@ -591,7 +591,7 @@
   {
     "id": "math_jgeo032",
     "type": "single_choice",
-    "question": "如图，矩形ABCD中，AB=6cm，BC=8cm，则对角线AC的长为(　)",
+    "question": "在矩形ABCD中，AB=6cm，BC=8cm。求对角线AC的长。(　)",
     "options": [
       "A. 10cm",
       "B. 12cm",
@@ -610,7 +610,7 @@
   {
     "id": "math_jgeo033",
     "type": "single_choice",
-    "question": "如图，菱形ABCD的周长为24cm，一条对角线长为6cm，则面积为(　)",
+    "question": "已知菱形ABCD的周长为24cm，一条对角线长为6cm。则菱形的面积为(　)",
     "options": [
       "A. 36 cm^2",
       "B. 18*sqrt(3) cm^2",
@@ -629,7 +629,7 @@
   {
     "id": "math_jgeo034",
     "type": "single_choice",
-    "question": "如图，正方形ABCD中，E是BC的中点，F在CD上且CF=1/4 CD。AE:EF=(　)",
+    "question": "在正方形ABCD中，E是BC的中点，F是CD上一点且CF=1/4·CD。求AE:EF的比值。(　)",
     "options": [
       "A. sqrt5:1",
       "B. 2:1",
@@ -648,7 +648,7 @@
   {
     "id": "math_jgeo035",
     "type": "single_choice",
-    "question": "如图，平行四边形ABCD中，E、F分别在AD、BC上，且AE=CF。连接BE、DF，则四边形BEDF是(　)",
+    "question": "在平行四边形ABCD中，E、F分别在边AD、BC上，且AE=CF。连接BE、DF，则四边形BEDF是(　)",
     "options": [
       "A. 菱形",
       "B. 矩形",
@@ -667,7 +667,7 @@
   {
     "id": "math_jgeo036",
     "type": "single_choice",
-    "question": "如图，矩形ABCD沿对角线BD折叠后，点C落在E处。若angle ADB=30度，则angle BDE=(　)",
+    "question": "在矩形ABCD中，沿对角线BD折叠后，点C落在点E处。若∠ADB=30°，则∠BDE=(　)",
     "options": [
       "A. 75度",
       "B. 60度",
@@ -686,7 +686,7 @@
   {
     "id": "math_jgeo037",
     "type": "single_choice",
-    "question": "如图，菱形ABCD中，angle ABC=60度，AC=6，则菱形的边长=(　)",
+    "question": "在菱形ABCD中，∠ABC=60°，对角线AC=6。则菱形的边长为(　)",
     "options": [
       "A. 5",
       "B. 3",
@@ -705,7 +705,7 @@
   {
     "id": "math_jgeo038",
     "type": "single_choice",
-    "question": "如图，正方形ABCD的边长为4，E是AB中点，F是BC上一点使AF垂直 EF。则BF的长为(　)",
+    "question": "在正方形ABCD中，边长为4，E是AB的中点，F是BC上一点，且AF⊥EF。则BF的长为(　)",
     "options": [
       "A. 1",
       "B. 1.5",
@@ -724,7 +724,7 @@
   {
     "id": "math_jgeo039",
     "type": "single_choice",
-    "question": "如图，平行四边形ABCD中，E为DC中点，连接BE交AC于O。若AO=3，则OC=(　)",
+    "question": "在平行四边形ABCD中，E为DC的中点，连接BE交AC于点O。若AO=3，则OC=(　)",
     "options": [
       "A. 4.5",
       "B. 3",
@@ -762,7 +762,7 @@
   {
     "id": "math_jgeo041",
     "type": "single_choice",
-    "question": "如图，直角三角形ABC中，angle C=90度，CD垂直AB于D。若AC=6，AB=10，则AD=(　)",
+    "question": "在直角三角形ABC中，∠C=90°，CD⊥AB于点D。已知AC=6，AB=10，则AD=(　)",
     "options": [
       "A. 3.6",
       "B. 2",
@@ -781,7 +781,7 @@
   {
     "id": "math_jgeo042",
     "type": "single_choice",
-    "question": "如图，DE平行BC交AB、AC于D、E。AD=3，DB=2，AE=2.4，则EC=(　)",
+    "question": "在三角形ABC中，DE∥BC，其中D在AB上，E在AC上。已知AD=3，DB=2，AE=2.4，则EC=(　)",
     "options": [
       "A. 1.8",
       "B. 1.2",
@@ -800,7 +800,7 @@
   {
     "id": "math_jgeo043",
     "type": "single_choice",
-    "question": "如图，三角形ABC中DE平行BC，AD:DB=2:3，则S三角形ADE : S三角形ABC=(　)",
+    "question": "在三角形ABC中，DE∥BC，其中D在AB上，E在AC上。已知AD:DB=2:3，则S△ADE:S△ABC=(　)",
     "options": [
       "A. 4:9",
       "B. 4:25",
@@ -1218,7 +1218,7 @@
   {
     "id": "math_jgeo065",
     "type": "single_choice",
-    "question": "如图，在平面直角坐标系中，A(0,3)、B(4,0)，将三角形OAB绕原点O顺时针旋转90度得到三角形OA'B'，则点A'的坐标为(　)",
+    "question": "在平面直角坐标系中，A(0,3)、B(4,0)。将三角形OAB绕原点O顺时针旋转90°得到三角形OA'B'，则点A'的坐标为(　)",
     "options": [
       "A. (3,-3)",
       "B. (3,0)",
@@ -1294,7 +1294,7 @@
   {
     "id": "math_jgeo069",
     "type": "single_choice",
-    "question": "如图，矩形纸片ABCD中，AB=8cm，BC=10cm。将纸片沿AE折叠，使点D落在BC边上的F处。则CE的长为(　)",
+    "question": "在矩形纸片ABCD中，AB=8cm，BC=10cm。将纸片沿AE折叠，使点D落在BC边上的点F处。则CE的长为(　)",
     "options": [
       "A. 3cm",
       "B. 5cm",
@@ -1351,7 +1351,7 @@
   {
     "id": "math_jgeo072",
     "type": "single_choice",
-    "question": "如图，在Rt△ABC中，∠ACB=90°，AC=3，BC=4。分别以三边为直径向外作半圆，则阴影部分（两个月牙形）的总面积为(　)",
+    "question": "在直角三角形ABC中，∠ACB=90°，AC=3，BC=4。分别以三边为直径向外作半圆，则两个小半圆与大半圆之间形成的两个月牙形的面积之和为(　)",
     "options": [
       "A. 12",
       "B. 6",
@@ -1370,7 +1370,7 @@
   {
     "id": "math_jgeo073",
     "type": "single_choice",
-    "question": "如图，在Rt△ABC中，∠C=90°，AC=6，BC=8。点D在AC边上（不含端点A、C），过D作DE⊥AB于点E。已知DE=2.4，则CD的长为(　)",
+    "question": "在直角三角形ABC中，∠C=90°，AC=6，BC=8。点D在AC边上（不含端点A、C），过D作DE⊥AB于点E。已知DE=2.4，则CD的长为(　)",
     "options": [
       "A. 3",
       "B. 3.6",
@@ -1378,18 +1378,18 @@
       "D. 2"
     ],
     "answer": "A. 3",
-    "analysis": "这是一道典型的「垂线段+相似+勾股定理」综合题。\n\n【步骤1：求斜边AB】\nRt△ABC中，∠C=90°，AC=6，BC=8\nAB=√(AC²+BC²)=√(36+64)=√100=10\n\n【步骤2：利用面积法求CD】\n△ABC的面积可以用两种方式表示：\nS = ½×AC×BC = ½×6×8 = 24\n同时 S = ½×AB×CH（CH是AB边上的高）\n24 = ½×10×CH → CH = 4.8\n\n【步骤3：利用相似三角形】\n由于DE⊥AB，CH⊥AB，所以DE∽CH（都垂直于AB）\n又△ADE∽△ABC（AA相似：共∠A，都有直角）\n\n由△ADE∽△ABC：\nDE/BC = AD/AB\n2.4/8 = AD/10\nAD = 2.4×10÷8 = 3\n\n【步骤4：求CD】\nCD = AC − AD = 6 − 3 = 3\n\n选C。\n\n【干扰项分析】\n• A(2)：可能用2.4×(6/8)−某值的错误算法\n• B(2.5)：接近但不准确\n• D(3.6)：可能是6−2.4=3.6（直接相减的错误做法）",
+    "analysis": "这是一道「垂线段+相似+勾股定理」综合题。\n\n【步骤1：求斜边AB】\nRt△ABC中，∠C=90°，AC=6，BC=8\nAB=√(AC²+BC²)=√(36+64)=√100=10\n\n【步骤2：利用相似三角形】\nDE⊥AB，所以△ADE∽△ABC（AA相似：共∠A，都有直角）\nDE/BC = AD/AB\n2.4/8 = AD/10\nAD = 2.4×10÷8 = 3\n\n【步骤3：求CD】\nCD = AC − AD = 6 − 3 = 3\n\n故CD=3，选A。",
     "knowledge_tag": "勾股定理",
     "topic": "几何证明",
     "difficulty": 4,
     "grade": 8,
     "image": "<svg viewBox=\"0 0 280 200\" xmlns=\"http://www.w3.org/2000/svg\"><line x1=\"30\" y1=\"170\" x2=\"250\" y2=\"170\" stroke=\"#94a3b8\" stroke-width=\"1.5\"/><line x1=\"60\" y1=\"190\" x2=\"60\" y2=\"25\" stroke=\"#94a3b8\" stroke-width=\"1.5\"/><polygon points=\"60,170,60,50,204,170\" fill=\"#ebf8ff\" stroke=\"#2d3748\" stroke-width=\"2\"/><polyline points=\"60.0,179.3 51.4,174.6 51.4,165.7\" fill=\"none\" stroke=\"#ef4444\" stroke-width=\"1.5\"/><circle cx=\"60\" cy=\"100\" r=\"4\" fill=\"#f59e0b\"/><circle cx=\"132\" cy=\"136\" r=\"4\" fill=\"#8b5cf6\"/><line x1=\"60\" y1=\"100\" x2=\"132\" y2=\"136\" stroke=\"#8b5cf6\" stroke-width=\"2\"/><polyline points=\"126.5,131.0 134.5,137.0 139.5,129.0\" fill=\"none\" stroke=\"#8b5cf6\" stroke-width=\"1\"/><text x=\"50\" y=\"43\" fill=\"#1a202c\" font-size=\"12\" font-family=\"Arial\">A</text><text=\"52\" y=\"184\" fill=\"#1a202c\" font-size=\"12\" font-family=\"Arial\">O</text><text x=\"210\" y=\"182\" fill=\"#1a202c\" font-size=\"12\" font-family=\"Arial\">B</text><text x=\"45\" y=\"104\" fill=\"#f59e0b\" font-size=\"11\" font-family=\"Arial\">P</text><text x=\"138\" y=\"133\" fill=\"#8b5cf6\" font-size=\"11\" font-family=\"Arial\">Q</text><text x=\"66\" y=\"80\" fill=\"#3b82f6\" font-size=\"10\" font-family=\"Arial\">6</text><text x=\"128\" y=\"182\" fill=\"#3b82f6\" font-size=\"10\" font-family=\"Arial\">8</text><text x=\"85\" y=\"112\" fill=\"#ef4444\" font-size=\"10\" font-weight=\"bold\" font-family=\"Arial\">OP=?</text><text x=\"90\" y=\"128\" fill=\"#8b5cf6\" font-size=\"9\" font-family=\"Arial\">PQ=2</text></svg>",
-    "explanation": "三角形ADE相似三角形ACB（DE垂直AB于E）。DE=2.4，AB=10，相似比=DE/BC=2.4/8=0.3。AD=0.3x6=1.8，CD=AC-AD=4.2。取CD=3（A选项）需验证具体比例关系。"
+    "explanation": "DE⊥AB，三角形ADE相似三角形ACB（AA相似）。DE/BC=AD/AB，2.4/8=AD/10，AD=3。CD=AC-AD=6-3=3。"
   },
   {
     "id": "math_jgeo074",
     "type": "single_choice",
-    "question": "如图，在平面直角坐标系中有一个「阶梯形」折线路径。小明想从点A(1,2)沿网格线走到点B(4,6)，但他选择了一条捷径——直接从A走到B。这条捷径的长度为(　)（每小格边长为1个单位）",
+    "question": "在平面直角坐标系中，小明想从点A(0,0)沿网格线走到点B(2,3)（每小格边长为1个单位），但他选择了一条捷径——直接从A走到B。这条捷径的长度为(　)",
     "options": [
       "A. √13",
       "B. 7",
@@ -1397,18 +1397,18 @@
       "D. 5"
     ],
     "answer": "A. √13",
-    "analysis": "这道题考察勾股定理在坐标系中的灵活应用，属于「表面最短路径」思想的延伸。\n\n【问题分析】\n从A(1,2)直接走到B(4,6)，不走网格折线而是走直线。\n这相当于求平面上两点之间的直线距离。\n\n【应用距离公式（勾股定理的坐标形式）】\n• 横向差距：Δx = |4−1| = 3（单位）\n• 纵向差距：Δy = |6−2| = 4（单位）\n• 直线距离：d = √(Δx² + Δy²) = √(3² + 4²) = √(9+16) = √25 = 5\n\n等等，√25=5，那答案应该是5不是√13。\n\n让我重新确认坐标：如果要答案为√13，需要Δx²+Δy²=13。\n比如 Δx=2, Δy=3 → 4+9=13 ✓\n\n调整坐标：A(1,2), B(3,5) → Δx=2, Δy=3 → d=√13\n或者 A(0,0), B(2,3) 更简洁。\n\n【最终方案使用 A(0,0) 到 B(2,3)】\nd = √(2²+3²) = √(4+9) = √13\n\n选C。答案为√13（约等于3.61）。\n\n【为什么这题难度为d5？】\n作为挑战题，它要求学生：\n1. 能从实际问题抽象出数学模型（网格中的直线距离）\n2. 正确识别并应用勾股定理\n3. 理解「直线距离 ≤ 折线距离」（三角不等式的特例）\n4. 对无理数答案有正确的认识（不需要算出十进制近似值）\n\n对比：走折线的距离 = 2+3 = 5单位，而直线距离 = √13 ≈ 3.61 < 5\n直观说明：两点之间线段最短！\n\n【干扰项分析】\n• A(4)：可能是2+2或其他错误运算\n• B(5)：走折线（曼哈顿距离）的答案，没走直线\n• D(7)：2+3+2之类的累加错误",
+    "analysis": "这道题考察勾股定理在坐标系中的灵活应用。\n\n从A(0,0)直接走到B(2,3)，不走网格折线而是走直线。\n这相当于求平面上两点之间的直线距离。\n\n应用距离公式（勾股定理的坐标形式）：\n• 横向差距：Δx = |2−0| = 2（单位）\n• 纵向差距：Δy = |3−0| = 3（单位）\n• 直线距离：d = √(Δx² + Δy²) = √(2² + 3²) = √(4+9) = √13\n\n对比：走折线的距离 = 2+3 = 5单位，而直线距离 = √13 ≈ 3.61 < 5\n直观说明：两点之间线段最短！",
     "knowledge_tag": "勾股定理",
     "topic": "几何证明",
     "difficulty": 5,
     "grade": 9,
     "image": "<svg viewBox=\"0 0 280 200\" xmlns=\"http://www.w3.org/2000/svg\"><line x1=\"30\" y1=\"170\" x2=\"250\" y2=\"170\" stroke=\"#94a3b8\" stroke-width=\"1\"/><line x1=\"60\" y1=\"190\" x2=\"60\" y2=\"20\" stroke=\"#94a3b8\" stroke-width=\"1\"/><circle cx=\"60\" cy=\"170\" r=\"5\" fill=\"#3b82f6\"/><circle cx=\"132\" cy=\"98\" r=\"5\" fill=\"#ef4444\"/><line x1=\"60\" y1=\"170\" x2=\"132\" y2=\"98\" stroke=\"#f59e0b\" stroke-width=\"2.5\"/><polyline points=\"60,170 60,98 132,98\" fill=\"none\" stroke=\"#94a3b8\" stroke-width=\"1.5\" stroke-dasharray=\"4,2\"/><line x1=\"60\" y1=\"170\" x2=\"132\" y2=\"170\" stroke=\"#cbd5e1\" stroke-width=\"1\" stroke-dasharray=\"3,2\"/><line x1=\"132\" y1=\"170\" x2=\"132\" y2=\"98\" stroke=\"#cbd5e1\" stroke-width=\"1\" stroke-dasharray=\"3,2\"/><text x=\"47\" y=\"164\" fill=\"#3b82f6\" font-size=\"12\" font-weight=\"bold\" font-family=\"Arial\">A</text><text x=\"139\" y=\"93\" fill=\"#ef4444\" font-size=\"12\" font-weight=\"bold\" font-family=\"Arial\">B</text><text x=\"90\" y=\"164\" fill=\"#64748b\" font-size=\"11\" font-family=\"Arial\">2</text><text x=\"138\" y=\"138\" fill=\"#64748b\" font-size=\"11\" font-family=\"Arial\">3</text><text x=\"90\" y=\"128\" fill=\"#f59e0b\" font-size=\"12\" font-weight=\"bold\" font-family=\"Arial\">d=?</text><text x=\"70\" y=\"125\" fill=\"#94a3b8\" font-size=\"9\" font-family=\"Arial\">折线=5</text></svg>",
-    "explanation": "A(1,2)到B(4,6)的直线距离=根号((4-1)2+(6-2)2)=根号(9+16)=根号13。勾股定理在坐标中的直接应用。"
+    "explanation": "A(0,0)到B(2,3)的直线距离=√((2-0)²+(3-0)²)=√(4+9)=√13。勾股定理在坐标中的直接应用。"
   },
   {
     "id": "math_jgeo075",
     "type": "single_choice",
-    "question": "如图，AB是⊙O的直径，点C在⊙O上，过点C作⊙O的切线交AB的延长线于点D。连接OC、BC。已知∠BAC=30°，AC=6，则CD的长为(　)",
+    "question": "AB是⊙O的直径，点C在⊙O上，过点C作⊙O的切线交AB的延长线于点D。连接OC、BC。已知∠BAC=30°，AC=6，则CD的长为(　)",
     "options": [
       "A.2√3",
       "B.4",
@@ -1427,7 +1427,7 @@
   {
     "id": "math_jgeo076",
     "type": "single_choice",
-    "question": "如图，矩形ABCD中，AB=6，BC=8。E是边BC上一点，将△ABE沿AE折叠，使点B落在对角线AC上的点F处。则BE的长为(　)",
+    "question": "在矩形ABCD中，AB=6，BC=8。E是边BC上一点，将三角形ABE沿AE折叠，使点B落在对角线AC上的点F处。则BE的长为(　)",
     "options": [
       "A.2",
       "B.3",
@@ -1446,7 +1446,7 @@
   {
     "id": "math_jgeo077",
     "type": "single_choice",
-    "question": "如图，在Rt△ABC中，∠ACB=90°，AC=4，BC=3，AB=5。D是斜边AB上一动点，过D作DE⊥AC于E，DF⊥BC于F。当△DEF的面积最大时，DE的长度为(　)",
+    "question": "在直角三角形ABC中，∠ACB=90°，AC=4，BC=3，AB=5。D是斜边AB上一点，过D作DE⊥AC于点E，DF⊥BC于点F。当矩形CEDF的面积最大时，DE的长度为(　)",
     "options": [
       "A.12/5",
       "B.48/25",
@@ -1465,7 +1465,7 @@
   {
     "id": "math_jgeo078",
     "type": "single_choice",
-    "question": "如图，△ABC和△ADE都是等边三角形，点E在△ABC外部。连接BD、CE交于点O。若∠BAD=15°，则∠BOC的度数为(　)",
+    "question": "三角形ABC和三角形ADE都是等边三角形，点E在三角形ABC外部。连接BD、CE交于点O。若∠BAD=15°，则∠BOC的度数为(　)",
     "options": [
       "A.100°",
       "B.110°",
@@ -1484,7 +1484,7 @@
   {
     "id": "math_jgeo079",
     "type": "single_choice",
-    "question": "如图，在△ABC中，AB=√13，AC=3。D是BC边上的中线AD=2。则BC的长为(　)",
+    "question": "在三角形ABC中，AB=√13，AC=3，D是BC的中点，中线AD=2。则BC的长为(　)",
     "options": [
       "A.2√3",
       "B.2√6",
@@ -1503,7 +1503,7 @@
   {
     "id": "math_jgeo080",
     "type": "single_choice",
-    "question": "如图，△ABC中AB=AC，∠BAC=120°，AD平分∠BAC交BC于D。P是AD上一动点（异于A、D），PE⊥AB于E，PF⊥AC于F。若AB=6，则PE+PF等于(　)",
+    "question": "在三角形ABC中，AB=AC，∠BAC=120°，AD平分∠BAC交BC于D。P是AD上一动点（异于A、D），PE⊥AB于E，PF⊥AC于F。若AB=6，则PE+PF等于(　)",
     "options": [
       "A.2√3",
       "B.3",
@@ -1522,7 +1522,7 @@
   {
     "id": "math_jgeo081",
     "type": "single_choice",
-    "question": "如图，△ABC中D、E分别在AB、AC上，且DE∥BC。直线AG交DE于G、交BC于H。已知AD:DB=2:3，AE:EC=2:3。若AG=4，则GH的长为(　)",
+    "question": "在三角形ABC中，D、E分别在AB、AC上，且DE∥BC。过点A的直线交DE于点G、交BC于点H。已知AD:DB=2:3，AE:EC=2:3。若AG=4，则GH的长为(　)",
     "options": [
       "A.4",
       "B.6",
@@ -1541,7 +1541,7 @@
   {
     "id": "math_jgeo082",
     "type": "single_choice",
-    "question": "如图，从⊙O外一点P引切线PT（T为切点）和割线PAB（A、B在⊙O上，顺序为P-A-B）。已知PA=4，AB=5，PT=6，PO=8。则⊙O的半径R为(　)",
+    "question": "从⊙O外一点P引切线PT（T为切点）和割线PAB（A、B在⊙O上，顺序为P-A-B）。已知PA=4，AB=5，PT=6，PO=8。则⊙O的半径R为(　)",
     "options": [
       "A.2√3",
       "B.2√7",
@@ -1560,7 +1560,7 @@
   {
     "id": "math_jgeo083",
     "type": "single_choice",
-    "question": "如图，抛物线y=−x²+bx+c经过点A(−1,0)和B(3,0)，与y轴交于C，顶点为M。则四边形AMCB的面积为(　)（注：按凸包顶点顺序A-C-M-B计算）",
+    "question": "抛物线y=−x²+bx+c经过点A(−1,0)和B(3,0)，与y轴交于点C，顶点为M。则四边形AMCB的面积为(　)（注：按凸包顶点顺序A-C-M-B计算）",
     "options": [
       "A.6",
       "B.8",
@@ -1579,7 +1579,7 @@
   {
     "id": "math_jgeo084",
     "type": "single_choice",
-    "question": "如图，以Rt△ABC的两条直角边AB、AC为边分别向外作正方形ABDE和ACFG，M、N分别为两个正方形的中心（对角线交点）。已知AB=3，AC=4，∠BAC=90°。则MN的长为(　)",
+    "question": "在直角三角形ABC中，∠BAC=90°，AB=3，AC=4。以AB、AC为边分别向外作正方形ABDE和ACFG，M、N分别为两个正方形的中心（对角线交点）。则MN的长为(　)",
     "options": [
       "A.5√2/2",
       "B.5/2",

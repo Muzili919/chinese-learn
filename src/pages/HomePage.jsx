@@ -47,14 +47,13 @@ const PLANETS = [
   { id: '句子',    label: '句子星球',  emoji: '✏️', color: 'from-violet-400 to-purple-600',  desc: '修辞·句式·病句·关联词' },
   { id: 'reading', label: '阅读星球',  emoji: '📖', color: 'from-emerald-400 to-teal-600',  desc: 'AI评分·短文阅读理解', reading: true },
   { id: '文学常识',label: '文学星球',  emoji: '🎭', color: 'from-rose-400 to-pink-600',     desc: '四大名著·标点·文体' },
-  { id: '口语交际',label: '口语星球',  emoji: '💬', color: 'from-sky-400 to-indigo-500',     desc: '转述·劝说·采访·辩论' },
   { id: 'sentence_practice', label: '造句星球', emoji: '✍️', color: 'from-amber-400 to-orange-500', desc: 'AI即时批改·学会用词' },
   { id: 'essay',   label: '作文星球',  emoji: '📝', color: 'from-pink-500 to-rose-600',     desc: 'AI三维评分·提升写作' },
   { id: 'dictation', label: '听写星球', emoji: '🎧', color: 'from-cyan-400 to-blue-500',   desc: 'TTS听写·拍照批改·词库管理', dictation: true },
   { id: 'self_test',label: '自测星球', emoji: '🧪', color: 'from-amber-500 to-orange-600',  desc: 'AI出卷·小升初难度·查漏补缺', isSelfTest: true },
 ]
 
-const QUIZ_PLANET_IDS = ['字词', '古诗词', '成语', '句子', '文学常识', '口语交际']
+const QUIZ_PLANET_IDS = ['字词', '古诗词', '成语', '句子', '文学常识']
 
 // 初中语文星球（初二语文专用）
 const JC_PLANETS = [

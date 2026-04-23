@@ -20,6 +20,7 @@ import {
   getTaskCompletionHistory,
 } from '../utils/examCalendar'
 import { getWeeklySubjectBalance } from '../utils/recommendation'
+import PremiumDiagnosis from '../components/PremiumDiagnosis'
 import {
   RadarChart, PolarGrid, PolarAngleAxis, Radar,
   ResponsiveContainer, Tooltip,
@@ -340,8 +341,31 @@ export default function ReportPage({ user, onBack, onStartQuiz, grade = 'primary
               ⚖️ 道法
             </button>
           )}
+          <button onClick={() => setActiveTab('diagnosis')}
+            className={`px-4 py-3 text-sm font-semibold whitespace-nowrap transition-colors border-b-2 flex items-center gap-1 ${
+              activeTab === 'diagnosis'
+                ? 'text-purple-600 border-purple-500'
+                : 'text-gray-400 border-transparent'
+            }`}
+          >
+            <span>🧬</span> 诊断
+          </button>
         </div>
       </div>
+
+      {/* ══ 诊断 Tab ══ */}
+      {activeTab === 'diagnosis' && (
+        <div className="px-4 pt-5 pb-10">
+          <div className="flex items-center gap-2 mb-4">
+            <span className="text-lg">🧬</span>
+            <div>
+              <h2 className="text-base font-bold text-gray-800">深度学习诊断</h2>
+              <p className="text-xs text-gray-400">错误归因 · 伪掌握检测 · 知识根因链</p>
+            </div>
+          </div>
+          <PremiumDiagnosis user={user} />
+        </div>
+      )}
 
       {/* ══ 总览 Tab ══ */}
       {activeTab === 'overview' && (

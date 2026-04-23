@@ -27,12 +27,14 @@ export function normalizeAnswer(str) {
 export function isAnswerCorrect(userAnswer, correctAnswer, options) {
   const ua = normalizeAnswer(userAnswer)
   const ca = normalizeAnswer(correctAnswer)
+  const uStr = String(userAnswer || '').trim()
+  const cStr = String(correctAnswer || '').trim()
 
   if (ua === ca) return true
 
-  if (/^[a-d]$/i.test(userAnswer.trim())) {
-    const letter = userAnswer.trim().toUpperCase()
-    if (new RegExp(`^${letter}[.、．\\s]`, 'i').test(correctAnswer.trim())) return true
+  if (/^[a-d]$/i.test(uStr)) {
+    const letter = uStr.toUpperCase()
+    if (new RegExp(`^${letter}[.、．\\s]`, 'i').test(cStr)) return true
     if (options && options.length) {
       const matchedOpt = options.find(o => new RegExp(`^${letter}[.、．\\s]`, 'i').test(String(o).trim()))
       if (matchedOpt !== undefined) {
@@ -41,16 +43,16 @@ export function isAnswerCorrect(userAnswer, correctAnswer, options) {
     }
   }
 
-  if (/^[a-d]$/i.test(correctAnswer.trim()) && options && options.length) {
-    const targetLetter = correctAnswer.trim().toUpperCase()
+  if (/^[a-d]$/i.test(cStr) && options && options.length) {
+    const targetLetter = cStr.toUpperCase()
     const matchedOpt = options.find(o => new RegExp(`^${targetLetter}[.、．\\s]`, 'i').test(String(o).trim()))
     if (matchedOpt !== undefined) {
       return ua === normalizeAnswer(matchedOpt)
     }
   }
 
-  if (/^[a-d]$/i.test(userAnswer.trim()) && options && options.length) {
-    const userLetter = userAnswer.trim().toUpperCase()
+  if (/^[a-d]$/i.test(uStr) && options && options.length) {
+    const userLetter = uStr.toUpperCase()
     const matchedUserOpt = options.find(o => new RegExp(`^${userLetter}[.、．\\s]`, 'i').test(String(o).trim()))
     if (matchedUserOpt !== undefined) {
       return normalizeAnswer(matchedUserOpt) === ca
