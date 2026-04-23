@@ -30,6 +30,7 @@ import {
 const GRADE_SUBJECTS = {
   primary: [
     { id: 'overview', label: '总览',  emoji: '📊' },
+    { id: 'diagnosis', label: '诊断',  emoji: '🧬' },
     { id: 'chinese',  label: '语文',  emoji: '📖' },
     { id: 'english', label: '英语',  emoji: '🌎' },
     { id: 'math',     label: '数学',  emoji: '🔢' },
@@ -37,6 +38,7 @@ const GRADE_SUBJECTS = {
   ],
   junior2: [
     { id: 'overview', label: '总览',  emoji: '📊' },
+    { id: 'diagnosis', label: '诊断',  emoji: '🧬' },
     { id: 'chinese',  label: '语文',  emoji: '📖' },
     { id: 'english', label: '英语',  emoji: '🌎' },
     { id: 'politics', label: '道法',  emoji: '⚖︁' },
@@ -341,15 +343,6 @@ export default function ReportPage({ user, onBack, onStartQuiz, grade = 'primary
               ⚖️ 道法
             </button>
           )}
-          <button onClick={() => setActiveTab('diagnosis')}
-            className={`px-4 py-3 text-sm font-semibold whitespace-nowrap transition-colors border-b-2 flex items-center gap-1 ${
-              activeTab === 'diagnosis'
-                ? 'text-purple-600 border-purple-500'
-                : 'text-gray-400 border-transparent'
-            }`}
-          >
-            <span>🧬</span> 诊断
-          </button>
         </div>
       </div>
 
@@ -363,7 +356,7 @@ export default function ReportPage({ user, onBack, onStartQuiz, grade = 'primary
               <p className="text-xs text-gray-400">错误归因 · 伪掌握检测 · 知识根因链</p>
             </div>
           </div>
-          <PremiumDiagnosis user={user} />
+          <PremiumDiagnosis user={user} grade={grade} />
         </div>
       )}
 

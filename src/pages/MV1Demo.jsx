@@ -587,7 +587,13 @@ export default function MV1Demo({ onBack, initialState, onStateChange, grade, cu
           localStorage.removeItem(`mv1_pet_state_` + uid)
           localStorage.removeItem(`cl_mv1_gamification_` + uid)
         } catch (_) {}
-        localSnapshot = null
+        // ★ 直接用云端数据，跳过所有合并逻辑
+        cloud.exp = storage.getXP(uid) || cloud.exp || 0
+        initializedRef.current = true
+        cloudLoadedRef.current = true
+        setState(cloud)
+        setIsInitialized(true)
+        return
       }
 
       const base = initGamificationState();

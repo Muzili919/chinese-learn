@@ -118,6 +118,7 @@ function computeWrongCards(userId, subject, qMap) {
     if (subject === 'english') return r.subject === 'english'
     if (subject === 'politics') return r.subject === 'politics' || r.subject === '道法'
     if (subject === 'math') return r.subject === 'math'
+    if (subject === 'chinese_junior') return r.subject === 'chinese_junior'
     return !r.subject || r.subject === 'chinese'
   })
   const srsStates = storage.getSrsState(userId)

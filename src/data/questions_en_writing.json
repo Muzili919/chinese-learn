@@ -110,5 +110,77 @@
     "difficulty": 0.3,
     "knowledge_tag": "英语写作",
     "ability_tag": "句子重组"
+  },
+  {
+    "id": "en_writing_010",
+    "question": "看图写话。\n\n提示：一个男孩在公园里放风筝，天气晴朗。\n\n请用3-5句英语写一段短文描述这幅图。",
+    "answer": "A boy is in the park. He is flying a kite. The weather is sunny. He is very happy.",
+    "type": "open_ended",
+    "difficulty": 0.3,
+    "knowledge_tag": "看图写话",
+    "ability_tag": "写作"
+  },
+  {
+    "id": "en_writing_011",
+    "question": "看图写话。\n\n提示：一个小女孩在图书馆看书，旁边有一只猫。\n\n请用3-5句英语写一段短文描述这幅图。",
+    "answer": "A girl is in the library. She is reading a book. There is a cat next to her. The cat is sleeping.",
+    "type": "open_ended",
+    "difficulty": 0.3,
+    "knowledge_tag": "看图写话",
+    "ability_tag": "写作"
+  },
+  {
+    "id": "en_writing_012",
+    "question": "请用英语介绍你自己。写3-5句话，包括你的名字、年龄、喜欢的食物或运动。",
+    "answer": "My name is Li Ming. I am 10 years old. I like playing basketball. My favorite food is noodles.",
+    "type": "open_ended",
+    "difficulty": 0.3,
+    "knowledge_tag": "自我介绍",
+    "ability_tag": "写作"
+  },
+  {
+    "id": "en_writing_013",
+    "question": "请用英语介绍你最喜欢的一天（星期几），为什么喜欢？这天你通常做什么？写3-5句话。",
+    "answer": "My favorite day is Saturday. I don't go to school on Saturday. I usually play with my friends. We play football in the park.",
+    "type": "open_ended",
+    "difficulty": 0.5,
+    "knowledge_tag": "话题写作",
+    "ability_tag": "写作"
+  },
+  {
+    "id": "en_writing_014",
+    "question": "请用英语介绍你最好的朋友。写3-5句话，包括他/她的名字、长相、喜欢做什么。",
+    "answer": "My best friend is Tom. He is tall and thin. He has big eyes. He likes playing chess. We often play together after school.",
+    "type": "open_ended",
+    "difficulty": 0.5,
+    "knowledge_tag": "话题写作",
+    "ability_tag": "写作"
+  },
+  {
+    "id": "en_writing_015",
+    "question": "请用英语描述四季中你最喜欢的一个季节。为什么喜欢？在这个季节你通常做什么？写3-5句话。",
+    "answer": "I like spring best. The weather is warm. Flowers are everywhere. I often go to the park with my family. We have a picnic under the tree.",
+    "type": "open_ended",
+    "difficulty": 0.5,
+    "knowledge_tag": "话题写作",
+    "ability_tag": "写作"
+  },
+  {
+    "id": "en_writing_016",
+    "question": "请用英语写一段关于你的家庭的短文。写3-5句话，你家有几口人？他们做什么工作？你爱你的家吗？",
+    "answer": "There are three people in my family. My father is a teacher. My mother is a doctor. I am a student. I love my family very much.",
+    "type": "open_ended",
+    "difficulty": 0.3,
+    "knowledge_tag": "话题写作",
+    "ability_tag": "写作"
+  },
+  {
+    "id": "en_writing_017",
+    "question": "请用英语描述你昨天做了什么。写3-5句话，用过去时态。",
+    "answer": "Yesterday I got up at 7 o'clock. I had breakfast at home. I went to school by bus. After school I did my homework. I went to bed at 9 o'clock.",
+    "type": "open_ended",
+    "difficulty": 0.5,
+    "knowledge_tag": "日记写作",
+    "ability_tag": "写作"
   }
 ]

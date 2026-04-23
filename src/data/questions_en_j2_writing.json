@@ -478,5 +478,95 @@
     "difficulty": 0.6,
     "knowledge_tag": "英语写作",
     "ability_tag": "话题写作"
+  },
+  {
+    "id": "en_j2_writing_031",
+    "question": "Writing Task\n\nWrite an email (50-80 words) to your friend Tom. Tell him:\n- What you did last weekend\n- What you plan to do next weekend\n- Invite him to join you",
+    "answer": "Dear Tom,\nHow are you? Last weekend I went to the park with my family. We had a great time. Next weekend I plan to visit the science museum. Would you like to come with me? It will be very interesting. Please let me know.\nBest wishes,\nLi Ming",
+    "type": "open_ended",
+    "difficulty": 0.7,
+    "knowledge_tag": "应用文写作",
+    "ability_tag": "写作"
+  },
+  {
+    "id": "en_j2_writing_032",
+    "question": "Writing Task\n\nWrite a short paragraph (50-80 words) about your favorite hobby. Include:\n- What the hobby is\n- When and how often you do it\n- Why you enjoy it",
+    "answer": "My favorite hobby is reading. I read books every day after school. I usually read for about one hour. I enjoy reading because it helps me learn new things. My favorite books are about science and adventure.",
+    "type": "open_ended",
+    "difficulty": 0.7,
+    "knowledge_tag": "话题写作",
+    "ability_tag": "写作"
+  },
+  {
+    "id": "en_j2_writing_033",
+    "question": "Writing Task\n\nWrite a diary entry (50-80 words) about a special day. Include:\n- What day it was\n- What happened\n- How you felt",
+    "answer": "Sunday, May 15th\nToday was a special day. It was my birthday! My parents gave me a new bicycle. In the afternoon, my friends came to my home. We ate cake and played games together. I felt very happy. This was the best birthday ever!",
+    "type": "open_ended",
+    "difficulty": 0.7,
+    "knowledge_tag": "日记写作",
+    "ability_tag": "写作"
+  },
+  {
+    "id": "en_j2_writing_034",
+    "question": "Writing Task\n\nWrite a short paragraph (50-80 words) giving advice to a friend who wants to learn English well. Include at least 3 tips.",
+    "answer": "If you want to learn English well, here is my advice. First, you should read English books every day. Second, try to speak English with your classmates. Third, watching English movies can help you improve your listening. Finally, don't be afraid of making mistakes. Practice makes perfect!",
+    "type": "open_ended",
+    "difficulty": 0.7,
+    "knowledge_tag": "话题写作",
+    "ability_tag": "写作"
+  },
+  {
+    "id": "en_j2_writing_035",
+    "question": "Writing Task\n\nDescribe your ideal school in 50-80 words. Include:\n- What it looks like\n- What subjects you would study\n- What activities you would do",
+    "answer": "My ideal school is big and beautiful. There are many trees and flowers. The classrooms are bright and clean. We would study interesting subjects like art, music, and computer science. After class, we could play sports in the playground or read books in the library. The teachers are kind and helpful. I love this school!",
+    "type": "open_ended",
+    "difficulty": 0.7,
+    "knowledge_tag": "话题写作",
+    "ability_tag": "写作"
+  },
+  {
+    "id": "en_j2_writing_036",
+    "question": "Writing Task\n\nWrite a short paragraph (50-80 words) about a trip you took. Include:\n- Where you went\n- Who you went with\n- What you did there\n- How you felt about the trip",
+    "answer": "Last summer, I went to Beijing with my parents. We visited the Great Wall. It was very long and beautiful. We also ate Beijing roast duck. It was delicious. I took many photos. I felt very excited. It was an unforgettable trip.",
+    "type": "open_ended",
+    "difficulty": 0.7,
+    "knowledge_tag": "话题写作",
+    "ability_tag": "写作"
+  },
+  {
+    "id": "en_j2_writing_037",
+    "question": "Writing Task\n\nWrite a letter (50-80 words) to your pen pal in England. Introduce yourself and ask about his/her life.",
+    "answer": "Dear pen pal,\nMy name is Li Hua. I am a student from China. I am 14 years old. I like playing basketball and reading books. My favorite subject is English. I want to know about your school life. What do you do after school? What is your favorite food? I hope to hear from you soon.\nYours,\nLi Hua",
+    "type": "open_ended",
+    "difficulty": 0.7,
+    "knowledge_tag": "应用文写作",
+    "ability_tag": "写作"
+  },
+  {
+    "id": "en_j2_writing_038",
+    "question": "Writing Task\n\nWrite a short paragraph (50-80 words) about how to protect the environment. Give at least 3 suggestions.",
+    "answer": "We should protect our environment. First, we should not litter. Always put rubbish in the bin. Second, we should save water. Turn off the tap when brushing teeth. Third, we should plant more trees. Trees can clean the air. Finally, we can ride bicycles instead of driving cars. Let's work together to protect the earth!",
+    "type": "open_ended",
+    "difficulty": 0.7,
+    "knowledge_tag": "话题写作",
+    "ability_tag": "写作"
+  },
+  {
+    "id": "en_j2_writing_039",
+    "question": "Writing Task\n\nWrite about your dream job (50-80 words). Include:\n- What job you want to do\n- Why you want this job\n- What you need to do to achieve it",
+    "answer": "My dream job is to be a doctor. I want to help sick people get well. Doctors are very important in our society. To achieve my dream, I need to study hard, especially science. I also need to be kind and patient. I believe I can make my dream come true if I work hard.",
+    "type": "open_ended",
+    "difficulty": 0.7,
+    "knowledge_tag": "话题写作",
+    "ability_tag": "写作"
+  },
+  {
+    "id": "en_j2_writing_040",
+    "question": "Writing Task\n\nWrite a notice (50-80 words) for your school English Club. Include:\n- What activity you are organizing\n- When and where it will be\n- Who can join\n- How to sign up",
+    "answer": "English Club Notice\nWe are going to have an English Speaking Contest! It will be held in the school hall on Friday, June 10th at 3:00 PM. All students are welcome to join. The topic is 'My Dream'. Please sign up with your English teacher before June 5th. Come and show your English!\nEnglish Club",
+    "type": "open_ended",
+    "difficulty": 0.7,
+    "knowledge_tag": "应用文写作",
+    "ability_tag": "写作"
   }
 ]

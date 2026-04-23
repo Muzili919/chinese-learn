@@ -103,7 +103,7 @@ export default function PetSwitchPanel({ state, spendableXP, onSwitchPet, onDraw
                   fontSize: 28,
                 }}>
                   {owned ? (
-                    <PetSpriteAvatar poolId={pet.poolId} level={(state.currentPet?.level || 1)} size={46} pose={1} />
+                    <PetSpriteAvatar poolId={pet.poolId} level={(state.petLevels?.[pet.poolId] || 1)} size={46} pose={1} />
                   ) : '❓'}
                 </div>
                 <div style={{ flex: 1 }}>

@@ -522,24 +522,6 @@
     "listening_text": "Look! The boys ______ football on the playground."
   },
   {
-    "id": "en_listen_030",
-    "subject": "english",
-    "knowledge_tag": "英语听力",
-    "ability_tag": "听短文排序",
-    "type": "single_choice",
-    "question": "听短文，将下列学科按听到的顺序排序。",
-    "options": [
-      "A. 语文 → 英语 → 数学 → 美术",
-      "B. 语文 → 数学 → 英语 → 美术",
-      "C. 数学 → 英语 → 语文 → 美术",
-      "D. 英语 → 语文 → 美术 → 数学"
-    ],
-    "answer": "B. 语文 → 数学 → 英语 → 美术",
-    "analysis": "【考点】本题考查听辨星期和学科对应关系。\n【解题思路】周一语文→周二数学→周三英语→周四科学。\n【总结】注意星期单词和学科单词的配对。",
-    "difficulty": 0.7,
-    "listening_text": "On Monday, we have Chinese.\nOn Tuesday, we have math.\nOn Wednesday, we have English.\nOn Thursday, we have science."
-  },
-  {
     "id": "en_listen_031",
     "subject": "english",
     "knowledge_tag": "英语听力",

@@ -1365,7 +1365,7 @@
     "knowledge_tag": "英语词汇",
     "ability_tag": "词汇运用",
     "type": "single_choice",
-    "question": "I want to buy ______ hour ago.\n\nA. an\nB. a\nC. the\nD. some",
+    "question": "I bought it ______ hour ago.\n\nA. an\nB. a\nC. the\nD. some",
     "options": [
       "A. an",
       "B. a",

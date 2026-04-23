@@ -542,22 +542,18 @@ export function useItemOnPet(state, itemId) {
   return { ...state, currentPet: pet };
 }
 
-// 兼容旧版 buyItem
+// buyItem: 价格检查由调用方（handleShopAction）负责，这里只管入库
 export function buyItem(state, itemId) {
   const item = SHOP_ITEMS.find(i => i.id === itemId);
   if (!item) return state;
-  // ★ 上帝模式跳过价格检查
-  if (!state._isGodMode && (state.exp || 0) < item.price) return state;
-  
+
   const inv = { ...state.inventory };
-  // 加入对应库存分类
   if (item.kind === 'food') inv.foods = { ...inv.foods, basic: (inv.foods?.basic || 0) + 1 };
   else if (item.kind === 'clean') inv.cleanItems = (inv.cleanItems || 0) + 1;
   else if (item.kind === 'energy') inv.energyItems = (inv.energyItems || 0) + 1;
   else if (item.kind === 'gift') inv.giftItems = (inv.giftItems || 0) + 1;
   else if (item.kind === 'card') inv.cards = (inv.cards || 0) + 1;
-  
-  // 不扣 state.exp，由调用方（handleShopAction）通过 petExpConsumed 统一扣除
+
   return { ...state, inventory: inv };
 }
 
@@ -914,9 +910,9 @@ export function tickPetStats(state, minutes = 1) {
 // ============================================================
 // 稀有度等级：N < R < SR < SSR < XR
 // 保底阈值：SR保底20抽，SSR保底50抽，XR保底100抽
-// 基础概率（低概率，体现稀有性）：
-//   XR: 0.5%  SSR: 2.5%  SR: 10%  R: 27%  N: 60%
-// 等级加成（每10级）：SR+0.5%  SSR+0.2%  XR+0.08%
+// 基础概率（极低概率，体现稀有性）：
+//   XR: 0.01%  SSR: 0.1%  SR: 1%  R: 27%  N: ~71.89%
+// 等级加成（每10级）：SR+0.1%  SSR+0.02%  XR+0.005%
 
 const PITY_SR  = 20;   // 20抽未出SR+ → 必出SR
 const PITY_SSR = 50;   // 50抽未出SSR+ → 必出SSR
@@ -937,11 +933,12 @@ const POOL_BY_RARITY = {
  */
 function getRarityProbs(level = 1) {
   const lvBonus = Math.floor((level - 1) / 10);
-  const ssr = Math.min(0.05, 0.05);  // SSR 固定5%
-  const sr  = Math.min(0.30, 0.100 + lvBonus * 0.005);  // 10% → 最高30%
+  const xr  = 0.0001 + lvBonus * 0.00005;   // XR 基础0.01%，每10级+0.005%
+  const ssr = 0.001 + lvBonus * 0.0002;     // SSR 基础0.1%，每10级+0.02%
+  const sr  = 0.01 + lvBonus * 0.001;       // SR 基础1%，每10级+0.1%
   const r   = 0.27;
-  // n = 余数（含 XR 占位，当前无 XR 宠物）
-  return { xr: 0, ssr, sr, r, n: Math.max(0, 1 - ssr - sr - r) };
+  const n   = Math.max(0, 1 - xr - ssr - sr - r);
+  return { xr, ssr, sr, r, n };
 }
 
 /**
