@@ -183,8 +183,9 @@ const SUBJECTS = {
     label: '道法',
     allPlanets: ['基石星球', '思辨星球', '洞察星球', '行动星球'],
     prefixMap: {
-      politics_analysis: '思辨星球',  // 分析题 → 思辨
-      politics_sa: '行动星球',         // 简答题 → 行动（默认）
+      politics_choice: '基石星球',    // 选择题 → 基础知识
+      politics_analysis: '思辨星球',  // 分析题 → 批判思维
+      politics_sa: '洞察星球',         // 简答题 → 社会理解
     },
     topicMap: {},
     tagMap: (() => {
@@ -254,7 +255,7 @@ const SUBJECTS = {
         '个人与集体': '行动星球', '个人信息保护': '行动星球', '自我保护': '行动星球',
         '校园欺凌': '行动星球', '青春期保护': '行动星球',
         'AI伦理与隐私保护': '行动星球',
-      }
+        '道法': '基石星球',  // 通用兜底（DB记录可能只有这个tag）
       return base
     })(),
   },
