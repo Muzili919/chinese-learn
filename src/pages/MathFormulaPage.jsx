@@ -74,8 +74,48 @@ function pickSRSCards(formulas, srsState, count) {
 
 const CATEGORIES = ['全部', '平面图形', '立体图形', '分数法则', '运算定律', '单位换算']
 
-export default function MathFormulaPage({ user, onBack }) {
-  const FORMULAS = formulasRaw.length > 0 ? formulasRaw : FALLBACK_FORMULAS
+const JUNIOR_FORMULAS = [
+  // 代数公式
+  { id: 'jf_sq_sum', front: '完全平方和', back: '(a+b)² = a²+2ab+b²', category: '代数公式', example: '(x+3)² = x²+6x+9', memory_tips: '首平方，尾平方，首尾两倍在中央' },
+  { id: 'jf_sq_diff', front: '完全平方差', back: '(a-b)² = a²-2ab+b²', category: '代数公式', example: '(x-5)² = x²-10x+25', memory_tips: '首平方，尾平方，首尾两倍减中央' },
+  { id: 'jf_diff_sq', front: '平方差公式', back: 'a²-b² = (a+b)(a-b)', category: '代数公式', example: 'x²-9 = (x+3)(x-3)', memory_tips: '两数平方差等于两数和乘两数差' },
+  { id: 'jf_factor_common', front: '提公因式法', back: 'ma+mb = m(a+b)', category: '代数公式', example: '2x+4 = 2(x+2)', memory_tips: '找最大公因数提出来' },
+  { id: 'jf_factor_x2', front: 'x²+(p+q)x+pq型', back: 'x²+(p+q)x+pq = (x+p)(x+q)', category: '代数公式', example: 'x²+5x+6 = (x+2)(x+3)', memory_tips: '十字相乘：找两数之和=p+q，之积=pq' },
+  { id: 'jf_power_mul', front: '幂的乘法', back: 'aᵐ·aⁿ = aᵐ⁺ⁿ\n(am)ⁿ = aᵐⁿ\n(ab)ⁿ = aⁿbⁿ', category: '代数公式', example: 'x³·x⁴=x⁷', memory_tips: '同底数幂相乘，底数不变指数相加' },
+  { id: 'jf_power_div', front: '幂的除法', back: 'aᵐ÷aⁿ = aᵐ⁻ⁿ\na⁰ = 1\na⁻ⁿ = 1/aⁿ', category: '代数公式', example: 'x⁸÷x³=x⁵', memory_tips: '同底数幂相除，底数不变指数相减' },
+  { id: 'jf_abs', front: '绝对值性质', back: '|a| ≥ 0\n|a| = a (a≥0)\n|a| = -a (a<0)', category: '代数公式', example: '|−3|=3', memory_tips: '绝对值就是到原点的距离，永远非负' },
+  // 几何公式
+  { id: 'jf_pythagoras', front: '勾股定理', back: 'a² + b² = c²\n（直角三角形两直角边为a,b，斜边为c）', category: '几何公式', example: 'a=3,b=4 → c=5', memory_tips: '勾三股四弦五，经典3-4-5直角三角形' },
+  { id: 'jf_tri_area', front: '三角形面积(坐标)', back: 'S = ½|x₁(y₂-y₃)+x₂(y₃-y₁)+x₃(y₁-y₂)|', category: '几何公式', example: '三顶点坐标代入即可', memory_tips: '行列式公式取绝对值的一半' },
+  { id: 'jf_circle_area', front: '圆的面积', back: 'S = πr²', category: '几何公式', example: 'r=5 → S=25π≈78.54', memory_tips: 'π乘半径的平方' },
+  { id: 'jf_circle_circ', front: '圆的周长', back: 'C = 2πr = πd', category: '几何公式', example: 'd=10 → C=10π≈31.42', memory_tips: '直径乘π或2乘半径乘π' },
+  { id: 'jf_arc', front: '弧长公式', back: 'l = nπr/180\n（n为圆心角度数）', category: '几何公式', example: 'n=60,r=3 → l=π≈3.14', memory_tips: '圆心角除以360再乘周长' },
+  { id: 'jf_sector', front: '扇形面积', back: 'S = nπr²/360 = ½lr\n（n为圆心角，l为弧长）', category: '几何公式', example: 'n=90,r=4 → S=4π', memory_tips: '圆心角占360的比例乘圆面积' },
+  { id: 'jf_poly_exterior', front: '多边形外角和', back: '外角和 = 360°\n（任意凸多边形）', category: '几何公式', example: '正六边形每个外角=60°', memory_tips: '不管几边形，外角和永远是360°' },
+  { id: 'jf_poly_interior', front: '多边形内角和', back: '内角和 = (n-2)×180°\n（n为边数）', category: '几何公式', example: '三角形(n=3)→180°', memory_tips: '边数减2乘180' },
+  { id: 'jf_similar', front: '相似比与面积比', back: '相似比=k →\n周长比=k\n面积比=k²\n体积比=k³', category: '几何公式', example: '相似比1:2 → 面积比1:4', memory_tips: '线段一次方，面积二次方，体积三次方' },
+  // 函数公式
+  { id: 'jf_linear', front: '一次函数', back: 'y = kx + b\nk>0递增，k<0递减\nb为y轴截距', category: '函数公式', example: 'y=2x+1 → 过(0,1)和(1,3)', memory_tips: 'k决定方向和陡度，b决定上下平移' },
+  { id: 'jf_inverse', front: '反比例函数', back: 'y = k/x (k≠0)\n图象为双曲线\nk>0在一三象限', category: '函数公式', example: 'y=6/x → 过(2,3)', memory_tips: 'x增大y减小，xy=k恒定' },
+  { id: 'jf_quadratic', front: '二次函数一般式', back: 'y = ax²+bx+c\na>0开口向上，a<0开口向下', category: '函数公式', example: 'y=x²-4x+3', memory_tips: 'a决定开口方向，c决定y轴截距' },
+  { id: 'jf_quadratic_v', front: '二次函数顶点式', back: 'y = a(x-h)²+k\n顶点(h, k)\n对称轴x=h', category: '函数公式', example: 'y=2(x-1)²+3 → 顶点(1,3)', memory_tips: 'h是左右平移，k是上下平移' },
+  { id: 'jf_quadratic_axis', front: '对称轴公式', back: 'x = -b/(2a)\n（由y=ax²+bx+c求对称轴）', category: '函数公式', example: 'y=x²-4x+3 → x=2', memory_tips: '负b除以2a' },
+  { id: 'jf_delta', front: '判别式Δ', back: 'Δ = b²-4ac\nΔ>0: 两个不等实根\nΔ=0: 两个相等实根\nΔ<0: 无实根', category: '函数公式', example: 'x²-5x+6 → Δ=1>0', memory_tips: 'Δ判断根的情况，大于零有两根，等于零重根，小于零无根' },
+  { id: 'jf_viete', front: '韦达定理', back: 'x₁+x₂ = -b/a\nx₁·x₂ = c/a\n（ax²+bx+c=0的两根）', category: '函数公式', example: 'x²-5x+6=0 → x₁+x₂=5, x₁x₂=6', memory_tips: '两根之和=-b/a，两根之积=c/a' },
+  // 统计公式
+  { id: 'jf_mean', front: '平均数', back: 'x̄ = (x₁+x₂+...+xₙ)/n', category: '统计公式', example: '2,4,6 → x̄=4', memory_tips: '总和除以个数' },
+  { id: 'jf_median', front: '中位数', back: '数据从小到大排列：\n奇数个取中间值\n偶数个取中间两数平均', category: '统计公式', example: '1,3,5,7,9 → 中位数=5', memory_tips: '先排序再找中间' },
+  { id: 'jf_mode', front: '众数', back: '出现次数最多的数据\n可能不止一个', category: '统计公式', example: '1,2,2,3,3,3 → 众数=3', memory_tips: '谁出现最多就是众数' },
+  { id: 'jf_variance', front: '方差', back: 's² = [(x₁-x̄)²+(x₂-x̄)²+...+(xₙ-x̄)²]/n', category: '统计公式', example: '数据越集中方差越小', memory_tips: '每个数据与平均值的差的平方的平均' },
+  { id: 'jf_freq_mean', front: '加权平均数', back: 'x̄ = (f₁x₁+f₂x₂+...+fₙxₙ)/(f₁+f₂+...+fₙ)\nf为各数据权重', category: '统计公式', example: '成绩:80×3+90×2 / 5 = 84', memory_tips: '每个值乘以权重再求和，除以总权重' },
+]
+
+const JUNIOR_CATEGORIES = ['全部', '代数公式', '几何公式', '函数公式', '统计公式']
+
+export default function MathFormulaPage({ user, onBack, grade }) {
+  const isJunior = grade === 'junior'
+  const baseFormulas = isJunior ? JUNIOR_FORMULAS : (formulasRaw.length > 0 ? formulasRaw : FALLBACK_FORMULAS)
+  const allCats = isJunior ? JUNIOR_CATEGORIES : CATEGORIES
   const userId = user.id
 
   const [activeCategory, setActiveCategory] = useState('全部')
@@ -90,7 +130,10 @@ export default function MathFormulaPage({ user, onBack }) {
 
   const srsState = useMemo(() => storage.getSrsState(userId), [userId, refreshKey])
 
+  const FORMULAS = baseFormulas
+
   const allCategories = useMemo(() => {
+    if (allCats.length > 1) return allCats
     const cats = [...new Set(FORMULAS.map(f => f.category).filter(Boolean))]
     return ['全部', ...cats]
   }, [])
@@ -246,7 +289,7 @@ export default function MathFormulaPage({ user, onBack }) {
           className="w-9 h-9 flex items-center justify-center bg-gray-100 rounded-xl text-lg font-bold text-gray-500 active:bg-gray-200">
           ←
         </button>
-        <h1 className="text-xl font-bold text-gray-800 flex-1">📋 公式速记</h1>
+        <h1 className="text-xl font-bold text-gray-800 flex-1">📋 公式速记{isJunior ? '·初中' : ''}</h1>
         <div className="flex bg-gray-100 rounded-xl p-0.5">
           {['browse', 'quiz'].map(m => (
             <button key={m} onClick={() => { setMode(m); setStats({ know: 0, forgot: 0 }) }}

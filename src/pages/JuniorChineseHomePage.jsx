@@ -17,7 +17,6 @@ const JC_PLANETS = [
 const JC_SPECIAL = [
   { id: 'jc_dictation', label: '听写', emoji: '🎧', color: 'from-teal-400 to-cyan-600', desc: 'TTS听写·古诗文默写', isDictation: true },
   { id: 'jc_self_test', label: '自测', emoji: '🧪', color: 'from-violet-500 to-indigo-700', desc: 'AI出卷·中考难度·查漏补缺', isSelfTest: true },
-  { id: 'jc_lightning', label: '闪电', emoji: '⚡', color: 'from-yellow-400 to-orange-500', desc: '5题快测·约30秒', isLightning: true },
 ]
 
 const JC_WEAK_TAG_MAP = {
@@ -175,7 +174,6 @@ export default function JuniorChineseHomePage({ user, grade, onStartQuiz }) {
   function handleSpecialClick(planet) {
     if (planet.isDictation) onStartQuiz({ dictation: true, dictationSubject: 'chinese' })
     else if (planet.isSelfTest) onStartQuiz({ selfTest: true, selfTestSubject: 'chinese' })
-    else if (planet.isLightning) onStartQuiz({ lightningQuiz: true, juniorChineseTag: 'jc_lightning' })
   }
 
   return (

@@ -256,6 +256,7 @@ const SUBJECTS = {
         '校园欺凌': '行动星球', '青春期保护': '行动星球',
         'AI伦理与隐私保护': '行动星球',
         '道法': '基石星球',  // 通用兜底（DB记录可能只有这个tag）
+      }
       return base
     })(),
   },
@@ -397,9 +398,11 @@ function buildReport(todayRecords, yesterdayRecords, grade) {
     const hasData = total > 0
 
     // 星球列表
-    let allPlanetNames = [...(config.allPlanets || [])]
-    if (subjKey === 'math' && isJunior) {
-      allPlanetNames = [...allPlanetNames, ...(config.allPlanets_junior || [])]
+    let allPlanetNames
+    if (subjKey === 'math' && isJunior && config.allPlanets_junior) {
+      allPlanetNames = [...config.allPlanets_junior]  // 初中数学只用初中星球
+    } else {
+      allPlanetNames = [...(config.allPlanets || [])]
     }
 
     // 无数据学科：全星球标记未练习

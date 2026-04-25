@@ -4,8 +4,10 @@ import { updateSRS, toQuality } from '../utils/srs'
 import { syncAfterSession } from '../utils/sync'
 import { evaluateQuestion } from '../utils/ai_v2'
 import polChoiceQ from '../data/questions_politics_choice.json'
+import polComboQ from '../data/questions_politics_combo.json'
 import polAnswerQ from '../data/questions_politics_answer.json'
 import polAnalysisQ from '../data/questions_politics_analysis.json'
+import polExploreQ from '../data/questions_politics_explore.json'
 import { shuffle } from '../utils/common'
 
 // 不同星球每次答题数
@@ -17,10 +19,10 @@ const SESSION_SIZES = {
 }
 
 const POL_QUESTION_MAP = {
-  pol_choice:   polChoiceQ,
+  pol_choice:   [...polChoiceQ, ...polComboQ],
   pol_answer:   polAnswerQ,
   pol_analysis: polAnalysisQ,
-  pol_explore:  polAnswerQ, // 实践探究和简答题在同一文件，通过 task_type 区分
+  pol_explore:  polExploreQ,
 }
 
 
@@ -413,13 +415,9 @@ export default function PoliticsQuizPage({ user, options = {}, onFinish, onBack 
   const EXPLORE_TYPES = ['倡议书', '辩论稿', '活动方案']
   const questions = useMemo(() => {
     let pool = POL_QUESTION_MAP[politicsTag] || polChoiceQ
-    if (politicsTag === 'pol_explore') {
-      pool = pool.filter(q => EXPLORE_TYPES.includes(q.task_type))
-    } else if (politicsTag === 'pol_answer') {
-      // 简答题 = 有 task_type 但不是实践探究类型（为什么/怎么做/区别联系/启示）
-      pool = pool.filter(q => q.task_type && !EXPLORE_TYPES.includes(q.task_type))
-    }
-    return shuffle(pool).slice(0, sessionSize)
+    // 行动星球：新题库已经是纯实践探究题，直接使用
+    // 思辨星球：新题库已经是纯简答/辨析题，直接使用
+    return shuffle([...pool]).slice(0, sessionSize)
   }, [politicsTag, sessionSize])
 
   const [index, setIndex] = useState(0)

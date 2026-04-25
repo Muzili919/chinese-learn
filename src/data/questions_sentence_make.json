@@ -1,0 +1,422 @@
+[
+  {
+    "id": "sentence_make_001",
+    "type": "single_choice",
+    "knowledge_tag": "造句",
+    "difficulty": 1,
+    "question": "用「渐渐」造句，以下哪句最恰当？",
+    "options": [
+      "天气渐渐暖和了，我们脱掉了棉衣",
+      "他渐渐是一个好人",
+      "渐渐的苹果很甜",
+      "我渐渐吃饭了"
+    ],
+    "answer": "天气渐渐暖和了，我们脱掉了棉衣"
+  },
+  {
+    "id": "sentence_make_002",
+    "type": "single_choice",
+    "knowledge_tag": "造句",
+    "difficulty": 1,
+    "question": "用「虽然…但是…」造句，以下哪句最恰当？",
+    "options": [
+      "虽然下雨，但是我没带伞",
+      "虽然他很累，但是坚持完成了作业",
+      "虽然但是今天天气很好",
+      "虽然我喜欢苹果"
+    ],
+    "answer": "虽然他很累，但是坚持完成了作业"
+  },
+  {
+    "id": "sentence_make_003",
+    "type": "single_choice",
+    "knowledge_tag": "造句",
+    "difficulty": 1,
+    "question": "用「不仅…而且…」造句，以下哪句最恰当？",
+    "options": [
+      "不仅而且我喜欢读书",
+      "他不仅学习好，而且乐于助人",
+      "不仅我很开心",
+      "而且今天天气不错"
+    ],
+    "answer": "他不仅学习好，而且乐于助人"
+  },
+  {
+    "id": "sentence_make_004",
+    "type": "single_choice",
+    "knowledge_tag": "造句",
+    "difficulty": 1,
+    "question": "用「一边…一边…」造句，以下哪句最恰当？",
+    "options": [
+      "他一边吃饭一边看书",
+      "一边我很开心",
+      "一边苹果很好吃",
+      "我一边他一边去了公园"
+    ],
+    "answer": "他一边吃饭一边看书"
+  },
+  {
+    "id": "sentence_make_005",
+    "type": "single_choice",
+    "knowledge_tag": "造句",
+    "difficulty": 1,
+    "question": "用「因为…所以…」造句，以下哪句最恰当？",
+    "options": [
+      "因为所以下雨了",
+      "因为今天下雨了，所以我带了雨伞",
+      "所以我迟到了因为",
+      "因为开心我所以"
+    ],
+    "answer": "因为今天下雨了，所以我带了雨伞"
+  },
+  {
+    "id": "sentence_make_006",
+    "type": "single_choice",
+    "knowledge_tag": "造句",
+    "difficulty": 2,
+    "question": "用「如果…就…」造句，以下哪句最恰当？",
+    "options": [
+      "如果就明天去",
+      "如果明天下雨，我们就不去公园了",
+      "就如果很漂亮",
+      "如果明天就下雨"
+    ],
+    "answer": "如果明天下雨，我们就不去公园了"
+  },
+  {
+    "id": "sentence_make_007",
+    "type": "single_choice",
+    "knowledge_tag": "造句",
+    "difficulty": 2,
+    "question": "用「即使…也…」造句，以下哪句最恰当？",
+    "options": [
+      "即使也他很努力",
+      "即使遇到困难，我们也不应该放弃",
+      "也即使下雨了",
+      "即使明天也去"
+    ],
+    "answer": "即使遇到困难，我们也不应该放弃"
+  },
+  {
+    "id": "sentence_make_008",
+    "type": "single_choice",
+    "knowledge_tag": "造句",
+    "difficulty": 2,
+    "question": "用「只有…才…」造句，以下哪句最恰当？",
+    "options": [
+      "只有才好好学习",
+      "只有努力学习，才能取得好成绩",
+      "才只有明天去",
+      "只有今天才如果"
+    ],
+    "answer": "只有努力学习，才能取得好成绩"
+  },
+  {
+    "id": "sentence_make_009",
+    "type": "single_choice",
+    "knowledge_tag": "造句",
+    "difficulty": 2,
+    "question": "用「只要…就…」造句，以下哪句最恰当？",
+    "options": [
+      "只要就你去吧",
+      "只要每天坚持练习，就能取得进步",
+      "就只要很努力",
+      "只要明天就去玩"
+    ],
+    "answer": "每天坚持练习，就能取得进步"
+  },
+  {
+    "id": "sentence_make_010",
+    "type": "single_choice",
+    "knowledge_tag": "造句",
+    "difficulty": 2,
+    "question": "用「无论…都…」造句，以下哪句最恰当？",
+    "options": [
+      "无论都下雨了",
+      "无论遇到什么困难，我们都不能放弃",
+      "都无论很好",
+      "无论明天都去"
+    ],
+    "answer": "无论遇到什么困难，我们都不能放弃"
+  },
+  {
+    "id": "sentence_make_011",
+    "type": "single_choice",
+    "knowledge_tag": "造句",
+    "difficulty": 1,
+    "question": "用「终于」造句，以下哪句最恰当？",
+    "options": [
+      "经过努力，他终于学会了骑自行车",
+      "终于的他很开心",
+      "终于今天终于天气好",
+      "我终于终于回家了"
+    ],
+    "answer": "经过努力，他终于学会了骑自行车"
+  },
+  {
+    "id": "sentence_make_012",
+    "type": "single_choice",
+    "knowledge_tag": "造句",
+    "difficulty": 1,
+    "question": "用「果然」造句，以下哪句最恰当？",
+    "options": [
+      "他说今天会下雨，果然下午就下起了大雨",
+      "果然的苹果很甜",
+      "我果然很果然",
+      "果然今天果然好了"
+    ],
+    "answer": "他说今天会下雨，果然下午就下起了大雨"
+  },
+  {
+    "id": "sentence_make_013",
+    "type": "single_choice",
+    "knowledge_tag": "造句",
+    "difficulty": 2,
+    "question": "用「尽管…可是…」造句，以下哪句最恰当？",
+    "options": [
+      "尽管可是天气不好",
+      "尽管天气很冷，可是同学们还是坚持晨跑",
+      "可是尽管很开心",
+      "尽管明天可是去"
+    ],
+    "answer": "尽管天气很冷，可是同学们还是坚持晨跑"
+  },
+  {
+    "id": "sentence_make_014",
+    "type": "single_choice",
+    "knowledge_tag": "造句",
+    "difficulty": 2,
+    "question": "用「与其…不如…」造句，以下哪句最恰当？",
+    "options": [
+      "与其与其出去玩",
+      "与其在家无聊，不如去图书馆看书",
+      "不如与其开心",
+      "与其明天不如今天"
+    ],
+    "answer": "与其在家无聊，不如去图书馆看书"
+  },
+  {
+    "id": "sentence_make_015",
+    "type": "single_choice",
+    "knowledge_tag": "造句",
+    "difficulty": 2,
+    "question": "用「宁可…也不…」造句，以下哪句最恰当？",
+    "options": [
+      "宁可也不下雨了",
+      "我宁可多花时间，也不敷衍了事",
+      "也不宁可这样",
+      "宁可明天也不去"
+    ],
+    "answer": "我宁可多花时间，也不敷衍了事"
+  },
+  {
+    "id": "sentence_make_016",
+    "type": "single_choice",
+    "knowledge_tag": "造句",
+    "difficulty": 2,
+    "question": "用「先…再…」造句，以下哪句最恰当？",
+    "options": [
+      "再先写作业",
+      "回家后先洗手，再写作业",
+      "先再今天开心",
+      "先去玩再写作业先"
+    ],
+    "answer": "回家后先洗手，再写作业"
+  },
+  {
+    "id": "sentence_make_017",
+    "type": "single_choice",
+    "knowledge_tag": "造句",
+    "difficulty": 2,
+    "question": "用「一方面…另一方面…」造句，以下哪句最恰当？",
+    "options": [
+      "一方面另一方面",
+      "一方面要努力学习，另一方面要注意身体",
+      "另一方面一方面开心",
+      "一方面今天另一方面明天"
+    ],
+    "answer": "一方面要努力学习，另一方面要注意身体"
+  },
+  {
+    "id": "sentence_make_018",
+    "type": "single_choice",
+    "knowledge_tag": "造句",
+    "difficulty": 2,
+    "question": "用「不是…而是…」造句，以下哪句最恰当？",
+    "options": [
+      "而是不是今天下雨",
+      "他不是不会做，而是不够细心",
+      "不是而是很开心",
+      "不是今天而是明天去"
+    ],
+    "answer": "他不是不会做，而是不够细心"
+  },
+  {
+    "id": "sentence_make_019",
+    "type": "single_choice",
+    "knowledge_tag": "造句",
+    "difficulty": 3,
+    "question": "用「之所以…是因为…」造句，以下哪句最恰当？",
+    "options": [
+      "之所以是因为开心",
+      "他之所以迟到，是因为路上堵车了",
+      "是因为之所以下雨",
+      "之所以今天是因为明天"
+    ],
+    "answer": "他之所以迟到，是因为路上堵车了"
+  },
+  {
+    "id": "sentence_make_020",
+    "type": "single_choice",
+    "knowledge_tag": "造句",
+    "difficulty": 3,
+    "question": "用「既然…就…」造句，以下哪句最恰当？",
+    "options": [
+      "既然就明天",
+      "既然决定了，就要坚持到底",
+      "就既然很好",
+      "既然今天就去"
+    ],
+    "answer": "既然决定了，就要坚持到底"
+  },
+  {
+    "id": "sentence_make_021",
+    "type": "single_choice",
+    "knowledge_tag": "造句",
+    "difficulty": 1,
+    "question": "用「忽然」造句，以下哪句最恰当？",
+    "options": [
+      "他忽然下起了大雨",
+      "我正在看书，忽然听到有人敲门",
+      "忽然的天很蓝",
+      "忽然忽然他笑了"
+    ],
+    "answer": "我正在看书，忽然听到有人敲门"
+  },
+  {
+    "id": "sentence_make_022",
+    "type": "single_choice",
+    "knowledge_tag": "造句",
+    "difficulty": 1,
+    "question": "用「居然」造句，以下哪句最恰当？",
+    "options": [
+      "他居然考了满分，大家都很惊讶",
+      "居然的天很蓝",
+      "我居然居然很开心",
+      "居然今天居然下雨"
+    ],
+    "answer": "他居然考了满分，大家都很惊讶"
+  },
+  {
+    "id": "sentence_make_023",
+    "type": "single_choice",
+    "knowledge_tag": "造句",
+    "difficulty": 2,
+    "question": "用「虽然…却…」造句，以下哪句最恰当？",
+    "options": [
+      "虽然却他很好",
+      "虽然题目很难，他却做出来了",
+      "却虽然下雨了",
+      "虽然明天却去玩"
+    ],
+    "answer": "虽然题目很难，他却做出来了"
+  },
+  {
+    "id": "sentence_make_024",
+    "type": "single_choice",
+    "knowledge_tag": "造句",
+    "difficulty": 2,
+    "question": "用「既…又…」造句，以下哪句最恰当？",
+    "options": [
+      "既又很漂亮",
+      "这个办法既简单又有效",
+      "又既开心",
+      "既今天又明天"
+    ],
+    "answer": "这个办法既简单又有效"
+  },
+  {
+    "id": "sentence_make_025",
+    "type": "single_choice",
+    "knowledge_tag": "造句",
+    "difficulty": 2,
+    "question": "用「不但…还…」造句，以下哪句最恰当？",
+    "options": [
+      "还不但很开心",
+      "他不但会说英语，还会说法语",
+      "不但还明天去",
+      "不但今天还昨天"
+    ],
+    "answer": "他不但会说英语，还会说法语"
+  },
+  {
+    "id": "sentence_make_026",
+    "type": "single_choice",
+    "knowledge_tag": "造句",
+    "difficulty": 3,
+    "question": "用「哪怕…也…」造句，以下哪句最恰当？",
+    "options": [
+      "哪怕也明天",
+      "哪怕只有一丝希望，我们也不能放弃",
+      "也哪怕下雨了",
+      "哪怕今天也明天"
+    ],
+    "answer": "哪怕只有一丝希望，我们也不能放弃"
+  },
+  {
+    "id": "sentence_make_027",
+    "type": "single_choice",
+    "knowledge_tag": "造句",
+    "difficulty": 3,
+    "question": "用「除…之外」造句，以下哪句最恰当？",
+    "options": [
+      "之外除下雨",
+      "除了小明之外，其他同学都到了",
+      "除之外很开心",
+      "除今天之外明天"
+    ],
+    "answer": "除了小明之外，其他同学都到了"
+  },
+  {
+    "id": "sentence_make_028",
+    "type": "single_choice",
+    "knowledge_tag": "造句",
+    "difficulty": 3,
+    "question": "用「连…都…」造句，以下哪句最恰当？",
+    "options": [
+      "连都很开心",
+      "这个问题太难了，连老师都解不出来",
+      "都连下雨了",
+      "连今天都明天"
+    ],
+    "answer": "这个问题太难了，连老师都解不出来"
+  },
+  {
+    "id": "sentence_make_029",
+    "type": "single_choice",
+    "knowledge_tag": "造句",
+    "difficulty": 2,
+    "question": "用「时而…时而…」造句，以下哪句最恰当？",
+    "options": [
+      "时而时而天气变化",
+      "天空中的云时而聚集，时而散开",
+      "时而开心时而",
+      "时而今天时而明天"
+    ],
+    "answer": "天空中的云时而聚集，时而散开"
+  },
+  {
+    "id": "sentence_make_030",
+    "type": "single_choice",
+    "knowledge_tag": "造句",
+    "difficulty": 2,
+    "question": "用「越…越…」造句，以下哪句最恰当？",
+    "options": [
+      "越越天气变冷了",
+      "天越冷，他越早起锻炼",
+      "越开心越明天",
+      "越今天越昨天"
+    ],
+    "answer": "天越冷，他越早起锻炼"
+  }
+]

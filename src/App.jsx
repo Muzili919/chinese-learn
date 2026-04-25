@@ -734,6 +734,7 @@ export default function App() {
     if (page === 'math_formula') return (
       <MathFormulaPage
         user={user}
+        grade={grade === 'junior2' || grade === 'junior' ? 'junior' : 'primary'}
         onBack={() => { setActiveSubject('math'); setPage('subject_home') }}
       />
     )

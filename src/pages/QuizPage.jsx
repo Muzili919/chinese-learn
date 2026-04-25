@@ -32,14 +32,16 @@ import jcClassicalQ from '../data/questions_junior_chinese_classical.json'
 import jcNovelQ from '../data/questions_junior_chinese_novel.json'
 import jcExprQ from '../data/questions_junior_chinese_expression.json'
 import jcReadingQ from '../data/questions_junior_chinese_reading.json'
+import mathFormulasJuniorQ from '../data/questions_math_formulas_junior.json'
+import sentenceMakeQ from '../data/questions_sentence_make.json'
 import { shuffle } from '../utils/common'
 import { speakEnglish, stop as stopTTS } from '../utils/tts'
 
-const CHINESE_QUESTIONS = [...vocabQ, ...poetryQ, ...idiomQ, ...sentenceQ, ...litQ]
+const CHINESE_QUESTIONS = [...vocabQ, ...poetryQ, ...idiomQ, ...sentenceQ, ...litQ, ...sentenceMakeQ]
 const ENGLISH_QUESTIONS = [...enVocabQ, ...enListenQ, ...enGrammarQ, ...enReadingQ, ...enWritingQ, ...enClozeQ]
 const POLITICS_ALL = Array.isArray(politicsQ) ? politicsQ : (politicsQ.questions || [])
 const MATH_PRIMARY = [...mathBasicQ, ...mathGeoQ, ...mathOlympiadQ]  // 小学
-const MATH_JUNIOR = [...mathJuniorEquationQ, ...mathJuniorFunctionQ, ...mathJuniorAlgebraQ, ...mathJuniorGeoQ]  // 初中
+const MATH_JUNIOR = [...mathJuniorEquationQ, ...mathJuniorFunctionQ, ...mathJuniorAlgebraQ, ...mathJuniorGeoQ, ...mathFormulasJuniorQ]  // 初中
 const MATH_ALL = [...MATH_PRIMARY, ...MATH_JUNIOR]
 // ★ 初中语文题库
 const JUNIOR_CHINESE_ALL = [
