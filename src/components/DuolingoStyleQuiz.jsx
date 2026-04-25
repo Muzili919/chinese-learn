@@ -29,9 +29,38 @@ function renderRichText(text) {
 
 // ─── 底部反馈面板 ─────────────────────────────────────────
 
-function FeedbackPanel({ correct, analysis, answer, onContinue, variantState, onSocratic }) {
+function FeedbackPanel({ correct, analysis, answer, onContinue, variantState, onSocratic, wrongChoice, questionOpts }) {
   // variantState = { phase, question, selected, onSelect, onGenerate, showButton, remaining }
   const vs = variantState || {}
+  const [aiExplaining, setAiExplaining] = useState(false)
+  const [aiExplanation, setAiExplanation] = useState(null)
+
+  // AI 错因解析：解释为什么选错了
+  async function explainWrongChoice() {
+    if (aiExplanation || aiExplaining) return
+    setAiExplaining(true)
+    try {
+      const res = await fetch('/api/ai', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          model: 'deepseek-chat',
+          messages: [
+            { role: 'system', content: '你是一位耐心的小学老师。用一句话解释为什么学生选的答案错了，再一句话说正确答案为什么对。语气亲切，50字以内。只返回解释文字，不要JSON。' },
+            { role: 'user', content: `题目：${analysis ? '' : answer}\n学生选了：${wrongChoice || '错误答案'}\n正确答案：${answer}\n${analysis ? '参考解析：' + analysis : ''}` },
+          ],
+          temperature: 0.5,
+          max_tokens: 100,
+        }),
+      })
+      const data = await res.json()
+      setAiExplanation(data.choices?.[0]?.message?.content || '解析暂不可用')
+    } catch {
+      setAiExplanation('网络异常，请稍后再试')
+    } finally {
+      setAiExplaining(false)
+    }
+  }
 
   return (
     <div className={`fixed bottom-0 left-0 right-0 z-30 rounded-t-3xl shadow-2xl max-h-[80vh] flex flex-col ${
@@ -42,10 +71,37 @@ function FeedbackPanel({ correct, analysis, answer, onContinue, variantState, on
           <p className={`text-xl font-bold mb-3 ${correct ? 'text-green-600' : 'text-red-500'}`}>
             {correct ? '✓ 正确！' : '✗ 答错了'}
           </p>
+          {!correct && wrongChoice && (
+            <div className="mb-2 bg-red-100/60 rounded-2xl px-4 py-2.5 border border-red-200">
+              <p className="text-xs text-red-400 mb-0.5 font-medium">你的答案</p>
+              <p className="text-sm font-semibold text-red-600 line-through">{wrongChoice}</p>
+            </div>
+          )}
           {!correct && answer && (
             <div className="mb-3 bg-white rounded-2xl px-4 py-3 border border-gray-200">
               <p className="text-xs text-gray-400 mb-1 font-medium">正确答案</p>
               <p className="text-sm font-semibold text-gray-800 whitespace-pre-wrap leading-relaxed">{answer}</p>
+            </div>
+          )}
+          {/* AI 错因解析 */}
+          {!correct && !aiExplanation && !aiExplaining && (
+            <button onClick={explainWrongChoice}
+              className="w-full mb-3 py-2.5 rounded-2xl font-bold text-sm bg-gradient-to-r from-amber-400 to-orange-500 text-white active:scale-[0.98] transition-all flex items-center justify-center gap-2 shadow">
+              <span>🤔</span><span>为什么错了？</span>
+            </button>
+          )}
+          {aiExplaining && (
+            <div className="mb-3 bg-amber-50 rounded-2xl px-4 py-3 border border-amber-200">
+              <div className="flex items-center gap-2">
+                <div className="w-3 h-3 border-2 border-amber-300 border-t-amber-500 rounded-full animate-spin" />
+                <span className="text-xs text-amber-600 font-medium">AI 正在分析错因…</span>
+              </div>
+            </div>
+          )}
+          {aiExplanation && (
+            <div className="mb-3 bg-gradient-to-r from-amber-50 to-orange-50 rounded-2xl px-4 py-3 border border-amber-200">
+              <p className="text-xs text-amber-400 mb-1 font-medium">🤖 AI 解析</p>
+              <p className="text-xs text-gray-700 leading-relaxed">{aiExplanation}</p>
             </div>
           )}
           {analysis && (
@@ -1653,6 +1709,8 @@ export default function DuolingoStyleQuiz({ question, onAnswerSubmit, showVarian
           correct={phase === 'correct'}
           analysis={question.analysis}
           answer={phase === 'wrong' ? question.answer : null}
+          wrongChoice={phase === 'wrong' ? chosenAnswer : null}
+          questionOpts={question.options}
           onContinue={handleContinue}
           onSocratic={phase === 'wrong' ? () => setShowSocratic(true) : null}
           variantState={{

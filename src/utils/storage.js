@@ -315,6 +315,7 @@ export const storage = {
   // 错题集：最近一次答错的题目 card_id 集合
   getWrongCardIds: (userId) => {
     const records = storage.getRecords(userId);
+    const flagged = storage.getFlaggedQuestions(userId);
     // 按 card_id 分组，取每张卡最新一条记录
     const latest = {};
     for (const r of records) {
@@ -322,15 +323,16 @@ export const storage = {
         latest[r.card_id] = r;
       }
     }
-    // 返回最近一次答错的 card_id 集合
+    // 返回最近一次答错的 card_id 集合（排除已标记有问题的题目）
     return new Set(
       Object.entries(latest)
         .filter(([, r]) => !r.correct)
         .map(([id]) => id)
+        .filter(id => !flagged[id])
     );
   },
 
-  // 删除指定 card_id 的所有答题记录
+  // 删除指定 card_id 的所有答题记录（本地+云端）
   deleteRecordsByCardId: (userId, cardId) => {
     const records = storage.getRecords(userId);
     const filtered = records.filter(r => r.card_id !== cardId);
@@ -338,6 +340,13 @@ export const storage = {
     // 同步清理 SRS 状态
     const srs = storage.getSrsState(userId);
     if (srs[cardId]) { delete srs[cardId]; storage.setSrsState(userId, srs); }
+    // ★ 同步删除云端记录（防止刷新后拉回来）
+    const cardIds = Array.isArray(cardId) ? cardId : [cardId]
+    fetch('/api/records/delete', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ userId, cardIds }),
+    }).catch(() => {})
     return filtered.length;
   },
 

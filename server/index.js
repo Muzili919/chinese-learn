@@ -194,33 +194,59 @@ app.get('/api/records/:userId', async (req, res) => {
 app.post('/api/records/bulk-upsert', async (req, res) => {
   const { records, userId } = req.body
   if (!Array.isArray(records) || !userId) return error(res, '参数无效')
-  
+
   try {
-    for (let i = 0; i < records.length; i += 100) {
-      const batch = records.slice(i, i + 100)
-      const values = batch.flatMap((r, idx) => [
-        `${userId}_${r.card_id}_${r.timestamp}`,  // 复合唯一标识
+    for (let i = 0; i < records.length; i += 50) {
+      const batch = records.slice(i, i + 50)
+      const values = batch.flatMap(r => [
+        `${userId}_${r.card_id}_${r.timestamp}`,
         userId,
         r.card_id,
         r.subject || 'chinese',
         r.correct ? 'true' : 'false',
-        r.timestamp || new Date().toISOString()
+        r.timestamp || new Date().toISOString(),
+        r.knowledge_tag || null,
+        r.topic || null,
+        r.time_spent || null,
+        r.score != null ? r.score : null,
+        r.selected_answer || null,
       ])
-      
-      const placeholders = batch.map((_, idx) =>
-        `($${idx * 6 + 1}, $${idx * 6 + 2}, $${idx * 6 + 3}, $${idx * 6 + 4}, $${idx * 6 + 5}::boolean, $${idx * 6 + 6})`
-      ).join(', ')
-      
+
+      const placeholders = batch.map((_, idx) => {
+        const b = idx * 11
+        return `($${b+1}, $${b+2}, $${b+3}, $${b+4}, $${b+5}::boolean, $${b+6}, $${b+7}, $${b+8}, $${b+9}, $${b+10}, $${b+11})`
+      }).join(', ')
+
       await pool.query(`
-        INSERT INTO answer_records (id, user_id, card_id, subject, correct, timestamp)
+        INSERT INTO answer_records (id, user_id, card_id, subject, correct, timestamp, knowledge_tag, topic, time_spent, score, selected_answer)
         VALUES ${placeholders}
-        ON CONFLICT (id) DO UPDATE SET correct = EXCLUDED.correct, subject = EXCLUDED.subject
+        ON CONFLICT (id) DO UPDATE SET
+          correct = EXCLUDED.correct,
+          subject = EXCLUDED.subject,
+          knowledge_tag = COALESCE(EXCLUDED.knowledge_tag, answer_records.knowledge_tag),
+          topic = COALESCE(EXCLUDED.topic, answer_records.topic),
+          time_spent = COALESCE(EXCLUDED.time_spent, answer_records.time_spent),
+          score = COALESCE(EXCLUDED.score, answer_records.score),
+          selected_answer = COALESCE(EXCLUDED.selected_answer, answer_records.selected_answer)
       `, values)
     }
     return json(res, { ok: true, count: records.length })
   } catch (err) {
     console.error('批量插入答题记录失败:', err.message)
     return error(res, '保存失败', 500)
+  }
+})
+
+// 删除指定 card_id 的答题记录（家长后台删错题用）
+app.post('/api/records/delete', async (req, res) => {
+  const { userId, cardIds } = req.body
+  if (!userId || !Array.isArray(cardIds) || !cardIds.length) return error(res, '参数无效')
+  try {
+    await pool.query('DELETE FROM answer_records WHERE user_id = $1 AND card_id = ANY($2)', [userId, cardIds])
+    return json(res, { ok: true, deleted: cardIds.length })
+  } catch (e) {
+    console.error('delete records error:', e.message)
+    return error(res, '删除失败')
   }
 })
 
