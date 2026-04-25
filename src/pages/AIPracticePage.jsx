@@ -274,6 +274,7 @@ export default function AIPracticePage({ user, grade, subject, weakTags, onBack 
           question={current}
           onAnswerSubmit={handleAnswer}
           showVariantButton={false}
+          hideAiFeatures
         />
       </div>
     </div>

@@ -591,6 +591,7 @@ export default function ReadingPage({ user, subject, onFinish, onBack }) {
             key={current.id}
             question={current}
             onAnswerSubmit={handleDuolingoAnswer}
+            hideAiFeatures
           />
         )}
 
