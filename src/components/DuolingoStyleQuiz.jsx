@@ -1711,6 +1711,7 @@ export default function DuolingoStyleQuiz({ question, onAnswerSubmit, showVarian
           questionOpts={question.options}
           onContinue={handleContinue}
           onSocratic={phase === 'wrong' ? () => setShowSocratic(true) : null}
+          hideAiFeatures={hideAiFeatures}
           variantState={{
             showButton: showVariantButton,
             phase: variantPhase,
