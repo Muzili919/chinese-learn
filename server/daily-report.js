@@ -1,14 +1,8 @@
 /**
- * 每日学习报告邮件发送（升级版）
- * cron: 每晚 22:00 执行
+ * 每日学习报告邮件发送（v3）
  *
- * 功能：
- * 1. 查询今日用户的答题数据（含 knowledge_tag, topic, time_spent, score）
- * 2. 按学科×星球分组，展示完成情况
- * 3. 计算认真度指标
- * 4. 错题类型分析
- * 5. 调用 AI 生成个性化建议
- * 6. 发送邮件给家长（从 DB 读取 parent_email）
+ * 核心匹配逻辑：card_id前缀 > topic > knowledge_tag
+ * card_id前缀最可靠（由题库文件名决定），topic是宏观分类，knowledge_tag是微观分类
  *
  * 用法: node daily-report.js [userId]
  */
@@ -37,7 +31,6 @@ const pool = new Pool({
   user: DB_USER, password: DB_PASS,
 })
 
-// ========== 工具 ==========
 function today() { return new Date().toISOString().split('T')[0] }
 function yesterday() {
   const d = new Date()
@@ -45,129 +38,205 @@ function yesterday() {
   return d.toISOString().split('T')[0]
 }
 
-// ========== 学科星球映射 ==========
-const SUBJECT_CONFIG = {
+// 用户学段映射（从 localStorage 读取但服务端不可用，硬编码主要账号）
+function getUserGrade(userId) {
+  const JUNIOR_IDS = ['李雨_mo2t5zxm']
+  return JUNIOR_IDS.includes(userId) ? 'junior' : 'primary'
+}
+
+// 每个学段应做的学科（和星球体系严格绑定）
+const GRADE_SUBJECTS = {
+  primary: {
+    chinese: '语文',      // 小学语文
+    english: '英语',
+    math: '数学',         // 只含运算/图形/奥数
+  },
+  junior: {
+    chinese_junior: '语文', // 初中语文
+    english: '英语',
+    math: '数学',          // 含方程/函数/整式/几何
+    politics: '政治',
+  },
+}
+
+// ========== 学科定义 ==========
+// 每个学科定义：所有星球（allPlanets）以及 card_id 前缀到星球的映射
+const SUBJECTS = {
   chinese: {
     label: '语文',
-    planets: {
-      '字词': '字词星球', '词汇': '字词星球',
-      '古诗词': '诗词星球', '古诗': '诗词星球', '诗词': '诗词星球',
-      '成语': '成语星球',
-      '句子': '句子星球', '仿写': '句子星球',
+    allPlanets: ['字词星球', '诗词星球', '成语星球', '句子星球', '文学星球', '阅读星球', '听写星球', '作文星球', '综合星球'],
+    // card_id 前缀 → 星球名（优先长前缀）
+    prefixMap: {
+      vocab: '字词星球', poetry: '诗词星球', idiom: '成语星球', sentence: '句子星球',
+      literature: '文学星球', lit: '文学星球', reading: '阅读星球', dictation: '听写星球',
+      essay: '作文星球', ch: '字词星球', sw_sw: '听写星球', q: '综合星球',
+    },
+    // topic → 星球
+    topicMap: {
+      '字词': '字词星球', '古诗词': '诗词星球', '成语': '成语星球',
+      '句子': '句子星球', '文学常识': '文学星球', '阅读理解': '阅读星球',
+      '听写': '听写星球', '写作': '作文星球',
+    },
+    // knowledge_tag → 星球（兜底）
+    tagMap: {
+      '字词': '字词星球', '词汇': '字词星球', '古诗词': '诗词星球', '古诗': '诗词星球',
+      '成语': '成语星球', '句子': '句子星球', '仿写': '句子星球',
       '文学常识': '文学星球', '文学': '文学星球',
       '阅读理解': '阅读星球', '阅读': '阅读星球',
       '听写': '听写星球', '默写': '听写星球',
       '写作': '作文星球', '作文': '作文星球', '写作表达': '作文星球',
+      '综合理解': '综合星球', '自测': '自测星球', '测试': '测试',
     },
   },
   chinese_junior: {
     label: '初中语文',
-    planets: {
-      '字音辨析': '基础星球', '字词': '基础星球',
-      '古诗文默写': '古诗文星球', '古诗': '古诗文星球', '古诗词': '古诗文星球',
-      '实词解释': '文言文星球', '文言文': '文言文星球',
+    allPlanets: ['基础星球', '古诗文星球', '文言文星球', '名著星球', '表达星球', '阅读星球'],
+    prefixMap: {
+      jc_basic: '基础星球', jc_poetry: '古诗文星球', jc_cl: '文言文星球',
+      jc_novel: '名著星球', jc_expr: '表达星球', jc_reading: '阅读星球',
+      jcr: '阅读星球', j2ch: '古诗文星球',
+    },
+    topicMap: {
+      '字音辨析': '基础星球', '字形辨析': '基础星球', '古诗文默写': '古诗文星球',
+      '实词解释': '文言文星球', '名著阅读': '名著星球', '仿写句子': '表达星球',
+      '现代文阅读': '阅读星球',
+    },
+    tagMap: {
+      '字音辨析': '基础星球', '字形辨析': '基础星球', '词语运用': '基础星球',
+      '病句辨析': '基础星球', '标点符号': '基础星球', '句子排序': '基础星球',
+      '文学常识': '基础星球', '字音字形综合': '基础星球', '词语综合运用': '基础星球',
+      '病句综合辨析': '基础星球', '语言综合运用': '基础星球',
+      '古诗文默写': '古诗文星球', '古诗词赏析': '古诗文星球', '古诗文常识': '古诗文星球',
+      '文言文翻译': '古诗文星球',
+      '实词解释': '文言文星球', '虚词用法': '文言文星球', '句式翻译': '文言文星球', '文言文阅读': '文言文星球',
       '名著阅读': '名著星球',
-      '仿写句子': '表达星球', '句子': '表达星球',
-      '现代文阅读': '阅读星球', '阅读理解': '阅读星球', '阅读': '阅读星球',
-      '写作': '作文星球', '写作表达': '作文星球',
-      '综合理解': '综合星球', '综合填空': '综合星球',
+      '仿写句子': '表达星球', '语言得体': '表达星球', '信息概括': '表达星球',
+      '图文转换': '表达星球', '综合性学习': '表达星球',
+      '现代文阅读': '阅读星球',
     },
   },
   math: {
     label: '数学',
-    planets: {
-      '数与运算': '运算星球', '计算': '运算星球', '简便运算': '运算星球',
-      '图形与空间': '图形星球', '图形': '图形星球', '几何': '图形星球',
-      '奥数专题': '奥数星球', '奥数': '奥数星球',
-      '方程与不等式': '方程星球', '方程': '方程星球', '解方程': '方程星球',
-      '函数与图像': '函数星球', '函数': '函数星球',
-      '整式运算': '整式星球', '整式': '整式星球',
-      '几何证明': '几何星球', '证明': '几何星球',
-      '综合理解': '应用星球',
+    allPlanets: ['运算星球', '图形星球', '奥数星球'],  // 小学默认
+    allPlanets_junior: ['方程星球', '函数星球', '整式星球', '几何星球'],  // 初中追加
+    prefixMap: {
+      math_b: '运算星球', math_g: '图形星球', math_o: '奥数星球',
+      math_calc: '运算星球', math_geom: '图形星球', math_olympiad: '奥数星球',
+      formula: '运算星球',
+      math_je: '方程星球', math_jf: '函数星球', math_ja: '整式星球',
+      math_jgeo: '几何星球', math_jg: '几何星球',
+    },
+    topicMap: {
+      '数与运算': '运算星球', '图形与空间': '图形星球', '奥数专题': '奥数星球',
+      '方程与不等式': '方程星球', '函数与图像': '函数星球', '整式运算': '整式星球', '几何证明': '几何星球',
+    },
+    tagMap: {
+      '分数运算': '运算星球', '小数运算': '运算星球', '百分数': '运算星球', '比和比例': '运算星球',
+      '运算定律': '运算星球', '数的认识': '运算星球', '公式': '运算星球',
+      '平面图形': '图形星球', '立体图形': '图形星球', '单位换算': '图形星球',
+      '对称与变换': '图形星球', '三角形面积': '图形星球', '四边形面积': '图形星球',
+      '圆的周长面积': '图形星球', '组合图形': '图形星球', '角度计算': '图形星球',
+      '行程问题': '奥数星球', '工程问题': '奥数星球', '鸡兔同笼': '奥数星球',
+      '植树问题': '奥数星球', '年龄问题': '奥数星球', '数论基础': '奥数星球',
+      '计数原理': '奥数星球', '巧算速算': '奥数星球', '逻辑推理': '奥数星球',
+      '容斥原理': '奥数星球', '抽屉原理': '奥数星球', '最优化': '奥数星球',
+      '面积模型': '奥数星球', '牛吃草': '奥数星球', '浓度配比': '奥数星球',
+      '一元一次方程': '方程星球', '二元一次方程组': '方程星球', '一元一次不等式': '方程星球',
+      '等式性质': '方程星球',
+      '一次函数': '函数星球', '反比例函数': '函数星球', '二次函数基础': '函数星球',
+      '平面直角坐标系': '函数星球', '函数概念': '函数星球',
+      '整式加减': '整式星球', '幂的运算': '整式星球', '整式乘法': '整式星球',
+      '乘法公式': '整式星球', '因式分解': '整式星球', '整式除法': '整式星球',
+      '相交线与平行线': '几何星球', '三角形全等': '几何星球', '等腰三角形': '几何星球',
+      '特殊四边形': '几何星球', '相似三角形': '几何星球', '勾股定理': '几何星球',
+      '圆的基本性质': '几何星球', '几何综合': '几何星球',
     },
   },
   english: {
     label: '英语',
-    planets: {
-      '英语词汇': '词汇星球', '词汇': '词汇星球', '词汇语法': '词汇星球',
+    allPlanets: ['词汇星球', '听力星球', '语法星球', '阅读星球', '写作星球', '完形星球'],
+    prefixMap: {
+      en_vocab: '词汇星球', en_listen: '听力星球', en_grammar: '语法星球',
+      en_reading: '阅读星球', en_writing: '写作星球', en_cloze: '完形星球',
+      en_j2_vocab: '词汇星球', en_j2_listen: '听力星球', en_j2_grammar: '语法星球',
+      en_j2_reading: '阅读星球', en_j2_writing: '写作星球', en_j2_cloze: '完形星球',
+      j2_read: '阅读星球', j2_vocab: '词汇星球',
+      en: '词汇星球',
+    },
+    topicMap: {
+      '英语词汇': '词汇星球', '英语听力': '听力星球', '英语语法': '语法星球',
+      '英语阅读': '阅读星球', '英语写作': '写作星球', '完形填空': '完形星球',
+    },
+    tagMap: {
+      '英语词汇': '词汇星球', '词汇辨析': '词汇星球', '语境选词': '词汇星球',
       '英语听力': '听力星球', '听力理解': '听力星球',
-      '英语语法': '语法星球', '语法': '语法星球', '语法词汇': '语法星球',
-      '英语阅读': '阅读星球', '阅读理解': '阅读星球',
-      '英语写作': '写作星球', '英语写作': '写作星球',
+      '英语语法': '语法星球', '语法': '语法星球',
+      '英语阅读': '阅读星球', '阅读理解': '阅读星球', '英语综合': '语法星球',
+      '英语写作': '写作星球', '话题写作': '写作星球', '自我介绍': '写作星球',
+      '日记写作': '写作星球', '书信写作': '写作星球',
       '完形填空': '完形星球',
-      '英语选择': '选择题',
-      '英语填空': '填空题',
     },
   },
   politics: {
     label: '政治',
-    planets: {
-      '道法': '政治星球', '正误判断': '判断题', '综合': '综合题',
+    allPlanets: ['政治星球'],
+    prefixMap: {
+      politics_choice: '政治星球', politics: '政治星球', pol: '政治星球',
     },
+    topicMap: {},
+    tagMap: {},  // 政治所有题都在一个星球
   },
 }
 
-// 卡片ID前缀 → 星球
-const CARD_PREFIX_MAP = {
-  vocab: '字词', poetry: '古诗词', idiom: '成语', sentence: '句子',
-  literature: '文学常识', lit: '文学常识', reading: '阅读', dictation: '听写',
-  en: '英语词汇', math: '数与运算', politics: '道法', pol: '道法',
-  ch: '字词', j2ch: '初中语文', selftest: '自测',
-  essay: '写作', q: '综合理解',
-  en_vocab: '英语词汇', en_grammar: '英语语法', en_writing: '英语写作',
-  en_listen: '英语听力', en_reading: '英语阅读', en_cloze: '完形填空',
-  math_jf: '方程', math_calc: '运算', math_geom: '图形', math_olympiad: '奥数',
-}
+// ========== 匹配逻辑 ==========
+// 优先级：card_id前缀 > topic > knowledge_tag > 学科兜底
 
-// 从 card_id 推断真正的学科
 function inferSubject(subject, cardId) {
   if (subject && subject !== 'chinese') return subject
   if (!cardId) return subject || 'chinese'
-  if (/^(en_|en-vocab|en-grammar|english|enlisten)/.test(cardId)) return 'english'
-  if (/^(math_|math-|calc|geometry|algebra)/.test(cardId)) return 'math'
+  if (/^(en_|en-vocab|en-grammar|english|enlisten|j2_read|j2_vocab|ai_english)/.test(cardId)) return 'english'
+  if (/^(math_|math-|calc|geometry|algebra|formula|ai_math)/.test(cardId)) return 'math'
   if (/^(politics|pol_)/.test(cardId)) return 'politics'
-  if (/^(essay|ch_)/.test(cardId)) return 'chinese'
-  if (/^(j2ch|junior)/.test(cardId)) return 'chinese_junior'
+  if (/^(jc_|j2ch|junior|jcr)/.test(cardId)) return 'chinese_junior'
   return subject || 'chinese'
 }
 
-function getPlanetTag(subject, knowledgeTag, cardId, topic) {
+function getPlanet(subject, knowledgeTag, cardId, topic) {
   const realSubject = inferSubject(subject, cardId)
-  const config = SUBJECT_CONFIG[realSubject]
+  const config = SUBJECTS[realSubject]
   if (!config) return '其他'
 
-  // 1. 优先用 knowledge_tag 匹配
-  if (knowledgeTag) {
-    for (const [key, planet] of Object.entries(config.planets)) {
-      if (knowledgeTag.includes(key) || key.includes(knowledgeTag)) return planet
-    }
-  }
+  // 政治只有一个星球，直接返回
+  if (realSubject === 'politics') return '政治星球'
 
-  // 2. 用 topic 匹配
-  if (topic) {
-    for (const [key, planet] of Object.entries(config.planets)) {
-      if (topic.includes(key) || key.includes(topic)) return planet
-    }
-  }
-
-  // 3. 用 card_id 匹配（优先长前缀）
+  // 1. card_id 前缀匹配（最可靠，由题库文件名决定）
   if (cardId) {
-    const underscorePrefix = cardId.replace(/_.*/, '')
-    let mapped = CARD_PREFIX_MAP[underscorePrefix]
-    if (!mapped) {
-      const barePrefix = underscorePrefix.replace(/\d.*/, '')
-      mapped = CARD_PREFIX_MAP[barePrefix]
+    const parts = cardId.split('_')
+    for (let len = Math.min(parts.length - 1, 3); len >= 1; len--) {
+      const prefix = parts.slice(0, len).join('_')
+      const planet = config.prefixMap[prefix]
+      if (planet) return planet
     }
-    if (mapped) {
-      for (const [key, planet] of Object.entries(config.planets)) {
-        if (mapped.includes(key) || key.includes(mapped)) return planet
-      }
-    }
-    // 自测题
     if (cardId.startsWith('selftest_')) return '自测'
   }
 
-  return '其他练习'
+  // 2. topic 匹配（宏观分类）
+  if (topic) {
+    const planet = config.topicMap[topic]
+    if (planet) return planet
+  }
+
+  // 3. knowledge_tag 匹配（微观分类，兜底）
+  if (knowledgeTag) {
+    const planet = config.tagMap[knowledgeTag]
+    if (planet) return planet
+    // 模糊匹配
+    for (const [tag, planet] of Object.entries(config.tagMap)) {
+      if (knowledgeTag.includes(tag) || tag.includes(knowledgeTag)) return planet
+    }
+  }
+
+  return '其他'
 }
 
 // ========== 数据查询 ==========
@@ -193,114 +262,140 @@ async function getUserWithEmail(userId) {
 
 // ========== 报告生成 ==========
 
-function buildReport(todayRecords, yesterdayRecords) {
-  // 按学科分组（用 inferSubject 修正老数据）
-  const subjects = {}
-  for (const r of todayRecords) {
-    const subj = inferSubject(r.subject, r.card_id)
-    if (!subjects[subj]) subjects[subj] = { records: [], planets: {} }
-    subjects[subj].records.push(r)
+function buildReport(todayRecords, yesterdayRecords, grade) {
+  const isJunior = grade === 'junior'
+  const gradeSubjects = GRADE_SUBJECTS[grade] || GRADE_SUBJECTS.primary
 
-    const planet = getPlanetTag(subj, r.knowledge_tag, r.card_id, r.topic)
-    if (!subjects[subj].planets[planet]) {
-      subjects[subj].planets[planet] = { total: 0, correct: 0, totalTime: 0, scores: [], wrongRecords: [] }
+  // 按学段过滤：小学生过滤掉初中数学题，初中生过滤掉小学语文题
+  const juniorMathPrefixes = ['math_je', 'math_jf', 'math_ja', 'math_jgeo', 'math_jg']
+  const primaryChinesePrefixes = ['vocab_', 'poetry_', 'idiom_', 'sentence_', 'lit_', 'literature_', 'dictation_']
+
+  const filteredRecords = todayRecords.filter(r => {
+    const subj = inferSubject(r.subject, r.card_id)
+    const cid = r.card_id || ''
+
+    // 小学生：只保留小学内容
+    if (!isJunior) {
+      // 去掉初中数学题（函数/方程/整式/几何证明）
+      if (subj === 'math' && juniorMathPrefixes.some(p => cid.startsWith(p))) return false
+      // 去掉初中语文题（jc_* 前缀）
+      if (subj === 'chinese_junior') return false
+      // 去掉政治题
+      if (subj === 'politics') return false
     }
-    const p = subjects[subj].planets[planet]
-    p.total++
-    if (r.correct) p.correct++
-    else p.wrongRecords.push(r)
-    if (r.time_spent) p.totalTime += r.time_spent
-    if (r.score != null) p.scores.push(r.score)
+
+    // 初中生：只保留初中内容
+    if (isJunior) {
+      // 去掉小学语文题（vocab/poetry/idiom 等前缀）
+      if (subj === 'chinese' && primaryChinesePrefixes.some(p => cid.startsWith(p))) return false
+      // 去掉小学数学题（math_b/math_g/math_o 前缀）
+      const primaryMathPrefixes = ['math_b', 'math_g', 'math_o', 'math_calc', 'math_geom', 'math_olympiad', 'formula']
+      if (subj === 'math' && primaryMathPrefixes.some(p => cid.startsWith(p))) return false
+    }
+
+    return true
+  })
+
+  // 按学科分组（用 inferSubject 修正）
+  const subjectData = {}
+  for (const r of filteredRecords) {
+    const subj = inferSubject(r.subject, r.card_id)
+    if (!subjectData[subj]) subjectData[subj] = { records: [], planetBuckets: {} }
+    subjectData[subj].records.push(r)
+
+    const planet = getPlanet(subj, r.knowledge_tag, r.card_id, r.topic)
+    if (!subjectData[subj].planetBuckets[planet]) {
+      subjectData[subj].planetBuckets[planet] = { total: 0, correct: 0, totalTime: 0, wrongs: [] }
+    }
+    const b = subjectData[subj].planetBuckets[planet]
+    b.total++
+    if (r.correct) b.correct++
+    else b.wrongs.push(r)
+    b.totalTime += (r.time_spent || 0)
   }
 
-  // 计算每个学科维度
+  // 遍历学段定义的所有学科（包括今天没做的也生成）
   const report = {}
-  for (const [subjKey, data] of Object.entries(subjects)) {
-    const config = SUBJECT_CONFIG[subjKey]
-    const total = data.records.length
-    const correct = data.records.filter(r => r.correct).length
-    const accuracy = total > 0 ? Math.round(correct / total * 100) : 0
-    const totalTime = data.records.reduce((s, r) => s + (r.time_spent || 0), 0)
-    const avgTime = total > 0 ? (totalTime / total).toFixed(1) : 0
+  for (const [subjKey, subjLabel] of Object.entries(gradeSubjects)) {
+    const config = SUBJECTS[subjKey]
+    if (!config) continue
 
-    // 认真度评估
-    let effort = '正常'
-    let effortColor = '#2563eb'
+    const data = subjectData[subjKey] || { records: [], planetBuckets: {} }
+    const total = data.records.length
+    const hasData = total > 0
+
+    // 星球列表
+    let allPlanetNames = [...(config.allPlanets || [])]
+    if (subjKey === 'math' && isJunior) {
+      allPlanetNames = [...allPlanetNames, ...(config.allPlanets_junior || [])]
+    }
+
+    // 无数据学科：全星球标记未练习
+    if (!hasData) {
+      report[subjKey] = {
+        label: subjLabel,
+        total: 0, correct: 0, accuracy: 0, accChange: null,
+        totalTime: 0, avgTime: '0',
+        effort: '未练习', effortColor: '#9ca3af',
+        planets: allPlanetNames.map(name => ({ name, total: 0, correct: 0, accuracy: 0, avgTime: 0, done: false })),
+        diagnosis: '今日未练习此科目',
+      }
+      continue
+    }
+
+    const correct = data.records.filter(r => r.correct).length
+    const accuracy = Math.round(correct / total * 100)
+    const totalTime = data.records.reduce((s, r) => s + (r.time_spent || 0), 0)
+    const avgTime = (totalTime / total).toFixed(1)
+
+    let effort = '正常', effortColor = '#2563eb'
     if (avgTime < 3 && accuracy < 50) { effort = '敷衍'; effortColor = '#dc2626' }
     else if (avgTime < 3 && accuracy >= 50) { effort = '过快'; effortColor = '#f59e0b' }
     else if (accuracy >= 80 && avgTime >= 5) { effort = '认真'; effortColor = '#16a34a' }
     else if (accuracy < 40) { effort = '需关注'; effortColor = '#f59e0b' }
 
-    // 昨日对比
-    const ySubjRecords = yesterdayRecords.filter(r => inferSubject(r.subject, r.card_id) === subjKey)
-    const yTotal = ySubjRecords.length
-    const yCorrect = ySubjRecords.filter(r => r.correct).length
-    const yAccuracy = yTotal > 0 ? Math.round(yCorrect / yTotal * 100) : null
-    const accChange = yAccuracy !== null ? accuracy - yAccuracy : null
+    const yRecs = yesterdayRecords.filter(r => inferSubject(r.subject, r.card_id) === subjKey)
+    const yAcc = yRecs.length > 0 ? Math.round(yRecs.filter(r => r.correct).length / yRecs.length * 100) : null
+    const accChange = yAcc !== null ? accuracy - yAcc : null
 
-    // 星球列表（含错误归因分析）
-    const planets = Object.entries(data.planets).map(([name, p]) => {
-      const pAcc = p.total > 0 ? Math.round(p.correct / p.total * 100) : 0
-      const pAvgTime = p.total > 0 ? (p.totalTime / p.total).toFixed(1) : 0
+    const planets = allPlanetNames.map(name => {
+      const b = data.planetBuckets[name]
+      if (!b) return { name, total: 0, correct: 0, accuracy: 0, avgTime: 0, done: false }
+      const pAcc = Math.round(b.correct / b.total * 100)
+      const pAvgTime = (b.totalTime / b.total).toFixed(1)
+      const wrongCount = b.total - b.correct
 
-      // 错误归因分析
-      let errorType = null
-      let errorDesc = ''
-      const wrongCount = p.total - p.correct
+      let errorType = null, errorDesc = ''
       if (wrongCount > 0) {
-        const fastWrongs = p.wrongRecords.filter(r => (r.time_spent || 0) < 3).length
-        const slowWrongs = p.wrongRecords.filter(r => (r.time_spent || 0) > 20).length
-        if (pAcc < 40) {
-          errorType = 'concept'
-          errorDesc = `正确率仅${pAcc}%，基础知识掌握不牢，建议重新学习相关概念`
-        } else if (fastWrongs >= wrongCount * 0.6) {
-          errorType = 'careless'
-          errorDesc = `${fastWrongs}/${wrongCount}题答题过快（<3秒），可能未认真审题就选了答案`
-        } else if (slowWrongs >= wrongCount * 0.5) {
-          errorType = 'overthink'
-          errorDesc = `部分题答题超过20秒仍出错，可能在多个选项间犹豫不决，概念模糊`
-        } else {
-          errorType = 'partial'
-          errorDesc = `有${wrongCount}题答错，部分知识点还不够熟练，需要针对性强化`
-        }
+        const fastWrongs = b.wrongs.filter(r => (r.time_spent || 0) < 3).length
+        if (pAcc < 40) { errorType = 'concept'; errorDesc = `正确率仅${pAcc}%，基础没掌握` }
+        else if (fastWrongs >= wrongCount * 0.6) { errorType = 'careless'; errorDesc = `${fastWrongs}/${wrongCount}题过快` }
+        else { errorType = 'partial'; errorDesc = `${wrongCount}题出错，不够熟练` }
       }
 
-      // 速度评估
       let speedLabel = ''
-      if (parseFloat(pAvgTime) < 3) speedLabel = '过快'
-      else if (parseFloat(pAvgTime) > 30) speedLabel = '偏慢'
+      if (parseFloat(pAvgTime) < 3 && b.total >= 2) speedLabel = '过快'
 
-      return {
-        name,
-        total: p.total,
-        correct: p.correct,
-        accuracy: pAcc,
-        avgTime: pAvgTime,
-        wrongCount,
-        errorType,
-        errorDesc,
-        speedLabel,
-      }
+      return { name, total: b.total, correct: b.correct, accuracy: pAcc, avgTime: pAvgTime, wrongCount, errorType, errorDesc, speedLabel, done: true }
     })
 
-    // 学科整体诊断
-    const weakPlanets = planets.filter(p => p.accuracy < 60 && p.total >= 2)
-    const fastPlanets = planets.filter(p => parseFloat(p.avgTime) < 3 && p.total >= 2)
+    const weakPlanets = planets.filter(p => p.done && p.accuracy < 60 && p.total >= 2)
+    const fastPlanets = planets.filter(p => p.done && parseFloat(p.avgTime) < 3 && p.total >= 2)
+    const unDonePlanets = planets.filter(p => !p.done)
     let diagnosis = ''
-    if (accuracy >= 90) diagnosis = '表现优秀，继续保持！'
-    else if (accuracy >= 70) diagnosis = `整体不错，${weakPlanets.length > 0 ? weakPlanets.map(p => p.name).join('、') + '还需加强' : '各星球均衡'}`
-    else if (accuracy >= 50) diagnosis = `正确率偏低，${weakPlanets.length > 0 ? '主要薄弱在' + weakPlanets.map(p => `${p.name}(${p.accuracy}%)`).join('、') : '需要多加练习'}`
-    else diagnosis = `正确率仅${accuracy}%，${weakPlanets.length > 0 ? '重点需要攻克' + weakPlanets.map(p => p.name).join('、') : '建议从基础题目开始重新学习'}`
-    if (fastPlanets.length > 0) diagnosis += `。注意：${fastPlanets.map(p => p.name).join('、')}答题过快，可能敷衍`
+    if (accuracy >= 90) diagnosis = '表现优秀！'
+    else if (accuracy >= 70) diagnosis = `整体不错${weakPlanets.length ? '，' + weakPlanets.map(p => p.name).join('、') + '需加强' : ''}`
+    else if (accuracy >= 50) diagnosis = `正确率${accuracy}%${weakPlanets.length ? '，薄弱在' + weakPlanets.map(p => `${p.name}(${p.accuracy}%)`).join('、') : ''}`
+    else diagnosis = `正确率${accuracy}%${weakPlanets.length ? '，需攻克' + weakPlanets.map(p => p.name).join('、') : ''}`
+    if (fastPlanets.length) diagnosis += `。${fastPlanets.map(p => p.name).join('、')}过快`
+    if (unDonePlanets.length) diagnosis += `。${unDonePlanets.map(p => p.name).join('、')}未练习`
 
     report[subjKey] = {
-      label: config?.label || subjKey,
+      label: subjLabel,
       total, correct, accuracy, accChange,
-      totalTime: Math.round(totalTime),
-      avgTime,
+      totalTime: Math.round(totalTime), avgTime,
       effort, effortColor,
-      planets,
-      diagnosis,
+      planets, diagnosis,
     }
   }
   return report
@@ -309,47 +404,35 @@ function buildReport(todayRecords, yesterdayRecords) {
 async function generateAIAdvice(userName, report) {
   if (!DEEPSEEK_API_KEY) return '（AI 建议暂时不可用）'
 
-  // 构建详细的各科诊断数据
-  const subjectDetails = Object.entries(report).map(([, s]) => {
-    const planetDetails = s.planets.map(p => {
-      let line = `${p.name}：${p.total}题，对${p.correct}题(${p.accuracy}%)，均耗时${p.avgTime}s`
-      if (p.errorType) line += ` | 归因：${p.errorDesc}`
-      if (p.speedLabel) line += ` | ⚡${p.speedLabel}`
-      return line
-    }).join('\n')
-
+  const details = Object.entries(report).map(([, s]) => {
+    const pLines = s.planets.filter(p => p.done).map(p =>
+      `${p.name}：${p.total}题 对${p.correct}题(${p.accuracy}%) 均耗时${p.avgTime}s${p.errorType ? ' | ' + p.errorDesc : ''}${p.speedLabel ? ' ⚡' + p.speedLabel : ''}`
+    ).join('\n')
+    const unDone = s.planets.filter(p => !p.done).map(p => p.name).join('、')
     return `【${s.label}】${s.total}题 正确率${s.accuracy}% ${s.effort}
-${planetDetails}
+${pLines}${unDone ? '\n未练习：' + unDone : ''}
 诊断：${s.diagnosis}`
   }).join('\n\n')
 
-  const prompt = `你是一位经验丰富的家教老师，正在给家长写今日学习反馈。要求简短、口语化、说人话。
+  const prompt = `你是经验丰富的家教老师，给家长写今日学习反馈。简短、口语化、说人话。
 
 学生：${userName}
-今日学习详情：
-${subjectDetails}
+今日详情：
+${details}
 
-请写4段反馈（每段不超过50字，用短句，像跟家长面对面聊天）：
-1. 总体评价：今天做了什么，整体如何
-2. 哪些星球表现好，哪些需要加油（带具体正确率）
-3. 错误归因：分析错误主要是概念不懂、粗心马虎还是不够熟练
-4. 明天建议：具体到哪个星球该怎么练、练多久
+写4段反馈（每段不超过50字）：
+1. 今天做了什么，整体如何
+2. 哪些星球好，哪些弱（带正确率）
+3. 错误归因：概念不懂/粗心/不熟
+4. 明天建议：哪个星球怎么练
 
-不要用"继续保持"、"再接再厉"之类的套话，要有具体内容。`
+不要套话，要有具体内容。`
 
   try {
     const resp = await fetch(`${DEEPSEEK_BASE_URL}/chat/completions`, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${DEEPSEEK_API_KEY}`,
-      },
-      body: JSON.stringify({
-        model: 'deepseek-chat',
-        messages: [{ role: 'user', content: prompt }],
-        max_tokens: 600,
-        temperature: 0.7,
-      }),
+      headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${DEEPSEEK_API_KEY}` },
+      body: JSON.stringify({ model: 'deepseek-chat', messages: [{ role: 'user', content: prompt }], max_tokens: 600, temperature: 0.7 }),
     })
     const data = await resp.json()
     return data.choices?.[0]?.message?.content || '（AI 建议生成失败）'
@@ -359,7 +442,7 @@ ${subjectDetails}
   }
 }
 
-// ========== 邮件 ==========
+// ========== 邮件 HTML ==========
 
 function buildEmailHTML(userName, report, aiAdvice, todayDate) {
   const totalQ = Object.values(report).reduce((s, d) => s + d.total, 0)
@@ -368,101 +451,114 @@ function buildEmailHTML(userName, report, aiAdvice, todayDate) {
   const totalTimeMin = Math.round(Object.values(report).reduce((s, d) => s + d.totalTime, 0) / 60)
   const subjectCount = Object.keys(report).length
 
-  // 错误归因图标
+  // 已完成星球总数 / 应完成星球总数
+  const allPlanets = Object.values(report).reduce((s, d) => s + d.planets.length, 0)
+  const donePlanets = Object.values(report).reduce((s, d) => s + d.planets.filter(p => p.done).length, 0)
+
   const ERROR_ICONS = {
     concept: { icon: '🔴', label: '概念薄弱' },
     careless: { icon: '🟡', label: '粗心马虎' },
-    overthink: { icon: '🟠', label: '概念模糊' },
     partial: { icon: '🔵', label: '部分不熟' },
   }
 
-  // 每个学科的 HTML（手机友好版，含详细错误归因）
+  // 每个学科的 HTML
   const subjectBlocks = Object.entries(report).map(([, s]) => {
     const effortBg = s.effort === '认真' ? '#f0fdf4' : s.effort === '敷衍' ? '#fef2f2' : s.effort === '过快' ? '#fff7ed' : s.effort === '需关注' ? '#fff7ed' : '#eff6ff'
     const accColor = s.accuracy >= 80 ? '#16a34a' : s.accuracy >= 60 ? '#2563eb' : '#dc2626'
     const change = s.accChange !== null
-      ? (s.accChange >= 0
-          ? `<span style="color:#16a34a;font-size:13px"> ↑${s.accChange}%</span>`
-          : `<span style="color:#dc2626;font-size:13px"> ↓${Math.abs(s.accChange)}%</span>`)
+      ? (s.accChange >= 0 ? `<span style="color:#16a34a;font-size:13px"> ↑${s.accChange}%</span>` : `<span style="color:#dc2626;font-size:13px"> ↓${Math.abs(s.accChange)}%</span>`)
       : ''
 
-    // 星球详情行（含错误归因标签）
     const planetRows = s.planets.map(p => {
+      if (!p.done) {
+        return `<tr>
+          <td style="padding:6px 10px;font-size:13px;color:#d1d5db">⬜ ${p.name}</td>
+          <td style="padding:6px;font-size:13px;text-align:center;color:#e5e7eb">—</td>
+          <td style="padding:6px 10px;text-align:right;font-size:12px;color:#d1d5db">未练习</td>
+        </tr>`
+      }
       const pAccColor = p.accuracy >= 80 ? '#16a34a' : p.accuracy >= 60 ? '#2563eb' : '#dc2626'
       const barW = Math.max(p.accuracy, 5)
       const barColor = p.accuracy >= 80 ? '#22c55e' : p.accuracy >= 60 ? '#3b82f6' : '#ef4444'
-      const timeWarning = parseFloat(p.avgTime) < 3 ? ' <span style="color:#f59e0b;font-size:11px">⚡过快</span>' : ''
-
-      // 错误归因标签
+      const timeWarning = parseFloat(p.avgTime) < 3 ? ' <span style="color:#f59e0b;font-size:11px">⚡</span>' : ''
       let errorTag = ''
       if (p.errorType) {
         const ei = ERROR_ICONS[p.errorType]
-        errorTag = `<div style="margin-top:4px;padding:3px 8px;border-radius:6px;background:#fef3c7;font-size:11px;color:#92400e;line-height:1.4">
-          ${ei.icon} ${ei.label}：${p.errorDesc}
-        </div>`
+        errorTag = `<div style="margin-top:3px;padding:2px 8px;border-radius:5px;background:#fef3c7;font-size:10px;color:#92400e">${ei.icon} ${p.errorDesc}</div>`
       }
-
       return `<tr>
-        <td style="padding:8px 10px;font-size:14px;color:#374151;white-space:nowrap">${p.name}</td>
-        <td style="padding:8px 6px;font-size:14px;text-align:center;color:#6b7280">${p.total}</td>
-        <td style="padding:8px 10px;text-align:right">
+        <td style="padding:6px 10px;font-size:14px;color:#374151">${p.name}</td>
+        <td style="padding:6px;font-size:14px;text-align:center;color:#6b7280">${p.total}</td>
+        <td style="padding:6px 10px;text-align:right">
           <span style="font-size:15px;font-weight:700;color:${pAccColor}">${p.accuracy}%</span>${timeWarning}
         </td>
       </tr>
-      <tr><td colspan="3" style="padding:0 10px 6px">
-        <div style="background:#f3f4f6;border-radius:3px;height:5px;overflow:hidden">
+      <tr><td colspan="3" style="padding:0 10px 4px">
+        <div style="background:#f3f4f6;border-radius:3px;height:4px;overflow:hidden">
           <div style="width:${barW}%;height:100%;background:${barColor};border-radius:3px"></div>
         </div>
         ${errorTag}
       </td></tr>`
     }).join('')
 
-    // 学科诊断文字
     const diagHtml = s.diagnosis ? `
-      <div style="padding:10px 16px;background:#f8fafc;border-top:1px solid #f3f4f6;font-size:13px;color:#475569;line-height:1.6">
-        <span style="font-weight:700;color:#334155">📋 诊断：</span>${s.diagnosis}
+      <div style="padding:8px 16px;background:#f8fafc;border-top:1px solid #f3f4f6;font-size:12px;color:#475569;line-height:1.5">
+        📋 ${s.diagnosis}
       </div>` : ''
 
     return `
-    <div style="background:white;border-radius:14px;border:1px solid #e5e7eb;margin-bottom:14px;overflow:hidden">
-      <div style="padding:14px 16px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #f3f4f6">
+    <div style="background:white;border-radius:14px;border:1px solid #e5e7eb;margin-bottom:12px;overflow:hidden">
+      <div style="padding:12px 16px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #f3f4f6">
         <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap">
           <span style="font-size:16px;font-weight:700;color:#1f2937">${s.label}</span>
           <span style="font-size:13px;color:#9ca3af">${s.total}题</span>
           <span style="font-size:16px;font-weight:800;color:${accColor}">${s.accuracy}%${change}</span>
         </div>
-        <span style="font-size:12px;padding:3px 10px;border-radius:12px;background:${effortBg};color:${s.effortColor};font-weight:700">${s.effort}</span>
+        <span style="font-size:11px;padding:3px 10px;border-radius:12px;background:${effortBg};color:${s.effortColor};font-weight:700">${s.effort}</span>
       </div>
       <table style="width:100%;border-collapse:collapse">
-        <tr style="background:#f9fafb"><td style="padding:6px 10px;font-size:11px;color:#9ca3af">星球</td><td style="padding:6px;font-size:11px;color:#9ca3af;text-align:center">题数</td><td style="padding:6px 10px;font-size:11px;color:#9ca3af;text-align:right">正确率</td></tr>
+        <tr style="background:#f9fafb"><td style="padding:4px 10px;font-size:10px;color:#9ca3af">星球</td><td style="padding:4px;font-size:10px;color:#9ca3af;text-align:center">题数</td><td style="padding:4px 10px;font-size:10px;color:#9ca3af;text-align:right">正确率</td></tr>
         ${planetRows}
       </table>
       ${diagHtml}
     </div>`
   }).join('')
 
-  // 汇总错误归因统计
-  const errorSummary = []
+  // 错误归因总结
+  const errors = []
   for (const [, s] of Object.entries(report)) {
     for (const p of s.planets) {
-      if (p.errorType) {
-        errorSummary.push({ subject: s.label, planet: p.name, type: p.errorType, desc: p.errorDesc })
-      }
+      if (p.done && p.errorType) errors.push({ subject: s.label, planet: p.name, type: p.errorType, desc: p.errorDesc })
     }
   }
-  const errorSummaryHtml = errorSummary.length > 0 ? `
-    <div style="background:white;border-radius:14px;border:1px solid #e5e7eb;margin-bottom:14px;padding:16px">
-      <div style="font-size:15px;font-weight:700;color:#1f2937;margin-bottom:10px">🔍 错误归因总结</div>
-      <div style="display:flex;flex-direction:column;gap:8px">
-        ${errorSummary.map(e => {
-          const ei = ERROR_ICONS[e.type]
-          return `<div style="padding:8px 12px;border-radius:10px;background:#fefce8;border:1px solid #fde68a">
-            <div style="font-size:13px;font-weight:600;color:#1f2937">${ei.icon} ${e.subject} · ${e.planet}</div>
-            <div style="font-size:12px;color:#92400e;margin-top:2px">${e.desc}</div>
+  const errorHtml = errors.length > 0 ? `
+    <div style="background:white;border-radius:14px;border:1px solid #e5e7eb;margin-bottom:12px;padding:14px">
+      <div style="font-size:14px;font-weight:700;color:#1f2937;margin-bottom:8px">🔍 错误归因</div>
+      ${errors.map(e => {
+        const ei = ERROR_ICONS[e.type]
+        return `<div style="padding:6px 10px;border-radius:8px;background:#fefce8;border:1px solid #fde68a;margin-bottom:4px">
+          <span style="font-size:12px;font-weight:600;color:#1f2937">${ei.icon} ${e.subject} · ${e.planet}</span>
+          <div style="font-size:11px;color:#92400e;margin-top:1px">${e.desc}</div>
+        </div>`
+      }).join('')}
+    </div>` : ''
+
+  // 打卡清单
+  const checklistHtml = `
+    <div style="background:white;border-radius:14px;border:1px solid #e5e7eb;margin-bottom:12px;padding:14px">
+      <div style="font-size:14px;font-weight:700;color:#1f2937;margin-bottom:8px">📋 今日打卡清单</div>
+      <div style="display:flex;flex-direction:column;gap:4px">
+        ${Object.entries(report).map(([, s]) => {
+          const done = s.planets.filter(p => p.done).length
+          const total = s.planets.length
+          const icon = done === total ? '✅' : done > 0 ? '🔶' : '⬜'
+          return `<div style="display:flex;align-items:center;justify-content:space-between;padding:6px 10px;border-radius:8px;background:${done === total ? '#f0fdf4' : done > 0 ? '#fffbeb' : '#f9fafb'}">
+            <span style="font-size:13px;font-weight:600;color:#1f2937">${icon} ${s.label}</span>
+            <span style="font-size:12px;color:${done === total ? '#16a34a' : '#6b7280'}">${done}/${total} 星球完成 · ${s.total}题 · ${s.accuracy}%</span>
           </div>`
         }).join('')}
       </div>
-    </div>` : ''
+    </div>`
 
   return `
 <!DOCTYPE html>
@@ -476,20 +572,21 @@ function buildEmailHTML(userName, report, aiAdvice, todayDate) {
     <div style="display:flex;gap:0;background:rgba(255,255,255,0.12);border-radius:14px;overflow:hidden">
       <div style="flex:1;text-align:center;padding:14px 0"><div style="font-size:26px;font-weight:800">${totalQ}</div><div style="opacity:0.7;font-size:12px;margin-top:2px">总题数</div></div>
       <div style="flex:1;text-align:center;padding:14px 0;border-left:1px solid rgba(255,255,255,0.15)"><div style="font-size:26px;font-weight:800">${totalAcc}%</div><div style="opacity:0.7;font-size:12px;margin-top:2px">正确率</div></div>
-      <div style="flex:1;text-align:center;padding:14px 0;border-left:1px solid rgba(255,255,255,0.15)"><div style="font-size:26px;font-weight:800">${subjectCount}</div><div style="opacity:0.7;font-size:12px;margin-top:2px">学科</div></div>
+      <div style="flex:1;text-align:center;padding:14px 0;border-left:1px solid rgba(255,255,255,0.15)"><div style="font-size:26px;font-weight:800">${donePlanets}/${allPlanets}</div><div style="opacity:0.7;font-size:12px;margin-top:2px">星球</div></div>
       <div style="flex:1;text-align:center;padding:14px 0;border-left:1px solid rgba(255,255,255,0.15)"><div style="font-size:26px;font-weight:800">${totalTimeMin || '<1'}分</div><div style="opacity:0.7;font-size:12px;margin-top:2px">总用时</div></div>
     </div>
   </div>
 
   <div style="padding:16px">
+    ${checklistHtml}
     ${subjectBlocks}
-    ${errorSummaryHtml}
+    ${errorHtml}
 
-    <div style="font-size:15px;font-weight:700;color:#1f2937;margin-bottom:10px">🤖 老师点评</div>
-    <div style="background:linear-gradient(135deg,#eff6ff,#f5f3ff);border-radius:14px;padding:16px;font-size:14px;line-height:2;color:#374151;white-space:pre-line">${aiAdvice}</div>
+    <div style="font-size:14px;font-weight:700;color:#1f2937;margin-bottom:8px">🤖 老师点评</div>
+    <div style="background:linear-gradient(135deg,#eff6ff,#f5f3ff);border-radius:14px;padding:14px;font-size:13px;line-height:1.8;color:#374151;white-space:pre-line">${aiAdvice}</div>
   </div>
 
-  <div style="padding:14px 20px;text-align:center;color:#9ca3af;font-size:12px;border-top:1px solid #e5e7eb">
+  <div style="padding:14px 20px;text-align:center;color:#9ca3af;font-size:11px;border-top:1px solid #e5e7eb">
     知识星球 · 每日学习报告 · 自动发送
   </div>
 </div>
@@ -497,24 +594,9 @@ function buildEmailHTML(userName, report, aiAdvice, todayDate) {
 }
 
 async function sendMail(to, subject, html) {
-  if (!SMTP_USER || !SMTP_PASS) {
-    console.log('⚠️  邮件未配置 SMTP_USER/SMTP_PASS，跳过发送')
-    return false
-  }
-
-  const transporter = nodemailer.createTransport({
-    host: SMTP_HOST,
-    port: SMTP_PORT,
-    secure: SMTP_PORT === 465,
-    auth: { user: SMTP_USER, pass: SMTP_PASS },
-  })
-
-  await transporter.sendMail({
-    from: `"知识星球" <${MAIL_FROM}>`,
-    to,
-    subject,
-    html,
-  })
+  if (!SMTP_USER || !SMTP_PASS) { console.log('⚠️ SMTP 未配置'); return false }
+  const transporter = nodemailer.createTransport({ host: SMTP_HOST, port: SMTP_PORT, secure: SMTP_PORT === 465, auth: { user: SMTP_USER, pass: SMTP_PASS } })
+  await transporter.sendMail({ from: `"知识星球" <${MAIL_FROM}>`, to, subject, html })
   return true
 }
 
@@ -522,73 +604,42 @@ async function sendMail(to, subject, html) {
 
 async function generateAndSendForUser(user) {
   const todayDate = today()
-  const yesterdayDate = yesterday()
-
   const todayRecords = await getDayRecords(user.id, todayDate)
-  if (todayRecords.length === 0) {
-    console.log(`  ${user.name}: 今日无答题记录，跳过`)
-    return null
-  }
+  if (todayRecords.length === 0) { console.log(`  ${user.name}: 今日无答题，跳过`); return null }
 
-  const yesterdayRecords = await getDayRecords(user.id, yesterdayDate)
-  const report = buildReport(todayRecords, yesterdayRecords)
+  const yesterdayRecords = await getDayRecords(user.id, yesterday())
+  const grade = getUserGrade(user.id)
+  const report = buildReport(todayRecords, yesterdayRecords, grade)
 
-  // 输出报告概要
   for (const [, s] of Object.entries(report)) {
-    console.log(`  ${s.label}: ${s.total}题 ${s.accuracy}% ${s.effort} | 星球: ${s.planets.map(p => `${p.name}(${p.accuracy}%)`).join(', ')}`)
+    const done = s.planets.filter(p => p.done).length
+    console.log(`  ${s.label}: ${s.total}题 ${s.accuracy}% ${s.effort} | ${done}/${s.planets.length}星球 | ${s.planets.filter(p=>p.done).map(p=>`${p.name}(${p.accuracy}%)`).join(', ')}`)
   }
 
   const aiAdvice = await generateAIAdvice(user.name, report)
   const html = buildEmailHTML(user.name, report, aiAdvice, todayDate)
 
-  const recipients = []
-  if (user.parent_email) {
-    recipients.push(...user.parent_email.split(',').map(s => s.trim()).filter(Boolean))
-  }
-
-  if (!recipients.length) {
-    console.log(`  ${user.name}: 未设置家长邮箱，跳过发送`)
-    return { html, totalQ: todayRecords.length, report, sent: false }
-  }
+  const recipients = user.parent_email ? user.parent_email.split(',').map(s => s.trim()).filter(Boolean) : []
+  if (!recipients.length) { console.log(`  ${user.name}: 未设邮箱`); return { html, report, sent: false } }
 
   const subject = `📊 ${user.name}的学习日报 | ${todayDate} | ${todayRecords.length}题`
-
   for (const email of recipients) {
-    try {
-      await sendMail(email, subject, html)
-      console.log(`  ✅ 已发送到 ${email}`)
-    } catch (e) {
-      console.error(`  ❌ 发送失败 ${email}: ${e.message}`)
-    }
+    try { await sendMail(email, subject, html); console.log(`  ✅ → ${email}`) }
+    catch (e) { console.error(`  ❌ ${email}: ${e.message}`) }
   }
-  return { html, totalQ: todayRecords.length, report, sent: true }
+  return { html, report, sent: true }
 }
 
 async function main() {
-  const specificUserId = process.argv[2]
-  console.log(`📅 每日学习报告（升级版） - ${today()}`)
-
-  let users
-  if (specificUserId) {
-    users = await getUserWithEmail(specificUserId)
-  } else {
-    users = await getUsersWithEmail()
-  }
-
-  if (!users.length) {
-    console.log('没有找到用户')
-    return
-  }
-
+  const userId = process.argv[2]
+  console.log(`📅 每日学习报告 v3 - ${today()}`)
+  const users = userId ? await getUserWithEmail(userId) : await getUsersWithEmail()
+  if (!users.length) { console.log('没找到用户'); return }
   for (const user of users) {
-    console.log(`\n处理: ${user.name} (${user.id})`)
+    console.log(`\n${user.name} (${user.id})`)
     await generateAndSendForUser(user)
   }
-
   await pool.end()
 }
 
-main().catch(e => {
-  console.error('❌ 报告生成失败:', e)
-  process.exit(1)
-})
+main().catch(e => { console.error('❌', e); process.exit(1) })

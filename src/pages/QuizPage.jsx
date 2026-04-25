@@ -374,8 +374,9 @@ export default function QuizPage({ user, options = {}, onFinish, onBack }) {
           key={current.id}
           question={current}
           onAnswerSubmit={handleAnswerSubmit}
-          showVariantButton={false}
+          showVariantButton={isWrongReview}
           onGenerateVariant={handleGenerateVariant}
+          hideAiFeatures={!isWrongReview}
         />
       </div>
     </div>

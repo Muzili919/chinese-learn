@@ -29,7 +29,7 @@ function renderRichText(text) {
 
 // ─── 底部反馈面板 ─────────────────────────────────────────
 
-function FeedbackPanel({ correct, analysis, answer, onContinue, variantState, onSocratic, wrongChoice, questionOpts }) {
+function FeedbackPanel({ correct, analysis, answer, onContinue, variantState, onSocratic, wrongChoice, questionOpts, hideAiFeatures }) {
   // variantState = { phase, question, selected, onSelect, onGenerate, showButton, remaining }
   const vs = variantState || {}
   const [aiExplaining, setAiExplaining] = useState(false)
@@ -83,14 +83,14 @@ function FeedbackPanel({ correct, analysis, answer, onContinue, variantState, on
               <p className="text-sm font-semibold text-gray-800 whitespace-pre-wrap leading-relaxed">{answer}</p>
             </div>
           )}
-          {/* AI 错因解析 */}
-          {!correct && !aiExplanation && !aiExplaining && (
+          {/* AI 错因解析 — 仅错题集显示 */}
+          {!hideAiFeatures && !correct && !aiExplanation && !aiExplaining && (
             <button onClick={explainWrongChoice}
               className="w-full mb-3 py-2.5 rounded-2xl font-bold text-sm bg-gradient-to-r from-amber-400 to-orange-500 text-white active:scale-[0.98] transition-all flex items-center justify-center gap-2 shadow">
               <span>🤔</span><span>为什么错了？</span>
             </button>
           )}
-          {aiExplaining && (
+          {!hideAiFeatures && aiExplaining && (
             <div className="mb-3 bg-amber-50 rounded-2xl px-4 py-3 border border-amber-200">
               <div className="flex items-center gap-2">
                 <div className="w-3 h-3 border-2 border-amber-300 border-t-amber-500 rounded-full animate-spin" />
@@ -98,7 +98,7 @@ function FeedbackPanel({ correct, analysis, answer, onContinue, variantState, on
               </div>
             </div>
           )}
-          {aiExplanation && (
+          {!hideAiFeatures && aiExplanation && (
             <div className="mb-3 bg-gradient-to-r from-amber-50 to-orange-50 rounded-2xl px-4 py-3 border border-amber-200">
               <p className="text-xs text-amber-400 mb-1 font-medium">🤖 AI 解析</p>
               <p className="text-xs text-gray-700 leading-relaxed">{aiExplanation}</p>
@@ -112,8 +112,8 @@ function FeedbackPanel({ correct, analysis, answer, onContinue, variantState, on
           )}
 
           {/* 举一反三区域 - 答错时显示（用户看完解析后手动触发） */}
-          {/* Socratic deep understanding button */}
-          {!correct && onSocratic && (
+          {/* Socratic deep understanding button — 仅错题集显示 */}
+          {!hideAiFeatures && !correct && onSocratic && (
             <button onClick={onSocratic}
               className="w-full mb-3 py-3 rounded-2xl font-bold text-white bg-gradient-to-r from-blue-500 to-indigo-600 text-sm active:scale-[0.98] transition-all flex items-center justify-center gap-2 shadow-lg">
               <span className="text-base">🧠</span>
@@ -121,7 +121,8 @@ function FeedbackPanel({ correct, analysis, answer, onContinue, variantState, on
             </button>
           )}
 
-          {vs.showButton && !correct && vs.phase === 'idle' && (
+          {/* 举一反三 — 仅错题集显示 */}
+          {!hideAiFeatures && vs.showButton && !correct && vs.phase === 'idle' && (
             <button onClick={vs.onGenerate}
               className="w-full mb-3 py-3.5 rounded-2xl font-bold text-white bg-gradient-to-r from-violet-500 to-purple-600 text-sm active:scale-[0.98] transition-all flex items-center justify-center gap-2 shadow-lg">
               <span className="text-base">🔀</span>
@@ -131,7 +132,7 @@ function FeedbackPanel({ correct, analysis, answer, onContinue, variantState, on
               )}
             </button>
           )}
-          {vs.showButton && vs.phase === 'loading' && (
+          {!hideAiFeatures && vs.showButton && vs.phase === 'loading' && (
             <div className="w-full mb-3 rounded-2xl bg-violet-50 border-2 border-violet-100 px-4 py-3">
               <div className="flex items-center gap-2 mb-1.5">
                 <div className="w-3 h-3 border-2 border-violet-300 border-t-violet-500 rounded-full animate-spin flex-shrink-0" />
@@ -152,7 +153,7 @@ function FeedbackPanel({ correct, analysis, answer, onContinue, variantState, on
             </div>
           )}
           {/* 次数用完：升级提示 */}
-          {vs.showButton && !correct && vs.phase === 'blocked' && (
+          {!hideAiFeatures && vs.showButton && !correct && vs.phase === 'blocked' && (
             <div className="w-full mb-3 rounded-2xl bg-amber-50 border-2 border-amber-200 px-4 py-3">
               <p className="text-sm font-bold text-amber-700 mb-1">今日 AI 出题次数已用完 😮‍💨</p>
               <p className="text-xs text-amber-600">升级 Premium 可每日无限使用举一反三</p>
@@ -163,7 +164,7 @@ function FeedbackPanel({ correct, analysis, answer, onContinue, variantState, on
               </button>
             </div>
           )}
-          {vs.showButton && (vs.phase === 'answering' || vs.phase === 'done') && vs.question && (
+          {!hideAiFeatures && vs.showButton && (vs.phase === 'answering' || vs.phase === 'done') && vs.question && (
             <div className="mb-3 bg-gradient-to-br from-violet-50 to-purple-50 border-2 border-violet-200 rounded-2xl p-4">
               <div className="flex items-center justify-between mb-3">
                 <div className="flex items-center gap-2">
@@ -1451,7 +1452,7 @@ function MatchingQuestion({ question, onDone }) {
 
 // ─── 主组件 ──────────────────────────────────────────────
 
-export default function DuolingoStyleQuiz({ question, onAnswerSubmit, showVariantButton, onSpeak }) {
+export default function DuolingoStyleQuiz({ question, onAnswerSubmit, showVariantButton, onSpeak, hideAiFeatures }) {
   const [phase, setPhase] = useState('answering') // 'answering'|'correct'|'wrong'
   const [chosenAnswer, setChosenAnswer] = useState(null)
   const [variantQ, setVariantQ] = useState(null)
@@ -1476,10 +1477,7 @@ export default function DuolingoStyleQuiz({ question, onAnswerSubmit, showVarian
   function handleDone(answer, correct) {
     setChosenAnswer(answer)
     setPhase(correct ? 'correct' : 'wrong')
-    // ★ 答错自动触发举一反三（配额用完则静默跳过）
-    if (!correct) {
-      setTimeout(() => handleVariant(true), 600)
-    }
+    // ★ 不再自动触发举一反三，只在错题集里触发
   }
 
   function handleContinue() {
