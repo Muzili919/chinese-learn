@@ -316,6 +316,7 @@ export const storage = {
   getWrongCardIds: (userId) => {
     const records = storage.getRecords(userId);
     const flagged = storage.getFlaggedQuestions(userId);
+    const srsStates = storage.getSrsState(userId);
     // 按 card_id 分组，取每张卡最新一条记录
     const latest = {};
     for (const r of records) {
@@ -323,12 +324,18 @@ export const storage = {
         latest[r.card_id] = r;
       }
     }
-    // 返回最近一次答错的 card_id 集合（排除已标记有问题的题目）
+    // 返回最近一次答错的 card_id 集合（排除已标记有问题的题目 + 连续答对2次已"毕业"的）
     return new Set(
       Object.entries(latest)
         .filter(([, r]) => !r.correct)
         .map(([id]) => id)
         .filter(id => !flagged[id])
+        .filter(id => {
+          const srs = srsStates[id]
+          // 连续答对2次以上 = 已掌握，从错题池移除
+          if (srs && (srs.consecutiveCorrect || 0) >= 2) return false
+          return true
+        })
     );
   },
 

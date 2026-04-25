@@ -228,7 +228,7 @@ export default function QuizPage({ user, options = {}, onFinish, onBack }) {
       ability_tag: current.ability_tag,
       knowledge_tag: current.knowledge_tag,
       topic: current.topic,
-      subject: mathTopic ? 'math' : juniorChineseTag ? 'chinese_junior' : 'chinese',
+      subject: mathTopic ? 'math' : juniorChineseTag ? 'chinese_junior' : quizOptions?.wrongReviewSubject || 'chinese',
       timestamp: new Date().toISOString(),
       difficulty: current.difficulty,
     }

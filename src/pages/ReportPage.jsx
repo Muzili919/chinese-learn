@@ -481,13 +481,23 @@ export default function ReportPage({ user, onBack, onStartQuiz, grade = 'primary
             </div>
           )}
 
-          {/* 板块完成详情 */}
-          <div className="bg-white rounded-2xl p-4 shadow-sm border border-gray-100">
-            <h2 className="text-sm font-semibold text-gray-600 mb-3">📋 各板块完成详情</h2>
-            {(() => {
-              // 按 knowledge_tag 分组统计
+          {/* 板块完成详情 — 按学科分组 */}
+          {(() => {
+            const subjectGroups = [
+              { key: 'chinese',  label: '语文', emoji: '📖', records: chineseRecords },
+              { key: 'english',  label: '英语', emoji: '🌎', records: englishRecords },
+              { key: 'math',     label: '数学', emoji: '🔢', records: mathRecords },
+              { key: 'politics', label: '道法', emoji: '⚖️', records: politicsRecords },
+            ]
+            return subjectGroups.map(({ key, label, emoji, records }) => {
+              if (records.length === 0) return null
+              const correct = records.filter(r => r.correct).length
+              const acc = records.length > 0 ? Math.round(correct / records.length * 100) : 0
+              const totalTime = records.reduce((s, r) => s + (r.time_spent || 0), 0)
+              const avgTime = records.length > 0 ? (totalTime / records.length).toFixed(1) : 0
+
               const tagMap = {}
-              for (const r of allRecords) {
+              for (const r of records) {
                 const tag = r.knowledge_tag || r.topic || '其他'
                 if (!tagMap[tag]) tagMap[tag] = { total: 0, correct: 0, totalTime: 0 }
                 tagMap[tag].total++
@@ -495,35 +505,51 @@ export default function ReportPage({ user, onBack, onStartQuiz, grade = 'primary
                 tagMap[tag].totalTime += (r.time_spent || 0)
               }
               const tags = Object.entries(tagMap).sort((a, b) => b[1].total - a[1].total)
-              if (tags.length === 0) return <p className="text-xs text-gray-400">暂无数据</p>
+
               return (
-                <div className="space-y-2.5">
-                  {tags.map(([tag, d]) => {
-                    const acc = d.total > 0 ? Math.round(d.correct / d.total * 100) : 0
-                    const avgTime = d.total > 0 ? (d.totalTime / d.total).toFixed(1) : 0
-                    let seriousness, seriousColor
-                    if (avgTime < 5) { seriousness = '⚡ 太快了'; seriousColor = 'text-red-500' }
-                    else if (avgTime < 20) { seriousness = '✅ 认真'; seriousColor = 'text-green-600' }
-                    else { seriousness = '🤔 很仔细'; seriousColor = 'text-blue-600' }
-                    return (
-                      <div key={tag} className="bg-gray-50 rounded-xl p-3">
-                        <div className="flex items-center justify-between mb-1.5">
-                          <span className="text-sm font-semibold text-gray-800">{tag}</span>
-                          <span className={`text-xs font-bold ${seriousColor}`}>{seriousness}</span>
+                <div key={key} className="bg-white rounded-2xl p-4 shadow-sm border border-gray-100">
+                  <div className="flex items-center justify-between mb-3">
+                    <h2 className="text-sm font-semibold text-gray-600 flex items-center gap-1.5">
+                      <span>{emoji}</span> {label}完成详情
+                    </h2>
+                    <div className="flex items-center gap-2 text-xs">
+                      <span className="text-gray-400">{records.length}题</span>
+                      <span className={`font-bold ${acc >= 80 ? 'text-green-600' : acc >= 60 ? 'text-amber-500' : 'text-red-500'}`}>{acc}%</span>
+                      <span className="text-gray-400">均{avgTime}s</span>
+                    </div>
+                  </div>
+                  <div className="space-y-2">
+                    {tags.map(([tag, d]) => {
+                      const tAcc = d.total > 0 ? Math.round(d.correct / d.total * 100) : 0
+                      const tAvgTime = d.total > 0 ? (d.totalTime / d.total).toFixed(1) : 0
+                      let seriousness, seriousColor
+                      if (parseFloat(tAvgTime) < 3) { seriousness = '⚡过快'; seriousColor = 'text-red-500' }
+                      else if (parseFloat(tAvgTime) < 15) { seriousness = '✅正常'; seriousColor = 'text-green-600' }
+                      else { seriousness = '🤔很仔细'; seriousColor = 'text-blue-600' }
+                      return (
+                        <div key={tag} className="bg-gray-50 rounded-xl p-2.5">
+                          <div className="flex items-center justify-between mb-1">
+                            <span className="text-xs font-semibold text-gray-800">{tag}</span>
+                            <div className="flex items-center gap-2">
+                              <span className={`text-xs font-bold ${seriousColor}`}>{seriousness}</span>
+                              <span className={`text-xs font-bold ${tAcc >= 80 ? 'text-green-600' : tAcc >= 60 ? 'text-amber-500' : 'text-red-500'}`}>{tAcc}%</span>
+                            </div>
+                          </div>
+                          <div className="flex items-center gap-2">
+                            <div className="flex-1 bg-gray-200 rounded-full h-1.5">
+                              <div className="h-1.5 rounded-full transition-all"
+                                style={{ width: `${tAcc}%`, background: tAcc >= 80 ? '#22c55e' : tAcc >= 60 ? '#f59e0b' : '#ef4444' }} />
+                            </div>
+                            <span className="text-[10px] text-gray-400 whitespace-nowrap">{d.correct}/{d.total} · {tAvgTime}s</span>
+                          </div>
                         </div>
-                        <div className="grid grid-cols-4 gap-1 text-center text-xs">
-                          <div><span className="font-bold text-gray-700">{d.total}</span><br/><span className="text-gray-400">总题数</span></div>
-                          <div><span className="font-bold text-green-600">{d.correct}</span><br/><span className="text-gray-400">答对</span></div>
-                          <div><span className={`font-bold ${acc >= 80 ? 'text-green-600' : acc >= 60 ? 'text-amber-500' : 'text-red-500'}`}>{acc}%</span><br/><span className="text-gray-400">正确率</span></div>
-                          <div><span className="font-bold text-indigo-600">{avgTime}s</span><br/><span className="text-gray-400">平均用时</span></div>
-                        </div>
-                      </div>
-                    )
-                  })}
+                      )
+                    })}
+                  </div>
                 </div>
               )
-            })()}
-          </div>
+            })
+          })()}
         </div>
       )}
 

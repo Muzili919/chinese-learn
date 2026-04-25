@@ -48,7 +48,7 @@ function yesterday() {
 // ========== 学科星球映射 ==========
 const SUBJECT_CONFIG = {
   chinese: {
-    label: '小学语文',
+    label: '语文',
     planets: {
       '字词': '字词星球', '词汇': '字词星球',
       '古诗词': '诗词星球', '古诗': '诗词星球', '诗词': '诗词星球',
@@ -126,6 +126,7 @@ function inferSubject(subject, cardId) {
   if (/^(en_|en-vocab|en-grammar|english|enlisten)/.test(cardId)) return 'english'
   if (/^(math_|math-|calc|geometry|algebra)/.test(cardId)) return 'math'
   if (/^(politics|pol_)/.test(cardId)) return 'politics'
+  if (/^(essay|ch_)/.test(cardId)) return 'chinese'
   if (/^(j2ch|junior)/.test(cardId)) return 'chinese_junior'
   return subject || 'chinese'
 }
@@ -202,11 +203,12 @@ function buildReport(todayRecords, yesterdayRecords) {
 
     const planet = getPlanetTag(subj, r.knowledge_tag, r.card_id, r.topic)
     if (!subjects[subj].planets[planet]) {
-      subjects[subj].planets[planet] = { total: 0, correct: 0, totalTime: 0, scores: [] }
+      subjects[subj].planets[planet] = { total: 0, correct: 0, totalTime: 0, scores: [], wrongRecords: [] }
     }
     const p = subjects[subj].planets[planet]
     p.total++
     if (r.correct) p.correct++
+    else p.wrongRecords.push(r)
     if (r.time_spent) p.totalTime += r.time_spent
     if (r.score != null) p.scores.push(r.score)
   }
@@ -236,14 +238,60 @@ function buildReport(todayRecords, yesterdayRecords) {
     const yAccuracy = yTotal > 0 ? Math.round(yCorrect / yTotal * 100) : null
     const accChange = yAccuracy !== null ? accuracy - yAccuracy : null
 
-    // 星球列表
-    const planets = Object.entries(data.planets).map(([name, p]) => ({
-      name,
-      total: p.total,
-      correct: p.correct,
-      accuracy: p.total > 0 ? Math.round(p.correct / p.total * 100) : 0,
-      avgTime: p.total > 0 ? (p.totalTime / p.total).toFixed(1) : 0,
-    }))
+    // 星球列表（含错误归因分析）
+    const planets = Object.entries(data.planets).map(([name, p]) => {
+      const pAcc = p.total > 0 ? Math.round(p.correct / p.total * 100) : 0
+      const pAvgTime = p.total > 0 ? (p.totalTime / p.total).toFixed(1) : 0
+
+      // 错误归因分析
+      let errorType = null
+      let errorDesc = ''
+      const wrongCount = p.total - p.correct
+      if (wrongCount > 0) {
+        const fastWrongs = p.wrongRecords.filter(r => (r.time_spent || 0) < 3).length
+        const slowWrongs = p.wrongRecords.filter(r => (r.time_spent || 0) > 20).length
+        if (pAcc < 40) {
+          errorType = 'concept'
+          errorDesc = `正确率仅${pAcc}%，基础知识掌握不牢，建议重新学习相关概念`
+        } else if (fastWrongs >= wrongCount * 0.6) {
+          errorType = 'careless'
+          errorDesc = `${fastWrongs}/${wrongCount}题答题过快（<3秒），可能未认真审题就选了答案`
+        } else if (slowWrongs >= wrongCount * 0.5) {
+          errorType = 'overthink'
+          errorDesc = `部分题答题超过20秒仍出错，可能在多个选项间犹豫不决，概念模糊`
+        } else {
+          errorType = 'partial'
+          errorDesc = `有${wrongCount}题答错，部分知识点还不够熟练，需要针对性强化`
+        }
+      }
+
+      // 速度评估
+      let speedLabel = ''
+      if (parseFloat(pAvgTime) < 3) speedLabel = '过快'
+      else if (parseFloat(pAvgTime) > 30) speedLabel = '偏慢'
+
+      return {
+        name,
+        total: p.total,
+        correct: p.correct,
+        accuracy: pAcc,
+        avgTime: pAvgTime,
+        wrongCount,
+        errorType,
+        errorDesc,
+        speedLabel,
+      }
+    })
+
+    // 学科整体诊断
+    const weakPlanets = planets.filter(p => p.accuracy < 60 && p.total >= 2)
+    const fastPlanets = planets.filter(p => parseFloat(p.avgTime) < 3 && p.total >= 2)
+    let diagnosis = ''
+    if (accuracy >= 90) diagnosis = '表现优秀，继续保持！'
+    else if (accuracy >= 70) diagnosis = `整体不错，${weakPlanets.length > 0 ? weakPlanets.map(p => p.name).join('、') + '还需加强' : '各星球均衡'}`
+    else if (accuracy >= 50) diagnosis = `正确率偏低，${weakPlanets.length > 0 ? '主要薄弱在' + weakPlanets.map(p => `${p.name}(${p.accuracy}%)`).join('、') : '需要多加练习'}`
+    else diagnosis = `正确率仅${accuracy}%，${weakPlanets.length > 0 ? '重点需要攻克' + weakPlanets.map(p => p.name).join('、') : '建议从基础题目开始重新学习'}`
+    if (fastPlanets.length > 0) diagnosis += `。注意：${fastPlanets.map(p => p.name).join('、')}答题过快，可能敷衍`
 
     report[subjKey] = {
       label: config?.label || subjKey,
@@ -252,6 +300,7 @@ function buildReport(todayRecords, yesterdayRecords) {
       avgTime,
       effort, effortColor,
       planets,
+      diagnosis,
     }
   }
   return report
@@ -260,39 +309,33 @@ function buildReport(todayRecords, yesterdayRecords) {
 async function generateAIAdvice(userName, report) {
   if (!DEEPSEEK_API_KEY) return '（AI 建议暂时不可用）'
 
-  const subjectLines = Object.entries(report).map(([, s]) =>
-    `${s.label}：${s.total}题，正确率${s.accuracy}%（${s.effort}），${s.planets.map(p => `${p.name}${p.accuracy}%`).join('、')}`
-  ).join('\n')
+  // 构建详细的各科诊断数据
+  const subjectDetails = Object.entries(report).map(([, s]) => {
+    const planetDetails = s.planets.map(p => {
+      let line = `${p.name}：${p.total}题，对${p.correct}题(${p.accuracy}%)，均耗时${p.avgTime}s`
+      if (p.errorType) line += ` | 归因：${p.errorDesc}`
+      if (p.speedLabel) line += ` | ⚡${p.speedLabel}`
+      return line
+    }).join('\n')
 
-  const weakPlanets = []
-  for (const [, s] of Object.entries(report)) {
-    for (const p of s.planets) {
-      if (p.accuracy < 60 && p.total >= 3) weakPlanets.push(`${s.label}-${p.name}(${p.accuracy}%)`)
-    }
-  }
+    return `【${s.label}】${s.total}题 正确率${s.accuracy}% ${s.effort}
+${planetDetails}
+诊断：${s.diagnosis}`
+  }).join('\n\n')
 
-  const rushPlanets = []
-  for (const [, s] of Object.entries(report)) {
-    for (const p of s.planets) {
-      if (parseFloat(p.avgTime) < 3 && p.total >= 3) rushPlanets.push(`${s.label}-${p.name}(${p.avgTime}秒/题)`)
-    }
-  }
-
-  const prompt = `你是一位耐心的家教老师，正在给家长写今日学习反馈。
+  const prompt = `你是一位经验丰富的家教老师，正在给家长写今日学习反馈。要求简短、口语化、说人话。
 
 学生：${userName}
-今日学习情况：
-${subjectLines}
+今日学习详情：
+${subjectDetails}
 
-${weakPlanets.length > 0 ? `薄弱星球：${weakPlanets.join('、')}` : '今日各星球表现均衡。'}
-${rushPlanets.length > 0 ? `⚠️ 答题过快的星球：${rushPlanets.join('、')}（可能没有认真思考）` : ''}
+请写4段反馈（每段不超过50字，用短句，像跟家长面对面聊天）：
+1. 总体评价：今天做了什么，整体如何
+2. 哪些星球表现好，哪些需要加油（带具体正确率）
+3. 错误归因：分析错误主要是概念不懂、粗心马虎还是不够熟练
+4. 明天建议：具体到哪个星球该怎么练、练多久
 
-请用简洁温暖的语气，写3段反馈：
-1. 今日表现总结（2-3句，先夸再点问题，提到具体星球名）
-2. 比昨日的进步（如果有退步也温和指出）
-3. 明日学习建议（具体到哪个星球该怎么练）
-
-每段不超过60字，用口语，不要书面化。`
+不要用"继续保持"、"再接再厉"之类的套话，要有具体内容。`
 
   try {
     const resp = await fetch(`${DEEPSEEK_BASE_URL}/chat/completions`, {
@@ -304,7 +347,7 @@ ${rushPlanets.length > 0 ? `⚠️ 答题过快的星球：${rushPlanets.join('�
       body: JSON.stringify({
         model: 'deepseek-chat',
         messages: [{ role: 'user', content: prompt }],
-        max_tokens: 500,
+        max_tokens: 600,
         temperature: 0.7,
       }),
     })
@@ -325,79 +368,128 @@ function buildEmailHTML(userName, report, aiAdvice, todayDate) {
   const totalTimeMin = Math.round(Object.values(report).reduce((s, d) => s + d.totalTime, 0) / 60)
   const subjectCount = Object.keys(report).length
 
-  // 每个学科的 HTML
+  // 错误归因图标
+  const ERROR_ICONS = {
+    concept: { icon: '🔴', label: '概念薄弱' },
+    careless: { icon: '🟡', label: '粗心马虎' },
+    overthink: { icon: '🟠', label: '概念模糊' },
+    partial: { icon: '🔵', label: '部分不熟' },
+  }
+
+  // 每个学科的 HTML（手机友好版，含详细错误归因）
   const subjectBlocks = Object.entries(report).map(([, s]) => {
     const effortBg = s.effort === '认真' ? '#f0fdf4' : s.effort === '敷衍' ? '#fef2f2' : s.effort === '过快' ? '#fff7ed' : s.effort === '需关注' ? '#fff7ed' : '#eff6ff'
     const accColor = s.accuracy >= 80 ? '#16a34a' : s.accuracy >= 60 ? '#2563eb' : '#dc2626'
     const change = s.accChange !== null
       ? (s.accChange >= 0
-          ? `<span style="color:#16a34a;font-size:11px"> ↑${s.accChange}%</span>`
-          : `<span style="color:#dc2626;font-size:11px"> ↓${Math.abs(s.accChange)}%</span>`)
+          ? `<span style="color:#16a34a;font-size:13px"> ↑${s.accChange}%</span>`
+          : `<span style="color:#dc2626;font-size:13px"> ↓${Math.abs(s.accChange)}%</span>`)
       : ''
 
+    // 星球详情行（含错误归因标签）
     const planetRows = s.planets.map(p => {
       const pAccColor = p.accuracy >= 80 ? '#16a34a' : p.accuracy >= 60 ? '#2563eb' : '#dc2626'
       const barW = Math.max(p.accuracy, 5)
       const barColor = p.accuracy >= 80 ? '#22c55e' : p.accuracy >= 60 ? '#3b82f6' : '#ef4444'
-      const timeWarning = parseFloat(p.avgTime) < 3 ? '<span style="color:#f59e0b;font-size:10px">⚡过快</span>' : ''
+      const timeWarning = parseFloat(p.avgTime) < 3 ? ' <span style="color:#f59e0b;font-size:11px">⚡过快</span>' : ''
+
+      // 错误归因标签
+      let errorTag = ''
+      if (p.errorType) {
+        const ei = ERROR_ICONS[p.errorType]
+        errorTag = `<div style="margin-top:4px;padding:3px 8px;border-radius:6px;background:#fef3c7;font-size:11px;color:#92400e;line-height:1.4">
+          ${ei.icon} ${ei.label}：${p.errorDesc}
+        </div>`
+      }
+
       return `<tr>
-        <td style="padding:4px 8px;font-size:11px;color:#374151">${p.name}</td>
-        <td style="padding:4px 8px;font-size:11px;text-align:center">${p.total}题</td>
-        <td style="padding:4px 8px;text-align:center">
-          <div style="display:flex;align-items:center;gap:4px;justify-content:center">
-            <div style="flex:1;max-width:60px;background:#f3f4f6;border-radius:4px;height:6px;overflow:hidden">
-              <div style="width:${barW}%;height:100%;background:${barColor};border-radius:4px"></div>
-            </div>
-            <span style="font-size:11px;font-weight:600;color:${pAccColor}">${p.accuracy}%</span>
-            ${timeWarning}
-          </div>
+        <td style="padding:8px 10px;font-size:14px;color:#374151;white-space:nowrap">${p.name}</td>
+        <td style="padding:8px 6px;font-size:14px;text-align:center;color:#6b7280">${p.total}</td>
+        <td style="padding:8px 10px;text-align:right">
+          <span style="font-size:15px;font-weight:700;color:${pAccColor}">${p.accuracy}%</span>${timeWarning}
         </td>
-      </tr>`
+      </tr>
+      <tr><td colspan="3" style="padding:0 10px 6px">
+        <div style="background:#f3f4f6;border-radius:3px;height:5px;overflow:hidden">
+          <div style="width:${barW}%;height:100%;background:${barColor};border-radius:3px"></div>
+        </div>
+        ${errorTag}
+      </td></tr>`
     }).join('')
 
+    // 学科诊断文字
+    const diagHtml = s.diagnosis ? `
+      <div style="padding:10px 16px;background:#f8fafc;border-top:1px solid #f3f4f6;font-size:13px;color:#475569;line-height:1.6">
+        <span style="font-weight:700;color:#334155">📋 诊断：</span>${s.diagnosis}
+      </div>` : ''
+
     return `
-    <div style="background:white;border-radius:12px;border:1px solid #f3f4f6;margin-bottom:12px;overflow:hidden">
-      <div style="padding:10px 14px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #f3f4f6">
-        <div style="display:flex;align-items:center;gap:8px">
-          <span style="font-size:13px;font-weight:700;color:#374151">${s.label}</span>
-          <span style="font-size:11px;color:#6b7280">${s.total}题</span>
-          <span style="font-size:13px;font-weight:700;color:${accColor}">${s.accuracy}%${change}</span>
+    <div style="background:white;border-radius:14px;border:1px solid #e5e7eb;margin-bottom:14px;overflow:hidden">
+      <div style="padding:14px 16px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #f3f4f6">
+        <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap">
+          <span style="font-size:16px;font-weight:700;color:#1f2937">${s.label}</span>
+          <span style="font-size:13px;color:#9ca3af">${s.total}题</span>
+          <span style="font-size:16px;font-weight:800;color:${accColor}">${s.accuracy}%${change}</span>
         </div>
-        <span style="font-size:11px;padding:2px 8px;border-radius:10px;background:${effortBg};color:${s.effortColor};font-weight:600">${s.effort}</span>
+        <span style="font-size:12px;padding:3px 10px;border-radius:12px;background:${effortBg};color:${s.effortColor};font-weight:700">${s.effort}</span>
       </div>
       <table style="width:100%;border-collapse:collapse">
+        <tr style="background:#f9fafb"><td style="padding:6px 10px;font-size:11px;color:#9ca3af">星球</td><td style="padding:6px;font-size:11px;color:#9ca3af;text-align:center">题数</td><td style="padding:6px 10px;font-size:11px;color:#9ca3af;text-align:right">正确率</td></tr>
         ${planetRows}
       </table>
+      ${diagHtml}
     </div>`
   }).join('')
 
+  // 汇总错误归因统计
+  const errorSummary = []
+  for (const [, s] of Object.entries(report)) {
+    for (const p of s.planets) {
+      if (p.errorType) {
+        errorSummary.push({ subject: s.label, planet: p.name, type: p.errorType, desc: p.errorDesc })
+      }
+    }
+  }
+  const errorSummaryHtml = errorSummary.length > 0 ? `
+    <div style="background:white;border-radius:14px;border:1px solid #e5e7eb;margin-bottom:14px;padding:16px">
+      <div style="font-size:15px;font-weight:700;color:#1f2937;margin-bottom:10px">🔍 错误归因总结</div>
+      <div style="display:flex;flex-direction:column;gap:8px">
+        ${errorSummary.map(e => {
+          const ei = ERROR_ICONS[e.type]
+          return `<div style="padding:8px 12px;border-radius:10px;background:#fefce8;border:1px solid #fde68a">
+            <div style="font-size:13px;font-weight:600;color:#1f2937">${ei.icon} ${e.subject} · ${e.planet}</div>
+            <div style="font-size:12px;color:#92400e;margin-top:2px">${e.desc}</div>
+          </div>`
+        }).join('')}
+      </div>
+    </div>` : ''
+
   return `
 <!DOCTYPE html>
-<html><head><meta charset="utf-8"></head>
-<body style="margin:0;padding:0;background:#f9fafb;font-family:-apple-system,sans-serif">
-<div style="max-width:480px;margin:0 auto;background:white;border-radius:16px;overflow:hidden;margin-top:20px">
+<html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+<body style="margin:0;padding:0;background:#f3f4f6;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+<div style="max-width:100%;margin:0 auto;overflow:hidden">
 
-  <div style="background:linear-gradient(135deg,#1e40af,#6d28d9);padding:24px;color:white">
-    <div style="font-size:20px;font-weight:800;margin-bottom:4px">📊 ${userName} 的学习日报</div>
-    <div style="opacity:0.8;font-size:13px">${todayDate}</div>
-    <div style="display:flex;gap:16px;margin-top:16px">
-      <div style="flex:1;text-align:center"><div style="font-size:22px;font-weight:800">${totalQ}</div><div style="opacity:0.7;font-size:11px">总题数</div></div>
-      <div style="flex:1;text-align:center"><div style="font-size:22px;font-weight:800">${totalAcc}%</div><div style="opacity:0.7;font-size:11px">正确率</div></div>
-      <div style="flex:1;text-align:center"><div style="font-size:22px;font-weight:800">${subjectCount}</div><div style="opacity:0.7;font-size:11px">学科</div></div>
-      <div style="flex:1;text-align:center"><div style="font-size:22px;font-weight:800">${totalTimeMin}分</div><div style="opacity:0.7;font-size:11px">总用时</div></div>
+  <div style="background:linear-gradient(135deg,#1e40af,#7c3aed);padding:28px 20px 20px;color:white">
+    <div style="font-size:22px;font-weight:800;margin-bottom:4px">📊 ${userName} 的学习日报</div>
+    <div style="opacity:0.75;font-size:14px;margin-bottom:16px">${todayDate}</div>
+    <div style="display:flex;gap:0;background:rgba(255,255,255,0.12);border-radius:14px;overflow:hidden">
+      <div style="flex:1;text-align:center;padding:14px 0"><div style="font-size:26px;font-weight:800">${totalQ}</div><div style="opacity:0.7;font-size:12px;margin-top:2px">总题数</div></div>
+      <div style="flex:1;text-align:center;padding:14px 0;border-left:1px solid rgba(255,255,255,0.15)"><div style="font-size:26px;font-weight:800">${totalAcc}%</div><div style="opacity:0.7;font-size:12px;margin-top:2px">正确率</div></div>
+      <div style="flex:1;text-align:center;padding:14px 0;border-left:1px solid rgba(255,255,255,0.15)"><div style="font-size:26px;font-weight:800">${subjectCount}</div><div style="opacity:0.7;font-size:12px;margin-top:2px">学科</div></div>
+      <div style="flex:1;text-align:center;padding:14px 0;border-left:1px solid rgba(255,255,255,0.15)"><div style="font-size:26px;font-weight:800">${totalTimeMin || '<1'}分</div><div style="opacity:0.7;font-size:12px;margin-top:2px">总用时</div></div>
     </div>
   </div>
 
-  <div style="padding:14px">
-    <!-- 各学科星球报告 -->
+  <div style="padding:16px">
     ${subjectBlocks}
+    ${errorSummaryHtml}
 
-    <!-- AI 点评 -->
-    <div style="font-size:13px;font-weight:700;color:#374151;margin-bottom:8px">🤖 老师点评</div>
-    <div style="background:linear-gradient(135deg,#eff6ff,#f5f3ff);border-radius:12px;padding:14px;font-size:12px;line-height:1.8;color:#374151;white-space:pre-line">${aiAdvice}</div>
+    <div style="font-size:15px;font-weight:700;color:#1f2937;margin-bottom:10px">🤖 老师点评</div>
+    <div style="background:linear-gradient(135deg,#eff6ff,#f5f3ff);border-radius:14px;padding:16px;font-size:14px;line-height:2;color:#374151;white-space:pre-line">${aiAdvice}</div>
   </div>
 
-  <div style="padding:12px 16px;text-align:center;color:#9ca3af;font-size:11px;border-top:1px solid #f3f4f6">
+  <div style="padding:14px 20px;text-align:center;color:#9ca3af;font-size:12px;border-top:1px solid #e5e7eb">
     知识星球 · 每日学习报告 · 自动发送
   </div>
 </div>

@@ -750,7 +750,7 @@ export default function App() {
         user={user}
         subject={activeSubject}
         grade={grade}
-        onStartWrongQuiz={(ids) => { setQuizOptions({ wrongCardIds: ids }); setPage('quiz') }}
+        onStartWrongQuiz={(ids) => { setQuizOptions({ wrongCardIds: ids, wrongReviewSubject: activeSubject }); setPage('quiz') }}
         onVariantTraining={startVariantTraining}
         onBack={goHome}
         onSubjectChange={setActiveSubject}
@@ -884,7 +884,7 @@ export default function App() {
           user={user}
           subject={activeSubject}
           grade={grade}
-          onStartWrongQuiz={(ids) => { setQuizOptions({ wrongCardIds: ids }); setPage('quiz') }}
+          onStartWrongQuiz={(ids) => { setQuizOptions({ wrongCardIds: ids, wrongReviewSubject: activeSubject }); setPage('quiz') }}
           onVariantTraining={startVariantTraining}
           onBack={() => setActiveTab('home')}
           onSubjectChange={setActiveSubject}
