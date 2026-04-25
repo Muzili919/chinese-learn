@@ -18,18 +18,18 @@ const nodemailer = require('nodemailer')
 const DB_HOST = process.env.DB_HOST || '127.0.0.1'
 const DB_PORT = process.env.DB_PORT || 5432
 const DB_NAME = process.env.DB_NAME || 'chinese_learn'
-const DB_USER = process.env.DB_USER
-const DB_PASS = process.env.DB_PASS
+const DB_USER = process.env.DB_USER || 'admin'
+const DB_PASS = process.env.DB_PASS || '132258'
 
 // 邮件配置（SMTP 发件账号）
 const SMTP_HOST = process.env.SMTP_HOST || 'smtp.qq.com'
 const SMTP_PORT = parseInt(process.env.SMTP_PORT || '465')
-const SMTP_USER = process.env.SMTP_USER || ''
-const SMTP_PASS = process.env.SMTP_PASS || ''
+const SMTP_USER = process.env.SMTP_USER || '386323992@qq.com'
+const SMTP_PASS = process.env.SMTP_PASS || 'REDACTED_SMTP_TOKEN'
 const MAIL_FROM = process.env.MAIL_FROM || SMTP_USER
 
 // AI 配置
-const DEEPSEEK_API_KEY = process.env.DEEPSEEK_API_KEY || ''
+const DEEPSEEK_API_KEY = process.env.DEEPSEEK_API_KEY || 'REDACTED_DEEPSEEK_KEY'
 const DEEPSEEK_BASE_URL = process.env.DEEPSEEK_BASE_URL || 'https://api.deepseek.com'
 
 const pool = new Pool({
@@ -59,7 +59,7 @@ const GRADE_LABELS = {
 
 async function getDayRecords(userId, date) {
   const r = await pool.query(
-    `SELECT card_id, subject, knowledge_tag, topic, correct, time_spent, timestamp
+    `SELECT card_id, subject, correct, timestamp
      FROM answer_records WHERE user_id = $1 AND timestamp::text LIKE $2`,
     [userId, date + '%']
   )
@@ -82,16 +82,24 @@ function buildSubjectStats(records) {
   const bySubject = {}
   for (const r of records) {
     const subj = r.subject || 'unknown'
-    if (!bySubject[subj]) bySubject[subj] = { total: 0, correct: 0, time: 0, tags: {} }
+    if (!bySubject[subj]) bySubject[subj] = { total: 0, correct: 0, tags: {} }
     bySubject[subj].total++
     if (r.correct) bySubject[subj].correct++
-    bySubject[subj].time += (r.time_spent || 0)
-    const tag = r.knowledge_tag || r.topic || '未分类'
-    if (!bySubject[subj].tags[tag]) bySubject[subj].tags[tag] = { total: 0, correct: 0 }
-    bySubject[subj].tags[tag].total++
-    if (r.correct) bySubject[subj].tags[tag].correct++
+    // 从 card_id 提取知识点前缀（如 vocab_056 → 词汇）
+    const tagPrefix = (r.card_id || '').split('_')[0]
+    const tagLabel = CARD_PREFIX_LABEL[tagPrefix] || tagPrefix || '未分类'
+    if (!bySubject[subj].tags[tagLabel]) bySubject[subj].tags[tagLabel] = { total: 0, correct: 0 }
+    bySubject[subj].tags[tagLabel].total++
+    if (r.correct) bySubject[subj].tags[tagLabel].correct++
   }
   return bySubject
+}
+
+const CARD_PREFIX_LABEL = {
+  vocab: '词汇', poetry: '古诗词', idiom: '成语', sentence: '句子',
+  literature: '文学常识', reading: '阅读', dictation: '听写',
+  en: '英语', math: '数学', politics: '道法',
+  ch: '语文', j2ch: '初中语文',
 }
 
 function calcGrowth(todayStats, yesterdayStats) {
@@ -108,7 +116,6 @@ function calcGrowth(todayStats, yesterdayStats) {
       total: t.total,
       correct: t.correct,
       accuracy: tAcc,
-      time: Math.round(t.time / 60),
       accChange: yAcc !== null ? tAcc - yAcc : null,
       tags: t.tags,
     })
@@ -120,7 +127,7 @@ async function generateAIAdvice(userName, todayData) {
   if (!DEEPSEEK_API_KEY) return '（AI 建议暂时不可用）'
 
   const todaySummary = todayData.map(s =>
-    `${s.grade}${s.label}：${s.total}题，正确率${s.accuracy}%${s.accChange !== null ? (s.accChange >= 0 ? `（↑${s.accChange}%）` : `（↓${Math.abs(s.accChange)}%）`) : ''}，耗时${s.time}分钟`
+    `${s.grade}${s.label}：${s.total}题，正确率${s.accuracy}%${s.accChange !== null ? (s.accChange >= 0 ? `（↑${s.accChange}%）` : `（↓${Math.abs(s.accChange)}%）`) : ''}`
   ).join('\n')
 
   const weakTags = []
@@ -142,7 +149,7 @@ ${weakTags.length > 0 ? `薄弱知识点：${weakTags.join('、')}` : '今日各
 请用简洁温暖的语气，写3段反馈：
 1. 今日表现总结（2-3句，先夸再点问题）
 2. 比昨日的进步（如果有退步也温和指出）
-3. 明日学习建议（具体到哪个学科哪个知识点该怎么练）
+3. 明日学习建议（具体到哪个学科该怎么练）
 
 每段不超过50字，用口语，不要书面化。`
 
@@ -174,7 +181,6 @@ function buildEmailHTML(userName, todayData, aiAdvice, todayDate) {
   const totalQ = todayData.reduce((s, d) => s + d.total, 0)
   const totalCorrect = todayData.reduce((s, d) => s + d.correct, 0)
   const totalAcc = totalQ > 0 ? Math.round(totalCorrect / totalQ * 100) : 0
-  const totalTime = todayData.reduce((s, d) => s + d.time, 0)
 
   const subjectRows = todayData.map(s => {
     const accColor = s.accuracy >= 80 ? '#16a34a' : s.accuracy >= 60 ? '#2563eb' : '#dc2626'
@@ -193,9 +199,8 @@ function buildEmailHTML(userName, todayData, aiAdvice, todayDate) {
         <td style="padding:8px 12px;border-bottom:1px solid #f3f4f6;font-weight:600">${s.grade} ${s.label}</td>
         <td style="padding:8px 12px;border-bottom:1px solid #f3f4f6;text-align:center">${s.total}</td>
         <td style="padding:8px 12px;border-bottom:1px solid #f3f4f6;text-align:center;color:${accColor};font-weight:700">${s.accuracy}% ${change}</td>
-        <td style="padding:8px 12px;border-bottom:1px solid #f3f4f6;text-align:center">${s.time}分</td>
       </tr>
-      <tr><td colspan="4" style="padding:4px 12px 8px;border-bottom:1px solid #f3f4f6">${tagRows}</td></tr>
+      <tr><td colspan="3" style="padding:4px 12px 8px;border-bottom:1px solid #f3f4f6">${tagRows}</td></tr>
     `
   }).join('')
 
@@ -211,7 +216,6 @@ function buildEmailHTML(userName, todayData, aiAdvice, todayDate) {
     <div style="display:flex;gap:16px;margin-top:16px">
       <div style="flex:1;text-align:center"><div style="font-size:22px;font-weight:800">${totalQ}</div><div style="opacity:0.7;font-size:11px">总题数</div></div>
       <div style="flex:1;text-align:center"><div style="font-size:22px;font-weight:800">${totalAcc}%</div><div style="opacity:0.7;font-size:11px">正确率</div></div>
-      <div style="flex:1;text-align:center"><div style="font-size:22px;font-weight:800">${totalTime}分</div><div style="opacity:0.7;font-size:11px">学习时长</div></div>
     </div>
   </div>
 
@@ -222,7 +226,6 @@ function buildEmailHTML(userName, todayData, aiAdvice, todayDate) {
         <th style="padding:6px 12px;text-align:left;font-size:11px;color:#6b7280">学科</th>
         <th style="padding:6px 12px;text-align:center;font-size:11px;color:#6b7280">题数</th>
         <th style="padding:6px 12px;text-align:center;font-size:11px;color:#6b7280">正确率</th>
-        <th style="padding:6px 12px;text-align:center;font-size:11px;color:#6b7280">时长</th>
       </tr>
       ${subjectRows}
     </table>

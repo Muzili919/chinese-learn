@@ -1420,8 +1420,10 @@ export default function DuolingoStyleQuiz({ question, onAnswerSubmit, showVarian
   function handleDone(answer, correct) {
     setChosenAnswer(answer)
     setPhase(correct ? 'correct' : 'wrong')
-    // ★ 修复：不再自动后台出变式题！用户需要先看完解析，再手动点击"举一反三"
-    // 这样用户可以：1) 看到正确答案 2) 阅读解析 3) 决定是否要做变式题
+    // ★ 答错自动触发举一反三（配额用完则静默跳过）
+    if (!correct) {
+      setTimeout(() => handleVariant(true), 600)
+    }
   }
 
   function handleContinue() {
