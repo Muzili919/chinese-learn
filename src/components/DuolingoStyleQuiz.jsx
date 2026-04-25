@@ -189,27 +189,35 @@ function FeedbackPanel({ correct, analysis, answer, onContinue, variantState, on
 function ChoiceQuestion({ question, onDone }) {
   const [selected, setSelected] = useState(null)
 
-  // ★ 裸字母选项自动修复：options=['A','B','C','D'] 时，从 question 文本提取完整选项
+  // ★ 自动剥离内联选项：question 文本里包含 A. xxx B. xxx... 时，只保留题干，选项用 options 数组
   const resolved = useMemo(() => {
     const rawOpts = question.options || []
     const isBareLetter = rawOpts.length >= 2 && rawOpts.every(o => /^[A-Da-d]{1,2}$/.test(String(o).trim()))
-    if (!isBareLetter) return { options: rawOpts, displayQuestion: question.question }
 
-    // 从 question 末尾提取 A. xxx \n B. xxx 格式的选项
-    const optBlockRe = /([A-D])[.、．]\s*(.+?)(?=(?:[A-D])[.、．]\s|\n*$)/g
+    // 检测 question 文本中是否有内联选项块（A. xxx B. xxx 格式）
+    const lineOptRe = /^([A-D])[.、．]\s*(.+)$/gm
     const extracted = []
-    let match
-    while ((match = optBlockRe.exec(question.question)) !== null) {
-      extracted.push({ letter: match[1], text: match[2].trim() })
+    let m
+    while ((m = lineOptRe.exec(question.question)) !== null) {
+      extracted.push({ letter: m[1], text: m[2].trim(), index: m.index })
     }
-    if (extracted.length >= 2) {
+    const hasInlineOpts = extracted.length >= 2
+
+    if (!hasInlineOpts && !isBareLetter) return { options: rawOpts, displayQuestion: question.question }
+
+    if (isBareLetter && hasInlineOpts) {
+      // 裸字母选项 → 用内联文本替换
       const fullOpts = extracted.map(e => `${e.letter}. ${e.text}`)
-      // 从 question 中去掉选项块
-      const lastOptIdx = question.question.lastIndexOf(extracted[extracted.length - 1].letter + '.')
-      let displayQ = lastOptIdx > 0 ? question.question.slice(0, lastOptIdx).trimEnd() : question.question
-      // 也去掉选项前的题干末尾提示行（如"不正确的一项是："如果紧跟选项）
+      const displayQ = question.question.slice(0, extracted[0].index).trimEnd()
       return { options: fullOpts, displayQuestion: displayQ }
     }
+
+    if (hasInlineOpts && !isBareLetter) {
+      // options 已有完整文本，只需从题干中剥离内联选项
+      const displayQ = question.question.slice(0, extracted[0].index).trimEnd()
+      return { options: rawOpts, displayQuestion: displayQ }
+    }
+
     return { options: rawOpts, displayQuestion: question.question }
   }, [question.options, question.question])
 
@@ -1497,6 +1505,21 @@ export default function DuolingoStyleQuiz({ question, onAnswerSubmit, showVarian
   }
 
   const isFill = question.type === 'fill_blank'
+
+  // ★ 剥离内联选项：选择题题干中包含 A. xxx B. xxx... 时，只保留题干文本
+  const cleanQuestion = useMemo(() => {
+    if (question.type !== 'single_choice' && question.type !== 'multiple_choice') return question.question
+    const q = question.question || ''
+    const opts = question.options || []
+    if (opts.length === 0) return q
+    // 检测内联选项块
+    const inlineOptRe = /^[A-D][.、．]\s*.+$/gm
+    const firstMatch = inlineOptRe.exec(q)
+    if (!firstMatch) return q
+    // 从第一个内联选项之前截断
+    return q.slice(0, firstMatch.index).trimEnd()
+  }, [question.type, question.question, question.options])
+
   // ★ 防护：选择题必须有 options，填空题必须有 answer，否则显示提示
   if (isFill && !question.answer && !question.question) {
     return (
@@ -1559,9 +1582,9 @@ export default function DuolingoStyleQuiz({ question, onAnswerSubmit, showVarian
       {question.type === 'single_choice' && (
         <div className="bg-white rounded-3xl px-5 py-5 shadow-sm border border-gray-100">
           <p className={`leading-relaxed font-medium text-gray-800 ${
-            (question.question || '').length > 120 ? 'text-sm' :
-            (question.question || '').length > 60  ? 'text-base' : 'text-lg'
-          }`}>{renderRichText(question.question || '')}</p>
+            (cleanQuestion || '').length > 120 ? 'text-sm' :
+            (cleanQuestion || '').length > 60  ? 'text-base' : 'text-lg'
+          }`}>{renderRichText(cleanQuestion || '')}</p>
           {/* 配图渲染：支持 SVG 字符串 / 图片 URL / base64 */}
           {question.image && (
             <div className="mt-4 flex justify-center">
@@ -1588,9 +1611,9 @@ export default function DuolingoStyleQuiz({ question, onAnswerSubmit, showVarian
         <div className="bg-white rounded-3xl px-5 py-5 shadow-sm border border-gray-100">
           <div className="flex items-start gap-2">
             <p className={`leading-relaxed font-medium flex-1 whitespace-pre-wrap text-gray-800 ${
-              (question.question || '').length > 120 ? 'text-sm' :
-              (question.question || '').length > 60  ? 'text-base' : 'text-lg'
-            }`}>{renderRichText(question.question || '')}</p>
+              (cleanQuestion || '').length > 120 ? 'text-sm' :
+              (cleanQuestion || '').length > 60  ? 'text-base' : 'text-lg'
+            }`}>{renderRichText(cleanQuestion || '')}</p>
             {onSpeak && (
               <button
                 onClick={() => onSpeak(question.question)}

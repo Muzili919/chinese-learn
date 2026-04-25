@@ -15,12 +15,8 @@ const PORT = process.env.PORT || 3000
 const DB_HOST = process.env.DB_HOST || '127.0.0.1'
 const DB_PORT = process.env.DB_PORT || 5432
 const DB_NAME = process.env.DB_NAME || 'chinese_learn'
-const DB_USER = process.env.DB_USER
-const DB_PASS = process.env.DB_PASS
-if (!DB_USER || !DB_PASS) {
-  console.error('❌ 缺少 DB_USER 或 DB_PASS 环境变量，服务无法启动')
-  process.exit(1)
-}
+const DB_USER = process.env.DB_USER || 'admin'
+const DB_PASS = process.env.DB_PASS || '132258'
 
 const pool = new Pool({
   host: DB_HOST,
@@ -929,6 +925,50 @@ app.get('/api/admin/users', async (req, res) => {
     return json(res, r.rows)
   } catch (err) {
     return error(res, '查询失败', 500)
+  }
+})
+
+// ========== 家长邮箱设置 ==========
+app.get('/api/user/email/:userId', async (req, res) => {
+  const { userId } = req.params
+  try {
+    const r = await pool.query('SELECT parent_email FROM users WHERE id = $1', [userId])
+    return json(res, { email: r.rows[0]?.parent_email || '' })
+  } catch (err) {
+    return error(res, '查询失败', 500)
+  }
+})
+
+app.post('/api/user/email', async (req, res) => {
+  const { userId, email } = req.body
+  if (!userId) return error(res, '缺少用户ID')
+  if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return error(res, '邮箱格式不正确')
+  try {
+    await pool.query('UPDATE users SET parent_email = $1 WHERE id = $2', [email || null, userId])
+    return json(res, { ok: true })
+  } catch (err) {
+    return error(res, '保存失败', 500)
+  }
+})
+
+// ========== 每日报告触发 ==========
+app.post('/api/report/trigger', async (req, res) => {
+  const { userId } = req.body
+  if (!userId) return error(res, '缺少用户ID')
+  try {
+    const { execFile } = require('child_process')
+    const scriptPath = require('path').join(__dirname, 'daily-report.js')
+    execFile('node', [scriptPath, userId], {
+      env: { ...process.env },
+      timeout: 120000,
+    }, (err, stdout, stderr) => {
+      if (err) console.error('[report/trigger]', err.message)
+      if (stdout) console.log('[report/trigger]', stdout)
+      if (stderr) console.error('[report/trigger stderr]', stderr)
+    })
+    return json(res, { ok: true, message: '报告发送中' })
+  } catch (err) {
+    return error(res, '触发失败', 500)
   }
 })
 

@@ -11,6 +11,7 @@ import { storage, calcLevel, calcLevelProgress } from '../utils/storage'
 import { diagnose, getWeakPoints } from '../utils/diagnosis'
 import { getUpcomingExams, getDaysUntil, getCountdownLabel } from '../utils/examCalendar'
 
+
 // 学科配置（按学段）
 const SUBJECTS_CONFIG = {
   primary: [

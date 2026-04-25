@@ -533,6 +533,23 @@ function FriendsPanel({ state, userId, onStateChange }) {
   );
 }
 
+// ====== 游戏解锁时触发每日报告发送 ======
+function ReportTrigger({ userId }) {
+  useEffect(() => {
+    if (!userId) return
+    const today = new Date().toISOString().split('T')[0]
+    const key = `report_triggered_${userId}_${today}`
+    if (localStorage.getItem(key)) return
+    localStorage.setItem(key, '1')
+    fetch('/api/report/trigger', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ userId }),
+    }).catch(() => {})
+  }, [userId])
+  return null
+}
+
 // ====== 主组件 ======
 export default function MV1Demo({ onBack, initialState, onStateChange, grade, currentUserId: propUserId }) {
   // 初始状态：优先用传入的（上帝模式/缓存），否则默认
@@ -891,19 +908,18 @@ export default function MV1Demo({ onBack, initialState, onStateChange, grade, cu
     };
   }, []);
 
-  // 宠物升级（从累计经验池消耗，每个宠物独立消耗）
+  // 宠物升级（从共用经验池消耗，与商店共用 petExpConsumed）
   const handlePetLevelUp = useCallback(() => {
     setState(s => {
       const pet = s.currentPet;
       const petLevel = pet?.level || 1;
       const threshold = petLevel * 100;
-      // ★ 上帝模式：无限经验直接通过，不检查阈值
+      // ★ 上帝模式：无限经验直接通过
       if (!isGodModeState(s)) {
         const totalXP = getEffectiveXP(s, storage.getUser());
-        const petLevelExpMap = s.petLevelExp || {};
-        const currentPetConsumed = (petLevelExpMap[pet?.poolId] || 0) + (s.petExpConsumed || 0);
-        const petExp = Math.max(0, totalXP - currentPetConsumed);
-        if (petExp < threshold) return s;
+        const consumed = s.petExpConsumed || 0;
+        const available = Math.max(0, totalXP - consumed);
+        if (available < threshold) return s;
       }
 
       setLevelUpAnim(true);
@@ -911,16 +927,12 @@ export default function MV1Demo({ onBack, initialState, onStateChange, grade, cu
 
       const newPetLevel = petLevel + 1;
       const totalXP = getEffectiveXP(s, storage.getUser());
-      // ★ 同步更新 petLevels（每个宠物的等级独立存储）
       const petLevels = { ...(s.petLevels || {}) }
       if (pet?.poolId) petLevels[pet.poolId] = newPetLevel
-      // ★ 每个宠物独立记录升级消耗
-      const petLevelExp = { ...(s.petLevelExp || {}) }
-      if (pet?.poolId) petLevelExp[pet.poolId] = (petLevelExp[pet.poolId] || 0) + threshold
       const newState = {
         ...s,
         exp: totalXP,
-        petLevelExp,
+        petExpConsumed: (s.petExpConsumed || 0) + threshold,
         petLevels,
         currentPet: {
           ...pet,
@@ -1366,13 +1378,10 @@ export default function MV1Demo({ onBack, initialState, onStateChange, grade, cu
   const totalXP = Math.max(latestXPRef.current, state?.exp || 0);
   const lp = calcLevelProgress(totalXP);
 
-  const petExpConsumed = state?.petExpConsumed || 0;  // 商店购买消耗（全局共享）
-  const petLevelExp = state?.petLevelExp || {};       // 每个宠物的升级消耗（独立）
-  const currentPetLevelConsumed = petLevelExp[currentPet?.poolId] || 0;
-  // ★ 升级可用经验 = 总经验 - 该宠物升级消耗 - 商店消耗
-  const petExp = Math.max(0, totalXP - currentPetLevelConsumed - petExpConsumed);
-  // ★ 商店可用经验 = 总经验 - 商店消耗（不含升级消耗，升级是独立的）
-  const spendableXP = Math.max(0, totalXP - petExpConsumed);
+  const petExpConsumed = state?.petExpConsumed || 0;
+  // ★ 统一经验池：升级和商店共用同一个消耗记录
+  const petExp = Math.max(0, totalXP - petExpConsumed);
+  const spendableXP = petExp;
   const petExpPct = Math.min(100, (petExp / petThreshold) * 100);
   const canLevelUpPet = petExp >= petThreshold;
 
@@ -1635,18 +1644,21 @@ export default function MV1Demo({ onBack, initialState, onStateChange, grade, cu
             )
           }
           return (
-            <WordCannonGame
-              state={state}
-              grade={grade}
-              onGameStateUpdate={(patch) => setState(s => {
-                if (!s) return s;
-                if (patch._gameStatePartial) {
-                  const { _gameStatePartial, gameState: newGS, ...rest } = patch;
-                  return { ...s, ...rest, gameState: { ...(s.gameState || {}), ...newGS } };
-                }
-                return { ...s, ...patch };
-              })}
-            />
+            <React.Fragment>
+              <ReportTrigger userId={currentUserId} />
+              <WordCannonGame
+                state={state}
+                grade={grade}
+                onGameStateUpdate={(patch) => setState(s => {
+                  if (!s) return s;
+                  if (patch._gameStatePartial) {
+                    const { _gameStatePartial, gameState: newGS, ...rest } = patch;
+                    return { ...s, ...rest, gameState: { ...(s.gameState || {}), ...newGS } };
+                  }
+                  return { ...s, ...patch };
+                })}
+              />
+            </React.Fragment>
           )
         })()}
 

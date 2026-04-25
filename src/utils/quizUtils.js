@@ -60,8 +60,12 @@ export function isAnswerCorrect(userAnswer, correctAnswer, options) {
   }
 
   if (ua && ca) {
-    const stripCore = s => s.replace(/[^a-z0-9.一-鿿]/g, '')
-    if (stripCore(ua) === stripCore(ca)) return true
+    const hasCJK = /[一-鿿]/.test(ca)
+    const hasMathOps = /[<>≥≤=+\-*/÷×]/.test(ca)
+    if (hasCJK && !hasMathOps) {
+      const stripCore = s => s.replace(/[^a-z0-9.一-鿿]/g, '')
+      if (stripCore(ua) === stripCore(ca)) return true
+    }
   }
 
   return false

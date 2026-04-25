@@ -1,132 +1,20 @@
 [
   {
-    "id": "en_writing_001",
-    "type": "single_choice",
-    "question": "连词成句。注意大小写和标点符号。\n\nis, a, teacher, my, mother\n\n________________________________________",
-    "options": [
-      "A. This cannot form a sentence.",
-      "B. The words are in wrong order.",
-      "C. Please rearrange the words.",
-      "D. My mother is a teacher"
-    ],
-    "answer": "D. My mother is a teacher",
-    "analysis": "正确语序：My mother is a teacher",
-    "difficulty": 0.3,
-    "knowledge_tag": "英语写作",
-    "ability_tag": "句子重组"
-  },
-  {
-    "id": "en_writing_002",
-    "type": "single_choice",
-    "question": "连词成句。注意大小写和标点符号。\n\nyou, do, like, apples\n\n________________________________________",
-    "options": [
-      "A. Please rearrange the words.",
-      "B. This cannot form a sentence.",
-      "C. Do you like apples?",
-      "D. The words are in wrong order."
-    ],
-    "answer": "C. Do you like apples?",
-    "analysis": "正确语序：Do you like apples?",
-    "difficulty": 0.3,
-    "knowledge_tag": "英语写作",
-    "ability_tag": "句子重组"
-  },
-  {
-    "id": "en_writing_003",
-    "type": "single_choice",
-    "question": "连词成句。注意大小写和标点符号。\n\nhe, not, does, like, playing, basketball\n\n________________________________________",
-    "options": [
-      "A. The words are in wrong order.",
-      "B. Please rearrange the words.",
-      "C. This cannot form a sentence.",
-      "D. He does not like playing basketball"
-    ],
-    "answer": "D. He does not like playing basketball",
-    "analysis": "正确语序：He does not like playing basketball",
-    "difficulty": 0.3,
-    "knowledge_tag": "英语写作",
-    "ability_tag": "句子重组"
-  },
-  {
-    "id": "en_writing_004",
-    "type": "single_choice",
-    "question": "连词成句。注意大小写和标点符号。\n\nwhat, is, favorite, your, subject\n\n________________________________________",
-    "options": [
-      "A. The words are in wrong order.",
-      "B. This cannot form a sentence.",
-      "C. What is your favorite subject?",
-      "D. Please rearrange the words."
-    ],
-    "answer": "C. What is your favorite subject?",
-    "analysis": "正确语序：What is your favorite subject?",
-    "difficulty": 0.3,
-    "knowledge_tag": "英语写作",
-    "ability_tag": "句子重组"
-  },
-  {
-    "id": "en_writing_005",
-    "type": "single_choice",
-    "question": "连词成句。注意大小写和标点符号。\n\na, there, is, park, near, here\n\n________________________________________",
-    "options": [
-      "A. The words are in wrong order.",
-      "B. This cannot form a sentence.",
-      "C. Please rearrange the words.",
-      "D. There is a park near here"
-    ],
-    "answer": "D. There is a park near here",
-    "analysis": "正确语序：There is a park near here",
-    "difficulty": 0.3,
-    "knowledge_tag": "英语写作",
-    "ability_tag": "句子重组"
-  },
-  {
-    "id": "en_writing_011",
-    "type": "single_choice",
-    "question": "连词成句。注意大小写和标点符号。\n\nthe, open, please, door\n\n________________________________________",
-    "options": [
-      "A. The words are in wrong order.",
-      "B. Please rearrange the words.",
-      "C. This cannot form a sentence.",
-      "D. Please open the door"
-    ],
-    "answer": "D. Please open the door",
-    "analysis": "正确语序：Please open the door",
-    "difficulty": 0.3,
-    "knowledge_tag": "英语写作",
-    "ability_tag": "句子重组"
-  },
-  {
-    "id": "en_writing_012",
-    "type": "single_choice",
-    "question": "连词成句。注意大小写和标点符号。\n\nbeautiful, what, a, flower\n\n________________________________________",
-    "options": [
-      "A. This cannot form a sentence.",
-      "B. The words are in wrong order.",
-      "C. What a beautiful flower!",
-      "D. Please rearrange the words."
-    ],
-    "answer": "C. What a beautiful flower!",
-    "analysis": "正确语序：What a beautiful flower!",
-    "difficulty": 0.3,
-    "knowledge_tag": "英语写作",
-    "ability_tag": "句子重组"
-  },
-  {
     "id": "en_writing_010",
-    "question": "看图写话。\n\n提示：一个男孩在公园里放风筝，天气晴朗。\n\n请用3-5句英语写一段短文描述这幅图。",
-    "answer": "A boy is in the park. He is flying a kite. The weather is sunny. He is very happy.",
+    "question": "请用3-5句英语描述一个晴朗的周末，你在公园里看到什么？人们在做什么？",
+    "answer": "It is a sunny weekend. I go to the park. I see many people there. Some children are flying kites. Some old people are doing exercise. Everyone is happy.",
     "type": "open_ended",
     "difficulty": 0.3,
-    "knowledge_tag": "看图写话",
+    "knowledge_tag": "话题写作",
     "ability_tag": "写作"
   },
   {
     "id": "en_writing_011",
-    "question": "看图写话。\n\n提示：一个小女孩在图书馆看书，旁边有一只猫。\n\n请用3-5句英语写一段短文描述这幅图。",
-    "answer": "A girl is in the library. She is reading a book. There is a cat next to her. The cat is sleeping.",
+    "question": "请用3-5句英语描述你喜欢去的地方（如图书馆、公园、商店），你为什么喜欢去那里？",
+    "answer": "I like going to the library. It is quiet and clean. There are many books there. I can read my favorite books. I go there every Saturday.",
     "type": "open_ended",
     "difficulty": 0.3,
-    "knowledge_tag": "看图写话",
+    "knowledge_tag": "话题写作",
     "ability_tag": "写作"
   },
   {
@@ -181,6 +69,123 @@
     "type": "open_ended",
     "difficulty": 0.5,
     "knowledge_tag": "日记写作",
+    "ability_tag": "写作"
+  },
+  {
+    "id": "en_writing_018",
+    "question": "请用3-5句英语描述你在课间休息时通常做什么？你和同学一起玩吗？",
+    "answer": "During the break, I usually play with my friends. We play games in the playground. Sometimes we run and jump. We drink water and eat snacks. We have a lot of fun.",
+    "type": "open_ended",
+    "difficulty": 0.3,
+    "knowledge_tag": "话题写作",
+    "ability_tag": "写作"
+  },
+  {
+    "id": "en_writing_019",
+    "question": "请用3-5句英语写一写你在家里帮爸爸妈妈做什么家务？你觉得做家务怎么样？",
+    "answer": "I often help my mother at home. I clean my room. I wash the dishes after dinner. Sometimes I sweep the floor. I think doing housework is good. It makes me helpful.",
+    "type": "open_ended",
+    "difficulty": 0.3,
+    "knowledge_tag": "话题写作",
+    "ability_tag": "写作"
+  },
+  {
+    "id": "en_writing_020",
+    "question": "请用英语写一写你喜欢的动物。它是什么？长什么样？你喜欢它什么？写3-5句话。",
+    "answer": "I like dogs very much. I have a pet dog. It is white and small. It has big ears. It likes to play with me. It is my best friend.",
+    "type": "open_ended",
+    "difficulty": 0.3,
+    "knowledge_tag": "话题写作",
+    "ability_tag": "写作"
+  },
+  {
+    "id": "en_writing_021",
+    "question": "请用英语描述你的教室。它大吗？里面有什么？你喜欢你的教室吗？写3-5句话。",
+    "answer": "My classroom is big and clean. There are many desks and chairs in it. There is a blackboard on the wall. There are some pictures too. I like my classroom.",
+    "type": "open_ended",
+    "difficulty": 0.3,
+    "knowledge_tag": "话题写作",
+    "ability_tag": "写作"
+  },
+  {
+    "id": "en_writing_022",
+    "question": "请用英语写一写你上学期的暑假。你去了哪里？做了什么？开心吗？写3-5句话，用过去时态。",
+    "answer": "Last summer holiday I went to the beach with my family. We swam in the sea. We ate seafood. I played with sand. It was a great holiday.",
+    "type": "open_ended",
+    "difficulty": 0.5,
+    "knowledge_tag": "日记写作",
+    "ability_tag": "写作"
+  },
+  {
+    "id": "en_writing_023",
+    "question": "请用英语介绍你喜欢的食物。你喜欢吃什么？为什么？你妈妈会做吗？写3-5句话。",
+    "answer": "I like dumplings very much. They are delicious. My mother can make dumplings. We often eat dumplings on weekends. I also like fruit, like apples and bananas.",
+    "type": "open_ended",
+    "difficulty": 0.3,
+    "knowledge_tag": "话题写作",
+    "ability_tag": "写作"
+  },
+  {
+    "id": "en_writing_024",
+    "question": "请用3-5句英语写一写你每天早上上学前做了什么。几点起床？吃什么？怎么去学校？",
+    "answer": "I get up at seven o'clock every morning. I brush my teeth and wash my face. I have breakfast at home. I eat bread and drink milk. Then I go to school by bus.",
+    "type": "open_ended",
+    "difficulty": 0.3,
+    "knowledge_tag": "日记写作",
+    "ability_tag": "写作"
+  },
+  {
+    "id": "en_writing_025",
+    "question": "请用英语写一写你的周末。你通常在周末做什么？和谁一起？开心吗？写3-5句话。",
+    "answer": "On weekends I usually get up late. I do my homework in the morning. In the afternoon I play with my friends. Sometimes I watch TV. I like weekends very much.",
+    "type": "open_ended",
+    "difficulty": 0.3,
+    "knowledge_tag": "话题写作",
+    "ability_tag": "写作"
+  },
+  {
+    "id": "en_writing_026",
+    "question": "请用英语描述你喜欢的运动。你经常做这个运动吗？和谁一起？为什么喜欢？写3-5句话。",
+    "answer": "I like playing basketball. I play it every day after school. I play with my classmates. It makes me strong and healthy. It is very interesting.",
+    "type": "open_ended",
+    "difficulty": 0.3,
+    "knowledge_tag": "话题写作",
+    "ability_tag": "写作"
+  },
+  {
+    "id": "en_writing_027",
+    "question": "请用英语写一封信给圣诞老人，告诉他你今年表现好不好，你想要什么礼物。写3-5句话。",
+    "answer": "Dear Santa, How are you? I am a good girl this year. I study hard. I help my mother at home. I want a new bike for Christmas. Thank you!",
+    "type": "open_ended",
+    "difficulty": 0.5,
+    "knowledge_tag": "书信写作",
+    "ability_tag": "写作"
+  },
+  {
+    "id": "en_writing_028",
+    "question": "请用3-5句英语描述下雨天的情景。你喜欢下雨吗？下雨天你通常做什么？",
+    "answer": "It is raining today. The sky is gray. I can hear the rain outside. I like rainy days because I can stay at home. I usually read books and listen to music. Sometimes I watch TV with my family.",
+    "type": "open_ended",
+    "difficulty": 0.5,
+    "knowledge_tag": "话题写作",
+    "ability_tag": "写作"
+  },
+  {
+    "id": "en_writing_029",
+    "question": "请用英语描述你的学校。它大不大？你最喜欢学校的哪个地方？写3-5句话。",
+    "answer": "My school is very big. There are many trees and flowers. The playground is very large. I like the library best. There are many books in it. I love my school.",
+    "type": "open_ended",
+    "difficulty": 0.3,
+    "knowledge_tag": "话题写作",
+    "ability_tag": "写作"
+  },
+  {
+    "id": "en_writing_030",
+    "question": "请用英语写一段关于健康饮食的短文。我们应该吃什么？不应该吃什么？写3-5句话。",
+    "answer": "We should eat healthy food. We should eat more vegetables and fruit. We should drink milk every day. We should not eat too much candy. Healthy food makes us strong.",
+    "type": "open_ended",
+    "difficulty": 0.5,
+    "knowledge_tag": "话题写作",
     "ability_tag": "写作"
   }
 ]

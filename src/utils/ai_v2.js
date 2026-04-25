@@ -424,18 +424,67 @@ export function getQuestionById(id, builtInQMap = {}) {
 
 
 // ─── 苏格拉底式追问 ─────────────────────────────────────────
+// ─── 苏格拉底追问：学科定制策略 ─────────────────────────────────
+
+const SOCRATIC_STRATEGIES = {
+  chinese: {
+    role: '语文老师',
+    rules: [
+      '第一轮问"你觉得这道题在考什么知识点"',
+      '引导学生回忆相关课文、古诗或文学常识',
+      '如果考字词，追问"这个字/词在什么语境下见过"',
+      '如果考古诗词，追问"这首诗的作者是谁？什么朝代？表达什么情感"',
+      '如果考修辞手法，追问"这句话用了什么手法？换成普通说法效果有什么不同"',
+    ],
+  },
+  english: {
+    role: '英语老师',
+    rules: [
+      '第一轮用中文问"你觉得这道题在考哪个语法点或词汇"',
+      '引导学生回忆语法规则名称（如"现在完成时""被动语态"）',
+      '如果考词汇，问"这个词的词根/词缀是什么？和哪个词有关联"',
+      '如果考听力/阅读，问"注意题目中的关键词，原文是怎么表达的"',
+      '如果考写作，问"你觉得这个句型还可以怎么改写"',
+      '可以适当用英文举例，但问题本身用中文问',
+    ],
+  },
+  math: {
+    role: '数学老师',
+    rules: [
+      '第一轮问"你觉得这道题要用什么方法/公式来解决"',
+      '引导学生说清楚解题步骤，而不是只看答案',
+      '如果学生说不出方法，问"你觉得已知条件和要求的结果之间有什么关系"',
+      '如果计算错误，问"能再算一遍吗？注意运算顺序"',
+      '如果是应用题，问"能不能画个图/列个方程帮助理解"',
+      '如果是几何题，问"这里有什么隐藏条件？哪些角/边是相等的"',
+      '绝不直接告诉公式，引导学生自己推导',
+    ],
+  },
+  politics: {
+    role: '道德与法治老师',
+    rules: [
+      '第一轮问"你觉得这道题考的是哪个知识板块"',
+      '引导学生回忆教材中的核心概念和表述',
+      '追问"教材上对这个概念是怎么表述的"',
+      '如果考时政，问"这件事体现了课本上的什么原理"',
+      '强调关键术语的准确性，不能似是而非',
+    ],
+  },
+}
+
 export async function socraticFollowUp(question, studentAnswer, history = [], subject = 'chinese') {
-  const isEng = subject === 'english'
-  const systemPrompt = `你是一位耐心的老师，用苏格拉底提问法引导学生理解错题。
+  const strategy = SOCRATIC_STRATEGIES[subject] || SOCRATIC_STRATEGIES.chinese
+  const subjectRules = strategy.rules.map((r, i) => `${i + 3}. ${r}`).join('\n')
+
+  const systemPrompt = `你是一位耐心的${strategy.role}，用苏格拉底提问法引导学生理解错题。
 规则：
 1. 绝不直接告诉答案
 2. 每次只问一个问题，引导学生自己想
-3. 第一轮问"你觉得题目在考什么"
-4. 根据学生的回答判断理解偏差，针对性追问
-5. 如果学生连续2轮都答偏了，第3轮可以给一个具体线索
-6. 最多3轮，之后标记 isFinal=true
-7. 评价要简短（15字以内），问题要具体（30字以内）
-${isEng ? '8. 这是一道英语题，引导时注意英语语境' : ''}
+${subjectRules}
+${strategy.rules.length + 3}. 根据学生的回答判断理解偏差，针对性追问
+${strategy.rules.length + 4}. 如果学生连续2轮都答偏了，可以给一个具体线索
+${strategy.rules.length + 5}. 最多3轮，之后标记 isFinal=true
+${strategy.rules.length + 6}. 评价简短（15字以内），问题具体（30字以内）
 返回JSON: {"question":"引导问题","hint":"提示(可选)","isFinal":bool,"evaluation":"评价"}`
 
   const historyText = history.length > 0
@@ -452,24 +501,69 @@ ${isEng ? '8. 这是一道英语题，引导时注意英语语境' : ''}
   return callDeepSeekWithRetry(systemPrompt, userPrompt, { max_tokens: 300, temperature: 0.8 })
 }
 
-// ─── 费曼学习法验证 ─────────────────────────────────────────
+// ─── 费曼学习法验证：学科定制 ─────────────────────────────────
+
+const FEYNSTRATEGIES = {
+  chinese: {
+    role: '语文老师',
+    criteria: [
+      '是否说出了关键知识点（如：修辞手法名称、古诗作者/朝代、字词本义）',
+      '是否用自己的话复述了正确答案的逻辑',
+      '如果只背了答案但说不清为什么，给 50-60 分',
+    ],
+  },
+  english: {
+    role: '英语老师',
+    criteria: [
+      '是否说出了语法规则名称（如"现在完成时：have/has + 过去分词"）',
+      '是否解释了为什么这个选项对而其他选项错',
+      '可以中英混合表述，但核心语法概念要准确',
+      '如果只说"因为听起来对"而说不出规则，给 40-50 分',
+    ],
+  },
+  math: {
+    role: '数学老师',
+    criteria: [
+      '是否说清了解题思路（先求什么、再求什么）',
+      '是否提到了关键公式或定理',
+      '是否能用自己的话说出为什么这个方法管用',
+      '如果只说了计算过程但不知道为什么这么算，给 50-60 分',
+      '如果完全说不出思路只会背答案，给 30 分以下',
+    ],
+  },
+  politics: {
+    role: '道德与法治老师',
+    criteria: [
+      '是否准确说出了核心概念/术语（必须和教材表述基本一致）',
+      '是否能把概念和题目情境联系起来',
+      '如果只说了大概意思但术语不准确，给 50-60 分',
+    ],
+  },
+}
+
 export async function feynmanVerify(question, studentExplanation, subject = 'chinese') {
-  const isEng = subject === 'english'
-  const systemPrompt = `你是一位老师，用费曼学习法验证学生是否真正理解了知识点。
+  const strategy = FEYNSTRATEGIES[subject] || FEYNSTRATEGIES.chinese
+  const criteriaText = strategy.criteria.map((c, i) => `${i + 1}. ${c}`).join('\n')
+
+  const systemPrompt = `你是一位${strategy.role}，用费曼学习法验证学生是否真正理解了这道题。
 学生需要用自己的话解释为什么正确答案是对的。
-规则：
-1. 不要看学生用了什么术语，看他是否理解了核心逻辑
-2. score >= 70 分算通过
-3. 未通过时，misunderstanding 要具体指出哪个概念没理解
-4. feedback 鼓励为主（30字以内）
-${isEng ? '5. 这是一道英语题' : ''}
+
+评分标准：
+${criteriaText}
+
+通用规则：
+- score >= 70 分算通过（passed=true）
+- 未通过时，misunderstanding 必须具体指出学生哪个概念没理解
+- feedback 以鼓励为主（30字以内），指出进步点
+- 如果学生解释得很清楚，可以给 85-100 分
 返回JSON: {"passed":bool,"score":0-100,"feedback":"反馈","misunderstanding":"理解偏差(未通过时)"}`
 
   const userPrompt = `原题：${question.question || ''}
 正确答案：${question.answer || ''}
 ${question.analysis ? '参考解析：' + question.analysis : ''}
+${question.options ? '选项：' + question.options.join(' | ') : ''}
 学生的解释：${studentExplanation}
-请评估学生是否真正理解了这道题。`
+请评估学生是否真正理解了这道题的解题逻辑。`
 
   return callDeepSeekWithRetry(systemPrompt, userPrompt, { max_tokens: 300, temperature: 0.5 })
 }

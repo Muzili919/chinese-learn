@@ -86,6 +86,126 @@ export const storage = {
     return storage.getCompletedPlanets(userId)[today] || [];
   },
 
+  // 今日学习报告：按学科×星球聚合答题数据
+  getTodayStudyReport: (userId) => {
+    const records = storage.getRecords(userId)
+    const today = new Date().toISOString().split('T')[0]
+    const todayRecords = records.filter(r => r.timestamp?.startsWith(today))
+
+    const SUBJECT_PLANETS = {
+      chinese: {
+        label: '小学语文', emoji: '📚', grade: 'primary',
+        planets: [
+          { tag: '字词', label: '字词星球' },
+          { tag: '古诗词', label: '诗词星球' },
+          { tag: '成语', label: '成语星球' },
+          { tag: '句子', label: '句子星球' },
+          { tag: '文学常识', label: '文学星球' },
+        ],
+        matchRecord: (r) => r.subject === 'chinese' || (!r.subject && r.knowledge_tag && ['字词','古诗词','成语','句子','文学常识'].includes(r.knowledge_tag)),
+        getPlanetTag: (r) => r.knowledge_tag,
+      },
+      math: {
+        label: '数学', emoji: '🔢', grade: 'primary',
+        planets: [
+          { tag: '数与运算', label: '数与运算' },
+          { tag: '图形与空间', label: '图形与空间' },
+          { tag: '奥数专题', label: '奥数专题' },
+          { tag: '方程与不等式', label: '方程' },
+          { tag: '函数与图像', label: '函数' },
+          { tag: '整式运算', label: '整式' },
+          { tag: '几何证明', label: '几何' },
+        ],
+        matchRecord: (r) => r.subject === 'math',
+        getPlanetTag: (r) => r.topic,
+      },
+      english: {
+        label: '英语', emoji: '🌍', grade: 'primary',
+        planets: [
+          { tag: '英语词汇', label: '词汇' },
+          { tag: '英语听力', label: '听力' },
+          { tag: '英语语法', label: '语法' },
+          { tag: '英语阅读', label: '阅读' },
+          { tag: '英语写作', label: '写作' },
+          { tag: '完形填空', label: '完形填空' },
+        ],
+        matchRecord: (r) => r.subject === 'english',
+        getPlanetTag: (r) => r.knowledge_tag || (r.card_id?.includes('cloze') ? '完形填空' : ''),
+      },
+      chinese_junior: {
+        label: '初中语文', emoji: '📖', grade: 'junior',
+        planets: [
+          { tag: '字音辨析', label: '基础·字音' },
+          { tag: '字形辨析', label: '基础·字形' },
+          { tag: '古诗文默写', label: '古诗文' },
+          { tag: '实词解释', label: '文言文' },
+          { tag: '名著阅读', label: '名著' },
+          { tag: '仿写句子', label: '表达' },
+          { tag: '现代文阅读', label: '阅读' },
+        ],
+        matchRecord: (r) => r.subject === 'chinese_junior',
+        getPlanetTag: (r) => r.knowledge_tag,
+      },
+      politics: {
+        label: '政治', emoji: '🏛️', grade: 'junior',
+        planets: [
+          { tag: 'politics', label: '政治选择题' },
+        ],
+        matchRecord: (r) => r.subject === 'politics',
+        getPlanetTag: () => 'politics',
+      },
+    }
+
+    const report = {}
+    for (const [subjKey, subjDef] of Object.entries(SUBJECT_PLANETS)) {
+      const subjRecords = todayRecords.filter(r => subjDef.matchRecord(r))
+      if (subjRecords.length === 0) continue
+
+      const planetStats = {}
+      for (const planet of subjDef.planets) {
+        const pRecords = subjRecords.filter(r => {
+          const tag = subjDef.getPlanetTag(r) || ''
+          return tag === planet.tag || tag.includes(planet.tag) || planet.tag.includes(tag)
+        })
+        if (pRecords.length === 0) continue
+        const correct = pRecords.filter(r => r.correct).length
+        const totalTime = pRecords.reduce((s, r) => s + (r.time_spent || 0), 0)
+        planetStats[planet.tag] = {
+          label: planet.label,
+          total: pRecords.length,
+          correct,
+          accuracy: Math.round(correct / pRecords.length * 100),
+          avgTime: Math.round(totalTime / pRecords.length * 10) / 10,
+        }
+      }
+
+      const totalQ = subjRecords.length
+      const totalCorrect = subjRecords.filter(r => r.correct).length
+      const avgTime = subjRecords.reduce((s, r) => s + (r.time_spent || 0), 0) / totalQ
+      const acc = totalCorrect / totalQ
+
+      let effort = '正常'
+      if (avgTime < 3 && acc < 0.5) effort = '敷衍'
+      else if (acc >= 0.8 && avgTime >= 5) effort = '认真'
+      else if (acc < 0.5) effort = '需关注'
+
+      report[subjKey] = {
+        label: subjDef.label,
+        emoji: subjDef.emoji,
+        grade: subjDef.grade || 'primary',
+        totalQuestions: totalQ,
+        totalCorrect,
+        accuracy: Math.round(acc * 100),
+        avgTime: Math.round(avgTime * 10) / 10,
+        totalTime: Math.round(subjRecords.reduce((s, r) => s + (r.time_spent || 0), 0)),
+        effort,
+        planets: planetStats,
+        allPlanets: subjDef.planets,
+      }
+    }
+    return report
+  },
+
   // Streak
   getStreak: (userId) =>
     lsParse(P + 'streak_' + userId, {"count":0,"lastDate":null}),
@@ -244,11 +364,27 @@ export const storage = {
     if (wrongIds.size === 0) return 0;
     const srsStates = storage.getSrsState(userId);
     const today = new Date().toISOString().split('T')[0];
+    // 预构建每张卡最近答错时间
+    const records = storage.getRecords(userId);
+    const lastWrongDate = {};
+    for (const r of records) {
+      if (!r.correct && wrongIds.has(r.card_id)) {
+        const date = (r.timestamp || '').slice(0, 10);
+        if (!lastWrongDate[r.card_id] || date > lastWrongDate[r.card_id]) {
+          lastWrongDate[r.card_id] = date;
+        }
+      }
+    }
     let count = 0;
     for (const id of wrongIds) {
       const state = srsStates[id];
-      // 没有 SRS 记录（新错题）或 nextReview <= today
-      if (!state || state.nextReview <= today) count++;
+      if (!state) {
+        // 无 SRS 记录的新错题：今天错的不算到期（明天再复习）
+        if (lastWrongDate[id] === today) continue;
+        count++;
+      } else if (state.nextReview <= today) {
+        count++;
+      }
     }
     return count;
   },

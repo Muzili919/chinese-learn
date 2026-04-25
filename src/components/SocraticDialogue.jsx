@@ -96,16 +96,9 @@ export default function SocraticDialogue({ question, studentAnswer, subject = 'c
       const r = await feynmanVerify(question, explanation, subject)
       setFeynmanResult(r)
       setPhase('done')
-      onComplete?.({
-        understood: r.passed,
-        feynmanPassed: r.passed,
-        rounds: round,
-        score: r.score,
-      })
     } catch (e) {
       setFeynmanResult({ passed: true, score: 60, feedback: '验证失败，默认通过', misunderstanding: '' })
       setPhase('done')
-      onComplete?.({ understood: true, feynmanPassed: true, rounds: round, score: 60 })
     }
   }
 
@@ -258,6 +251,21 @@ export default function SocraticDialogue({ question, studentAnswer, subject = 'c
         <div className="px-4 pb-2">
           <button onClick={onSkip} className="text-xs text-gray-400 underline w-full text-center">
             跳过，直接看答案
+          </button>
+        </div>
+      )}
+
+      {/* 完成确认按钮 */}
+      {phase === 'done' && (
+        <div className="px-4 pb-3">
+          <button onClick={() => onComplete?.({
+            understood: feynmanResult?.passed ?? true,
+            feynmanPassed: feynmanResult?.passed ?? true,
+            rounds: round,
+            score: feynmanResult?.score ?? 60,
+          })}
+            className="w-full py-3 rounded-xl bg-gradient-to-r from-indigo-500 to-violet-600 text-white font-bold text-sm active:scale-95 transition-transform shadow-md">
+            确认完成
           </button>
         </div>
       )}

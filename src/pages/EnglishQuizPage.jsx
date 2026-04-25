@@ -27,7 +27,7 @@ const EN_SESSION_SIZES = {
   en_listen:      10,
   en_grammar:     10,
   en_reading:     5,
-  en_writing:     10,
+  en_writing:     3,   // 写作：3题/次，3次完成打卡
   en_cloze:       3,   // 完形填空：每篇10空，3篇=30小题
 }
 
@@ -334,7 +334,7 @@ function MultiSubQuiz({ question: q, onSubmit, englishTag }) {
     return (
       <div className="flex flex-col gap-4">
         {passage && (
-          <div className="bg-white rounded-2xl px-4 py-3 shadow-sm max-h-56 overflow-y-auto">
+          <div className="bg-white rounded-2xl px-4 py-3 shadow-sm max-h-80 overflow-y-auto">
             <p className="text-xs text-gray-500 leading-relaxed whitespace-pre-wrap">{passage}</p>
           </div>
         )}
@@ -599,8 +599,16 @@ function SimpleWritingInput({ q, onSubmit, englishTag, passage }) {
   async function handleSubmit() {
     if (!input.trim()) return
     setSubmitted(true)
+    // 前置检测：输入太短或没有完整句子，直接判错
+    const trimmed = input.trim()
+    const wordCount = trimmed.split(/\s+/).filter(w => w.length > 0).length
+    const hasSentence = /[.!?。！？]/.test(trimmed) || trimmed.length > 20
+    if (wordCount < 3 || !hasSentence) {
+      setAiResult({ score: 0, feedback: '请写出完整的英语句子，至少3个单词' })
+      return
+    }
     // 阅读和写作题调用AI评分
-    if ((isReading || isWriting) && input.trim().length > 5) {
+    if ((isReading || isWriting) && trimmed.length > 5) {
       setAiEvaluating(true)
       try {
         let result
@@ -611,7 +619,16 @@ function SimpleWritingInput({ q, onSubmit, englishTag, passage }) {
         }
         setAiResult(result)
       } catch (e) {
-        console.warn('AI评分失败:', e)
+        console.warn('AI评分失败，使用基础检测:', e)
+        // AI 失败时用基础检测：有3个以上参考答案中的关键词算对
+        const refWords = (q.answer || '').toLowerCase().split(/\s+/).filter(w => w.length > 3)
+        const inputLower = trimmed.toLowerCase()
+        const matched = refWords.filter(w => inputLower.includes(w)).length
+        const fallbackScore = refWords.length > 0 ? Math.round(matched / refWords.length * 100) : 0
+        setAiResult({
+          score: fallbackScore,
+          feedback: 'AI评分暂时不可用，使用基础匹配',
+        })
       }
       setAiEvaluating(false)
     }
@@ -733,7 +750,7 @@ function SimpleWritingInput({ q, onSubmit, englishTag, passage }) {
             )}
           </div>
           <button
-            onClick={() => onSubmit(input, aiResult ? aiResult.score >= 60 : true)}
+            onClick={() => onSubmit(input, aiResult ? aiResult.score >= 60 : false)}
             className="w-full py-3 rounded-2xl bg-gradient-to-r from-sky-400 to-blue-500 text-white font-bold active:scale-95 shadow-md"
           >
             继续下一题 →
@@ -1017,13 +1034,14 @@ function ClozeQuestion({ q, onSubmit }) {
   const [results, setResults] = useState([])
   const [submitted, setSubmitted] = useState(false)
   const [currentCorrect, setCurrentCorrect] = useState(false)
+  const [selectedLetter, setSelectedLetter] = useState(null)
+  const passageRef = useRef(null)
 
   // 解析options: 每个格式为 "(1) A.xxx B.xxx C.xxx D.xxx"
   const clozeOptions = useMemo(() => {
     return (q.options || []).map((optStr, idx) => {
       const matches = [...optStr.matchAll(/([A-D])\.\s*(.+?)(?=\s*[A-D]\.\s|$)/g)]
       const opts = matches.map(m => ({ letter: m[1], text: m[2].trim() }))
-      // Extract number from "(1)" prefix
       const numMatch = optStr.match(/\((\d+)\)/)
       return { num: numMatch ? parseInt(numMatch[1]) : idx + 1, opts }
     })
@@ -1039,36 +1057,88 @@ function ClozeQuestion({ q, onSubmit }) {
     return map
   }, [q.answer])
 
-  // Show passage with highlighted current blank
+  // 构建选项字母→文本映射（用于在文章中显示已选答案）
+  const optTextMap = useMemo(() => {
+    const map = {}
+    for (const co of clozeOptions) {
+      for (const o of co.opts) {
+        map[`${co.num}_${o.letter}`] = o.text
+      }
+    }
+    return map
+  }, [clozeOptions])
+
+  // 提取当前空所在的句子
+  const currentSentence = useMemo(() => {
+    const curNum = clozeOptions[step]?.num
+    if (!curNum) return ''
+    const lines = (q.question || '').split('\n').filter(l => l.trim())
+    return lines.find(l => l.includes(`__(${curNum})__`)) || ''
+  }, [q.question, step, clozeOptions])
+
+  // Show passage with highlighted current blank + 已答的空显示答案
   const passageHtml = useMemo(() => {
     let text = q.question || ''
-    // Highlight current blank number
     if (clozeOptions.length > 0 && step < clozeOptions.length) {
       const curNum = clozeOptions[step].num
-      text = text.replace(new RegExp(`__\\(${curNum}\\)__`, 'g'), `<span style="color:#0369a1;font-weight:bold;background:#e0f2fe;padding:0 4px;border-radius:4px">__(${curNum})__</span>`)
-      // Dim other blanks
-      text = text.replace(/__\((\d+)__/g, (match, n) => {
+      // 先处理已答过的空 → 替换为答案文本
+      for (let i = 0; i < results.length; i++) {
+        const answeredNum = clozeOptions[i]?.num
+        if (answeredNum === undefined) continue
+        const r = results[i]
+        const ansLetter = answerMap[answeredNum]
+        const ansText = optTextMap[`${answeredNum}_${ansLetter}`] || ansLetter
+        const color = r.correct ? '#16a34a' : '#dc2626'
+        const icon = r.correct ? '✓' : '✗'
+        text = text.replace(
+          new RegExp(`__\\(${answeredNum}\\)__`, 'g'),
+          `<span style="color:${color};font-weight:600;background:${r.correct ? '#f0fdf4' : '#fef2f2'};padding:1px 4px;border-radius:4px;font-size:0.75rem">${icon}${ansText}</span>`
+        )
+      }
+      // 高亮当前空
+      text = text.replace(new RegExp(`__\\(${curNum}\\)__`, 'g'),
+        `<span style="color:#0369a1;font-weight:bold;background:#e0f2fe;padding:0 6px;border-radius:4px;border-bottom:2px solid #0369a1">__(${curNum})__</span>`)
+      // 暗化其他未答的空
+      text = text.replace(/__\((\d+)\)__/g, (match, n) => {
         if (parseInt(n) === curNum) return match
         return `<span style="color:#9ca3af">__(${n})__</span>`
       })
     }
     return text
-  }, [q.question, step, clozeOptions])
+  }, [q.question, step, clozeOptions, results, answerMap, optTextMap])
+
+  // 自动滚动到当前空
+  useEffect(() => {
+    if (!passageRef.current) return
+    const curNum = clozeOptions[step]?.num
+    if (!curNum) return
+    // 延迟一帧等 HTML 更新
+    requestAnimationFrame(() => {
+      const container = passageRef.current
+      if (!container) return
+      const markers = container.querySelectorAll('span[style*="border-bottom"]')
+      if (markers.length > 0) {
+        markers[0].scrollIntoView({ behavior: 'smooth', block: 'center' })
+      }
+    })
+  }, [step, clozeOptions])
 
   function handleSelect(letter) {
     if (submitted) return
     const correct = letter.toUpperCase() === (answerMap[clozeOptions[step]?.num] || '')
     setCurrentCorrect(correct)
+    setSelectedLetter(letter)
     setSubmitted(true)
   }
 
   function advance() {
-    const next = [...results, { correct: currentCorrect }]
+    const next = [...results, { correct: currentCorrect, letter: selectedLetter }]
     setResults(next)
     if (next.length < clozeOptions.length) {
       setStep(s => s + 1)
       setSubmitted(false)
       setCurrentCorrect(false)
+      setSelectedLetter(null)
     }
   }
 
@@ -1085,12 +1155,16 @@ function ClozeQuestion({ q, onSubmit }) {
             {correct} / {total}
           </div>
           <div className="text-sm text-gray-500 mt-1">正确率 {pct}%</div>
-          <div className="flex gap-1 justify-center mt-3">
-            {results.map((r, i) => (
-              <span key={i} className={`w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold text-white ${r.correct ? 'bg-green-400' : 'bg-red-400'}`}>
-                {r.correct ? '✓' : '✗'}
-              </span>
-            ))}
+          <div className="flex gap-1.5 justify-center mt-3 flex-wrap">
+            {results.map((r, i) => {
+              const ansLetter = answerMap[clozeOptions[i]?.num]
+              const ansText = optTextMap[`${clozeOptions[i]?.num}_${ansLetter}`] || ansLetter
+              return (
+                <span key={i} className={`px-2 py-1 rounded-lg text-xs font-bold text-white ${r.correct ? 'bg-green-400' : 'bg-red-400'}`}>
+                  {i + 1}. {ansText}
+                </span>
+              )
+            })}
           </div>
         </div>
         {q.analysis && (
@@ -1108,37 +1182,54 @@ function ClozeQuestion({ q, onSubmit }) {
   }
 
   const currentOpts = clozeOptions[step]
+  const correctLetter = answerMap[currentOpts?.num] || ''
 
   return (
     <div className="flex flex-col gap-3">
-      {/* 文章（可滚动） */}
-      <div className="bg-white rounded-2xl px-4 py-3 shadow-sm max-h-56 overflow-y-auto">
-        <div className="text-[10px] text-gray-400 font-semibold mb-1 uppercase tracking-wide">阅读材料</div>
-        <p className="text-gray-700 text-xs leading-relaxed whitespace-pre-wrap" dangerouslySetInnerHTML={{ __html: passageHtml }} />
-      </div>
-
-      {/* 进度 */}
-      <div className="flex items-center gap-2">
-        <div className="flex-1 bg-gray-100 rounded-full h-1.5">
-          <div className="bg-sky-400 h-1.5 rounded-full transition-all" style={{ width: `${step / clozeOptions.length * 100}%` }}/>
+      {/* 进度条（顶部醒目） */}
+      <div className="flex items-center gap-2.5 px-1">
+        <div className="flex gap-1.5 flex-1 overflow-x-auto pb-0.5">
+          {clozeOptions.map((co, i) => {
+            const r = results[i]
+            const isCurrent = i === step
+            let cls = 'w-7 h-7 rounded-lg flex items-center justify-center text-xs font-bold flex-shrink-0 transition-all '
+            if (r) cls += r.correct ? 'bg-green-400 text-white' : 'bg-red-400 text-white'
+            else if (isCurrent) cls += 'bg-sky-500 text-white ring-2 ring-sky-200'
+            else cls += 'bg-gray-100 text-gray-400'
+            return <div key={i} className={cls}>{i + 1}</div>
+          })}
         </div>
-        <span className="text-xs text-gray-400 font-medium whitespace-nowrap">
-          第 {step + 1} / {clozeOptions.length} 空
-        </span>
       </div>
 
-      {/* 当前空题号 */}
-      <div className="bg-white rounded-2xl p-4 shadow-sm">
-        <div className="text-xs font-bold text-sky-500 mb-2">（{currentOpts?.num}）选择正确选项填入文中</div>
+      {/* 文章（可滚动，已答的空显示答案） */}
+      <div className="bg-white rounded-2xl px-4 py-3 shadow-sm max-h-40 overflow-y-auto" ref={passageRef}>
+        <div className="text-[10px] text-gray-400 font-semibold mb-1 uppercase tracking-wide">阅读材料</div>
+        <p className="text-gray-500 text-xs leading-relaxed whitespace-pre-wrap" dangerouslySetInnerHTML={{ __html: passageHtml }} />
       </div>
+
+      {/* 当前句子聚焦卡 */}
+      {currentSentence && (
+        <div className="bg-sky-50 border-2 border-sky-200 rounded-2xl p-4">
+          <div className="text-[10px] text-sky-500 font-bold mb-1.5 uppercase tracking-wide">
+            第 {step + 1} 空 / 共 {clozeOptions.length} 空
+          </div>
+          <p className="text-sm text-sky-900 leading-relaxed font-medium">
+            {currentSentence.replace(/__\(\d+\)__/g, m => {
+              const n = m.match(/\d+/)?.[0]
+              return n == currentOpts?.num ? '______' : `___(${n})___`
+            })}
+          </p>
+        </div>
+      )}
 
       {/* ABCD选项 */}
       {!submitted && currentOpts?.opts && (
         <div className="flex flex-col gap-2">
           {currentOpts.opts.map(opt => (
             <button key={opt.letter} onClick={() => handleSelect(opt.letter)}
-              className="rounded-2xl border-2 border-gray-200 bg-white px-4 py-3 text-sm text-left font-medium active:scale-95 transition-all">
-              <span className="mr-2 text-xs font-bold text-gray-400">{opt.letter}.</span>{opt.text}
+              className="rounded-2xl border-2 border-gray-200 bg-white px-4 py-3 text-sm text-left font-medium active:scale-[0.98] transition-all hover:border-sky-300 hover:bg-sky-50">
+              <span className="inline-flex items-center justify-center w-6 h-6 rounded-full bg-gray-100 text-gray-500 text-xs font-bold mr-2.5">{opt.letter}</span>
+              {opt.text}
             </button>
           ))}
         </div>
@@ -1149,21 +1240,24 @@ function ClozeQuestion({ q, onSubmit }) {
         <>
           <div className="grid grid-cols-2 gap-2">
             {currentOpts.opts.map(opt => {
-              const isCorrect = opt.letter.toUpperCase() === (answerMap[currentOpts?.num] || '')
-              const wasWrong = !currentCorrect && opt.letter.toUpperCase() !== (answerMap[currentOpts?.num] || '')
-              let cls = 'border-gray-200 bg-white text-gray-400'
-              if (isCorrect) cls = 'border-green-400 bg-green-50 text-green-700'
-              else if (!isCorrect && !wasWrong) cls = 'border-gray-200 bg-white text-gray-300'
-              else cls = 'border-red-300 bg-red-50 text-red-500 opacity-40'
+              const isCorrect = opt.letter.toUpperCase() === correctLetter
+              const isSelected = opt.letter === selectedLetter
+              let cls = 'border-2 rounded-xl px-3 py-2.5 text-sm font-medium '
+              if (isCorrect) cls += 'border-green-400 bg-green-50 text-green-700'
+              else if (isSelected && !isCorrect) cls += 'border-red-400 bg-red-50 text-red-600'
+              else cls += 'border-gray-100 bg-gray-50 text-gray-300'
               return (
-                <div key={opt.letter} className={`rounded-xl border-2 px-3 py-2.5 text-sm font-medium ${cls}`}>
-                  <span className="mr-1 text-xs font-bold">{opt.letter}.</span>{opt.text}
+                <div key={opt.letter} className={cls}>
+                  <span className="inline-flex items-center justify-center w-5 h-5 rounded-full text-xs font-bold mr-1.5 bg-white border border-gray-200">{opt.letter}</span>
+                  {opt.text}
+                  {isCorrect && <span className="ml-1.5 text-green-500">✓</span>}
+                  {isSelected && !isCorrect && <span className="ml-1.5 text-red-400">✗</span>}
                 </div>
               )
             })}
           </div>
           <div className={`rounded-2xl px-4 py-3 border font-semibold text-sm ${currentCorrect ? 'bg-green-50 border-green-200 text-green-700' : 'bg-red-50 border-red-200 text-red-600'}`}>
-            {currentCorrect ? '✅ 正确！' : `❌ 正确答案：${answerMap[currentOpts?.num]}`}
+            {currentCorrect ? '✅ 正确！' : `❌ 正确答案：${correctLetter}. ${optTextMap[`${currentOpts?.num}_${correctLetter}`] || correctLetter}`}
           </div>
           <button onClick={advance}
             className="w-full py-3 rounded-2xl bg-gradient-to-r from-emerald-400 to-teal-500 text-white font-bold active:scale-95 transition-transform shadow-md">
@@ -1754,9 +1848,14 @@ export default function EnglishQuizPage({ user, options = {}, onFinish, onBack }
         xpEarned: xpGained + xp, durationSec: totalSec,
       }
         storage.addSession(user.id, session)
-        // 标记星球完成（至少答5题且完成全部，才算打卡）
+        // 标记星球完成（写作需3轮×3题=9题才算打卡，其他至少答3题）
         const completedTag = EN_PLANET_CANONICAL_TAG[englishTag] || current?.knowledge_tag
-        if (completedTag && allRecords.length >= 3) {
+        const todayRecords = storage.getRecords(user.id).filter(r => {
+          const tag = r.knowledge_tag || ''
+          return r.timestamp?.startsWith(new Date().toISOString().split('T')[0]) && tag === completedTag
+        })
+        const writingThreshold = englishTag === 'en_writing' ? 9 : 3
+        if (completedTag && todayRecords.length >= writingThreshold) {
           storage.markPlanetComplete(user.id, completedTag)
         }
         updateStreak(user.id)

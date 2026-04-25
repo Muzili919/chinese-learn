@@ -310,7 +310,8 @@ function PoliticsChoiceQuiz({ q, onSubmit }) {
   const [isCorrect, setIsCorrect] = useState(false)
 
   const ans = (q.answer || '').trim()
-  const correctIdx = /^[A-D]$/i.test(ans) ? ans.toUpperCase().charCodeAt(0) - 65 : -1
+  const letterMatch = ans.match(/^([A-D])/i)
+  const correctIdx = letterMatch ? letterMatch[1].toUpperCase().charCodeAt(0) - 65 : -1
 
   function handleSelect(idx) {
     if (submitted) return

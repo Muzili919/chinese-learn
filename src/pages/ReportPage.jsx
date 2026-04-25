@@ -14,6 +14,7 @@ import { useState, useMemo, useRef } from 'react'
 import { storage, exportAll } from '../utils/storage'
 import { FULL_Q_MAP } from '../utils/questionMap'
 import { getActivityHeatmap } from '../utils/diagnosis'
+import StudyReportCard from '../components/StudyReportCard'
 import {
   getUpcomingExams, getAllExams, addExam, removeExam, getDaysUntil,
   addExamResult, getExamResults, removeExamResult, updateExamErrorTags,
@@ -363,6 +364,19 @@ export default function ReportPage({ user, onBack, onStartQuiz, grade = 'primary
       {/* ══ 总览 Tab ══ */}
       {activeTab === 'overview' && (
         <div className="px-4 pt-5 space-y-4 pb-10">
+          {/* 今日学习报告 */}
+          {(() => {
+            const todayReport = storage.getTodayStudyReport(user.id)
+            const hasData = Object.keys(todayReport).length > 0
+            return hasData ? (
+              <div>
+                <h2 className="text-sm font-semibold text-gray-600 mb-3">📊 今日学习报告</h2>
+                <StudyReportCard report={todayReport} />
+              </div>
+            ) : null
+          })()}
+          {/* 家长邮箱设置 */}
+          <ParentEmailSetting userId={user.id} />
           {/* 14天热力图 */}
           <div className="bg-white rounded-2xl p-4 shadow-sm border border-gray-100">
             <h2 className="text-sm font-semibold text-gray-600 mb-3">近14天答题量</h2>
@@ -903,6 +917,66 @@ function SubjectReport({
           </div>
         )
       })()}
+    </div>
+  )
+}
+
+// ── 家长邮箱设置组件 ──────────────────────────────────────────
+function ParentEmailSetting({ userId }) {
+  const [email, setEmail] = useState('')
+  const [saved, setSaved] = useState(false)
+  const [loading, setLoading] = useState(false)
+
+  useState(() => {
+    fetch(`/api/user/email/${userId}`)
+      .then(r => r.json())
+      .then(d => { if (d.email) setEmail(d.email) })
+      .catch(() => {})
+  })
+
+  async function handleSave() {
+    setLoading(true)
+    setSaved(false)
+    try {
+      const res = await fetch('/api/user/email', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ userId, email }),
+      })
+      const data = await res.json()
+      if (data.ok) setSaved(true)
+    } catch {}
+    setLoading(false)
+  }
+
+  return (
+    <div className="bg-white rounded-2xl p-4 shadow-sm border border-gray-100">
+      <div className="flex items-center gap-2 mb-3">
+        <span className="text-base">📧</span>
+        <h2 className="text-sm font-semibold text-gray-600">每日报告接收邮箱</h2>
+      </div>
+      <p className="text-xs text-gray-400 mb-2">
+        设置后，每日学习报告将自动发送到此邮箱。支持多个邮箱，用英文逗号分隔。
+      </p>
+      <div className="flex gap-2">
+        <input
+          type="email"
+          value={email}
+          onChange={e => { setEmail(e.target.value); setSaved(false) }}
+          placeholder="parent@example.com"
+          className="flex-1 text-sm px-3 py-2 border border-gray-200 rounded-xl focus:outline-none focus:border-indigo-400"
+        />
+        <button
+          onClick={handleSave}
+          disabled={loading}
+          className="px-4 py-2 text-sm font-semibold text-white rounded-xl"
+          style={{
+            background: loading ? '#9ca3af' : 'linear-gradient(135deg, #6366f1, #8b5cf6)',
+          }}
+        >
+          {loading ? '保存中...' : saved ? '✓ 已保存' : '保存'}
+        </button>
+      </div>
     </div>
   )
 }
