@@ -13,7 +13,7 @@ const EN_PLANETS = [
   { id: 'en_reading', label: '阅读星球', emoji: '📚', color: 'from-orange-400 to-amber-500',  desc: '短文阅读·信息提取' },
   { id: 'en_writing', label: '写作星球', emoji: '✏️', color: 'from-pink-400 to-rose-600',    desc: 'AI批改·句子作文' },
   { id: 'en_cloze',   label: '完形填空', emoji: '📝', color: 'from-indigo-400 to-blue-600',  desc: '10空选择·上下文推理·语法综合' },
-  { id: 'en_lightning',label: '闪电测验', emoji: '⚡', color: 'from-yellow-400 to-orange-500', desc: '5题快测·纯回忆·约30秒', isLightning: true },
+  { id: 'en_lightning',label: '闪电测验', emoji: '⚡', color: 'from-yellow-400 to-orange-500', desc: '10题快测·纯回忆·词汇闪测', isLightning: true },
   // 更多功能（听写、自测等）
   { id: 'en_dictation', label: '听写星球', emoji: '✍️', color: 'from-cyan-400 to-blue-500', desc: 'TTS听写·拍照批改·词库管理', isDictation: true },
   { id: 'en_self_test', label: '自测星球', emoji: '📝', color: 'from-blue-500 to-indigo-600', desc: 'AI出卷·小升初难度·查漏补缺', isSelfTest: true },

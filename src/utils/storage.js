@@ -393,27 +393,50 @@ export const storage = {
   },
 
   // 今日到期错题数：nextReview <= today 的错题（不含未来复习的）
-  getDueTodayWrongCount: (userId) => {
+  getDueTodayWrongCount: (userId, grade) => {
     const wrongIds = storage.getWrongCardIds(userId);
     if (wrongIds.size === 0) return 0;
     const srsStates = storage.getSrsState(userId);
     const today = new Date().toISOString().split('T')[0];
-    // 预构建每张卡最近答错时间
     const records = storage.getRecords(userId);
+
+    // 按学段过滤学科
+    const gradeSubjects = (grade === 'junior2' || grade === 'junior')
+      ? ['english', 'math', 'politics', 'chinese_junior']
+      : ['chinese', 'english', 'math'];
+
+    // 预构建：最近答错时间 + 今天是否答对过
     const lastWrongDate = {};
+    const correctToday = new Set();
     for (const r of records) {
-      if (!r.correct && wrongIds.has(r.card_id)) {
-        const date = (r.timestamp || '').slice(0, 10);
-        if (!lastWrongDate[r.card_id] || date > lastWrongDate[r.card_id]) {
-          lastWrongDate[r.card_id] = date;
+      const date = (r.timestamp || '').slice(0, 10);
+      if (wrongIds.has(r.card_id)) {
+        if (!r.correct) {
+          if (!lastWrongDate[r.card_id] || date > lastWrongDate[r.card_id]) {
+            lastWrongDate[r.card_id] = date;
+          }
+        } else if (date === today) {
+          correctToday.add(r.card_id);
         }
       }
     }
+
+    // 构建card_id到subject的映射（从记录中推断）
+    const cardSubjects = {};
+    for (const r of records) {
+      if (!cardSubjects[r.card_id]) cardSubjects[r.card_id] = r.subject;
+    }
+
     let count = 0;
     for (const id of wrongIds) {
+      // 跳过今天已答对的卡片
+      if (correctToday.has(id)) continue;
+      // 跳过不在本学段学科的卡片
+      const subj = cardSubjects[id];
+      if (subj && !gradeSubjects.includes(subj)) continue;
+
       const state = srsStates[id];
       if (!state) {
-        // 无 SRS 记录的新错题：今天错的不算到期（明天再复习）
         if (lastWrongDate[id] === today) continue;
         count++;
       } else if (state.nextReview <= today) {

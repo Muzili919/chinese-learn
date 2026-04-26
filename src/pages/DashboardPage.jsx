@@ -101,6 +101,10 @@ export default function DashboardPage({
   const [showGradeSwitch, setShowGradeSwitch] = useState(false)
   const [showLogoutConfirm, setShowLogoutConfirm] = useState(false)
 
+  // ── 学段 & 科目 ──────────────────────────────────────────
+  const normalizedGrade = (grade === 'junior2' || grade === 'junior') ? 'junior2' : 'primary'
+  const subjects = SUBJECTS_CONFIG[normalizedGrade] || SUBJECTS_CONFIG.primary
+
   // ── 基础数据 ────────────────────────────────────────────
   const xp = storage.getXP(user.id)
   const level = calcLevel(xp)
@@ -137,33 +141,38 @@ export default function DashboardPage({
     return result
   }, [recentBySubject])
 
-  // 各科错题数
+  // 各科错题数（只统计当前学段科目）
   const wrongBySubject = useMemo(() => {
     const map = {}
+    const currentSubjectIds = subjects.map(s => s.id)
     const wrongIds = storage.getWrongCardIds(user.id)
     for (const id of wrongIds) {
-      // 从最新记录里找对应科目
       const rec = records.slice().reverse().find(r => r.card_id === id)
       const subj = rec?.subject || 'chinese'
-      map[subj] = (map[subj] || 0) + 1
-    }
-    return map
-  }, [records, user.id])
-
-  // 本周各科答题数
-  const weeklyBySubject = useMemo(() => {
-    const weekAgo = new Date()
-    weekAgo.setDate(weekAgo.getDate() - 7)
-    const weekAgoStr = weekAgo.toISOString().slice(0, 10)
-    const map = {}
-    for (const r of records) {
-      if (r.timestamp >= weekAgoStr) {
-        const subj = r.subject || 'chinese'
+      if (currentSubjectIds.includes(subj)) {
         map[subj] = (map[subj] || 0) + 1
       }
     }
     return map
-  }, [records])
+  }, [records, user.id, subjects])
+
+  // 本周各科答题数（只统计当前学段科目）
+  const weeklyBySubject = useMemo(() => {
+    const weekAgo = new Date()
+    weekAgo.setDate(weekAgo.getDate() - 7)
+    const weekAgoStr = weekAgo.toISOString().slice(0, 10)
+    const currentSubjectIds = subjects.map(s => s.id)
+    const map = {}
+    for (const r of records) {
+      if (r.timestamp >= weekAgoStr) {
+        const subj = r.subject || 'chinese'
+        if (currentSubjectIds.includes(subj)) {
+          map[subj] = (map[subj] || 0) + 1
+        }
+      }
+    }
+    return map
+  }, [records, subjects])
 
   // 今日答题数
   const todayCount = useMemo(() => {
@@ -182,8 +191,6 @@ export default function DashboardPage({
     const today = new Date().toISOString().slice(0, 10)
     return streak.lastDate === today
   }, [streak])
-
-  const subjects = SUBJECTS_CONFIG[grade] || SUBJECTS_CONFIG.primary
 
   // ── 智能卡片优先级排序 ──────────────────────────────────
   const cards = useMemo(() => {
@@ -208,7 +215,7 @@ export default function DashboardPage({
     }
 
     // 3. AI针对练习（只显示当前学段的薄弱科目，初中不显示语文等）
-    const currentGradeSubjects = (SUBJECTS_CONFIG[grade] || SUBJECTS_CONFIG.primary).map(s => s.id)
+    const currentGradeSubjects = subjects.map(s => s.id)
     const aiSubjects = Object.keys(weaksBySubject).filter(s => currentGradeSubjects.includes(s))
     if (aiSubjects.length > 0) {
       list.push({ id: 'ai_practice', priority: 45 })
@@ -481,7 +488,7 @@ function SmartCard({
 
   // ── AI针对练习卡 ─────────────────────────────────────────
   if (cardId === 'ai_practice') {
-    const currentGradeSubjects = (SUBJECTS_CONFIG[grade] || SUBJECTS_CONFIG.primary).map(s => s.id)
+    const currentGradeSubjects = subjects.map(s => s.id)
     const aiSubjects = Object.keys(weaksBySubject).filter(s => currentGradeSubjects.includes(s))
     const subjectConfigs = {
       chinese: { label: '语文', emoji: '📖', color: '#6366f1', bg: '#eef2ff' },

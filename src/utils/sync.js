@@ -123,7 +123,13 @@ export async function pullFromCloud(userId) {
       for (const r of localRecords) mergedMap.set(`${r.card_id}|${r.timestamp}`, r)
       for (const r of cloudRecords) {
         const key = `${r.card_id}|${r.timestamp}`
-        if (!mergedMap.has(key)) mergedMap.set(key, r)
+        if (!mergedMap.has(key)) {
+          mergedMap.set(key, r)
+        } else {
+          // 本地已有此记录，用字段更完整的一方（字段多的覆盖字段少的）
+          const local = mergedMap.get(key)
+          if (Object.keys(r).length > Object.keys(local).length) mergedMap.set(key, r)
+        }
       }
       localStorage.setItem(`cl_records_${userId}`, JSON.stringify([...mergedMap.values()]))
       pulledAny = true
@@ -150,7 +156,13 @@ export async function pullFromCloud(userId) {
       const localXP = parseInt(localStorage.getItem(`cl_xp_${userId}`) || '0')
       localStorage.setItem(`cl_xp_${userId}`, String(Math.max(localXP, stats.xp)))
       if (stats.streak_count != null) {
-        localStorage.setItem(`cl_streak_${userId}`, JSON.stringify({ count: stats.streak_count, lastDate: stats.streak_date || null }))
+        const localStreak = JSON.parse(localStorage.getItem(`cl_streak_${userId}`) || '{}')
+        // 只在云端数据更新时覆盖本地（比较日期，避免刚做完题被旧数据覆盖）
+        const cloudDate = stats.streak_date || ''
+        const localDate = localStreak.lastDate || ''
+        if (cloudDate > localDate || (cloudDate === localDate && (stats.streak_count || 0) > (localStreak.count || 0))) {
+          localStorage.setItem(`cl_streak_${userId}`, JSON.stringify({ count: stats.streak_count, lastDate: cloudDate }))
+        }
       }
       if (stats.completed_planets) {
         const localCompleted = storage.getCompletedPlanets(userId)

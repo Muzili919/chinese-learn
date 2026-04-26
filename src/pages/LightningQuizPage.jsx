@@ -4,15 +4,13 @@ import { syncAfterSession } from '../utils/sync'
 import { updateSRS, toQuality, isDue } from '../utils/srs'
 import { speakEnglish } from '../utils/tts'
 import { shuffle } from '../utils/common'
-import wordsNetwork from '../data/words_network_j2.json'
+import wordsNetworkPrimary from '../data/words_network.json'
+import wordsNetworkJunior from '../data/words_network_j2.json'
 
 // ─── 常量 ───────────────────────────────────────────────────────
-const QUIZ_COUNT = 5
+const QUIZ_COUNT = 10
 const XP_CORRECT = 12
 const XP_STREAK_BONUS = 20
-
-const allWords = Object.values(wordsNetwork.words)
-const allWordsMap = wordsNetwork.words
 
 
 // ─── 题型生成（3种纯回忆题型） ──────────────────────────────────
@@ -80,6 +78,12 @@ function buildLightningQuestion(wordObj, mode) {
 // ─── 主页面 ──────────────────────────────────────────────────────
 export default function LightningQuizPage({ user, onFinish, onBack }) {
   const [phase, setPhase] = useState('intro') // intro | quiz | result
+
+  // 按年级加载词库
+  const isJunior = user?.grade === 'junior2' || user?.grade === 'junior'
+  const wordsNetwork = isJunior ? wordsNetworkJunior : wordsNetworkPrimary
+  const allWords = Object.values(wordsNetwork.words)
+  const allWordsMap = wordsNetwork.words
   const [questions, setQuestions] = useState([])
   const [qIndex, setQIndex] = useState(0)
   const [selected, setSelected] = useState(null)
@@ -247,7 +251,7 @@ export default function LightningQuizPage({ user, onFinish, onBack }) {
           每日闪电测验
         </h1>
         <p className="text-sm text-white/80 text-center mb-8">
-          {QUIZ_COUNT} 题 · 约 30 秒 · 纯回忆挑战
+          {QUIZ_COUNT} 题 · 纯回忆挑战
         </p>
 
         <div className="bg-white/20 backdrop-blur-sm rounded-2xl px-5 py-4 mb-8 w-full max-w-xs">

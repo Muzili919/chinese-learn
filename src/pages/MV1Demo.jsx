@@ -1619,7 +1619,7 @@ export default function MV1Demo({ onBack, initialState, onStateChange, grade, cu
 
         {activeTab === 'game' && (() => {
           // ★ 错题锁：只有今日到期的错题才锁定游戏，未来复习的不计入
-          const wrongCount = currentUserId ? storage.getDueTodayWrongCount(currentUserId) : 0
+          const wrongCount = currentUserId ? storage.getDueTodayWrongCount(currentUserId, grade) : 0
           if (wrongCount > 0) {
             return (
               <div style={{ padding: '48px 24px', textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', minHeight: 300 }}>
