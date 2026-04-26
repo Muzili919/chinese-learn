@@ -446,6 +446,7 @@ export default function PoliticsQuizPage({ user, options = {}, onFinish, onBack 
       knowledge_tag: current.knowledge_tag || current.module || '',
       subject: 'politics',
       timestamp: new Date().toISOString(),
+      grade: 'junior',
     }
     storage.addRecord(user.id, record)
 
@@ -481,7 +482,7 @@ export default function PoliticsQuizPage({ user, options = {}, onFinish, onBack 
       }
       storage.addSession(user.id, session)
       // 标记星球完成（至少答5题才算打卡）
-      if (allRecords.length >= 5 && current?.ability_tag) storage.markPlanetComplete(user.id, current.ability_tag)
+      if (allRecords.length >= 3 && current?.ability_tag) storage.markPlanetComplete(user.id, current.ability_tag)
       updateStreak(user.id)
       syncAfterSession(user.id)
       onFinish({ session, records: allRecords })

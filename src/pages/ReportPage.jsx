@@ -220,10 +220,16 @@ export default function ReportPage({ user, onBack, onStartQuiz, grade = 'primary
     try { return JSON.parse(localStorage.getItem(`exam_history_${user.id}`) || '[]') } catch { return [] }
   }, [user.id, activeTab])
 
-  // 各科记录
-  const chineseRecords  = useMemo(() => allRecords.filter(r => !r.subject || r.subject === 'chinese' || r.subject === 'chinese_junior'), [allRecords])
+  // 各科记录（按学段过滤）
+  const chineseRecords  = useMemo(() => {
+    if (grade === 'junior2') return allRecords.filter(r => r.subject === 'chinese_junior')
+    return allRecords.filter(r => !r.subject || r.subject === 'chinese')
+  }, [allRecords, grade])
   const englishRecords  = useMemo(() => allRecords.filter(r => r.subject === 'english'), [allRecords])
-  const mathRecords     = useMemo(() => allRecords.filter(r => r.subject === 'math'), [allRecords])
+  const mathRecords     = useMemo(() => {
+    if (grade === 'junior2') return allRecords.filter(r => r.subject === 'math_junior')
+    return allRecords.filter(r => r.subject === 'math')
+  }, [allRecords, grade])
   const politicsRecords = useMemo(() => allRecords.filter(r => r.subject === 'politics'), [allRecords])
 
   // 判断哪些学科有足够数据
@@ -400,26 +406,23 @@ export default function ReportPage({ user, onBack, onStartQuiz, grade = 'primary
             <h2 className="text-sm font-semibold text-gray-600 mb-3">本周各科练习量</h2>
             <div className="space-y-2.5">
               {[
-                { id: 'chinese',  label: '语文', emoji: '📖', total: chineseRecords.length  },
-                { id: 'english',  label: '英语', emoji: '🌎', total: englishRecords.length  },
-                { id: 'math',     label: '数学', emoji: '🔢', total: mathRecords.length     },
-                { id: 'politics', label: '道法', emoji: '⚖️', total: politicsRecords.length },
-              ].map(({ id, label, emoji, total }) => {
-                const w = weeklyBalance[id] || { count: 0 }
-                const maxWeekly = Math.max(50, ...Object.values(weeklyBalance).map(v => v.count))
-                const pct = maxWeekly > 0 ? Math.min(100, (w.count / maxWeekly) * 100) : 0
-                if (total === 0 && w.count === 0) return null
+                { id: 'chinese',  label: '语文', emoji: '📖', records: chineseRecords },
+                { id: 'english',  label: '英语', emoji: '🌎', records: englishRecords },
+                { id: 'math',     label: '数学', emoji: '🔢', records: mathRecords },
+                { id: 'politics', label: '道法', emoji: '⚖️', records: politicsRecords },
+              ].map(({ id, label, emoji, records }) => {
+                const total = records.length
+                const sevenDaysAgo = Date.now() - 7 * 86400000
+                const weeklyCount = records.filter(r => new Date(r.timestamp).getTime() > sevenDaysAgo).length
+                if (total === 0 && weeklyCount === 0) return null
                 return (
                   <div key={id}>
                     <div className="flex justify-between text-xs mb-1">
                       <span className="text-gray-600 font-medium">{emoji} {label}</span>
-                      <span className={`font-bold ${w.count === 0 ? 'text-gray-300' : 'text-indigo-600'}`}>
-                        {w.count === 0 ? '本周未练习' : `本周 ${w.count} 题`}
+                      <span className={`font-bold ${weeklyCount === 0 ? 'text-gray-300' : 'text-indigo-600'}`}>
+                        {weeklyCount === 0 ? '本周未练习' : `本周 ${weeklyCount} 题`}
                         <span className="text-gray-400 font-normal ml-1">（共 {total} 题）</span>
                       </span>
-                    </div>
-                    <div className="w-full bg-gray-100 rounded-full h-1.5">
-                      <div className="h-1.5 rounded-full bg-indigo-400 transition-all" style={{ width: `${pct}%` }} />
                     </div>
                   </div>
                 )
@@ -453,6 +456,38 @@ export default function ReportPage({ user, onBack, onStartQuiz, grade = 'primary
               <span>两周内全完成 {taskCompletion.filter(d => d.done.length >= 3).length} 天</span>
             </div>
           </div>
+
+          {/* 今日打卡星球 */}
+          {(() => {
+            const completedToday = storage.getCompletedPlanetsToday(user.id)
+            if (completedToday.length === 0) return null
+            // 为不同学段显示对应的星球名称映射
+            const tagLabels = {
+              // 初中语文
+              jc_basic: '语言基础', jc_poetry: '古诗文', jc_classical: '文言文',
+              jc_novel: '名著阅读', jc_expression: '语言运用', jc_reading: '现代文阅读',
+              // 政治
+              '选择题': '基石·选择题', '简答题': '思辨·简答题', '材料分析题': '洞察·材料分析', '实践探究题': '行动·实践探究',
+              // 初中数学
+              '🔢 方程': '方程', '🔢 函数': '函数', '🔢 代数': '代数', '🔢 几何': '几何', '🔢 公式': '公式',
+              // 小学语文
+              '字词': '字词', '古诗词': '古诗词', '成语': '成语', '句子': '句子', '文学常识': '文学常识',
+              // 英语
+              '英语词汇': '词汇', '英语听力': '听力', '英语语法': '语法', '英语阅读': '阅读', '英语写作': '写作', '完形填空': '完形填空',
+            }
+            return (
+              <div className="bg-gradient-to-br from-green-50 to-emerald-50 border border-green-200 rounded-2xl p-4">
+                <h2 className="text-sm font-bold text-green-800 mb-3">今日打卡星球</h2>
+                <div className="flex flex-wrap gap-2">
+                  {completedToday.map(tag => (
+                    <span key={tag} className="text-xs bg-white text-green-700 px-3 py-1.5 rounded-full font-medium shadow-sm border border-green-100">
+                      {tagLabels[tag] || tag}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            )
+          })()}
 
           {/* 全科弱点快速预览 */}
           {(chineseWeaks.length > 0 || englishWeaks.length > 0 || mathWeaks.length > 0) && (

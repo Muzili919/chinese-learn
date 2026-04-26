@@ -230,9 +230,10 @@ export default function QuizPage({ user, options = {}, onFinish, onBack }) {
       ability_tag: current.ability_tag,
       knowledge_tag: current.knowledge_tag,
       topic: current.topic,
-      subject: mathTopic ? 'math' : juniorChineseTag ? 'chinese_junior' : options?.wrongReviewSubject || 'chinese',
+      subject: mathTopic ? (grade === 'junior' ? 'math_junior' : 'math') : juniorChineseTag ? 'chinese_junior' : options?.wrongReviewSubject || 'chinese',
       timestamp: new Date().toISOString(),
       difficulty: current.difficulty,
+      grade: grade || (juniorChineseTag ? 'junior' : undefined),
     }
     storage.addRecord(user.id, record)
     setSessionRecords((prev) => [...prev, record])
