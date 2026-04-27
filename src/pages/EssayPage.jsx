@@ -150,8 +150,9 @@ export default function EssayPage({ user, onBack, onFinish }) {
         const newCount = (existingData.date === today ? (existingData.count || 0) : 0) + 1
         localStorage.setItem(essayKey, JSON.stringify({ date: today, count: newCount }))
         if (newCount === 1) {
-          storage.markPlanetComplete(user.id, 'essay')
+          storage.markPlanetComplete(user.id, 'jc_writing')
           storage.markPlanetComplete(user.id, '作文星球')
+          storage.markPlanetComplete(user.id, 'essay')
         }
 
         // 奖励经验（根据评分高低乘以系数）

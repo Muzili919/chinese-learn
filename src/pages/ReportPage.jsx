@@ -89,8 +89,8 @@ const MATH_KNOWLEDGE_ICON = {
 // 道法：knowledge_tag 图标
 const POLITICS_ICON = '⚖️'
 
-const STATUS_COLOR = { good: '#22c55e', slow: '#f59e0b', weak: '#ef4444' }
-const STATUS_LABEL = { good: '掌握良好', slow: '需提速', weak: '需加强' }
+const STATUS_COLOR = { good: '#22c55e', slow: '#f59e0b', weak: '#ef4444', limited: '#94a3b8' }
+const STATUS_LABEL = { good: '掌握良好', slow: '需提速', weak: '需加强', limited: '数据不足' }
 
 const API_URL = '/api/ai'
 async function callAI(sysPrompt, userPrompt) {
@@ -110,22 +110,39 @@ async function callAI(sysPrompt, userPrompt) {
 // ── 按 key 分组诊断（可指定用 ability_tag 或 knowledge_tag）─────
 function diagnoseByKey(records, key = 'ability_tag') {
   const groups = {}
+  const now = Date.now()
   for (const r of records) {
     const tag = r[key]
     if (!tag) continue
-    if (!groups[tag]) groups[tag] = { correct: 0, total: 0, times: [] }
+    if (!groups[tag]) groups[tag] = { correct: 0, total: 0, times: [], weightedCorrect: 0, weightedTotal: 0 }
     groups[tag].total++
     if (r.correct) groups[tag].correct++
     if (r.time_spent) groups[tag].times.push(r.time_spent)
+    // 时间衰减加权：7天内全权重，30天内线性衰减到0.5，更早的0.3
+    const age = r.timestamp ? (now - new Date(r.timestamp).getTime()) / 86400000 : 30
+    const weight = age <= 7 ? 1 : age <= 30 ? 1 - (age - 7) / 23 * 0.5 : 0.3
+    groups[tag].weightedTotal += weight
+    if (r.correct) groups[tag].weightedCorrect += weight
   }
   const result = {}
   for (const [tag, d] of Object.entries(groups)) {
-    const acc = d.total > 0 ? d.correct / d.total : 0
+    // 使用加权正确率（更近期数据权重更高）
+    const acc = d.weightedTotal > 0 ? d.weightedCorrect / d.weightedTotal : (d.total > 0 ? d.correct / d.total : 0)
+    const rawAcc = d.total > 0 ? d.correct / d.total : 0
     const avgTime = d.times.length > 0 ? d.times.reduce((a, b) => a + b, 0) / d.times.length : 0
+    // 样本量不足时降低置信度：<3题标记为 'limited'
     let status = 'good'
-    if (acc < 0.6) status = 'weak'
+    if (d.total < 3) status = 'limited'
+    else if (acc < 0.6) status = 'weak'
     else if (acc >= 0.8 && avgTime > 15) status = 'slow'
-    result[tag] = { accuracy: Math.round(acc * 100), avgTime: Math.round(avgTime), total: d.total, status }
+    result[tag] = {
+      accuracy: Math.round(acc * 100),
+      rawAccuracy: Math.round(rawAcc * 100),
+      avgTime: Math.round(avgTime),
+      total: d.total,
+      status,
+      confidence: d.total >= 10 ? 'high' : d.total >= 5 ? 'medium' : d.total >= 3 ? 'low' : 'minimal',
+    }
   }
   return result
 }
@@ -246,10 +263,10 @@ export default function ReportPage({ user, onBack, onStartQuiz, grade = 'primary
   const mathDiagnosis     = useMemo(() => diagnoseByKey(mathRecords, 'knowledge_tag'), [mathRecords])
   const politicsDiagnosis = useMemo(() => diagnoseByKey(politicsRecords, 'knowledge_tag'), [politicsRecords])
 
-  // 各科弱点（accuracy 从低到高）
+  // 各科弱点（accuracy 从低到高，排除样本量不足的）
   function getWeaks(diag) {
     return Object.entries(diag)
-      .filter(([, d]) => d.status === 'weak' || d.status === 'slow')
+      .filter(([, d]) => (d.status === 'weak' || d.status === 'slow') && d.total >= 3)
       .sort((a, b) => a[1].accuracy - b[1].accuracy)
       .map(([tag, d]) => ({ tag, ...d }))
   }
@@ -470,14 +487,26 @@ export default function ReportPage({ user, onBack, onStartQuiz, grade = 'primary
               // 初中语文
               jc_basic: '语言基础', jc_poetry: '古诗文', jc_classical: '文言文',
               jc_novel: '名著阅读', jc_expression: '语言运用', jc_reading: '现代文阅读',
+              jc_writing: '作文', jc_dictation: '听写', jc_self_test: '自测',
+              '作文星球': '作文', 'essay': '作文',
               // 政治
               '选择题': '基石·选择题', '简答题': '思辨·简答题', '材料分析题': '洞察·材料分析', '实践探究题': '行动·实践探究',
+              pol_self_test: '道法自测',
               // 初中数学
+              '🔢 方程与不等式': '方程', '🔢 函数与图像': '函数', '🔢 整式运算': '整式', '🔢 几何证明': '几何',
               '🔢 方程': '方程', '🔢 函数': '函数', '🔢 代数': '代数', '🔢 几何': '几何', '🔢 公式': '公式',
               // 小学语文
               '字词': '字词', '古诗词': '古诗词', '成语': '成语', '句子': '句子', '文学常识': '文学常识',
+              '造句练习': '造句', 'sentence_practice': '造句', '作文': '作文',
               // 英语
-              '英语词汇': '词汇', '英语听力': '听力', '英语语法': '语法', '英语阅读': '阅读', '英语写作': '写作', '完形填空': '完形填空',
+              '英语词汇': '词汇', '英语听力': '听力', '英语语法': '语法', '英语阅读': '阅读', '英语写作': '写作',
+              '完形填空': '完形', '联想星球': '联想', '英语联想': '联想', '闪电测验': '闪电',
+              '英语听写': '听写', 'dictation': '听写', '自测星球': '自测', 'self_test': '自测',
+              '初中单词星球': '词汇',
+              // 数学公式
+              '公式速记': '公式', '🔢 公式速记': '公式',
+              // 小学数学
+              '🔢 数与运算': '运算', '🔢 图形与空间': '图形', '🔢 奥数专题': '奥数',
             }
             return (
               <div className="bg-gradient-to-br from-green-50 to-emerald-50 border border-green-200 rounded-2xl p-4">
@@ -562,7 +591,12 @@ export default function ReportPage({ user, onBack, onStartQuiz, grade = 'primary
                       const tAcc = d.total > 0 ? Math.round(d.correct / d.total * 100) : 0
                       const tAvgTime = d.total > 0 ? (d.totalTime / d.total).toFixed(1) : 0
                       let seriousness, seriousColor
-                      if (parseFloat(tAvgTime) < 3) { seriousness = '⚡过快'; seriousColor = 'text-red-500' }
+                      // 敷衍判断：综合时间和正确率
+                      const fastAndWrong = parseFloat(tAvgTime) < 2 && tAcc < 50
+                      const veryFast = parseFloat(tAvgTime) < 1.5
+                      const fastLowAcc = parseFloat(tAvgTime) < 3 && tAcc < 40
+                      if (fastAndWrong || veryFast || fastLowAcc) { seriousness = '⚠️敷衍'; seriousColor = 'text-red-600' }
+                      else if (parseFloat(tAvgTime) < 2) { seriousness = '⚡过快'; seriousColor = 'text-red-500' }
                       else if (parseFloat(tAvgTime) < 15) { seriousness = '✅正常'; seriousColor = 'text-green-600' }
                       else { seriousness = '🤔很仔细'; seriousColor = 'text-blue-600' }
                       return (
@@ -734,12 +768,12 @@ function SubjectReport({
   const [deletingId, setDeletingId] = useState(null)
   const subjectLabel = { chinese: '语文', english: '英语', math: '数学', politics: '道法' }[subject]
 
-  if (records.length < 5) {
+  if (records.length < 3) {
     return (
       <div className="flex flex-col items-center justify-center px-6 py-16 text-center">
         <div className="text-5xl mb-4">📊</div>
         <h2 className="text-lg font-bold text-gray-700 mb-2">数据不足</h2>
-        <p className="text-gray-400 text-sm">至少答 5 道{subjectLabel}题后才能生成分析</p>
+        <p className="text-gray-400 text-sm">至少答 3 道{subjectLabel}题后才能生成分析</p>
         <p className="text-gray-300 text-sm mt-1">当前：{records.length} 题</p>
       </div>
     )
@@ -789,15 +823,17 @@ function SubjectReport({
       <div className="bg-white rounded-2xl p-4 shadow-sm border border-gray-100">
         <h2 className="text-sm font-semibold text-gray-600 mb-3">各知识点掌握度</h2>
         <div className="space-y-3">
-          {domainSummary.map(([tag, { accuracy: acc, total, status }]) => {
+          {domainSummary.map(([tag, { accuracy: acc, total, status, confidence }]) => {
             const icon = iconMap?.[tag] || defaultIcon || '•'
             const label = labelMap?.[tag] || tag
+            const confLabel = confidence === 'minimal' || confidence === 'low'
             return (
               <div key={tag}>
                 <div className="flex items-center justify-between text-sm mb-1">
                   <span className="text-gray-700 font-medium flex items-center gap-1.5">
                     <span>{icon}</span>{label}
                     <span className="text-xs text-gray-300 font-normal">({total}题)</span>
+                    {confLabel && <span className="text-[9px] text-gray-400 bg-gray-100 px-1 rounded">参考</span>}
                   </span>
                   <span className={`text-xs font-bold px-2 py-0.5 rounded-full`}
                     style={{ color: STATUS_COLOR[status], background: STATUS_COLOR[status] + '18' }}>
