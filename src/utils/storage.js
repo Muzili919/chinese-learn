@@ -149,17 +149,27 @@ export const storage = {
       chinese_junior: {
         label: '语文', emoji: '📖', grade: 'junior',
         planets: [
-          { tag: '字音辨析', label: '基础星球' },
-          { tag: '字形辨析', label: '基础星球' },
-          { tag: '古诗文默写', label: '古诗文星球' },
-          { tag: '实词解释', label: '文言文星球' },
+          { tag: '语言基础', label: '基础星球' },
+          { tag: '古诗文', label: '古诗文星球' },
+          { tag: '文言文', label: '文言文星球' },
           { tag: '现代文阅读', label: '阅读星球' },
           { tag: '名著阅读', label: '名著星球' },
-          { tag: '仿写句子', label: '表达星球' },
+          { tag: '语言运用', label: '表达星球' },
           { tag: '作文', label: '作文星球' },
         ],
         matchRecord: (r) => r.subject === 'chinese_junior',
-        getPlanetTag: (r) => r.knowledge_tag,
+        getPlanetTag: (r) => {
+          const tag = r.knowledge_tag || ''
+          const BASIC = ['字音辨析','字形辨析','字音字形综合','词语运用','词语综合运用','语言综合运用','病句辨析','病句综合辨析','标点符号','句子排序','文学常识']
+          const POETRY = ['古诗文默写','古诗词赏析','古诗文常识']
+          const CLASSICAL = ['实词解释','虚词用法','句式翻译','文言文翻译','文言文阅读']
+          const EXPRESSION = ['仿写句子','语言得体','信息概括','图文转换','综合性学习']
+          if (BASIC.includes(tag)) return '语言基础'
+          if (POETRY.includes(tag)) return '古诗文'
+          if (CLASSICAL.includes(tag)) return '文言文'
+          if (EXPRESSION.includes(tag)) return '语言运用'
+          return tag
+        },
       },
       politics: {
         label: '道法', emoji: '🏛️', grade: 'junior',

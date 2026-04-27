@@ -237,7 +237,11 @@ export default function ReportPage({ user, onBack, onStartQuiz, grade = 'primary
   const hasPolitics = politicsRecords.length >= 5
 
   // 各科诊断（按正确的分组键）
-  const chineseDiagnosis  = useMemo(() => diagnoseByKey(chineseRecords, 'ability_tag'), [chineseRecords])
+  const chineseDiagnosis  = useMemo(() => {
+    return grade === 'junior2'
+      ? diagnoseByKey(chineseRecords, 'knowledge_tag')
+      : diagnoseByKey(chineseRecords, 'ability_tag')
+  }, [chineseRecords, grade])
   const englishDiagnosis  = useMemo(() => diagnoseByKey(englishRecords, 'knowledge_tag'), [englishRecords])
   const mathDiagnosis     = useMemo(() => diagnoseByKey(mathRecords, 'knowledge_tag'), [mathRecords])
   const politicsDiagnosis = useMemo(() => diagnoseByKey(politicsRecords, 'knowledge_tag'), [politicsRecords])

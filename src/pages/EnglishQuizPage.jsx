@@ -1037,6 +1037,20 @@ function ClozeQuestion({ q, onSubmit }) {
   const [selectedLetter, setSelectedLetter] = useState(null)
   const passageRef = useRef(null)
 
+  // 从 q.analysis 解析出每空的子解析
+  const blankAnalysis = useMemo(() => {
+    const text = q.analysis || ''
+    const map = {}
+    // 匹配 (1) 开头的段落，直到下一个 (N) 或结尾
+    const regex = /\((\d+)\)\s*([\s\S]*?)(?=\(\d+\)\s|$)/g
+    let m
+    while ((m = regex.exec(text)) !== null) {
+      const content = m[2].trim()
+      if (content) map[parseInt(m[1])] = content
+    }
+    return map
+  }, [q.analysis])
+
   // 解析options: 每个格式为 "(1) A.xxx B.xxx C.xxx D.xxx"
   const clozeOptions = useMemo(() => {
     return (q.options || []).map((optStr, idx) => {
@@ -1259,6 +1273,12 @@ function ClozeQuestion({ q, onSubmit }) {
           <div className={`rounded-2xl px-4 py-3 border font-semibold text-sm ${currentCorrect ? 'bg-green-50 border-green-200 text-green-700' : 'bg-red-50 border-red-200 text-red-600'}`}>
             {currentCorrect ? '✅ 正确！' : `❌ 正确答案：${correctLetter}. ${optTextMap[`${currentOpts?.num}_${correctLetter}`] || correctLetter}`}
           </div>
+          {blankAnalysis[currentOpts?.num] && (
+            <div className="bg-sky-50 border border-sky-200 rounded-2xl px-4 py-3">
+              <div className="text-[10px] font-semibold text-sky-500 mb-1">💡 解析</div>
+              <div className="text-xs text-gray-600 leading-relaxed">{blankAnalysis[currentOpts?.num]}</div>
+            </div>
+          )}
           <button onClick={advance}
             className="w-full py-3 rounded-2xl bg-gradient-to-r from-emerald-400 to-teal-500 text-white font-bold active:scale-95 transition-transform shadow-md">
             {results.length + 1 >= clozeOptions.length ? '查看得分 →' : '下一空 →'}

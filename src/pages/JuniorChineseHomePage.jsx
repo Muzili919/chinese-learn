@@ -136,7 +136,7 @@ export default function JuniorChineseHomePage({ user, grade, onStartQuiz }) {
   }, [user?.id, records, refreshKey])
 
   function isPracticed(planet) {
-    return Object.entries(TAG_TO_PLANET).some(([tag, pid]) => pid === planet.id && practicedToday.has(tag))
+    return practicedToday.has(planet.id)
   }
 
   const jcRecords = useMemo(
