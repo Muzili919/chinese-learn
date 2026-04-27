@@ -740,11 +740,17 @@ app.post('/api/ai/stream', async (req, res) => {
   }
 })
 
-// ========== TTS 文字转语音路由（Edge TTS） ==========
-let MsEdgeTTS = null
-try {
-  MsEdgeTTS = require('msedge-tts').MsEdgeTTS
-} catch { /* fallback to REST */ }
+// ========== TTS 文字转语音路由（豆包 TTS / 火山引擎） ==========
+const VOLCENGINE_TTS_URL = 'https://openspeech.bytedance.com/api/v1/tts'
+const VOLCENGINE_TTS_APPID = process.env.VOLCENGINE_TTS_APPID || ''
+const VOLCENGINE_TTS_TOKEN = process.env.VOLCENGINE_TTS_TOKEN || ''
+const VOLCENGINE_TTS_CLUSTER = process.env.VOLCENGINE_TTS_CLUSTER || 'volcano_tts'
+
+const VOICE_MAP = {
+  'zh-CN': 'BV700_streaming',    // 灿灿（中文）
+  'en-US': 'BV700_streaming',    // 灿灿（也支持英文）
+  'en-GB': 'BV700_streaming',
+}
 
 app.post('/api/tts', async (req, res) => {
   const { text, lang = 'zh-CN', rate = 1.0 } = req.body
@@ -752,69 +758,41 @@ app.post('/api/tts', async (req, res) => {
   if (text.length > 500) return error(res, '文本过长（最大500字符）')
 
   try {
-    // ★ 方案1：优先用 msedge-tts 库（更可靠）
-    if (MsEdgeTTS) {
-      const voiceMap = {
-        'zh-CN': 'zh-CN-XiaoxiaoNeural',
-        'en-US': 'en-US-AriaNeural',
-        'en-GB': 'en-GB-SoniaNeural',
-      }
-      const voice = voiceMap[lang] || voiceMap['zh-CN']
-      const tts = new MsEdgeTTS()
-      await tts.setMetadata(voice, require('msedge-tts').OUTPUT_FORMAT.AUDIO_24KHZ_48KBITRATE_MONO_MP3)
-
-      const pct = Math.round((parseFloat(rate) - 1) * 100)
-      const rateStr = pct >= 0 ? `+${pct}%` : `${pct}%`
-      const prosody = new (require('msedge-tts').ProsodyOptions)({ rate: rateStr })
-      const { audioStream } = tts.toStream(text, prosody)
-
-      const chunks = []
-      await new Promise((resolve, reject) => {
-        audioStream.on('data', chunk => chunks.push(chunk))
-        audioStream.on('end', resolve)
-        audioStream.on('error', reject)
-      })
-
-      const buffer = Buffer.concat(chunks)
-      res.setHeader('Content-Type', 'audio/mpeg')
-      res.setHeader('Content-Length', buffer.length)
-      res.setHeader('Cache-Control', 'public, max-age=31536000')
-      res.status(200).send(buffer)
-      return
+    if (!VOLCENGINE_TTS_APPID || !VOLCENGINE_TTS_TOKEN) {
+      return error(res, 'TTS 未配置', 500)
     }
 
-    // ★ 方案2：降级到 Edge TTS REST API（不需要额外依赖）
-    const voiceMap = {
-      'zh-CN': 'zh-CN-XiaoxiaoNeural',
-      'en-US': 'en-US-AriaNeural',
-      'en-GB': 'en-GB-SoniaNeural',
+    const voice = VOICE_MAP[lang] || VOICE_MAP['zh-CN']
+    const payload = {
+      app: { appid: VOLCENGINE_TTS_APPID, token: VOLCENGINE_TTS_TOKEN, cluster: VOLCENGINE_TTS_CLUSTER },
+      user: { uid: 'chinese-learn' },
+      audio: { voice_type: voice, encoding: 'mp3', speed_ratio: parseFloat(rate) },
+      request: { reqid: crypto.randomUUID(), text: text.slice(0, 500), text_type: 'plain', operation: 'query' },
     }
-    const voice = voiceMap[lang] || voiceMap['zh-CN']
 
-    const ssml = `<speak version="1.0" xmlns="http://www.w3.org/2001/10/synthesis" xml:lang="${lang}">
-      <voice name="${voice}"><prosody rate="${rate > 1 ? '+' : ''}${Math.round((rate-1)*100)}%">${text.replace(/["&<>]/g, c => ({'"': '&quot;', '&': '&amp;', '<': '&lt;', '>': '&gt;'})[c])}</prosody></voice></speak>`
-
-    const ttsRes = await fetch('https://speech.platform.bing.com/synthesize', {
+    const ttsRes = await fetch(VOLCENGINE_TTS_URL, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/ssml+xml',
-        'X-Microsoft-OutputFormat': 'audio-24khz-48kbitrate-mono-mp3',
-        'User-Agent': 'Mozilla/5.0',
-      },
-      body: ssml,
+      headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer;${VOLCENGINE_TTS_TOKEN}` },
+      body: JSON.stringify(payload),
     })
 
-    if (!ttsRes.ok) return error(res, 'TTS生成失败', 500)
+    const data = await ttsRes.json()
+    if (data.code !== 3000 || !data.data) {
+      console.error('[TTS] 豆包错误:', data.code, data.message)
+      return error(res, 'TTS生成失败: ' + (data.message || 'unknown'), 500)
+    }
 
-    const buffer = Buffer.from(await ttsRes.arrayBuffer())
+    const buffer = Buffer.from(data.data, 'base64')
     res.setHeader('Content-Type', 'audio/mpeg')
     res.setHeader('Content-Length', buffer.length)
+    res.setHeader('Cache-Control', 'public, max-age=31536000')
     res.status(200).send(buffer)
   } catch (err) {
     console.error('[TTS] 异常:', err.message)
     return error(res, 'TTS生成失败: ' + err.message, 500)
   }
 })
+
 
 // ========== Plan / 付费功能开关 ==========
 

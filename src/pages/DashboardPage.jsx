@@ -78,12 +78,34 @@ const SUBJECTS_CONFIG = {
 
 // 知识点 → 学科映射（用于AI推荐卡跳转）
 const TAG_TO_SUBJECT = {
+  // 小学语文
   '字词': 'chinese', '古诗词': 'chinese', '成语': 'chinese',
   '句子': 'chinese', '文学常识': 'chinese', '阅读理解': 'chinese',
+  // 初中语文
+  '字音辨析': 'chinese', '字形辨析': 'chinese', '字音字形综合': 'chinese',
+  '词语运用': 'chinese', '词语综合运用': 'chinese', '语言综合运用': 'chinese',
+  '病句辨析': 'chinese', '病句综合辨析': 'chinese',
+  '标点符号': 'chinese', '句子排序': 'chinese',
+  '古诗文默写': 'chinese', '古诗词赏析': 'chinese', '古诗文常识': 'chinese',
+  '实词解释': 'chinese', '虚词用法': 'chinese', '句式翻译': 'chinese',
+  '文言文翻译': 'chinese', '文言文阅读': 'chinese',
+  '名著阅读': 'chinese',
+  '仿写句子': 'chinese', '语言得体': 'chinese', '信息概括': 'chinese',
+  '图文转换': 'chinese', '综合性学习': 'chinese', '现代文阅读': 'chinese',
+  // 英语
   '词汇': 'english', '语法': 'english', '听力': 'english',
-  '写作': 'english', '完形填空': 'english',
+  '写作': 'english', '完形填空': 'english', '情景交际': 'english',
+  // 道法
   '道德与法治': 'politics', '思想品德': 'politics',
+  // 数学（小学+初中）
   '数学': 'math', '几何': 'math', '代数': 'math',
+  '一元一次方程': 'math', '一元一次不等式': 'math', '二元一次方程组': 'math',
+  '一次函数': 'math', '一次函数应用': 'math', '一次函数解析式': 'math',
+  '反比例函数': 'math', '反比例应用': 'math', '二次函数基础': 'math',
+  '正比例函数': 'math', '函数与图像': 'math', '函数概念': 'math',
+  '因式分解': 'math', '整式乘法': 'math', '整式加减': 'math', '整式运算': 'math',
+  '勾股定理': 'math', '相似三角形': 'math', '三角形全等': 'math',
+  '相交线与平行线': 'math', '特殊四边形': 'math',
 }
 
 export default function DashboardPage({
@@ -118,16 +140,24 @@ export default function DashboardPage({
   const daysUntilExam = getDaysUntil(nextExam)
 
   // 按科目分组的最近答题记录（用于弱项分析）
+  // 将 chinese_junior → chinese, math_junior → math，与 SUBJECTS_CONFIG id 对齐
+  const normalizeSubject = (s) => s === 'chinese_junior' ? 'chinese' : s === 'math_junior' ? 'math' : (s || 'chinese')
+
   const recentBySubject = useMemo(() => {
     const recent = records.slice(-200)
+    const isJunior = normalizedGrade === 'junior2'
     const map = {}
     for (const r of recent) {
-      const subj = r.subject || 'chinese'
+      const rawSubj = r.subject || 'chinese'
+      const isJuniorRecord = rawSubj.includes('_junior') || r.grade === 'junior' || rawSubj === 'politics'
+      // 初中模式只看初中记录，小学模式只看小学记录
+      if (isJunior !== isJuniorRecord) continue
+      const subj = normalizeSubject(rawSubj)
       if (!map[subj]) map[subj] = []
       map[subj].push(r)
     }
     return map
-  }, [records])
+  }, [records, normalizedGrade])
 
   // 各科弱点（按科目独立分析，用 knowledge_tag）
   const weaksBySubject = useMemo(() => {
@@ -145,16 +175,20 @@ export default function DashboardPage({
   const wrongBySubject = useMemo(() => {
     const map = {}
     const currentSubjectIds = subjects.map(s => s.id)
+    const isJunior = normalizedGrade === 'junior2'
     const wrongIds = storage.getWrongCardIds(user.id)
     for (const id of wrongIds) {
       const rec = records.slice().reverse().find(r => r.card_id === id)
-      const subj = rec?.subject || 'chinese'
+      const rawSubj = rec?.subject || 'chinese'
+      const isJuniorRecord = rawSubj.includes('_junior') || rec?.grade === 'junior' || rawSubj === 'politics'
+      if (isJunior !== isJuniorRecord) continue
+      const subj = normalizeSubject(rawSubj)
       if (currentSubjectIds.includes(subj)) {
         map[subj] = (map[subj] || 0) + 1
       }
     }
     return map
-  }, [records, user.id, subjects])
+  }, [records, user.id, subjects, normalizedGrade])
 
   // 本周各科答题数（只统计当前学段科目）
   const weeklyBySubject = useMemo(() => {
@@ -162,17 +196,21 @@ export default function DashboardPage({
     weekAgo.setDate(weekAgo.getDate() - 7)
     const weekAgoStr = weekAgo.toISOString().slice(0, 10)
     const currentSubjectIds = subjects.map(s => s.id)
+    const isJunior = normalizedGrade === 'junior2'
     const map = {}
     for (const r of records) {
       if (r.timestamp >= weekAgoStr) {
-        const subj = r.subject || 'chinese'
+        const rawSubj = r.subject || 'chinese'
+        const isJuniorRecord = rawSubj.includes('_junior') || r.grade === 'junior' || rawSubj === 'politics'
+        if (isJunior !== isJuniorRecord) continue
+        const subj = normalizeSubject(rawSubj)
         if (currentSubjectIds.includes(subj)) {
           map[subj] = (map[subj] || 0) + 1
         }
       }
     }
     return map
-  }, [records, subjects])
+  }, [records, subjects, normalizedGrade])
 
   // 今日答题数
   const todayCount = useMemo(() => {
