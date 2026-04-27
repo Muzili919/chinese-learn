@@ -180,7 +180,7 @@ export default function MathHomePage({ user, grade, onStartQuiz, onStartFormula 
   }
 
   const handleClearAnchor = () => {
-    clearAnchor(user.id)
+    clearAnchor(user.id, "math")
     setTaskRefresh(k => k + 1)
   }
 

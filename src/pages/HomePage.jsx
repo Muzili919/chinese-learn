@@ -232,7 +232,7 @@ export default function HomePage({ user, onStartQuiz, hideHeader, activeSubject:
   }
 
   const handleClearAnchor = () => {
-    clearAnchor(user.id)
+    clearAnchor(user.id, "chinese")
     setTaskRefresh(k => k + 1)
   }
 

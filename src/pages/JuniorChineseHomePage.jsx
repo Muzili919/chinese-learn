@@ -117,7 +117,7 @@ export default function JuniorChineseHomePage({ user, grade, onStartQuiz }) {
   }
 
   const handleClearAnchor = () => {
-    clearAnchor(user.id)
+    clearAnchor(user.id, "chinese")
     setTaskRefresh(k => k + 1)
   }
 

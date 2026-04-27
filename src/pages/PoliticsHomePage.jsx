@@ -72,7 +72,7 @@ export default function PoliticsHomePage({ user, onStartQuiz, onBack, hideHeader
   }
 
   const handleClearAnchor = () => {
-    clearAnchor(user.id)
+    clearAnchor(user.id, "politics")
     setTaskRefresh(k => k + 1)
   }
 

@@ -274,7 +274,7 @@ export function attributeErrors(records) {
   // 按 tag 分组统计
   const byTag = {}
   for (const r of records) {
-    const tag = r.knowledge_tag || r.ability_tag || '未知'
+    const tag = r.knowledge_tag || r.ability_tag || r.topic || '其他'
     if (!byTag[tag]) byTag[tag] = { correct: 0, wrong: 0, fastWrong: 0, socraticHigh: 0, feynmanFail: 0 }
     if (r.correct) {
       byTag[tag].correct++
@@ -288,7 +288,7 @@ export function attributeErrors(records) {
 
   const result = {}
   for (const r of wrong) {
-    const tag = r.knowledge_tag || r.ability_tag || '未知'
+    const tag = r.knowledge_tag || r.ability_tag || r.topic || '其他'
     if (result[tag]) continue  // 每个 tag 只归因一次
 
     const stats = byTag[tag]
@@ -329,7 +329,7 @@ export function attributeErrors(records) {
 export function detectPseudoMastery(records) {
   const byTag = {}
   for (const r of records) {
-    const tag = r.knowledge_tag || r.ability_tag || '未知'
+    const tag = r.knowledge_tag || r.ability_tag || r.topic || '其他'
     if (!byTag[tag]) byTag[tag] = { correct: [], wrong: [], feynmanLow: 0 }
     if (r.correct) {
       byTag[tag].correct.push(r)

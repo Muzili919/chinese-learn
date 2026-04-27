@@ -393,7 +393,7 @@ export default function ReportPage({ user, onBack, onStartQuiz, grade = 'primary
         <div className="px-4 pt-5 space-y-4 pb-10">
           {/* 今日学习报告 */}
           {(() => {
-            const todayReport = storage.getTodayStudyReport(user.id)
+            const todayReport = storage.getTodayStudyReport(user.id, grade)
             const hasData = Object.keys(todayReport).length > 0
             return hasData ? (
               <div>

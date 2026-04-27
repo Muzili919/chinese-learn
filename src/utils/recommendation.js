@@ -12,35 +12,35 @@ import { storage } from './storage'
 import { diagnose } from './diagnosis'
 import { getNextExam, getExamUrgency, getDaysUntil, getCountdownLabel, getFrequentErrorTags } from './examCalendar'
 
-const ANCHOR_KEY   = (uid) => `cl_anchor_${uid}`
+const ANCHOR_KEY   = (uid, subject) => `cl_anchor_${uid}_${subject || 'default'}`
 const ANCHOR_DAYS  = 3   // 主攻锚定天数
 
 // ── 锚点（主攻知识点，锁定3天）────────────────────────────
 
-export function getAnchor(userId) {
+export function getAnchor(userId, subject) {
   try {
-    const raw = localStorage.getItem(ANCHOR_KEY(userId))
+    const raw = localStorage.getItem(ANCHOR_KEY(userId, subject))
     if (!raw) return null
     const stored = JSON.parse(raw)
     const daysElapsed = Math.floor((Date.now() - stored.setAt) / 86400000)
     if (daysElapsed >= ANCHOR_DAYS) {
-      localStorage.removeItem(ANCHOR_KEY(userId))
+      localStorage.removeItem(ANCHOR_KEY(userId, subject))
       return null
     }
     return { ...stored, dayNum: daysElapsed + 1 }
   } catch { return null }
 }
 
-export function setAnchor(userId, abilityTag, knowledgeTag) {
-  localStorage.setItem(ANCHOR_KEY(userId), JSON.stringify({
+export function setAnchor(userId, abilityTag, knowledgeTag, subject) {
+  localStorage.setItem(ANCHOR_KEY(userId, subject), JSON.stringify({
     tag: abilityTag,
     knowledge: knowledgeTag,
     setAt: Date.now(),
   }))
 }
 
-export function clearAnchor(userId) {
-  localStorage.removeItem(ANCHOR_KEY(userId))
+export function clearAnchor(userId, subject) {
+  localStorage.removeItem(ANCHOR_KEY(userId, subject))
 }
 
 // ── 科目 → subject 字段映射 ────────────────────────────────
@@ -176,11 +176,11 @@ export function getRecommendedTask(userId, subject = 'chinese') {
   const mandatoryCount = Math.min(overdueCount, 3)
 
   // ── 主攻：3天锁定 ──
-  let anchor = getAnchor(userId)
+  let anchor = getAnchor(userId, subject)
   if (!anchor && weakTags.length > 0) {
     const top = weakTags[0]
-    setAnchor(userId, top.tag, top.knowledge)
-    anchor = getAnchor(userId)
+    setAnchor(userId, top.tag, top.knowledge, subject)
+    anchor = getAnchor(userId, subject)
   }
 
   // ── 可选：第二薄弱点 ──

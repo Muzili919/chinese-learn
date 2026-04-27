@@ -25,9 +25,9 @@ const SUBJECT_TABS = {
 
 function filterBySubject(records, subjectId) {
   if (subjectId === 'all') return records
-  if (subjectId === 'chinese') return records.filter(r => !r.subject || r.subject === 'chinese' || r.subject === 'chinese_junior')
+  if (subjectId === 'chinese') return records.filter(r => r.subject === 'chinese' || r.subject === 'chinese_junior')
   if (subjectId === 'english') return records.filter(r => r.subject === 'english')
-  if (subjectId === 'math') return records.filter(r => r.subject === 'math')
+  if (subjectId === 'math') return records.filter(r => r.subject === 'math' || r.subject === 'math_junior')
   if (subjectId === 'politics') return records.filter(r => r.subject === 'politics')
   return records
 }

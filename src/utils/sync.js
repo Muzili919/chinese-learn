@@ -65,7 +65,8 @@ export async function searchUsers(query) {
 export async function pushUserStats(userId) {
   const xp = storage.getXP(userId)
   const streak = storage.getStreak(userId)
-  await apiFetch('POST', '/user/update-stats', { id: userId, xp, streak_count: streak.count, streak_date: streak.lastDate })
+  const completed_planets = storage.getCompletedPlanets(userId)
+  await apiFetch('POST', '/user/update-stats', { id: userId, xp, streak_count: streak.count, streak_date: streak.lastDate, completed_planets })
 }
 
 export async function pushCompletedPlanetsToCloud(userId) {
@@ -217,6 +218,7 @@ export async function syncAfterSession(userId) {
       pushSrsToCloud(userId),
       pushSessionsToCloud(userId),
       pushEssaysToCloud(userId),
+      pushCompletedPlanetsToCloud(userId),
       pushUserStats(userId),
       pushFlaggedToCloud(userId),
     ])

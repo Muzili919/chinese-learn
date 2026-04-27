@@ -87,7 +87,7 @@ export const storage = {
   },
 
   // 今日学习报告：按学科×星球聚合答题数据
-  getTodayStudyReport: (userId) => {
+  getTodayStudyReport: (userId, grade = 'primary') => {
     const records = storage.getRecords(userId)
     const today = new Date().toISOString().split('T')[0]
     const todayRecords = records.filter(r => r.timestamp?.startsWith(today))
@@ -105,7 +105,7 @@ export const storage = {
           { tag: '造句', label: '造句星球' },
           { tag: '作文', label: '作文星球' },
         ],
-        matchRecord: (r) => r.subject === 'chinese' || !r.subject,
+        matchRecord: (r) => r.subject === 'chinese',
         getPlanetTag: (r) => r.knowledge_tag,
       },
       math_primary: {
@@ -144,7 +144,31 @@ export const storage = {
           { tag: '闪电', label: '闪电星球' },
           { tag: '听写', label: '听写星球' },
         ],
-        matchRecord: (r) => r.subject === 'english',
+        matchRecord: (r) => r.subject === 'english' && !r.card_id?.startsWith('en_j2_'),
+        getPlanetTag: (r) => {
+          const tag = r.knowledge_tag || ''
+          if (tag === '联想星球' || tag === '英语联想') return '联想'
+          if (tag === '初中单词星球') return '英语词汇'
+          if (tag === '闪电测验') return '闪电'
+          if (r.card_id?.includes('cloze')) return '完形填空'
+          if (tag === 'dictation_english') return '听写'
+          return tag
+        },
+      },
+      english_junior: {
+        label: '英语', emoji: '🌍', grade: 'junior',
+        planets: [
+          { tag: '联想', label: '联想星球' },
+          { tag: '英语词汇', label: '词汇星球' },
+          { tag: '英语听力', label: '听力星球' },
+          { tag: '英语语法', label: '语法星球' },
+          { tag: '英语阅读', label: '阅读星球' },
+          { tag: '英语写作', label: '写作星球' },
+          { tag: '完形填空', label: '完形星球' },
+          { tag: '闪电', label: '闪电星球' },
+          { tag: '听写', label: '听写星球' },
+        ],
+        matchRecord: (r) => r.subject === 'english' && r.card_id?.startsWith('en_j2_'),
         getPlanetTag: (r) => {
           const tag = r.knowledge_tag || ''
           if (tag === '联想星球' || tag === '英语联想') return '联想'
