@@ -791,7 +791,8 @@ export default function DictationPage({ user, subject: subjectProp, onBack }) {
     if (user?.id) {
       const dictationTag = subject === 'english' ? '英语听写' : '听写'
       storage.markPlanetComplete(user.id, dictationTag)
-      storage.markPlanetComplete(user.id, 'dictation')  // 与HomePage的planet.id对齐
+      storage.markPlanetComplete(user.id, 'dictation')
+      if (subject !== 'english') storage.markPlanetComplete(user.id, 'jc_dictation')
       updateStreak(user.id)
       syncAfterSession(user.id)
     }

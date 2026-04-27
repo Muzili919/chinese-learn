@@ -105,7 +105,7 @@ export const storage = {
           { tag: '造句', label: '造句星球' },
           { tag: '作文', label: '作文星球' },
         ],
-        matchRecord: (r) => r.subject === 'chinese' || (!r.subject && !['english','math','politics','chinese_junior'].includes(r.subject)),
+        matchRecord: (r) => r.subject === 'chinese' || !r.subject,
         getPlanetTag: (r) => r.knowledge_tag,
       },
       math_primary: {
@@ -116,8 +116,8 @@ export const storage = {
           { tag: '奥数专题', label: '奥数星球' },
           { tag: '公式速记', label: '公式速记星球' },
         ],
-        matchRecord: (r) => r.subject === 'math' && !['方程与不等式','函数与图像','整式运算','几何证明'].includes(r.topic),
-        getPlanetTag: (r) => r.topic,
+        matchRecord: (r) => r.subject === 'math',
+        getPlanetTag: (r) => r.topic || '数与运算',
       },
       math_junior: {
         label: '数学', emoji: '🔢', grade: 'junior',
@@ -128,7 +128,7 @@ export const storage = {
           { tag: '几何证明', label: '几何星球' },
           { tag: '公式速记', label: '公式速记星球' },
         ],
-        matchRecord: (r) => r.subject === 'math' && ['方程与不等式','函数与图像','整式运算','几何证明'].includes(r.topic),
+        matchRecord: (r) => r.subject === 'math_junior',
         getPlanetTag: (r) => r.topic,
       },
       english: {
@@ -142,9 +142,18 @@ export const storage = {
           { tag: '英语写作', label: '写作星球' },
           { tag: '完形填空', label: '完形星球' },
           { tag: '闪电', label: '闪电星球' },
+          { tag: '听写', label: '听写星球' },
         ],
         matchRecord: (r) => r.subject === 'english',
-        getPlanetTag: (r) => r.knowledge_tag || (r.card_id?.includes('cloze') ? '完形填空' : ''),
+        getPlanetTag: (r) => {
+          const tag = r.knowledge_tag || ''
+          if (tag === '联想星球' || tag === '英语联想') return '联想'
+          if (tag === '初中单词星球') return '英语词汇'
+          if (tag === '闪电测验') return '闪电'
+          if (r.card_id?.includes('cloze')) return '完形填空'
+          if (tag === 'dictation_english') return '听写'
+          return tag
+        },
       },
       chinese_junior: {
         label: '语文', emoji: '📖', grade: 'junior',
@@ -180,7 +189,14 @@ export const storage = {
           { tag: '行动', label: '行动星球' },
         ],
         matchRecord: (r) => r.subject === 'politics',
-        getPlanetTag: (r) => r.card_id?.includes('analysis') ? '思辨' : r.card_id?.includes('_sa_') ? '洞察' : '基石',
+        getPlanetTag: (r) => {
+          const cid = r.card_id || ''
+          if (cid.includes('analysis')) return '思辨'
+          if (cid.includes('_sa_')) return '洞察'
+          if (cid.includes('explore')) return '行动'
+          if (cid.includes('combo')) return '思辨'
+          return '基石'
+        },
       },
     }
 

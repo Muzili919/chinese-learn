@@ -474,6 +474,7 @@ export default function ReadingPage({ user, subject, onFinish, onBack }) {
     // 标记星球完成
     const planetTag = subject === 'chinese_junior' ? '现代文阅读' : '阅读星球'
     storage.markPlanetComplete(user.id, planetTag)
+    if (subject === 'chinese_junior') storage.markPlanetComplete(user.id, 'jc_reading')
     updateStreak(user.id)
     syncAfterSession(user.id)
     onFinish({ session, records })

@@ -318,7 +318,7 @@ export default function MathFormulaPage({ user, onBack, grade }) {
 
   const handleFinish = useCallback(() => {
     const subject = isJunior ? 'math_junior' : 'math'
-    const tag = isJunior ? '🔢 ' + (activeCategory === '全部' ? '公式速记' : activeCategory) : '公式速记'
+    const tag = isJunior ? '🔢 公式速记(初中)' : '🔢 公式速记'
     storage.markPlanetComplete(userId, tag)
     storage.addXP(userId, 10 + stats.know * 2)
     const streak = storage.getStreak(userId)

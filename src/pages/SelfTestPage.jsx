@@ -1230,6 +1230,7 @@ ${sectionScores.map(s => `- ${s.title}：${s.earned}/${s.total}分（${s.total >
         const selfTestTag = subject === 'politics' ? '模拟考场' : '自测星球'
         storage.markPlanetComplete(user.id, selfTestTag)
         storage.markPlanetComplete(user.id, subject === 'politics' ? 'pol_self_test' : 'self_test')
+        if (subject !== 'politics') storage.markPlanetComplete(user.id, 'jc_self_test')
         updateStreak(user.id)
         const xpReward = earnedPct * 3  // 100分 = 300XP（适当降低以免刷分）
         storage.addXP(user.id, xpReward)
