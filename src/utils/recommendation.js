@@ -47,7 +47,7 @@ export function clearAnchor(userId) {
 const SUBJECT_FILTERS = {
   chinese:      ['chinese', 'chinese_junior'],
   english:      ['english'],
-  math:         ['math'],
+  math:         ['math', 'math_junior'],
   politics:     ['politics'],
 }
 

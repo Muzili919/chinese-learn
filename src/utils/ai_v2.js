@@ -259,8 +259,9 @@ ${subjectInstruction}
  */
 export async function generateVariantsStream(question, count = 1, subject = 'chinese', onChunk) {
   const subjectInstruction = SUBJECT_INSTRUCTIONS[subject] || ''
+  const subjectLabel = { chinese: '语文', english: '英语', politics: '道德与法治', math: '数学' }[subject] || '语文'
 
-  const system = `你是${subject === 'english' ? '英语' : '语文'}出题老师。针对学生做错的题生成1道变式练习题。
+  const system = `你是${subjectLabel}出题老师。针对学生做错的题生成1道变式练习题。
 ${subjectInstruction}
 规则：考查相同知识点、换语境、选择题4个选项ABCD、answer必须与options某项完全一致。
 只返回JSON：{"variants":[{"id":"v1","type":"single_choice","question":"题干","options":["A.","B.","C.","D."],"answer":"完整正确选项","analysis":"解析30字内","teachingTip":"提示20字内"}]}`
@@ -290,10 +291,11 @@ ${subjectInstruction}
 
 export async function generateVariants(question, count = 1, subject = 'chinese') {
   const subjectInstruction = SUBJECT_INSTRUCTIONS[subject] || ''
+  const subjectLabel = { chinese: '语文', english: '英语', politics: '道德与法治', math: '数学' }[subject] || '语文'
   // 安全上限：单次最多生成 1 道（避免超时）
   const safeCount = 1
 
-  const system = `你是${subject === 'english' ? '英语' : '语文'}出题老师。针对学生做错的题生成1道变式练习题。
+  const system = `你是${subjectLabel}出题老师。针对学生做错的题生成1道变式练习题。
 ${subjectInstruction}
 规则：考查相同知识点、换语境、选择题4个选项ABCD、answer必须与options某项完全一致。
 只返回JSON：{"variants":[{"id":"v1","type":"single_choice","question":"题干","options":["A.","B.","C.","D."],"answer":"完整正确选项","analysis":"解析30字内","teachingTip":"提示20字内"}]}`

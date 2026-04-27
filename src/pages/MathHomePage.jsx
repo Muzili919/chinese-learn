@@ -115,10 +115,10 @@ export default function MathHomePage({ user, grade, onStartQuiz, onStartFormula 
 
   const wrongCount = useMemo(() => {
     const allWrong = storage.getWrongCardIds(user.id)
-    const mathRecords = records.filter(r => r.subject === 'math')
+    const mathRecs = records.filter(r => r.subject === 'math' || r.subject === 'math_junior')
     let count = 0
     for (const id of allWrong) {
-      if (mathRecords.some(r => r.card_id === id)) count++
+      if (mathRecs.some(r => r.card_id === id)) count++
     }
     return count
   }, [user.id, records])
@@ -166,7 +166,8 @@ export default function MathHomePage({ user, grade, onStartQuiz, onStartFormula 
         onStartQuiz({ ...opts, grade: level, maxQuestions: maxQuestions || 3 })
         break
       case 'quick': case 'full': {
-        const anchorOpts = resolveMathQuiz(todayTask.anchor?.tag)
+        const anchorTag = todayTask.anchor?.tag || todayTask.optional?.tag || topics[0]?.topic
+        const anchorOpts = resolveMathQuiz(anchorTag)
         onStartQuiz({ ...anchorOpts, grade: level, maxQuestions })
         break
       }
@@ -184,7 +185,7 @@ export default function MathHomePage({ user, grade, onStartQuiz, onStartFormula 
   }
 
   const mathRecords = useMemo(
-    () => records.filter(r => r.subject === 'math'),
+    () => records.filter(r => r.subject === 'math' || r.subject === 'math_junior'),
     [records]
   )
 

@@ -64,9 +64,13 @@ function MaterialAnalysisQuiz({ question: q, onSubmit }) {
       })
 
       const settled = await Promise.allSettled(evalPromises)
-      const results = settled.map(s =>
-        s.status === 'fulfilled' ? s.value : { score: 0, correct: false, errorType: 'AI评分异常', question: '', maxScore: 8 }
-      )
+      const results = settled.map(s => {
+        const raw = s.status === 'fulfilled' ? s.value : { score: 0, correct: false, errorType: 'AI评分异常', question: '', maxScore: 8 }
+        // ★ AI返回0-100百分制，换算到子题的 max_score 满分刻度
+        const maxScore = raw.maxScore || 8
+        const scaledScore = Math.round(raw.score * maxScore / 100)
+        return { ...raw, score: scaledScore }
+      })
       // 按 idx 排序保证顺序
       results.sort((a, b) => (a.idx || 0) - (b.idx || 0))
 
@@ -213,18 +217,21 @@ function SimpleOpenEndedQuiz({ q, onSubmit }) {
   const [submitted, setSubmitted] = useState(false)
   const [aiResult, setAiResult] = useState(null)
   const [loading, setLoading] = useState(false)
+  const [errorMsg, setErrorMsg] = useState('')
   const isExplore = q.task_type === '倡议书' || q.task_type === '辩论稿' || q.task_type === '活动方案'
 
   async function handleSubmit() {
     if (!input.trim()) return
     setLoading(true)
+    setErrorMsg('')
     try {
       const result = await evaluateQuestion(q, input, 'politics')
       setAiResult(result)
       setSubmitted(true)
-      setLoading(false)
     } catch (e) {
       console.error('AI评分失败', e)
+      setErrorMsg(e.message || 'AI批改失败，请重试')
+    } finally {
       setLoading(false)
     }
   }
@@ -257,6 +264,15 @@ function SimpleOpenEndedQuiz({ q, onSubmit }) {
             className="w-full h-36 rounded-2xl border border-gray-200 p-4 text-sm resize-none focus:outline-none focus:ring-2 focus:ring-violet-300 bg-white"
             autoFocus
           />
+          {errorMsg && (
+            <div className="bg-red-50 border border-red-200 rounded-2xl p-3 flex items-center justify-between">
+              <span className="text-xs text-red-600">{errorMsg}</span>
+              <button onClick={handleSubmit} disabled={loading}
+                className="text-xs px-3 py-1 rounded-lg bg-red-500 text-white font-bold active:scale-95 ml-2">
+                重试
+              </button>
+            </div>
+          )}
           <button onClick={handleSubmit} disabled={loading || !input.trim()}
             className={`w-full py-3 rounded-2xl font-bold ${loading || !input.trim() ? 'bg-gray-200 text-gray-400' : 'bg-gradient-to-r from-violet-400 to-purple-500 text-white active:scale-95'}`}>
             {loading ? '🤖 AI批改中...' : '📝 提交批改'}
@@ -447,6 +463,14 @@ export default function PoliticsQuizPage({ user, options = {}, onFinish, onBack 
       subject: 'politics',
       timestamp: new Date().toISOString(),
       grade: 'junior',
+      question_data: {
+        stem: current.question || current.question_text || '',
+        answer: current.answer || '',
+        analysis: current.analysis || '',
+        type: politicsTag === 'pol_choice' ? 'choice' : politicsTag === 'pol_analysis' ? 'material_analysis' : politicsTag === 'pol_explore' ? 'practice_explore' : 'shortanswer',
+        options: current.options,
+        score: current.max_score || 10,
+      },
     }
     storage.addRecord(user.id, record)
 

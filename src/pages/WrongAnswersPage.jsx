@@ -13,6 +13,17 @@ import enReadingQ from '../data/questions_en_reading.json'
 import enWritingQ from '../data/questions_en_writing.json'
 import enClozeQ from '../data/questions_en_j2_cloze.json'
 import politicsQ from '../data/questions_politics_choice.json'
+import politicsComboQ from '../data/questions_politics_combo.json'
+import politicsAnswerQ from '../data/questions_politics_answer.json'
+import politicsAnalysisQ from '../data/questions_politics_analysis.json'
+import politicsExploreQ from '../data/questions_politics_explore.json'
+// 初中语文题库
+import jcBasicQ from '../data/questions_junior_chinese_basic.json'
+import jcPoetryQ from '../data/questions_junior_chinese_poetry.json'
+import jcClassicalQ from '../data/questions_junior_chinese_classical.json'
+import jcNovelQ from '../data/questions_junior_chinese_novel.json'
+import jcExprQ from '../data/questions_junior_chinese_expression.json'
+import jcReadingQ from '../data/questions_junior_chinese_reading.json'
 // 数学题库
 import mathBasicQ from '../data/questions_math_basic.json'
 import mathGeometryQ from '../data/questions_math_geometry.json'
@@ -29,8 +40,25 @@ const EN_ALL_QUESTIONS = [...enVocabQ, ...enListenQ, ...enGrammarQ, ...enReading
 const EN_Q_MAP = Object.fromEntries(EN_ALL_QUESTIONS.map(q => [q.id, q]))
 
 // 政治选择题
-const POLITICS_ALL = Array.isArray(politicsQ) ? politicsQ : (politicsQ.questions || [])
+const POLITICS_ALL = [
+  ...(Array.isArray(politicsQ) ? politicsQ : (politicsQ.questions || [])),
+  ...(Array.isArray(politicsComboQ) ? politicsComboQ : []),
+  ...(Array.isArray(politicsAnswerQ) ? politicsAnswerQ : []),
+  ...(Array.isArray(politicsAnalysisQ) ? politicsAnalysisQ : []),
+  ...(Array.isArray(politicsExploreQ) ? politicsExploreQ : []),
+]
 const POLITICS_Q_MAP = Object.fromEntries(POLITICS_ALL.map(q => [q.id, q]))
+
+// 初中语文题库
+const JC_ALL = [
+  ...(Array.isArray(jcBasicQ) ? jcBasicQ : []),
+  ...(Array.isArray(jcPoetryQ) ? jcPoetryQ : []),
+  ...(Array.isArray(jcClassicalQ) ? jcClassicalQ : []),
+  ...(Array.isArray(jcNovelQ) ? jcNovelQ : []),
+  ...(Array.isArray(jcExprQ) ? jcExprQ : []),
+  ...(Array.isArray(jcReadingQ) ? jcReadingQ : []),
+]
+const JC_Q_MAP = Object.fromEntries(JC_ALL.map(q => [q.id, q]))
 
 // 数学题库合并（所有专题）
 const MATH_ALL_QUESTIONS = [
@@ -52,11 +80,13 @@ function getAllQMap(subject) {
       if (subject === 'english') return q.subject === 'english'
       if (subject === 'math') return q.subject === 'math'
       if (subject === 'politics' || subject === '道法') return q.subject === 'politics' || q.subject === '道法'
+      if (subject === 'chinese_junior') return q.subject === 'chinese_junior'
       return !q.subject || q.subject === 'chinese'
     })
   )
   if (subject === 'politics' || subject === '道法') return { ...photoFiltered, ...POLITICS_Q_MAP }
   if (subject === 'math') return { ...photoFiltered, ...MATH_Q_MAP }
+  if (subject === 'chinese_junior') return { ...photoFiltered, ...JC_Q_MAP }
   return { ...photoFiltered, ...(subject === 'english' ? EN_Q_MAP : Q_MAP) }
 }
 
@@ -87,6 +117,7 @@ const TAG_COLORS = {
 // 学科配置（用于显示当前学科标签）
 const SUBJECT_LABELS = {
   chinese: { label: '语文', emoji: '📖' },
+  chinese_junior: { label: '语文', emoji: '📖' },
   english: { label: '英语', emoji: '🌎' },
   math:    { label: '数学', emoji: '🔢' },
   politics: { label: '道法', emoji: '⚖️' },
@@ -95,7 +126,7 @@ const SUBJECT_LABELS = {
 // 按学段的可用学科列表
 const GRADE_SUBJECTS = {
   primary: ['chinese', 'english', 'math'],
-  junior2: ['english', 'politics', 'math'],
+  junior2: ['chinese_junior', 'english', 'politics', 'math'],
 }
 
 function daysDiff(dateStr) {
