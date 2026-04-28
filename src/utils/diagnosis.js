@@ -1,5 +1,29 @@
 import { KNOWLEDGE_DEPS } from '../data/knowledge_graph'
 
+// 从 card_id 前缀推断知识分类
+function inferTagFromCardId(cardId) {
+  if (!cardId) return ''
+  if (cardId.startsWith('jc_basic') || cardId.startsWith('zh_') || cardId.startsWith('ci_') || cardId.startsWith('chengyu_')) return '字音辨析'
+  if (cardId.startsWith('jc_poetry') || cardId.startsWith('poem_') || cardId.startsWith('gushi_')) return '古诗文默写'
+  if (cardId.startsWith('jc_classical') || cardId.startsWith('wy_')) return '实词解释'
+  if (cardId.startsWith('jc_reading') || cardId.startsWith('jcr_')) return '现代文阅读'
+  if (cardId.startsWith('jc_novel') || cardId.startsWith('mz_')) return '名著阅读'
+  if (cardId.startsWith('jc_expression') || cardId.startsWith('bf_')) return '仿写句子'
+  if (cardId.startsWith('pol_choice') || cardId.startsWith('politics_combo')) return '选择题'
+  if (cardId.startsWith('pol_analysis')) return '材料分析题'
+  if (cardId.startsWith('pol_sa')) return '简答题'
+  if (cardId.startsWith('pol_explore')) return '实践探究题'
+  if (cardId.startsWith('en_vocab') || cardId.startsWith('enV_') || cardId.startsWith('ev_')) return '英语词汇'
+  if (cardId.startsWith('en_listen') || cardId.startsWith('el_')) return '英语听力'
+  if (cardId.startsWith('en_grammar') || cardId.startsWith('eg_')) return '英语语法'
+  if (cardId.startsWith('en_reading') || cardId.startsWith('er_')) return '英语阅读'
+  if (cardId.startsWith('en_writing') || cardId.startsWith('ew_')) return '英语写作'
+  if (cardId.startsWith('en_cloze') || cardId.startsWith('en_j2_cloze')) return '完形填空'
+  if (cardId.startsWith('en_assoc')) return '英语联想'
+  if (cardId.startsWith('math_') || cardId.startsWith('jf_')) return '公式速记'
+  return ''
+}
+
 /**
  * Analyze records to find weak points.
  * Returns { [ability_tag]: { accuracy, avgTime, total, status } }
@@ -8,7 +32,7 @@ export function diagnose(records) {
   const groups = {};
 
   records.forEach((r) => {
-    const tag = r.ability_tag || r.knowledge_tag || '其他';
+    const tag = r.ability_tag || r.knowledge_tag || r.topic || inferTagFromCardId(r.card_id) || '其他';
     if (!groups[tag]) groups[tag] = { correct: 0, total: 0, times: [], knowledge: r.knowledge_tag };
     groups[tag].total++;
     if (r.correct) groups[tag].correct++;
@@ -274,7 +298,7 @@ export function attributeErrors(records) {
   // 按 tag 分组统计
   const byTag = {}
   for (const r of records) {
-    const tag = r.knowledge_tag || r.ability_tag || r.topic || '其他'
+    const tag = r.knowledge_tag || r.ability_tag || r.topic || inferTagFromCardId(r.card_id) || '其他'
     if (!byTag[tag]) byTag[tag] = { correct: 0, wrong: 0, fastWrong: 0, socraticHigh: 0, feynmanFail: 0 }
     if (r.correct) {
       byTag[tag].correct++
@@ -288,7 +312,7 @@ export function attributeErrors(records) {
 
   const result = {}
   for (const r of wrong) {
-    const tag = r.knowledge_tag || r.ability_tag || r.topic || '其他'
+    const tag = r.knowledge_tag || r.ability_tag || r.topic || inferTagFromCardId(r.card_id) || '其他'
     if (result[tag]) continue  // 每个 tag 只归因一次
 
     const stats = byTag[tag]
@@ -329,7 +353,7 @@ export function attributeErrors(records) {
 export function detectPseudoMastery(records) {
   const byTag = {}
   for (const r of records) {
-    const tag = r.knowledge_tag || r.ability_tag || r.topic || '其他'
+    const tag = r.knowledge_tag || r.ability_tag || r.topic || inferTagFromCardId(r.card_id) || '其他'
     if (!byTag[tag]) byTag[tag] = { correct: [], wrong: [], feynmanLow: 0 }
     if (r.correct) {
       byTag[tag].correct.push(r)

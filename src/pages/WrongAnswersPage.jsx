@@ -148,7 +148,7 @@ function computeWrongCards(userId, subject, qMap) {
   const records = allRecords.filter(r => {
     if (subject === 'english') return r.subject === 'english'
     if (subject === 'politics') return r.subject === 'politics' || r.subject === '道法'
-    if (subject === 'math') return r.subject === 'math'
+    if (subject === 'math') return r.subject === 'math' || r.subject === 'math_junior'
     if (subject === 'chinese_junior') return r.subject === 'chinese_junior'
     return !r.subject || r.subject === 'chinese'
   })
