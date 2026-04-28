@@ -561,6 +561,35 @@ export const storage = {
 
   setActionPlan: (userId, plan) =>
     lsSet(P + 'action_plan_' + userId, JSON.stringify(plan)),
+
+  // ── 自定义题目（AI 导入）──
+  getCustomQuestions: (userId) =>
+    lsParse(P + 'custom_q_' + userId, []),
+
+  addCustomQuestions: (userId, newQuestions) => {
+    const existing = storage.getCustomQuestions(userId)
+    const existingIds = new Set(existing.map(q => q.id))
+    let added = 0
+    for (const q of newQuestions) {
+      if (!existingIds.has(q.id)) {
+        existing.push(q)
+        added++
+      }
+    }
+    lsSet(P + 'custom_q_' + userId, JSON.stringify(existing))
+    return added
+  },
+
+  removeCustomQuestion: (userId, questionId) => {
+    const existing = storage.getCustomQuestions(userId)
+    const filtered = existing.filter(q => q.id !== questionId)
+    lsSet(P + 'custom_q_' + userId, JSON.stringify(filtered))
+    return existing.length - filtered.length
+  },
+
+  clearCustomQuestions: (userId) => {
+    lsSet(P + 'custom_q_' + userId, '[]')
+  },
 };
 
 // 导出当前用户的完整本地数据快照，便于导出到外部备份/导入
@@ -576,6 +605,24 @@ export const exportAll = (userId) => {
     essays: storage.getEssays(userId),
     sentenceHistory: storage.getSentenceHistory(userId),
     wrongIds: Array.from((storage.getWrongCardIds(userId) || new Set()).values()),
+    customQuestions: storage.getCustomQuestions(userId),
+    importFormat: {
+      description: '将此数据交给AI分析薄弱项后，AI生成的题目请按以下JSON格式输出，然后在App报告页点击"导入题目"导入',
+      schema: {
+        questions: [{
+          id: 'ai_唯一ID（ai_开头，如ai_math_eq_001）',
+          type: 'single_choice | fill_blank | multiple_choice',
+          subject: 'chinese | chinese_junior | english | math | math_junior | politics',
+          knowledge_tag: '知识点名称（如"等式性质"、"宪法地位"、"英语词汇"）',
+          topic: '大专题（如"方程与不等式"、"几何证明"，可选）',
+          question: '题干文本',
+          options: ['A. ...', 'B. ...', 'C. ...', 'D. ...'],
+          answer: '正确答案（如"A.xxx"）',
+          analysis: '解析说明',
+          difficulty: '0.1-1.0 难度系数',
+        }],
+      },
+    },
   };
 };
 

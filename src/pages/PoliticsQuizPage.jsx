@@ -431,8 +431,12 @@ export default function PoliticsQuizPage({ user, options = {}, onFinish, onBack 
   const EXPLORE_TYPES = ['倡议书', '辩论稿', '活动方案']
   const questions = useMemo(() => {
     let pool = POL_QUESTION_MAP[politicsTag] || polChoiceQ
-    // 行动星球：新题库已经是纯实践探究题，直接使用
-    // 思辨星球：新题库已经是纯简答/辨析题，直接使用
+    const customQ = storage.getCustomQuestions(user.id)
+    if (customQ.length) {
+      const typeMap = { pol_choice: '选择题', pol_answer: '简答题', pol_analysis: '材料分析题', pol_explore: '实践探究题' }
+      const customMatch = customQ.filter(q => q.subject === 'politics' && (!typeMap[politicsTag] || q.knowledge_tag))
+      pool = [...pool, ...customMatch]
+    }
     return shuffle([...pool]).slice(0, sessionSize)
   }, [politicsTag, sessionSize])
 

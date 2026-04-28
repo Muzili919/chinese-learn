@@ -205,6 +205,55 @@ export default function ReportPage({ user, onBack, onStartQuiz, grade = 'primary
     setShowExportMenu(false)
   }
 
+  // ── 导入 AI 题目 ──
+  const [importMsg, setImportMsg] = useState('')
+  const [customQRefresh, setCustomQRefresh] = useState(0)
+
+  function handleImportQuestions(e) {
+    const file = e.target.files?.[0]
+    if (!file) return
+    e.target.value = ''
+    const reader = new FileReader()
+    reader.onload = (ev) => {
+      try {
+        const data = JSON.parse(ev.target.result)
+        const questions = data.questions || data.customQuestions || []
+        if (!Array.isArray(questions) || questions.length === 0) {
+          setImportMsg('❌ 未找到 questions 数组，请确认 JSON 格式')
+          return
+        }
+        const required = ['id', 'subject', 'knowledge_tag', 'question', 'answer']
+        const valid = []
+        const errors = []
+        questions.forEach((q, i) => {
+          const missing = required.filter(k => !q[k])
+          if (missing.length) errors.push(`第${i + 1}题缺少: ${missing.join(',')}`)
+          else if (!q.id.startsWith('ai_')) errors.push(`第${i + 1}题 id 必须以 ai_ 开头`)
+          else valid.push({
+            ...q,
+            id: q.id,
+            type: q.type || 'single_choice',
+            difficulty: q.difficulty || 0.5,
+            source: 'ai_import',
+          })
+        })
+        if (valid.length > 0) {
+          const added = storage.addCustomQuestions(user.id, valid)
+          setImportMsg(`✅ 成功导入 ${added} 道题目${errors.length ? `，${errors.length} 道跳过` : ''}`)
+          setCustomQRefresh(k => k + 1)
+        } else {
+          setImportMsg(`❌ 全部校验失败：${errors.slice(0, 3).join('；')}`)
+        }
+      } catch (err) {
+        setImportMsg('❌ JSON 解析失败，请检查文件格式')
+      }
+    }
+    reader.readAsText(file)
+    setTimeout(() => setImportMsg(''), 5000)
+  }
+
+  const customQuestions = useMemo(() => storage.getCustomQuestions(user.id), [user.id, customQRefresh])
+
   // ★ 按学段过滤学科Tab
   const subjects = GRADE_SUBJECTS[grade] || GRADE_SUBJECTS.primary
 
@@ -313,8 +362,9 @@ export default function ReportPage({ user, onBack, onStartQuiz, grade = 'primary
         <div className="flex items-center justify-between mb-3">
           <button onClick={onBack} className="text-indigo-200 text-sm">← 返回</button>
           <button onClick={() => setShowPinModal(true)} className="text-indigo-200 text-sm" title="修改密码">⚙️ 设置</button>
-          <div className="relative">
+          <div className="relative flex gap-3">
             <button onClick={() => setShowExportMenu(!showExportMenu)} className="text-indigo-200 text-sm" title="导出数据">📥 导出</button>
+            <button onClick={() => fileRef.current?.click()} className="text-indigo-200 text-sm" title="导入AI题目">📤 导入</button>
             {showExportMenu && (
               <div className="absolute right-0 top-8 z-30 bg-white rounded-xl shadow-lg border border-gray-200 py-1 w-40">
                 <button onClick={exportJSON} className="w-full text-left text-sm px-4 py-2.5 hover:bg-indigo-50 text-gray-700 flex items-center gap-2">
@@ -325,6 +375,7 @@ export default function ReportPage({ user, onBack, onStartQuiz, grade = 'primary
                 </button>
               </div>
             )}
+            <input ref={fileRef} type="file" accept=".json" className="hidden" onChange={handleImportQuestions} />
           </div>
         </div>
         <h1 className="text-2xl font-bold">{user.name} 的学习报告</h1>
@@ -1444,6 +1495,37 @@ function ExamsTab({
           </div>
         )}
       </div>
+
+      {/* ── AI 导入题目管理 ── */}
+      {(importMsg || customQuestions.length > 0) && (
+        <div className="mx-4 mt-4 mb-4 bg-white rounded-2xl border border-gray-200 p-4 shadow-sm">
+          <div className="flex items-center justify-between mb-2">
+            <h3 className="text-sm font-bold text-gray-800">🤖 AI 导入题目</h3>
+            {customQuestions.length > 0 && (
+              <button onClick={() => { storage.clearCustomQuestions(user.id); setCustomQRefresh(k => k + 1) }}
+                className="text-xs text-red-400">清空全部</button>
+            )}
+          </div>
+          {importMsg && <p className="text-xs mb-2 p-2 rounded-lg bg-gray-50">{importMsg}</p>}
+          {customQuestions.length > 0 ? (
+            <div className="space-y-1.5 max-h-40 overflow-y-auto">
+              {customQuestions.map(q => (
+                <div key={q.id} className="flex items-center gap-2 bg-gray-50 rounded-lg px-3 py-1.5">
+                  <span className="text-[10px] px-1.5 py-0.5 rounded bg-indigo-100 text-indigo-600 font-medium">
+                    {q.subject === 'chinese_junior' ? '语文' : q.subject === 'english' ? '英语' : q.subject === 'math_junior' ? '数学' : q.subject === 'politics' ? '道法' : q.subject}
+                  </span>
+                  <span className="text-xs text-gray-600 flex-1 truncate">{q.knowledge_tag}</span>
+                  <span className="text-[10px] text-gray-400 truncate max-w-[120px]">{q.question?.slice(0, 20)}...</span>
+                  <button onClick={() => { storage.removeCustomQuestion(user.id, q.id); setCustomQRefresh(k => k + 1) }}
+                    className="text-gray-300 hover:text-red-400 text-xs">✕</button>
+                </div>
+              ))}
+            </div>
+          ) : (
+            <p className="text-xs text-gray-400">暂无导入题目。导出数据给 AI 分析后，将生成的题目 JSON 导入此处。</p>
+          )}
+        </div>
+      )}
     </div>
   )
 }

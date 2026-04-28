@@ -191,6 +191,20 @@ export default function QuizPage({ user, options = {}, onFinish, onBack }) {
     let pool = ALL_QUESTIONS
     if (knowledgeTag) pool = pool.filter((q) => q.knowledge_tag === knowledgeTag)
     const isMixed = !knowledgeTag && !focusTag
+    // 合并 AI 导入的自定义题目
+    const customQ = storage.getCustomQuestions(user.id)
+    if (customQ.length) {
+      const mathSubject = grade === 'junior' ? 'math_junior' : 'math'
+      const chineseSubject = juniorChineseTag ? 'chinese_junior' : 'chinese'
+      const activeSubject = mathTopic ? mathSubject : juniorChineseTag ? chineseSubject : (options?.wrongReviewSubject || 'chinese')
+      const customMatch = customQ.filter(q => {
+        if (mathTopic) return q.subject === activeSubject && (q.topic === mathTopic || q.knowledge_tag === knowledgeTag)
+        if (juniorChineseTag) return q.subject === 'chinese_junior' && (q.knowledge_tag === knowledgeTag || !knowledgeTag)
+        if (knowledgeTag) return q.knowledge_tag === knowledgeTag
+        return q.subject === activeSubject
+      })
+      pool = [...pool, ...customMatch]
+    }
     const seenToday = new Set(storage.getSeenToday(user.id))
     return scheduleSession(pool, srsStates.current, sessionSize, focusTag, isMixed, seenToday).map(shuffleOptions)
   }, [focusTag, knowledgeTag, wrongCardIds, sessionSize, mathTopic, minDifficulty, grade, juniorChineseTag])

@@ -1807,7 +1807,12 @@ export default function EnglishQuizPage({ user, options = {}, onFinish, onBack }
 
   const questions = useMemo(() => {
     const questionMap = grade === 'junior2' ? J2_QUESTION_MAP : EN_QUESTION_MAP
-    const pool = questionMap[englishTag] || enVocabQ
+    let pool = questionMap[englishTag] || enVocabQ
+    const customQ = storage.getCustomQuestions(user.id)
+    if (customQ.length) {
+      const customMatch = customQ.filter(q => q.subject === 'english')
+      pool = [...pool, ...customMatch]
+    }
     const seenToday = new Set(storage.getSeenToday(user.id))
     return scheduleSession(pool, srsStates.current, sessionSize, null, false, seenToday)
   }, [englishTag, grade, sessionSize])
