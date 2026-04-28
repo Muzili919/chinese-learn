@@ -99,6 +99,10 @@ export const KNOWLEDGE_DEPS = {
   '材料分析题': { roots: ['选择题'], suggests: '材料分析专项 → 审题训练' },
   '简答题': { roots: ['材料分析题'], suggests: '简答题专项 → 表达训练' },
   '实践探究题': { roots: ['材料分析题'], suggests: '实践探究专项 → 综合应用' },
+  '选择题综合': { roots: [], suggests: '选择题专项 → 基础知识巩固' },
+  '简答题综合': { roots: ['材料分析题'], suggests: '简答题专项 → 表达训练' },
+  '材料分析综合': { roots: ['选择题'], suggests: '材料分析专项 → 审题训练' },
+  '实践探究综合': { roots: ['材料分析题'], suggests: '实践探究专项 → 综合应用' },
 
   // ── 数学 ──
   '数与代数': { roots: [], suggests: '数学星球 → 数与代数' },

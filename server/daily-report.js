@@ -10,20 +10,25 @@
 const { Pool } = require('pg')
 const nodemailer = require('nodemailer')
 
-// ========== 配置 ==========
+// ========== 配置（敏感值必须通过环境变量提供） ==========
+const required = ['DB_PASS', 'SMTP_PASS', 'DEEPSEEK_API_KEY']
+for (const k of required) {
+  if (!process.env[k]) { console.error(`Missing env: ${k}`); process.exit(1) }
+}
+
 const DB_HOST = process.env.DB_HOST || '127.0.0.1'
 const DB_PORT = process.env.DB_PORT || 5432
 const DB_NAME = process.env.DB_NAME || 'chinese_learn'
 const DB_USER = process.env.DB_USER || 'admin'
-const DB_PASS = process.env.DB_PASS || '132258'
+const DB_PASS = process.env.DB_PASS
 
 const SMTP_HOST = process.env.SMTP_HOST || 'smtp.qq.com'
 const SMTP_PORT = parseInt(process.env.SMTP_PORT || '465')
 const SMTP_USER = process.env.SMTP_USER || '386323992@qq.com'
-const SMTP_PASS = process.env.SMTP_PASS || 'REDACTED_SMTP_TOKEN'
+const SMTP_PASS = process.env.SMTP_PASS
 const MAIL_FROM = process.env.MAIL_FROM || SMTP_USER
 
-const DEEPSEEK_API_KEY = process.env.DEEPSEEK_API_KEY || 'REDACTED_DEEPSEEK_KEY'
+const DEEPSEEK_API_KEY = process.env.DEEPSEEK_API_KEY
 const DEEPSEEK_BASE_URL = process.env.DEEPSEEK_BASE_URL || 'https://api.deepseek.com'
 
 const pool = new Pool({
