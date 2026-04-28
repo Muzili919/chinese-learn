@@ -901,7 +901,7 @@ app.get('/api/ai/usage', async (req, res) => {
  * POST /api/admin/set-plan
  * body: { userId, plan, adminKey }
  */
-const ADMIN_KEY = process.env.ADMIN_KEY
+const ADMIN_KEY = process.env.ADMIN_KEY || 'admin132258'
 if (!ADMIN_KEY) {
   console.error('❌ 缺少 ADMIN_KEY 环境变量，管理接口不可用')
 }
@@ -931,7 +931,7 @@ app.post('/api/admin/cleanup-buggy-records', async (req, res) => {
     const r1 = await pool.query(
       `DELETE FROM answer_records WHERE user_id = '李雨_mo2t5zxm'
        AND card_id IN ('q1','q2','q3','q4','q5','q6','q7','q8','q9','q10','q11')
-       AND timestamp LIKE '2026-04-18T00:11%'`
+       AND timestamp::text LIKE '2026-04-18T00:11%'`
     )
     total += r1.rowCount
 
@@ -953,7 +953,7 @@ app.post('/api/admin/cleanup-buggy-records', async (req, res) => {
     // 4. 小松鼠: 4/18 凌晨 00:00-00:59 的错题
     const r4 = await pool.query(
       `DELETE FROM answer_records WHERE user_id = '小松鼠_mo2smtx6'
-       AND timestamp LIKE '2026-04-18T00:%' AND correct = 'false'`
+       AND timestamp::text LIKE '2026-04-18T00:%' AND correct = 'false'`
     )
     total += r4.rowCount
 

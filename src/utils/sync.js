@@ -120,19 +120,11 @@ export async function pullFromCloud(userId) {
     const cloudRecords = await apiFetch('GET', `/records/${userId}`)
     if (cloudRecords?.length) {
       const localRecords = storage.getRecords(userId)
-      const mergedMap = new Map()
-      for (const r of localRecords) mergedMap.set(`${r.card_id}|${r.timestamp}`, r)
-      for (const r of cloudRecords) {
-        const key = `${r.card_id}|${r.timestamp}`
-        if (!mergedMap.has(key)) {
-          mergedMap.set(key, r)
-        } else {
-          // 本地已有此记录，用字段更完整的一方（字段多的覆盖字段少的）
-          const local = mergedMap.get(key)
-          if (Object.keys(r).length > Object.keys(local).length) mergedMap.set(key, r)
-        }
-      }
-      localStorage.setItem(`cl_records_${userId}`, JSON.stringify([...mergedMap.values()]))
+      // 以云端为基准：云端有的用云端，本地独有的保留（可能是还没上传的）
+      const cloudKeys = new Set(cloudRecords.map(r => `${r.card_id}|${r.timestamp}`))
+      const localOnly = localRecords.filter(r => !cloudKeys.has(`${r.card_id}|${r.timestamp}`))
+      const merged = [...cloudRecords, ...localOnly]
+      localStorage.setItem(`cl_records_${userId}`, JSON.stringify(merged))
       pulledAny = true
     }
   } catch (_) {}
