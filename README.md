@@ -80,6 +80,6 @@ AGPL-3.0 — 开源免费使用，商用需授权。
 
 如果这个项目对你有帮助，欢迎支持：
 
-- [爱发电](https://ifdian.net/a/chineselearn) 赞助
+- [爱发电](https://ifdian.net/p/455b9a1242af11f1aca05254001e7c00) 赞助
 - 微信/支付宝赞赏（见 docs/ 目录）
 - 给个 Star
