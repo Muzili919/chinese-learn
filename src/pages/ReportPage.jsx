@@ -27,6 +27,210 @@ import {
   ResponsiveContainer, Tooltip,
 } from 'recharts'
 
+// ── AI学习建议：纯客户端分析引擎 ────────────────────────────
+function generateLearningAdvice(allRecords, grade) {
+  if (!allRecords.length) return null
+
+  // 用 card_id 前缀推断精细知识点
+  function inferTag(cid) {
+    if (!cid) return ''
+    const s = String(cid)
+    // 初中语文
+    if (/^jc_basic|^zh_|^ci_|^vocab_sc/.test(s)) return '字音字形/词语运用'
+    if (/^jc_poetry|^poem_|^gushi_|^poetry_sc/.test(s)) return '古诗文默写/赏析'
+    if (/^jc_classical|^jc_cl|^wy_/.test(s)) return '文言文'
+    if (/^jc_reading|^jcr_/.test(s)) return '现代文阅读'
+    if (/^jc_novel|^mz_/.test(s)) return '名著阅读'
+    if (/^jc_expression|^jc_expr|^bf_/.test(s)) return '语言运用/仿写'
+    // 英语
+    if (/^en_vocab|^enV_|^ev_/.test(s)) return '英语词汇'
+    if (/^en_listen|^el_/.test(s)) return '英语听力'
+    if (/^en_grammar|^eg_/.test(s)) return '英语语法'
+    if (/^en_reading|^er_/.test(s)) return '英语阅读'
+    if (/^en_writing|^ew_/.test(s)) return '英语写作'
+    if (/^en_cloze/.test(s)) return '完形填空'
+    if (/^en_assoc/.test(s)) return '英语联想'
+    if (/^en_j2_vocab/.test(s)) return '词汇(初中)'
+    if (/^en_j2_grammar/.test(s)) return '语法(初中)'
+    if (/^en_j2_listen/.test(s)) return '听力(初中)'
+    if (/^en_j2_read/.test(s)) return '阅读(初中)'
+    if (/^en_j2_writing/.test(s)) return '写作(初中)'
+    if (/^en_j2_cloze/.test(s)) return '完形填空(初中)'
+    if (/^j2_read/.test(s)) return '阅读(初中)'
+    // 道法
+    if (/^politics_choice|^pol_choice/.test(s)) return '道法·选择题'
+    if (/^politics_combo/.test(s)) return '道法·组合选择'
+    if (/^politics_analysis|^pol_analysis/.test(s)) return '道法·材料分析'
+    if (/^politics_answer|^pol_sa/.test(s)) return '道法·简答题'
+    if (/^politics_explore|^pol_explore/.test(s)) return '道法·实践探究'
+    // 数学初中
+    if (/^math_je|^math_junior_equation/.test(s)) return '方程与不等式'
+    if (/^math_jf|^math_junior_function/.test(s)) return '函数/坐标系'
+    if (/^math_ja|^math_junior_algebra/.test(s)) return '整式加减'
+    if (/^math_jgeo|^math_junior_geo/.test(s)) return '相交线/平行线'
+    if (/^math_formula|^jf_/.test(s)) return '公式速记'
+    // 小学
+    if (/^vocab_/.test(s)) return '字词(小学)'
+    if (/^idiom_|^chengyu_/.test(s)) return '成语(小学)'
+    if (/^poetry_/.test(s)) return '古诗词(小学)'
+    if (/^sentence/.test(s)) return '句子'
+    if (/^essay_/.test(s)) return '作文'
+    if (/^selftest_|^test_/.test(s)) return '自测题'
+    return ''
+  }
+
+  // 学科分类
+  const SUBJ_MAP = {
+    chinese: '语文', chinese_junior: '语文', english: '英语',
+    math: '数学', math_junior: '数学', politics: '道法',
+  }
+
+  // 按推断标签统计
+  const tagMap = {}
+  const subjMap = {}
+  const wrongCounts = {}
+  const dailyStats = {}
+
+  for (const r of allRecords) {
+    const subj = SUBJ_MAP[r.subject] || r.subject || '其他'
+    const tag = r.knowledge_tag || inferTag(r.card_id) || '未分类'
+    const correct = !!r.correct
+
+    if (!subjMap[subj]) subjMap[subj] = { total: 0, correct: 0 }
+    subjMap[subj].total++
+    if (correct) subjMap[subj].correct++
+
+    const key = `${subj}|${tag}`
+    if (!tagMap[key]) tagMap[key] = { subj, tag, total: 0, correct: 0 }
+    tagMap[key].total++
+    if (correct) tagMap[key].correct++
+
+    if (!correct) {
+      wrongCounts[r.card_id] = (wrongCounts[r.card_id] || 0) + 1
+    }
+
+    const day = (r.timestamp || '').slice(0, 10)
+    if (day) {
+      if (!dailyStats[day]) dailyStats[day] = { total: 0, correct: 0 }
+      dailyStats[day].total++
+      if (correct) dailyStats[day].correct++
+    }
+  }
+
+  // 学科概览
+  const subjects = Object.entries(subjMap)
+    .filter(([, d]) => d.total >= 3)
+    .map(([name, d]) => ({
+      name,
+      total: d.total,
+      correct: d.correct,
+      accuracy: Math.round(d.correct / d.total * 100),
+    }))
+    .sort((a, b) => b.total - a.total)
+
+  // 薄弱知识点（正确率 < 65%，至少3题）
+  const weakPoints = Object.values(tagMap)
+    .filter(d => d.total >= 3 && d.correct / d.total < 0.65)
+    .map(d => ({
+      ...d,
+      accuracy: Math.round(d.correct / d.total * 100),
+      wrong: d.total - d.correct,
+    }))
+    .sort((a, b) => a.accuracy - b.accuracy)
+
+  // 强项（正确率 > 85%，至少5题）
+  const strongPoints = Object.values(tagMap)
+    .filter(d => d.total >= 5 && d.correct / d.total > 0.85)
+    .map(d => ({
+      ...d,
+      accuracy: Math.round(d.correct / d.total * 100),
+    }))
+    .sort((a, b) => b.accuracy - a.accuracy)
+
+  // 重复错题
+  const repeatWrong = Object.entries(wrongCounts)
+    .filter(([, c]) => c >= 2)
+    .sort((a, b) => b[1] - a[1])
+    .map(([cid, c]) => ({ cardId: cid, count: c }))
+
+  // 最近5天趋势
+  const recentDays = Object.entries(dailyStats)
+    .sort((a, b) => b[0].localeCompare(a[0]))
+    .slice(0, 5)
+    .map(([date, d]) => ({
+      date,
+      accuracy: Math.round(d.correct / d.total * 100),
+      total: d.total,
+      correct: d.correct,
+    }))
+
+  // 生成优先建议
+  const priorities = []
+  for (const w of weakPoints.slice(0, 5)) {
+    const tip = generateTip(w.tag, w.accuracy, w.subj, grade)
+    priorities.push({ tag: w.tag, subj: w.subj, accuracy: w.accuracy, wrong: w.wrong, total: w.total, tip })
+  }
+
+  return { subjects, weakPoints, strongPoints, repeatWrong, recentDays, priorities }
+}
+
+function generateTip(tag, accuracy, subj, grade) {
+  const isJunior = grade === 'junior2'
+  if (tag.includes('词汇') && subj === '英语') {
+    return accuracy < 50
+      ? '词汇量严重不足，每天花15分钟背单词，用联想记忆法（词根词缀）效果最好'
+      : '词汇掌握不牢固，建议每天复习20个错词+10个新词，重点记搭配和用法'
+  }
+  if (tag.includes('语法') && subj === '英语') {
+    return isJunior
+      ? '初二语法重点：时态（过去完成时/现在完成进行时）、被动语态、宾语从句。建议用语法星球专项刷题'
+      : '语法基础需要打牢，重点练时态变换和句型转换'
+  }
+  if (tag.includes('听力') && subj === '英语') {
+    return '听力丢分多因为听不清连读和弱读。建议每天听10分钟英语音频，先听再对照原文'
+  }
+  if (tag.includes('阅读') && subj === '英语') {
+    return '阅读正确率低，根因通常是词汇量不够。先把词汇提到70%以上，阅读自然提升'
+  }
+  if (tag.includes('完形')) {
+    return '完形填空考上下文理解+词汇辨析，是词汇和语法的综合。先攻克词汇和语法，再专项练完形'
+  }
+  if (tag.includes('写作') && subj === '英语') {
+    return '写作需要积累模板句型和过渡词。每天背1个万能句型，写3-5句练手'
+  }
+  if (tag.includes('文言文') || tag.includes('实词') || tag.includes('文言')) {
+    return '文言文是初二重点。建议把课本里的实词（通假字、古今异义、一词多义）整理成表，每天看5分钟'
+  }
+  if (tag.includes('字音') || tag.includes('字形') || tag.includes('词语运用')) {
+    return '字音字形是中考必考基础题。建议把常错的字整理到错题本，用「间隔复习」每天看3-5个'
+  }
+  if (tag.includes('古诗文') || tag.includes('古诗词')) {
+    return '古诗默写不能丢分！把常错的句子抄3遍，注意易错字（同音字、形近字）。理解性默写要先理解再背'
+  }
+  if (tag.includes('名著')) {
+    return '名著阅读考细节和人物分析。建议看每章的思维导图+人物关系图，考试前翻一遍'
+  }
+  if (tag.includes('材料分析')) {
+    return '道法材料分析题要用"观点+材料+分析"三段式答题。先背框架，再练真题找手感'
+  }
+  if (tag.includes('选择') && subj === '道法') {
+    return '道法选择题考细节辨析。错题说明对知识点理解不够深，建议回归课本把概念搞清'
+  }
+  if (tag.includes('函数') || tag.includes('坐标')) {
+    return '函数是初二数学重点。先搞懂一次函数的图像和性质，再练应用题'
+  }
+  if (tag.includes('方程')) {
+    return '方程类题目关键是设未知数和列等量关系。多练应用题找等量关系的感觉'
+  }
+  if (tag.includes('平行') || tag.includes('几何')) {
+    return '几何证明要熟记定理和判定条件。建议画辅助线时标注清楚，一步一步写推理过程'
+  }
+  if (accuracy < 50) {
+    return `「${tag}」严重薄弱，建议先回归课本复习基础知识，再专项练习巩固`
+  }
+  return `「${tag}」正确率偏低，建议每天花10分钟专项练习，重点攻克错题`
+}
+
 // ── 学科配置 ─────────────────────────────────────────────────
 const GRADE_SUBJECTS = {
   primary: [
@@ -453,6 +657,130 @@ export default function ReportPage({ user, onBack, onStartQuiz, grade = 'primary
               </div>
             ) : null
           })()}
+          {/* ★ AI学习建议（纯客户端分析） */}
+          {(() => {
+            const advice = generateLearningAdvice(allRecords, grade)
+            if (!advice || advice.priorities.length === 0) return null
+            const { subjects, weakPoints, strongPoints, repeatWrong, recentDays, priorities } = advice
+            const trend = recentDays.length >= 2
+              ? recentDays[0].accuracy - recentDays[recentDays.length - 1].accuracy
+              : 0
+            return (
+              <div className="bg-gradient-to-br from-indigo-50 via-white to-purple-50 rounded-2xl p-4 shadow-sm border border-indigo-100">
+                <div className="flex items-center gap-2 mb-3">
+                  <span className="text-lg">🧠</span>
+                  <div className="flex-1">
+                    <h2 className="text-sm font-bold text-indigo-900">AI学习建议</h2>
+                    <p className="text-[10px] text-indigo-400">基于 {allRecords.length} 条答题记录自动分析</p>
+                  </div>
+                  {trend !== 0 && (
+                    <span className={`text-xs font-bold px-2 py-0.5 rounded-full ${
+                      trend > 5 ? 'bg-green-100 text-green-700' : trend > 0 ? 'bg-blue-100 text-blue-600' : 'bg-orange-100 text-orange-600'
+                    }`}>
+                      {trend > 5 ? '📈 进步中' : trend > 0 ? '↗ 略有提升' : '↘ 需要加油'}
+                    </span>
+                  )}
+                </div>
+
+                {/* 各科正确率一览 */}
+                <div className="flex gap-2 mb-3 overflow-x-auto pb-1">
+                  {subjects.map(s => (
+                    <div key={s.name} className={`flex-shrink-0 rounded-xl px-3 py-2 text-center min-w-[72px] ${
+                      s.accuracy >= 80 ? 'bg-green-50 border border-green-200' :
+                      s.accuracy >= 60 ? 'bg-amber-50 border border-amber-200' :
+                      'bg-red-50 border border-red-200'
+                    }`}>
+                      <div className={`text-lg font-bold ${
+                        s.accuracy >= 80 ? 'text-green-700' : s.accuracy >= 60 ? 'text-amber-600' : 'text-red-600'
+                      }`}>{s.accuracy}%</div>
+                      <div className="text-[10px] text-gray-500">{s.name}</div>
+                    </div>
+                  ))}
+                </div>
+
+                {/* 薄弱点优先建议 */}
+                {priorities.length > 0 && (
+                  <div className="mb-3">
+                    <h3 className="text-xs font-bold text-red-700 mb-2">🔴 优先加强</h3>
+                    <div className="space-y-2">
+                      {priorities.slice(0, 3).map((p, i) => (
+                        <div key={p.tag} className="bg-white rounded-xl p-3 border border-gray-100 shadow-sm">
+                          <div className="flex items-start gap-2">
+                            <span className={`flex-shrink-0 w-5 h-5 rounded-full text-white text-xs flex items-center justify-center font-bold ${
+                              i === 0 ? 'bg-red-500' : i === 1 ? 'bg-orange-400' : 'bg-amber-400'
+                            }`}>{i + 1}</span>
+                            <div className="flex-1 min-w-0">
+                              <div className="flex items-center justify-between">
+                                <span className="text-sm font-semibold text-gray-800">
+                                  [{p.subj}] {p.tag}
+                                </span>
+                                <span className={`text-xs font-bold ${
+                                  p.accuracy < 50 ? 'text-red-600' : 'text-orange-500'
+                                }`}>{p.accuracy}%（错{p.wrong}题）</span>
+                              </div>
+                              <p className="text-xs text-gray-500 mt-1 leading-relaxed">{p.tip}</p>
+                            </div>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {/* 强项（折叠） */}
+                {strongPoints.length > 0 && (
+                  <details className="mb-2">
+                    <summary className="text-xs font-bold text-green-700 cursor-pointer">🟢 表现不错（{strongPoints.length}项）</summary>
+                    <div className="mt-1.5 flex flex-wrap gap-1.5">
+                      {strongPoints.slice(0, 6).map(s => (
+                        <span key={s.tag} className="text-[10px] bg-green-50 text-green-700 px-2 py-1 rounded-full font-medium border border-green-100">
+                          {s.subj}·{s.tag} {s.accuracy}%
+                        </span>
+                      ))}
+                    </div>
+                  </details>
+                )}
+
+                {/* 重复错题提示 */}
+                {repeatWrong.length > 0 && (
+                  <div className="bg-red-50 rounded-xl p-2.5 mt-2 border border-red-100">
+                    <p className="text-xs font-bold text-red-700 mb-1">
+                      ⚠️ {repeatWrong.length} 道题反复出错
+                    </p>
+                    <p className="text-[10px] text-red-600">
+                      {repeatWrong.slice(0, 3).map(w => `${w.cardId}（${w.count}次）`).join('、')}
+                      {repeatWrong.length > 3 ? ` 等${repeatWrong.length}题` : ''}
+                      — 说明知识点没掌握，不是粗心。建议针对这些题回归课本复习
+                    </p>
+                  </div>
+                )}
+
+                {/* 近期趋势 */}
+                {recentDays.length >= 3 && (
+                  <div className="mt-2 pt-2 border-t border-indigo-100">
+                    <div className="flex items-center justify-between mb-1.5">
+                      <span className="text-[10px] text-gray-500 font-medium">近{recentDays.length}天正确率趋势</span>
+                    </div>
+                    <div className="flex items-end gap-1">
+                      {recentDays.slice().reverse().map(d => {
+                        const h = Math.max(8, d.accuracy * 0.4)
+                        return (
+                          <div key={d.date} className="flex-1 flex flex-col items-center gap-0.5">
+                            <span className="text-[9px] font-bold text-gray-600">{d.accuracy}%</span>
+                            <div className={`w-full rounded-sm ${
+                              d.accuracy >= 80 ? 'bg-green-400' : d.accuracy >= 60 ? 'bg-amber-400' : 'bg-red-400'
+                            }`} style={{ height: h }} />
+                            <span className="text-[8px] text-gray-400">{d.date.slice(8)}</span>
+                          </div>
+                        )
+                      })}
+                    </div>
+                  </div>
+                )}
+              </div>
+            )
+          })()}
+
           {/* 家长邮箱设置 */}
           <ParentEmailSetting userId={user.id} />
           {/* 14天热力图 */}
