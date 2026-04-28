@@ -32,3 +32,18 @@ ziF3kS6l
 
 .vercel
 .env*.local
+
+# Secrets
+server/.env
+
+# Debug / development artifacts
+debug_*/
+__pycache__/
+*.pyc
+*.pyo
+
+# Dev screenshots
+after-fix.png
+after-onboard.png
+pet-*.png
+prod-fixed.png
