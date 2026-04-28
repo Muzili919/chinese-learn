@@ -97,7 +97,8 @@ function shuffleOptions(question) {
 }
 
 export default function QuizPage({ user, options = {}, onFinish, onBack }) {
-  const { focusTag = null, knowledgeTag = null, wrongCardIds = null, mathTopic = null, minDifficulty = null, grade = null, juniorChineseTag = null } = options
+  const { focusTag = null, knowledgeTag = null, wrongCardIds = null, mathTopic = null, minDifficulty = null, juniorChineseTag = null } = options
+  const grade = options?.grade || storage.getGrade()
 
   // 根据星球确定每次答题数
   const sessionSize = (wrongCardIds?.length)
@@ -254,7 +255,19 @@ export default function QuizPage({ user, options = {}, onFinish, onBack }) {
       ability_tag: current.ability_tag,
       knowledge_tag: current.knowledge_tag,
       topic: current.topic,
-      subject: mathTopic ? (grade === 'junior' ? 'math_junior' : 'math') : juniorChineseTag ? 'chinese_junior' : options?.wrongReviewSubject || 'chinese',
+      subject: (() => {
+        if (mathTopic) return grade === 'junior' ? 'math_junior' : 'math'
+        if (juniorChineseTag) return 'chinese_junior'
+        if (options?.wrongReviewSubject) return options.wrongReviewSubject
+        // 从 card_id 推断学科
+        const cid = current.id || ''
+        if (/^math_|^formula_|^jf_/.test(cid)) return grade === 'junior' ? 'math_junior' : 'math'
+        if (/^en_|^j2_/.test(cid)) return 'english'
+        if (/^pol_|^politics_|^q\d/.test(cid)) return 'politics'
+        if (/^jc_/.test(cid)) return 'chinese_junior'
+        if (/^essay_|^selftest_|^test_/.test(cid)) return options?.wrongReviewSubject || 'chinese'
+        return 'chinese'
+      })(),
       timestamp: new Date().toISOString(),
       difficulty: current.difficulty,
       grade: grade || (juniorChineseTag ? 'junior' : undefined),
