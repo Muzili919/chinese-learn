@@ -150,6 +150,21 @@ export async function pullFromCloud(userId) {
     }
   } catch (_) {}
 
+  // 学习会话
+  try {
+    const cloudSessions = await apiFetch('GET', `/sessions/${userId}`)
+    if (cloudSessions?.length) {
+      const localSessions = storage.getSessions(userId)
+      const sessionMap = new Map()
+      for (const s of localSessions) sessionMap.set(s.date, s)
+      for (const s of cloudSessions) {
+        if (!sessionMap.has(s.date)) sessionMap.set(s.date, s)
+      }
+      localStorage.setItem(`cl_sessions_${userId}`, JSON.stringify([...sessionMap.values()]))
+      pulledAny = true
+    }
+  } catch (_) {}
+
   // 用户统计
   try {
     const stats = await apiFetch('GET', `/user/stats/${userId}`)

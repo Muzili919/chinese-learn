@@ -231,7 +231,7 @@ export default function ReportPage({ user, onBack, onStartQuiz, grade = 'primary
   const allExams      = useMemo(() => getAllExams(user.id), [user.id, examCalRefresh])
   const examResults   = useMemo(() => getExamResults(user.id), [user.id, examResultRefresh])
   const taskCompletion = useMemo(() => getTaskCompletionHistory(user.id, 14), [user.id, activeTab])
-  const heatmap        = useMemo(() => getActivityHeatmap(sessions), [sessions])
+  const heatmap        = useMemo(() => getActivityHeatmap(sessions, allRecords), [sessions, allRecords])
   const weeklyBalance  = useMemo(() => getWeeklySubjectBalance(user.id), [user.id])
   const examHistory    = useMemo(() => {
     try { return JSON.parse(localStorage.getItem(`exam_history_${user.id}`) || '[]') } catch { return [] }

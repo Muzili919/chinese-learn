@@ -180,7 +180,7 @@ app.get('/api/records/:userId', async (req, res) => {
   
   try {
     const result = await pool.query(
-      'SELECT card_id, subject, correct, timestamp, user_id FROM answer_records WHERE user_id = $1 ORDER BY timestamp DESC LIMIT 500',
+      'SELECT card_id, subject, correct, timestamp, knowledge_tag, ability_tag, topic, time_spent, score, selected_answer FROM answer_records WHERE user_id = $1 ORDER BY timestamp DESC',
       [userId]
     )
     // 去掉user_id返回
@@ -206,6 +206,7 @@ app.post('/api/records/bulk-upsert', async (req, res) => {
         r.correct ? 'true' : 'false',
         r.timestamp || new Date().toISOString(),
         r.knowledge_tag || null,
+        r.ability_tag || null,
         r.topic || null,
         r.time_spent || null,
         r.score != null ? r.score : null,
@@ -213,17 +214,18 @@ app.post('/api/records/bulk-upsert', async (req, res) => {
       ])
 
       const placeholders = batch.map((_, idx) => {
-        const b = idx * 11
-        return `($${b+1}, $${b+2}, $${b+3}, $${b+4}, $${b+5}::boolean, $${b+6}, $${b+7}, $${b+8}, $${b+9}, $${b+10}, $${b+11})`
+        const b = idx * 12
+        return `($${b+1}, $${b+2}, $${b+3}, $${b+4}, $${b+5}::boolean, $${b+6}, $${b+7}, $${b+8}, $${b+9}, $${b+10}, $${b+11}, $${b+12})`
       }).join(', ')
 
       await pool.query(`
-        INSERT INTO answer_records (id, user_id, card_id, subject, correct, timestamp, knowledge_tag, topic, time_spent, score, selected_answer)
+        INSERT INTO answer_records (id, user_id, card_id, subject, correct, timestamp, knowledge_tag, ability_tag, topic, time_spent, score, selected_answer)
         VALUES ${placeholders}
         ON CONFLICT (id) DO UPDATE SET
           correct = EXCLUDED.correct,
           subject = EXCLUDED.subject,
           knowledge_tag = COALESCE(EXCLUDED.knowledge_tag, answer_records.knowledge_tag),
+          ability_tag = COALESCE(EXCLUDED.ability_tag, answer_records.ability_tag),
           topic = COALESCE(EXCLUDED.topic, answer_records.topic),
           time_spent = COALESCE(EXCLUDED.time_spent, answer_records.time_spent),
           score = COALESCE(EXCLUDED.score, answer_records.score),

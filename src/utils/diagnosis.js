@@ -267,12 +267,20 @@ function buildSession(records) {
 export { seriousLabel, seriousColor }
 
 /** Last 14 days activity: [{ date, count }] */
-export function getActivityHeatmap(sessions) {
+export function getActivityHeatmap(sessions, records) {
   const map = {};
-  sessions.forEach((s) => {
-    const date = s.date?.split('T')[0] || s.date;
-    map[date] = (map[date] || 0) + (s.total || 0);
-  });
+  // 优先从 records 统计（更可靠，不依赖 sessions 同步）
+  if (records?.length) {
+    records.forEach((r) => {
+      const date = (r.timestamp || '').slice(0, 10);
+      if (date) map[date] = (map[date] || 0) + 1;
+    });
+  } else {
+    sessions.forEach((s) => {
+      const date = s.date?.split('T')[0] || s.date;
+      map[date] = (map[date] || 0) + (s.total || 0);
+    });
+  }
 
   const result = [];
   for (let i = 13; i >= 0; i--) {
