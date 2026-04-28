@@ -1,26 +1,55 @@
 import { KNOWLEDGE_DEPS } from '../data/knowledge_graph'
 
 // 从 card_id 前缀推断知识分类
-function inferTagFromCardId(cardId) {
+export function inferTagFromCardId(cardId) {
   if (!cardId) return ''
-  if (cardId.startsWith('jc_basic') || cardId.startsWith('zh_') || cardId.startsWith('ci_') || cardId.startsWith('chengyu_')) return '字音辨析'
-  if (cardId.startsWith('jc_poetry') || cardId.startsWith('poem_') || cardId.startsWith('gushi_')) return '古诗文默写'
-  if (cardId.startsWith('jc_classical') || cardId.startsWith('wy_')) return '实词解释'
+  // 初中语文
+  if (cardId.startsWith('jc_basic') || cardId.startsWith('zh_') || cardId.startsWith('ci_') || cardId.startsWith('chengyu_') || cardId.startsWith('vocab_sc')) return '字音辨析'
+  if (cardId.startsWith('jc_poetry') || cardId.startsWith('poem_') || cardId.startsWith('gushi_') || cardId.startsWith('poetry_sc')) return '古诗文默写'
+  if (cardId.startsWith('jc_classical') || cardId.startsWith('jc_cl') || cardId.startsWith('wy_')) return '实词解释'
   if (cardId.startsWith('jc_reading') || cardId.startsWith('jcr_')) return '现代文阅读'
   if (cardId.startsWith('jc_novel') || cardId.startsWith('mz_')) return '名著阅读'
-  if (cardId.startsWith('jc_expression') || cardId.startsWith('bf_')) return '仿写句子'
-  if (cardId.startsWith('pol_choice') || cardId.startsWith('politics_combo')) return '选择题'
-  if (cardId.startsWith('pol_analysis')) return '材料分析题'
-  if (cardId.startsWith('pol_sa')) return '简答题'
-  if (cardId.startsWith('pol_explore')) return '实践探究题'
+  if (cardId.startsWith('jc_expression') || cardId.startsWith('jc_expr') || cardId.startsWith('bf_')) return '仿写句子'
+  // 小学语文
+  if (cardId.startsWith('vocab_') || cardId === 'vocab') return '字词'
+  if (cardId.startsWith('idiom_')) return '成语'
+  if (cardId.startsWith('poetry_')) return '古诗词'
+  if (cardId.startsWith('sentence')) return '句子'
+  // 道法
+  if (cardId.startsWith('pol_choice') || cardId.startsWith('politics_choice') || cardId.startsWith('politics_combo')) return '选择题'
+  if (cardId.startsWith('pol_analysis') || cardId.startsWith('politics_analysis')) return '材料分析题'
+  if (cardId.startsWith('pol_sa') || cardId.startsWith('politics_sa') || cardId.startsWith('politics_answer')) return '简答题'
+  if (cardId.startsWith('pol_explore') || cardId.startsWith('politics_explore')) return '实践探究题'
+  // 英语 - 小学
   if (cardId.startsWith('en_vocab') || cardId.startsWith('enV_') || cardId.startsWith('ev_')) return '英语词汇'
   if (cardId.startsWith('en_listen') || cardId.startsWith('el_')) return '英语听力'
   if (cardId.startsWith('en_grammar') || cardId.startsWith('eg_')) return '英语语法'
   if (cardId.startsWith('en_reading') || cardId.startsWith('er_')) return '英语阅读'
   if (cardId.startsWith('en_writing') || cardId.startsWith('ew_')) return '英语写作'
-  if (cardId.startsWith('en_cloze') || cardId.startsWith('en_j2_cloze')) return '完形填空'
+  if (cardId.startsWith('en_cloze')) return '完形填空'
   if (cardId.startsWith('en_assoc')) return '英语联想'
-  if (cardId.startsWith('math_') || cardId.startsWith('jf_')) return '公式速记'
+  // 英语 - 初中
+  if (cardId.startsWith('en_j2_vocab')) return '词汇辨析'
+  if (cardId.startsWith('en_j2_cloze')) return '完形填空'
+  if (cardId.startsWith('en_j2_read') || cardId.startsWith('j2_read')) return '英语阅读'
+  if (cardId.startsWith('en_j2_listen')) return '英语听力'
+  if (cardId.startsWith('en_j2_grammar')) return '英语语法'
+  if (cardId.startsWith('en_j2_writing')) return '英语写作'
+  if (cardId.startsWith('en_j2_')) return '英语综合'
+  // 数学 - 小学
+  if (cardId.startsWith('math_basic') || cardId.startsWith('math_b')) return '分数运算'
+  if (cardId.startsWith('math_geometry') || cardId.startsWith('math_g')) return '平面图形'
+  if (cardId.startsWith('math_olympiad') || cardId.startsWith('math_o')) return '行程问题'
+  if (cardId.startsWith('math_formula') || cardId.startsWith('jf_')) return '公式速记'
+  // 数学 - 初中
+  if (cardId.startsWith('math_je') || cardId.startsWith('math_junior_equation')) return '等式性质'
+  if (cardId.startsWith('math_jf') || cardId.startsWith('math_junior_function')) return '平面直角坐标系'
+  if (cardId.startsWith('math_ja') || cardId.startsWith('math_junior_algebra')) return '整式加减'
+  if (cardId.startsWith('math_jgeo') || cardId.startsWith('math_junior_geo')) return '相交线与平行线'
+  if (cardId.startsWith('math_jo') || cardId.startsWith('math_junior_olympiad')) return '奥数专题'
+  // 自测/作文
+  if (cardId.startsWith('selftest_') || cardId.startsWith('test_')) return '综合'
+  if (cardId.startsWith('essay_')) return '写作'
   return ''
 }
 

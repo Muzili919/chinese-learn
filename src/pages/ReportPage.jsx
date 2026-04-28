@@ -13,7 +13,7 @@
 import { useState, useMemo, useRef } from 'react'
 import { storage, exportAll } from '../utils/storage'
 import { FULL_Q_MAP } from '../utils/questionMap'
-import { getActivityHeatmap } from '../utils/diagnosis'
+import { getActivityHeatmap, inferTagFromCardId } from '../utils/diagnosis'
 import StudyReportCard from '../components/StudyReportCard'
 import {
   getUpcomingExams, getAllExams, addExam, removeExam, getDaysUntil,
@@ -112,8 +112,8 @@ function diagnoseByKey(records, key = 'ability_tag') {
   const groups = {}
   const now = Date.now()
   for (const r of records) {
-    const tag = r[key]
-    if (!tag) continue
+    const tag = r[key] || r.ability_tag || r.knowledge_tag || r.topic || inferTagFromCardId(r.card_id)
+    if (!tag || tag === '其他') continue
     if (!groups[tag]) groups[tag] = { correct: 0, total: 0, times: [], weightedCorrect: 0, weightedTotal: 0 }
     groups[tag].total++
     if (r.correct) groups[tag].correct++
