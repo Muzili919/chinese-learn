@@ -921,6 +921,49 @@ app.post('/api/admin/set-plan', async (req, res) => {
 })
 
 /** 管理员：列出所有用户+plan（便于查看） */
+// ========== 清理版本bug导致的假错题 ==========
+app.post('/api/admin/cleanup-buggy-records', async (req, res) => {
+  const { adminKey } = req.body
+  if (adminKey !== ADMIN_KEY) return error(res, '无权限', 403)
+  try {
+    let total = 0
+    // 1. 李雨: 4/18 00:11 道法临时题 q1-q11
+    const r1 = await pool.query(
+      `DELETE FROM answer_records WHERE user_id = '李雨_mo2t5zxm'
+       AND card_id IN ('q1','q2','q3','q4','q5','q6','q7','q8','q9','q10','q11')
+       AND timestamp LIKE '2026-04-18T00:11%'`
+    )
+    total += r1.rowCount
+
+    // 2. 小松鼠: subject=chinese 但 card_id 以 math_ 开头的错题
+    const r2 = await pool.query(
+      `DELETE FROM answer_records WHERE user_id = '小松鼠_mo2smtx6'
+       AND subject = 'chinese' AND card_id LIKE 'math_%' AND correct = 'false'`
+    )
+    total += r2.rowCount
+
+    // 3. 小松鼠: 临时题ID q1-q19
+    const qIds = Array.from({length: 19}, (_, i) => `q${i + 1}`)
+    const r3 = await pool.query(
+      `DELETE FROM answer_records WHERE user_id = '小松鼠_mo2smtx6'
+       AND card_id = ANY($1) AND correct = 'false'`, [qIds]
+    )
+    total += r3.rowCount
+
+    // 4. 小松鼠: 4/18 凌晨 00:00-00:59 的错题
+    const r4 = await pool.query(
+      `DELETE FROM answer_records WHERE user_id = '小松鼠_mo2smtx6'
+       AND timestamp LIKE '2026-04-18T00:%' AND correct = 'false'`
+    )
+    total += r4.rowCount
+
+    return json(res, { ok: true, deleted: total, details: { liyu_q: r1.rowCount, sqs_math_subject: r2.rowCount, sqs_q: r3.rowCount, sqs_overnight: r4.rowCount } })
+  } catch (err) {
+    console.error('cleanup error:', err)
+    return error(res, '清理失败: ' + err.message, 500)
+  }
+})
+
 app.get('/api/admin/users', async (req, res) => {
   const { adminKey } = req.query
   if (adminKey !== ADMIN_KEY) return error(res, '无权限', 403)
