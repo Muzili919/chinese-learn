@@ -1638,12 +1638,11 @@ export default function MV1Demo({ onBack, initialState, onStateChange, grade, cu
         )}
 
         {activeTab === 'game' && (() => {
-          // ★ 错题锁：今天答对5题以上即可解锁游戏（不需要全部清零）
+          // ★ 错题锁：今天答题10题以上即解锁游戏（鼓励练习，不要求全部清零）
           const wrongCount = currentUserId ? storage.getDueTodayWrongCount(currentUserId, grade) : 0
           const today = new Date().toISOString().split('T')[0]
-          const todayRecords = currentUserId ? storage.getRecords(currentUserId).filter(r => r.timestamp?.startsWith(today)) : []
-          const todayCorrectFromWrong = todayRecords.filter(r => r.correct && storage.getWrongCardIds(currentUserId).has(r.card_id)).length
-          const gameUnlocked = todayCorrectFromWrong >= 5 || wrongCount === 0
+          const todayAnswered = currentUserId ? storage.getRecords(currentUserId).filter(r => r.timestamp?.startsWith(today)).length : 0
+          const gameUnlocked = todayAnswered >= 10 || wrongCount === 0
           if (!gameUnlocked) {
             return (
               <div style={{ padding: '48px 24px', textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', minHeight: 300 }}>

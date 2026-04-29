@@ -63,7 +63,7 @@ function FeedbackPanel({ correct, analysis, answer, onContinue, variantState, on
   }
 
   return (
-    <div className={`fixed bottom-0 left-0 right-0 z-30 rounded-t-3xl shadow-2xl max-h-[80vh] flex flex-col ${
+    <div className={`fixed bottom-0 left-0 right-0 z-30 rounded-t-3xl shadow-2xl max-h-[80dvh] flex flex-col ${
       correct ? 'bg-green-50 border-t-4 border-green-400' : 'bg-red-50 border-t-4 border-red-400'
     }`}>
       <div className="flex-1 overflow-y-auto px-5 pt-5 pb-2">
@@ -1627,7 +1627,7 @@ export default function DuolingoStyleQuiz({ question, onAnswerSubmit, showVarian
     || question.type === 'matching' || question.type === 'multi_meaning'
 
   return (
-    <div className="flex flex-col gap-4 pb-44">
+    <div className="flex flex-col gap-4 pb-64">
       {/* 题目为空时的防护 */}
       {!question || (!question.type && !question.question) ? (
         <div className="bg-orange-50 border-2 border-dashed border-orange-300 rounded-3xl px-6 py-10 text-center">
@@ -1646,7 +1646,7 @@ export default function DuolingoStyleQuiz({ question, onAnswerSubmit, showVarian
 
       {/* 题干（选择题单独显示，填空题由子组件内部显示） */}
       {question.type === 'single_choice' && (
-        <div className="bg-white rounded-3xl px-5 py-5 shadow-sm border border-gray-100">
+        <div className="bg-white rounded-3xl px-5 py-5 shadow-sm border border-gray-100 max-h-[40vh] overflow-y-auto">
           <p className={`leading-relaxed font-medium text-gray-800 ${
             (cleanQuestion || '').length > 120 ? 'text-sm' :
             (cleanQuestion || '').length > 60  ? 'text-base' : 'text-lg'
@@ -1674,7 +1674,7 @@ export default function DuolingoStyleQuiz({ question, onAnswerSubmit, showVarian
 
       {/* multiple_choice 题干（英语题使用） */}
       {question.type === 'multiple_choice' && (
-        <div className="bg-white rounded-3xl px-5 py-5 shadow-sm border border-gray-100">
+        <div className="bg-white rounded-3xl px-5 py-5 shadow-sm border border-gray-100 max-h-[30vh] overflow-y-auto relative">
           <div className="flex items-start gap-2">
             <p className={`leading-relaxed font-medium flex-1 whitespace-pre-wrap text-gray-800 ${
               (cleanQuestion || '').length > 120 ? 'text-sm' :
@@ -1752,7 +1752,7 @@ export default function DuolingoStyleQuiz({ question, onAnswerSubmit, showVarian
 
       {/* 底部继续条：内部自带提交的题型，答完后展示总结+完整答案+解析 */}
       {answered && hasInternalSubmit && (
-        <div className={`fixed bottom-0 left-0 right-0 z-30 rounded-t-3xl shadow-2xl max-h-[75vh] flex flex-col ${
+        <div className={`fixed bottom-0 left-0 right-0 z-30 rounded-t-3xl shadow-2xl max-h-[75dvh] flex flex-col ${
           phase === 'correct' ? 'bg-green-50 border-t-4 border-green-400' : 'bg-red-50 border-t-4 border-red-400'
         }`}>
           <div className="flex-1 overflow-y-auto px-5 pt-5 pb-2">
