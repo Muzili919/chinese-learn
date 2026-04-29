@@ -6,8 +6,16 @@
  * 替代 Supabase 的全部功能
  */
 
-// 加载 .env 环境变量（DB/TTS/AI 密钥等）
-try { require('dotenv').config() } catch (_) {}
+// 加载 .env 环境变量（无需 npm 包，内置解析）
+;(function loadEnv() {
+  const fs = require('fs'), path = require('path')
+  const envPath = path.join(__dirname, '.env')
+  if (!fs.existsSync(envPath)) return
+  for (const line of fs.readFileSync(envPath, 'utf-8').split('\n')) {
+    const m = line.match(/^\s*([A-Z_][A-Z0-9_]*)\s*=\s*(.+?)\s*$/)
+    if (m && !process.env[m[1]]) process.env[m[1]] = m[2]
+  }
+})()
 
 const express = require('express')
 const cors = require('cors')
