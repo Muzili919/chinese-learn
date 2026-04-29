@@ -1638,9 +1638,13 @@ export default function MV1Demo({ onBack, initialState, onStateChange, grade, cu
         )}
 
         {activeTab === 'game' && (() => {
-          // ★ 错题锁：只有今日到期的错题才锁定游戏，未来复习的不计入
+          // ★ 错题锁：今天答对5题以上即可解锁游戏（不需要全部清零）
           const wrongCount = currentUserId ? storage.getDueTodayWrongCount(currentUserId, grade) : 0
-          if (wrongCount > 0) {
+          const today = new Date().toISOString().split('T')[0]
+          const todayRecords = currentUserId ? storage.getRecords(currentUserId).filter(r => r.timestamp?.startsWith(today)) : []
+          const todayCorrectFromWrong = todayRecords.filter(r => r.correct && storage.getWrongCardIds(currentUserId).has(r.card_id)).length
+          const gameUnlocked = todayCorrectFromWrong >= 5 || wrongCount === 0
+          if (!gameUnlocked) {
             return (
               <div style={{ padding: '48px 24px', textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', minHeight: 300 }}>
                 <div style={{ fontSize: 56, marginBottom: 12 }}>🔒</div>
