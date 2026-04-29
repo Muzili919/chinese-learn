@@ -29,7 +29,7 @@ function renderRichText(text) {
 
 // ─── 底部反馈面板 ─────────────────────────────────────────
 
-function FeedbackPanel({ correct, analysis, answer, onContinue, variantState, onSocratic, wrongChoice, questionOpts, hideAiFeatures }) {
+function FeedbackPanel({ correct, analysis, answer, onContinue, variantState, onSocratic, wrongChoice, questionOpts, hideAiFeatures, reinforcementActive }) {
   // variantState = { phase, question, selected, onSelect, onGenerate, showButton, remaining }
   const vs = variantState || {}
   const [aiExplaining, setAiExplaining] = useState(false)
@@ -229,12 +229,15 @@ function FeedbackPanel({ correct, analysis, answer, onContinue, variantState, on
       </div>
       <div className="px-5 pt-3 pb-12">
         <div className="max-w-md mx-auto">
-          <button onClick={onContinue}
-            className={`w-full py-3 rounded-2xl font-bold text-white text-base active:scale-95 transition-all ${
-              correct ? 'bg-green-500' : 'bg-red-500'
-            }`}>
-            继续
-          </button>
+          {/* ★ 强化练习进行中时隐藏"继续"按钮，完成后才显示 */}
+          {!reinforcementActive && (
+            <button onClick={onContinue}
+              className={`w-full py-3 rounded-2xl font-bold text-white text-base active:scale-95 transition-all ${
+                correct ? 'bg-green-500' : 'bg-red-500'
+              }`}>
+              继续
+            </button>
+          )}
         </div>
       </div>
     </div>
@@ -1487,8 +1490,19 @@ export default function DuolingoStyleQuiz({ question, onAnswerSubmit, showVarian
   function handleDone(answer, correct) {
     setChosenAnswer(answer)
     setPhase(correct ? 'correct' : 'wrong')
-    // ★ 不再自动触发举一反三，只在错题集里触发
+    // ★ 错题集模式：答错后自动触发举一反三 + 苏格拉底引导
+    if (!correct && !hideAiFeatures) {
+      setTimeout(() => handleVariant(true), 800)
+    }
   }
+
+  // ★ 举一反三答完后，自动触发苏格拉底引导（错题集模式）
+  useEffect(() => {
+    if (variantPhase === 'done' && !hideAiFeatures && phase === 'wrong') {
+      const timer = setTimeout(() => setShowSocratic(true), 600)
+      return () => clearTimeout(timer)
+    }
+  }, [variantPhase, hideAiFeatures, phase])
 
   function handleContinue() {
     // 补写 socratic/feynman 数据到最近一条 record
@@ -1722,6 +1736,7 @@ export default function DuolingoStyleQuiz({ question, onAnswerSubmit, showVarian
           onContinue={handleContinue}
           onSocratic={phase === 'wrong' ? () => setShowSocratic(true) : null}
           hideAiFeatures={hideAiFeatures}
+          reinforcementActive={!hideAiFeatures && phase === 'wrong' && (variantPhase === 'loading' || variantPhase === 'answering' || (variantPhase === 'done' && !socraticResult))}
           variantState={{
             showButton: showVariantButton,
             phase: variantPhase,
