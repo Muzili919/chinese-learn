@@ -88,6 +88,20 @@ function scheduleSessionWords(ctx, srsMap) {
   return Object.values(groups).flat()
 }
 
+// ─── 去重工具：确保选项列表中无重复 ──────────────────────────────────
+function dedupeOptions(answer, wrongPool, totalNeeded) {
+  const seen = new Set([answer])
+  const wrongs = []
+  for (const opt of wrongPool) {
+    if (wrongs.length >= totalNeeded - 1) break
+    if (!seen.has(opt)) {
+      seen.add(opt)
+      wrongs.push(opt)
+    }
+  }
+  return shuffle([answer, ...wrongs])
+}
+
 // ─── 生成 2 道题（联想题 + 辨析题） ──────────────────────────────────────
 function buildQuestions(wordObj, ctx) {
   const c = ctx || _defaultCtx
@@ -97,12 +111,12 @@ function buildQuestions(wordObj, ctx) {
   const assocs = wordObj.associations || []
   if (assocs.length > 0) {
     const correct = assocs[Math.floor(Math.random() * assocs.length)]
-    const distractors = shuffle(
+    const distractorPool = shuffle(
       c.allWords
         .filter(w => !assocs.includes(w.word) && w.word !== wordObj.word)
         .map(w => w.word)
-    ).slice(0, 3)
-    const options = shuffle([correct, ...distractors])
+    )
+    const options = dedupeOptions(correct, distractorPool, 4)
     questions.push({
       type: 'association',
       label: '联想题',
@@ -117,12 +131,12 @@ function buildQuestions(wordObj, ctx) {
   if (confusables.length > 0) {
     const targetWord = confusables[Math.floor(Math.random() * confusables.length)]
     const targetObj = c.allWordsMap[targetWord]
-    const distractors = shuffle(
+    const distractorPool = shuffle(
       c.allWords
         .filter(w => w.word !== targetWord)
         .map(w => w.word)
-    ).slice(0, 3)
-    const options = shuffle([targetWord, ...distractors])
+    )
+    const options = dedupeOptions(targetWord, distractorPool, 4)
     questions.push({
       type: 'confusable',
       label: '辨析题',

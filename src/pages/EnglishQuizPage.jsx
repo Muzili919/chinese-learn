@@ -1873,21 +1873,10 @@ export default function EnglishQuizPage({ user, options = {}, onFinish, onBack }
         xpEarned: xpGained + xp, durationSec: totalSec,
       }
         storage.addSession(user.id, session)
-        // 标记星球完成
+        // 标记星球完成（做完全部题目即打卡，不再用 todayRecords 过滤）
         const completedTag = EN_PLANET_CANONICAL_TAG[englishTag] || current?.knowledge_tag
         if (completedTag) {
-          const todayStr = new Date().toISOString().split('T')[0]
-          const todayRecords = storage.getRecords(user.id).filter(r => {
-            if (!r.timestamp?.startsWith(todayStr)) return false
-            // 完形填空/写作：knowledge_tag 可能不匹配 canonicalTag，按 card_id 前缀匹配
-            if (englishTag === 'en_cloze') return r.card_id?.startsWith('en_cloze_') || r.card_id?.startsWith('en_j2_cloze_')
-            if (englishTag === 'en_writing') return r.knowledge_tag === '英语写作' || ['书信写作','日记写作','自我介绍','话题写作'].includes(r.knowledge_tag || '')
-            return (r.knowledge_tag || '') === completedTag
-          })
-          const threshold = englishTag === 'en_writing' ? 3 : 3
-          if (todayRecords.length >= threshold) {
-            storage.markPlanetComplete(user.id, completedTag)
-          }
+          storage.markPlanetComplete(user.id, completedTag)
         }
         updateStreak(user.id)
         // 今日已见：记录本 session 所有题 id，下次选题自动排到最后

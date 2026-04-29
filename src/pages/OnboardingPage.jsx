@@ -103,14 +103,22 @@ export default function OnboardingPage({ onDone }) {
     const user = { id: userId, name: name.trim(), pin: pin || '1234', createdAt: new Date().toISOString() }
 
     // 记录邀请码关联
+    let usedCode = null
     try {
       const usedCodes = JSON.parse(sessionStorage.getItem('cl_session_code') || '[]')
       if (usedCodes.length > 0) {
-        user.inviteCode = usedCodes[usedCodes.length - 1]
+        usedCode = usedCodes[usedCodes.length - 1]
+        user.inviteCode = usedCode
       }
     } catch (_) {}
 
     await syncUserToCloud(user)
+
+    // 如果用了邀请码，注册后立即升级 plan
+    if (usedCode) {
+      try { await validateInviteCode(usedCode, userId) } catch (_) {}
+    }
+
     // 新用户进入选学段步骤
     setPendingUser(user)
     setStep('grade')

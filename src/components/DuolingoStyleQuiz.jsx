@@ -260,22 +260,32 @@ function ChoiceQuestion({ question, onDone }) {
     }
     const hasInlineOpts = extracted.length >= 2
 
-    if (!hasInlineOpts && !isBareLetter) return { options: rawOpts, displayQuestion: question.question }
+    let opts = rawOpts
+    let displayQ = question.question
+
+    if (!hasInlineOpts && !isBareLetter) {
+      // 无内联选项、非裸字母 → 直接用 rawOpts，但做去重
+      const seen = new Set()
+      opts = rawOpts.filter(o => { if (seen.has(o)) return false; seen.add(o); return true })
+      return { options: opts, displayQuestion: displayQ }
+    }
 
     if (isBareLetter && hasInlineOpts) {
       // 裸字母选项 → 用内联文本替换
       const fullOpts = extracted.map(e => `${e.letter}. ${e.text}`)
-      const displayQ = question.question.slice(0, extracted[0].index).trimEnd()
-      return { options: fullOpts, displayQuestion: displayQ }
-    }
-
-    if (hasInlineOpts && !isBareLetter) {
+      displayQ = question.question.slice(0, extracted[0].index).trimEnd()
+      opts = fullOpts
+    } else if (hasInlineOpts && !isBareLetter) {
       // options 已有完整文本，只需从题干中剥离内联选项
-      const displayQ = question.question.slice(0, extracted[0].index).trimEnd()
-      return { options: rawOpts, displayQuestion: displayQ }
+      displayQ = question.question.slice(0, extracted[0].index).trimEnd()
+      opts = rawOpts
     }
 
-    return { options: rawOpts, displayQuestion: question.question }
+    // 最终去重：确保选项列表无重复文本
+    const seen = new Set()
+    opts = opts.filter(o => { if (seen.has(o)) return false; seen.add(o); return true })
+
+    return { options: opts, displayQuestion: displayQ }
   }, [question.options, question.question])
 
   // 找出正确选项的全文（兼容 answer="B" 或 answer="B. bag" 或选项全文）

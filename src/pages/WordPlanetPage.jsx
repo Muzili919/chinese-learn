@@ -97,6 +97,20 @@ function scheduleSessionWords(srsMap) {
   return Object.values(groups).flat()
 }
 
+// ─── 去重工具：确保选项列表中无重复 ──────────────────────────────────
+function dedupeOptions(answer, wrongPool, totalNeeded) {
+  const seen = new Set([answer])
+  const wrongs = []
+  for (const opt of wrongPool) {
+    if (wrongs.length >= totalNeeded - 1) break
+    if (!seen.has(opt)) {
+      seen.add(opt)
+      wrongs.push(opt)
+    }
+  }
+  return shuffle([answer, ...wrongs])
+}
+
 // ─── 题目生成 ─────────────────────────────────────────────────────────────
 const QUESTION_TYPES = ['meaning_choice', 'trap_choice', 'association_fill', 'sentence_fill']
 
@@ -111,12 +125,8 @@ function buildQuestion(wordObj, idx) {
     const sameCatMeanings = allWords
       .filter(w => w.category === wordObj.category && w.word !== wordObj.word)
       .map(w => w.meaning)
-    const distractors = randomFrom(
-      [...new Set([...confusableMeanings, ...sameCatMeanings])],
-      3,
-      [wordObj.meaning]
-    )
-    const options = shuffle([wordObj.meaning, ...distractors.slice(0, 3)])
+    const distractorPool = shuffle([...new Set([...confusableMeanings, ...sameCatMeanings])])
+    const options = dedupeOptions(wordObj.meaning, distractorPool, 4)
     return {
       type,
       label: '认意思',
@@ -133,10 +143,10 @@ function buildQuestion(wordObj, idx) {
     const confusables = (wordObj.confusables || []).filter(w => allWordsMap[w])
     const extraWords = randomFrom(
       allWords.filter(w => w.word !== wordObj.word && !(wordObj.confusables || []).includes(w.word)),
-      3 - confusables.length
+      Math.max(3 - confusables.length, 3)  // 多取一些，去重后可能不够
     ).map(w => w.word)
-    const distractors = shuffle([...confusables, ...extraWords]).slice(0, 3)
-    const options = shuffle([wordObj.word, ...distractors])
+    const distractorPool = shuffle([...confusables, ...extraWords])
+    const options = dedupeOptions(wordObj.word, distractorPool, 4)
     return {
       type,
       label: '找陷阱',
@@ -151,11 +161,12 @@ function buildQuestion(wordObj, idx) {
   if (type === 'association_fill') {
     // 答案：associations[0]；错误选项：随机无关词
     const correctAssoc = (wordObj.associations || [])[0] || wordObj.word
-    const allOtherWords = allWords
-      .filter(w => !(wordObj.associations || []).includes(w.word) && w.word !== wordObj.word)
-      .map(w => w.word)
-    const distractors = randomFrom(allOtherWords, 3, [correctAssoc])
-    const options = shuffle([correctAssoc, ...distractors.slice(0, 3)])
+    const allOtherWords = shuffle(
+      allWords
+        .filter(w => !(wordObj.associations || []).includes(w.word) && w.word !== wordObj.word)
+        .map(w => w.word)
+    )
+    const options = dedupeOptions(correctAssoc, allOtherWords, 4)
     return {
       type,
       label: '联想填词',
@@ -172,13 +183,13 @@ function buildQuestion(wordObj, idx) {
     new RegExp(`\\b${wordObj.word}\\b`, 'i'),
     '_____'
   )
-  const confusables = (wordObj.confusables || []).filter(w => allWordsMap[w])
-  const extraWords = randomFrom(
+  const sConfusables = (wordObj.confusables || []).filter(w => allWordsMap[w])
+  const sExtraWords = randomFrom(
     allWords.filter(w => w.word !== wordObj.word && !(wordObj.confusables || []).includes(w.word)),
-    3 - confusables.length
+    Math.max(3 - sConfusables.length, 3)  // 多取一些，去重后可能不够
   ).map(w => w.word)
-  const distractors = shuffle([...confusables, ...extraWords]).slice(0, 3)
-  const options = shuffle([wordObj.word, ...distractors])
+  const sDistractorPool = shuffle([...sConfusables, ...sExtraWords])
+  const options = dedupeOptions(wordObj.word, sDistractorPool, 4)
   return {
     type,
     label: '例句填空',

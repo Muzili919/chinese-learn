@@ -31,16 +31,16 @@ export const FEATURES = {
   EXAM_CALENDAR:         () => true,
   WORD_CANNON_GAME:      () => true,
 
-  // ── 内测全开放（原限额功能）───────────────────────────────
-  AI_VARIANT_QUESTION:   () => Infinity,
-  AI_WRONG_ANALYSIS:     () => Infinity,
-  AI_SELFTEST:           () => Infinity,
+  // ── Premium 限额功能 ──────────────────────────────────────
+  AI_VARIANT_QUESTION:   (plan) => plan === 'premium' ? Infinity : (FREE_DAILY_LIMITS.ai_variant || 3),
+  AI_WRONG_ANALYSIS:     (plan) => plan === 'premium' ? Infinity : (FREE_DAILY_LIMITS.ai_analysis || 2),
+  AI_SELFTEST:           (plan) => plan === 'premium' ? Infinity : (FREE_DAILY_LIMITS.ai_selftest || 2),
 
-  // ── 内测全开放（原付费专属）───────────────────────────────
-  WXPUSHER_REPORT:       () => true,
-  SPRINT_AI_EXPAND:      () => true,
-  PARENT_WEEKLY_PDF:     () => true,
-  UNLIMITED_AI_ESSAY:    () => true,
+  // ── Premium 专属功能 ──────────────────────────────────────
+  WXPUSHER_REPORT:       (plan) => plan === 'premium',
+  SPRINT_AI_EXPAND:      (plan) => plan === 'premium',
+  PARENT_WEEKLY_PDF:     (plan) => plan === 'premium',
+  UNLIMITED_AI_ESSAY:    (plan) => plan === 'premium',
 }
 
 // ── 权益说明（用于升级卡片展示）─────────────────────────────

@@ -17,6 +17,34 @@ const XP_STREAK_BONUS = 20
 const QUESTION_MODES = ['en_to_cn', 'cn_to_en', 'spelling']
 
 /**
+ * 去重选项：确保正确答案在列表中，且所有选项唯一
+ * @param {string} answer - 正确答案
+ * @param {string[]} wrongPool - 干扰项候选池
+ * @param {number} totalNeeded - 总共需要的选项数（含正确答案）
+ * @param {string[]} [fallbacks=[]] - 去重后不足时的兜底选项
+ */
+function dedupeOptions(answer, wrongPool, totalNeeded, fallbacks = []) {
+  const seen = new Set([answer])
+  const wrongs = []
+  for (const opt of wrongPool) {
+    if (wrongs.length >= totalNeeded - 1) break
+    if (!seen.has(opt)) {
+      seen.add(opt)
+      wrongs.push(opt)
+    }
+  }
+  // 如果去重后不够，用兜底选项补
+  for (const fb of fallbacks) {
+    if (wrongs.length >= totalNeeded - 1) break
+    if (!seen.has(fb)) {
+      seen.add(fb)
+      wrongs.push(fb)
+    }
+  }
+  return shuffle([answer, ...wrongs])
+}
+
+/**
  * 构建一道闪电测验题目
  * 纯回忆！不给任何提示（无词树、无助记、无例句）
  */
@@ -24,12 +52,12 @@ function buildLightningQuestion(wordObj, mode) {
   switch (mode) {
     case 'en_to_cn':
       // 英文 → 选中文意思
-      const wrongMeanings = shuffle(
+      const wrongMeaningPool = shuffle(
         allWords
           .filter(w => w.word !== wordObj.word)
           .map(w => w.meaning)
-      ).slice(0, 3)
-      const optionsEn = shuffle([wordObj.meaning, ...wrongMeanings])
+      )
+      const optionsEn = dedupeOptions(wordObj.meaning, wrongMeaningPool, 4)
       return {
         type: 'en_to_cn',
         label: '英译中',
@@ -42,12 +70,12 @@ function buildLightningQuestion(wordObj, mode) {
 
     case 'cn_to_en':
       // 中文意思 → 选英文单词
-      const wrongWords = shuffle(
+      const wrongWordPool = shuffle(
         allWords
           .filter(w => w.word !== wordObj.word)
           .map(w => w.word)
-      ).slice(0, 3)
-      const optionsCn = shuffle([wordObj.word, ...wrongWords])
+      )
+      const optionsCn = dedupeOptions(wordObj.word, wrongWordPool, 4)
       return {
         type: 'cn_to_en',
         label: '中译英',
@@ -209,9 +237,9 @@ export default function LightningQuizPage({ user, onFinish, onBack }) {
       storage.addXP(user.id, xpGained)
     }
 
-    // Streak
-    if (correctCount > 0 && user?.id) {
-      // 标记星球完成（闪电测验做完才算打卡）
+    // Streak + 星球打卡
+    if (user?.id) {
+      // 标记星球完成（闪电测验做完就算打卡，不管正确率）
       storage.markPlanetComplete(user.id, '闪电测验')
       updateStreak(user.id)
     }

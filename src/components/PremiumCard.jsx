@@ -13,12 +13,41 @@
 
 import { useState, useEffect } from 'react'
 import { PREMIUM_PERKS } from '../utils/featureFlags'
+import { validateInviteCode } from '../utils/sync'
 
 const PROXY_BASE = import.meta.env.VITE_API_BASE || 'https://chinese-learn.vercel.app'
 const ADMIN_KEY  = 'cl_admin_2026'
 
 export default function PremiumCard({ user, onUpgraded, compact = false }) {
   const isPremium = user?.plan === 'premium'
+
+  // ── 邀请码兑换 ──
+  const [codeInput, setCodeInput] = useState('')
+  const [codeMsg, setCodeMsg] = useState('')
+  const [codeLoading, setCodeLoading] = useState(false)
+
+  async function handleRedeemCode() {
+    const code = codeInput.trim().toUpperCase()
+    if (!code) return setCodeMsg('请输入邀请码')
+    setCodeLoading(true)
+    setCodeMsg('')
+    try {
+      const result = await validateInviteCode(code, user?.id)
+      if (result.valid) {
+        setCodeMsg('✅ 升级成功！')
+        const stored = JSON.parse(localStorage.getItem('cl_user') || '{}')
+        const updated = { ...stored, plan: 'premium' }
+        localStorage.setItem('cl_user', JSON.stringify(updated))
+        onUpgraded?.('premium')
+        setCodeInput('')
+      } else {
+        setCodeMsg('❌ ' + (result.reason || '邀请码无效'))
+      }
+    } catch {
+      setCodeMsg('❌ 网络错误')
+    }
+    setCodeLoading(false)
+  }
 
   // ── 管理员面板（仅 plan='free' 时显示 toggle，管理员自己用）
   const [adminMode, setAdminMode] = useState(false)
@@ -103,13 +132,33 @@ export default function PremiumCard({ user, onUpgraded, compact = false }) {
           ))}
         </div>
 
-        {/* 未升级：联系提示 */}
+        {/* 未升级：邀请码兑换 */}
         {!isPremium && (
           <div className="mt-4 bg-white/70 rounded-2xl px-4 py-3 border border-violet-100">
-            <p className="text-xs text-gray-500 leading-relaxed">
-              目前处于内测阶段，如需开通 Premium 请联系管理员 👇
+            <p className="text-xs text-gray-500 leading-relaxed mb-3">
+              输入邀请码升级 Premium，解锁全部 AI 功能
             </p>
-            <p className="text-sm font-bold text-violet-700 mt-1">微信：muzli919</p>
+            <div className="flex gap-2">
+              <input
+                type="text"
+                value={codeInput}
+                onChange={(e) => { setCodeInput(e.target.value); setCodeMsg('') }}
+                placeholder="输入邀请码"
+                maxLength={16}
+                className="flex-1 border border-violet-200 rounded-xl px-3 py-2 text-sm text-center font-mono uppercase focus:outline-none focus:border-violet-400"
+              />
+              <button
+                onClick={handleRedeemCode}
+                disabled={codeLoading || !codeInput.trim()}
+                className="px-4 py-2 rounded-xl bg-violet-500 hover:bg-violet-600 disabled:bg-gray-200 text-white text-sm font-bold transition-colors"
+              >
+                {codeLoading ? '...' : '兑换'}
+              </button>
+            </div>
+            {codeMsg && <p className="text-xs mt-2 text-center text-gray-600">{codeMsg}</p>}
+            <p className="text-xs text-gray-400 mt-2 text-center">
+              获取邀请码：微信 muzli919 或爱发电赞助
+            </p>
           </div>
         )}
 

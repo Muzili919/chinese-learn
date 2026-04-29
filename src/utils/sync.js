@@ -34,8 +34,8 @@ async function apiFetch(method, path, body) {
 }
 
 // ── 邀请码 ──
-export async function validateInviteCode(code) {
-  const result = await apiFetch('POST', '/invite/validate', { code })
+export async function validateInviteCode(code, userId) {
+  const result = await apiFetch('POST', '/invite/validate', { code, userId })
   // null = 真正的网络故障（服务器不可达），不放行
   if (result === null) return { valid: false, reason: '无法连接服务器，请检查网络后重试' }
   // 服务端明确返回 valid 字段

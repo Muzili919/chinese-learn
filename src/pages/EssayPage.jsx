@@ -1,6 +1,6 @@
 import { useState, useMemo, useCallback } from 'react'
 import { evaluateEssay } from '../utils/ai'
-import { storage } from '../utils/storage'
+import { storage, updateStreak } from '../utils/storage'
 import { syncAfterSession } from '../utils/sync'
 import prompts from '../data/essay_prompts.json'
 
@@ -153,6 +153,7 @@ export default function EssayPage({ user, onBack, onFinish }) {
           storage.markPlanetComplete(user.id, 'jc_writing')
           storage.markPlanetComplete(user.id, '作文星球')
           storage.markPlanetComplete(user.id, 'essay')
+          updateStreak(user.id)
         }
 
         // 奖励经验（根据评分高低乘以系数）

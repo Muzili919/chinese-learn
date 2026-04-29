@@ -1053,6 +1053,8 @@ export default function MV1Demo({ onBack, initialState, onStateChange, grade, cu
   const handleUseItem = useCallback((itemId) => {
     // 抽卡券 → 使用背包中的卡券触发抽卡
     if (itemId === 'card_draw') {
+      let cardDrawPet = null;
+      let cardDrawState = null;
       setState(s => {
         // ★ 上帝模式：卡券无限，不检查数量
         const currentCards = s.inventory?.cards || 0;
@@ -1062,15 +1064,29 @@ export default function MV1Demo({ onBack, initialState, onStateChange, grade, cu
         const { state: newS, pet } = drawCard(s, { fromTicket: true });
         if (!pet) return s;
 
-        setGachaResult(pet);
-        setShowGacha(true);
-
         // 消耗1张抽卡券
-        return {
+        const finalState = {
           ...newS,
           inventory: { ...(newS.inventory || {}), cards: currentCards - 1 },
         };
+        cardDrawPet = pet;
+        cardDrawState = finalState;
+        return finalState;
       });
+      // ★ 在 setState 外部触发 UI 更新（避免 setState 回调内的副作用）
+      if (cardDrawPet) {
+        setGachaResult(cardDrawPet);
+        setShowGacha(true);
+        // ★ 立即写 localStorage，防止刷新丢失抽卡结果
+        setTimeout(() => {
+          if (cardDrawState && currentUserId) {
+            try {
+              const petKey = `mv1_pet_state_${currentUserId}`;
+              localStorage.setItem(petKey, JSON.stringify(cardDrawState));
+            } catch (_) {}
+          }
+        }, 0);
+      }
       return;
     }
 
@@ -1278,14 +1294,14 @@ export default function MV1Demo({ onBack, initialState, onStateChange, grade, cu
   const handleDrawCard = useCallback(() => {
     // state为null时（正在加载云端数据），不允许操作
     let resultState = null;
+    let drawnPet = null;
     setState(s => {
       if (!s) return s;
       // 蛋态：使用免费券
       if (isEggState(s)) {
         const { state: newS, pet } = drawCard(s);
         if (!pet) return s; // 不应该发生
-        setGachaResult(pet);
-        setShowGacha(true);
+        drawnPet = pet;
         resultState = newS;
         return newS;
       }
@@ -1300,8 +1316,7 @@ export default function MV1Demo({ onBack, initialState, onStateChange, grade, cu
 
       const { state: newS, pet } = drawCard(s);
       if (pet && newS !== s) {
-        setGachaResult(pet);
-        setShowGacha(true);
+        drawnPet = pet;
         let final = newS;
         if (!_isGod && storage.getUser()?.id && !hasFreeCard(s)) {  // ★ 上帝模式不扣费
           storage.addXP(storage.getUser().id, -500);
@@ -1312,6 +1327,11 @@ export default function MV1Demo({ onBack, initialState, onStateChange, grade, cu
       }
       return s;
     });
+    // ★ 在 setState 外部触发 UI 更新（避免 setState 回调内的副作用）
+    if (drawnPet) {
+      setGachaResult(drawnPet);
+      setShowGacha(true);
+    }
     // ★ 立即写 localStorage，防止刷新丢失抽卡结果
     setTimeout(() => {
       if (resultState && currentUserId) {

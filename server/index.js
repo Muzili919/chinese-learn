@@ -1,10 +1,13 @@
 /**
  * 知识星球 - 后端 API 服务
- * 
+ *
  * 端口: 3000
  * 数据库: PostgreSQL (chinese_learn)
  * 替代 Supabase 的全部功能
  */
+
+// 加载 .env 环境变量（DB/TTS/AI 密钥等）
+try { require('dotenv').config() } catch (_) {}
 
 const express = require('express')
 const cors = require('cors')
@@ -36,31 +39,42 @@ function error(res, msg, code = 400) { res.status(code).json({ error: msg }) }
 
 // ========== 邀请码验证 ==========
 app.post('/api/invite/validate', async (req, res) => {
-  const { code } = req.body
+  const { code, userId } = req.body
   if (!code) return error(res, '缺少邀请码')
-  
+
   try {
-    // 检查本地缓存（可选，这里直接查库）
     const result = await pool.query(
       'SELECT * FROM invitation_codes WHERE LOWER(code) = LOWER($1) AND is_active = true',
       [code.trim()]
     )
-    
+
     if (!result.rows.length)
       return error(res, '邀请码无效，请检查后重新输入')
-    
+
     const row = result.rows[0]
-    
+
     if (row.max_uses !== null && row.used_count >= row.max_uses)
       return error(res, '该邀请码使用人数已达上限')
-    
+
+    const planType = row.plan_type || 'premium'
+    const durationDays = row.duration_days || 30
+    const expiresAt = new Date(Date.now() + durationDays * 86400000)
+
+    // 升级用户 plan
+    if (userId) {
+      await pool.query(
+        'UPDATE users SET plan = $1, plan_expires_at = $2 WHERE id = $3',
+        [planType, expiresAt, userId]
+      )
+    }
+
     // 增加使用计数
     await pool.query(
       'UPDATE invitation_codes SET used_count = used_count + 1 WHERE id = $1',
       [row.id]
     )
-    
-    return json(res, { valid: true })
+
+    return json(res, { valid: true, plan: planType, expiresAt })
   } catch (err) {
     console.error('邀请码验证错误:', err.message)
     return error(res, '验证服务暂时不可用', 500)
@@ -798,6 +812,19 @@ app.post('/api/tts', async (req, res) => {
 
 // ========== Plan / 付费功能开关 ==========
 
+/** 检查用户 plan 是否有效（过期自动降级） */
+async function checkUserPlan(userId) {
+  if (!userId) return 'free'
+  const r = await pool.query('SELECT plan, plan_expires_at FROM users WHERE id = $1', [userId])
+  const user = r.rows[0]
+  if (!user || user.plan !== 'premium') return 'free'
+  if (user.plan_expires_at && new Date(user.plan_expires_at) < new Date()) {
+    await pool.query("UPDATE users SET plan = 'free' WHERE id = $1", [userId])
+    return 'free'
+  }
+  return 'premium'
+}
+
 // 每日 AI 使用限额配置（free 用户）
 const FREE_DAILY_LIMITS = {
   ai_variant:  3,   // 举一反三
@@ -809,8 +836,9 @@ const FREE_DAILY_LIMITS = {
 app.get('/api/user/plan/:userId', async (req, res) => {
   const { userId } = req.params
   try {
-    const r = await pool.query('SELECT plan FROM users WHERE id = $1', [userId])
-    return json(res, { plan: r.rows[0]?.plan || 'free' })
+    const plan = await checkUserPlan(userId)
+    const r = await pool.query('SELECT plan_expires_at FROM users WHERE id = $1', [userId])
+    return json(res, { plan, expiresAt: r.rows[0]?.plan_expires_at || null })
   } catch (err) {
     return json(res, { plan: 'free' })
   }
@@ -828,8 +856,7 @@ app.post('/api/ai/usage/check', async (req, res) => {
   if (!userId || !feature) return error(res, '缺少参数')
 
   try {
-    const planR = await pool.query('SELECT plan FROM users WHERE id = $1', [userId])
-    const plan  = planR.rows[0]?.plan || 'free'
+    const plan = await checkUserPlan(userId)
 
     // Premium 无限制
     if (plan === 'premium') {
@@ -879,8 +906,7 @@ app.get('/api/ai/usage', async (req, res) => {
   if (!userId || !feature) return error(res, '缺少参数')
 
   try {
-    const planR = await pool.query('SELECT plan FROM users WHERE id = $1', [userId])
-    const plan  = planR.rows[0]?.plan || 'free'
+    const plan = await checkUserPlan(userId)
     if (plan === 'premium') return json(res, { used: 0, limit: 9999, remaining: 9999, plan })
 
     const limit = FREE_DAILY_LIMITS[feature] ?? 3
@@ -917,6 +943,41 @@ app.post('/api/admin/set-plan', async (req, res) => {
     return json(res, { ok: true, userId, plan })
   } catch (err) {
     return error(res, '更新失败', 500)
+  }
+})
+
+/** 管理员：创建邀请码 */
+app.post('/api/admin/create-code', async (req, res) => {
+  const { adminKey, planType = 'premium', durationDays = 30, maxUses = 1, prefix = 'CL' } = req.body
+  if (adminKey !== ADMIN_KEY) return error(res, '无权限', 403)
+
+  const crypto = require('crypto')
+  const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789'
+  let code = ''
+  for (let i = 0; i < 6; i++) code += chars[crypto.randomInt(chars.length)]
+  const fullCode = `${prefix}-${code}`
+
+  try {
+    const r = await pool.query(
+      'INSERT INTO invitation_codes (code, plan_type, duration_days, max_uses, used_count, is_active) VALUES ($1, $2, $3, $4, 0, true) RETURNING *',
+      [fullCode, planType, durationDays, maxUses]
+    )
+    return json(res, { ok: true, code: r.rows[0] })
+  } catch (err) {
+    return error(res, '创建失败: ' + err.message, 500)
+  }
+})
+
+/** 管理员：查看所有邀请码 */
+app.get('/api/admin/codes', async (req, res) => {
+  const { adminKey } = req.query
+  if (adminKey !== ADMIN_KEY) return error(res, '无权限', 403)
+
+  try {
+    const r = await pool.query('SELECT * FROM invitation_codes ORDER BY created_at DESC')
+    return json(res, r.rows)
+  } catch (err) {
+    return error(res, '查询失败', 500)
   }
 })
 
@@ -1035,8 +1096,30 @@ app.get('/api/health', async (req, res) => {
   }
 })
 
+// ========== 启动时自动迁移表结构 ==========
+async function migrate() {
+  const migrations = [
+    `ALTER TABLE users ADD COLUMN IF NOT EXISTS plan TEXT DEFAULT 'free'`,
+    `ALTER TABLE users ADD COLUMN IF NOT EXISTS plan_expires_at TIMESTAMPTZ`,
+    `ALTER TABLE invitation_codes ADD COLUMN IF NOT EXISTS plan_type TEXT DEFAULT 'premium'`,
+    `ALTER TABLE invitation_codes ADD COLUMN IF NOT EXISTS duration_days INT DEFAULT 30`,
+    `CREATE TABLE IF NOT EXISTS ai_daily_usage (
+      user_id TEXT NOT NULL,
+      feature TEXT NOT NULL,
+      date DATE NOT NULL,
+      count INT DEFAULT 1,
+      PRIMARY KEY (user_id, feature, date)
+    )`,
+  ]
+  for (const sql of migrations) {
+    try { await pool.query(sql) } catch (e) { /* column already exists is fine */ }
+  }
+  console.log('✅ 数据库迁移完成')
+}
+
 // ========== 启动 ==========
-app.listen(PORT, '0.0.0.0', () => {
+app.listen(PORT, '0.0.0.0', async () => {
+  await migrate()
   console.log(`✅ 知识星球API服务启动成功！`)
   console.log(`   地址: http://47.108.174.249:${PORT}`)
   console.log(`   数据库: postgresql://${DB_USER}@${DB_HOST}:${DB_PORT}/${DB_NAME}`)
