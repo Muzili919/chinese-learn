@@ -443,6 +443,7 @@ export const storage = {
   },
 
   // 今日到期错题数：nextReview <= today 的错题（不含未来复习的）
+  // ★ 今天已做过（不论对错）的不计入 — 学生做完今日到期错题即可解锁
   getDueTodayWrongCount: (userId, grade) => {
     const wrongIds = storage.getWrongCardIds(userId);
     if (wrongIds.size === 0) return 0;
@@ -455,19 +456,12 @@ export const storage = {
       ? ['english', 'math', 'politics', 'chinese_junior']
       : ['chinese', 'english', 'math'];
 
-    // 预构建：最近答错时间 + 今天是否答对过
-    const lastWrongDate = {};
-    const correctToday = new Set();
+    // 预构建：今天是否做过（不论对错）
+    const attemptedToday = new Set();
     for (const r of records) {
       const date = (r.timestamp || '').slice(0, 10);
-      if (wrongIds.has(r.card_id)) {
-        if (!r.correct) {
-          if (!lastWrongDate[r.card_id] || date > lastWrongDate[r.card_id]) {
-            lastWrongDate[r.card_id] = date;
-          }
-        } else if (date === today) {
-          correctToday.add(r.card_id);
-        }
+      if (date === today && wrongIds.has(r.card_id)) {
+        attemptedToday.add(r.card_id);
       }
     }
 
@@ -479,19 +473,17 @@ export const storage = {
 
     let count = 0;
     for (const id of wrongIds) {
-      // 跳过今天已答对的卡片
-      if (correctToday.has(id)) continue;
+      // 跳过今天已做过的卡片（不论答对答错）
+      if (attemptedToday.has(id)) continue;
       // 跳过不在本学段学科的卡片
       const subj = cardSubjects[id];
       if (subj && !gradeSubjects.includes(subj)) continue;
 
       const state = srsStates[id];
-      if (!state) {
-        if (lastWrongDate[id] === today) continue;
-        count++;
-      } else if (state.nextReview <= today) {
-        count++;
-      }
+      // 有 SRS 且到期 → 计入
+      if (state && state.nextReview <= today) count++;
+      // 无 SRS → 从未复习过，也算今日到期
+      else if (!state) count++;
     }
     return count;
   },

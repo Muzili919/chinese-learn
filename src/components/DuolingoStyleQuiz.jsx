@@ -227,7 +227,7 @@ function FeedbackPanel({ correct, analysis, answer, onContinue, variantState, on
           )}
         </div>
       </div>
-      <div className="px-5 pt-3 pb-8">
+      <div className="px-5 pt-3 pb-12">
         <div className="max-w-md mx-auto">
           <button onClick={onContinue}
             className={`w-full py-3 rounded-2xl font-bold text-white text-base active:scale-95 transition-all ${
@@ -1774,7 +1774,7 @@ export default function DuolingoStyleQuiz({ question, onAnswerSubmit, showVarian
               )}
             </div>
           </div>
-          <div className="px-5 pt-3 pb-8">
+          <div className="px-5 pt-3 pb-12">
             <div className="max-w-md mx-auto">
               <button onClick={handleContinue}
                 className={`w-full py-3 rounded-2xl font-bold text-white text-base active:scale-95 transition-all ${
