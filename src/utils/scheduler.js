@@ -18,8 +18,15 @@ const GALAXY_TAGS = ['字词', '古诗词', '成语', '句子', '文学常识'];
 function pickFromPool(pool, srsStates, n, seenTodaySet = new Set()) {
   if (n <= 0 || pool.length === 0) return [];
 
-  const unseen = pool.filter(q => !seenTodaySet.has(q.id));
-  const seenFallback = pool.filter(q => seenTodaySet.has(q.id));
+  // 连续答对5次以上的题视为已掌握，降低优先级
+  const mastered = new Set()
+  for (const q of pool) {
+    const s = srsStates[q.id]
+    if (s && (s.consecutiveCorrect || 0) >= 5) mastered.add(q.id)
+  }
+
+  const unseen = pool.filter(q => !seenTodaySet.has(q.id) && !mastered.has(q.id));
+  const seenFallback = pool.filter(q => seenTodaySet.has(q.id) && !mastered.has(q.id));
 
   // 分层
   const wrong   = unseen.filter(q => srsStates[q.id] && srsStates[q.id].lastQuality < 3);
@@ -44,6 +51,11 @@ function pickFromPool(pool, srsStates, n, seenTodaySet = new Set()) {
   // 5. 今日已见（万不得已）
   if (selected.size < n) {
     shuffle(seenFallback).filter(q => !selected.has(q)).slice(0, n - selected.size).forEach(q => selected.add(q));
+  }
+  // 6. 已掌握的题（最后手段，pool 真的不够时）
+  if (selected.size < n) {
+    const masteredPool = pool.filter(q => mastered.has(q.id) && !selected.has(q))
+    shuffle(masteredPool).slice(0, n - selected.size).forEach(q => selected.add(q))
   }
 
   return shuffle([...selected]).slice(0, n);

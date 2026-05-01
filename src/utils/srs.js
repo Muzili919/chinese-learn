@@ -23,6 +23,8 @@ export function updateSRS(state = {}, quality) {
     if (reviewCount === 0) newInterval = 2;  // 2 days instead of 1
     else if (reviewCount === 1) newInterval = 5;
     else newInterval = Math.round(interval * easeFactor);
+    // 连续答对5次以上，限制最大间隔180天
+    if (consecutiveCorrect >= 5) newInterval = Math.min(newInterval, 180);
   }
 
   const nextReview = new Date();

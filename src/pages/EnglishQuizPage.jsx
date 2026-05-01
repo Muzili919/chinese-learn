@@ -593,11 +593,12 @@ function SimpleWritingInput({ q, onSubmit, englishTag, passage }) {
   const [submitted, setSubmitted] = useState(false)
   const [aiEvaluating, setAiEvaluating] = useState(false)
   const [aiResult, setAiResult] = useState(null)
+  const [fallbackCorrect, setFallbackCorrect] = useState(false)
   const isReading = englishTag === 'en_reading'
   const isWriting = englishTag === 'en_writing'
 
   async function handleSubmit() {
-    if (!input.trim()) return
+    if (!input.trim() || submitted) return
     setSubmitted(true)
     // 前置检测：输入太短或没有完整句子，直接判错
     const trimmed = input.trim()
@@ -629,6 +630,7 @@ function SimpleWritingInput({ q, onSubmit, englishTag, passage }) {
           score: fallbackScore,
           feedback: 'AI评分暂时不可用，使用基础匹配',
         })
+        setFallbackCorrect(fallbackScore >= 60 || wordCount >= 10)
       }
       setAiEvaluating(false)
     }
@@ -750,7 +752,7 @@ function SimpleWritingInput({ q, onSubmit, englishTag, passage }) {
             )}
           </div>
           <button
-            onClick={() => onSubmit(input, aiResult ? aiResult.score >= 60 : false)}
+            onClick={() => onSubmit(input, aiResult ? aiResult.score >= 60 : fallbackCorrect)}
             className="w-full py-3 rounded-2xl bg-gradient-to-r from-sky-400 to-blue-500 text-white font-bold active:scale-95 shadow-md"
           >
             继续下一题 →

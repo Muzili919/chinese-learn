@@ -4,7 +4,7 @@ import { NavigationContext } from './context/NavigationContext'
 import { storage, calcLevel, calcLevelProgress, checkStreakOnLoad } from './utils/storage'
 import { initGamificationState, initGodModeState } from './utils/gamification'
 import { fetchMV1State, upsertMV1State } from './utils/mv1_cloud'
-import { pullFromCloud } from './utils/sync'
+import { pullFromCloud, startBackgroundSync } from './utils/sync'
 import { unlockAudio } from './utils/tts'
 import { fetchAndMergePlan } from './hooks/usePlan'
 import { markTaskDone } from './utils/examCalendar'
@@ -437,6 +437,8 @@ export default function App() {
     }).catch(function(err) {
       console.warn('Cloud pull failed (non-fatal):', err.message)
     })
+
+    startBackgroundSync(() => user?.id)
 
     setOverdueCount(storage.getOverdueWrongCount(uid, grade))
     checkStreakOnLoad(uid)

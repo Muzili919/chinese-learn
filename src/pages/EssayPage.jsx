@@ -126,21 +126,19 @@ export default function EssayPage({ user, onBack, onFinish }) {
         if (userData.id) {
           syncAfterSession(userData.id)
 
-          // < 80分 → 判错，写入records进入错题集
-          if (result.overall < 80) {
-            storage.addRecord(userData.id, {
-              card_id: `essay_${Date.now()}`,
-              correct: false,
-              time_spent: 0,
-              selected_answer: userEssay.slice(0, 100),
-              ability_tag: '写作表达',
-              knowledge_tag: currentPrompt?.category || '作文',
-              subject: 'chinese',
-              timestamp: new Date().toISOString(),
-              source: 'essay',
-              question_data: { title: currentPrompt?.title, score: result.overall },
-            })
-          }
+          storage.addRecord(userData.id, {
+            card_id: `essay_${Date.now()}`,
+            correct: result.overall >= 6,
+            time_spent: 0,
+            score: result.overall,
+            selected_answer: userEssay.slice(0, 100),
+            ability_tag: '写作表达',
+            knowledge_tag: currentPrompt?.category || '写作',
+            subject: storage.getGrade() === 'junior2' ? 'chinese_junior' : 'chinese',
+            timestamp: new Date().toISOString(),
+            source: 'essay',
+            question_data: { title: currentPrompt?.title, score: result.overall },
+          })
         }
 
         // 记录每日作文次数（每日最多3篇）

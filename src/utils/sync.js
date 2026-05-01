@@ -229,7 +229,68 @@ export async function syncAfterSession(userId) {
       pushUserStats(userId),
       pushFlaggedToCloud(userId),
     ])
+    clearPendingSync(userId)
   } catch (e) {
     console.warn('[sync] syncAfterSession error:', e?.message)
+    markPendingSync(userId)
   }
+}
+
+// ── 兜底同步：失败时标记，定时重试 ──
+const SYNC_INTERVAL = 5 * 60 * 1000  // 5 分钟
+const PENDING_KEY = 'cl_pending_sync'
+
+function markPendingSync(userId) {
+  try {
+    const pending = JSON.parse(localStorage.getItem(PENDING_KEY) || '{}')
+    pending[userId] = Date.now()
+    localStorage.setItem(PENDING_KEY, JSON.stringify(pending))
+  } catch (_) {}
+}
+
+function clearPendingSync(userId) {
+  try {
+    const pending = JSON.parse(localStorage.getItem(PENDING_KEY) || '{}')
+    delete pending[userId]
+    localStorage.setItem(PENDING_KEY, JSON.stringify(pending))
+  } catch (_) {}
+}
+
+function getPendingUsers() {
+  try {
+    return Object.keys(JSON.parse(localStorage.getItem(PENDING_KEY) || '{}'))
+  } catch (_) { return [] }
+}
+
+let _timer = null
+
+export function startBackgroundSync(getCurrentUserId) {
+  if (_timer) return
+  // 立即检查一次是否有待同步数据
+  for (const uid of getPendingUsers()) {
+    syncAfterSession(uid).catch(() => {})
+  }
+  // 定时检查
+  _timer = setInterval(() => {
+    const uid = getCurrentUserId?.()
+    if (uid) syncAfterSession(uid).catch(() => {})
+    for (const pendingUid of getPendingUsers()) {
+      if (pendingUid !== uid) syncAfterSession(pendingUid).catch(() => {})
+    }
+  }, SYNC_INTERVAL)
+
+  // 页面退出时同步
+  window.addEventListener('beforeunload', () => {
+    const uid = getCurrentUserId?.()
+    if (uid) {
+      // beforeunload 里不能用 async，用 sendBeacon 思路：直接同步推
+      const records = storage.getRecords(uid)
+      if (records.length) {
+        navigator.sendBeacon?.(
+          `${API_BASE}/records/bulk-upsert`,
+          JSON.stringify({ records, userId: uid })
+        )
+      }
+    }
+  })
 }

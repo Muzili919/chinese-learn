@@ -1038,7 +1038,7 @@ app.get('/api/admin/users', async (req, res) => {
   if (adminKey !== ADMIN_KEY) return error(res, '无权限', 403)
   try {
     const r = await pool.query(
-      'SELECT id, name, plan, xp, streak_count, created_at FROM users ORDER BY created_at DESC'
+      'SELECT id, name, plan, xp, streak_count, streak_date, completed_planets, plan_expires_at, created_at FROM users ORDER BY created_at DESC'
     )
     return json(res, r.rows)
   } catch (err) {
