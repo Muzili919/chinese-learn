@@ -27,9 +27,25 @@ function renderRichText(text) {
   })
 }
 
+function stableHash(text) {
+  let hash = 2166136261
+  for (const ch of String(text || '')) {
+    hash ^= ch.charCodeAt(0)
+    hash = Math.imul(hash, 16777619)
+  }
+  return hash >>> 0
+}
+
+function deterministicShuffle(items, seed) {
+  return [...items]
+    .map((item, index) => ({ item, rank: stableHash(`${seed}:${index}:${item}`) }))
+    .sort((a, b) => a.rank - b.rank)
+    .map(entry => entry.item)
+}
+
 // ─── 底部反馈面板 ─────────────────────────────────────────
 
-function FeedbackPanel({ correct, analysis, answer, onContinue, variantState, onSocratic, wrongChoice, questionOpts, hideAiFeatures, reinforcementActive }) {
+function FeedbackPanel({ correct, analysis, answer, onContinue, variantState, onSocratic, wrongChoice, hideAiFeatures, reinforcementActive }) {
   // variantState = { phase, question, selected, onSelect, onGenerate, showButton, remaining }
   const vs = variantState || {}
   const [aiExplaining, setAiExplaining] = useState(false)
@@ -246,6 +262,208 @@ function FeedbackPanel({ correct, analysis, answer, onContinue, variantState, on
 
 // ─── 单选题 ──────────────────────────────────────────────
 
+function parseIndexedAnswers(answerText) {
+  const answers = []
+  const text = String(answerText || '')
+  const patterns = [
+    /[（(]\s*(\d+)\s*[）)]\s*([A-DTF√×])/gi,
+    /\b(\d+)\s*[.、]\s*([A-DTF√×])/gi,
+  ]
+  for (const pattern of patterns) {
+    for (const m of text.matchAll(pattern)) {
+      const num = Number(m[1])
+      const value = m[2].toUpperCase()
+      if (num && !answers.some(a => a.num === num)) answers.push({ num, value })
+    }
+  }
+  return answers.sort((a, b) => a.num - b.num)
+}
+
+function parseInlineLetterOptions(text) {
+  const options = []
+  const source = String(text || '').trim()
+  const pattern = /([A-D])[.、．]\s*([\s\S]*?)(?=\s+[A-D][.、．]\s*|$)/gi
+  for (const m of source.matchAll(pattern)) {
+    const value = m[1].toUpperCase()
+    const label = m[2].trim()
+    if (label) options.push({ value, label, raw: `${value}. ${label}` })
+  }
+  return options
+}
+
+function parseIndexedOptionMap(options = []) {
+  const byNum = {}
+  const globalOptions = []
+
+  for (const raw of options) {
+    const text = String(raw || '').trim()
+    const indexed = text.match(/^[（(]\s*(\d+)\s*[）)]\s*(.+)$/)
+    if (indexed) {
+      const parsed = parseInlineLetterOptions(indexed[2])
+      if (parsed.length) byNum[Number(indexed[1])] = parsed
+      continue
+    }
+
+    const global = text.match(/^([A-D])[.、．]\s*(.+)$/i)
+    if (global) {
+      const value = global[1].toUpperCase()
+      globalOptions.push({ value, label: global[2].trim(), raw: `${value}. ${global[2].trim()}` })
+    }
+  }
+
+  return { byNum, globalOptions }
+}
+
+function parseIndexedStems(question) {
+  const raw = String(question.question || '')
+  const answers = parseIndexedAnswers(question.answer)
+  if (!answers.length) return null
+
+  if (question.type === 'cloze') {
+    const currentNums = new Set(answers.map(a => a.num))
+    const highlighted = raw.replace(/__\((\d+)\)__/g, (_, n) => (
+      currentNums.has(Number(n)) ? `【第${n}空】` : `第${n}空`
+    ))
+    return {
+      instruction: highlighted,
+      stems: answers.map(a => ({ num: a.num, text: `第 ${a.num} 空应选择哪一项？` })),
+    }
+  }
+
+  const firstSubIdx = raw.search(/[（(]\s*1\s*[）)]/)
+  const instruction = firstSubIdx >= 0 ? raw.slice(0, firstSubIdx).trim() : raw.trim()
+  const rest = firstSubIdx >= 0 ? raw.slice(firstSubIdx) : raw
+  const stems = []
+  for (const m of rest.matchAll(/[（(]\s*(\d+)\s*[）)]\s*([\s\S]*?)(?=[（(]\s*\d+\s*[）)]|$)/g)) {
+    stems.push({
+      num: Number(m[1]),
+      text: m[2].replace(/[（(]\s*[\u3000 ]?\s*[）)]\s*$/, '').trim(),
+    })
+  }
+
+  return {
+    instruction,
+    stems: stems.length ? stems : answers.map(a => ({ num: a.num, text: `第 ${a.num} 题` })),
+  }
+}
+
+function isIndexedChoiceQuestion(question) {
+  if (!question) return false
+  if (question.type === 'cloze') return parseIndexedAnswers(question.answer).length > 0
+  if (question.type !== 'multiple_choice') return false
+  return parseIndexedAnswers(question.answer).length > 1
+}
+
+function IndexedChoiceQuestion({ question, onDone }) {
+  const parsed = useMemo(() => parseIndexedStems(question), [question])
+  const answers = useMemo(() => parseIndexedAnswers(question.answer), [question.answer])
+  const optionMap = useMemo(() => parseIndexedOptionMap(question.options), [question.options])
+  const [subIndex, setSubIndex] = useState(0)
+  const [selected, setSelected] = useState(null)
+  const [phase, setPhase] = useState('input')
+  const resultsRef = useRef([])
+  const [results, setResults] = useState([])
+
+  const currentAnswer = answers[subIndex]
+  const currentStem = parsed?.stems.find(s => s.num === currentAnswer?.num) || parsed?.stems[subIndex]
+  const currentOptions = optionMap.byNum[currentAnswer?.num] || optionMap.globalOptions
+
+  function handleSelect(opt) {
+    if (phase !== 'input') return
+    const correct = opt.value === currentAnswer?.value
+    const nextResults = [...resultsRef.current, { correct }]
+    resultsRef.current = nextResults
+    setResults(nextResults)
+    setSelected(opt)
+    setPhase('feedback')
+  }
+
+  function handleNext() {
+    const nextIndex = subIndex + 1
+    if (nextIndex >= answers.length) {
+      const allCorrect = resultsRef.current.every(r => r.correct)
+      onDone(allCorrect ? question.answer : '答错', allCorrect)
+      return
+    }
+    setSubIndex(nextIndex)
+    setSelected(null)
+    setPhase('input')
+  }
+
+  if (!parsed || !currentAnswer || !currentOptions.length) {
+    return (
+      <div className="bg-red-50 border-2 border-dashed border-red-300 rounded-2xl px-5 py-6 text-center">
+        <p className="text-sm text-red-600 font-medium">⚠️ 多小题选项无法解析</p>
+        <p className="text-xs text-gray-400 mt-1">ID: {question.id}</p>
+      </div>
+    )
+  }
+
+  const thisResult = results[subIndex]
+  const isCloze = question.type === 'cloze'
+
+  return (
+    <div className="flex flex-col gap-4">
+      {parsed.instruction && (
+        <div className="bg-white rounded-3xl px-4 py-4 shadow-sm border border-gray-100 max-h-[42vh] overflow-y-auto">
+          <p className={`text-gray-800 leading-relaxed whitespace-pre-wrap ${isCloze ? 'text-sm' : 'text-base'}`}>
+            {parsed.instruction}
+          </p>
+        </div>
+      )}
+
+      <div className={`rounded-2xl px-4 py-4 border-2 shadow-sm ${
+        phase === 'feedback'
+          ? thisResult?.correct ? 'bg-green-50 border-green-200' : 'bg-red-50 border-red-200'
+          : 'bg-indigo-50 border-indigo-100'
+      }`}>
+        <p className="text-xs text-indigo-500 font-semibold mb-2">
+          第 {subIndex + 1} 题（共 {answers.length} 题）
+        </p>
+        <p className="text-base text-gray-800 leading-relaxed font-medium whitespace-pre-wrap">
+          {currentStem?.text || `第 ${currentAnswer.num} 题`}
+        </p>
+        {phase === 'feedback' && (
+          <p className={`mt-3 text-sm font-bold ${thisResult?.correct ? 'text-green-600' : 'text-red-500'}`}>
+            {thisResult?.correct ? '✓ 正确！' : `✗ 答错了，正确答案：${currentAnswer.value}`}
+          </p>
+        )}
+      </div>
+
+      <div className="flex flex-col gap-2.5">
+        {currentOptions.map(opt => {
+          let cls = 'bg-white border-gray-200 text-gray-800'
+          if (phase === 'feedback') {
+            if (opt.value === currentAnswer.value) cls = 'bg-green-100 border-green-500 text-green-800'
+            else if (selected?.value === opt.value) cls = 'bg-red-100 border-red-400 text-red-700'
+            else cls = 'bg-white border-gray-100 text-gray-300'
+          }
+          return (
+            <button key={opt.value} onClick={() => handleSelect(opt)} disabled={phase !== 'input'}
+              className={`${cls} border-2 rounded-2xl px-3 py-3 text-left font-medium flex items-start gap-2.5 active:scale-[0.98] transition-all shadow-sm`}>
+              <span className={`flex-shrink-0 w-7 h-7 rounded-full flex items-center justify-center text-sm font-bold ${
+                phase === 'feedback' && opt.value === currentAnswer.value ? 'bg-green-500 text-white' :
+                phase === 'feedback' && selected?.value === opt.value ? 'bg-red-400 text-white' :
+                'bg-indigo-100 text-indigo-700'
+              }`}>{opt.value}</span>
+              <span className="flex-1 text-sm leading-relaxed">{opt.label}</span>
+            </button>
+          )
+        })}
+      </div>
+
+      {phase === 'feedback' && (
+        <button onClick={handleNext}
+          className={`w-full font-bold py-4 rounded-2xl text-base text-white ${
+            thisResult?.correct ? 'bg-green-500' : 'bg-red-500'
+          }`}>
+          {subIndex + 1 >= answers.length ? '完成 ✓' : `下一题 → (${subIndex + 2}/${answers.length})`}
+        </button>
+      )}
+    </div>
+  )
+}
+
 function ChoiceQuestion({ question, onDone }) {
   const [selected, setSelected] = useState(null)
 
@@ -291,15 +509,6 @@ function ChoiceQuestion({ question, onDone }) {
     return { options: opts, displayQuestion: displayQ }
   }, [question.options, question.question])
 
-  // 找出正确选项的全文（兼容 answer="B" 或 answer="B. bag" 或选项全文）
-  function getCorrectOption() {
-    const opts = resolved.options
-    for (const opt of opts) {
-      if (isAnswerCorrect(opt, question.answer, opts)) return opt
-    }
-    return question.answer
-  }
-
   function handleSelect(opt) {
     if (selected) return
     setSelected(opt)
@@ -313,8 +522,6 @@ function ChoiceQuestion({ question, onDone }) {
     })
     onDone(opt, correct)
   }
-
-  const correctOpt = getCorrectOption()
 
   // 防护：选项为空时显示提示
   if (!resolved.options || resolved.options.length === 0) {
@@ -894,12 +1101,11 @@ function WordBankQuestion({ question, onDone }) {
     const otherChips = subAnswers
       .filter((_, i) => i !== subIndex)
       .flatMap(a => segmentToChips(a.text))
-    const distractors = [...otherChips].sort(() => Math.random() - 0.5).slice(0, 2)
+    const distractors = deterministicShuffle(otherChips, `${question.id}:${subIndex}:distractors`).slice(0, 2)
     // 给每个词块加唯一key（因可能有重复词）
-    return [...correctChips, ...distractors]
-      .sort(() => Math.random() - 0.5)
+    return deterministicShuffle([...correctChips, ...distractors], `${question.id}:${subIndex}:wordbank`)
       .map((text, i) => ({ id: i, text }))
-  }, [subIndex]) // eslint-disable-line
+  }, [current, question.id, subAnswers, subIndex])
 
   const usedIds = assembled.map(c => c.id)
   const assembledText = assembled.map(c => c.text).join('')
@@ -1064,7 +1270,7 @@ function PlainMultiSubQuestion({ question, onDone }) {
   const currentCharBank = useMemo(() => {
     if (!current) return []
     return extractCharBankFromText(current.text)
-  }, [current]) // eslint-disable-line
+  }, [current])
   const hasCharBank = currentCharBank.length > 0
 
   // 从子题文本中提取文言文原句（去掉"翻译：____"等填空提示）
@@ -1515,7 +1721,7 @@ export default function DuolingoStyleQuiz({ question, onAnswerSubmit, showVarian
           records[lastIdx].socratic_rounds = socraticResult.rounds
           records[lastIdx].feynman_passed = socraticResult.feynmanPassed ?? socraticResult.understood
           records[lastIdx].feynman_score = socraticResult.score
-          try { localStorage.setItem('cl_records_' + userId, JSON.stringify(records)) } catch {}
+          try { localStorage.setItem('cl_records_' + userId, JSON.stringify(records)) } catch { /* ignore local cache write failures */ }
         }
       }
     }
@@ -1585,6 +1791,7 @@ export default function DuolingoStyleQuiz({ question, onAnswerSubmit, showVarian
   }
 
   const isFill = question.type === 'fill_blank'
+  const isIndexedChoice = isIndexedChoiceQuestion(question)
 
   // ★ 剥离内联选项：选择题题干中包含 A. xxx B. xxx... 时，只保留题干文本
   const cleanQuestion = useMemo(() => {
@@ -1609,7 +1816,7 @@ export default function DuolingoStyleQuiz({ question, onAnswerSubmit, showVarian
       </div>
     )
   }
-  if (!isFill && (!question.options || !Array.isArray(question.options))) {
+  if (!isFill && question.type !== 'cloze' && (!question.options || !Array.isArray(question.options))) {
     return (
       <div className="bg-red-50 border-2 border-dashed border-red-300 rounded-2xl px-5 py-6 text-center">
         <p className="text-sm text-red-600 font-medium">⚠️ 选项数据缺失</p>
@@ -1635,7 +1842,7 @@ export default function DuolingoStyleQuiz({ question, onAnswerSubmit, showVarian
     ? extractMatchingPairs(question) : null
 
   // 以下题型内部有提交逻辑，答完后只展示底部继续条（含解析）
-  const hasInternalSubmit = fillType === 'judgment' || fillType === 'typo' || fillType === 'order'
+  const hasInternalSubmit = isIndexedChoice || fillType === 'judgment' || fillType === 'typo' || fillType === 'order'
     || fillType === 'wordbank' || fillType === 'matching_fill' || fillType === 'multi_sub'
     || fillType === 'self_eval'
     || question.type === 'matching' || question.type === 'multi_meaning'
@@ -1659,7 +1866,7 @@ export default function DuolingoStyleQuiz({ question, onAnswerSubmit, showVarian
       </div>
 
       {/* 题干（选择题单独显示，填空题由子组件内部显示） */}
-      {question.type === 'single_choice' && (
+      {question.type === 'single_choice' && !isIndexedChoice && (
         <div className="bg-white rounded-3xl px-5 py-5 shadow-sm border border-gray-100 max-h-[40vh] overflow-y-auto">
           <p className={`leading-relaxed font-medium text-gray-800 ${
             (cleanQuestion || '').length > 120 ? 'text-sm' :
@@ -1687,7 +1894,7 @@ export default function DuolingoStyleQuiz({ question, onAnswerSubmit, showVarian
       )}
 
       {/* multiple_choice 题干（英语题使用） */}
-      {question.type === 'multiple_choice' && (
+      {question.type === 'multiple_choice' && !isIndexedChoice && (
         <div className="bg-white rounded-3xl px-5 py-5 shadow-sm border border-gray-100 max-h-[30vh] overflow-y-auto relative">
           <div className="flex items-start gap-2">
             <p className={`leading-relaxed font-medium flex-1 whitespace-pre-wrap text-gray-800 ${
@@ -1706,7 +1913,8 @@ export default function DuolingoStyleQuiz({ question, onAnswerSubmit, showVarian
       )}
 
       {/* 答题区 */}
-      {(question.type === 'single_choice' || question.type === 'multiple_choice') && <ChoiceQuestion question={question} onDone={handleDone} />}
+      {isIndexedChoice && <IndexedChoiceQuestion question={question} onDone={handleDone} />}
+      {!isIndexedChoice && (question.type === 'single_choice' || question.type === 'multiple_choice') && <ChoiceQuestion question={question} onDone={handleDone} />}
       {question.type === 'multi_meaning'  && <MultiMeaningQuestion   question={question} onDone={handleDone} />}
       {question.type === 'matching'       && <MatchingQuestion       question={question} onDone={handleDone} />}
       {isFill && fillType === 'judgment'  && <JudgmentQuestion       question={question} onDone={handleDone} />}
@@ -1719,7 +1927,7 @@ export default function DuolingoStyleQuiz({ question, onAnswerSubmit, showVarian
       {isFill && fillType === 'plain'      && <FillQuestion           question={question} onDone={handleDone} />}
 
       {/* 兜底：未知题型 → 用最通用的填空组件兜底，而不是显示"暂不支持" */}
-      {!((question.type === 'single_choice' || question.type === 'multiple_choice') ||
+      {!((question.type === 'single_choice' || question.type === 'multiple_choice') || isIndexedChoice ||
          question.type === 'multi_meaning' || question.type === 'matching' ||
          (isFill && ['judgment','typo','order','wordbank','matching_fill','multi_sub','self_eval','plain'].includes(fillType))) && (
         <FillQuestion question={question} onDone={handleDone} />
@@ -1732,7 +1940,6 @@ export default function DuolingoStyleQuiz({ question, onAnswerSubmit, showVarian
           analysis={question.analysis}
           answer={phase === 'wrong' ? question.answer : null}
           wrongChoice={phase === 'wrong' ? chosenAnswer : null}
-          questionOpts={question.options}
           onContinue={handleContinue}
           onSocratic={phase === 'wrong' ? () => setShowSocratic(true) : null}
           hideAiFeatures={hideAiFeatures}

@@ -909,10 +909,12 @@ export default function MV1Demo({ onBack, initialState, onStateChange, grade, cu
   }, []);
 
   // 宠物升级（从共用经验池消耗，与商店共用 petExpConsumed）
+  const MAX_PET_LEVEL = 30
   const handlePetLevelUp = useCallback(() => {
     setState(s => {
       const pet = s.currentPet;
       const petLevel = pet?.level || 1;
+      if (petLevel >= MAX_PET_LEVEL) return s; // 已达最高等级，不可继续升级
       const threshold = petLevel * 100;
       // ★ 上帝模式：无限经验直接通过
       if (!isGodModeState(s)) {
@@ -925,7 +927,7 @@ export default function MV1Demo({ onBack, initialState, onStateChange, grade, cu
       setLevelUpAnim(true);
       setTimeout(() => setLevelUpAnim(false), 2000);
 
-      const newPetLevel = petLevel + 1;
+      const newPetLevel = Math.min(petLevel + 1, MAX_PET_LEVEL);
       const totalXP = getEffectiveXP(s, storage.getUser());
       const petLevels = { ...(s.petLevels || {}) }
       if (pet?.poolId) petLevels[pet.poolId] = newPetLevel

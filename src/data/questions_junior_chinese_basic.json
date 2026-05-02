@@ -20,15 +20,15 @@
   {
     "id": "jc_basic_002",
     "type": "single_choice",
-    "question": "下列词语中加点字注音有误的一项是：\n\nA. 贮蓄(zhù) 憔悴(cuì) 倜傥(tì tǎng)\nB. 哽咽(yè) 踌躇(chóu chú) 迸溅(bèng)\nC. 恣睢(zì suī) 恪守(kè) 亵渎(xiè dú)\nD. 骈进(pián) 强聒(guō) 旁骛(wù)",
+    "question": "下列词语中加点字注音有误的一项是：\n\nA. 贮蓄(chǔ) 憔悴(cuì) 倜傥(tì tǎng)\nB. 哽咽(yè) 踌躇(chóu chú) 迸溅(bèng)\nC. 恣睢(zì suī) 恪守(kè) 亵渎(xiè dú)\nD. 骈进(pián) 强聒(guō) 旁骛(wù)",
     "options": [
-      "A. 贮蓄(zhù) 憔悴(cuì) 倜傥(tì tǎng)",
+      "A. 贮蓄(chǔ) 憔悴(cuì) 倜傥(tì tǎng)",
       "B. 哽咽(yè) 踌躇(chóu chú) 迸溅(bèng)",
       "C. 恣睢(zì suī) 恪守(kè) 亵渎(xiè dú)",
       "D. 骈进(pián) 强聒(guō) 旁骛(wù)"
     ],
-    "answer": "A. 贮蓄(zhù) 憔悴(cuì) 倜傥(tì tǎng)",
-    "analysis": "A项中贮蓄应读zhù正确，但倜傥应为tì tǎng正确，憔悴cuì正确。实际上A项全部正确。再仔细看：贮蓄zhù、憔悴cuì、倜傥tì tǎng均正确。B项哽咽yè正确、踌躇chóu chú正确、迸溅bèng正确。C项全部正确。D项骈进pián正确、强聒guō正确、旁骛wù正确。本题A项有误的是：贮蓄的贮应读zhù无误。重新审题：应选有误项。正确答案为A，因为贮蓄的贮注音应为zhù无误，但此题设计为选有误的一项。",
+    "answer": "A. 贮蓄(chǔ) 憔悴(cuì) 倜傥(tì tǎng)",
+    "analysis": "A项有误。“贮蓄”的“贮”应读zhù，不读chǔ；“憔悴”读cuì，“倜傥”读tì tǎng。B、C、D三项注音正确。",
     "knowledge_tag": "字音辨析",
     "ability_tag": "语言基础",
     "difficulty": 2,
@@ -38,15 +38,15 @@
   {
     "id": "jc_basic_003",
     "type": "single_choice",
-    "question": "下列词语中加点字读音全部相同的一项是：\n\nA. 行装·行走·银行·行李\nB. 处理·处所·处暑·处决\nC. 塞外·堵塞·边塞·塞责\nD. 角度·角色·角逐·号角",
+    "question": "下列词语中加点字读音全部相同的一项是：\n\nA. 行装·行走·银行·行李\nB. 处理·处所·处暑·处决\nC. 塞外·堵塞·边塞·塞责\nD. 角色·角逐·角斗·角力",
     "options": [
       "A. 行装·行走·银行·行李",
       "B. 处理·处所·处暑·处决",
       "C. 塞外·堵塞·边塞·塞责",
-      "D. 角度·角色·角逐·号角"
+      "D. 角色·角逐·角斗·角力"
     ],
-    "answer": "D. 角度·角色·角逐·号角",
-    "analysis": "A项：行装xíng、行走xíng、银行yín、行李xíng，银行读yín不同；B项：处理chǔ、处所chù、处暑chǔ、处决chù，有chǔ和chù两种读音；C项：塞外sài、堵塞sè、边塞sài、塞责sè，有sài和sè两种；D项：角度jiǎo、角色jué、角逐jué、号角jiǎo，角有jiǎo和jué两种。本题应选读音全部相同的，实际D项也不完全相同。重新审题：角度jiǎo、角色jué不同。正确答案为D（号角jiǎo和角度jiǎo相同，但角色读jué）。此题考查多音字辨析。",
+    "answer": "D. 角色·角逐·角斗·角力",
+    "analysis": "A项：行装xíng、行走xíng、银行háng、行李xíng，“银行”的“行”读háng；B项：处理chǔ、处所chù、处暑chǔ、处决chǔ，读音不全相同；C项：塞外sài、堵塞sè、边塞sài、塞责sè，读音不全相同；D项“角”都读jué。故选D。",
     "knowledge_tag": "字音辨析",
     "ability_tag": "语言基础",
     "difficulty": 2,
@@ -722,15 +722,15 @@
   {
     "id": "jc_basic_041",
     "type": "single_choice",
-    "question": "下列词语中加点字注音有误的一项是：\nA. 阔绰(chuò) 诘问(jié) 烦躁(zào)\nB. 滞笨(zhì) 愧怍(zuò) 接济(jì)\nC. 震悚(sǒng) 惶恐(huáng) 荒谬(miù)\nD. 赋闲(fù) 颓唐(tuí) 交卸(xiè)",
+    "question": "下列词语中加点字注音有误的一项是：\nA. 阔绰(chuò) 诘问(jí) 烦躁(zào)\nB. 滞笨(zhì) 愧怍(zuò) 接济(jì)\nC. 震悚(sǒng) 惶恐(huáng) 荒谬(miù)\nD. 赋闲(fù) 颓唐(tuí) 交卸(xiè)",
     "options": [
-      "A. 阔绰(chuò) 诘问(jié) 烦躁(zào)",
+      "A. 阔绰(chuò) 诘问(jí) 烦躁(zào)",
       "B. 滞笨(zhì) 愧怍(zuò) 接济(jì)",
       "C. 震悚(sǒng) 惶恐(huáng) 荒谬(miù)",
       "D. 赋闲(fù) 颓唐(tuí) 交卸(xiè)"
     ],
-    "answer": "A. 阔绰(chuò) 诘问(jié) 烦躁(zào)",
-    "analysis": "A项阔绰应读chuò，正确；诘问应读jié，正确；烦躁应读zào，正确。但本题设计为选有误项。实际上A项中诘问的诘有jié和jí两读，此处jié正确。重新审题：四项中A项全部正确。本题需要修正：阔绰的绰读chuò，诘问jié，烦躁zào均正确。实际上答案应为A，因为阔绰读chuò无误。本题考查学生对易错音的辨析能力。",
+    "answer": "A. 阔绰(chuò) 诘问(jí) 烦躁(zào)",
+    "analysis": "A项有误。“诘问”的“诘”应读jié，不读jí；“阔绰”读chuò，“烦躁”读zào。B、C、D三项注音正确。",
     "knowledge_tag": "字音辨析",
     "ability_tag": "语言基础",
     "difficulty": 3,

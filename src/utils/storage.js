@@ -25,9 +25,18 @@ export const storage = {
   },
   setUser: (user) => lsSet(P + 'user', JSON.stringify(user)),
 
-  // Grade preference
-  getGrade: () => lsGet(P + 'grade') || 'primary',
-  setGrade: (grade) => lsSet(P + 'grade', grade),
+  // Grade preference (per-user)
+  getGrade: (userId) => {
+    if (userId) {
+      const perUser = lsGet(P + 'grade_' + userId)
+      if (perUser) return perUser
+    }
+    return lsGet(P + 'grade') || 'primary'
+  },
+  setGrade: (grade, userId) => {
+    lsSet(P + 'grade', grade) // backwards compat
+    if (userId) lsSet(P + 'grade_' + userId, grade)
+  },
 
   // SRS state: { [cardId]: { interval, easeFactor, reviewCount, nextReview } }
   getSrsState: (userId) =>
@@ -128,7 +137,7 @@ export const storage = {
           { tag: '几何证明', label: '几何星球' },
           { tag: '公式速记', label: '公式速记星球' },
         ],
-        matchRecord: (r) => r.subject === 'math_junior',
+        matchRecord: (r) => r.subject === 'math_junior' || /^math_j/.test(r.card_id || ''),
         getPlanetTag: (r) => r.topic,
       },
       english: {
@@ -190,7 +199,7 @@ export const storage = {
           { tag: '语言运用', label: '表达星球' },
           { tag: '作文', label: '作文星球' },
         ],
-        matchRecord: (r) => r.subject === 'chinese_junior',
+        matchRecord: (r) => r.subject === 'chinese_junior' || (r.subject === 'chinese' && /^jc_|^wy_|^gushi_|^poem_|^bf_|^mz_/.test(r.card_id || '')),
         getPlanetTag: (r) => {
           const tag = r.knowledge_tag || ''
           const BASIC = ['字音辨析','字形辨析','字音字形综合','词语运用','词语综合运用','语言综合运用','病句辨析','病句综合辨析','标点符号','句子排序','文学常识']

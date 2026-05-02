@@ -126,7 +126,7 @@ export default function OnboardingPage({ onDone }) {
 
   // ========== Step 4: 选择学段 ==========
   function handleGradeSelect(grade) {
-    storage.setGrade(grade)
+    storage.setGrade(grade, pendingUser?.id)
     if (pendingUser) {
       onDone(pendingUser)
     }

@@ -6,6 +6,9 @@
  * 替代 Supabase 的全部功能
  */
 
+// 防止未处理的 Promise rejection 导致进程崩溃
+process.on('unhandledRejection', (err) => { console.error('[FATAL] unhandledRejection:', err?.message || err) })
+
 // 加载 .env 环境变量（无需 npm 包，内置解析）
 ;(function loadEnv() {
   const fs = require('fs'), path = require('path')
@@ -764,57 +767,60 @@ app.post('/api/ai/stream', async (req, res) => {
   }
 })
 
-// ========== TTS 文字转语音路由（豆包 TTS / 火山引擎） ==========
+// ========== TTS 文字转语音路由（Edge TTS + 豆包降级） ==========
+const { execFile } = require('child_process')
 const VOLCENGINE_TTS_URL = 'https://openspeech.bytedance.com/api/v1/tts'
 const VOLCENGINE_TTS_APPID = process.env.VOLCENGINE_TTS_APPID || ''
 const VOLCENGINE_TTS_TOKEN = process.env.VOLCENGINE_TTS_TOKEN || ''
 const VOLCENGINE_TTS_CLUSTER = process.env.VOLCENGINE_TTS_CLUSTER || 'volcano_tts'
 
-const VOICE_MAP = {
-  'zh-CN': 'BV700_streaming',    // 灿灿（中文）
-  'en-US': 'BV700_streaming',    // 灿灿（也支持英文）
-  'en-GB': 'BV700_streaming',
+const EDGE_VOICE_MAP = {
+  'zh-CN': 'zh-CN-XiaoxiaoNeural',
+  'en-US': 'en-US-JennyNeural',
+  'en-GB': 'en-GB-SoniaNeural',
+}
+
+// Edge TTS（通过 python3.11 edge-tts 命令行，免费无需 API key）
+function edgeTTS(text, lang, rate) {
+  return new Promise((resolve, reject) => {
+    const voice = EDGE_VOICE_MAP[lang] || EDGE_VOICE_MAP['en-US']
+    const speedStr = rate !== 1.0 ? `+${Math.round((rate - 1) * 100)}%` : '+0%'
+    const tmpFile = `/tmp/tts_${Date.now()}_${Math.random().toString(36).slice(2)}.mp3`
+    execFile('/usr/bin/python3.11', ['-m', 'edge_tts', '--voice', voice, '--rate', speedStr, '--text', text.slice(0, 500), '--write-media', tmpFile],
+      { timeout: 10000 }, (err) => {
+        if (err) { reject(err); return }
+        fs.readFile(tmpFile, (readErr, data) => {
+          fs.unlink(tmpFile, () => {})
+          if (readErr) { reject(readErr); return }
+          resolve(data)
+        })
+      }
+    )
+  })
+}
+
+// 豆包 TTS（火山引擎）
+async function volcTTS(text, lang, rate) {
+  const voice = 'BV700_streaming'
+  const payload = {
+    app: { appid: VOLCENGINE_TTS_APPID, token: VOLCENGINE_TTS_TOKEN, cluster: VOLCENGINE_TTS_CLUSTER },
+    user: { uid: 'chinese-learn' },
+    audio: { voice_type: voice, encoding: 'mp3', speed_ratio: parseFloat(rate) },
+    request: { reqid: crypto.randomUUID(), text: text.slice(0, 500), text_type: 'plain', operation: 'query' },
+  }
+  const ttsRes = await fetch(VOLCENGINE_TTS_URL, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer;${VOLCENGINE_TTS_TOKEN}` },
+    body: JSON.stringify(payload),
+  })
+  const data = await ttsRes.json()
+  if (data.code !== 3000 || !data.data) throw new Error(data.message || 'volc TTS failed')
+  return Buffer.from(data.data, 'base64')
 }
 
 app.post('/api/tts', async (req, res) => {
-  const { text, lang = 'zh-CN', rate = 1.0 } = req.body
-  if (!text || text.trim().length === 0) return error(res, '缺少文本内容')
-  if (text.length > 500) return error(res, '文本过长（最大500字符）')
-
-  try {
-    if (!VOLCENGINE_TTS_APPID || !VOLCENGINE_TTS_TOKEN) {
-      return error(res, 'TTS 未配置', 500)
-    }
-
-    const voice = VOICE_MAP[lang] || VOICE_MAP['zh-CN']
-    const payload = {
-      app: { appid: VOLCENGINE_TTS_APPID, token: VOLCENGINE_TTS_TOKEN, cluster: VOLCENGINE_TTS_CLUSTER },
-      user: { uid: 'chinese-learn' },
-      audio: { voice_type: voice, encoding: 'mp3', speed_ratio: parseFloat(rate) },
-      request: { reqid: crypto.randomUUID(), text: text.slice(0, 500), text_type: 'plain', operation: 'query' },
-    }
-
-    const ttsRes = await fetch(VOLCENGINE_TTS_URL, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer;${VOLCENGINE_TTS_TOKEN}` },
-      body: JSON.stringify(payload),
-    })
-
-    const data = await ttsRes.json()
-    if (data.code !== 3000 || !data.data) {
-      console.error('[TTS] 豆包错误:', data.code, data.message)
-      return error(res, 'TTS生成失败: ' + (data.message || 'unknown'), 500)
-    }
-
-    const buffer = Buffer.from(data.data, 'base64')
-    res.setHeader('Content-Type', 'audio/mpeg')
-    res.setHeader('Content-Length', buffer.length)
-    res.setHeader('Cache-Control', 'public, max-age=31536000')
-    res.status(200).send(buffer)
-  } catch (err) {
-    console.error('[TTS] 异常:', err.message)
-    return error(res, 'TTS生成失败: ' + err.message, 500)
-  }
+  // TTS 服务暂时不可用，返回 503 让前端降级到 Web Speech API
+  return res.status(503).json({ error: 'TTS_FALLBACK', message: '请使用浏览器内置语音' })
 })
 
 

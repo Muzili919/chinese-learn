@@ -354,7 +354,7 @@ export default function App() {
   })
   const [overdueCount, setOverdueCount] = useState(0)
   const [englishQuizOptions, setEnglishQuizOptions] = useState({})
-  const [grade, setGrade] = useState(() => storage.getGrade())
+  const [grade, setGrade] = useState(() => storage.getGrade(user?.id))
   const [variantQuestion, setVariantQuestion] = useState(null)
   const [showPremiumModal, setShowPremiumModal] = useState(false)
   const [aiPracticeOptions, setAIPracticeOptions] = useState(null) // { subject, weakTags }
@@ -373,8 +373,8 @@ export default function App() {
 
   const handleGradeChange = useCallback((newGrade) => {
     setGrade(newGrade)
-    storage.setGrade(newGrade)
-  }, [])
+    storage.setGrade(newGrade, user?.id)
+  }, [user?.id])
 
   const handleSubjectChange = useCallback((subjectId) => {
     setActiveSubject(subjectId)

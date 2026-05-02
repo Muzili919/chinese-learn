@@ -48,12 +48,12 @@ function dedupeOptions(answer, wrongPool, totalNeeded, fallbacks = []) {
  * 构建一道闪电测验题目
  * 纯回忆！不给任何提示（无词树、无助记、无例句）
  */
-function buildLightningQuestion(wordObj, mode) {
+function buildLightningQuestion(wordObj, mode, wordPool) {
   switch (mode) {
     case 'en_to_cn':
       // 英文 → 选中文意思
       const wrongMeaningPool = shuffle(
-        allWords
+        wordPool
           .filter(w => w.word !== wordObj.word)
           .map(w => w.meaning)
       )
@@ -71,7 +71,7 @@ function buildLightningQuestion(wordObj, mode) {
     case 'cn_to_en':
       // 中文意思 → 选英文单词
       const wrongWordPool = shuffle(
-        allWords
+        wordPool
           .filter(w => w.word !== wordObj.word)
           .map(w => w.word)
       )
@@ -99,7 +99,7 @@ function buildLightningQuestion(wordObj, mode) {
       }
 
     default:
-      return buildLightningQuestion(wordObj, 'en_to_cn')
+      return buildLightningQuestion(wordObj, 'en_to_cn', wordPool)
   }
 }
 
@@ -153,7 +153,7 @@ export default function LightningQuizPage({ user, onFinish, onBack }) {
     pool = shuffle(pool).slice(0, QUIZ_COUNT)
 
     const qs = pool.map((w, i) =>
-      buildLightningQuestion(w, QUESTION_MODES[i % QUESTION_MODES.length])
+      buildLightningQuestion(w, QUESTION_MODES[i % QUESTION_MODES.length], allWords)
     )
 
     setQuestions(qs)

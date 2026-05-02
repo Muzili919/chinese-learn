@@ -490,15 +490,18 @@ export default function ReportPage({ user, onBack, onStartQuiz, grade = 'primary
     try { return JSON.parse(localStorage.getItem(`exam_history_${user.id}`) || '[]') } catch { return [] }
   }, [user.id, activeTab])
 
-  // 各科记录（按学段过滤）
+  // 各科记录（按学段过滤 — 同时匹配 subject 字段和 card_id 前缀）
   const chineseRecords  = useMemo(() => {
-    if (grade === 'junior2') return allRecords.filter(r => r.subject === 'chinese_junior')
+    if (grade === 'junior2') return allRecords.filter(r => r.subject === 'chinese_junior' || (r.subject === 'chinese' && /^jc_|^wy_|^gushi_|^poem_|^bf_|^mz_/.test(r.card_id || '')))
     return allRecords.filter(r => !r.subject || r.subject === 'chinese')
   }, [allRecords, grade])
-  const englishRecords  = useMemo(() => allRecords.filter(r => r.subject === 'english'), [allRecords])
+  const englishRecords  = useMemo(() => {
+    if (grade === 'junior2') return allRecords.filter(r => r.subject === 'english' && /^en_j2_/.test(r.card_id || ''))
+    return allRecords.filter(r => r.subject === 'english' && !/^en_j2_/.test(r.card_id || ''))
+  }, [allRecords, grade])
   const mathRecords     = useMemo(() => {
-    if (grade === 'junior2') return allRecords.filter(r => r.subject === 'math_junior')
-    return allRecords.filter(r => r.subject === 'math')
+    if (grade === 'junior2') return allRecords.filter(r => r.subject === 'math_junior' || /^math_j/.test(r.card_id || ''))
+    return allRecords.filter(r => r.subject === 'math' || (/^math_/.test(r.card_id || '') && !/^math_j/.test(r.card_id || '')))
   }, [allRecords, grade])
   const politicsRecords = useMemo(() => allRecords.filter(r => r.subject === 'politics'), [allRecords])
 
@@ -648,7 +651,14 @@ export default function ReportPage({ user, onBack, onStartQuiz, grade = 'primary
         <div className="px-4 pt-5 space-y-4 pb-10">
           {/* 今日学习报告 */}
           {(() => {
-            const todayReport = storage.getTodayStudyReport(user.id, grade)
+            const rawReport = storage.getTodayStudyReport(user.id, grade)
+            // 按 grade 过滤科目：初中只显示初中科目，小学只显示小学科目
+            const todayReport = Object.fromEntries(
+              Object.entries(rawReport).filter(([, d]) => {
+                if (grade === 'junior2') return d.grade === 'junior'
+                return d.grade !== 'junior'
+              })
+            )
             const hasData = Object.keys(todayReport).length > 0
             return hasData ? (
               <div>

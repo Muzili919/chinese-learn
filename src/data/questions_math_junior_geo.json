@@ -1313,7 +1313,7 @@
   {
     "id": "math_jgeo070",
     "type": "single_choice",
-    "question": "一个圆柱形玻璃杯的高为12cm，底面周长为15cm。一只蚂蚁想从杯内壁底部的A点爬到正对面杯口边缘的B点，则蚂蚁爬行的最短距离为(　)",
+    "question": "一个圆柱形玻璃杯的高为12cm，底面周长为10cm。一只蚂蚁想从杯内壁底部的A点爬到正对面杯口边缘的B点，则蚂蚁爬行的最短距离为(　)",
     "options": [
       "A. 15cm",
       "B. 13cm",
@@ -1321,13 +1321,13 @@
       "D. √409 cm"
     ],
     "answer": "B. 13cm",
-    "analysis": "立体图形表面最短路径问题的核心思想：「化曲为直」——将侧面展开成平面图形，用勾股定理求直线距离。\n\n【圆柱侧面展开】\n圆柱侧面沿母线剪开→展开为一个矩形：\n• 矩形的宽 = 圆柱的高 = 12cm\n• 矩形的长 = 底面周长的一半（因为B在正对面）= 15÷2 = 7.5cm\n\n等等，周长15的话半周长是7.5，这样不算好看。\n让我调整数据使结果为整数：\n\n重新设定：高12cm，底面周长16cm（半径=8/π）\n半周长 = 8cm\n展开图中的直角三角形：两直角边分别为12和8\n最短距离 = √(12²+8²) = √(144+64) = √208 = 4√13… 还是不够好。\n\n再调整：高12cm，半周长=5cm（底面周长10cm）\n最短距离=√(12²+5²)=√169=13cm ✓ 完美！\n\n【解题步骤】\n1. 将圆柱侧面展开成矩形：宽=高=12cm，长=半周长=5cm\n2. A在矩形左下角，B在矩形右上角（因为B在A的正对面）\n3. 最短路径就是展开图中A到B的直线段\n4. 用勾股定理：d=√(12²+5²)=√169=13cm\n\n选A。\n\n【干扰项分析】\n• B(15)：用了底面周长的值\n• C(√409)：可能用了错误的展开尺寸\n• D(19.5)：可能把高和周长相加",
+    "analysis": "立体图形表面最短路径问题的核心思想是“化曲为直”：把圆柱侧面展开成平面图形，再用勾股定理求直线距离。\n\nB点在A点正对面，所以展开图中横向距离是底面周长的一半：10÷2=5cm；纵向距离是杯高12cm。\n最短距离=√(12²+5²)=√169=13cm，因此选B。",
     "knowledge_tag": "勾股定理",
     "topic": "几何证明",
     "difficulty": 3,
     "grade": 8,
     "image": "<svg viewBox=\"0 0 280 200\" xmlns=\"http://www.w3.org/2000/svg\"><ellipse cx=\"140\" cy=\"150\" rx=\"55\" ry=\"18\" fill=\"#ebf8ff\" stroke=\"#2d3748\" stroke-width=\"2\"/><ellipse cx=\"140\" cy=\"60\" rx=\"55\" ry=\"18\" fill=\"none\" stroke=\"#2d3748\" stroke-width=\"2\"/><line x1=\"85\" y1=\"60\" x2=\"85\" y2=\"150\" stroke=\"#2d3748\" stroke-width=\"1.5\"/><line x1=\"195\" y1=\"60\" x2=\"195\" y2=\"150\" stroke=\"#2d3748\" stroke-width=\"1.5\"/><circle cx=\"85\" cy=\"150\" r=\"4\" fill=\"#3b82f6\"/><circle cx=\"195\" cy=\"60\" r=\"4\" fill=\"#ef4444\"/><path d=\"M89.0,147.0 Q140.0,110.0 192.0,63.0\" fill=\"none\" stroke=\"#f59e0b\" stroke-width=\"2\" stroke-dasharray=\"5,3\"/><text x=\"73\" y=\"162\" fill=\"#3b82f6\" font-size=\"12\" font-weight=\"bold\" font-family=\"Arial\">A</text><text x=\"200\" y=\"53\" fill=\"#ef4444\" font-size=\"12\" font-weight=\"bold\" font-family=\"Arial\">B</text><text x=\"130\" y=\"105\" fill=\"#f59e0b\" font-size=\"10\" font-family=\"Arial\">最短路径</text><text x=\"102\" y=\"178\" fill=\"#64748b\" font-size=\"9\" font-family=\"Arial\">h=12</text></svg>",
-    "explanation": "圆柱侧面展开成长方形，宽=高12cm，长=半周长7.5cm（正对面）。最短距离=根号(144+56.25)=根号200.25约等于14.2。实际计算得B选项13cm对应展开图路径。"
+  "explanation": "圆柱侧面展开成长方形，宽=高12cm，长=半周长5cm（正对面）。最短距离=√(12²+5²)=13cm。"
   },
   {
     "id": "math_jgeo071",
@@ -1448,19 +1448,19 @@
     "type": "single_choice",
     "question": "在直角三角形ABC中，∠ACB=90°，AC=4，BC=3，AB=5。D是斜边AB上一点，过D作DE⊥AC于点E，DF⊥BC于点F。当矩形CEDF的面积最大时，DE的长度为(　)",
     "options": [
-      "A.12/5",
+      "A.3/2",
       "B.48/25",
       "C.2.4",
       "D.2"
     ],
-    "answer": "A.12/5",
-    "analysis": "四边形CEDF是矩形。设AD=x，则DB=5−x。\n由△ADE∽△ABC：DE/BC=AD/AB → DE=3x/5。\n由△BDF∽△BAC：DF/AC=BD/AB → DF=4(5−x)/5。\n矩形CEDF面积S=DE·DF=(3x/5)·[4(5−x)/5]=12x(5−x)/25=12(5x−x²)/25。\n这是开口向下的二次函数，顶点在x=5/2处。\nS_max=12(12.5−6.25)/25=12×6.25/25=75/25=3。\n此时DE=3×(5/2)/5=15/10=3/2？不对——重新算：x=2.5时DE=3×2.5/5=1.5，DF=4×2.5/5=2，S=3。\n但题目问的是DE的最大值（不是面积最大时的DE）。DE=3x/5随x增大而增大，最大趋近3（x→5时）。这不太合理作为选择题。\n\n修正：题目问的是面积最大时的DE值。此时x=2.5，DE=3×2.5/5=1.5=3/2。不在选项中。\n\n调整理解：选项A.12/5=2.4是DF在x=2时的值？不对DF=4(5-2)/5=12/5=2.4。所以答案是DF而非DE。\n取标准答案为A.12/5（即面积最大时DF的长度，或重新设定问法）。",
+    "answer": "A.3/2",
+    "analysis": "把直角顶点C看作坐标原点，令BC在x轴上、AC在y轴上，则A(0,4)、B(3,0)，斜边AB的方程为 y=4-(4/3)x。\n矩形CEDF的面积 S=CE×CF=xy=x[4-(4/3)x]=4x-(4/3)x²。\n这是开口向下的二次函数，顶点在 x= -b/(2a)=3/2 处。\n因为DE是水平方向长度，DE=x，所以面积最大时 DE=3/2，选A。",
     "knowledge_tag": "动点与最值",
     "topic": "几何证明",
     "difficulty": 5,
     "grade": 9,
     "image": "<svg viewBox=\"0 0 320 240\" xmlns=\"http://www.w3.org/2000/svg\"><polygon points=\"50,190,210,190,50,70\" fill=\"#ebf8ff\" stroke=\"#2d3748\" stroke-width=\"2\"/><rect x=\"50\" y=\"134\" width=\"104\" height=\"56\" fill=\"#d1fae5\" stroke=\"#2d3748\" stroke-width=\"1.5\" fill-opacity=\"0.6\"/><line x1=\"122\" y1=\"146\" x2=\"122\" y2=\"190\" stroke=\"#e53e3e\" stroke-width=\"1.2\" stroke-dasharray=\"3,2\"/><circle cx=\"122\" cy=\"146\" r=\"3\" fill=\"#e53e3e\"/><polyline points=\"128,192 128,182 118,182\" fill=\"none\" stroke=\"#ef4444\" stroke-width=\"1\"/><text x=\"42\" y=\"65\" fill=\"#1a202c\" font-size=\"14\" font-family=\"Arial\">A</text><text x=\"215\" y=\"195\" fill=\"#1a202c\" font-size=\"14\" font-family=\"Arial\">B</text><text x=\"42\" y=\"198\" fill=\"#1a202c\" font-size=\"14\" font-family=\"Arial\">C</text><text x=\"117\" y=\"140\" fill=\"#e53e3e\" font-size=\"12\" font-family=\"Arial\">D</text><text x=\"117\" y=\"200\" fill=\"#1a202c\" font-size=\"12\" font-family=\"Arial\">E</text><text x=\"158\" y=\"135\" fill=\"#1a202c\" font-size=\"12\" font-family=\"Arial\">F</text><text x=\"58\" y=\"195\" fill=\"#3b82f6\" font-size=\"9\" font-family=\"Arial\">4</text><text x=\"178\" y=\"185\" fill=\"#3b82f6\" font-size=\"9\" font-family=\"Arial\">3</text></svg>",
-    "explanation": "四边形CEDF是矩形（角C、角DEA、角DFB均为90度）。DE+DF=DE+DF<=CD的比例关系。由相似得DE/BC=AD/AB，DF/AC=DB/AB。面积最大时D在AB中点附近，DE=12/5。"
+    "explanation": "设D点坐标为(x,y)，斜边AB满足y=4-(4/3)x，矩形面积S=xy=4x-(4/3)x²，顶点处x=3/2，因此DE=3/2。"
   },
   {
     "id": "math_jgeo078",

@@ -3,7 +3,6 @@ import { storage, updateStreak } from '../utils/storage'
 import { updateSRS, toQuality } from '../utils/srs'
 import { scheduleSession } from '../utils/scheduler'
 import { syncAfterSession } from '../utils/sync'
-import { generateVariant } from '../utils/ai'
 import MultiMeaningCard from '../components/MultiMeaningCard'
 import MatchingCard from '../components/MatchingCard'
 import DuolingoStyleQuiz from '../components/DuolingoStyleQuiz'
@@ -110,8 +109,14 @@ export default function QuizPage({ user, options = {}, onFinish, onBack }) {
             : (PLANET_SESSION_SIZES[knowledgeTag] || DEFAULT_SESSION_SIZE)))
 
   const srsStates = useRef(storage.getSrsState(user.id))
-  const startTime = useRef(Date.now())
-  const questionStartTime = useRef(Date.now())
+  const startTime = useRef(null)
+  const questionStartTime = useRef(null)
+
+  useEffect(() => {
+    const now = Date.now()
+    if (startTime.current === null) startTime.current = now
+    if (questionStartTime.current === null) questionStartTime.current = now
+  }, [])
 
   const questions = useMemo(() => {
     if (wrongCardIds?.length) {
@@ -236,7 +241,8 @@ export default function QuizPage({ user, options = {}, onFinish, onBack }) {
   }, [index])
 
   function handleAnswerSubmit(chosenAnswer, correct) {
-    const timeSec = (Date.now() - questionStartTime.current) / 1000
+    const now = Date.now()
+    const timeSec = (now - (questionStartTime.current || now)) / 1000
     const quality = toQuality(correct, timeSec)
 
     const newCardState = updateSRS(srsStates.current[current.id], quality)
@@ -276,7 +282,7 @@ export default function QuizPage({ user, options = {}, onFinish, onBack }) {
     setSessionRecords((prev) => [...prev, record])
 
     if (index + 1 >= questions.length) {
-        const totalSec = Math.round((Date.now() - startTime.current) / 1000)
+        const totalSec = Math.round((Date.now() - (startTime.current || Date.now())) / 1000)
         const allRecords = [...sessionRecords, record].filter(Boolean)
         const correctCount = allRecords.filter((r) => r.correct).length
 
@@ -312,12 +318,6 @@ export default function QuizPage({ user, options = {}, onFinish, onBack }) {
       }
   }
 
-  async function handleGenerateVariant() {
-    // AI变种题功能保持不变
-  }
-
-  if (!current) return null
-
   // 防护：如果当前题目缺少关键字段（如type/question/options），显示错误并允许跳过
   const isQuestionValid = current && (current.type || current.question)
 
@@ -331,7 +331,7 @@ export default function QuizPage({ user, options = {}, onFinish, onBack }) {
         setIndex(i => i + 1)
       } else {
         // 已是最后一题，直接结束
-        const totalSec = Math.round((Date.now() - startTime.current) / 1000)
+        const totalSec = Math.round((Date.now() - (startTime.current || Date.now())) / 1000)
         const session = {
           date: new Date().toISOString(),
           total: questions.length - skipCount,
@@ -351,7 +351,23 @@ export default function QuizPage({ user, options = {}, onFinish, onBack }) {
         onFinish({ session, records: sessionRecords })
       }
     }
-  }, [index])
+  }, [current, index, isQuestionValid, knowledgeTag, mathTopic, juniorChineseTag, onFinish, questions, sessionRecords, skipCount, user.id, xpGained])
+
+  if (!current) {
+    return (
+      <div className="flex flex-col min-h-screen bg-gradient-to-b from-blue-50 to-indigo-50 items-center justify-center px-6">
+        <div className="bg-white rounded-3xl px-6 py-8 text-center max-w-sm shadow-sm border border-gray-100">
+          <p className="text-xl mb-2">📭</p>
+          <p className="text-base font-bold text-gray-800 mb-1">这个专题暂时没有可练习的题</p>
+          <p className="text-xs text-gray-400 mb-4">可能是筛选条件太窄，换个星球或返回重试。</p>
+          <button onClick={onBack || (() => window.history.back())}
+            className="w-full bg-indigo-500 text-white font-bold py-3 rounded-2xl text-sm active:scale-95 transition-all">
+            返回
+          </button>
+        </div>
+      </div>
+    )
+  }
 
   if (!isQuestionValid && skipCount > 0) {
     return (
@@ -415,7 +431,6 @@ export default function QuizPage({ user, options = {}, onFinish, onBack }) {
           question={current}
           onAnswerSubmit={handleAnswerSubmit}
           showVariantButton={false}
-          onGenerateVariant={handleGenerateVariant}
           hideAiFeatures={!isWrongReview}
         />
       </div>
