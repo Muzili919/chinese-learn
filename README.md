@@ -74,7 +74,7 @@ node server.js
 
 ## License
 
-AGPL-3.0 — 开源免费使用，商用需授权。
+[MIT](LICENSE) — 自由使用、修改、商用，保留版权声明即可。
 
 ## 支持项目
 
