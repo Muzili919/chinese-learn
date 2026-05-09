@@ -1,65 +1,90 @@
 // ═══════════════════════════════════════════════════════════════
-// Vercel Edge Function — TTS 中转层（二进制流）
-// 架构：浏览器 → Vercel Edge → 阿里云后端 → 豆包 TTS → 返回 MP3
+// Vercel Serverless — TTS（微软 Edge Read Aloud，免费）
+// 架构：浏览器 → Vercel Node Function → Microsoft Edge TTS → MP3
+//
+// 旧方案是阿里云中转 + 豆包（付费 + 后端不稳），换成 msedge-tts 直连。
+// 完全免费，无 API Key。
 // ═══════════════════════════════════════════════════════════════
 
-const BACKEND = 'http://47.108.174.249:3000/api/tts'
-const TIMEOUT_MS = 10000
+import { MsEdgeTTS, OUTPUT_FORMAT } from 'msedge-tts'
 
-export const config = {
-  runtime: 'edge',
+const VOICE_MAP = {
+  'en-US': 'en-US-AriaNeural',
+  'en-GB': 'en-GB-LibbyNeural',
+  'zh-CN': 'zh-CN-XiaoxiaoNeural',
+  'zh-HK': 'zh-HK-HiuMaanNeural',
+  'zh-TW': 'zh-TW-HsiaoChenNeural',
 }
 
-export default async function handler(req) {
+function pickVoice(lang) {
+  if (!lang) return VOICE_MAP['en-US']
+  if (VOICE_MAP[lang]) return VOICE_MAP[lang]
+  if (lang.startsWith('en')) return VOICE_MAP['en-US']
+  if (lang.startsWith('zh')) return VOICE_MAP['zh-CN']
+  return VOICE_MAP['en-US']
+}
+
+function escapeXml(s) {
+  return String(s)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&apos;')
+}
+
+export default async function handler(req, res) {
   if (req.method !== 'POST') {
-    return new Response(JSON.stringify({ error: 'Method not allowed' }), { status: 405 })
+    return res.status(405).json({ error: 'Method not allowed' })
   }
 
+  const { text, lang, rate } = req.body || {}
+  if (!text || typeof text !== 'string') {
+    return res.status(400).json({ error: 'BAD_INPUT', message: 'text 必填' })
+  }
+  if (text.length > 2000) {
+    return res.status(400).json({ error: 'TEXT_TOO_LONG', message: '文本超长（>2000）' })
+  }
+
+  const voice = pickVoice(lang)
+  const safeRate = Math.max(0.5, Math.min(2, Number(rate) || 1))
+  const safeText = escapeXml(text)
+
+  const tts = new MsEdgeTTS()
+
   try {
-    const body = await req.text()
+    await tts.setMetadata(voice, OUTPUT_FORMAT.AUDIO_24KHZ_48KBITRATE_MONO_MP3)
+    const { audioStream } = tts.toStream(safeText, { rate: safeRate })
 
-    const controller = new AbortController()
-    const timer = setTimeout(() => controller.abort(), TIMEOUT_MS)
+    const chunks = []
+    const buffer = await new Promise((resolve, reject) => {
+      const timer = setTimeout(() => {
+        try { tts.close() } catch (_) {}
+        reject(new Error('TTS_TIMEOUT'))
+      }, 12000)
 
-    const upstream = await fetch(BACKEND, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body,
-      signal: controller.signal,
+      audioStream.on('data', (chunk) => chunks.push(chunk))
+      audioStream.on('end', () => { clearTimeout(timer); resolve(Buffer.concat(chunks)) })
+      audioStream.on('close', () => { clearTimeout(timer); resolve(Buffer.concat(chunks)) })
+      audioStream.on('error', (err) => { clearTimeout(timer); reject(err) })
     })
 
-    clearTimeout(timer)
+    try { tts.close() } catch (_) {}
 
-    // ★ 关键：TTS 返回二进制 MP3 数据，不能用 .json()！
-    if (!upstream.ok) {
-      const errText = await upstream.text()
-      return new Response(JSON.stringify({ error: 'TTS_FAILED', detail: errText.slice(0, 200) }), {
-        status: upstream.status,
-        headers: { 'Content-Type': 'application/json' },
-      })
+    if (!buffer.length) {
+      return res.status(502).json({ error: 'TTS_EMPTY', message: '微软返回空音频' })
     }
 
-    const buffer = await upstream.arrayBuffer()
-
-    return new Response(buffer, {
-      status: 200,
-      headers: {
-        'Content-Type': 'audio/mpeg',
-        'Content-Length': buffer.byteLength,
-        'Cache-Control': 'public, max-age=31536000',
-      },
-    })
+    res.setHeader('Content-Type', 'audio/mpeg')
+    res.setHeader('Content-Length', buffer.length)
+    res.setHeader('Cache-Control', 'public, max-age=31536000, immutable')
+    return res.status(200).send(buffer)
   } catch (err) {
-    clearTimeout(timer)
-    if (err.name === 'AbortError') {
-      return new Response(JSON.stringify({ error: 'TTS_TIMEOUT', message: '语音生成超时，请稍后重试' }), {
-        status: 504,
-        headers: { 'Content-Type': 'application/json' },
-      })
-    }
-    return new Response(JSON.stringify({ error: 'TTS_ERROR', detail: err.message }), {
-      status: 500,
-      headers: { 'Content-Type': 'application/json' },
+    try { tts.close() } catch (_) {}
+    const isTimeout = err?.message === 'TTS_TIMEOUT'
+    return res.status(isTimeout ? 504 : 500).json({
+      error: isTimeout ? 'TTS_TIMEOUT' : 'TTS_ERROR',
+      detail: String(err?.message || err).slice(0, 200),
     })
   }
 }
